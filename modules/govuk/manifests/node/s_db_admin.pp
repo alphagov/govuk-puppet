@@ -34,9 +34,30 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::signon::db': } ->
   class { '::govuk::apps::whitehall::db': }
 
+  # To manage remote databases using the puppetlabs-postgresql module we require
+  # a local PostgreSQL server instance to be installed
+  include ::postgresql::server
+
+  # This class collects the resources that are exported by the
+  # govuk_postgresql::server::db defined type
+  include ::govuk_postgresql::server::not_slave
+
+  # Ensure the client class is installed
+  class { '::govuk_postgresql::client': } ->
+
+  # include all PostgreSQL classes that create databases and users
+  class { '::govuk::apps::content_performance_manager::db': } ->
+  class { '::govuk::apps::content_tagger::db': } ->
+  class { '::govuk::apps::email_alert_api::db': } ->
+  class { '::govuk::apps::link_checker_api::db': } ->
+  class { '::govuk::apps::local_links_manager::db': } ->
+  class { '::govuk::apps::policy_publisher::db': } ->
+  class { '::govuk::apps::publishing_api::db': } ->
+  class { '::govuk::apps::service_manual_publisher::db': } ->
+  class { '::govuk::apps::stagecraft::postgresql_db': } ->
+  class { '::govuk::apps::support_api::db': }
+
   $packages = [
-    # should this be include govuk_postgresql::client
-    'postgresql-client-9.3',
     'mysql-client-5.5',
   ]
 

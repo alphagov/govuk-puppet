@@ -16,11 +16,13 @@
 class govuk::apps::service_manual_publisher::db (
   $password,
   $backend_ip_range = '10.3.0.0/16',
+  $rds = false,
 ) {
   govuk_postgresql::db { 'service-manual-publisher_production':
     user                    => 'service_manual_publisher',
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    rds                     => $rds,
   }
 }

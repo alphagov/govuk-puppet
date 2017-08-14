@@ -86,5 +86,22 @@ describe 'govuk_postgresql::db', :type => :define do
         }
     end
 
+    context 'Manage remote RDS instance' do
+        let(:params) {{
+          :user                    => 'monkey',
+          :password                => 'gibbon',
+          :rds_root_user           => 'hippo',
+          :rds                     => 'true'
+        }}
+        it {
+            is_expected.to contain_govuk_postgresql__rds_sql('monkey').with(
+              :rds_root_user => 'hippo',
+            )}
+
+        it {
+            is_expected.to contain_postgresql__server__role('monkey').with(
+              :rds => 'true',
+            )}
+    end
 end
 

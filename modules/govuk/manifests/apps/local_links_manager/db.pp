@@ -15,11 +15,13 @@
 class govuk::apps::local_links_manager::db (
   $password,
   $backend_ip_range = '10.3.0.0/16',
+  $rds = false,
 ) {
   govuk_postgresql::db { 'local-links-manager_production':
     user                    => 'local_links_manager',
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    rds                     => $rds,
   }
 }
