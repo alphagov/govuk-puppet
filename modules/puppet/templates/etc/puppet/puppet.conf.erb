@@ -15,6 +15,9 @@ strict_variables = true
 <%- if scope.lookupvar('::aws_migration') %>
 ssldir = /etc/puppet/ssl
 <%- end -%>
+<%- if scope.lookupvar('::aws_migration') and scope.lookupvar('::aws_instanceid') %>
+certname = <%= scope.lookupvar('::aws_instanceid') %>
+<%- end -%>
 
 [master]
 reports = store,sentry
@@ -36,6 +39,3 @@ autosign = /etc/puppet/certsigner.rb
 [agent]
 report = true
 configtimeout = 600
-<%- if scope.lookupvar('::aws_migration') and scope.lookupvar('::aws_instanceid') %>
-certname = <%= scope.lookupvar('::aws_instanceid') %>
-<%- end -%>
