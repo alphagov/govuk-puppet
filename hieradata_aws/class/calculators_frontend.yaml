@@ -1,0 +1,8 @@
+---
+
+govuk::node::s_base::apps:
+  - calculators
+  - calendars
+  - finder_frontend
+  - licencefinder
+  - smartanswers
