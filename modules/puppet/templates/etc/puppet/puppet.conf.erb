@@ -12,6 +12,9 @@ parser = future
 stringify_facts = false
 strict_variables = true
 <%- end -%>
+<%- if scope.lookupvar('::aws_migration') %>
+ssldir = /etc/puppet/ssl
+<%- end -%>
 
 [master]
 reports = store,sentry
@@ -26,7 +29,13 @@ hiera_config = /usr/share/puppet/production/current/hiera.yml
 <%- if @use_puppetmaster == true -%>
 environmentpath = /usr/share/puppet/production/current/environments
 <%- end -%>
+<%- if scope.lookupvar('::aws_migration') %>
+autosign = /etc/puppet/certsigner.rb
+<%- end -%>
 
 [agent]
 report = true
 configtimeout = 600
+<%- if scope.lookupvar('::aws_migration') and scope.lookupvar('::aws_instanceid') %>
+certname = <%= scope.lookupvar('::aws_instanceid') %>
+<%- end -%>

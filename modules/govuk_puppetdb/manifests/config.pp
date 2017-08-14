@@ -22,7 +22,16 @@ class govuk_puppetdb::config {
   # config file in /etc/puppetdb/conf.d updated.
   exec { '/usr/sbin/puppetdb-ssl-setup':
     creates => $puppetdb_ssl_setup_creates,
-    require => Class['puppet::master::generate_cert'],
+  }
+
+  if $::aws_migration {
+    Exec['/usr/sbin/puppetdb-ssl-setup'] {
+      require => Class['puppet::puppetserver::generate_cert'],
+    }
+  } else {
+    Exec['/usr/sbin/puppetdb-ssl-setup'] {
+      require => Class['puppet::master::generate_cert'],
+    }
   }
 
   # Configure Puppetdb service:
