@@ -17,6 +17,10 @@ class govuk::node::s_db_admin(
   $mysql_db_host     = undef,
   $mysql_db_password = undef,
   $mysql_db_user     = undef,
+  $postgres_host     = undef,
+  $postgres_user     = undef,
+  $postgres_password = undef,
+  $postgres_port     = undef,
 ) {
   include ::govuk::node::s_base
 
@@ -34,9 +38,19 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::signon::db': } ->
   class { '::govuk::apps::whitehall::db': }
 
+  $default_connect_settings = {
+    'PGUSER'     => $postgres_user,
+    'PGPASSWORD' => $postgres_password,
+    'PGHOST'     => $postgres_host,
+    'PGPORT'     => $postgres_port,
+  }
+
   # To manage remote databases using the puppetlabs-postgresql module we require
   # a local PostgreSQL server instance to be installed
-  include ::postgresql::server
+  class { '::postgresql::server':
+    default_connect_settings => $default_connect_settings,
+  }
+
 
   # This class collects the resources that are exported by the
   # govuk_postgresql::server::db defined type
