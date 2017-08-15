@@ -240,7 +240,7 @@ def buildProject(Map options = [:]) {
         if (hasDockerfile()) {
           stage("Tag Docker image") {
             dockerTag = options.newStyleDockerTags ?
-                        getNewStyleDockerTag() :
+                        getNewStyleReleaseTag() :
                         "release_${env.BUILD_NUMBER}"
             pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
           }
@@ -735,9 +735,22 @@ def pushDockerImageToGCR(imageName, tagName) {
 }
 
 /*
+ * Upload the artefact at artefact_path to the given s3_path. Uses the
+ * govuk-s3-artefact-creds for access.
+ */
+def uploadArtefactToS3(artefact_path, s3_path){
+  withCredentials([[$class: 'UsernamePasswordMultiBinding',
+                     credentialsId: 'govuk-s3-artefact-creds',
+                     usernameVariable: 'AWS_ACCESS_KEY_ID',
+                     passwordVariable: 'AWS_SECRET_ACCESS_KEY']]){
+    sh "s3cmd --region eu-west-1 --access_key $AWS_ACCESS_KEY_ID --secret_key $AWS_SECRET_ACCESS_KEY put $artefact_path $s3_path"
+  }
+}
+
+/*
  * Return string formatted to the new tag style of `release_<timestamp>_<sha>`
  */
-def getNewStyleDockerTag(){
+def getNewStyleReleaseTag(){
   gitCommit = getGitCommit()
   timestamp = sh(returnStdout: true, script: 'date +%s').trim()
   return "release_${timestamp}_${gitCommit}"
