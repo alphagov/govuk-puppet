@@ -45,7 +45,6 @@ class govuk::apps::performanceplatform_big_screen_view (
       app            => $app_name,
       varname        => 'PUBLISHING_API_BEARER_TOKEN',
       value          => $publishing_api_bearer_token,
-      notify_service => false,
     }
   }
 }

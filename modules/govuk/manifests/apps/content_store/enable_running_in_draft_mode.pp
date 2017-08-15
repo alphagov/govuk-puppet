@@ -33,7 +33,6 @@ class govuk::apps::content_store::enable_running_in_draft_mode(
 
   Govuk::App::Envvar {
     app            => $app_name,
-    notify_service => false,
     require        => File["/etc/govuk/${app_name}/env.d"],
   }
 
