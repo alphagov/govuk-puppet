@@ -173,7 +173,7 @@ govuk_jenkins::plugins:
   simple-theme-plugin:
     version: '0.3'
   slack:
-    version: '2.2'
+    version: '1.7'
   ssh-credentials:
     version: '1.13'
   ssh-slaves:
