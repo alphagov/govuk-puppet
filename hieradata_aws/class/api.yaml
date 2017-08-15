@@ -1,0 +1,8 @@
+---
+
+govuk::node::s_base::apps:
+  - backdrop_read
+  - backdrop_write
+  - metadata_api
+  - stagecraft
+  - 'stagecraft::worker'
