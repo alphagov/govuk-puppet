@@ -95,10 +95,20 @@ class govuk::node::s_graphite (
     mode   => '0755',
   }
 
+  file { '/usr/local/bin/govuk_delete_ephemeral_interface_data':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_delete_ephemeral_interface_data',
+    mode   => '0755',
+  }
+
+  package { 'pigz':
+    ensure => installed,
+  }
+
   file { '/opt/graphite/storage/backups':
     ensure => 'directory',
-    owner  => 'root',
-    group  => 'root',
+    owner  => 'govuk-backup',
+    group  => 'govuk-backup',
     mode   => '0770',
   }
 
@@ -106,6 +116,12 @@ class govuk::node::s_graphite (
     command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
     hour    => 23,
     minute  => 45,
+  }
+
+  cron::crondotdee { 'delete_ephemeral_interface_data_from_ci_agents':
+    command => '/usr/local/bin/govuk_delete_ephemeral_interface_data',
+    hour    => 23,
+    minute  => 30,
   }
 
   if ! $::aws_migration {
