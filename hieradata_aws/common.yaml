@@ -735,7 +735,6 @@ govuk_containers::apps::router::envvars:
   - "ROUTER_APIADDR=:3055"
   - "ROUTER_MONGO_DB=router"
   - "ROUTER_MONGO_URL=router-backend-1,router-backend-2,router-backend-3"
-  - "ROUTER_ERROR_LOG=/var/log/router/errors.json.log"
   - "ROUTER_BACKEND_HEADER_TIMEOUT=20s"
 
 govuk_containers::frontend::haproxy::backend_mappings:
