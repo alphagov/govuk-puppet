@@ -88,7 +88,46 @@ class govuk::apps::asset_manager(
       location ~ /raw/(.*) {
         internal;
         alias /var/apps/asset-manager/uploads/assets/$1;
-      }',
+      }
+
+      location ~ /cloud-storage-proxy/(.*) {
+        # Prevent requests to this location from outside nginx
+        internal;
+
+        # Construct download URL from:
+        # $1:       Host + path from regexp match in location
+        # $is_args: Optional ? delimiter
+        # $args:    Optional querystring params
+        set $download_url $1$is_args$args;
+
+        # The X-CLOUD-STORAGE-URL header contains a signed URL for the asset on
+        # S3. The signature of this URL is based in part on the request headers
+        # set in the asset-manager Rails app at the time the URL is generated.
+        # The headers we send now must match otherwise nginx will not be
+        # allowed to make the request. Since this location block inherits
+        # `proxy_set_header` directives from previous levels[1], we explicitly
+        # set the Host so that the inherited headers are over-written.
+        #
+        # [1] http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+        proxy_set_header Host $proxy_host;
+
+        # Remove S3 HTTP headers listed in:
+        # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
+        # This keeps this HTTP response as similar as possible to the response
+        # sent when using Sendfile to serve files from NFS
+        proxy_hide_header x-amz-delete-marker;
+        proxy_hide_header x-amz-id-2;
+        proxy_hide_header x-amz-request-id;
+        proxy_hide_header x-amz-version-id;
+
+        # Add Google DNS server to avoid "no resolver defined to resolve"
+        # errors when trying to connect to S3
+        resolver 8.8.8.8;
+
+        # Download the file and send it to client
+        proxy_pass $download_url;
+      }
+      ',
     }
 
     govuk::app::envvar {
