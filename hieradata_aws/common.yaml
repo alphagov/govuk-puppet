@@ -238,7 +238,7 @@ govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-3'
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
-govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
+govuk::apps::bouncer::db_hostname: "transition-postgresql"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 
@@ -272,9 +272,9 @@ govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
+  - rabbitmq-1
+  - rabbitmq-2
+  - rabbitmq-3
 
 govuk::apps::errbit::nagios_memory_warning: 2600
 govuk::apps::errbit::nagios_memory_critical: 3000
@@ -314,12 +314,12 @@ govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
-govuk::apps::whitehall::admin_db_hostname: whitehall-master.mysql
+govuk::apps::whitehall::admin_db_hostname: whitehall-mysql-primary
 govuk::apps::whitehall::admin_key_space_limit: '262144'
 govuk::apps::whitehall::admin_db_name: whitehall_production
 govuk::apps::whitehall::admin_db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
 govuk::apps::whitehall::admin_db_username: whitehall
-govuk::apps::whitehall::db_hostname: whitehall-slave.mysql
+govuk::apps::whitehall::db_hostname: whitehall-mysql-slave
 govuk::apps::whitehall::db_name: whitehall_production
 govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
 govuk::apps::whitehall::db_username: whitehall_fe
@@ -392,9 +392,9 @@ govuk::apps::need_api::mongodb_nodes:
 govuk::apps::need_api::redis_host: 'redis'
 
 govuk::apps::rummager::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
+  - rabbitmq-1
+  - rabbitmq-2
+  - rabbitmq-3
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1'
@@ -566,11 +566,11 @@ govuk::node::s_backend_lb::errbit_servers:
   - 'exception-handler'
 
 govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensing-backend-1.licensify'
-  - 'licensing-backend-2.licensify'
+  - 'licensing-backend'
+  - 'licensing-backend'
 govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensing-frontend-1.licensify'
-  - 'licensing-frontend-2.licensify'
+  - 'licensing-frontend'
+  - 'licensing-frontend'
 
 govuk::node::s_logs_elasticsearch::alert_hostname: 'alert'
 
@@ -977,463 +977,6 @@ grafana::dashboards::deployment_applications:
 
 grub2::recordfail_timeout: 5
 
-hosts::production::ip_api_lb: '10.7.1.2'
-hosts::production::ip_backend_lb: '10.3.1.2'
-hosts::production::ip_draft_api_lb: '10.7.2.2'
-hosts::production::ip_frontend_lb: '10.2.1.2'
-hosts::production::ip_licensify_lb: '10.5.1.2'
-
-hosts::production::api::hosts:
-  api-1:
-    ip: '10.1.4.16'
-  api-2:
-    ip: '10.1.4.17'
-  api-elasticsearch-1:
-    ip: '10.1.4.25'
-  api-elasticsearch-2:
-    ip: '10.1.4.26'
-  api-elasticsearch-3:
-    ip: '10.1.4.27'
-  api-lb-1:
-    ip: '10.1.4.101'
-  api-lb-2:
-    ip: '10.1.4.102'
-  api-mongo-1:
-    ip: '10.1.4.21'
-  api-mongo-2:
-    ip: '10.1.4.22'
-  api-mongo-3:
-    ip: '10.1.4.23'
-  api-mongo-4:
-    ip: '10.1.12.21'
-  api-postgresql-primary-1:
-    ip: '10.1.4.40'
-  api-postgresql-standby-1:
-    ip: '10.1.4.41'
-  api-postgresql-standby-2:
-    ip: '10.1.12.41'
-  api-redis-1:
-    ip: '10.1.4.29'
-  content-store-1:
-    ip: '10.1.4.11'
-  content-store-2:
-    ip: '10.1.4.12'
-  draft-content-store-1:
-    ip: '10.1.4.200'
-  draft-content-store-2:
-    ip: '10.1.4.201'
-  mapit-1:
-    ip: '10.1.4.60'
-  mapit-2:
-    ip: '10.1.4.61'
-  performance-mongo-1:
-    ip: '10.1.4.31'
-  performance-mongo-2:
-    ip: '10.1.4.32'
-  performance-mongo-3:
-    ip: '10.1.4.33'
-  performance-mongo-4:
-    ip: '10.1.12.31'
-  search-1:
-    ip: '10.1.4.4'
-  search-2:
-    ip: '10.1.4.5'
-  # FIXME: This machine doesn't exist, but this host entry
-  # is depended upon by s_api_elasticsearch. We should fix that.
-  search-3:
-    ip: '10.1.4.6'
-
-hosts::production::api::app_hostnames:
-  - 'backdrop-read'
-  - 'backdrop-write'
-  - 'content-store'
-  - 'mapit'
-  - 'metadata-api'
-  - 'rummager'
-  - 'search'
-  - 'stagecraft'
-
-hosts::production::api::draft_app_hostnames:
-  - 'draft-content-store'
-
-hosts::production::backend::hosts:
-  asset-master-1:
-    ip: '10.1.3.20'
-    legacy_aliases:
-      - "asset-master-1.%{hiera('app_domain')}"
-      - 'asset-master'
-      - "asset-master.%{hiera('app_domain')}"
-  asset-slave-1:
-    ip: '10.1.3.21'
-    legacy_aliases:
-      - "asset-slave-1.%{hiera('app_domain')}"
-      - 'asset-slave'
-      - "asset-slave.%{hiera('app_domain')}"
-  asset-slave-2:
-    ip: '10.1.11.21'
-  backend-1:
-    ip: '10.1.3.2'
-  backend-2:
-    ip: '10.1.3.3'
-  # FIXME: This machine doesn't exist, but this host entry
-  # is depended upon by s_api_elasticsearch. We should fix that.
-  backend-3:
-    ip: '10.1.3.4'
-  backend-lb-1:
-    ip: '10.1.3.101'
-  backend-lb-2:
-    ip: '10.1.3.102'
-  docker-backend-1:
-    ip: '10.1.3.111'
-  docker-backend-2:
-    ip: '10.1.3.112'
-  elasticsearch-1:
-    ip: '10.1.3.15'
-  elasticsearch-2:
-    ip: '10.1.3.16'
-  elasticsearch-3:
-    ip: '10.1.3.17'
-  exception-handler-1:
-    ip: '10.1.3.40'
-  mongo-1:
-    ip: '10.1.3.6'
-    service_aliases:
-      - 'mongodb'
-  mongo-2:
-    ip: '10.1.3.7'
-  mongo-3:
-    ip: '10.1.3.8'
-  mongo-4:
-    ip: '10.1.11.6'
-  mysql-backup-1:
-    ip: '10.1.3.93'
-    legacy_aliases:
-      - 'backup.mysql'
-  mysql-master-1:
-    ip: '10.1.3.90'
-    legacy_aliases:
-      - 'master.mysql'
-      - "mysql.backend.%{hiera('app_domain')}"
-  mysql-slave-1:
-    ip: '10.1.3.91'
-    legacy_aliases:
-      - 'slave.mysql'
-  mysql-slave-2:
-    ip: '10.1.11.91'
-  performance-backend-1:
-    ip: '10.1.3.80'
-  performance-backend-2:
-    ip: '10.1.3.81'
-  postgresql-primary-1:
-    ip: '10.1.3.12'
-  postgresql-standby-1:
-    ip: '10.1.3.13'
-  postgresql-standby-2:
-    ip: '10.1.11.13'
-  publishing-api-1:
-    ip: '10.1.3.45'
-  publishing-api-2:
-    ip: '10.1.3.46'
-  rabbitmq-1:
-    ip: '10.1.3.70'
-  rabbitmq-2:
-    ip: '10.1.3.71'
-  rabbitmq-3:
-    ip: '10.1.3.72'
-  redis-1:
-    ip: '10.1.3.50'
-  redis-2:
-    ip: '10.1.3.51'
-  transition-postgresql-master-1:
-    ip: '10.1.3.60'
-    legacy_aliases:
-      - 'transition-master.postgresql'
-      - "transition-postgresql.backend.%{hiera('app_domain')}"
-  transition-postgresql-slave-1:
-    ip: '10.1.3.61'
-    legacy_aliases:
-      - 'transition-slave.postgresql'
-  transition-postgresql-slave-2:
-    ip: '10.1.11.61'
-  transition-postgresql-primary-1:
-    ip: '10.1.3.160'
-  transition-postgresql-standby-1:
-    ip: '10.1.3.161'
-  transition-postgresql-standby-2:
-    ip: '10.1.11.161'
-  whitehall-backend-1:
-    ip: '10.1.3.25'
-  whitehall-backend-2:
-    ip: '10.1.3.26'
-  whitehall-mysql-backup-1:
-    ip: '10.1.3.34'
-    legacy_aliases:
-      - 'whitehall-backup.mysql'
-  whitehall-mysql-master-1:
-    ip: '10.1.3.30'
-    legacy_aliases:
-      - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('app_domain')}"
-  whitehall-mysql-slave-1:
-    ip: '10.1.3.31'
-    legacy_aliases:
-      - 'whitehall-slave.mysql'
-  whitehall-mysql-slave-2:
-    ip: '10.1.11.31'
-
-hosts::production::backend::app_hostnames:
-  - 'asset-manager'
-  - 'canary-backend'
-  - 'collections-publisher'
-  - 'contacts-admin'
-  - 'content-performance-manager'
-  - 'content-tagger'
-  - 'docs'
-  - 'draft-whitehall-frontend'
-  - 'email-alert-api'
-  - 'errbit'
-  - 'event-store'
-  - 'govuk-delivery'
-  - 'hmrc-manuals-api'
-  - 'imminence'
-  - 'kibana'
-  - 'link-checker-api'
-  - 'local-links-manager'
-  - 'maslow'
-  - 'manuals-publisher'
-  - 'need-api'
-  - 'performanceplatform-admin'
-  - 'policy-publisher'
-  - 'publisher'
-  - 'publishing-api'
-  - 'search-admin'
-  - 'service-manual-publisher'
-  - 'short-url-manager'
-  - 'signon'
-  - 'specialist-publisher'
-  - 'specialist-publisher-rebuild'
-  - 'specialist-publisher-rebuild-standalone'
-  - 'support'
-  - 'support-api'
-  - 'transition'
-  - 'travel-advice-publisher'
-  - 'whitehall-admin'
-
-hosts::production::ci::hosts:
-  ci-master-1:
-    ip: '10.1.6.10'
-    legacy_aliases:
-    - "ci.%{hiera('app_domain')}"
-  ci-agent-1:
-    ip: '10.1.6.21'
-  ci-agent-2:
-    ip: '10.1.6.22'
-  ci-agent-3:
-    ip: '10.1.6.23'
-  ci-agent-4:
-    ip: '10.1.6.24'
-  ci-agent-5:
-    ip: '10.1.6.25'
-
-hosts::production::frontend::hosts:
-  calculators-frontend-1:
-    ip: '10.1.2.11'
-  calculators-frontend-2:
-    ip: '10.1.2.12'
-  # FIXME: This machine doesn't exist, but this host entry
-  # is depended upon by s_api_elasticsearch. We should fix that.
-  calculators-frontend-3:
-    ip: '10.1.2.13'
-  docker-frontend-1:
-    ip: '10.1.2.31'
-  docker-frontend-2:
-    ip: '10.1.2.32'
-  frontend-1:
-    ip: '10.1.2.2'
-  frontend-2:
-    ip: '10.1.2.3'
-  draft-frontend-1:
-    ip: '10.1.2.200'
-  draft-frontend-2:
-    ip: '10.1.2.201'
-  performance-frontend-1:
-    ip: '10.1.2.20'
-  performance-frontend-2:
-    ip: '10.1.2.21'
-  whitehall-frontend-1:
-    ip: '10.1.2.5'
-  whitehall-frontend-2:
-    ip: '10.1.2.6'
-  frontend-lb-1:
-    ip: '10.1.2.101'
-  frontend-lb-2:
-    ip: '10.1.2.102'
-
-hosts::production::external_licensify: true
-
-hosts::production::frontend::app_hostnames:
-  - 'calculators'
-  - 'calendars'
-  - 'canary-frontend'
-  - 'collections'
-  - 'designprinciples'
-  - 'draft-collections'
-  - 'draft-email-alert-frontend'
-  - 'draft-frontend'
-  - 'draft-government-frontend'
-  - 'draft-manuals-frontend'
-  - 'draft-service-manual-frontend'
-  - 'draft-static'
-  - 'email-alert-frontend'
-  - 'feedback'
-  - 'finder-frontend'
-  - 'frontend'
-  - 'government-frontend'
-  - 'info-frontend'
-  - 'manuals-frontend'
-  - 'licencefinder'
-  - 'performanceplatform-big-screen-view'
-  - 'publicapi'
-  - 'public-event-store'
-  - 'service-manual'
-  - 'service-manual-frontend'
-  - 'smartanswers'
-  - 'spotlight'
-  - 'static'
-  - 'whitehall-frontend'
-
-hosts::production::licensify::hosts:
-  licensify-lb-1:
-    ip: '10.5.0.101'
-  licensify-lb-2:
-    ip: '10.5.0.102'
-  licensing-frontend-1:
-    ip: '10.5.0.12'
-  licensing-frontend-2:
-    ip: '10.5.0.13'
-  licensing-backend-1:
-    ip: '10.5.0.14'
-  licensing-backend-2:
-    ip: '10.5.0.15'
-  licensing-mongo-1:
-    ip: '10.5.0.16'
-  licensing-mongo-2:
-    ip: '10.5.0.17'
-  licensing-mongo-3:
-    ip: '10.5.0.18'
-
-hosts::production::management::hosts:
-  jenkins-1:
-    ip: '10.1.0.3'
-    legacy_aliases:
-      - "deploy.%{hiera('app_domain')}"
-  deploy-1:
-    ip: '10.1.0.4'
-    legacy_aliases:
-      - "deploy-1.%{hiera('app_domain')}"
-  puppetmaster-1:
-    ip: '10.1.0.5'
-    legacy_aliases:
-      - 'puppet'
-    service_aliases:
-      - 'puppet'
-      - 'puppetdb'
-  monitoring-1:
-    ip: '10.1.0.20'
-    legacy_aliases:
-      - 'monitoring'
-      - "grafana.%{hiera('app_domain')}"
-    service_aliases:
-      - 'alert'
-      - 'monitoring'
-  graphite-1:
-    ip: '10.1.0.22'
-    legacy_aliases:
-      - "graphite.%{hiera('app_domain')}"
-    service_aliases:
-      - 'graphite'
-  logs-cdn-1:
-    ip: '10.1.0.27'
-  logging-1:
-    ip: '10.1.0.28'
-    service_aliases:
-      - 'logging'
-  logs-elasticsearch-1:
-    ip: '10.1.0.29'
-    service_aliases:
-      - 'logs-elasticsearch'
-  logs-elasticsearch-2:
-    ip: '10.1.0.30'
-  logs-elasticsearch-3:
-    ip: '10.1.0.31'
-  logs-redis-1:
-    ip: '10.1.0.40'
-  logs-redis-2:
-    ip: '10.1.0.41'
-  backup-1:
-    ip: '10.1.0.50'
-  apt-1:
-    ip: '10.1.0.75'
-    service_aliases:
-      - 'apt'
-      - 'gemstash'
-  docker-management-1:
-    ip: '10.1.0.80'
-    service_aliases:
-      - 'etcd'
-  jumpbox-1:
-    ip: '10.1.0.100'
-  mirrorer-1:
-    ip: '10.1.0.128'
-  jumpbox-2:
-    ip: '10.1.0.200'
-
-hosts::production::redirector::hosts:
-  bouncer-1:
-    ip: '10.1.5.4'
-  bouncer-2:
-    ip: '10.1.5.5'
-  bouncer-3:
-    ip: '10.1.13.4'
-  bouncer-4:
-    ip: '10.1.13.5'
-
-hosts::production::router::hosts:
-  cache-1:
-    ip: '10.1.1.2'
-  cache-2:
-    ip: '10.1.1.3'
-  draft-cache-1:
-    ip: '10.1.1.200'
-  draft-cache-2:
-    ip: '10.1.1.201'
-  router-backend-1:
-    ip: '10.1.1.10'
-  router-backend-2:
-    ip: '10.1.1.11'
-  router-backend-3:
-    ip: '10.1.1.12'
-  router-backend-4:
-    ip: '10.1.9.10'
-  cache:
-    ip: '10.1.1.254'
-    legacy_aliases:
-      - 'cache'
-      - "www.%{hiera('app_domain')}"
-      - "www-origin.%{hiera('app_domain')}"
-      - "assets-origin.%{hiera('app_domain')}"
-    service_aliases:
-      - 'cache'
-      - 'router'
-  router-backend-internal-lb:
-    ip: '10.1.1.253'
-    legacy_aliases:
-      - "router-api.%{hiera('app_domain')}"
-  draft-cache-internal-lb:
-    ip: '10.1.1.252'
-    legacy_aliases:
-      - "draft-router-api.%{hiera('app_domain')}"
-
 icinga::client::config::allowed_hosts: "10.0.0.0/8"
 icinga::config::http_username: "%{hiera('http_username')}"
 icinga::config::http_password: "%{hiera('http_password')}"
@@ -1503,18 +1046,6 @@ monitoring::checks::smokey::features:
   check_travel_advice:
     feature: travel_advice
 
-monitoring::vpn_gateways::endpoints:
-  vpn_gateway_api_dr:
-    address: "%{hiera('environment_ip_prefix')}.12.1"
-  vpn_gateway_backend_dr:
-    address: "%{hiera('environment_ip_prefix')}.11.1"
-  vpn_gateway_licensify:
-    address: "10.5.0.1"
-  vpn_gateway_redirector_dr:
-    address: "%{hiera('environment_ip_prefix')}.13.1"
-  vpn_gateway_router_dr:
-    address: "%{hiera('environment_ip_prefix')}.9.1"
-
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 
@@ -1554,23 +1085,6 @@ rabbitmq::config_stomp: true
 
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
-
-# TODO: These don't work in 2.6.6 so setting to false
-# consider changing if we update redis version
-redis::conf_aof_rewrite_incremental_fsync: false
-redis::conf_hz: false
-redis::conf_repl_disable_tcp_nodelay: false
-redis::conf_tcp_keepalive: false
-# end TODO
-# TODO: Replace this with `conf_tcp_keepalive`.
-redis::conf_timeout: 300
-
-resolvconf::nameservers:
-  - 8.8.8.8
-  - 8.8.4.4
-
-resolvconf::options:
-   - 'single-request-reopen'
 
 rkhunter::monitoring::alert_hostname: 'alert'
 
