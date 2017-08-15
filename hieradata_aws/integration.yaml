@@ -99,20 +99,17 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa
 govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_api_lb::api_servers:
-  - "api-1.api"
-  - "api-2.api"
+  - "api"
 govuk::node::s_api_lb::content_store_servers:
-  - "content-store-1.api"
-  - "content-store-2.api"
+  - "content-store"
 govuk::node::s_api_lb::draft_content_store_servers:
-  - "draft-content-store-1.api"
-  - "draft-content-store-2.api"
+  - "draft-content-store"
 govuk::node::s_api_lb::mapit_servers:
-  - "mapit-1.api"
-  - "mapit-2.api"
+  - "mapit-1"
+  - "mapit-2"
 govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
+  - "search"
+  - "search"
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
@@ -132,23 +129,18 @@ govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_frontend_lb::calculators_frontend_servers:
-  - 'calculators-frontend-1.frontend'
-  - 'calculators-frontend-2.frontend'
+  - 'calculators-frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend-1.frontend'
-  - 'draft-frontend-2.frontend'
+  - 'draft-frontend'
 govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend-1.frontend'
-  - 'frontend-2.frontend'
+  - 'frontend'
 govuk::node::s_frontend_lb::performance_frontend_servers:
-  - 'performance-frontend-1.frontend'
-  - 'performance-frontend-2.frontend'
+  - 'performance-frontend'
 govuk::node::s_frontend_lb::performance_frontend_apps:
   - 'spotlight'
   - 'performanceplatform-big-screen-view'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
-  - 'whitehall-frontend-1.frontend'
-  - 'whitehall-frontend-2.frontend'
+  - 'whitehall-frontend'
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_lb::enable_feed_console: true
@@ -175,17 +167,6 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
-
-hosts::production::ip_api_lb: '10.1.4.254'
-hosts::production::ip_backend_lb: '10.1.3.254'
-hosts::production::ip_bouncer: '31.210.245.101'
-hosts::production::ip_draft_api_lb: '10.1.4.253'
-hosts::production::ip_frontend_lb: '10.1.2.254'
-hosts::production::licensify_hosts:
-  licensify.integration.publishing.service.gov.uk:
-    ip: '31.210.245.116'
-  licensify-admin.integration.publishing.service.gov.uk:
-    ip: '31.210.245.117'
 
 icinga::client::check_cputype::cputype: 'amd'
 
