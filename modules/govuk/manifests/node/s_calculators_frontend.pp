@@ -21,6 +21,8 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
   }
 
-  Govuk_mount['/data/vhost'] -> Class['govuk::apps::calculators']
+  if ! $::aws_migration {
+    Govuk_mount['/data/vhost'] -> Class['govuk::apps::calculators']
+  }
 
 }
