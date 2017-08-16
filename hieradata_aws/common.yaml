@@ -143,6 +143,7 @@ base::packages::packages:
   - 'libsqlite3-dev'
   - 'libxml2-dev'
   - 'libxslt1-dev'
+  - 'liblzma-dev'
   - 'logtail'
   - 'mailutils'
   - 'man-db'
