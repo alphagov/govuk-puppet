@@ -314,12 +314,13 @@ govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
-govuk::apps::whitehall::admin_db_hostname: whitehall-mysql-primary
+govuk::apps::whitehall::admin_db_hostname: 'mysql-primary'
 govuk::apps::whitehall::admin_key_space_limit: '262144'
 govuk::apps::whitehall::admin_db_name: whitehall_production
 govuk::apps::whitehall::admin_db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
 govuk::apps::whitehall::admin_db_username: whitehall
-govuk::apps::whitehall::db_hostname: whitehall-mysql-slave
+# TODO this should be using a replica, but we can change that when we have deployed one
+govuk::apps::whitehall::db_hostname: 'mysql-primary'
 govuk::apps::whitehall::db_name: whitehall_production
 govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
 govuk::apps::whitehall::db_username: whitehall_fe
