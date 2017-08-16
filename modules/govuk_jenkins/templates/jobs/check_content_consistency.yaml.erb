@@ -18,6 +18,7 @@
       - check-content-consistency
     logrotate:
       numToKeep: 10
+      artifactDaysToKeep: 3
     triggers:
         - timed: 'H 11 * * *'
     builders:
