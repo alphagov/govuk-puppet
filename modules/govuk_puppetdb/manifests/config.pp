@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_puppetdb::config {
-
-  $puppetdb_postgres_password = ''
+class govuk_puppetdb::config (
+  $puppetdb_postgres_password = '',
+){
 
   # We are currently leaving puppetdb-1.x on the Precise machines and
   # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
