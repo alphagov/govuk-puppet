@@ -24,7 +24,8 @@ class govuk::apps::metadata_api (
   $app_name = 'metadata-api'
 
   Govuk::App::Envvar {
-    app => $app_name,
+    ensure => 'absent',
+    app    => $app_name,
   }
 
   govuk::app::envvar {
@@ -35,6 +36,7 @@ class govuk::apps::metadata_api (
   }
 
   govuk::app { $app_name:
+    ensure             => 'absent',
     app_type           => 'bare',
     log_format_is_json => true,
     port               => $port,
