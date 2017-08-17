@@ -43,36 +43,37 @@ class govuk::node::s_backend_lb (
     maintenance_mode => $maintenance_mode,
   }
 
-  loadbalancer::balance {
-    [
-      'hmrc-manuals-api',
+  loadbalancer::balance { 'hmrc-manuals-api':
+    error_on_http => true,
+    servers       => $backend_servers,
+  }
+
+  loadbalancer::balance { [
+    'collections-publisher',
+    'contacts-admin',
+    'content-performance-manager',
+    'content-tagger',
+    'imminence',
+    'link-checker-api',
+    'local-links-manager',
+    'manuals-publisher',
+    'maslow',
+    'policy-publisher',
+    'publisher',
+    'release',
+    'search-admin',
+    'service-manual-publisher',
+    'signon',
+    'specialist-publisher',
+    'short-url-manager',
+    'support',
+    'travel-advice-publisher',
+    'transition',
     ]:
-      error_on_http => true,
-      servers       => $backend_servers;
-    [
-      'collections-publisher',
-      'contacts-admin',
-      'content-performance-manager',
-      'content-tagger',
-      'imminence',
-      'link-checker-api',
-      'local-links-manager',
-      'manuals-publisher',
-      'maslow',
-      'policy-publisher',
-      'publisher',
-      'release',
-      'search-admin',
-      'service-manual-publisher',
-      'signon',
-      'specialist-publisher',
-      'short-url-manager',
-      'support',
-      'travel-advice-publisher',
-      'transition',
-    ]:
-      servers => $backend_servers;
-    [
+      servers => $backend_servers,
+  }
+
+  loadbalancer::balance { [
       'asset-manager',
       'canary-backend',
       'email-alert-api',
@@ -82,18 +83,20 @@ class govuk::node::s_backend_lb (
       'support-api',
     ]:
       internal_only => true,
-      servers       => $backend_servers;
-    [
+      servers       => $backend_servers,
+  }
+
+  loadbalancer::balance { [
       'whitehall-admin',
       'draft-whitehall-frontend',
     ]:
       deny_crawlers => true,
-      servers       => $whitehall_backend_servers;
-    [
-      'publishing-api',
-    ]:
+      servers       => $whitehall_backend_servers,
+  }
+
+  loadbalancer::balance { 'publishing-api':
       internal_only => true,
-      servers       => $publishing_api_backend_servers;
+      servers       => $publishing_api_backend_servers,
   }
 
   loadbalancer::balance { 'errbit':
