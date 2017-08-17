@@ -35,7 +35,6 @@ class govuk::node::s_logging (
       Apt::Source['logstash'],
       Class['govuk_java::oracle7::jre'],
     ],
-    before  => Class['logstash'],
   }
 
   if ! $::aws_migration {
@@ -57,6 +56,7 @@ class govuk::node::s_logging (
     jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
     initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
+    require     => Package['logstash'],
   }
 
   #configure logstash inputs
