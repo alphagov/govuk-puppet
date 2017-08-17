@@ -83,7 +83,7 @@ class puppet::puppetserver(
   }
 
   cron::crondotdee { 'puppet_node_clean':
-    command => '/usr/local/bin/puppet_node_clean.sh',
+    command => '/usr/local/bin/puppet_node_clean.sh >> /var/log/govuk/puppet_node_clean.log 2>&1',
     hour    => '*',
     minute  => '*/5',
     require => File['/usr/local/bin/puppet_node_clean.sh'],
