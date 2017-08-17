@@ -24,7 +24,7 @@ class govuk::node::s_logging (
 
   apt::source { 'logstash':
     location     => "http://${apt_mirror_hostname}/logstash",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
@@ -54,7 +54,7 @@ class govuk::node::s_logging (
   # provisioning a new machine.
   class { 'logstash':
     provider    => 'custom',
-    jarfile     => '/var/tmp/logstash-1.1.9-monolithic.jar',
+    jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
     initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
   }
