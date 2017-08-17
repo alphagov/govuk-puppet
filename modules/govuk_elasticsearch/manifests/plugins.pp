@@ -33,9 +33,14 @@ class govuk_elasticsearch::plugins (
 
   }
   # If the version is 2.4, then install the plugin the 2.4 way
-  elsif versioncmp($elasticsearch_version, '2.4') == 0 {
+  elsif versioncmp($elasticsearch_version, '2.4.6') == 0 {
     elasticsearch::plugin { 'cloud-aws':
       module_dir => 'cloud-aws',
+      instances  => $::fqdn,
+    }
+
+    elasticsearch::plugin { 'mobz/elasticsearch-head':
+      module_dir => 'head',
       instances  => $::fqdn,
     }
   }
