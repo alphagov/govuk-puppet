@@ -73,4 +73,20 @@ class puppet::puppetserver(
     hour    => 6,
     minute  => 45,
   }
+
+  file { '/usr/local/bin/puppet_node_clean.sh':
+    ensure => present,
+    mode   => '0750',
+    owner  => 'root',
+    group  => 'root',
+    source => 'puppet:///modules/puppet/puppet_node_clean.sh',
+  }
+
+  cron::crondotdee { 'puppet_node_clean':
+    command => '/usr/local/bin/puppet_node_clean.sh',
+    hour    => '*',
+    minute  => '*/5',
+    require => File['/usr/local/bin/puppet_node_clean.sh'],
+  }
+
 }
