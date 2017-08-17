@@ -118,6 +118,7 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
+  aptly::repo { 'logstash': }
   aptly::repo { 'rbenv-ruby': }
   aptly::repo { 'rbenv-ruby-xenial':
     distribution => 'xenial',
