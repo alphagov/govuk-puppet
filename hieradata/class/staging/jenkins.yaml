@@ -1,6 +1,7 @@
 ---
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::check_content_consistency
+  - govuk_jenkins::job::check_content_store
   - govuk_jenkins::job::content_performance_manager
   - govuk_jenkins::job::data_sync_complete_staging
   - govuk_jenkins::job::deploy_app
