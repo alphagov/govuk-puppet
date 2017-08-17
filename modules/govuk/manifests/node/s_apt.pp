@@ -108,6 +108,10 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
       release  => 'trusty',
       key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
+    'git':
+      location => 'http://ppa.launchpad.net/git-core/ppa/ubuntu',
+      release  => 'trusty',
+      key      => 'E1DD270288B4E6030699E45FA1715D88E1DF1F24';
   }
 
   aptly::repo { 'elastic-beats': }
