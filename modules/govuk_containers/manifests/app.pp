@@ -86,6 +86,12 @@ define govuk_containers::app (
     require          => Class[Govuk_docker],
   }
 
+  # Provide a symlink to the docker job using the plain app name
+  file { "/etc/init.d/${title}":
+    ensure => 'link',
+    target => "/etc/init.d/docker-${title}",
+  }
+
   if $healthcheck_path {
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       ensure              => $ensure,
