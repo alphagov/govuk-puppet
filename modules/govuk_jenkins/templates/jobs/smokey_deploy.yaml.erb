@@ -18,7 +18,11 @@
       - smokey_Smokey_Deploy
     builders:
         - shell: |
+            <%- if scope.lookupvar('::aws_migration') %>
+            export DEPLOY_TO=$(govuk_node_list -c monitoring)
+            <%- else %>
             export DEPLOY_TO=monitoring-1
+            <%- end %>
             sh -x deploy.sh
     triggers:
         - timed: 'H 9 * * *'
