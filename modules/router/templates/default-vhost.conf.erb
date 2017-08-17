@@ -11,6 +11,7 @@ server {
   }
 }
 
+<% unless scope.lookupvar('::aws_migration') %>
 server {
   listen              443 default_server ssl;
   ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
@@ -26,3 +27,4 @@ server {
     return 444;
   }
 }
+<%- end %>
