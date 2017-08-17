@@ -986,6 +986,7 @@ icinga::client::config::allowed_hosts: "10.0.0.0/8"
 icinga::config::http_username: "%{hiera('http_username')}"
 icinga::config::http_password: "%{hiera('http_password')}"
 
+icinga::config::graphite_hostname: 'graphite'
 icinga::config::smokey::http_username: "%{hiera('http_username')}"
 icinga::config::smokey::http_password: "%{hiera('http_password')}"
 icinga::config::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"

@@ -13,10 +13,14 @@
 # [*http_password*]
 #   Password for $http_username
 #
+# [*graphite_hostname*]
+#  Graphite host to check against
+#
 class icinga::config (
   $enable_event_handlers = true,
   $http_username = '',
   $http_password = '',
+  $graphite_hostname = 'graphite.cluster',
 ) {
 
   validate_bool($enable_event_handlers)
@@ -47,6 +51,12 @@ class icinga::config (
     # FIXME: Remove this when we are sure that we have explicit file{}
     # resources for everything. It is confusing.
     source  => 'puppet:///modules/icinga/etc/icinga/conf.d',
+  }
+
+  if $::aws_migration {
+    $graphite_url = "https://${graphite_hostname}"
+  } else {
+    $graphite_url = "http://${graphite_hostname}"
   }
 
   file { '/etc/icinga/conf.d/check_graphite.cfg':
