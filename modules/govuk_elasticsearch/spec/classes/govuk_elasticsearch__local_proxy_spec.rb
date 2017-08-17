@@ -74,4 +74,31 @@ describe 'govuk_elasticsearch::local_proxy', :type => :class do
       is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+listen localhost:999;$/)
     end
   end
+
+  context 'different port and remote_port' do
+    let(:params) {{
+      :read_timeout => 10,
+      :port         => 999,
+      :remote_port  => 666,
+      :servers      => [
+        'es0.example.com',
+      ]
+    }}
+
+    it 'should reference one upstream with custom port' do
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(
+/^upstream #{vhost_name}-upstream {
+  server es0\.example\.com:666\s[^\n]+;
+}/
+      )
+    end
+
+    it 'should have proxy_read_timeout 10' do
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+proxy_read_timeout 10;$/)
+    end
+
+    it 'should listen on port 999' do
+      is_expected.to contain_nginx__config__site(vhost_name).with_content(/^\s+listen localhost:999;$/)
+    end
+  end
 end

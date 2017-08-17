@@ -27,6 +27,7 @@
 class govuk_elasticsearch::local_proxy(
   $read_timeout = 60,
   $port = 9200,
+  $remote_port = undef,
   $servers,
 ) {
   # Also used within template.
@@ -34,6 +35,12 @@ class govuk_elasticsearch::local_proxy(
   $log_json   = "${vhost}-json.event.access.log"
   $log_access = "${vhost}-access.log"
   $log_error  = "${vhost}-error.log"
+
+  if($remote_port) {
+    $final_remote_port = $remote_port
+  } else {
+    $final_remote_port = $port
+  }
 
   nginx::config::site { $vhost:
     content => template('govuk_elasticsearch/nginx_local_proxy.conf.erb'),
