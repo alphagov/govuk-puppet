@@ -4,6 +4,7 @@
 #
 class govuk::node::s_logging (
   $compress_srv_logs_hour = '1',
+  $apt_mirror_hostname = undef,
 ) inherits govuk::node::s_base {
 
   # we want this to be a syslog server which also forwards to logstash
@@ -21,18 +22,25 @@ class govuk::node::s_logging (
   include govuk_java::oracle7::jre
   # TODO: this should really be done with a package.
 
-  if $::aws_migration {
-    $logstash_jar_url = 'https://s3-eu-west-1.amazonaws.com/govuk-logstash-package-integration/logstash-1.1.9-monolithic.jar'
-  } else {
-    $logstash_jar_url = 'https://logstash.objects.dreamhost.com/release/logstash-1.1.9-monolithic.jar'
-    Govuk_mount['/srv'] -> Class['logstash']
-    Govuk_mount['/srv'] -> Class['rsyslog::server']
+  apt::source { 'logstash':
+    location     => "http://${apt_mirror_hostname}/logstash",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  curl::fetch { 'logstash-monolithic':
-    source      => $logstash_jar_url,
-    destination => '/var/tmp/logstash-1.1.9-monolithic.jar',
-    require     => Class['govuk_java::oracle7::jre'],
+  package { 'logstash':
+    ensure  => installed,
+    require => [
+      Apt::Source['logstash'],
+      Class['govuk_java::oracle7::jre'],
+    ],
+    before  => Class['logstash'],
+  }
+
+  if ! $::aws_migration {
+    Govuk_mount['/srv'] -> Class['logstash']
+    Govuk_mount['/srv'] -> Class['rsyslog::server']
   }
 
   # FIXME 20130605 @philippotter: the current version of the
@@ -46,12 +54,9 @@ class govuk::node::s_logging (
   # provisioning a new machine.
   class { 'logstash':
     provider    => 'custom',
-    jarfile     => 'file:///var/tmp/logstash-1.1.9-monolithic.jar',
+    jarfile     => '/var/tmp/logstash-1.1.9-monolithic.jar',
     installpath => '/srv/logstash',
     initfile    => 'puppet:///modules/govuk/node/s_logging/logstash.init.Debian',
-    require     => [
-      Curl::Fetch['logstash-monolithic'],
-    ],
   }
 
   #configure logstash inputs
