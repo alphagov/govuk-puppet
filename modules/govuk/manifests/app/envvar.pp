@@ -20,7 +20,7 @@ define govuk::app::envvar (
   $ensure  = 'present',
   $envdir  = "/etc/govuk/${app}/env.d",
   $varname = $title,
-  $notify_service  = true,
+  $notify_service  = false,
 ) {
   validate_string($value)
 
