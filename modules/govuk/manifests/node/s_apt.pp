@@ -92,6 +92,11 @@ class govuk::node::s_apt (
       location => 'https://repo.mongodb.org/apt/ubuntu',
       release  => 'trusty/mongodb-org/3.2',
       key      => 'EA312927';
+    'nodejs':
+      location => 'https://deb.nodesource.com/node_6.x',
+      release  => 'trusty',
+      repos    => ['main'],
+      key      => '68576280';
     'percona':
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
