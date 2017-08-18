@@ -20,6 +20,10 @@
 #   The bearer token to use when communicating with Need API.
 #   Default: undef
 #
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Need API.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -41,11 +45,27 @@
 #   The secret used to encode JWT authentication tokens. This value needs to be
 #   shared with authenticating-proxy which decodes the tokens.
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
+# [*oauth_id*]
+#   The application's OAuth ID from Signon
+#
+# [*oauth_secret*]
+#   The application's OAuth Secret from Signon
+#
+# [*fact_check_username*]
+#   The username to use for Basic Auth for fact check
+#
+# [*fact_check_password*]
+#   The password to use for Basic Auth for fact check
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
     $need_api_bearer_token = undef,
+    $asset_manager_bearer_token = undef,
     $secret_key_base = undef,
     $mongodb_name = undef,
     $mongodb_nodes = undef,
@@ -53,6 +73,11 @@ class govuk::apps::publisher(
     $redis_port = undef,
     $jwt_auth_secret = undef,
     $alert_hostname = 'alert.cluster',
+    $errbit_api_key = undef,
+    $oauth_id = undef,
+    $oauth_secret = undef,
+    $fact_check_username = undef,
+    $fact_check_password = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -107,22 +132,40 @@ class govuk::apps::publisher(
     port => $redis_port,
   }
 
+  Govuk::App::Envvar {
+    app => 'publisher',
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
-      app     => 'publisher',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-NEED_API_BEARER_TOKEN":
-      app     => 'publisher',
       varname => 'NEED_API_BEARER_TOKEN',
       value   => $need_api_bearer_token;
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+      varname => 'ASSET_MANAGER_BEARER_TOKEN',
+      value   => $asset_manager_bearer_token;
     "${title}-JWT_AUTH_SECRET":
-      app     => 'publisher',
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret;
     "${title}-SECRET_KEY_BASE":
-      app     => 'publisher',
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-FACT_CHECK_USERNAME":
+      varname => 'FACT_CHECK_USERNAME',
+      value   => $fact_check_username;
+    "${title}-FACT_CHECK_PASSWORD":
+      varname => 'FACT_CHECK_PASSWORD',
+      value   => $fact_check_password;
   }
 }

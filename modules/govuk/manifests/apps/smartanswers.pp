@@ -23,12 +23,20 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
+#
 class govuk::apps::smartanswers(
   $port = '3010',
   $expose_govspeak = false,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $errbit_api_key = undef,
+  $secret_key_base = undef,
 ) {
   Govuk::App::Envvar {
     app => 'smartanswers',
@@ -42,9 +50,16 @@ class govuk::apps::smartanswers(
     }
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
   }
 
   govuk::app { 'smartanswers':
