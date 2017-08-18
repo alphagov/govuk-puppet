@@ -29,6 +29,11 @@ govuk_jenkins::config:
       --httpPort=$HTTP_PORT
       --ajp13Port=-1
       --sessionTimeout=1440
+  JAVA_ARGS:
+    value: >-
+      -Djava.awt.headless=true
+      -Djenkins.install.runSetupWizard=false
+      -Dhudson.tasks.MailSender.SEND_TO_USERS_WITHOUT_READ=true
 
 # FIXME: During the upgrade this stopped deploys being triggered from CI. When
 # the resolution has been configured remove this.
@@ -73,6 +78,8 @@ govuk_jenkins::plugins:
     version: '1.9'
   durable-task:
     version: '1.14'
+  email-ext:
+    version: '2.58'
   envinject-api:
     version: '1.2'
   envinject:
