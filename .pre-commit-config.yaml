@@ -1,0 +1,7 @@
+- repo: local
+  hooks:
+    - id: bundled-puppet-lint
+      name: ===> puppet-lint all .pp files
+      entry: bundle exec rake lint
+      language: system
+      files: \.pp$
