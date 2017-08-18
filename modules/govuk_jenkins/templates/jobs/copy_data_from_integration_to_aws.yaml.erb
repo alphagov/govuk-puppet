@@ -1,0 +1,102 @@
+---
+- scm:
+    name: env-sync-and-backup_Copy_Data_from_Integration_to_AWS
+    scm:
+        - git:
+            url: git@github.com:alphagov/env-sync-and-backup.git
+            branches:
+                # FIXME this should be master
+              - sync-to-aws
+
+- job:
+    name: Copy_Data_from_Integration_to_AWS
+    display-name: Copy_Data_from_Integration_to_AWS
+    project-type: freestyle
+    description: |
+        This job copies databases from integration to AWS. It runs nightly and
+        can be run in an ad-hoc fashion. It doesn't copy the signon or
+        performance-platform databases.
+    properties:
+        - github:
+            url: https://github.com/alphagov/env-sync-and-backup/
+        - inject:
+            properties-content: |
+              PARALLEL_JOBS=2
+        - slack:
+            # TODO: re-enable notifications
+            notify-start: false
+            notify-success: false
+            notify-aborted: false
+            notify-notbuilt: false
+            notify-unstable: false
+            notify-failure: false
+            notify-backtonormal: false
+            notify-repeatedfailure: false
+            include-test-summary: false
+    scm:
+      - env-sync-and-backup_Copy_Data_from_Integration_to_AWS
+    logrotate:
+        numToKeep: 10
+    triggers:
+        - timed: 'H 4 * * 1-5'
+    builders:
+        - shell: |
+            set -eu
+
+            cd "${WORKSPACE}"
+
+            echo "Putting in the real MySQL root password"
+            sed -i.bak "s/MYSQL_SRC_ROOT_PW=PLACEHOLDER/MYSQL_SRC_ROOT_PW='<%= @mysql_src_root_pw %>'/g" scripts/sync-mysql.sh
+            sed -i "s/MYSQL_DST_ROOT_PW=PLACEHOLDER/MYSQL_DST_ROOT_PW='<%= @mysql_dst_root_pw %>'/g" scripts/sync-mysql.sh
+
+            echo "Putting in the real PostgreSQL env-sync password"
+            sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
+            sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
+
+            echo "Syncing data"
+            bash sync integration aws
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+        - project: trigger_data_sync_complete
+          condition: 'ALWAYS'
+          predefined-parameters: |
+            HOSTNAME=deploy.integration.publishing.service.gov.uk
+            API_KEY=<%= @ci_alphagov_api_key %>
+            AUTH_TOKEN=<%= @auth_token %>
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
+          room: <%= @slack_room %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync. All is the default, but some jobs may run but not do anything due to your config for the destination environment.'
+            choices:
+                - all
+                - assets
+                - elasticsearch-api
+                - elasticsearch-rummager
+                - mongo-api
+                - mongo-exceptions
+                - mongo-licensify
+                - mongo-normal
+                - mongo-router
+                - mysql-normal
+                - mysql-whitehall
+                - postgresql-api
+                - postgresql-backend
+                - postgresql-transition
