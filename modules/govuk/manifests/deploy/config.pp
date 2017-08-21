@@ -85,6 +85,7 @@ class govuk::deploy::config(
     'RAILS_ENV': value => $govuk_env;
 
     'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
+    'SENTRY_CURRENT_ENV': value        => $errbit_environment_name;
     'GOVUK_APP_DOMAIN': value          => $app_domain;
     'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
