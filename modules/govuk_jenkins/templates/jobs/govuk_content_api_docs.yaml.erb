@@ -1,0 +1,41 @@
+---
+- scm:
+    name: govuk-content-api-docs
+    scm:
+      - git:
+          url: git@github.com:alphagov/govuk-content-api-docs.git
+          basedir: govuk-content-api-docs
+          branches:
+            - master
+- job:
+    name: govuk-content-api-docs
+    display-name: Publish GOV.UK Content API Docs
+    project-type: freestyle
+    description: |
+      Builds and publishes the govuk-content-api-docs.
+    scm:
+      - govuk-content-api-docs
+    logrotate:
+      numToKeep: 10
+      artifactDaysToKeep: 3
+    triggers:
+      - timed: 'H * * * *'
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          cd "${WORKSPACE}"
+
+          rm -rf content-store
+
+          git clone https://github.com/alphagov/content-store.git
+
+          cd govuk-content-api-docs
+
+          export BUNDLE_PATH="${HOME}/bundles/${JOB_NAME}"
+          make publish API_SPEC=../content-store/openapi.yaml
+
+          cd ..
+
+          rm -rf content-store
