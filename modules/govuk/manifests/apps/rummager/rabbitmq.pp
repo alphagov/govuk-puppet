@@ -62,14 +62,4 @@ class govuk::apps::rummager::rabbitmq (
     routing_key   => '*.*',
     durable       => true
   }
-
-  # Additional queue for reindexing.
-  # We use a longer binding key so the durable queue can use wildcard matching.
-  govuk_rabbitmq::queue_with_binding { 'govuk_index_transient':
-    amqp_pass     => $password,
-    amqp_exchange => 'published_documents',
-    amqp_queue    => 'govuk_index_transient',
-    routing_key   => '*.requeue.bulk',
-    durable       => true
-  }
 }
