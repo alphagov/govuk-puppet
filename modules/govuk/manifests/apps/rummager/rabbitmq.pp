@@ -34,11 +34,14 @@ class govuk::apps::rummager::rabbitmq (
 
   # match everything on queue 2 while we test
   govuk_rabbitmq::consumer { 'rummager-v2':
-    ensure        => $toggled_ensure,
-    amqp_pass     => $password,
-    amqp_exchange => 'published_documents',
-    amqp_queue    => 'rummager_to_be_indexed',
-    routing_key   => '*.links',
+    ensure                      => $toggled_ensure,
+    amqp_pass                   => $password,
+    amqp_exchange               => 'published_documents',
+    amqp_queue                  => 'rummager_to_be_indexed',
+    routing_key                 => '*.links',
+    extra_read_permissions      => 'govuk_index_durable|govuk_index_transient',
+    extra_write_permissions     => 'govuk_index_durable|govuk_index_transient',
+    extra_configure_permissions => 'govuk_index_durable|govuk_index_transient',
   }
 
   # deprecated - we will remove this user once we have migrated to the new user
@@ -51,42 +54,22 @@ class govuk::apps::rummager::rabbitmq (
     create_queue  => false,
   }
 
-  # The main queue for publishing api messages
-  rabbitmq_queue { "rummager_govuk_index_durable@/":
-    ensure      => present,
-    user        => 'root',
-    password    => $::govuk_rabbitmq::root_password,
-    durable     => true,
-    auto_delete => false,
-    arguments   => {},
-  } ->
-  rabbitmq_binding { "binding_*.major_published_documents@rummager_govuk_index_durable@/":
-    ensure           => present,
-    name             => "published_documents@rummager_govuk_index_durable@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => "*.*",
-    arguments        => {},
+  # This queue should replace `rummager_to_be_indexed`
+  govuk_rabbitmq::queue_with_binding { 'govuk_index_durable':
+    amqp_pass     => $password,
+    amqp_exchange => 'published_documents',
+    amqp_queue    => 'govuk_index_durable',
+    routing_key   => '*.*',
+    durable       => true
   }
 
-  # Create a separate non-durable queue for reindexing
-  rabbitmq_queue { "rummager_govuk_index_non_durable@/":
-    ensure      => present,
-    user        => 'root',
-    password    => $::govuk_rabbitmq::root_password,
-    durable     => false,
-    auto_delete => false,
-    arguments   => {},
-  } ->
-  rabbitmq_binding { "binding_*.requeue_published_documents@rummager_govuk_index_non_durable_requeue@/":
-    ensure           => present,
-    name             => "published_documents@rummager_govuk_index_non_durable@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => "*.requeue.bulk",
-    arguments        => {},
+  # Additional queue for reindexing.
+  # We use a longer binding key so the durable queue can use wildcard matching.
+  govuk_rabbitmq::queue_with_binding { 'govuk_index_transient':
+    amqp_pass     => $password,
+    amqp_exchange => 'published_documents',
+    amqp_queue    => 'govuk_index_transient',
+    routing_key   => '*.requeue.bulk',
+    durable       => true
   }
-
 }
