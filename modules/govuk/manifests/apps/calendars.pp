@@ -16,10 +16,14 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 class govuk::apps::calendars(
   $port = '3011',
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $errbit_api_key = undef,
 ) {
   $app_name = 'calendars'
 
@@ -36,9 +40,13 @@ class govuk::apps::calendars(
     app => $app_name,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 
   if $secret_key_base {

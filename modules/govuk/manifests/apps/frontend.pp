@@ -34,6 +34,9 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -43,6 +46,7 @@ class govuk::apps::frontend(
   $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $errbit_api_key = undef,
 ) {
 
   govuk::app { 'frontend':
@@ -68,9 +72,16 @@ class govuk::apps::frontend(
     port => $redis_port,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'frontend',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  Govuk::App::Envvar {
+    app => 'frontend',
+  }
+
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 }

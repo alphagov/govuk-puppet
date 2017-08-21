@@ -17,12 +17,20 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*oauth_id*]
+#   The application's OAuth ID from Signon
+#
+# [*oauth_secret*]
+#   The application's OAuth Secret from Signon
+#
 class govuk::apps::errbit(
   $port = '3029',
   $errbit_email_from = 'errbit@example.com',
   $errbit_secret_key_base = 'f258ed69266dc8ad0ca79363c3d2f945c388a9c5920fc9a1ae99a98fbb619f135001c6434849b625884a9405a60cd3d50fc3e3b07ecd38cbed7406a4fccdb59c', # This is the default in the errbit/errbit repo
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
 ) {
   govuk::app { 'errbit':
     app_type               => 'rack',
@@ -48,5 +56,9 @@ class govuk::apps::errbit(
       value => "errbit.${app_domain}";
     'SECRET_KEY_BASE':
       value => $errbit_secret_key_base;
+    'OAUTH_ID':
+      value => $oauth_id;
+    'OAUTH_SECRET':
+      value => $oauth_secret;
   }
 }

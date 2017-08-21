@@ -25,6 +25,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 class govuk::apps::router_api(
   $port = '3056',
   $mongodb_name,
@@ -32,6 +35,7 @@ class govuk::apps::router_api(
   $router_nodes,
   $vhost = 'router-api',
   $secret_key_base = undef,
+  $errbit_api_key = undef,
 ) {
   $app_name = 'router-api'
 
@@ -50,11 +54,13 @@ class govuk::apps::router_api(
     app            => $app_name,
   }
 
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+  govuk::app::envvar {
+    "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
+      value   => $secret_key_base;
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
