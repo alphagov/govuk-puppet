@@ -6,6 +6,9 @@
 #
 # FIXME: Document all parameters
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -23,6 +26,7 @@ class govuk::apps::finder_frontend(
   $enabled = false,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $sentry_dsn = undef,
   $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {
@@ -31,6 +35,7 @@ class govuk::apps::finder_frontend(
     govuk::app { 'finder-frontend':
       app_type               => 'rack',
       port                   => $port,
+      sentry_dsn             => $sentry_dsn,
       health_check_path      => '/cma-cases',
       log_format_is_json     => true,
       asset_pipeline         => true,

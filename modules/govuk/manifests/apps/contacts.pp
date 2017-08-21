@@ -8,6 +8,9 @@
 #   Whether the app is enabled.
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -76,6 +79,7 @@ class govuk::apps::contacts(
   $db_password = undef,
   $enabled = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
@@ -96,6 +100,7 @@ class govuk::apps::contacts(
       app_type              => 'rack',
       vhost                 => $vhost,
       port                  => $port,
+      sentry_dsn            => $sentry_dsn,
       health_check_path     => '/healthcheck',
       vhost_protected       => $vhost_protected,
       asset_pipeline        => true,

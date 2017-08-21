@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -25,6 +28,7 @@
 class govuk::apps::feedback(
   $port = '3028',
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $support_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
@@ -38,6 +42,7 @@ class govuk::apps::feedback(
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     health_check_path     => '/contact',
     log_format_is_json    => true,
     asset_pipeline        => true,

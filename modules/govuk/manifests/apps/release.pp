@@ -8,6 +8,9 @@
 #   The port that the release app is served on.
 #   Default: 3036
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -42,6 +45,7 @@
 class govuk::apps::release(
   $port = '3036',
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $db_hostname = undef,
   $db_username = undef,
@@ -57,6 +61,7 @@ class govuk::apps::release(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/',
     log_format_is_json => true,

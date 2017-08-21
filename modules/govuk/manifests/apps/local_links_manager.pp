@@ -11,6 +11,9 @@
 #   Should the app exist?
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -78,6 +81,7 @@ class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -100,6 +104,7 @@ class govuk::apps::local_links_manager(
     govuk::app { $app_name:
       app_type          => 'rack',
       port              => $port,
+      sentry_dsn        => $sentry_dsn,
       vhost_ssl_only    => true,
       health_check_path => '/healthcheck',
     }

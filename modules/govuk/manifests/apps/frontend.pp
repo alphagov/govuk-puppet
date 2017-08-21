@@ -34,6 +34,9 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
@@ -47,11 +50,13 @@ class govuk::apps::frontend(
   $redis_host = undef,
   $redis_port = undef,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
 ) {
 
   govuk::app { 'frontend':
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_protected        => $vhost_protected,
     health_check_path      => '/',
     log_format_is_json     => true,

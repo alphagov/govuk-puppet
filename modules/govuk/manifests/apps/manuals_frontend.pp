@@ -16,14 +16,19 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::manuals_frontend(
   $vhost = 'manuals-frontend',
   $port = '3072',
   $publishing_api_bearer_token = undef,
+  $sentry_dsn = undef,
 ) {
   govuk::app { 'manuals-frontend':
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'manuals-frontend',
     vhost                 => $vhost,

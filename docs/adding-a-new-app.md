@@ -17,6 +17,7 @@ class govuk::apps::my_app (
   govuk::app { 'my-app':
     app_type          => 'rack',
     port              => $port,
+    sentry_dsn        => $sentry_dsn,
     vhost_ssl_only    => true,
     health_check_path => '/',
   }
@@ -151,6 +152,7 @@ class govuk::apps::my_app (
     govuk::app { 'my-app':
       app_type          => 'rack',
       port              => $port,
+      sentry_dsn        => $sentry_dsn,
       vhost_ssl_only    => true,
       health_check_path => '/',
     }

@@ -27,6 +27,9 @@
 #   store running while testing unrelated features.
 #   Default: ''
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -93,6 +96,7 @@ class govuk::apps::publishing_api(
   $draft_content_store = '',
   $suppress_draft_store_502_error = '',
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $db_hostname = undef,
   $db_username = 'publishing_api',
@@ -121,6 +125,7 @@ class govuk::apps::publishing_api(
     ensure            => $ensure,
     app_type          => 'rack',
     port              => $port,
+    sentry_dsn        => $sentry_dsn,
     vhost_ssl_only    => true,
     health_check_path => '/healthcheck',
     legacy_logging    => false,

@@ -11,6 +11,9 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #

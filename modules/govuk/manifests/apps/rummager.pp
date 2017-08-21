@@ -25,6 +25,9 @@
 #   Whether to enable the procfile indexing service.
 #   Default: false
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by Airbrake
 #   Default: undef
@@ -66,6 +69,7 @@ class govuk::apps::rummager(
   $enable_govuk_index_listener = false,
   $enable_publishing_listener = false,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_password = 'rummager',
@@ -79,6 +83,7 @@ class govuk::apps::rummager(
   govuk::app { 'rummager':
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     health_check_path      => '/search?q=search_healthcheck',
 
     # support search as an alias for ease of migration from old

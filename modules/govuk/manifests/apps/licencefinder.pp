@@ -8,6 +8,9 @@
 #   The port that licence finder is served on.
 #   Default: 3093
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -28,6 +31,7 @@
 class govuk::apps::licencefinder(
   $port = '3014',
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',
   $secret_key_base = undef,
@@ -39,6 +43,7 @@ class govuk::apps::licencefinder(
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     health_check_path     => '/licence-finder/sectors',
     log_format_is_json    => true,
     asset_pipeline        => true,

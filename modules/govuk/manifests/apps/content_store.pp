@@ -31,6 +31,9 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -49,12 +52,14 @@ class govuk::apps::content_store(
   $nagios_memory_critical = undef,
   $errbit_api_key = '',
   $secret_key_base = undef,
+  $sentry_dsn = undef,
 ) {
   $app_name = 'content-store'
 
   govuk::app { $app_name:
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_ssl_only         => true,
     health_check_path      => '/healthcheck',
     log_format_is_json     => true,

@@ -16,6 +16,9 @@
 #   The port that it is served on.
 #   Default: 3107
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -45,6 +48,7 @@ class govuk::apps::authenticating_proxy(
   $mongodb_name = 'authenticating_proxy_production',
   $port = '3107',
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $govuk_upstream_uri = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -61,6 +65,7 @@ class govuk::apps::authenticating_proxy(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,

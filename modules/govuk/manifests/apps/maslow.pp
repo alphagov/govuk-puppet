@@ -19,6 +19,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
@@ -34,6 +37,7 @@ class govuk::apps::maslow(
   $mongodb_name,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
+  $sentry_dsn = undef,
   $errbit_api_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -43,6 +47,7 @@ class govuk::apps::maslow(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,

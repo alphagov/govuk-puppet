@@ -8,6 +8,9 @@
 #   The port that it is served on.
 #   Default: 3047
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -20,6 +23,7 @@
 #
 class govuk::apps::calculators(
   $port = '3047',
+  $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $errbit_api_key = undef,
   $secret_key_base = undef,
@@ -27,6 +31,7 @@ class govuk::apps::calculators(
   govuk::app { 'calculators':
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     health_check_path     => '/child-benefit-tax-calculator/main',
     log_format_is_json    => true,
     asset_pipeline        => true,
