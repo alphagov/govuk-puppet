@@ -12,6 +12,9 @@
 #   The port that the app is served on.
 #   Default: 3013
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -42,6 +45,7 @@ class govuk::apps::static(
   $vhost = 'static',
   $port = '3013',
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $draft_environment = false,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
@@ -56,6 +60,7 @@ class govuk::apps::static(
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     health_check_path     => '/templates/wrapper.html.erb',
     log_format_is_json    => true,
     nginx_extra_config    => template('govuk/static_extra_nginx_config.conf.erb'),

@@ -17,6 +17,9 @@
 #   A string of comma-separated list of Elasticsearch hosts,
 #   for example: es-host-1:9200,es-host-2:9200
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -46,6 +49,7 @@ class govuk::apps::need_api(
   $publishing_api_bearer_token = undef,
   $elasticsearch_hosts = undef,
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_needs_production',
   $oauth_id = undef,
@@ -56,6 +60,7 @@ class govuk::apps::need_api(
   govuk::app { 'need-api':
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,

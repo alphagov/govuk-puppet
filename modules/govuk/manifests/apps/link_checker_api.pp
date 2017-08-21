@@ -24,6 +24,9 @@
 #   Enables the sidekiq background worker.
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key for sending errors.
 #   Default: undef
@@ -58,6 +61,7 @@ class govuk::apps::link_checker_api (
   $enabled = false,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $google_api_key = undef,
   $port = 3208,
   $redis_host = undef,
@@ -71,6 +75,7 @@ class govuk::apps::link_checker_api (
   govuk::app { $app_name:
     app_type          => 'rack',
     port              => $port,
+    sentry_dsn        => $sentry_dsn,
     vhost_ssl_only    => true,
     health_check_path => '/healthcheck',
   }

@@ -45,6 +45,9 @@
 #   The secret used to encode JWT authentication tokens. This value needs to be
 #   shared with authenticating-proxy which decodes the tokens.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
@@ -73,6 +76,7 @@ class govuk::apps::publisher(
     $redis_port = undef,
     $jwt_auth_secret = undef,
     $alert_hostname = 'alert.cluster',
+    $sentry_dsn = undef,
     $errbit_api_key = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
@@ -83,6 +87,7 @@ class govuk::apps::publisher(
   govuk::app { 'publisher':
     app_type            => 'rack',
     port                => $port,
+    sentry_dsn          => $sentry_dsn,
     vhost_ssl_only      => true,
     health_check_path   => '/healthcheck',
     expose_health_check => false,

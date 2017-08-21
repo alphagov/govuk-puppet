@@ -29,6 +29,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*basic_auth_username*]
 #   The username to use for Basic Auth
 #
@@ -54,6 +57,7 @@ class govuk::apps::transition(
   $oauth_secret = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $basic_auth_username = undef,
   $basic_auth_password = undef,
@@ -72,6 +76,7 @@ class govuk::apps::transition(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/',
     log_format_is_json => true,

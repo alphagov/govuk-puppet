@@ -14,6 +14,9 @@
 # [*enable_procfile_worker*]
 #   Whether to enable the Procfile worker.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
@@ -48,6 +51,7 @@ class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
   $redis_host = undef,
@@ -69,6 +73,7 @@ class govuk::apps::imminence(
   govuk::app { $app_name:
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_ssl_only         => true,
     health_check_path      => '/',
     log_format_is_json     => true,

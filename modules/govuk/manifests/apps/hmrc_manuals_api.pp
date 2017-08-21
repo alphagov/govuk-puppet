@@ -18,6 +18,9 @@
 #   non-whitelisted manual slugs.
 #   Default: false
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -50,6 +53,7 @@ class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $allow_unknown_hmrc_manual_slugs = false,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -102,6 +106,7 @@ class govuk::apps::hmrc_manuals_api(
   govuk::app { 'hmrc-manuals-api':
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,

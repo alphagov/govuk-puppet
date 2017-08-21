@@ -43,6 +43,9 @@
 #   Errbit API key used by airbrake
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -113,6 +116,7 @@ class govuk::apps::whitehall(
   $db_username = undef,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $highlight_words_to_avoid = false,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -154,6 +158,7 @@ class govuk::apps::whitehall(
     app_type               => 'rack',
     vhost                  => $vhost,
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     log_format_is_json     => true,
     health_check_path      => $health_check_path,
     expose_health_check    => false,

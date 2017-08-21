@@ -4,6 +4,9 @@
 #
 # == Parameters
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   An API key to send exceptions to Errbit.
 #
@@ -31,6 +34,7 @@
 #
 class govuk::apps::bouncer(
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $db_username = 'bouncer',
   $db_password = '',
   $db_hostname = '',
@@ -47,6 +51,7 @@ class govuk::apps::bouncer(
   govuk::app { 'bouncer':
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_ssl_only         => false,
     health_check_path      => '/healthcheck',
     # Disable the default nginx config, as we need a custom

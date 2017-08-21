@@ -16,6 +16,9 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -54,6 +57,7 @@ class govuk::apps::service_manual_publisher(
   $db_password = undef,
   $db_username = 'service_manual_publisher',
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $oauth_id = '',
   $oauth_secret = '',
   $port = 3111,
@@ -72,6 +76,7 @@ class govuk::apps::service_manual_publisher(
     app_type           => 'rack',
     log_format_is_json => true,
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
   }

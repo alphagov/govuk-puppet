@@ -12,6 +12,9 @@
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key for sending errors.
 #   Default: undef
@@ -76,6 +79,7 @@ class govuk::apps::specialist_publisher(
   $port = '3064',
   $asset_manager_bearer_token = undef,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $enabled = false,
   $enable_procfile_worker = true,
   $mongodb_nodes,
@@ -98,6 +102,7 @@ class govuk::apps::specialist_publisher(
     govuk::app { $app_name:
       app_type               => 'rack',
       port                   => $port,
+      sentry_dsn             => $sentry_dsn,
       health_check_path      => '/healthcheck',
       log_format_is_json     => true,
       nginx_extra_config     => '

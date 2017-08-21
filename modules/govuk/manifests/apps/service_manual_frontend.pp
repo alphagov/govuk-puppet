@@ -14,6 +14,9 @@
 # [*enabled*]
 #   Is the app enabled
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -29,6 +32,7 @@ class govuk::apps::service_manual_frontend(
   $port = 3122,
   $enabled = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $secret_key_base = undef,
 ) {
   if $enabled {
@@ -39,6 +43,7 @@ class govuk::apps::service_manual_frontend(
     govuk::app { 'service-manual-frontend':
       app_type              => 'rack',
       port                  => $port,
+      sentry_dsn            => $sentry_dsn,
       vhost_ssl_only        => true,
       health_check_path     => '/healthcheck',
       legacy_logging        => false,

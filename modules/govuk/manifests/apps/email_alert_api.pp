@@ -52,6 +52,8 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -64,6 +66,7 @@ class govuk::apps::email_alert_api(
   $sidekiq_queue_latency_warning = '30',
   $redis_host = undef,
   $redis_port = undef,
+  $sentry_dsn = undef,
   $allow_govdelivery_topic_syncing = false,
   $govdelivery_username = undef,
   $govdelivery_password = undef,
@@ -78,6 +81,7 @@ class govuk::apps::email_alert_api(
     govuk::app { 'email-alert-api':
       app_type           => 'rack',
       port               => $port,
+      sentry_dsn         => $sentry_dsn,
       log_format_is_json => true,
       health_check_path  => '/healthcheck',
       json_health_check  => true,

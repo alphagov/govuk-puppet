@@ -61,6 +61,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::content_performance_manager(
   $db_hostname = undef,
   $db_name = 'content_performance_manager_production',
@@ -79,12 +82,14 @@ class govuk::apps::content_performance_manager(
   $redis_port = undef,
   $secret_key_base = undef,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
 ) {
   $app_name = 'content-performance-manager'
 
   govuk::app { $app_name:
     app_type          => 'rack',
     port              => $port,
+    sentry_dsn        => $sentry_dsn,
     health_check_path => '/',
     asset_pipeline    => true,
   }

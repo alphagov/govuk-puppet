@@ -26,6 +26,9 @@
 #   Whether to enable the procfile worker. Typically used to disable the worker
 #   on the dev VM.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -67,6 +70,7 @@ class govuk::apps::signon(
   $devise_secret_key = undef,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $instance_name = undef,
   $nagios_memory_critical = undef,
   $nagios_memory_warning = undef,
@@ -81,6 +85,7 @@ class govuk::apps::signon(
   govuk::app { $app_name:
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_ssl_only         => true,
     health_check_path      => '/users/sign_in',
     legacy_logging         => false,

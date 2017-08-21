@@ -11,6 +11,10 @@
 # [*enable_delayed_job_worker*]
 #   Whether or not to enable the background worker for Delayed Job.
 #   Boolean value.
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 # [*oauth_id*]
@@ -37,6 +41,7 @@ class govuk::apps::asset_manager(
   $port = '3037',
   $enable_delayed_job_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
@@ -70,6 +75,7 @@ class govuk::apps::asset_manager(
     govuk::app { $app_name:
       app_type           => 'rack',
       port               => $port,
+      sentry_dsn         => $sentry_dsn,
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
       vhost_aliases      => ['private-asset-manager'],

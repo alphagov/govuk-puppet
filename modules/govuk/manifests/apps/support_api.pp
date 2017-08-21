@@ -23,6 +23,9 @@
 #   Whether the Upstart-based background worker process is configured or not.
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: undef
@@ -64,6 +67,7 @@ class govuk::apps::support_api(
   $db_username = undef,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $port = '3075',
   $pp_data_url = undef,
   $pp_data_bearer_token = undef,
@@ -79,6 +83,7 @@ class govuk::apps::support_api(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
