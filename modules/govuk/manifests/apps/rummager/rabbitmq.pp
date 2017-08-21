@@ -39,8 +39,6 @@ class govuk::apps::rummager::rabbitmq (
     amqp_exchange => 'published_documents',
     amqp_queue    => 'rummager_to_be_indexed',
     routing_key   => '*.links',
-    amqp_queue_2  => 'rummager_govuk_index',
-    routing_key_2 => '#',
   }
 
   # deprecated - we will remove this user once we have migrated to the new user
@@ -52,4 +50,43 @@ class govuk::apps::rummager::rabbitmq (
     routing_key   => '*.links',
     create_queue  => false,
   }
+
+  # The main queue for publishing api messages
+  rabbitmq_queue { "rummager_govuk_index_durable@/":
+    ensure      => present,
+    user        => 'root',
+    password    => $::govuk_rabbitmq::root_password,
+    durable     => true,
+    auto_delete => false,
+    arguments   => {},
+  } ->
+  rabbitmq_binding { "binding_*.major_published_documents@rummager_govuk_index_durable@/":
+    ensure           => present,
+    name             => "published_documents@rummager_govuk_index_durable@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => "*.*",
+    arguments        => {},
+  }
+
+  # Create a separate non-durable queue for reindexing
+  rabbitmq_queue { "rummager_govuk_index_non_durable@/":
+    ensure      => present,
+    user        => 'root',
+    password    => $::govuk_rabbitmq::root_password,
+    durable     => false,
+    auto_delete => false,
+    arguments   => {},
+  } ->
+  rabbitmq_binding { "binding_*.requeue_published_documents@rummager_govuk_index_non_durable_requeue@/":
+    ensure           => present,
+    name             => "published_documents@rummager_govuk_index_non_durable@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => "*.requeue.bulk",
+    arguments        => {},
+  }
+
 }
