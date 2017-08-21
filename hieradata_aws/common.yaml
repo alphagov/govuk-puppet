@@ -1058,7 +1058,8 @@ mysql::client::package_ensure: 'present'
 nginx::package::nginx_package: 'nginx-extras'
 nginx::package::version: '1.4.6-1ubuntu3.8'
 
-nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
+nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+nodejs::version: '6.11.2-1nodesource1~%{::lsbdistcodename}1'
 
 ntp::server_list:
   - 'ntp.ubuntu.com'
