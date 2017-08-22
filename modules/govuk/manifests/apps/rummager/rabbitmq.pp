@@ -40,7 +40,7 @@ class govuk::apps::rummager::rabbitmq (
     amqp_queue    => 'rummager_to_be_indexed',
     routing_key   => '*.links',
     amqp_queue_2  => 'rummager_govuk_index',
-    routing_key_2 => '#',
+    routing_key_2 => '*.*',
   }
 
   # deprecated - we will remove this user once we have migrated to the new user
