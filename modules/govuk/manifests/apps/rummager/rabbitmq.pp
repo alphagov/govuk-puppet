@@ -34,13 +34,14 @@ class govuk::apps::rummager::rabbitmq (
 
   # match everything on queue 2 while we test
   govuk_rabbitmq::consumer { 'rummager-v2':
-    ensure        => $toggled_ensure,
-    amqp_pass     => $password,
-    amqp_exchange => 'published_documents',
-    amqp_queue    => 'rummager_to_be_indexed',
-    routing_key   => '*.links',
-    amqp_queue_2  => 'rummager_govuk_index',
-    routing_key_2 => '#',
+    ensure                      => $toggled_ensure,
+    amqp_pass                   => $password,
+    amqp_exchange               => 'published_documents',
+    amqp_queue                  => 'rummager_to_be_indexed',
+    routing_key                 => '*.links',
+    extra_read_permissions      => 'govuk_index_durable|govuk_index_transient',
+    extra_write_permissions     => 'govuk_index_durable|govuk_index_transient',
+    extra_configure_permissions => 'govuk_index_durable|govuk_index_transient',
   }
 
   # deprecated - we will remove this user once we have migrated to the new user
@@ -51,5 +52,14 @@ class govuk::apps::rummager::rabbitmq (
     amqp_queue    => 'rummager_to_be_indexed',
     routing_key   => '*.links',
     create_queue  => false,
+  }
+
+  # This queue should replace `rummager_to_be_indexed`
+  govuk_rabbitmq::queue_with_binding { 'govuk_index_durable':
+    amqp_pass     => $password,
+    amqp_exchange => 'published_documents',
+    amqp_queue    => 'govuk_index_durable',
+    routing_key   => '*.*',
+    durable       => true
   }
 }
