@@ -32,7 +32,9 @@
           room: <%= @slack_room %>
       - email-ext:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+          attach-build-log: true
           failure: true
+          fixed: true
           presend-script: |
             import hudson.tasks.Mailer
 
