@@ -25,6 +25,8 @@ server {
     root /usr/lib/cgi-bin/icinga;
     rewrite ^/cgi-bin/icinga/(.*)$ /$1;
 
+    add_header Access-Control-Allow-Origin *;
+
     include /etc/nginx/fastcgi_params;
 
     fastcgi_param AUTH_USER $remote_user;
