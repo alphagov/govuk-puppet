@@ -101,7 +101,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START INSTALL RUBIES"
-sudo /home/ubuntu/provisioner/install-rubies.sh
+sudo -i -u deploy /home/ubuntu/provisioner/install-rubies.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END INSTALL RUBIES"
 echo
 
@@ -112,7 +112,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
-sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+sudo -i -u deploy /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
@@ -123,6 +123,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD HTTP BASIC AUTHENTICATION TO NGINX 
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
+cd /var/govuk/signon
 sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
