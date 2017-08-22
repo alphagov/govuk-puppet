@@ -135,6 +135,11 @@ echo "1025" | sudo tee /etc/govuk/env.d/SMTP_PORT > /dev/null
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END SET ENVIRONMENT VARIABLES FOR ALL APPS"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START BUILD ROUTER"
+sudo -i -u deploy /home/ubuntu/provisioner/make-router.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END BUILD ROUTER"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RUN UPSTART APPS"
 sudo /home/ubuntu/provisioner/start-training-environment.sh < /home/ubuntu/provisioner/alphagov_apps
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
