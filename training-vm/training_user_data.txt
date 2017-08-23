@@ -123,7 +123,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD HTTP BASIC AUTHENTICATION TO NGINX 
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
-cd /var/govuk/signon
+cd /var/govuk/signon/script
 sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
