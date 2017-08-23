@@ -95,13 +95,8 @@ sudo /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
 echo
 
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
-sudo chown -R deploy:deploy /var/govuk
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
-echo
-
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START INSTALL RUBIES"
-sudo -i -u deploy /home/ubuntu/provisioner/install-rubies.sh
+sudo -i -u root /home/ubuntu/provisioner/install-rubies.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END INSTALL RUBIES"
 echo
 
@@ -112,7 +107,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
-sudo -i -u deploy /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+sudo -i -u root /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
@@ -136,7 +131,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END SET ENVIRONMENT VARIABLES FOR ALL APPS"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START BUILD ROUTER"
-sudo -i -u deploy /home/ubuntu/provisioner/make-router.sh
+sudo -i -u root /home/ubuntu/provisioner/make-router.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END BUILD ROUTER"
 echo
 
@@ -148,4 +143,9 @@ echo
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START OBTAIN LETSENCRYPT CERTIFICATES"
 sudo /home/ubuntu/provisioner/acme-certificates.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END OBTAIN LETSENCRYPT CERTIFICATES"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
+sudo chgrp -R deploy /var/govuk
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
 echo
