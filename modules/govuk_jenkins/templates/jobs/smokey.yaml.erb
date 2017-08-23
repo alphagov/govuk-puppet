@@ -47,7 +47,7 @@
                   def user = User.get(cause.getUserId())
                   def userEmail = user.getProperty(Mailer.UserProperty.class).getAddress()
 
-                  if (userEmail.endsWith("@digital.cabinet-office.gov.uk")) {
+                  if (userEmail != null && userEmail.endsWith("@digital.cabinet-office.gov.uk")) {
                     logger.println("Upstream user being emailed: " + userEmail)
                     msg.addRecipient(javax.mail.Message.RecipientType.TO, new javax.mail.internet.InternetAddress(userEmail))
                   }
