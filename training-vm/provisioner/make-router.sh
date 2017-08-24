@@ -8,4 +8,5 @@ ln -s "$org_path/router" /var/govuk/router
 
 # Build `router` and `draft-router`
 cd "$org_path/router"
-make
+GOPATH=/var/govuk/gopath make
+GOPATH=/var/govuk/gopath BINARY=draft-router make
