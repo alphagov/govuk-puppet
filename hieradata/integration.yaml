@@ -25,6 +25,8 @@ base::supported_kernel::enabled: true
 cron::weekly_dow: 1
 cron::daily_hour: 6
 
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_performance_manager::feature_auditing_allocation: true
 govuk::apps::content_performance_manager::feature_auditing_theme_filtering: true
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
