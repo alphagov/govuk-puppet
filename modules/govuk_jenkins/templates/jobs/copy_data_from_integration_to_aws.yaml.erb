@@ -5,8 +5,7 @@
         - git:
             url: git@github.com:alphagov/env-sync-and-backup.git
             branches:
-                # FIXME this should be master
-              - sync-to-aws
+              - master
 
 - job:
     name: Copy_Data_from_Integration_to_AWS
@@ -67,12 +66,6 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION=<%= @service_description %>
             NSCA_OUTPUT=<%= @service_description %> failed
-        - project: trigger_data_sync_complete
-          condition: 'ALWAYS'
-          predefined-parameters: |
-            HOSTNAME=deploy.integration.publishing.service.gov.uk
-            API_KEY=<%= @ci_alphagov_api_key %>
-            AUTH_TOKEN=<%= @auth_token %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
