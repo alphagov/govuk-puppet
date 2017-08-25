@@ -1,0 +1,97 @@
+{
+  "id": null,
+  "title": "Application Uptime",
+  "tags": [],
+  "style": "dark",
+  "timezone": "browser",
+  "editable": true,
+  "hideControls": false,
+  "sharedCrosshair": false,
+  "rows": [
+    {
+      "collapse": false,
+      "editable": true,
+      "height": "650px",
+      "panels": [
+        {
+          "columns": [],
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "fontSize": "100%",
+          "id": 4,
+          "isNew": true,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 12,
+          "styles": [
+            {
+              "dateFormat": "YYYY-MM-DD",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "colorMode": "cell",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "/.*/",
+              "thresholds": ["0.9931", "1"],
+              "type": "number",
+              "unit": "percentunit"
+            }
+          ],
+          "targets": [
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "aliasByNode(summarize(stats.gauges.uptime.*, '1d', 'avg'), 3)",
+              "textEditor": false
+            }
+          ],
+          "title": "Uptimes",
+          "transform": "timeseries_to_columns",
+          "type": "table"
+        }
+      ],
+      "title": "Uptimes"
+    }
+  ],
+  "time": {
+    "from": "now-6M",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ]
+  },
+  "templating": {
+    "list": []
+  },
+  "annotations": {
+    "list": []
+  },
+  "schemaVersion": 12,
+  "version": 1,
+  "links": [],
+  "gnetId": null
+}
