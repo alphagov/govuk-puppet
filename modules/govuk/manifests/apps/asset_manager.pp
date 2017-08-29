@@ -35,6 +35,9 @@
 #   AWS access key for a user with permission to write to the S3 bucket
 # [*aws_secret_access_key*]
 #   AWS secret key for a user with permission to write to the S3 bucket
+# [*proxy_percentage_of_asset_requests_to_s3_via_nginx*]
+#   Value between 0 and 100 controlling the percentage of traffic that should
+#   be served by proxying the asset from S3
 #
 class govuk::apps::asset_manager(
   $enabled = true,
@@ -51,6 +54,7 @@ class govuk::apps::asset_manager(
   $aws_region = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
+  $proxy_percentage_of_asset_requests_to_s3_via_nginx = '0'
 ) {
 
   $app_name = 'asset-manager'
@@ -178,6 +182,14 @@ class govuk::apps::asset_manager(
       "${title}-AWS_SECRET_KEY":
         varname => 'AWS_SECRET_KEY',
         value   => $aws_secret_access_key;
+    }
+
+    # Write the environment variable to configure the percentage of requests
+    # that should be served by proxying the request to S3 via nginx
+    govuk::app::envvar {
+      "${title}-PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX":
+        varname => 'PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX',
+        value   => $proxy_percentage_of_asset_requests_to_s3_via_nginx;
     }
   }
 }
