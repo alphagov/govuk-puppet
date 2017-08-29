@@ -3,7 +3,7 @@
     name: deployment_Deploy_Puppet
     scm:
         - git:
-            url: git@github.digital.cabinet-office.gov.uk:gds/deployment.git
+            url: git@github.com:alphagov/govuk-secrets.git
             per-build-tag: false
             refspec: +refs/heads/master:refs/remotes/origin/master
             shallow-clone: true
@@ -31,7 +31,7 @@
     <%- end -%>
     properties:
         - github:
-            url: https://github.digital.cabinet-office.gov.uk/gds/deployment/
+            url: https://github.com/alphagov/govuk-secrets/
         - slack:
             notify-start: true
             notify-success: true
@@ -45,11 +45,15 @@
     scm:
       - deployment_Deploy_Puppet
     builders:
-        - shell: |
-           sh -eu puppet/deploy.sh
+        <%- if @aws_migration -%>
+        - shell: sh -eu puppet_aws/deploy.sh
+        <%- else -%>
+        - shell: sh -eu puppet/deploy.sh
+        <%- end -%>
     publishers:
         - trigger:
             project: Smokey
+        <%- unless @aws_migration -%>
         - trigger-parameterized-builds:
             - project: GDS_Production_Backup
               predefined-parameters: TARGET_APPLICATION_GIT_REPO=$WORKSPACE/puppet
@@ -59,6 +63,7 @@
             auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
             build-server-url: <%= @slack_build_server_url %>
             room: <%= @slack_room %>
+        <%- end -%>
     wrappers:
         - ansicolor:
             colormap: xterm

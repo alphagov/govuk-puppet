@@ -20,6 +20,9 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key for sending errors.
 #   Default: undef
@@ -56,6 +59,7 @@ class govuk::apps::manuals_publisher(
   $email_alert_api_bearer_token = undef,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name,
   $oauth_id = undef,
@@ -70,6 +74,7 @@ class govuk::apps::manuals_publisher(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
     nginx_extra_config => 'client_max_body_size 500m;',

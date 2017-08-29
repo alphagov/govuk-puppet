@@ -11,11 +11,17 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
 #
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
@@ -28,6 +34,7 @@ class govuk::apps::collections(
   $port = '3070',
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $sentry_dsn = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
 ) {
@@ -41,6 +48,7 @@ class govuk::apps::collections(
     vhost                  => $vhost,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
+    sentry_dsn             => $sentry_dsn,
   }
 
   Govuk::App::Envvar {

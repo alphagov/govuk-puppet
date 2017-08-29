@@ -4,7 +4,6 @@ mod 'adrien/alternatives'
 mod 'attachmentgenie/ufw', '1.0.3'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
-mod 'elasticsearch/elasticsearch'
 mod 'fsalum/redis'
 mod 'garethr-docker', '5.3.0'
 mod 'maestrodev/wget', '>= 1.1.0'
@@ -12,8 +11,8 @@ mod 'puppetlabs/apt', '2.3.0'
 mod 'puppetlabs/concat', '2.2.0'
 mod 'puppetlabs/haproxy', '1.5.0'
 mod 'puppetlabs/java_ks'
-mod 'puppetlabs/mysql'
-mod 'puppetlabs/postgresql', '4.8.0'
+mod 'puppetlabs/lvm'
+mod 'puppetlabs/mysql', '3.11.0'
 mod 'puppetlabs/rabbitmq', '5.6.0'
 mod 'puppetlabs/stdlib', '4.12.0'
 mod 'puppet/unattended_upgrades', '>= 2.1.0'
@@ -45,6 +44,9 @@ mod 'alphagov/curl',
 mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
   :ref => '388b8343188673dc966db8840ed5c4cf7ae00470'
+mod 'elasticsearch/elasticsearch',
+  :git => 'git://github.com/alphagov/puppet-elasticsearch.git',
+  :ref => 'a0d8d3eae04a13408ec325fba5ffd36e3084f90a'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
@@ -55,16 +57,17 @@ mod 'alphagov/puppet-rcs',
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
-mod 'puppetlabs/lvm',
-  :git => 'git://github.com/alphagov/puppetlabs-lvm.git'
 mod 'alphagov/puppet-reporter-sentry',
   :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
+mod 'puppetlabs/postgresql',
+  :git => 'git://github.com/alphagov/puppetlabs-postgresql.git',
+  :ref => '1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf'
 
 # Our modules on the Forge.
 mod 'gdsoperations/aptly', '0.6.0'
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.4'
-mod 'gdsoperations/graphite', '~> 2.0.5'
+mod 'gdsoperations/graphite', '~> 2.0.6'
 mod 'gdsoperations/openconnect', '~> 1.2.1'
 mod 'gdsoperations/rbenv', '1.2.0'
 mod 'gdsoperations/resolvconf', '0.2.0'

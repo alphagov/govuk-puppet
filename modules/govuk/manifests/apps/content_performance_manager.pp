@@ -22,6 +22,14 @@
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
 #
+# [*feature_auditing_allocation*]
+#   Whether the auditing allocation feature should be enabled/disabled.
+#   Default: false
+#
+# [*feature_auditing_theme_filtering*]
+#   Whether the auditing filters for themes are enabled/disabled.
+#   Default: false
+#
 # [*google_client_email*]
 #   Google authentication email
 #   Default: undef
@@ -57,12 +65,17 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::content_performance_manager(
   $db_hostname = undef,
   $db_name = 'content_performance_manager_production',
   $db_password = undef,
   $db_username = 'content_performance_manager',
   $enable_procfile_worker = true,
+  $feature_auditing_allocation = false,
+  $feature_auditing_theme_filtering = false,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
@@ -73,12 +86,15 @@ class govuk::apps::content_performance_manager(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $errbit_api_key = undef,
+  $sentry_dsn = undef,
 ) {
   $app_name = 'content-performance-manager'
 
   govuk::app { $app_name:
     app_type          => 'rack',
     port              => $port,
+    sentry_dsn        => $sentry_dsn,
     health_check_path => '/',
     asset_pipeline    => true,
   }
@@ -92,6 +108,12 @@ class govuk::apps::content_performance_manager(
   }
 
   govuk::app::envvar {
+    "${title}-FEATURE_AUDITING_ALLOCATION":
+      varname => 'FEATURE_AUDITING_ALLOCATION',
+      value   => bool2str($feature_auditing_allocation);
+    "${title}-FEATURE_AUDITING_THEME_FILTERING":
+      varname => 'FEATURE_AUDITING_THEME_FILTERING',
+      value   => bool2str($feature_auditing_theme_filtering);
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
       value   => $google_analytics_govuk_view_id;
@@ -110,6 +132,10 @@ class govuk::apps::content_performance_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      app     => $app_name,
+      value   => $errbit_api_key;
   }
 
   govuk::app::envvar::redis { $app_name:

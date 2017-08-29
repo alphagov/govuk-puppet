@@ -1,0 +1,12 @@
+LoadPlugin write_graphite
+
+<Plugin "write_graphite">
+  <Carbon>
+    Host "<%= @graphite_hostname -%>"
+    Port "2003"
+
+    # Fix for collectd 5.4.0
+    # https://github.com/collectd/collectd/commit/6be256a5
+    Protocol "tcp"
+  </Carbon>
+</Plugin>

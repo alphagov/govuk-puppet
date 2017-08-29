@@ -95,13 +95,8 @@ sudo /home/ubuntu/provisioner/govuk-admin-template-environment-indicators.sh < /
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD ENVIRONMENT INDICATORS"
 echo
 
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
-sudo chown -R deploy:deploy /var/govuk
-echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
-echo
-
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START INSTALL RUBIES"
-sudo /home/ubuntu/provisioner/install-rubies.sh
+sudo -i -u root /home/ubuntu/provisioner/install-rubies.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END INSTALL RUBIES"
 echo
 
@@ -112,7 +107,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RESTORE DATABASES"
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START UPDATE BUNDLER"
-sudo /var/govuk/govuk-puppet/development-vm/update-bundler.sh
+sudo -i -u root /var/govuk/govuk-puppet/development-vm/update-bundler.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END UPDATE BUNDLER"
 echo
 
@@ -123,6 +118,7 @@ echo "[$(date '+%H:%M:%S %d-%m-%Y')] END ADD HTTP BASIC AUTHENTICATION TO NGINX 
 echo
 
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START PREPARE SIGNON TRAINING ENVIRONMENT"
+cd /var/govuk/signon/script
 sudo /var/govuk/signon/script/prepare_training_environment --really-setup-training-environment
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END PREPARE SIGNON TRAINING ENVIRONMENT"
 echo
@@ -134,6 +130,11 @@ echo "1025" | sudo tee /etc/govuk/env.d/SMTP_PORT > /dev/null
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END SET ENVIRONMENT VARIABLES FOR ALL APPS"
 echo
 
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START BUILD ROUTER"
+sudo -i -u root /home/ubuntu/provisioner/make-router.sh
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END BUILD ROUTER"
+echo
+
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START RUN UPSTART APPS"
 sudo /home/ubuntu/provisioner/start-training-environment.sh < /home/ubuntu/provisioner/alphagov_apps
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END RUN UPSTART APPS"
@@ -142,4 +143,9 @@ echo
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] START OBTAIN LETSENCRYPT CERTIFICATES"
 sudo /home/ubuntu/provisioner/acme-certificates.sh
 echo "[$(date '+%H:%M:%S %d-%m-%Y')] END OBTAIN LETSENCRYPT CERTIFICATES"
+echo
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START CHANGE REPOSITORY OWNER"
+sudo chgrp -R deploy /var/govuk
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END CHANGE REPOSITORY OWNER"
 echo

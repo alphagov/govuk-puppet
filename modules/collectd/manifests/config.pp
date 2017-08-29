@@ -31,9 +31,20 @@ class collectd::config {
     source => 'puppet:///modules/collectd/etc/collectd/conf.d/default.conf',
   }
 
-  file { '/etc/collectd/conf.d/network.conf':
-    ensure => present,
-    source => 'puppet:///modules/collectd/etc/collectd/conf.d/network.conf.client',
+  if $::aws_migration {
+    $graphite_hostname = 'graphite'
+
+    file { '/etc/collectd/conf.d/graphite.conf':
+      ensure  => present,
+      content => template('collectd/etc/collectd/conf.d/graphite.conf.erb'),
+    }
+  } else {
+    $graphite_hostname = 'graphite.cluster'
+
+    file { '/etc/collectd/conf.d/network.conf':
+      ensure  => present,
+      content => template('collectd/etc/collectd/conf.d/network.conf.client.erb'),
+    }
   }
 
   include ::collectd::plugin::file_handles

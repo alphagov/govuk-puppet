@@ -66,6 +66,10 @@ base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::content_performance_manager::feature_auditing_allocation: false
+govuk::apps::content_performance_manager::feature_auditing_theme_filtering: false
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
@@ -104,7 +108,7 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-production-dr'
   - 'skyscape-production'
 
-govuk_jenkins::job::content_performance_manager::rake_import_all_inventory_frequency: '0 2 * * *'
+govuk_jenkins::job::content_performance_manager::rake_import_all_content_items_frequency: '0 2 * * *'
 govuk_jenkins::job::content_performance_manager::rake_import_all_ga_metrics_frequency: '0 7 * * *'
 
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
@@ -276,6 +280,12 @@ hosts::production::api::hosts:
     ip: '10.3.4.33'
   performance-mongo-4:
     ip: '10.3.12.31'
+  rummager-elasticsearch-1:
+    ip: '10.3.4.55'
+  rummager-elasticsearch-2:
+    ip: '10.3.4.56'
+  rummager-elasticsearch-3:
+    ip: '10.3.4.57'
   search-1:
     ip: '10.3.4.4'
   search-2:

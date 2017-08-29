@@ -1,0 +1,6 @@
+#!/bin/bash
+STACKNAME=$1
+PUPPET_ROLE=$2
+HOST=$(aws ec2 describe-instances --region eu-west-1 --filters "Name=tag:aws_migration,Values=${PUPPET_ROLE}" "Name=tag:aws_stackname,Values=${STACKNAME}" --output=json | jq -r '.Reservations[] | .Instances[] | .NetworkInterfaces[] | .PrivateIpAddress' | head -n1 )
+USER=$(whoami)
+ssh -t $USER@$HOST

@@ -63,6 +63,9 @@ class govuk_ci::agent(
   package { 'libgdal-dev': # needed for mapit
     ensure => installed,
   }
+  package { 'jq':
+    ensure => installed,
+  }
 
   govuk_bundler::config {'jenkins-bundler':
     server    => $gemstash_server,

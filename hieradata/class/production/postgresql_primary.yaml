@@ -5,6 +5,8 @@ lv:
       - '/dev/sdc1'
       - '/dev/sde1'
       - '/dev/sdf1'
+      - '/dev/sdg1'
+
     vg: 'backups'
   data:
     pv: '/dev/sdd1'

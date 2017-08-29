@@ -15,6 +15,7 @@ class govuk::node::s_api_postgresql_primary (
   $s3_bucket_url,
   $wale_private_gpg_key,
   $wale_private_gpg_key_fingerprint,
+  $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_api_postgresql_base {
   class { 'govuk_postgresql::server::primary':
     slave_password => $standby_password,
@@ -26,5 +27,6 @@ class govuk::node::s_api_postgresql_primary (
     s3_bucket_url                    => $s3_bucket_url,
     wale_private_gpg_key             => $wale_private_gpg_key,
     wale_private_gpg_key_fingerprint => $wale_private_gpg_key_fingerprint,
+    alert_hostname                   => $alert_hostname,
   }
 }

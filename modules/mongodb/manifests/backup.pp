@@ -25,12 +25,14 @@ class mongodb::backup(
   $enabled = true,
   $domonthly = true,
   $s3_backups = false,
+  $alert_hostname = 'alert.cluster',
 ) {
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
 
-  # Sanity-check that replicaset members are defined using hostnames
-  unless $::hostname in $replicaset_members {
+  # Sanity-check that replicaset members are defined using hostnames (unless
+  # we're on AWS).
+  if ! ($::aws_migration or $::hostname in $replicaset_members) {
     $replicaset_members_string = join($replicaset_members, ', ')
     fail("This machine\'s hostname was not found in the list of MongoDB replicaset members: ${replicaset_members_string}")
   }

@@ -1,0 +1,83 @@
+upstream <%= @vhost %>-upstream {
+<%- [@servers].flatten.each do |server| -%>
+  server <%= server %>:443 max_fails=3 fail_timeout=10s;
+<%- end -%>
+}
+
+# Set GOVUK-Request-Id if not set
+# See http://nginx.org/en/docs/http/ngx_http_perl_module.html
+perl_modules perl/lib;
+perl_set $govuk_request_id '
+  sub {
+    my $r = shift;
+    my $current_header = $r->header_in("GOVUK-Request-Id");
+
+    if (defined $current_header && $current_header ne "") {
+      return $current_header;
+    } else {
+      my $pid = $r->variable("pid");
+      my $msec = $r->variable("msec");
+      my $remote_addr = $r->variable("remote_addr");
+      my $request_length = $r->variable("request_length");
+      return "$pid-$msec-$remote_addr-$request_length";
+    }
+  }
+';
+
+server {
+  server_name <%= @vhost_real %> ;
+
+  listen              80;
+
+  # Needed to do keepalives upstream
+  proxy_http_version 1.1;
+
+  # Try next upstream if one returns an error
+  proxy_next_upstream error http_500;
+
+  proxy_set_header Host $http_host;
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  proxy_set_header X-Forwarded-Proto $scheme;
+  proxy_set_header GOVUK-Request-Id $govuk_request_id;
+
+  proxy_redirect off;
+
+  proxy_connect_timeout 1s;
+  proxy_read_timeout <%= @read_timeout %>;
+
+  # No need to set this limit here, as long as it is enforced by servers
+  # behind the load balancers.
+  client_max_body_size 4g;
+
+  access_log /var/log/nginx/<%= @vhost_real %>-access.log timed_combined;
+  access_log /var/log/nginx/<%= @vhost_real %>-json.event.access.log json_event;
+  error_log /var/log/nginx/<%= @vhost_real %>-error.log;
+
+  location = /scheduled_maintenance.html {
+    root /usr/share/nginx/www;
+  }
+
+  <%- if @deny_crawlers -%>
+  location = /robots.txt {
+    add_header content-type text/plain;
+    return 200 'User-agent: *\nDisallow: /';
+  }
+  <%- end -%>
+
+  location / {
+    <%- if @internal_only -%>
+    # Only accept connnections from internal machines
+    allow 10.0.0.0/8;
+    allow 127.0.0.1;
+    deny all;
+    <%- end -%>
+    include includes/maintenance.conf;
+    if ($maintenance = 1) {
+      error_page 503 /scheduled_maintenance.html;
+      return 503;
+    }
+    proxy_pass https://<%= @vhost %>-upstream;
+  }
+}

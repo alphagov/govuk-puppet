@@ -21,14 +21,23 @@
 #   RabbitMQ password.
 #   Default: email_alert_service
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::email_alert_service(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'email_alert_service',
   $rabbitmq_password = 'email_alert_service',
+  $sentry_dsn = undef,
+  $errbit_api_key = undef,
 ) {
   govuk::app { 'email-alert-service':
     app_type           => 'bare',
     enable_nginx_vhost => false,
+    sentry_dsn         => $sentry_dsn,
     command            => './bin/email_alert_service',
   }
 
@@ -40,5 +49,11 @@ class govuk::apps::email_alert_service(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+  }
+
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 }

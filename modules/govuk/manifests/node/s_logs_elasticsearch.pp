@@ -13,11 +13,19 @@
 # [*indices_days_to_keep*]
 #   The number of elasticsearch indices to keep in days.
 #
+# [*aws_cluster_name*]
+#   The name of the tag that is used by cluster discovery in AWS
+#
 class govuk::node::s_logs_elasticsearch(
   $rotate_hour = 00,
   $rotate_minute = 01,
   $indices_days_to_keep = 13,
+  $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_base {
+
+  if $::aws_migration {
+    $aws_cluster_name = "logs-elasticsearch-${::aws_stackname}"
+  }
 
   $es_heap_size = floor($::memorysize_mb / 2)
 
@@ -44,6 +52,7 @@ class govuk::node::s_logs_elasticsearch(
       Class['govuk_java::openjdk7::jre'],
       Govuk_mount['/mnt/elasticsearch']
     ],
+    aws_cluster_name       => $aws_cluster_name,
   }
 
   elasticsearch::plugin { 'redis-river':

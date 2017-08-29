@@ -11,6 +11,9 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -22,6 +25,7 @@ class govuk::apps::government_frontend(
   $vhost = 'government-frontend',
   $port = '3090',
   $errbit_api_key = '',
+  $sentry_dsn = undef,
   $secret_key_base = undef,
 ) {
   Govuk::App::Envvar {
@@ -43,6 +47,7 @@ class govuk::apps::government_frontend(
   govuk::app { 'government-frontend':
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     vhost_ssl_only        => true,
     health_check_path     => '/healthcheck',
     legacy_logging        => false,

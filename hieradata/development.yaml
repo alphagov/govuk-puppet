@@ -103,6 +103,8 @@ govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-fronte
 govuk::apps::backdrop_write::enable_procfile_worker: false
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-admin']
+govuk::apps::content_performance_manager::feature_auditing_allocation: true
+govuk::apps::content_performance_manager::feature_auditing_theme_filtering: true
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_tagger::enable_procfile_worker: false
@@ -159,8 +161,6 @@ govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhos
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::enable_publishing_listener: true
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
@@ -200,6 +200,7 @@ govuk_containers::app::config::global_envvars:
   - "RACK_ENV=development"
   - "RAILS_ENV=development"
   - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
+  - "SENTRY_CURRENT_ENV=%{hiera('govuk::deploy::config::errbit_environment_name')}"
   - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
   - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"

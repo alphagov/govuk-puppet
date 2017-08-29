@@ -11,7 +11,7 @@
 #   GPG private key fingerprint
 #
 # [*backup_private_key*]
-#   Private key of the off-site backup box. Used in the deployment repo,
+#   Private key of the off-site backup box. Used in the govuk-secrets repo,
 #   drawn in here
 #
 # [*dest_host*]

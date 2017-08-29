@@ -78,6 +78,7 @@ class govuk_crawler(
   $ssh_private_key = '',
   $sync_enable = false,
   $targets = [],
+  $alert_hostname = 'alert.cluster',
 ) {
   include govuk_crawler::config
 

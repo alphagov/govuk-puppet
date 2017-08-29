@@ -1,0 +1,14 @@
+---
+
+govuk::node::s_apt::root_dir: '/mnt/apt'
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'apt'
+
+mount:
+  /mnt/apt:
+    disk: '/dev/mapper/apt-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'

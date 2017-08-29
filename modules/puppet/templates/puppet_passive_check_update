@@ -1,5 +1,5 @@
 #!/bin/bash
 OUTPUT=`/usr/lib/nagios/plugins/check_puppet_agent`
 CODE=$?
-printf "<%= @ipaddress_eth0 %>\tpuppet last run errors\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster
+printf "<%= @ipaddress_eth0 %>\tpuppet last run errors\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %>
 exit $?

@@ -24,7 +24,7 @@
 #
 class govuk_jenkins::cli (
   $jenkins_home = '/var/lib/jenkins',
-  $jenkins_api_user = 'deploy',
+  $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
 ) {
   require ::govuk_jenkins

@@ -4,7 +4,7 @@
 #
 class collectd::server::config inherits collectd::config {
   File['/etc/collectd/conf.d/network.conf'] {
-    source  => 'puppet:///modules/collectd/etc/collectd/conf.d/network.conf.server',
+    content => template('collectd/etc/collectd/conf.d/network.conf.server.erb'),
   }
 
   file { '/etc/collectd/conf.d/graphite.conf':

@@ -30,9 +30,35 @@
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
           build-server-url: <%= @slack_build_server_url %>
           room: <%= @slack_room %>
-      - email:
+      - email-ext:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
-          send-to-individuals: true
+          attach-build-log: true
+          failure: true
+          fixed: true
+          presend-script: |
+            import hudson.tasks.Mailer
+
+            def upstreamCause = build.getCause(Cause.UpstreamCause)
+
+            if (upstreamCause != null) {
+              def upstreamCauses = upstreamCause.getUpstreamCauses()
+              upstreamCauses.each() { cause ->
+                if (cause instanceof Cause.UserIdCause) {
+                  def user = User.get(cause.getUserId())
+                  def userEmail = user.getProperty(Mailer.UserProperty.class).getAddress()
+
+                  if (userEmail != null && userEmail.endsWith("@digital.cabinet-office.gov.uk")) {
+                    logger.println("Upstream user being emailed: " + userEmail)
+                    msg.addRecipient(javax.mail.Message.RecipientType.TO, new javax.mail.internet.InternetAddress(userEmail))
+                  }
+                }
+              }
+            }
+          send-to:
+            - recipients
+            - developers
+            - culprits
+
     builders:
         - shell: |
             set +x

@@ -1,0 +1,22 @@
+---
+- job:
+    name: check-content-store
+    display-name: Check content-store content
+    project-type: freestyle
+    description: |
+      This job checks for invalid content in the content-store
+    logrotate:
+      numToKeep: 30
+      artifactDaysToKeep: 3
+    triggers:
+        - timed: '40 * * * *'
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          cd "${WORKSPACE}"
+
+          CONTENT_STORE=$(govuk_node_list --single-node -c content_store)
+
+          ssh deploy@$CONTENT_STORE "rm -rf /tmp/govuk-content-schemas; git clone https://github.com/alphagov/govuk-content-schemas.git /tmp/govuk-content-schemas --depth=1 && cd /var/apps/content-store && GOVUK_CONTENT_SCHEMAS_PATH=/tmp/govuk-content-schemas govuk_setenv content-store bundle exec rake validate_content_against_schema"

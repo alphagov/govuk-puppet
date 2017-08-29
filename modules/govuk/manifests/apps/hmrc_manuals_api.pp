@@ -18,6 +18,21 @@
 #   non-whitelisted manual slugs.
 #   Default: false
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#   Default: undef
+#
+# [*oauth_id*]
+#   Sets the OAuth ID for using GDS-SSO
+#   Default: undef
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key for using GDS-SSO
+#   Default: undef
+#
 # [*publish_topics*]
 #   Feature flag to allow publishing of manual topics to the Publishing
 #   API and Rummager.
@@ -27,12 +42,25 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for sidekiq.
+#
+# [*redis_port*]
+#   Redis port for sidekiq.
+#   Default: undef
+#
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $enable_procfile_worker = true,
+  $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $allow_unknown_hmrc_manual_slugs = false,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -55,14 +83,30 @@ class govuk::apps::hmrc_manuals_api(
     }
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar::redis { 'hmrc-manuals-api':
+    host => $redis_host,
+    port => $redis_port,
+  }
+
+  govuk::app::envvar {
+    "${title}-ERRBIT_API_KEY":
+      varname => 'ERRBIT_API_KEY',
+      value   => $errbit_api_key;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token,
   }
 
   govuk::app { 'hmrc-manuals-api':
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck',
     log_format_is_json => true,

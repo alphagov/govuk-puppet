@@ -1,0 +1,17 @@
+---
+govuk::node::s_base::apps:
+  - canary_frontend
+  - collections
+  - designprinciples
+  - email_alert_frontend
+  - feedback
+  - frontend
+  - government_frontend
+  - info_frontend
+  - manuals_frontend
+  - service_manual_frontend
+  - static
+
+govuk::apps::contacts::db_hostname: 'mysql-slave-1'
+govuk::apps::contacts::db_username: 'contacts_fe'
+govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_frontend')}"

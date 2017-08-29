@@ -25,11 +25,24 @@ class govuk_scripts {
   }
 
   # govuk_node_list is a simple script that lists nodes of specified classes
-  # using puppetdb
-  file { '/usr/local/bin/govuk_node_list':
-    ensure => present,
-    source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_node_list',
-    mode   => '0755',
-  }
+  # using puppetdb. In AWS, we use tags to find the relevant hosts rather than
+  # PuppetDB, except when we're searching for specific Puppet classes.
+  if $::aws_migration {
+    package { 'boto3':
+      ensure   => 'present',
+      provider => 'pip',
+    }
 
+    file { '/usr/local/bin/govuk_node_list':
+      ensure  => present,
+      content => template('govuk_scripts/govuk_node_list_aws.erb'),
+      mode    => '0755',
+    }
+  } else {
+    file { '/usr/local/bin/govuk_node_list':
+      ensure => present,
+      source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_node_list',
+      mode   => '0755',
+    }
+  }
 }

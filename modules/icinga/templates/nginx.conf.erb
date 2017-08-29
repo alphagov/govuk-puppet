@@ -1,9 +1,13 @@
 server {
   server_name nagios nagios.* icinga icinga.* alert alert.*;
 
+  <%- if scope.lookupvar('::aws_migration') %>
+  listen 80;
+  <%- else %>
   listen                    443 ssl;
   ssl_certificate           /etc/nginx/ssl/nagios.crt;
   ssl_certificate_key       /etc/nginx/ssl/nagios.key;
+  <%- end %>
   include                   /etc/nginx/ssl.conf;
 
   index index.html;
@@ -20,6 +24,8 @@ server {
   location ~ \.cgi$ {
     root /usr/lib/cgi-bin/icinga;
     rewrite ^/cgi-bin/icinga/(.*)$ /$1;
+
+    add_header Access-Control-Allow-Origin *;
 
     include /etc/nginx/fastcgi_params;
 

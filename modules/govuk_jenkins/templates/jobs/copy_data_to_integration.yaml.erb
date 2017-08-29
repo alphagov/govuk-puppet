@@ -19,7 +19,7 @@
             url: https://github.com/alphagov/env-sync-and-backup/
         - inject:
             properties-content: |
-              PARALLEL_JOBS=2
+              PARALLEL_JOBS=3
         - slack:
             notify-start: false
             notify-success: true
@@ -86,6 +86,7 @@
                 - all
                 - assets
                 - elasticsearch-api
+                - elasticsearch-rummager
                 - mongo-api
                 - mongo-exceptions
                 - mongo-licensify

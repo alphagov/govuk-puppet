@@ -41,8 +41,14 @@ class govuk::node::s_base (
     purge_rsyslog_d => true,
   }
 
+  if $::aws_migration {
+    $logging_hostname = 'logging'
+  } else {
+    $logging_hostname = 'logging.cluster'
+  }
+
   class { 'rsyslog::client':
-    server    => 'logging.cluster',
+    server    => $logging_hostname,
     log_local => true,
   }
 

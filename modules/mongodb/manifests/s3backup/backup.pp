@@ -50,7 +50,10 @@
 # [*user*]
 #   Defines the system user that will be created
 #   to run the backups
-
+#
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
 class mongodb::s3backup::backup(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
@@ -63,7 +66,8 @@ class mongodb::s3backup::backup(
   $private_gpg_key_fingerprint = undef,
   $s3_bucket  = undef,
   $s3_bucket_daily = undef,
-  $user = 'govuk-backup'
+  $user = 'govuk-backup',
+  $alert_hostname = 'alert.cluster',
 ){
 
   include ::backup::client

@@ -1,0 +1,24 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'Reboot a single node at time and check that the cluster goes green between reboots'
+
+govuk_elasticsearch::version: '1.4.4'
+govuk_elasticsearch::open_firewall_from_all: true
+
+icinga::client::checks::disk_time_warn: 200 # milliseconds
+icinga::client::checks::disk_time_critical: 300 # milliseconds
+
+lv:
+  data:
+    pv:
+        - '/dev/xvdf'
+    vg: 'elasticsearch'
+
+mount:
+  /mnt/elasticsearch:
+    disk: '/dev/mapper/elasticsearch-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11

@@ -1,0 +1,81 @@
+---
+
+govuk::apps::contacts::vhost: contacts-admin
+govuk::apps::contacts::db_hostname: 'mysql-primary'
+govuk::apps::contacts::db_username: 'contacts'
+govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"
+
+govuk::apps::event_store::mongodb_servers:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::manuals_publisher::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::maslow::mongodb_name: 'maslow_production'
+govuk::apps::maslow::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::publisher::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_production'
+govuk::apps::short_url_manager::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::specialist_publisher::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::apps::travel_advice_publisher::mongodb_name: 'travel_advice_publisher_production'
+govuk::apps::travel_advice_publisher::mongodb_nodes:
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
+
+govuk::node::s_base::apps:
+  - asset_manager
+  - canary_backend
+  - collections_publisher
+  - contacts
+  - content_performance_manager
+  - content_tagger
+  - email_alert_api
+  - email_alert_service
+  - event_store
+  - govuk_delivery
+  - hmrc_manuals_api
+  - imminence
+  - kibana
+  - link_checker_api
+  - local_links_manager
+  - manuals_publisher
+  - maslow
+  - need_api
+  - policy_publisher
+  - publisher
+  - publishing_api
+  - release
+  - search_admin
+  - service_manual_publisher
+  - short_url_manager
+  - sidekiq_monitoring
+  - signon
+  - specialist_publisher
+  - support
+  - support_api
+  - transition
+  - travel_advice_publisher

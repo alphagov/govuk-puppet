@@ -1,0 +1,44 @@
+#!/bin/bash
+
+TIMESTAMP=`date +%Y-%m-%d_%Hh%Mm.%A`
+
+DAYS_TO_KEEP="3"
+
+GRAPHITE_STORAGE_DIRECTORY="/opt/graphite/storage"
+GRAPHITE_WHISPER_DIRECTORY_NAME="whisper"
+
+GRAPHITE_WHISPER_DIRECTORY="${GRAPHITE_STORAGE_DIRECTORY}/${GRAPHITE_WHISPER_DIRECTORY_NAME}"
+
+BACKUP_DIRECTORY_NAME="backups"
+
+BACKUP_DIRECTORY=${GRAPHITE_STORAGE_DIRECTORY}/${BACKUP_DIRECTORY_NAME}
+
+BACKUP_FILE_NAME_EXTENSION="tgz"
+
+BACKUP_FILE_ROOT_NAME=${GRAPHITE_WHISPER_DIRECTORY_NAME}
+BACKUP_FILE_NAME="${BACKUP_FILE_ROOT_NAME}-${TIMESTAMP}.${BACKUP_FILE_NAME_EXTENSION}"
+
+TAR_COMMAND="ionice -c 3 nice tar"
+
+# Exclude some directories that are huge and we don't care about.
+TAR_OPTIONS="--use-compress-program pigz -c --exclude=\"stats/timers/pp/apps/spotlight/dashboards/*\" --exclude=\"stats_counts/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/status/*\" --exclude=\"stats/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/*\""
+
+BACKUP_USER="govuk-backup:govuk-backup"
+
+# Create the backup directory if it's not there but only if the storage directory exists
+if [ -d ${GRAPHITE_STORAGE_DIRECTORY} ]
+then
+  mkdir -p ${BACKUP_DIRECTORY}
+else
+  echo "Can't create backup directory"
+  exit 1
+fi
+
+# Remove any backups older than 7 days
+find ${BACKUP_DIRECTORY} -type f -name "*.${BACKUP_FILE_NAME_EXTENSION}" -mtime ${DAYS_TO_KEEP} | xargs -xi rm {}
+
+# Backup Whisper files
+${TAR_COMMAND} ${TAR_OPTIONS} -f ${BACKUP_DIRECTORY}/${BACKUP_FILE_NAME} ${GRAPHITE_WHISPER_DIRECTORY}
+
+# Set permissions on the backup file
+chown ${BACKUP_USER} ${BACKUP_DIRECTORY}/${BACKUP_FILE_NAME}

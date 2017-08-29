@@ -1,6 +1,9 @@
 ---
 _: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
 
+app_domain: "%{::aws_stackname}.integration.govuk.digital"
+app_domain_internal: "%{::aws_stackname}.integration.govuk-internal.digital"
+
 backup::mysql::rotation_daily: '2'
 backup::mysql::rotation_weekly: '6'
 backup::mysql::rotation_monthly: '28'
@@ -66,77 +69,10 @@ govuk_jenkins::config::theme_colour: '#ffbf47'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Integration'
 
-govuk_jenkins::config::admins:
-  - aaronkeogh
-  - alecgibson
-  - alextorrance
-  - anafernandez
-  - andrewgarner
-  - andrienricketts
-  - andydriver
-  - andysellick
-  - anikahenke
-  - bevanloon
-  - bobwalker
-  - brendanbutler
-  - carlosvilhena
-  - chrislowis
-  - chrispatuzzo
-  - christopherbaines
-  - chrisroos
-  - ci_alphagov
-  - danielroseman
-  - davidbasalla
-  - davidhenry
-  - davidsilva
-  - deanwilson
-  - deborahchua
-  - elenatanasoiu
-  - emmabeynon
-  - georgekoetsier
-  - grahampengelly
-  - gregorambrozic
-  - ikennaokpala
-  - isabelllong
-  - jamesrobinson
-  - jamesmead
-  - jennyduckett
-  - jonathanhallam
-  - joskoetsier
-  - kanemorgan
-  - katiesmith
-  - kelvingan
-  - kevindew
-  - lauramartin
-  - leelongmore
-  - leenagupte
-  - matmoore
-  - matteograssotti
-  - murraysteele
-  - nickcolley
-  - oliverbyford
-  - pablomanrubia
-  - paulbowsher
-  - paulhayes
-  - peterhartshorn
-  - richardboulton
-  - rosafox
-  - rubenarakelyan
-  - samcook
-  - simonhughesdon
-  - stephenharker
-  - stevelaing
-  - suzannehamilton
-  - tatianastantonian
-  - theodorvararu
-  - thomasleese
-  - thomasnatt
-  - tijmenbrommet
-  - timblair
-  - tomgladhill
-  - vanitabarrett
-
 govuk_jenkins::job_builder::environment: 'integration'
+
+govuk_jenkins::job::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
+govuk_jenkins::job::integration_deploy::jenkins_integration_api_password: "%{hiera('govuk::node::s_jenkins::jenkins_api_token')}"
 
 govuk_jenkins::job::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::job::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
@@ -164,61 +100,48 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa
 govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_api_lb::api_servers:
-  - "api-1.api"
-  - "api-2.api"
+  - "api"
 govuk::node::s_api_lb::content_store_servers:
-  - "content-store-1.api"
-  - "content-store-2.api"
+  - "content-store"
 govuk::node::s_api_lb::draft_content_store_servers:
-  - "draft-content-store-1.api"
-  - "draft-content-store-2.api"
+  - "draft-content-store"
 govuk::node::s_api_lb::mapit_servers:
-  - "mapit-1.api"
-  - "mapit-2.api"
+  - "mapit-1"
+  - "mapit-2"
 govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
+  - "search"
+  - "search"
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
 govuk::node::s_backend_lb::backend_servers:
-  - 'backend-1.backend'
-  - 'backend-2.backend'
+  - 'backend'
 govuk::node::s_backend_lb::performance_backend_servers:
-  - 'performance-backend-1.backend'
-  - 'performance-backend-2.backend'
+  - 'performance-backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
-  - 'whitehall-backend-1.backend'
-  - 'whitehall-backend-2.backend'
+  - 'whitehall-backend'
 govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'publishing-api-1.backend'
-  - 'publishing-api-2.backend'
+  - 'publishing-api'
 govuk::node::s_backend_lb::docker_backend_servers:
-  - 'docker-backend-1.backend'
-  - 'docker-backend-2.backend'
+  - 'docker-backend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'preview.performance.service.gov.uk'
 govuk::node::s_backup::offsite_backups: true
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_frontend_lb::calculators_frontend_servers:
-  - 'calculators-frontend-1.frontend'
-  - 'calculators-frontend-2.frontend'
+  - 'calculators-frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend-1.frontend'
-  - 'draft-frontend-2.frontend'
+  - 'draft-frontend'
 govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend-1.frontend'
-  - 'frontend-2.frontend'
+  - 'frontend'
 govuk::node::s_frontend_lb::performance_frontend_servers:
-  - 'performance-frontend-1.frontend'
-  - 'performance-frontend-2.frontend'
+  - 'performance-frontend'
 govuk::node::s_frontend_lb::performance_frontend_apps:
   - 'spotlight'
   - 'performanceplatform-big-screen-view'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
-  - 'whitehall-frontend-1.frontend'
-  - 'whitehall-frontend-2.frontend'
+  - 'whitehall-frontend'
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_lb::enable_feed_console: true
@@ -245,17 +168,6 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
-
-hosts::production::ip_api_lb: '10.1.4.254'
-hosts::production::ip_backend_lb: '10.1.3.254'
-hosts::production::ip_bouncer: '31.210.245.101'
-hosts::production::ip_draft_api_lb: '10.1.4.253'
-hosts::production::ip_frontend_lb: '10.1.2.254'
-hosts::production::licensify_hosts:
-  licensify.integration.publishing.service.gov.uk:
-    ip: '31.210.245.116'
-  licensify-admin.integration.publishing.service.gov.uk:
-    ip: '31.210.245.117'
 
 icinga::client::check_cputype::cputype: 'amd'
 
@@ -295,7 +207,6 @@ users::usernames:
   - bevanloon
   - bob
   - brendanbutler
-  - carlosvilhena
   - chrislowis
   - chrispatuzzo
   - chrisroos
@@ -319,7 +230,6 @@ users::usernames:
   - jonathanhallam
   - joskoetsier
   - kanemorgan
-  - katiesmith
   - kelvingan
   - kevindew
   - lauramartin

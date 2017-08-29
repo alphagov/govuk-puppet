@@ -11,6 +11,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #
@@ -51,6 +54,7 @@
 class govuk::apps::content_tagger(
   $port = '3116',
   $secret_key_base = undef,
+  $sentry_dsn = undef,
   $errbit_api_key = '',
   $db_hostname = undef,
   $db_username = 'content_tagger',
@@ -72,7 +76,8 @@ class govuk::apps::content_tagger(
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
     asset_pipeline     => true,
-    deny_framing       => true,
+    deny_framing       => false,
+    sentry_dsn         => $sentry_dsn,
   }
 
   Govuk::App::Envvar {

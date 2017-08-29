@@ -11,10 +11,14 @@
 # [*db_password*]
 #   The password for the mapit postgresql role
 #
+# [*django_secret_key*]
+#   The key for Django to use when signing/encrypting sessions.
+#
 class govuk::apps::mapit (
   $enabled = false,
   $port    = '3108',
   $db_password,
+  $django_secret_key = undef,
 ) {
   if $enabled {
     govuk::app { 'mapit':
@@ -47,5 +51,15 @@ class govuk::apps::mapit (
       ]:
       ensure => present,
     }
+  }
+
+  Govuk::App::Envvar {
+    app => 'mapit',
+  }
+
+  govuk::app::envvar {
+    "${title}-DJANGO_SECRET_KEY":
+        varname => 'DJANGO_SECRET_KEY',
+        value   => $django_secret_key;
   }
 }

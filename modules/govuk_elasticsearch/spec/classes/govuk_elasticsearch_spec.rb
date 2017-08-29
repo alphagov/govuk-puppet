@@ -37,6 +37,11 @@ describe 'govuk_elasticsearch', :type => :class do
         is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.4')
       end
 
+      it "should handle the repo for 2.4.x" do
+        params[:version] = '2.4.3'
+        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('2.x')
+      end
+
       it { is_expected.to contain_class('elasticsearch').with_manage_repo(false) }
     end
 
@@ -61,32 +66,23 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
-  describe "disable deletion of all indicies by default" do
-    let (:params) {{}}
-
-    it "should not be added to 1.4.4" do
-     params[:version] = '1.4.4'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).not_to have_key('action.disable_delete_all_indices')
-    end
-  end
-
   describe "enabling dynamic scripting" do
     let(:params) {{}}
 
-    it "should not be added for 1.4.2" do
-      params[:version] = '1.4.2'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
-    end
-
-    it "should be added for 1.4.3" do
+    it "should add the correct setting name enabled for 1.4.3" do
       params[:version] = '1.4.3'
 
       instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
       expect(instance[:config]['script.groovy.sandbox.enabled']).to eq(true)
+      expect(instance[:config]).not_to have_key('script.engine.groovy.inline.search')
+    end
+
+    it "should add the correct setting name enabled for 2.4.6" do
+      params[:version] = '2.4.6'
+
+      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
+      expect(instance[:config]['script.engine.groovy.inline.search']).to eq(true)
+      expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
     end
   end
 

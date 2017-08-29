@@ -1,6 +1,6 @@
 upstream <%= @vhost %>-upstream {
 <%- @servers.each do |server| -%>
-  server <%= server -%>:<%= @port %> max_fails=3 fail_timeout=10s;
+  server <%= server -%>:<%= @final_remote_port %> max_fails=3 fail_timeout=10s;
 <%- end -%>
 }
 

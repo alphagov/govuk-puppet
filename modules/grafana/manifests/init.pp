@@ -25,8 +25,19 @@ class grafana {
     require => Package['grafana'],
   }
 
-  nginx::config::site { 'grafana':
-    source => 'puppet:///modules/grafana/vhost.conf',
+  if $::aws_migration {
+    nginx::config::vhost::proxy { 'grafana':
+      to           => ['localhost:3204'],
+      root         => '/usr/share/grafana',
+      aliases      => ['grafana.*'],
+      protected    => false,
+      ssl_only     => true,
+      ssl_certtype => 'wildcard_publishing',
+    }
+  } else {
+    nginx::config::site { 'grafana':
+      source => 'puppet:///modules/grafana/vhost.conf',
+    }
   }
 
 }

@@ -2,7 +2,7 @@ server {
   # This serves:
   #   - `gemstash.cluster` internally.
   #   - `gemstash.APP_DOMAIN` externally.
-  server_name gemstash.*;
+  server_name gemstash gemstash.*;
   listen 80;
 
   access_log /var/log/nginx/gemstash-access.log timed_combined;

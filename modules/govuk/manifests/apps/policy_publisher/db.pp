@@ -15,11 +15,13 @@
 class govuk::apps::policy_publisher::db (
   $password,
   $backend_ip_range = '10.3.0.0/16',
+  $rds = false,
 ) {
   govuk_postgresql::db { 'policy-publisher_production':
     user                    => 'policy_publisher',
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    rds                     => $rds,
   }
 }

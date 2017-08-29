@@ -28,6 +28,7 @@ class govuk_unattended_reboot (
   $enabled = false,
   $manage_repo_class = false,
   $monitoring_basic_auth = {},
+  $alert_hostname = 'alert.cluster',
 ) {
 
   validate_bool($enabled)
@@ -46,7 +47,7 @@ class govuk_unattended_reboot (
   $check_scripts_directory = "${config_directory}/check"
 
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
-  $icinga_url = "https://alert.cluster/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
+  $icinga_url = "https://${alert_hostname}/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
 
   if $manage_repo_class {
     include govuk_unattended_reboot::repo

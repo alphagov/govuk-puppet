@@ -15,6 +15,7 @@ class govuk::node::s_transition_postgresql_master (
   $s3_bucket_url,
   $wale_private_gpg_key,
   $wale_private_gpg_key_fingerprint,
+  $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_transition_postgresql_base {
   class { 'govuk_postgresql::server::primary':
     slave_password => $slave_password,
@@ -26,6 +27,7 @@ class govuk::node::s_transition_postgresql_master (
     s3_bucket_url                    => $s3_bucket_url,
     wale_private_gpg_key             => $wale_private_gpg_key,
     wale_private_gpg_key_fingerprint => $wale_private_gpg_key_fingerprint,
+    alert_hostname                   => $alert_hostname,
   }
 
 

@@ -11,7 +11,7 @@ NAGIOS_MESSAGE="CRITICAL: Copy attachments to asset slaves failed"
 # Triggered whenever this script exits, successful or otherwise. The values
 # of CODE/MESSAGE will be taken from that point in time.
 function nagios_passive () {
-  printf "<%= @ipaddress %>\tCopy attachments to asset slaves\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress %>\tCopy attachments to asset slaves\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 }
 
 trap nagios_passive EXIT

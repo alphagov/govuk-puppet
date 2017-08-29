@@ -53,8 +53,8 @@ define govuk_containers::app (
   $healthcheck_path = undef,
   $json_healthcheck = false,
 ) {
-  require ::govuk_docker
-  require ::govuk_containers::app::config
+  include ::govuk_docker
+  include ::govuk_containers::app::config
 
   validate_array($envvars)
   validate_re($restart_attempts, [ 'never', 'always', '^\d$' ])
@@ -83,6 +83,13 @@ define govuk_containers::app (
     command          => $command,
     extra_parameters => $extra_params,
     subscribe        => Class[Govuk_containers::App::Config],
+    require          => Class[Govuk_docker],
+  }
+
+  # Provide a symlink to the docker job using the plain app name
+  file { "/etc/init.d/${title}":
+    ensure => 'link',
+    target => "/etc/init.d/docker-${title}",
   }
 
   if $healthcheck_path {

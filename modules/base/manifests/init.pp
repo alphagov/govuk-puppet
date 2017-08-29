@@ -36,4 +36,11 @@ class base {
   include wget
 
   ensure_packages([ 'gcc', 'build-essential' ])
+
+  if $::aws_migration {
+    file { '/etc/motd':
+      ensure  => 'present',
+      content => template('base/motd.erb'),
+    }
+  }
 }

@@ -48,8 +48,8 @@ class govuk_jenkins (
   $plugins = {},
   $ssh_private_key = undef,
   $ssh_public_key = undef,
-  $version = '1.554.2',
-  $jenkins_api_user = 'deploy',
+  $version = '2.46.2',
+  $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
   $jenkins_user = 'jenkins',
   $jenkins_homedir = '/var/lib/jenkins',
@@ -123,6 +123,14 @@ class govuk_jenkins (
   # This is required to create Jenkins SSH slaves, but it cannot be declared
   # in the defined type itself
   file { "${jenkins_homedir}/nodes":
+    ensure  => directory,
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0775',
+    require => Class['govuk_jenkins::user'],
+  }
+
+  file { "${jenkins_homedir}/users":
     ensure  => directory,
     owner   => $jenkins_user,
     group   => $jenkins_user,

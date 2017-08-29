@@ -12,6 +12,9 @@
 #   Enables the sidekiq background worker.
 #   Default: true
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*errbit_api_key*]
 #   Errbit API key used by airbrake
 #   Default: ''
@@ -49,6 +52,7 @@
 class govuk::apps::support(
   $emergency_contact_details = undef,
   $errbit_api_key = undef,
+  $sentry_dsn = undef,
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -66,6 +70,7 @@ class govuk::apps::support(
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
+    sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/',
     log_format_is_json => true,

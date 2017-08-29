@@ -1,0 +1,8 @@
+---
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+mongodb::server::replicaset_members:
+  'api-mongo-1':
+  'api-mongo-2':
+  'api-mongo-3':

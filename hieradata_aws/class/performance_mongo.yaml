@@ -1,0 +1,10 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+mongodb::server::oplog_size: 7168 # 7 * 1024
+mongodb::server::replicaset_members:
+  'performance-mongo-1':
+  'performance-mongo-2':
+  'performance-mongo-3':

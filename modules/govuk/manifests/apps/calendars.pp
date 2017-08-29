@@ -9,6 +9,9 @@
 #   The port that Calendars is served on.
 #   Default: 3011
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -16,16 +19,22 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 class govuk::apps::calendars(
   $port = '3011',
+  $sentry_dsn = undef,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $errbit_api_key = undef,
 ) {
   $app_name = 'calendars'
 
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
+    sentry_dsn            => $sentry_dsn,
     health_check_path     => '/bank-holidays',
     log_format_is_json    => true,
     asset_pipeline        => true,
@@ -36,9 +45,13 @@ class govuk::apps::calendars(
     app => $app_name,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 
   if $secret_key_base {

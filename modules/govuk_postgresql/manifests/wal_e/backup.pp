@@ -49,7 +49,9 @@
 #   everything.
 #   Default: /var/lib/postgresql/9.3/main
 #
-
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
 define govuk_postgresql::wal_e::backup (
   $aws_access_key_id,
   $aws_secret_access_key,
@@ -61,6 +63,7 @@ define govuk_postgresql::wal_e::backup (
   $hour = 6,
   $minute = 20,
   $db_dir = $postgresql::params::datadir,
+  $alert_hostname = 'alert.cluster',
 ) {
     include govuk_postgresql::wal_e::package
 

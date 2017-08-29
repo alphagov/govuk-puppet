@@ -33,6 +33,9 @@
 #   Where the cronjob should mail any output of the job run. Everything already
 #   gets logged in syslog, so default to nowhere.
 #
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
 define govuk_mysql::xtrabackup::backup (
   $aws_access_key_id,
   $aws_secret_access_key,
@@ -43,6 +46,7 @@ define govuk_mysql::xtrabackup::backup (
   $base_backup_cron_hour = 6,
   $incremental_backup_cron_minute = '*/15',
   $mailto = '""',
+  $alert_hostname = 'alert.cluster',
 ) {
   include govuk_mysql::xtrabackup::packages
 

@@ -39,6 +39,12 @@ define govuk::procfile::worker (
   include govuk::procfile
 
   $service_name = "${title}-procfile-worker"
+  $title_underscore = regsubst($title, '\.', '_', 'G')
+
+  collectd::plugin::process { "app-worker-${title_underscore}":
+    ensure => $ensure,
+    regex  => "sidekiq .* ${title}.*\\.gov\\.uk",
+  }
 
   if $ensure == present {
     file { "/etc/init/${service_name}.conf":

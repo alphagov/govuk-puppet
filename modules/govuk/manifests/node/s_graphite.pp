@@ -87,6 +87,46 @@ class govuk::node::s_graphite (
     extra_config => $cors_headers,
   }
 
-  include collectd::server
+  ## Make compressed archives of Whisper data to backup off-box rather than
+  ## backing up the raw files
+  file { '/usr/local/bin/govuk_backup_graphite_whisper_files':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_backup_graphite_whisper_files',
+    mode   => '0755',
+  }
+
+  file { '/usr/local/bin/govuk_delete_ephemeral_interface_data':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_delete_ephemeral_interface_data',
+    mode   => '0755',
+  }
+
+  package { 'pigz':
+    ensure => installed,
+  }
+
+  file { '/opt/graphite/storage/backups':
+    ensure => 'directory',
+    owner  => 'govuk-backup',
+    group  => 'govuk-backup',
+    mode   => '0770',
+  }
+
+  cron::crondotdee { 'create_compressed_archive_of_whisper_data':
+    command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
+    hour    => 23,
+    minute  => 45,
+  }
+
+  cron::crondotdee { 'delete_ephemeral_interface_data_from_ci_agents':
+    command => '/usr/local/bin/govuk_delete_ephemeral_interface_data',
+    hour    => 23,
+    minute  => 30,
+  }
+
+  if ! $::aws_migration {
+    include collectd::server
+  }
+
   include grafana
 }

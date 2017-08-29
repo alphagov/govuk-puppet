@@ -2,7 +2,14 @@
 #
 # Monitoring for Puppet agents.
 #
-class puppet::monitoring {
+# === Parameters:
+#
+# [*alert_hostname*]
+#   The hostname of the alert service, to send ncsa notifications.
+#
+class puppet::monitoring (
+  $alert_hostname = 'alert.cluster',
+) {
   file { '/usr/local/bin/puppet_passive_check_update':
     ensure  => present,
     mode    => '0755',

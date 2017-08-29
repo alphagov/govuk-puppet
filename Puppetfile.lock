@@ -8,8 +8,6 @@ FORGE
     camptocamp-augeas (1.1.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     darin-zypprepo (1.0.2)
-    elasticsearch-elasticsearch (0.4.0)
-      puppetlabs-stdlib (>= 3.2.0)
     fsalum-redis (1.0.0)
       thias-sysctl (>= 0.3.0)
     garethr-docker (5.3.0)
@@ -23,9 +21,9 @@ FORGE
       puppetlabs-concat (>= 1.0.0)
       puppetlabs-stdlib (>= 3.0.0)
     gdsoperations-goenv (0.0.4)
-    gdsoperations-graphite (2.0.5)
-      puppetlabs-stdlib (>= 2.5.0)
-      stankevich-python (>= 1.7.0)
+    gdsoperations-graphite (2.0.6)
+      puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
+      stankevich-python (< 2.0.0, >= 1.7.0)
     gdsoperations-openconnect (1.2.1)
       puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
     gdsoperations-rbenv (1.2.0)
@@ -51,12 +49,11 @@ FORGE
     puppetlabs-java (1.6.0)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
     puppetlabs-java_ks (1.2.5)
-    puppetlabs-mysql (2.2.3)
-      puppetlabs-stdlib (>= 3.2.0)
-    puppetlabs-postgresql (4.8.0)
-      puppetlabs-apt (< 3.0.0, >= 1.8.0)
-      puppetlabs-concat (< 3.0.0, >= 1.1.0)
-      puppetlabs-stdlib (~> 4.0)
+    puppetlabs-lvm (0.9.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.1.0)
+    puppetlabs-mysql (3.11.0)
+      puppet-staging (< 3.0.0, >= 1.0.1)
+      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-rabbitmq (5.6.0)
       puppet-staging (< 2.0.0, >= 0.3.1)
       puppetlabs-apt (< 3.0.0, >= 1.8.0)
@@ -78,7 +75,8 @@ FORGE
       puppetlabs-stdlib (< 5.0.0, >= 2.3.0)
     saz-timezone (3.0.1)
       puppetlabs-stdlib (>= 2.3.0)
-    stahnma-epel (1.1.1)
+    stahnma-epel (1.2.2)
+      puppetlabs-stdlib (>= 3.0.0)
     stankevich-python (1.9.8)
       puppetlabs-stdlib (< 6.0.0, >= 4.6.0)
       stahnma-epel (< 2.0.0, >= 1.0.1)
@@ -105,6 +103,14 @@ GIT
   sha: 388b8343188673dc966db8840ed5c4cf7ae00470
   specs:
     alphagov-duplicity (0.0.1)
+
+GIT
+  remote: git://github.com/alphagov/puppet-elasticsearch.git
+  ref: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
+  sha: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
+  specs:
+    elasticsearch-elasticsearch (0.4.0)
+      puppetlabs-stdlib (>= 3.2.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
@@ -137,11 +143,14 @@ GIT
     alphagov-puppet-reporter-sentry (0.0.1)
 
 GIT
-  remote: git://github.com/alphagov/puppetlabs-lvm.git
-  ref: master
-  sha: 2082a276093c96e67a676f0c6076c0841f918a17
+  remote: git://github.com/alphagov/puppetlabs-postgresql.git
+  ref: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
+  sha: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
   specs:
-    puppetlabs-lvm (0.1.2)
+    puppetlabs-postgresql (4.8.0)
+      puppetlabs-apt (< 3.0.0, >= 1.8.0)
+      puppetlabs-concat (< 3.0.0, >= 1.1.0)
+      puppetlabs-stdlib (~> 4.0)
 
 GIT
   remote: git://github.com/electrical/puppet-logstash.git
@@ -185,7 +194,7 @@ DEPENDENCIES
   gdsoperations-auditd (= 0.2.0)
   gdsoperations-goenv (= 0.0.4)
   gdsoperations-gor (>= 0)
-  gdsoperations-graphite (~> 2.0.5)
+  gdsoperations-graphite (~> 2.0.6)
   gdsoperations-openconnect (~> 1.2.1)
   gdsoperations-rbenv (= 1.2.0)
   gdsoperations-resolvconf (= 0.2.0)
@@ -200,8 +209,8 @@ DEPENDENCIES
   puppetlabs-haproxy (= 1.5.0)
   puppetlabs-java_ks (>= 0)
   puppetlabs-lvm (>= 0)
-  puppetlabs-mysql (>= 0)
-  puppetlabs-postgresql (= 4.8.0)
+  puppetlabs-mysql (= 3.11.0)
+  puppetlabs-postgresql (>= 0)
   puppetlabs-rabbitmq (= 5.6.0)
   puppetlabs-stdlib (= 4.12.0)
   rtyler-jenkins (= 1.7.0)

@@ -34,6 +34,12 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
+# [*errbit_api_key*]
+#   Errbit API key used by airbrake
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -43,11 +49,14 @@ class govuk::apps::frontend(
   $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $errbit_api_key = undef,
+  $sentry_dsn = undef,
 ) {
 
   govuk::app { 'frontend':
     app_type               => 'rack',
     port                   => $port,
+    sentry_dsn             => $sentry_dsn,
     vhost_protected        => $vhost_protected,
     health_check_path      => '/',
     log_format_is_json     => true,
@@ -68,9 +77,16 @@ class govuk::apps::frontend(
     port => $redis_port,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'frontend',
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  Govuk::App::Envvar {
+    app => 'frontend',
+  }
+
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    "${title}-ERRBIT_API_KEY":
+        varname => 'ERRBIT_API_KEY',
+        value   => $errbit_api_key;
   }
 }

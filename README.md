@@ -108,6 +108,30 @@ this purpose.
 
     $ bundle exec rake mods=manifests,govuk
 
+### Precommit Testing
+
+This repo uses [pre-commit](http://pre-commit.com/) for managing its pre-
+commit hooks. This is available via brew:
+
+```brew install pre-commit```
+
+The pre-commit hooks are configured in the .pre-commit-config.yaml file in the
+root of this repo. To make the pre-commit hooks work you first need to install
+the pre-commit shim in your local .git/hooks directory:
+
+```pre-commit install```
+
+This will run hooks configured in `.pre-commit-config.yaml` when you run a
+`git commit` and will pass each hook the list of files staged as part of the
+commit. You can test the hooks by doing:
+
+```pre-commit run```
+
+You can also run the hooks on all files to test the status of the entire repo.
+This might be useful, for example, as part of a PR builder job:
+
+```pre-commit run --all-files```
+
 ### Node testing
 
 Some issues that span multiple classes or modules may not be picked up unit
@@ -121,6 +145,12 @@ wish to restrict it to certain classes of node by setting the environment
 variable `classes` for the rake task, e.g.
 
     $ bundle exec rake spec:nodes classes=frontend,backend
+
+#### Test Hieradata
+
+During spec tests `spec/fixtures/hiera/hiera.yaml` is used to configure hieradata which *only* uses `spec/fixtures/hieradata/common.yaml` for its values (i.e. nothing from `hieradata/`).
+
+During node tests the hieradata uses the `vagrant` and `development` environments. The `development` environment should only be used if a value in `ENV['classes']` matches the regexp `/^(development|training)$/` (i.e. in normal operation it will use `vagrant`). This can mean that settings in `common.yaml` will be overwritten in accordance with hiera's `:hierarchy`.
 
 ### Test Coverage
 

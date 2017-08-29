@@ -7,6 +7,8 @@
 class govuk::node::s_apt (
   $root_dir,
   $real_ip_header = undef,
+  $apt_service = 'apt.cluster',
+  $gemstash_service = 'gemstash.cluster',
 ) inherits govuk::node::s_base {
 
   # Only mirror our current arch to save space. This means that some
@@ -70,6 +72,10 @@ class govuk::node::s_apt (
       location => 'http://packages.elastic.co/elasticsearch/1.7/debian',
       release  => 'stable',
       key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
+    'elasticsearch-2.x':
+      location => 'http://packages.elastic.co/elasticsearch/2.x/debian',
+      release  => 'stable',
+      key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
     'grafana':
       location => 'https://packagecloud.io/grafana/stable/debian',
       release  => 'jessie',
@@ -86,6 +92,11 @@ class govuk::node::s_apt (
       location => 'https://repo.mongodb.org/apt/ubuntu',
       release  => 'trusty/mongodb-org/3.2',
       key      => 'EA312927';
+    'nodejs':
+      location => 'https://deb.nodesource.com/node_6.x',
+      release  => 'trusty',
+      repos    => ['main'],
+      key      => '68576280';
     'percona':
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
@@ -112,6 +123,7 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
+  aptly::repo { 'logstash': }
   aptly::repo { 'rbenv-ruby': }
   aptly::repo { 'rbenv-ruby-xenial':
     distribution => 'xenial',
@@ -120,10 +132,10 @@ class govuk::node::s_apt (
   aptly::repo { 'terraform': }
 
   include nginx
-  nginx::config::site { 'apt.cluster':
+  nginx::config::site { $apt_service:
     content => template('govuk/node/s_apt/apt_cluster_vhost.conf.erb'),
   }
-  nginx::config::site { 'gemstash.cluster':
+  nginx::config::site { $gemstash_service:
     content => template('govuk/node/s_apt/gemstash_cluster_vhost.conf.erb'),
   }
 

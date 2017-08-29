@@ -82,7 +82,7 @@ class govuk_mysql::server (
     'mysqld'                           => {
       'pid-file'                       => $pidfile,
       'bind-address'                   => '0.0.0.0',
-      'server_id'                      => $::mysql_server_id,
+      'server_id'                      => $::govuk_mysql_server_id,
       'innodb_file_per_table'          => $innodb_file_per_table,
       'innodb_buffer_pool_size'        => $innodb_buffer_pool_size,
       'key_buffer_size'                => $key_buffer_size,
@@ -114,7 +114,7 @@ class govuk_mysql::server (
     root_password    => $root_password,
     override_options => $mysql_config,
     purge_conf_dir   => true,
-    restart          => true,
+    restart          => false,
   }
 
   class { 'mysql::server::account_security': }

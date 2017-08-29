@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk_puppetdb::config {
-
-  $puppetdb_postgres_password = ''
+class govuk_puppetdb::config (
+  $puppetdb_postgres_password = '',
+){
 
   # We are currently leaving puppetdb-1.x on the Precise machines and
   # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
@@ -22,7 +22,16 @@ class govuk_puppetdb::config {
   # config file in /etc/puppetdb/conf.d updated.
   exec { '/usr/sbin/puppetdb-ssl-setup':
     creates => $puppetdb_ssl_setup_creates,
-    require => Class['puppet::master::generate_cert'],
+  }
+
+  if $::aws_migration {
+    Exec['/usr/sbin/puppetdb-ssl-setup'] {
+      require => Class['puppet::puppetserver::generate_cert'],
+    }
+  } else {
+    Exec['/usr/sbin/puppetdb-ssl-setup'] {
+      require => Class['puppet::master::generate_cert'],
+    }
   }
 
   # Configure Puppetdb service:

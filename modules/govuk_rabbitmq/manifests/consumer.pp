@@ -31,6 +31,12 @@
 # [*routing_key*]
 #   The routing key to create a binding for on the RabbitMQ queue.
 #
+# [*amqp_queue_2*]
+#   Optional second RabbitMQ queue name.
+#
+# [*routing_key_2*]
+#   Optional second routing key.
+#
 # [*is_test_exchange*]
 #   Whether the amqp_exchange is a test exchange (only used by the test suite).
 #   When set to true, this will create the exchange, and give the amqp_user
@@ -46,17 +52,33 @@
 #   Determines whether to create or delete the consumer.
 #   (default: present)
 #
+# [*create_queue*]
+#   Can be used to skip queue creation, which is required if a queue is declared multiple times for different users.
+#   (default: true)
+#
 define govuk_rabbitmq::consumer (
   $amqp_pass,
   $amqp_exchange,
   $amqp_queue,
   $routing_key,
+  $amqp_queue_2 = undef,
+  $routing_key_2 = undef,
   $is_test_exchange = false,
   $exchange_type = 'topic',
   $ensure = present,
+  $create_queue = true,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
   validate_re($routing_key, '^.+$', '$routing_key must be non-empty')
+  if $amqp_queue_2 {
+    validate_re($routing_key_2, '^.+$', '$routing_key_2 must be non-empty when amqp_queue_2 is set')
+  }
+
+  if $amqp_queue_2 {
+    $amqp_queue_names = "${amqp_queue}|${amqp_queue_2}"
+  } else {
+    $amqp_queue_names = $amqp_queue
+  }
 
   $amqp_user = $title
 
@@ -67,9 +89,9 @@ define govuk_rabbitmq::consumer (
       ensure => $ensure,
       type   => $exchange_type,
     }
-    $write_permission = "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})\$"
+    $write_permission = "^(amq\\.gen.*|${amqp_queue_names}|${amqp_exchange})\$"
   } else {
-    $write_permission = "^(amq\\.gen.*|${amqp_queue})\$"
+    $write_permission = "^(amq\\.gen.*|${amqp_queue_names})\$"
   }
 
   if $ensure == present {
@@ -79,38 +101,69 @@ define govuk_rabbitmq::consumer (
     } ->
     rabbitmq_user_permissions { "${amqp_user}@/":
       ensure               => present,
-      configure_permission => "^(amq\\.gen.*|${amqp_queue})\$",
+      configure_permission => "^(amq\\.gen.*|${amqp_queue_names})\$",
       write_permission     => $write_permission,
-      read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})\$",
+      read_permission      => "^(amq\\.gen.*|${amqp_queue_names}|${amqp_exchange})\$",
     }
 
-    rabbitmq_queue { "${amqp_queue}@/":
-      ensure      => present,
-      user        => 'root',
-      password    => $::govuk_rabbitmq::root_password,
-      durable     => true,
-      auto_delete => false,
-      arguments   => {},
-    } ->
-    rabbitmq_binding { "binding_${routing_key}_${amqp_exchange}@${amqp_queue}@/":
-      ensure           => present,
-      name             => "${amqp_exchange}@${amqp_queue}@/",
-      user             => 'root',
-      password         => $::govuk_rabbitmq::root_password,
-      destination_type => 'queue',
-      routing_key      => $routing_key,
-      arguments        => {},
-    }
+    if $create_queue {
+      rabbitmq_queue { "${amqp_queue}@/":
+        ensure      => present,
+        user        => 'root',
+        password    => $::govuk_rabbitmq::root_password,
+        durable     => true,
+        auto_delete => false,
+        arguments   => {},
+      } ->
+      rabbitmq_binding { "binding_${routing_key}_${amqp_exchange}@${amqp_queue}@/":
+        ensure           => present,
+        name             => "${amqp_exchange}@${amqp_queue}@/",
+        user             => 'root',
+        password         => $::govuk_rabbitmq::root_password,
+        destination_type => 'queue',
+        routing_key      => $routing_key,
+        arguments        => {},
+      }
 
+      if $amqp_queue_2 {
+        rabbitmq_queue { "${amqp_queue_2}@/":
+          ensure      => present,
+          user        => 'root',
+          password    => $::govuk_rabbitmq::root_password,
+          durable     => true,
+          auto_delete => false,
+          arguments   => {},
+        } ->
+        rabbitmq_binding { "binding_${routing_key_2}_${amqp_exchange}@${amqp_queue_2}@/":
+          ensure           => present,
+          name             => "${amqp_exchange}@${amqp_queue_2}@/",
+          user             => 'root',
+          password         => $::govuk_rabbitmq::root_password,
+          destination_type => 'queue',
+          routing_key      => $routing_key_2,
+          arguments        => {},
+        }
+      }
+    }
   } else {
     rabbitmq_user { $amqp_user:
       ensure   => absent,
     }
   }
 
-  govuk_rabbitmq::monitor_consumers {"${title}_consumer_monitoring":
-    ensure            => $ensure,
-    rabbitmq_hostname => 'localhost',
-    rabbitmq_queue    => $amqp_queue,
+  if $create_queue {
+    govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
+      ensure            => $ensure,
+      rabbitmq_hostname => 'localhost',
+      rabbitmq_queue    => $amqp_queue,
+    }
+
+    if $amqp_queue_2 {
+      govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue_2}_consumer_monitoring":
+        ensure            => $ensure,
+        rabbitmq_hostname => 'localhost',
+        rabbitmq_queue    => $amqp_queue_2,
+      }
+    }
   }
 }

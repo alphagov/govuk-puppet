@@ -6,4 +6,4 @@ else
   NAGIOS_MESSAGE="CRITICAL: Duplicity backup failed, non-zero exit code"
 fi
 
-printf "<%= @ipaddress -%>\t<%= @service_description -%>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+printf "<%= @ipaddress -%>\t<%= @service_description -%>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null

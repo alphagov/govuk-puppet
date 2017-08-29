@@ -9,6 +9,10 @@ cron::daily_hour: 6
 
 environment_ip_prefix: '10.2'
 
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::content_performance_manager::feature_auditing_allocation: true
+govuk::apps::content_performance_manager::feature_auditing_theme_filtering: false
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-staging@digital.cabinet-office.gov.uk'
@@ -218,6 +222,12 @@ hosts::production::api::hosts:
     ip: '10.2.4.33'
   performance-mongo-4:
     ip: '10.2.12.31'
+  rummager-elasticsearch-1:
+    ip: '10.2.4.55'
+  rummager-elasticsearch-2:
+    ip: '10.2.4.56'
+  rummager-elasticsearch-3:
+    ip: '10.2.4.57'
   search-1:
     ip: '10.2.4.4'
   search-2:
