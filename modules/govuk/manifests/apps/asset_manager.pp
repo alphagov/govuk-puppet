@@ -100,6 +100,11 @@ class govuk::apps::asset_manager(
         alias /var/apps/asset-manager/uploads/assets/$1;
       }
 
+      # Store values from Rails response headers for use in the
+      # cloud-storage-proxy location block below.
+      set $etag_from_rails $upstream_http_etag;
+      set $last_modified_from_rails $upstream_http_last_modified;
+
       location ~ /cloud-storage-proxy/(.*) {
         # Prevent requests to this location from outside nginx
         internal;
@@ -120,6 +125,12 @@ class govuk::apps::asset_manager(
         #
         # [1] http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
         proxy_set_header Host $proxy_host;
+
+        # Set response headers based on values stored from Rails response headers.
+        # This is so that we can keep these response headers the same as when Nginx
+        # serves the files from NFS to avoid unnecessary cache invalidation.
+        add_header ETag $etag_from_rails;
+        add_header Last-Modified $last_modified_from_rails;
 
         # Remove S3 HTTP headers listed in:
         # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
