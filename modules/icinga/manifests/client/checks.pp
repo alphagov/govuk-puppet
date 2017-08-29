@@ -135,9 +135,16 @@ class icinga::client::checks (
 
   $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
 
+  # we use disks with sd in the name in vcloud and xvd in AWS
+  if $::aws_migration {
+    $disk_prefix = 'xvd'
+  } else {
+    $disk_prefix = 'sd'
+  }
+
   @@icinga::check::graphite { "check_disk_time_${::hostname}":
     desc                       => 'high disk time',
-    target                     => "movingMedian(sum(${::fqdn_metrics}.disk-sd?.disk_time.*),${disk_time_window_points})",
+    target                     => "movingMedian(sum(${::fqdn_metrics}.disk-${disk_prefix}?.disk_time.*),${disk_time_window_points})",
     args                       => "--from ${disk_time_window_minutes}mins",
     warning                    => $disk_time_warn,
     critical                   => $disk_time_critical,
