@@ -66,6 +66,8 @@ base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_performance_manager::feature_auditing_allocation: false
 govuk::apps::content_performance_manager::feature_auditing_theme_filtering: false
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
