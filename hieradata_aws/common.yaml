@@ -365,8 +365,8 @@ govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
   - 'mongo-3'
-govuk::apps::imminence::redis_host: 'redis'
-govuk::apps::imminence::redis_port: '6379'
+govuk::apps::imminence::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::imminence::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
 
@@ -390,7 +390,7 @@ govuk::apps::need_api::mongodb_nodes:
   - 'mongo-2'
   - 'mongo-3'
 
-govuk::apps::need_api::redis_host: 'redis'
+govuk::apps::need_api::redis_host: "%{hiera('sidekiq_host')}"
 
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1
@@ -1150,7 +1150,7 @@ router::nginx::robotstxt: |
   User-agent: deepcrawl
   Disallow: /
 
-sidekiq_host: 'redis'
+sidekiq_host: 'backend-redis'
 sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
