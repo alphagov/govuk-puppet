@@ -191,6 +191,7 @@ govuk::node::s_frontend_lb::performance_frontend_apps:
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
+govuk::node::s_graphite::graphite_backup_hour: 12
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_lb::enable_feed_console: true
