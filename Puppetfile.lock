@@ -144,8 +144,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppetlabs-postgresql.git
-  ref: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
-  sha: 1cbab4bdf0401fd5c3139ced8347ac4f220e4bcf
+  ref: 5a49c3476172cb603f0dae29a95afa3f3712d78c
+  sha: 5a49c3476172cb603f0dae29a95afa3f3712d78c
   specs:
     puppetlabs-postgresql (4.8.0)
       puppetlabs-apt (< 3.0.0, >= 1.8.0)
