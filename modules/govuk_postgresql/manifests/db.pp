@@ -67,7 +67,7 @@ define govuk_postgresql::db (
     $backend_ip_range        = undef,
     $ssl_only                = false,
     $rds                     = false,
-    $rds_root_user           = 'changeme2',
+    $rds_root_user           = 'aws_db_admin',
 ) {
 
     if ($database == undef) {
