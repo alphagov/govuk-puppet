@@ -13,10 +13,16 @@
 # [*denied_ip_addresses*]
 #   An array of IP addresses that Nginx should prevent from accessing this machine.
 #
+# [*stack_network_prefix*]
+#   This is only used in AWS. This adds a resolver so that nginx refreshes resolved addresses
+#   from DNS if an upstream lookup fails. This is the prefix address defined for a VPC.
+#
 class nginx::config (
   $server_names_hash_max_size,
   $variables_hash_max_size = 1024,
-  $denied_ip_addresses) {
+  $denied_ip_addresses,
+  $stack_network_prefix = '10.1.0',
+) {
 
   file { '/etc/nginx':
     ensure  => directory,
