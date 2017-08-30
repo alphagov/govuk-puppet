@@ -6,6 +6,7 @@
 #
 # [*graphite_path*]
 #   Path to the installation of Graphite.
+#
 # [*graphite_backup_hour*]
 #   Hour of the day to run the backup crons.
 #
