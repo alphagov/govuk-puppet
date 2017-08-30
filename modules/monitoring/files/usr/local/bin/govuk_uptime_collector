@@ -1,0 +1,71 @@
+#!/usr/bin/env ruby
+
+# Usage: govuk_uptime_collector <environment> <service ...>
+
+require "csv"
+require "fileutils"
+require "net/http"
+require "time"
+require "statsd"
+
+class Collector
+  def initialize(service_name, environment)
+    @statsd = Statsd.new("127.0.0.1")
+    @service_name = service_name
+    @environment = environment
+  end
+
+  def call
+    while true
+      send_to_statsd(check_service_up)
+      sleep 5
+    end
+  end
+
+private
+
+  attr_reader :statsd, :service_name, :environment
+
+  def healthcheck_uri
+    @healthcheck_uri ||= begin
+      prefix = environment == "production" ? "#{service_name}" : "#{service_name}.#{environment}"
+      URI("https://#{prefix}.publishing.service.gov.uk/healthcheck")
+    end
+  end
+
+  def check_service_up
+    http = Net::HTTP.new(healthcheck_uri.host, healthcheck_uri.port)
+    http.use_ssl = true
+    http.read_timeout = 20
+
+    request = Net::HTTP::Head.new(healthcheck_uri.request_uri)
+    res = http.request(request)
+
+    status_code = res.code.to_i
+    (200..299).include?(res.code.to_i)
+  end
+
+  def statsd_key
+    @statsd_key ||= "uptime.#{service_name}"
+  end
+
+  def send_to_statsd(status)
+    statsd.gauge(statsd_key, status ? 1 : 0)
+  end
+end
+
+def main
+  threads = []
+
+  environment = ARGV[0]
+
+  ARGV[1..-1].each do |service_name|
+    threads << Thread.new do
+      Collector.new(service_name, environment).call
+    end
+  end
+
+  threads.each(&:join)
+end
+
+main
