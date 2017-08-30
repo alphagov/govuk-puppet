@@ -27,6 +27,9 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # Legacy, used everywhere.
     'app_domain',
 
+    # Used in AWS, will be used everywhere eventually ;)
+    'app_domain_internal',
+
     # disk noops due to defined classes not doing magical hiera lookups
     'govuk_mount::no_op',
     'govuk_lvm::no_op',
