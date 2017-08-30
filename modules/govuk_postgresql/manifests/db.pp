@@ -119,7 +119,7 @@ define govuk_postgresql::db (
         tag      => 'govuk_postgresql::server::not_slave',
     }
 
-    if ! $::aws_migration {
+    if ! $rds {
       validate_array($extensions)
       if (!empty($extensions)) {
           $temp_extensions = prefix($extensions,"${db_name}:")
