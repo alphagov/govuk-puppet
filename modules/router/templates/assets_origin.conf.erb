@@ -41,13 +41,13 @@ server {
   <%- @asset_routes.each do |alias_path, vhost_name| -%>
   location <%= alias_path %> {
     proxy_set_header Host <%= vhost_name %>.<%= @app_domain %>;
-    proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
   }
 
   <%- end -%>
 
   location / {
     proxy_set_header Host static.<%= @app_domain %>;
-    proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   }
 }
