@@ -6,10 +6,12 @@
 #
 # [*graphite_path*]
 #   Path to the installation of Graphite.
+# [*graphite_backup_hour*]
+#   Hour of the day to run the backup crons.
 #
 class govuk::node::s_graphite (
   $graphite_path = '/opt/graphite',
-  $graphite_backup_hour = '23',
+  $graphite_backup_hour = 23,
 ) inherits govuk::node::s_base {
   class { 'graphite':
     version                    => '0.9.13',
