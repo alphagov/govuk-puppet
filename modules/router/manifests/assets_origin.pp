@@ -28,6 +28,12 @@ class router::assets_origin(
   $app_domain = hiera('app_domain')
   $enable_ssl = hiera('nginx_enable_ssl', true)
 
+  if $::aws_migration {
+    $upstream_ssl = true
+  } else {
+    $upstream_ssl = $enable_ssl
+  }
+
   # suspect we want `protected => false` here
   # once appropriate firewalling is in place?
   nginx::config::site { $vhost_name:
