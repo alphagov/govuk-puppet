@@ -11,6 +11,14 @@
 class monitoring::uptime_collector (
   $environment = '',
 ) {
+  exec { 'install statsd into 2.3 rbenv':
+    environment => 'RBENV_VERSION=2.3',
+    path        => ['/usr/lib/rbenv/shims', '/usr/local/bin', '/usr/bin', '/bin'],
+    command     => 'gem install statsd-ruby',
+    unless      => 'gem list -i statsd-ruby',
+    notify      => Service['govuk-uptime-collector'],
+  }
+
   file { '/usr/local/bin/govuk_uptime_collector':
     source => 'puppet:///modules/monitoring/usr/local/bin/govuk_uptime_collector',
     mode   => '0755',
