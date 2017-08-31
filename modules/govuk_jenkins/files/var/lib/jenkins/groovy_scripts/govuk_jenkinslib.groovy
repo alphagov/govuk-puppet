@@ -237,6 +237,13 @@ def buildProject(Map options = [:]) {
           pushTag(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
         }
 
+        stage("Push to Gitlab") {
+          try {
+            pushToMirror(repoName, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+          } catch (e) {
+          }
+        }
+
         if (hasDockerfile()) {
           stage("Tag Docker image") {
             dockerTag = options.newStyleDockerTags ?
@@ -572,6 +579,20 @@ def pushTag(String repository, String branch, String tag) {
     }
   } else {
     echo 'No tagging on branch'
+  }
+}
+
+def pushToMirror(String repository, String branch, String tag) {
+  if (branch == 'master'){
+    withCredentials([string(credentialsId: 'gitlab-govuk-ci', variable: 'TOKEN')]) {
+      mirrorUrl = "https://govuk-ci:$TOKEN@gitlab.com/govuk/${repository}.git"
+
+      echo 'Pushing master branch to Gitlab'
+      sh("git push ${mirrorUrl} HEAD:refs/heads/${branch} --force")
+
+      echo 'Pushing tag to Gitlab'
+      sh("git push ${mirrorUrl} ${tag}")
+    }
   }
 }
 
