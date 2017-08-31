@@ -27,7 +27,6 @@ server {
   include             /etc/nginx/ssl.conf;
   <%- else %>
   listen 80;
-  proxy_set_header Host $http_host;
   <%- end %>
 
   include             /etc/nginx/router_include.conf;
@@ -42,7 +41,6 @@ server {
   include             /etc/nginx/ssl.conf;
   <%- else %>
   listen 80;
-  proxy_set_header Host $http_host;
   <%- end %>
 
   include             /etc/nginx/router_include.conf;
