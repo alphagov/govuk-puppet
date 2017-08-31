@@ -1,4 +1,6 @@
 app_domain: 'environment.example.com'
+app_domain_internal: 'dev.govuk-internal.digital'
+
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
 collectd::plugin::postgresql::password: 'password'

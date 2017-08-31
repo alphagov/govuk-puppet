@@ -118,9 +118,11 @@ define nginx::config::vhost::proxy(
     # We want to add the internal version of the domain everywhere in AWS,
     # but when this defined type is called the external domain name is appended.
     # We want the plain app name, which we can then add in the template.
-    $app_name = regsubst($name, '^(.*?)\.', '')
-    $app_domain_internal = hiera('app_domain_internal')
-    $name_internal = "${app_name}.${app_domain_internal}"
+    if $name =~ /\.(.*)/ {
+      $app_name = regsubst($name, '\.(.*)', '')
+      $app_domain_internal = hiera('app_domain_internal')
+      $name_internal = "${app_name}.${app_domain_internal}"
+    }
   }
 
   nginx::config::ssl { $name:

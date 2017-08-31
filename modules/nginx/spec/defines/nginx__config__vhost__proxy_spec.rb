@@ -49,6 +49,39 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'if in aws and passed full domain name' do
+    let(:title) { 'rabbit.dev.govuk.digital' }
+
+    let(:params) {{
+      :to => ['a.internal'],
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should add the internal domain name by stripping the external domain name' do
+      is_expected.to contain_nginx__config__site('rabbit.dev.govuk.digital')
+        .with_content(/server_name rabbit.dev.govuk.digital rabbit.dev.govuk-internal.digital/)
+    end
+  end
+
+  context 'if in aws and not passed full domain name' do
+    let(:title) { 'rabbit' }
+
+    let(:params) {{
+      :to => ['a.internal'],
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should not add the internal domain name' do
+      is_expected.not_to contain_nginx__config__site('rabbit')
+        .with_content(/rabbit.dev.govuk-internal.digital/)
+    end
+  end
   context 'with to_ssl true' do
     let(:params) {{
       :to     => ['a.internal', 'b.internal', 'c.internal'],
