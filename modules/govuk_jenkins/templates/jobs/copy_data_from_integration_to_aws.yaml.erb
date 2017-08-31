@@ -23,12 +23,12 @@
               PARALLEL_JOBS=2
         - slack:
             # TODO: re-enable notifications
-            notify-start: false
-            notify-success: false
+            notify-start: true
+            notify-success: true
             notify-aborted: false
             notify-notbuilt: false
             notify-unstable: false
-            notify-failure: false
+            notify-failure: true
             notify-backtonormal: false
             notify-repeatedfailure: false
             include-test-summary: false
@@ -37,7 +37,7 @@
     logrotate:
         numToKeep: 10
     triggers:
-        - timed: 'H 4 * * 1-5'
+        - timed: 'H 7 * * 1-5'
     builders:
         - shell: |
             set -eu
@@ -84,12 +84,9 @@
                 - elasticsearch-api
                 - elasticsearch-rummager
                 - mongo-api
-                - mongo-exceptions
-                - mongo-licensify
                 - mongo-normal
                 - mongo-router
                 - mysql-normal
                 - mysql-whitehall
                 - postgresql-api
                 - postgresql-backend
-                - postgresql-transition
