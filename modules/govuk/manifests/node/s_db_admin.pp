@@ -59,9 +59,6 @@ class govuk::node::s_db_admin(
   # Ensure the client class is installed
   class { '::govuk_postgresql::client': } ->
 
-  # We want to grab the env-sync user
-  class { '::govuk_postgresql::env_sync_user': } ->
-
   # include all PostgreSQL classes that create databases and users
   class { '::govuk::apps::content_performance_manager::db': } ->
   class { '::govuk::apps::content_tagger::db': } ->
