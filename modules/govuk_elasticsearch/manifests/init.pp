@@ -148,7 +148,7 @@ class govuk_elasticsearch (
     $instance_config_real = merge($instance_config, {
       'action.destructive_requires_name' => true,
       'script.engine.groovy.inline.search' => true,
-      'index.max_result_window' => 1_000_000 # This will potentially create memory issues however is required until ES 5 when search_after is introduced
+      'index.max_result_window' => 1000000 # This will potentially create memory issues however is required until ES 5 when search_after is introduced
     })
   } else {
     # 1.4.3 introduced this setting and set it to false by default
