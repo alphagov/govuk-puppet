@@ -7,9 +7,20 @@ class govuk::apps::publicapi (
 
   $app_domain = hiera('app_domain')
 
-  $whitehallapi = "whitehall-frontend.${app_domain}"
-  $rummager_api = "search.${app_domain}"
-  $content_store_api = "content-store.${app_domain}"
+  if $::aws_migration {
+    # In AWS the upstream should use the internal domain. The nginx server_name
+    # directive automatically gets assigned the internal domain by the
+    # nginx::config::vhost::proxy defined type.
+    $app_domain_internal = hiera('app_domain_internal')
+
+    $whitehallapi = "whitehall-frontend.${app_domain_internal}"
+    $rummager_api = "search.${app_domain_internal}"
+    $content_store_api = "content-store.${app_domain_internal}"
+  } else {
+    $whitehallapi = "whitehall-frontend.${app_domain}"
+    $rummager_api = "search.${app_domain}"
+    $content_store_api = "content-store.${app_domain}"
+  }
 
   $backdrop_url = "${backdrop_protocol}://${backdrop_host}"
 
