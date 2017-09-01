@@ -15,7 +15,8 @@ class govuk::apps::publicapi (
 
     $whitehallapi = "whitehall-frontend.${app_domain_internal}"
     $rummager_api = "search.${app_domain_internal}"
-    $content_store_api = "content-store.${app_domain_internal}"
+    # Content Store is always public
+    $content_store_api = "content-store.${app_domain}"
   } else {
     $whitehallapi = "whitehall-frontend.${app_domain}"
     $rummager_api = "search.${app_domain}"
