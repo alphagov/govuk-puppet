@@ -14,12 +14,13 @@ import urllib2
 import boto3
 
 stackname = '<%= @aws_stackname -%>'
+region = '<%= @aws_region -%>'
 
 def commasep_callback(option, opt, value, parser):
     setattr(parser.values, option.dest, value.split(','))
 
 def ec2_nodes(stackname, nodeclass=None):
-    client = boto3.client('ec2')
+    client = boto3.client('ec2', region_name=region)
 
     if nodeclass:
         response = client.describe_instances(
