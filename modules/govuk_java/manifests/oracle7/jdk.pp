@@ -20,7 +20,7 @@ class govuk_java::oracle7::jdk ( $ensure = present ) {
     }
 
     exec { 'download-oracle-java7':
-      command => '/usr/bin/curl -o jdk-7u9-linux-x64.tar.gz https://gds-public-readable-tarballs.s3.amazonaws.com/jdk-7u9-linux-x64.tar.gz',
+      command => '/usr/bin/curl -o jdk-7u9-linux-x64.tar.gz https://gds-public-readable-tarballs.s3-eu-west-1.amazonaws.com/jdk-7u9-linux-x64.tar.gz',
       cwd     => '/var/cache/oracle-jdk7-installer',
       require => Package['curl'],
       timeout => 3600,
