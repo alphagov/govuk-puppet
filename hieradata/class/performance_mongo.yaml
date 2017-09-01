@@ -8,7 +8,9 @@ lv:
     pv: '/dev/sdb1'
     vg: 'backup'
   data:
-    pv: '/dev/sdc1'
+    pv:
+      - '/dev/sdc1'
+      - '/dev/sde1'
     vg: 'mongodb'
   s3backups:
     pv: '/dev/sdd1'
