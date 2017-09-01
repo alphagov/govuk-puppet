@@ -19,7 +19,9 @@ class govuk::node::s_logging (
       port => 514;
   }
 
-  include govuk_java::oracle7::jre
+  class { '::govuk_java::oracle':
+    version => 7,
+  }
   # TODO: this should really be done with a package.
 
   apt::source { 'logstash':
@@ -33,7 +35,7 @@ class govuk::node::s_logging (
     ensure  => installed,
     require => [
       Apt::Source['logstash'],
-      Class['govuk_java::oracle7::jre'],
+      Class['govuk_java::oracle'],
     ],
   }
 

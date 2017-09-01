@@ -31,7 +31,6 @@ class govuk_ci::agent(
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
   include ::govuk_ci::vpn
-  include ::govuk_java::oracle8
   include ::govuk_jenkins::github_enterprise_cert
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::pipeline
@@ -39,6 +38,10 @@ class govuk_ci::agent(
   include ::govuk_rbenv::all
   include ::govuk_sysdig
   include ::govuk_testing_tools
+
+  class { '::govuk_java::oracle':
+    version => 8,
+  }
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {
