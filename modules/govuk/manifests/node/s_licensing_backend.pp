@@ -5,7 +5,9 @@
 class govuk::node::s_licensing_backend inherits govuk::node::s_base {
   include clamav
 
-  include govuk_java::oracle8
+  class { '::govuk_java::oracle':
+    version => 8,
+  }
 
   include licensify::apps::licensify_admin
   include licensify::apps::licensify_feed
