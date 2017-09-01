@@ -49,5 +49,6 @@ class govuk_docker::logspout (
     check_command       => 'check_nrpe!check_proc_running!logspout',
     service_description => 'logspout running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(logspout-running),
   }
 }
