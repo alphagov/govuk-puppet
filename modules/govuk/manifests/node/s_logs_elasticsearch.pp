@@ -25,6 +25,13 @@ class govuk::node::s_logs_elasticsearch(
 
   if $::aws_migration {
     $aws_cluster_name = "logs-elasticsearch-${::aws_stackname}"
+
+    # Traditionally the logs-redis instances exported their resource to create
+    # the river configuration. In AWS we use elasticache so cannot perform this
+    # function, but the redis name is defined by DNS so can be hardcoded in a template.
+    govuk_elasticsearch::river { "logging-${::hostname}":
+      content => template('govuk/node/s_logs_elasticsearch/redis_river_aws.json.erb'),
+    }
   }
 
   $es_heap_size = floor($::memorysize_mb / 2)
@@ -76,7 +83,9 @@ class govuk::node::s_logs_elasticsearch(
 
   # Collect all govuk_elasticsearch::river resources exported by the environment's
   # redis machines.
-  Govuk_elasticsearch::River <<| tag == 'logging' |>>
+  unless $::aws_migration {
+    Govuk_elasticsearch::River <<| tag == 'logging' |>>
+  }
 
   file { '/usr/local/bin/es-rotate-passive-check':
     ensure  => present,
