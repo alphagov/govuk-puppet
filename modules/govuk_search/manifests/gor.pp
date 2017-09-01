@@ -32,7 +32,7 @@ class govuk_search::gor (
       mode   => '0755',
     }
 
-    @logrotate::conf { "govuk-${title}":
+    @logrotate::conf { 'govuk_search__gor__logs':
       ensure  => $enabled,
       matches => "${output_path}/*.log",
     }
