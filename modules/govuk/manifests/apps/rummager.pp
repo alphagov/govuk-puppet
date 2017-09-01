@@ -158,4 +158,11 @@ class govuk::apps::rummager(
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
   }
+
+  if $::aws_migration {
+    govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
+      varname => 'ELASTICSEARCH_URI',
+      value   => 'http://elasticsearch:9200',
+    }
+  }
 }

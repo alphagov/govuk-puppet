@@ -26,7 +26,14 @@ class govuk::node::s_api_elasticsearch inherits govuk::node::s_base {
     aws_cluster_name       => $aws_cluster_name,
   }
 
-  unless $::aws_migration {
+  if $::aws_migration {
+
+    @ufw::allow { 'allow-elasticsearch-http-9200':
+      port => 9200,
+    }
+
+  } else {
+
     @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
       port    => 9200,
       from    => getparam(Govuk_host['search-1'], 'ip'),
