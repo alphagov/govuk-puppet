@@ -4,6 +4,7 @@
 #
 class govuk::node::s_search inherits govuk::node::s_base {
   include govuk::node::s_app_server
+  include govuk_search::gor
 
   include nginx
 
