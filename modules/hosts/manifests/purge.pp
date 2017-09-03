@@ -16,6 +16,8 @@ class hosts::purge {
   # eg hosts that are only present in AWS
   $whitelist = [
     'db-admin-1',
+    'docker-worker-frontend-1',
+    'docker-manager-frontend-1',
   ]
 
   if ! ($::hostname in $whitelist) {

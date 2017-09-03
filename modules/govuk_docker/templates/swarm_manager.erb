@@ -1,0 +1,47 @@
+#!/bin/bash
+#
+# Lightweight wrapper for dynamically creating a new cluster as manager role
+#
+export ETCDCTL_API=3
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+CLUSTER_NAME=$1
+ETCD_ENDPOINTS="etcd:2379"
+ETCDCTL_BIN="/usr/local/bin/etcdctl --endpoints=${ETCD_ENDPOINTS}"
+
+if [[ -z $CLUSTER_NAME ]]; then
+  echo "Must set cluster name"
+  exit 1
+fi
+
+CLUSTER_WORKER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/worker/token)
+CLUSTER_MANAGER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/manager/token)
+CLUSTER_MANAGER_IP=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/manager/ip)
+
+if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
+
+  echo "Checking for active manager elsewhere"
+  # If there is a manager IP being returned, see if the cluster is available to join
+  if [[ $CLUSTER_MANAGER_IP != "" ]]; then
+    echo "Joining cluster $CLUSTER_NAME"
+    docker swarm join \
+      --token $CLUSTER_WORKER_TOKEN \
+      $CLUSTER_MANAGER_IP:2377
+
+    if [[ $? == 0 ]]; then
+      exit 0
+    else
+      echo "No cluster available to join"
+    fi
+  else
+    echo "Creating cluster ${CLUSTER_NAME}"
+    docker swarm init \
+      --advertise-addr=$(hostname -i)
+
+    WORKER_TOKEN=$(docker swarm join-token worker -q)
+    MANAGER_TOKEN=$(docker swarm join-token manager -q)
+
+    $ETCDCTL_BIN put $CLUSTER_NAME/manager/ip $(hostname -i)
+    $ETCDCTL_BIN put $CLUSTER_NAME/manager/token $MANAGER_TOKEN
+    $ETCDCTL_BIN put $CLUSTER_NAME/worker/token $WORKER_TOKEN
+  fi
+fi

@@ -80,7 +80,7 @@ deployable_applications: &deployable_applications
   travel-advice-publisher: {}
   whitehall: {}
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
@@ -538,6 +538,8 @@ govuk::node::s_backend_lb::errbit_servers:
   - 'exception-handler'
 
 govuk::node::s_base::log_remote: false
+
+govuk::node::s_docker_base::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
