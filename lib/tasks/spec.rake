@@ -27,6 +27,7 @@ namespace :spec do
       app_server
       asset_base
       base
+      docker_base
       postgresql_base
       redis_base
       transition_postgresql_base

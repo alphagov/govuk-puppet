@@ -1,0 +1,26 @@
+#!/bin/bash
+#
+# Lightweight wrapper for dynamically managing a Docker Swarm worker
+#
+set -e
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+export ETCDCTL_API=3
+CLUSTER_NAME=$1
+ETCD_ENDPOINTS="etcd:2379"
+ETCDCTL_BIN="/usr/local/bin/etcdctl --endpoints=${ETCD_ENDPOINTS}"
+
+if [[ -z $CLUSTER_NAME ]]; then
+  echo "Must set cluster name"
+  exit 1
+fi
+
+CLUSTER_WORKER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/worker/token)
+CLUSTER_MANAGER_IP=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/manager/ip)
+
+if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
+  echo "Joining cluster ${CLUSTER_NAME}"
+  echo "Manager IP: ${CLUSTER_MANAGER_IP}"
+  docker swarm join \
+    --token $CLUSTER_WORKER_TOKEN \
+    $CLUSTER_MANAGER_IP:2377
+fi
