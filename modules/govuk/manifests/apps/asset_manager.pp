@@ -76,6 +76,8 @@ class govuk::apps::asset_manager(
       app => $app_name,
     }
 
+    $deny_framing = true
+
     $nginx_extra_config = inline_template('
       client_max_body_size 500m;
 
@@ -164,7 +166,7 @@ class govuk::apps::asset_manager(
       health_check_path  => '/healthcheck',
       vhost_aliases      => ['private-asset-manager'],
       log_format_is_json => true,
-      deny_framing       => true,
+      deny_framing       => $deny_framing,
       depends_on_nfs     => true,
       nginx_extra_config => $nginx_extra_config,
     }
