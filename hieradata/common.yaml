@@ -2,6 +2,7 @@
 HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
+app_domain_internal: 'dev.gov.uk'
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
