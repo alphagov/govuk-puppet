@@ -10,9 +10,9 @@ govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1'
   - 'router-backend-2'
   - 'router-backend-3'
-govuk::apps::router_api::router_nodes:
-  - 'draft-cache-1:3055'
-  - 'draft-cache-2:3055'
+
+govuk::apps::router_api::router_nodes_class: 'draft_cache'
+
 govuk::apps::router_api::vhost: 'draft-router-api'
 
 govuk::node::s_base::apps:

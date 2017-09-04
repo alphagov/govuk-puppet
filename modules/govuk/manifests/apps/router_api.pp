@@ -31,15 +31,20 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*router_nodes_class*]
+#   The class or classes of machine that run router that require reloading
+#   after app deployment. Acceptable formats are "cache" or "cache,draft_cache"
+
 class govuk::apps::router_api(
   $port = '3056',
   $mongodb_name,
   $mongodb_nodes,
-  $router_nodes,
+  $router_nodes = [],
   $vhost = 'router-api',
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $errbit_api_key = undef,
+  $router_nodes_class = undef,
 ) {
   $app_name = 'router-api'
 
@@ -77,6 +82,27 @@ class govuk::apps::router_api(
     govuk::app::envvar { "${title}-ROUTER_NODES":
       varname => 'ROUTER_NODES',
       value   => join($router_nodes, ','),
+    }
+  }
+
+  # Set up a cron job which outputs the current nodes for a specific machine class.
+  # The file can then be read in by router-api to publish routes for those nodes.
+  if $::aws_migration {
+    if $router_nodes_class {
+      $router_port = '3055'
+      $router_nodes_file = '/etc/router_nodes'
+
+      cron::crondotdee { 'update-router-nodes':
+        command => "/usr/local/bin/govuk_node_list -c ${router_nodes_class} | sed 's/$/:${router_port}/g' > ${router_nodes_file}",
+        hour    => '*',
+        minute  => '*/5',
+        mailto  => '""',
+      }
+
+      govuk::app::envvar { "${title}-ROUTER_NODES_FILE":
+        varname => 'ROUTER_NODES_FILE',
+        value   => $router_nodes_file,
+      }
     }
   }
 }
