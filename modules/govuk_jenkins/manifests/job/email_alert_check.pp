@@ -15,9 +15,12 @@
 #
 # [*emails_that_should_receive_drug_alerts*]
 #   Email addresses subscribed to drug alerts.
-
+#
 # [*emails_that_should_receive_travel_advice_alerts*]
 #   Email addresses subscribed to travel advice alerts.
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
 #
 class govuk_jenkins::job::email_alert_check (
   $google_oauth_credentials = undef,
@@ -27,6 +30,7 @@ class govuk_jenkins::job::email_alert_check (
   $emails_that_should_receive_travel_advice_alerts = undef,
   $errbit_api_key = undef,
   $app_domain = hiera('app_domain'),
+  $sentry_dsn = undef,
 ) {
 
   $drug_check_name = 'email_alert_check'
