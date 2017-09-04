@@ -132,6 +132,7 @@ class govuk::apps::asset_manager(
         add_header Last-Modified $last_modified_from_rails;
         add_header Content-Type $content_type_from_rails;
 
+        <%- if @deny_framing -%>
         # Avoid the asset being embedded in other pages[1]
         # This header is already set in the outer virtual host config but the
         # presence of additional `add_header` calls in this `location` block
@@ -139,6 +140,7 @@ class govuk::apps::asset_manager(
         # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
         # [2]: http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header
         add_header X-Frame-Options DENY;
+        <%- end -%>
 
         # Remove S3 HTTP headers listed in:
         # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
