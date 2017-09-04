@@ -329,6 +329,8 @@ govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::whitehall::procfile_worker_process_count: 2
 
+govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
+
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"
 # FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
@@ -439,6 +441,7 @@ govuk::apps::search_admin::db_username: 'search_admin'
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
+govuk::apps::service_manual_publisher::db_hostname: 'postgresql-primary'
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 

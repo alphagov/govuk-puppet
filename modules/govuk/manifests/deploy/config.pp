@@ -91,4 +91,16 @@ class govuk::deploy::config(
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
   }
+
+  # TODO: Set some internal services specifically before we've figured out
+  # how to entirely use internal domains
+  if $::aws_migration {
+    $app_domain_internal = hiera('app_domain_internal')
+
+    govuk_envvar {
+      'PLEK_SERVICE_RUMMAGER_URI': value => "https://rummager.${app_domain_internal}";
+      'PLEK_SERVICE_SEARCH_URI': value   => "https://search.${app_domain_internal}";
+    }
+
+  }
 }

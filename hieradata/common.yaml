@@ -2,6 +2,7 @@
 HIERA_SAFETY_CHECK: true
 
 app_domain: 'dev.gov.uk'
+app_domain_internal: 'dev.gov.uk'
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
@@ -317,6 +318,8 @@ govuk::apps::whitehall::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::whitehall::procfile_worker_process_count: 2
+
+govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
 
 govuk::apps::govuk_crawler_worker::airbrake_endpoint: "https://errbit.%{hiera('app_domain')}/notifier_api/v2/notices"
 govuk::apps::govuk_crawler_worker::airbrake_env: "%{hiera('govuk::deploy::config::errbit_environment_name')}"

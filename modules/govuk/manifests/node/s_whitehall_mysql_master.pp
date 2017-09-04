@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-#  [*whitehall_fe_password*]
-#    Password for a MySQL account called `whitehall_fe`.
-#
 #  [*aws_access_key_id*]
 #    AWS access key ID for the S3 bucket
 #
@@ -20,7 +17,6 @@
 #    Encryption key that decrypts the backup
 #
 class govuk::node::s_whitehall_mysql_master (
-  $whitehall_fe_password = '',
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $s3_bucket_name = undef,
@@ -38,13 +34,6 @@ class govuk::node::s_whitehall_mysql_master (
   }
 
   class {'govuk::apps::whitehall::db': require => Class['govuk_mysql::server'] }
-
-  govuk_mysql::user { 'whitehall_fe@%':
-    password_hash => mysql_password($whitehall_fe_password),
-    table         => 'whitehall_production.*',
-    privileges    => ['SELECT'],
-    require       => Class['govuk::apps::whitehall::db'],
-  }
 
   collectd::plugin::tcpconn { 'mysql':
     incoming => 3306,
