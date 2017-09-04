@@ -76,7 +76,7 @@ class govuk::apps::asset_manager(
       app => $app_name,
     }
 
-    $nginx_extra_config = '
+    $nginx_extra_config = inline_template('
       client_max_body_size 500m;
 
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
@@ -154,7 +154,7 @@ class govuk::apps::asset_manager(
         # Download the file and send it to client
         proxy_pass $download_url;
       }
-    '
+    ')
 
     govuk::app { $app_name:
       app_type           => 'rack',
