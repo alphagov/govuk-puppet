@@ -15,6 +15,9 @@
 # [*output_path*]
 #   File location for files to be saved to.
 #
+#   If the output path contains an `_` then either the filename need to end in an `_`
+#   or output-file-append needs to be set to true for the filename generation to work
+#   as expected.
 class govuk_search::gor (
   $output_path = '/var/log/gor_dump',
   $enabled = false
@@ -32,8 +35,7 @@ class govuk_search::gor (
       mode   => '0755',
     }
 
-    @logrotate::conf { 'govuk_search__gor__logs':
-      ensure  => $enabled,
+    @logrotate::conf { 'govuk_search_logs':
       matches => "${output_path}/*.log",
     }
 
@@ -43,6 +45,7 @@ class govuk_search::gor (
       args    => {
         '-input-raw'          => ':3009',
         '-output-file'        => $output_file,
+        '-output-file-append' => true,
         '-http-allow-method'  => ['POST', 'DELETE'],
         '-http-original-host' => '',
       },
