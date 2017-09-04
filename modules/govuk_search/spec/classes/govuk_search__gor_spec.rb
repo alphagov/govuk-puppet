@@ -3,7 +3,8 @@ require_relative '../../../../spec_helper'
 describe 'govuk_search::gor', :type => :class do
   let(:args_default) {{
     '-input-raw'          => ':3009',
-    '-http-allow-method' => %w{POST DELETE},
+    '-output-file-append' => true,
+    '-http-allow-method'  => %w{POST DELETE},
     '-http-original-host' => '',
   }}
 
