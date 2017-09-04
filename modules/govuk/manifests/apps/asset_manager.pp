@@ -76,17 +76,7 @@ class govuk::apps::asset_manager(
       app => $app_name,
     }
 
-    govuk::app { $app_name:
-      app_type           => 'rack',
-      port               => $port,
-      sentry_dsn         => $sentry_dsn,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      vhost_aliases      => ['private-asset-manager'],
-      log_format_is_json => true,
-      deny_framing       => true,
-      depends_on_nfs     => true,
-      nginx_extra_config => '
+    $nginx_extra_config = '
       client_max_body_size 500m;
 
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
@@ -164,7 +154,19 @@ class govuk::apps::asset_manager(
         # Download the file and send it to client
         proxy_pass $download_url;
       }
-      ',
+    '
+
+    govuk::app { $app_name:
+      app_type           => 'rack',
+      port               => $port,
+      sentry_dsn         => $sentry_dsn,
+      vhost_ssl_only     => true,
+      health_check_path  => '/healthcheck',
+      vhost_aliases      => ['private-asset-manager'],
+      log_format_is_json => true,
+      deny_framing       => true,
+      depends_on_nfs     => true,
+      nginx_extra_config => $nginx_extra_config,
     }
 
     govuk::app::envvar {
