@@ -29,7 +29,7 @@ class govuk_postgresql::server (
     $snakeoil_ssl_key,
     $listen_addresses = '*',
     $configure_env_sync_user = false,
-    $max_connections = 100,
+    $max_connections = 200,
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
