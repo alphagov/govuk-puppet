@@ -67,7 +67,6 @@ govuk::node::s_base::apps:
   - need_api
   - policy_publisher
   - publisher
-  - publishing_api
   - release
   - search_admin
   - service_manual_publisher
