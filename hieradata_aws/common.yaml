@@ -60,7 +60,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  metadata-api: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
   policy-publisher: {}
@@ -383,7 +382,6 @@ govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::mapit::enabled: true
-govuk::apps::metadata_api::enabled: true
 
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1
@@ -928,10 +926,6 @@ grafana::dashboards::deployment_applications:
     show_slow_requests: false
   maslow:
     # Very low usage
-    show_controller_errors: false
-    show_slow_requests: false
-  metadata-api:
-    # status instead of @fields.status, missing duration, controller
     show_controller_errors: false
     show_slow_requests: false
   publisher:

@@ -53,7 +53,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  metadata-api: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
   policy-publisher: {}
@@ -372,7 +371,6 @@ govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::mapit::enabled: true
-govuk::apps::metadata_api::enabled: true
 
 govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
 
@@ -927,10 +925,6 @@ grafana::dashboards::deployment_applications:
     # Very low usage
     show_controller_errors: false
     show_slow_requests: false
-  metadata-api:
-    # status instead of @fields.status, missing duration, controller
-    show_controller_errors: false
-    show_slow_requests: false
   publisher:
     has_workers: true
   publishing-api:
@@ -1052,7 +1046,6 @@ hosts::production::api::app_hostnames:
   - 'backdrop-write'
   - 'content-store'
   - 'mapit'
-  - 'metadata-api'
   - 'rummager'
   - 'search'
   - 'stagecraft'
