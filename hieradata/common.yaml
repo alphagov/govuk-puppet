@@ -1052,7 +1052,6 @@ hosts::production::api::app_hostnames:
   - 'backdrop-write'
   - 'content-store'
   - 'mapit'
-  - 'metadata-api'
   - 'rummager'
   - 'search'
   - 'stagecraft'
