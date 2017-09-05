@@ -372,7 +372,6 @@ govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::mapit::enabled: true
-govuk::apps::metadata_api::enabled: true
 
 govuk::apps::need_api::elasticsearch_hosts: 'api-elasticsearch-1.api:9200'
 
