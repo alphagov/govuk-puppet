@@ -205,6 +205,11 @@ class govuk::node::s_asset_base (
     mode    => '0755',
   }
 
+  file { '/var/run/virus_scan':
+    ensure => directory,
+    owner  => 'assets',
+  }
+
   if $s3_bucket {
 
     package { 's3cmd':
@@ -237,11 +242,6 @@ class govuk::node::s_asset_base (
       owner   => 'assets',
       group   => 'assets',
       mode    => '0640';
-    }
-
-    file { '/var/run/virus_scan':
-      ensure => directory,
-      owner  => 'assets',
     }
 
     if $s3_env_sync_enabled {
