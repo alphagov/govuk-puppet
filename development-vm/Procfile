@@ -89,6 +89,7 @@ service-manual:        govuk_setenv service-manual        ./run_in.sh ../../gove
 # collections-api used port3084
 info-frontend:         govuk_setenv info-frontend         ./run_in.sh ../../info-frontend bundle exec rails server -p 3085
 # sidekiq-monitoring for transition uses port 3086
+# metadata-api used port 3087
 email-alert-api:       govuk_setenv email-alert-api       ./run_in.sh ../../email-alert-api bundle exec foreman start
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../email-alert-service bundle exec bin/email_alert_service
 # sidekiq-monitoring for email-alert-api uses port 3089
