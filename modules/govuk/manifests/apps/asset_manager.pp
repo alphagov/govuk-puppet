@@ -76,17 +76,9 @@ class govuk::apps::asset_manager(
       app => $app_name,
     }
 
-    govuk::app { $app_name:
-      app_type           => 'rack',
-      port               => $port,
-      sentry_dsn         => $sentry_dsn,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      vhost_aliases      => ['private-asset-manager'],
-      log_format_is_json => true,
-      deny_framing       => true,
-      depends_on_nfs     => true,
-      nginx_extra_config => '
+    $deny_framing = true
+
+    $nginx_extra_config = inline_template('
       client_max_body_size 500m;
 
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
@@ -140,6 +132,16 @@ class govuk::apps::asset_manager(
         add_header Last-Modified $last_modified_from_rails;
         add_header Content-Type $content_type_from_rails;
 
+        <%- if @deny_framing -%>
+        # Avoid the asset being embedded in other pages[1]
+        # This header is already set in the outer virtual host config but the
+        # presence of additional `add_header` calls in this `location` block
+        # mean that the value from the outer block is not being inherited[2].
+        # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+        # [2]: http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header
+        add_header X-Frame-Options DENY;
+        <%- end -%>
+
         # Remove S3 HTTP headers listed in:
         # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
         # This keeps this HTTP response as similar as possible to the response
@@ -156,7 +158,19 @@ class govuk::apps::asset_manager(
         # Download the file and send it to client
         proxy_pass $download_url;
       }
-      ',
+    ')
+
+    govuk::app { $app_name:
+      app_type           => 'rack',
+      port               => $port,
+      sentry_dsn         => $sentry_dsn,
+      vhost_ssl_only     => true,
+      health_check_path  => '/healthcheck',
+      vhost_aliases      => ['private-asset-manager'],
+      log_format_is_json => true,
+      deny_framing       => $deny_framing,
+      depends_on_nfs     => true,
+      nginx_extra_config => $nginx_extra_config,
     }
 
     govuk::app::envvar {
