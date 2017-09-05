@@ -49,8 +49,15 @@ class govuk::node::s_db_admin(
   # a local PostgreSQL server instance to be installed
   class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
-  }
+  } ->
 
+  # This allows easy administration of the PostgreSQL backend:
+  # https://www.postgresql.org/docs/9.3/static/libpq-pgpass.html
+  file { '/root/.pgpass':
+    ensure  => present,
+    mode    => '0600',
+    content => "${postgres_host}:5432:*:${postgres_user}:${postgres_password}",
+  }
 
   # This class collects the resources that are exported by the
   # govuk_postgresql::server::db defined type
