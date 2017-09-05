@@ -64,8 +64,6 @@ govuk_crawler::targets:
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
-govuk_search::gor::enabled: true
-
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
