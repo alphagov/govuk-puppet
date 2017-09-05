@@ -89,6 +89,7 @@ class govuk::apps::asset_manager(
       # publicly as it is an internal path mapping.
       location ~ /raw/(.*) {
         internal;
+        add_header GOVUK-Asset-Manager-File-Store NFS;
         alias /var/apps/asset-manager/uploads/assets/$1;
       }
 
@@ -107,6 +108,8 @@ class govuk::apps::asset_manager(
         # $is_args: Optional ? delimiter
         # $args:    Optional querystring params
         set $download_url $1$is_args$args;
+
+        add_header GOVUK-Asset-Manager-File-Store S3;
 
         # The X-CLOUD-STORAGE-URL header contains a signed URL for the asset on
         # S3. The signature of this URL is based in part on the request headers
