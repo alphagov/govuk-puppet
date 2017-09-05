@@ -60,7 +60,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  metadata-api: {}
   performanceplatform-admin: {}
   performanceplatform-big-screen-view: {}
   policy-publisher: {}
