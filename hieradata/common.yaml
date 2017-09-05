@@ -926,10 +926,6 @@ grafana::dashboards::deployment_applications:
     # Very low usage
     show_controller_errors: false
     show_slow_requests: false
-  metadata-api:
-    # status instead of @fields.status, missing duration, controller
-    show_controller_errors: false
-    show_slow_requests: false
   publisher:
     has_workers: true
   publishing-api:
