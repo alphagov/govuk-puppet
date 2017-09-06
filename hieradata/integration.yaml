@@ -27,7 +27,6 @@ cron::daily_hour: 6
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::asset_manager::proxy_percentage_of_asset_requests_to_s3_via_nginx: '50'
 govuk::apps::content_performance_manager::feature_auditing_allocation: true
 govuk::apps::content_performance_manager::feature_auditing_theme_filtering: true
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
