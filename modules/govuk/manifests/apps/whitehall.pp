@@ -360,9 +360,7 @@ class govuk::apps::whitehall(
       }
     }
 
-    # FIXME: this should be removed after AWS testing has been completed and
-    # assets is up and running
-    if $::govuk_node_class =~ /^(development|training)$/ or $::aws_migration {
+    if $::govuk_node_class =~ /^(development|training)$/ {
       # Create the directory structure for whitehall assets in development
       $asset_directories = [
         '/data/uploads/whitehall',
