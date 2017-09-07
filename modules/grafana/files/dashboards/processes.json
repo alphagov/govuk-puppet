@@ -1342,11 +1342,6 @@
             "selected": false
           },
           {
-            "text": "processes-app-need-api",
-            "value": "processes-app-need-api",
-            "selected": false
-          },
-          {
             "text": "processes-app-performanceplatform-admin",
             "value": "processes-app-performanceplatform-admin",
             "selected": false
