@@ -142,7 +142,7 @@ class govuk::apps::publisher(
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-NEED_API_BEARER_TOKEN":
-      ensure => absent,
+      ensure  => absent,
       varname => 'NEED_API_BEARER_TOKEN',
       value   => $need_api_bearer_token;
     "${title}-ASSET_MANAGER_BEARER_TOKEN":

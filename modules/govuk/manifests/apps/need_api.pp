@@ -58,6 +58,7 @@ class govuk::apps::need_api(
   $secret_key_base = undef,
 ) {
   govuk::app { 'need-api':
+    ensure             => 'absent',
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -78,21 +79,27 @@ class govuk::apps::need_api(
   }
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
+      ensure  => absent,
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-ELASTICSEARCH_HOSTS":
+      ensure  => absent,
       varname => 'ELASTICSEARCH_HOSTS',
       value   => $elasticsearch_hosts;
     "${title}-ERRBIT_API_KEY":
+      ensure  => absent,
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
     "${title}-OAUTH_ID":
+      ensure  => absent,
       varname => 'OAUTH_ID',
       value   => $oauth_id;
     "${title}-OAUTH_SECRET":
+      ensure  => absent,
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-REDIS_HOST":
+      ensure  => absent,
       varname => 'REDIS_HOST',
       value   => $redis_host;
   }
@@ -101,6 +108,7 @@ class govuk::apps::need_api(
   if $mongodb_nodes != [] {
     $mongodb_nodes_string = join($mongodb_nodes, ',')
     govuk::app::envvar { "${title}-MONGODB_URI":
+      ensure  => absent,
       varname => 'MONGODB_URI',
       value   => "mongodb://${mongodb_nodes_string}/${mongodb_name}",
     }
@@ -108,6 +116,7 @@ class govuk::apps::need_api(
 
   if $secret_key_base != undef {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      ensure  => absent,
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
     }
