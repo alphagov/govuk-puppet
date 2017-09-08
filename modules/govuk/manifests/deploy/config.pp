@@ -76,7 +76,12 @@ class govuk::deploy::config(
     require => File['/etc/govuk'],
   }
 
-  $app_domain = hiera('app_domain')
+  # In AWS we want to route things using the internal DNS name
+  if $::aws_migration {
+    $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
+  }
 
   govuk_envvar {
     'GOVUK_ENV': value => $govuk_env;
