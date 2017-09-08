@@ -2,6 +2,7 @@
 class govuk_rabbitmq (
   $monitoring_password,
   $root_password,
+  $aws_clustering = false,
 ) {
   $root_vhost = '/'
   $monitoring_user = 'monitoring'
@@ -23,7 +24,7 @@ class govuk_rabbitmq (
     ensure => present,
   }
 
-  if $::aws_migration {
+  if $::aws_migration and $aws_clustering {
     staging::file { 'autocluster-0.8.0.ez':
       target => "/usr/lib/rabbitmq/lib/rabbitmq_server-${::rabbitmq_version}/plugins/autocluster-0.8.0.ez",
       source => 'https://github.com/rabbitmq/rabbitmq-autocluster/releases/download/0.8.0/autocluster-0.8.0.ez',

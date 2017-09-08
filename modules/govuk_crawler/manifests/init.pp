@@ -125,9 +125,11 @@ class govuk_crawler(
     owner  => $crawler_user,
   }
 
+  # This explicitly requires 'base::packages' so that nokogiri will build
   package { 'govuk_seed_crawler':
-        ensure   => '2.0.0',
+        ensure   => '2.0.1',
         provider => system_gem,
+        require  => Class['base::packages'],
   }
 
   # Needed to copy to AWS S3
