@@ -127,4 +127,8 @@ class govuk::node::s_backend_lb (
     protected => false,
     http_host => 'govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com',
   }
+
+  nginx::config::vhost::proxy { "content-api.${app_domain}" :
+    to => ['alphagov.github.io/govuk-content-api-docs'],
+  }
 }
