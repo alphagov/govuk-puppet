@@ -164,4 +164,18 @@ class router::nginx (
     notes_url           => monitoring_docs_url(nginx-requests-too-low),
     notification_period => 'inoffice',
   }
+
+  $graphite_429_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_429,0)"
+
+  @@icinga::check::graphite { "check_nginx_429_www_on_${::hostname}":
+    target              => $graphite_429_target,
+    warning             => 2,
+    critical            => 4,
+    use                 => 'govuk_urgent_priority',
+    from                => '3minutes',
+    desc                => '429 rate for www-origin (too many requests) [in office hours]',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
+    notification_period => 'inoffice',
+  }
 }
