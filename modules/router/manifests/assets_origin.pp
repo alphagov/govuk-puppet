@@ -59,11 +59,10 @@ class router::assets_origin(
 
   @@icinga::check::graphite { "check_nginx_429_assets_on_${::hostname}":
     target              => $graphite_429_target,
-    warning             => 2,
-    critical            => 4,
-    use                 => 'govuk_urgent_priority',
-    from                => '3minutes',
-    desc                => '429 rate for assets-origin (too many requests) [in office hours]',
+    warning             => 3,
+    critical            => 5,
+    from                => '5minutes',
+    desc                => '429 rate for assets-origin [in office hours]',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
     notification_period => 'inoffice',
