@@ -66,7 +66,6 @@ govuk::node::s_base::apps:
   - local_links_manager
   - manuals_publisher
   - maslow
-  - need_api
   - policy_publisher
   - publisher
   - release
