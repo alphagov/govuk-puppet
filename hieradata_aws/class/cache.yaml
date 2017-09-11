@@ -7,3 +7,5 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
 govuk::node::s_base::apps:
   - publicapi
   - public_event_store
+
+govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"

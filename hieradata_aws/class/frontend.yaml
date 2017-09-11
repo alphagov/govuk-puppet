@@ -15,3 +15,5 @@ govuk::node::s_base::apps:
 govuk::apps::contacts::db_hostname: 'mysql-slave-1'
 govuk::apps::contacts::db_username: 'contacts_fe'
 govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_frontend')}"
+
+govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"
