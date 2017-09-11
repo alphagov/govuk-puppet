@@ -1095,8 +1095,6 @@ router::assets_origin::asset_routes:
   '/licencefinder/': "licencefinder"
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
-  '/spotlight/': "spotlight"
-  '/stagecraft/': "stagecraft"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
