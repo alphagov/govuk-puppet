@@ -2,10 +2,10 @@
 lv:
   data:
     pv:
+      - '/dev/sdb1'
       - '/dev/sdc1'
-      - '/dev/sdd1'
     vg: 'uploads'
   cache:
     pv:
-      - '/dev/sda1'
+      - '/dev/sdd1'
     vg: 'duplicity'
