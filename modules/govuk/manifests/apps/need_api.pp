@@ -47,14 +47,12 @@
 class govuk::apps::need_api(
   $port = '3052',
   $publishing_api_bearer_token = undef,
-  $elasticsearch_hosts = undef,
   $errbit_api_key = '',
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_needs_production',
   $oauth_id = undef,
   $oauth_secret = undef,
-  $redis_host = undef,
   $secret_key_base = undef,
 ) {
   govuk::app { 'need-api':
