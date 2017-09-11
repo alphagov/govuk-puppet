@@ -129,6 +129,7 @@ class govuk::node::s_backend_lb (
   }
 
   nginx::config::vhost::proxy { "content-api.${app_domain}" :
-    to => ['alphagov.github.io/govuk-content-api-docs'],
+    to        => ['alphagov.github.io'],
+    protected => false,
   }
 }
