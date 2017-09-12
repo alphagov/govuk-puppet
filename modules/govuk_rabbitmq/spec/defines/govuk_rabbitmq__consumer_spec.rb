@@ -7,139 +7,20 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
     staging_http_get: 'curl',
   }}
 
-  context 'multiple queues' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => 'some routing key',
-      :amqp_queue_2 => 'a_second_queue',
-      :routing_key_2 => 'another routing key',
-      :read_permission  => ".*",
-      :write_permission => "^$",
-      :configure_permission => "^a_second_queue$"
-    }}
+  let(:params) {{
+    :amqp_pass => 'super_secret',
+    :read_permission  => '.*',
+    :write_permission => '^$',
+    :configure_permission => '^a_queue$'
+  }}
 
-    it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
+  it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
 
-    it {
-      is_expected.to contain_rabbitmq_queue('a_queue@/').with(
-          :durable     => true,
-          :auto_delete => false,
-      )
-      is_expected.to contain_rabbitmq_queue('a_second_queue@/').with(
-          :durable     => true,
-          :auto_delete => false,
-      )
-    }
-
-    it {
-      is_expected.to contain_rabbitmq_binding('binding_some routing key_an_exchange@a_queue@/').with(
-          :destination_type => 'queue',
-          :routing_key      => 'some routing key',
-      )
-      is_expected.to contain_rabbitmq_binding('binding_another routing key_an_exchange@a_second_queue@/').with(
-          :destination_type => 'queue',
-          :routing_key      => 'another routing key',
-      )
-    }
-
-    context 'when create_queue is false' do
-      let(:params) {{
-        :amqp_pass => 'super_secret',
-        :amqp_exchange => 'an_exchange',
-        :amqp_queue => 'a_queue',
-        :routing_key => 'some routing key',
-        :amqp_queue_2 => 'a_second_queue',
-        :routing_key_2 => 'another routing key',
-        :create_queue => false,
-        :read_permission  => '.*',
-        :write_permission => '^$',
-        :configure_permission => '^a_second_queue$'
-      }}
-
-      it {
-        is_expected.not_to contain_rabbitmq_queue('a_queue@/')
-        is_expected.not_to contain_rabbitmq_queue('a_second_queue@/')
-      }
-    end
-
-    it {
-      is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
-        :read_permission => '.*',
-        :write_permission => '^$',
-        :configure_permission => '^a_second_queue$',
-      )
-    }
-
-    it { is_expected.not_to contain_govuk_rabbitmq__exchange }
-  end
-
-  context 'missing routing key' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => '',
-      :read_permission  => '.*',
+  it {
+    is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
+      :configure_permission => '^a_queue$',
       :write_permission => '^$',
-      :configure_permission => '^a_queue$'
-      }}
-
-      it { is_expected.to raise_error(Puppet::Error, /\$routing_key must be non-empty/) }
-  end
-
-  context 'missing routing key for optional queue' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => 'some routing key',
-      :amqp_queue_2 => 'a_second_queue',
-      :routing_key_2 => '',
-      :read_permission  => '.*',
-      :write_permission => '^$',
-      :configure_permission => '^a_second_queue$'
-      }}
-
-      it { is_expected.to raise_error(Puppet::Error, /\$routing_key_2 must be non-empty/) }
-  end
-
-  context 'minimum info' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => 'some routing key',
-      :read_permission  => '.*',
-      :write_permission => '^$',
-      :configure_permission => '^a_queue$'
-    }}
-
-    it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
-
-    it {
-      is_expected.to contain_rabbitmq_queue('a_queue@/').with(
-          :durable     => true,
-          :auto_delete => false,
-      )
-    }
-
-    it {
-      is_expected.to contain_rabbitmq_binding('binding_some routing key_an_exchange@a_queue@/').with(
-          :destination_type => 'queue',
-          :routing_key      => 'some routing key',
-      )
-    }
-
-    it {
-      is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
-        :configure_permission => '^a_queue$',
-        :write_permission => '^$',
-        :read_permission => '.*',
-      )
-    }
-
-    it { is_expected.not_to contain_govuk_rabbitmq__exchange }
-  end
+      :read_permission => '.*',
+    )
+  }
 end
