@@ -127,37 +127,4 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
 
     it { is_expected.not_to contain_govuk_rabbitmq__exchange }
   end
-
-  context 'for a test exchange' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => 'some routing key',
-      :is_test_exchange => true,
-    }}
-
-    it { is_expected.to contain_govuk_rabbitmq__exchange('an_exchange@/').with_type('topic') }
-
-    it {
-      is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
-        :configure_permission => '^(amq\.gen.*|a_queue)$',
-        :write_permission => '^(amq\.gen.*|a_queue|an_exchange)$',
-        :read_permission => '^(amq\.gen.*|a_queue|an_exchange)$',
-      )
-    }
-  end
-
-  context 'creating the test exchange with a non-default type' do
-    let(:params) {{
-      :amqp_pass => 'super_secret',
-      :amqp_exchange => 'an_exchange',
-      :amqp_queue => 'a_queue',
-      :routing_key => 'some routing key',
-      :is_test_exchange => true,
-      :exchange_type => 'direct',
-    }}
-
-    it { is_expected.to contain_govuk_rabbitmq__exchange('an_exchange@/').with_type('direct') }
-  end
 end

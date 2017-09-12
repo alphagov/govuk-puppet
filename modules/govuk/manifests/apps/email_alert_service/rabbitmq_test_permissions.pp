@@ -31,11 +31,16 @@ class govuk::apps::email_alert_service::rabbitmq_test_permissions (
   $amqp_queue = 'email_alert_service_published_documents_test_queue',
 ) {
 
+  govuk_rabbitmq::exchange { "${amqp_exchange}@/":
+    ensure => present,
+    type   => 'topic',
+  } ->
+  
   govuk_rabbitmq::consumer { $amqp_user:
     amqp_pass        => $amqp_pass,
     amqp_exchange    => $amqp_exchange,
     amqp_queue       => $amqp_queue,
     routing_key      => '*.major.#',
-    is_test_exchange => true,
+    write_permission => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})\$",
   }
 }
