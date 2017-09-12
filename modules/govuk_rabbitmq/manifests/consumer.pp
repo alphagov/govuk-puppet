@@ -37,17 +37,6 @@
 # [*routing_key_2*]
 #   Optional second routing key.
 #
-# [*is_test_exchange*]
-#   Whether the amqp_exchange is a test exchange (only used by the test suite).
-#   When set to true, this will create the exchange, and give the amqp_user
-#   write permission to it.
-#   When false, we assume that since the exchange is not a test exchange, it will already have been created.
-#   (default: false)
-#
-# [*exchange_type*]
-#   The type of exchange to create if is_test_exchange is set.
-#   (default: 'topic')
-#
 # [*ensure*]
 #   Determines whether to create or delete the consumer.
 #   (default: present)
@@ -63,8 +52,7 @@ define govuk_rabbitmq::consumer (
   $routing_key,
   $amqp_queue_2 = undef,
   $routing_key_2 = undef,
-  $is_test_exchange = false,
-  $exchange_type = 'topic',
+  $write_permission = undef,
   $ensure = present,
   $create_queue = true,
 ) {
@@ -84,14 +72,10 @@ define govuk_rabbitmq::consumer (
 
   include ::govuk_rabbitmq
 
-  if $is_test_exchange {
-    govuk_rabbitmq::exchange { "${amqp_exchange}@/":
-      ensure => $ensure,
-      type   => $exchange_type,
-    }
-    $write_permission = "^(amq\\.gen.*|${amqp_queue_names}|${amqp_exchange})\$"
+  if $write_permission == undef {
+    $user_write_permission = "^(amq\\.gen.*|${amqp_queue_names})\$"
   } else {
-    $write_permission = "^(amq\\.gen.*|${amqp_queue_names})\$"
+    $user_write_permission = $write_permission
   }
 
   if $ensure == present {
@@ -102,7 +86,7 @@ define govuk_rabbitmq::consumer (
     rabbitmq_user_permissions { "${amqp_user}@/":
       ensure               => present,
       configure_permission => "^(amq\\.gen.*|${amqp_queue_names})\$",
-      write_permission     => $write_permission,
+      write_permission     => $user_write_permission,
       read_permission      => "^(amq\\.gen.*|${amqp_queue_names}|${amqp_exchange})\$",
     }
 
