@@ -13,6 +13,7 @@ govuk_ci::agent::gcloud::apt_mirror_hostname: 'apt.example.com'
 
 govuk::deploy::config::asset_root: 'http://assets.example.com'
 govuk::deploy::config::website_root: 'http://www.example.com'
+govuk::deploy::config::app_domain: 'foo.example.com'
 
 govuk_mount::no_op: false
 

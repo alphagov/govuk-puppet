@@ -11,3 +11,5 @@ govuk::node::s_base::apps:
 
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'Whitehall application is slow to start, recommend rebooting a single node at a time'
+
+govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"

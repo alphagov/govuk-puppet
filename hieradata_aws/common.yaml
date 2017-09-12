@@ -529,6 +529,7 @@ govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
+govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::setup::gemstash_server: 'http://gemstash'
 
 govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
@@ -1094,8 +1095,6 @@ router::assets_origin::asset_routes:
   '/licencefinder/': "licencefinder"
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
-  '/spotlight/': "spotlight"
-  '/stagecraft/': "stagecraft"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'

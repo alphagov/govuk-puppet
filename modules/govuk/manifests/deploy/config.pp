@@ -19,11 +19,15 @@
 # [*website_root*]
 #   The location that the website is served from, including protocol.
 #
+# [*app_domain*]
+#   The app domain for the environment eg dev.gov.uk
+#
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
   $website_root,
+  $app_domain,
 ){
 
   limits::limits { 'deploy_nofile':
@@ -75,8 +79,6 @@ class govuk::deploy::config(
     force   => true,
     require => File['/etc/govuk'],
   }
-
-  $app_domain = hiera('app_domain')
 
   govuk_envvar {
     'GOVUK_ENV': value => $govuk_env;

@@ -1,6 +1,12 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define router::errorpage () {
 
+  if $::aws_migration {
+    $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
+  }
+
   # Only triggers every 6h or if the file doesn't exist.
   $filename = "/usr/share/nginx/www/${title}.html"
 
@@ -10,7 +16,6 @@ define router::errorpage () {
     $cmd = "aws --region eu-west-1 s3 cp ${s3_url} ${filename}"
 
   } else {
-    $app_domain = hiera('app_domain')
     $static_url = "https://static.${app_domain}/templates/${title}.html.erb"
     $cmd = "curl --connect-timeout 1 -sf ${static_url} -o ${filename}"
   }

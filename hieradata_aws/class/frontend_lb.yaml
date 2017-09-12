@@ -1,5 +1,0 @@
----
-
-govuk::node::s_base::apps:
-  - publicapi
-  - public_event_store
