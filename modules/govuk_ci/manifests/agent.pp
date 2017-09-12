@@ -60,6 +60,11 @@ class govuk_ci::agent(
     ensure => installed,
   }
 
+  package { 's3cmd':
+    ensure   => 'present',
+    provider => 'pip',
+  }
+
   govuk_bundler::config {'jenkins-bundler':
     server    => $gemstash_server,
     username  => 'jenkins',
