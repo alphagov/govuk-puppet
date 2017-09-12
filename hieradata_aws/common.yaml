@@ -60,8 +60,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  performanceplatform-admin: {}
-  performanceplatform-big-screen-view: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -393,9 +391,6 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2'
   - 'mongo-3'
 
-govuk::apps::performanceplatform_admin::enabled: true
-govuk::apps::performanceplatform_big_screen_view::enabled: true
-
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary"
 
@@ -647,11 +642,6 @@ govuk_ci::master::pipeline_jobs:
   opsmanual:
     source: 'github-enterprise'
   optic14n: {}
-  performance-datastore: {}
-  performanceplatform-client.py: {}
-  performanceplatform-collector: {}
-  performanceplatform-documentation: {}
-  performanceplatform-govuk-stats: {}
   plek: {}
   pp-manual:
     source: 'github-enterprise'
@@ -664,7 +654,6 @@ govuk_ci::master::pipeline_jobs:
   shared_mustache: {}
   slimmer: {}
   smokey: {}
-  spotlight-performance: {}
   transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
