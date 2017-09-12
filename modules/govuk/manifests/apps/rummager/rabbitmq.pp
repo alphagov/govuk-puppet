@@ -22,6 +22,8 @@ class govuk::apps::rummager::rabbitmq (
   $enable_publishing_listener = false,
 ) {
 
+  $amqp_exchange = 'published_documents'
+
   $toggled_ensure = $enable_publishing_listener ? {
     true    => present,
     default => absent,
@@ -34,22 +36,28 @@ class govuk::apps::rummager::rabbitmq (
 
   # match everything on queue 2 while we test
   govuk_rabbitmq::consumer { 'rummager-v2':
-    ensure        => $toggled_ensure,
-    amqp_pass     => $password,
-    amqp_exchange => 'published_documents',
-    amqp_queue    => 'rummager_to_be_indexed',
-    routing_key   => '*.links',
-    amqp_queue_2  => 'rummager_govuk_index',
-    routing_key_2 => '*.*',
+    ensure               => $toggled_ensure,
+    amqp_pass            => $password,
+    amqp_exchange        => $amqp_exchange,
+    amqp_queue           => 'rummager_to_be_indexed',
+    routing_key          => '*.links',
+    amqp_queue_2         => 'rummager_govuk_index',
+    routing_key_2        => '*.*',
+    read_permission      => "^(amq\\.gen.*|rummager_to_be_indexed|rummager_govuk_index|${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|rummager_to_be_indexed|rummager_govuk_index)\$",
+    configure_permission => "^(amq\\.gen.*|rummager_to_be_indexed|rummager_govuk_index)\$",
   }
 
   # deprecated - we will remove this user once we have migrated to the new user
   govuk_rabbitmq::consumer { 'rummager':
-    ensure        => $toggled_ensure,
-    amqp_pass     => $password,
-    amqp_exchange => 'published_documents',
-    amqp_queue    => 'rummager_to_be_indexed',
-    routing_key   => '*.links',
-    create_queue  => false,
+    ensure               => $toggled_ensure,
+    amqp_pass            => $password,
+    amqp_exchange        => $amqp_exchange,
+    amqp_queue           => 'rummager_to_be_indexed',
+    routing_key          => '*.links',
+    create_queue         => false,
+    read_permission      => "^(amq\\.gen.*|rummager_to_be_indexed|${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|rummager_to_be_indexed)\$",
+    configure_permission => "^(amq\\.gen.*|rummager_to_be_indexed)\$",
   }
 }

@@ -50,9 +50,11 @@ define govuk_rabbitmq::consumer (
   $amqp_exchange,
   $amqp_queue,
   $routing_key,
+  $write_permission,
+  $read_permission,
+  $configure_permission,
   $amqp_queue_2 = undef,
   $routing_key_2 = undef,
-  $write_permission = undef,
   $ensure = present,
   $create_queue = true,
 ) {
@@ -72,12 +74,6 @@ define govuk_rabbitmq::consumer (
 
   include ::govuk_rabbitmq
 
-  if $write_permission == undef {
-    $user_write_permission = "^(amq\\.gen.*|${amqp_queue_names})\$"
-  } else {
-    $user_write_permission = $write_permission
-  }
-
   if $ensure == present {
     rabbitmq_user { $amqp_user:
       ensure   => present,
@@ -85,9 +81,9 @@ define govuk_rabbitmq::consumer (
     } ->
     rabbitmq_user_permissions { "${amqp_user}@/":
       ensure               => present,
-      configure_permission => "^(amq\\.gen.*|${amqp_queue_names})\$",
-      write_permission     => $user_write_permission,
-      read_permission      => "^(amq\\.gen.*|${amqp_queue_names}|${amqp_exchange})\$",
+      read_permission      => $read_permission,
+      write_permission     => $write_permission,
+      configure_permission => $configure_permission,
     }
 
     if $create_queue {

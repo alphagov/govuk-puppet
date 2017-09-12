@@ -15,6 +15,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :routing_key => 'some routing key',
       :amqp_queue_2 => 'a_second_queue',
       :routing_key_2 => 'another routing key',
+      :read_permission  => ".*",
+      :write_permission => "^$",
+      :configure_permission => "^a_second_queue$"
     }}
 
     it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
@@ -49,7 +52,10 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
         :routing_key => 'some routing key',
         :amqp_queue_2 => 'a_second_queue',
         :routing_key_2 => 'another routing key',
-        :create_queue => false
+        :create_queue => false,
+        :read_permission  => '.*',
+        :write_permission => '^$',
+        :configure_permission => '^a_second_queue$'
       }}
 
       it {
@@ -60,9 +66,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
 
     it {
       is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
-        :configure_permission => '^(amq\.gen.*|a_queue|a_second_queue)$',
-        :write_permission => '^(amq\.gen.*|a_queue|a_second_queue)$',
-        :read_permission => '^(amq\.gen.*|a_queue|a_second_queue|an_exchange)$',
+        :read_permission => '.*',
+        :write_permission => '^$',
+        :configure_permission => '^a_second_queue$',
       )
     }
 
@@ -75,6 +81,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :amqp_exchange => 'an_exchange',
       :amqp_queue => 'a_queue',
       :routing_key => '',
+      :read_permission  => '.*',
+      :write_permission => '^$',
+      :configure_permission => '^a_queue$'
       }}
 
       it { is_expected.to raise_error(Puppet::Error, /\$routing_key must be non-empty/) }
@@ -88,6 +97,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :routing_key => 'some routing key',
       :amqp_queue_2 => 'a_second_queue',
       :routing_key_2 => '',
+      :read_permission  => '.*',
+      :write_permission => '^$',
+      :configure_permission => '^a_second_queue$'
       }}
 
       it { is_expected.to raise_error(Puppet::Error, /\$routing_key_2 must be non-empty/) }
@@ -99,6 +111,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
       :amqp_exchange => 'an_exchange',
       :amqp_queue => 'a_queue',
       :routing_key => 'some routing key',
+      :read_permission  => '.*',
+      :write_permission => '^$',
+      :configure_permission => '^a_queue$'
     }}
 
     it { is_expected.to contain_rabbitmq_user('a_user').with_password('super_secret') }
@@ -119,9 +134,9 @@ describe 'govuk_rabbitmq::consumer', :type => :define do
 
     it {
       is_expected.to contain_rabbitmq_user_permissions('a_user@/').with(
-        :configure_permission => '^(amq\.gen.*|a_queue)$',
-        :write_permission => '^(amq\.gen.*|a_queue)$',
-        :read_permission => '^(amq\.gen.*|a_queue|an_exchange)$',
+        :configure_permission => '^a_queue$',
+        :write_permission => '^$',
+        :read_permission => '.*',
       )
     }
 
