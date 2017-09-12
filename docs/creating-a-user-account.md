@@ -20,14 +20,17 @@ In [`modules/users/`][users] create a manifest file for yourself. There are
 
 Add the name of your manifest (your username) into the list of `users::usernames` in hieradata/integration.yaml.
 
-## Add yourself to the list of Jenkins users
+## CI and Integration access
 
-There's another bit of hieradata in integration.yaml for `govuk_jenkins::config::admins` which will give you access to the deployment Jenkins. Add your github enterprise username (usually your full name) to this list.
+There's a GitHub team called 'GOV.UK' that you should be added to in order
+to see the CI and integration environments. GitHub owners (your team's tech
+lead is probably one) can do this for you.
 
-## Staging and production
+## Staging and production access
 
-If you're getting access to staging and production, repeat the above hieradata changes in
-the govuk-secrets repo. You'll also need to add yourself to `ssh::config::allow_users` in those
-environments to be able to SSH to machines.
+If you're getting access to staging and production, repeat the above step,
+specifying the 'GOV.UK Production' team. You'll also need to add yourself to
+`ssh::config::allow_users` in those environments (hieradata can be found in
+`govuk-secrets`) to be able to SSH to machines.
 
 Talk to the GOV.UK Platform Operations Manager about when you need to have production access.
