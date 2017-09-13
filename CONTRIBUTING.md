@@ -17,8 +17,8 @@ You can propose changes using a pull request.
 3. Commit your work (we like [commits that explain your thought process][commits])
 4. Open a pull request
 5. If you have write access, you can merge your own pull request once somebody
-   has reviewed it and given you a thumbs up 👍. If you don't have access, we'll
-   merge the pull request for you once it's ready.
+   has approved it. If you don't have access, we'll merge the pull request for
+   you once it's ready.
 
 [forking]: https://help.github.com/articles/fork-a-repo/
 [commits]: https://github.com/alphagov/styleguides/blob/master/git.md
