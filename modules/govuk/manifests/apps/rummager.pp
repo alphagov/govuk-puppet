@@ -162,7 +162,7 @@ class govuk::apps::rummager(
   if $::aws_migration {
     govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
       varname => 'ELASTICSEARCH_URI',
-      value   => 'http://elasticsearch:9200',
+      value   => 'http://rummager-elasticsearch:9200',
     }
   }
 }
