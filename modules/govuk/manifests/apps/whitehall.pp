@@ -116,7 +116,6 @@ class govuk::apps::whitehall(
   $highlight_words_to_avoid = false,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
-  $need_api_bearer_token = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $port = '3020',
@@ -428,10 +427,6 @@ class govuk::apps::whitehall(
     "${title}-ERRBIT_API_KEY":
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
-    "${title}-NEED_API_BEARER_TOKEN":
-      ensure  => absent,
-      varname => 'NEED_API_BEARER_TOKEN',
-      value   => $need_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
