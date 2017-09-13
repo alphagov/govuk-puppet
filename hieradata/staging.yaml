@@ -545,14 +545,5 @@ router::nginx::robotstxt: |
 
 shell::shell_prompt_string: 'staging'
 
-users::pentest_machines:
-  - 'asset-master-1'
-  - 'backend-1'
-  - 'cache-1'
-  - 'frontend-1'
-  - 'jumpbox-1'
-  - 'mysql-master-1'
-  - 'postgresql-primary-1'
-
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
