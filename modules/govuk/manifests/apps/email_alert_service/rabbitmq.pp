@@ -28,10 +28,17 @@ class govuk::apps::email_alert_service::rabbitmq (
   $amqp_queue = 'email_alert_service',
 ) {
 
-  govuk_rabbitmq::consumer { $amqp_user:
-    amqp_pass     => $amqp_pass,
+  govuk_rabbitmq::queue_with_binding { $amqp_queue:
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.major.#',
+    durable       => true,
+  } ->
+
+  govuk_rabbitmq::consumer { $amqp_user:
+    amqp_pass            => $amqp_pass,
+    read_permission      => "^(amq\\.gen.*|${amqp_queue}|${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|${amqp_queue})\$",
+    configure_permission => "^(amq\\.gen.*|${amqp_queue})\$",
   }
 }
