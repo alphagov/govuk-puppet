@@ -47,8 +47,7 @@ process :'local-links-manager' => [:'link-checker-api']
 process :'manuals-frontend' => [:static, :'content-store']
 process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
-process :maslow => :need_api
-process :need_api
+process :maslow
 process :'performanceplatform-admin' => [:stagecraft]
 process :'policy-publisher' => [:'publishing-api', :rummager]
 process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for some requests also uses: mapit

@@ -16,12 +16,8 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*need_api_bearer_token*]
-#   The bearer token to use when communicating with Need API.
-#   Default: undef
-#
 # [*asset_manager_bearer_token*]
-#   The bearer token to use when communicating with Need API.
+#   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
 # [*secret_key_base*]
@@ -146,6 +142,7 @@ class govuk::apps::publisher(
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
     "${title}-NEED_API_BEARER_TOKEN":
+      ensure  => absent,
       varname => 'NEED_API_BEARER_TOKEN',
       value   => $need_api_bearer_token;
     "${title}-ASSET_MANAGER_BEARER_TOKEN":

@@ -60,10 +60,6 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
-# [*need_api_bearer_token*]
-#   The bearer token to use when communicating with Need API.
-#   Default: undef
-#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -433,6 +429,7 @@ class govuk::apps::whitehall(
       varname => 'ERRBIT_API_KEY',
       value   => $errbit_api_key;
     "${title}-NEED_API_BEARER_TOKEN":
+      ensure  => absent,
       varname => 'NEED_API_BEARER_TOKEN',
       value   => $need_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":

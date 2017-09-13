@@ -79,7 +79,6 @@ class govuk::node::s_backend_lb (
       'email-alert-api',
       'event-store',
       'govuk-delivery',
-      'need-api',
       'support-api',
     ]:
       internal_only => true,

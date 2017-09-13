@@ -290,7 +290,6 @@ hosts::development::apps:
   - 'manuals-publisher'
   - 'mapit'
   - 'maslow'
-  - 'need-api'
   - 'performanceplatform-admin'
   - 'policy-publisher'
   - 'publicapi'

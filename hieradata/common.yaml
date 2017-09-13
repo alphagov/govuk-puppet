@@ -38,7 +38,6 @@ deployable_applications: &deployable_applications
   govuk-cdn-logs-monitor: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
-  govuk_need_api: {}
   govuk-puppet: {}
   hmrc-manuals-api: {}
   imminence: {}
@@ -1201,7 +1200,6 @@ hosts::production::backend::app_hostnames:
   - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
-  - 'need-api'
   - 'performanceplatform-admin'
   - 'policy-publisher'
   - 'publisher'
