@@ -19,7 +19,7 @@ if [ -d "/usr/share/elasticsearch/plugins/migration" ]; then
 fi
 
 echo "Removing Elasticsearch data directory"
-echo "This is required as the data needs to be rebuilt for ES 2.4"
+echo "This is require as the data needs to be rebuilt for ES 2.4"
 echo "You will need to run the data replication task after this "
 echo "script finishes in order to build the data."
 

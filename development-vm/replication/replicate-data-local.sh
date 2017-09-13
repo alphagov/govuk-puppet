@@ -42,7 +42,7 @@ else
   $(dirname $0)/sync-mapit.sh
 fi
 
-$(dirname $0)/sync-elasticsearch.sh "$@" api-elasticsearch-1.api.integration
+$(dirname $0)/sync-elasticsearch.sh "$@" rummager-elasticsearch-1.api.integration
 
 if ! ($SKIP_ELASTIC || $DRY_RUN); then
   status "Deleting old elasticsearch indexes"
