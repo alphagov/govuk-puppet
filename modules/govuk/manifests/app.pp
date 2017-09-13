@@ -327,6 +327,16 @@ define govuk::app (
     subscribe  => Class['govuk::deploy'],
   }
 
+  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
+    # filebeat should automatically infer whether a log is in JSON or not
+    # but if it should be we want to log JSON parsing errors.
+    if $json {
+      $json_hash = {add_error_key => true}
+    } else {
+      $json_hash = {}
+    }
+  }
+
   govuk_logging::logstream { "${title}-upstart-out":
     ensure  => $ensure,
     logfile => "/var/log/${title}/upstart.out.log",
@@ -339,6 +349,22 @@ define govuk::app (
     logfile => "/var/log/${title}/upstart.err.log",
     tags    => ['stderr', 'upstart'],
     fields  => {'application' => $title},
+  }
+
+  filebeat::prospector { "${title}-upstart-out":
+    ensure => $logstream,
+    paths  => "/var/log/${title}/upstart.out.log",
+    json   => $json_hash,
+    tags   => ['stdout', 'upstart'],
+    fields => {'application' => $title},
+  }
+
+  filebeat::prospector { "${title}-upstart-err":
+    ensure => $logstream,
+    paths  => "/var/log/${title}/upstart.err.log",
+    json   => $json_hash,
+    tags   => ['stderr', 'upstart'],
+    fields => {'application' => $title},
   }
 
   $title_escaped = regsubst($title, '\.', '_', 'G')
@@ -358,6 +384,16 @@ define govuk::app (
       json    => $err_log_json,
       fields  => {'application' => $title},
     }
+
+
+    filebeat::prospector { "${title}-app-err":
+      ensure => $logstream,
+      paths  => "/var/log/${title}/app.err.log",
+      json   => $json_hash,
+      tags   => ['stderr', 'upstart'],
+      fields => {'application' => $title},
+    }
+  }
 
     if ($app_type == 'rack' or  $log_format_is_json) {
 
@@ -379,7 +415,17 @@ define govuk::app (
                             value => '@fields.db'},
                           {metric => "${statsd_timer_prefix}.time_view",
                             value => '@fields.view'}],
+
       }
+
+      filebeat::prospector { "${title}-production-log":
+        ensure => $logstream,
+        paths  => $log_path,
+        #json   => $log_format_is_json,
+        tags   => ['stdout', 'application'],
+        fields => {'application' => $title},
+      }
+
     }
 
   } else {
@@ -398,11 +444,27 @@ define govuk::app (
                           value => '@fields.view'}],
     }
 
+    filebeat::prospector { "${title}-app-out":
+      ensure => $logstream,
+      paths  => "/var/log/${title}/app.out.log",
+      #json   => $log_format_is_json,
+      tags   => ['application'],
+      fields => {'application' => $title},
+    }
+
     govuk_logging::logstream { "${title}-app-err":
       ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['application'],
       fields  => {'application' => $title},
+    }
+
+    filebeat::prospector { "${title}-app-err":
+      ensure => $logstream,
+      paths  => "/var/log/${title}/app.err.log",
+      #json   => $log_format_is_json,
+      tags   => ['application'],
+      fields => {'application' => $title},
     }
 
     # Support apps transitioning from legacy_logging.
