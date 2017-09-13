@@ -43,6 +43,7 @@ class govuk::apps::publishing_api::rabbitmq (
 
   govuk_rabbitmq::exchange { "${amqp_exchange}@/":
     type     => 'topic',
+    durable  => true,
   }
 
   if $configure_test_exchange {
