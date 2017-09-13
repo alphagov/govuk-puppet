@@ -7,6 +7,10 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
 
   $es_heap_size = floor($::memorysize_mb / 2)
 
+  if $::aws_migration {
+    $aws_cluster_name = "rummager-elasticsearch-${::aws_stackname}"
+  }
+
   class { 'govuk_elasticsearch::dump':
     require => Class['govuk_elasticsearch'], # required for elasticsearch user to exist
   }
@@ -21,20 +25,29 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
     require                => Class['govuk_java::openjdk7::jre'],
   }
 
-  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
-    port    => 9200,
-    from    => getparam(Govuk_host['search-1'], 'ip'),
-    require => Govuk_host['search-1'],
-  }
-  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-2':
-    port    => 9200,
-    from    => getparam(Govuk_host['search-2'], 'ip'),
-    require => Govuk_host['search-2'],
-  }
-  @ufw::allow { 'allow-elasticsearch-http-9200-from-search-3':
-    port    => 9200,
-    from    => getparam(Govuk_host['search-3'], 'ip'),
-    require => Govuk_host['search-3'],
+  if $::aws_migration {
+
+    @ufw::allow { 'allow-elasticsearch-http-9200':
+      port => 9200,
+    }
+
+  } else {
+
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
+      port    => 9200,
+      from    => getparam(Govuk_host['search-1'], 'ip'),
+      require => Govuk_host['search-1'],
+    }
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-search-2':
+      port    => 9200,
+      from    => getparam(Govuk_host['search-2'], 'ip'),
+      require => Govuk_host['search-2'],
+    }
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-search-3':
+      port    => 9200,
+      from    => getparam(Govuk_host['search-3'], 'ip'),
+      require => Govuk_host['search-3'],
+    }
   }
 
   collectd::plugin::tcpconn { 'es-9200':
