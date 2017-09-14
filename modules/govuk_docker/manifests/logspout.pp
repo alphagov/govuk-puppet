@@ -26,7 +26,7 @@ class govuk_docker::logspout (
   validate_array($tags)
   validate_string($endpoint)
 
-  $image_name = 'govuk/logspout-alpine'
+  $image_name = 'gliderlabs/logspout'
 
   $tag_list = join(concat($tags, ['docker', 'json_log']), ',')
   $tag_env = "LOGSTASH_TAGS=${tag_list}"
