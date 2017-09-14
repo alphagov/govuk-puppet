@@ -23,6 +23,7 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
     host                   => $::fqdn,
     open_firewall_from_all => false,
     require                => Class['govuk_java::openjdk7::jre'],
+    aws_cluster_name       => $aws_cluster_name,
   }
 
   if $::aws_migration {
