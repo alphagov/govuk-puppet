@@ -29,6 +29,10 @@
             export TAG="$TAG"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
+            <%- if @aws_deploy %>
+            export USE_S3="true"
+            export S3_ARTEFACT_BUCKET="govuk-integration-artefact"
+            <% end -%>
 
             if [ "$DEPLOY_FROM_GITHUB_ENTERPRISE" == "true" ]; then
               export GIT_ORIGIN_PREFIX="git@github.digital.cabinet-office.gov.uk:gds-production-backup"
