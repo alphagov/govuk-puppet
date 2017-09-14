@@ -218,4 +218,10 @@ class govuk::apps::publishing_api(
     json    => true,
   }
 
+  @filebeat::prospector { 'publishing_api_sidekiq_json_log':
+    paths  => ['/var/apps/publishing-api/log/sidekiq.json.log'],
+    fields => {'application' => 'publishing-api-sidekiq'},
+    json   => {'add_error_key' => true },
+  }
+
 }

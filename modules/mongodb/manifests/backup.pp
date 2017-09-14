@@ -73,6 +73,13 @@ class mongodb::backup(
     tags    => ['backup', 'automongodbbackup', 'mongo'],
   }
 
+  @filebeat::prospector { 'automongodbbackup':
+    ensure => $present,
+    fields => {'application' => 'automongodbbackup'},
+    paths  => ['/var/log/automongodbbackup/backup.log'],
+    tags   => ['backup', 'automongodbbackup', 'mongo'],
+  }
+
   @logrotate::conf { 'automongodbbackup':
     ensure        => $present,
     matches       => '/var/log/automongodbbackup/backup.log',

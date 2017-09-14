@@ -8,4 +8,10 @@ class mongodb::logging {
     fields  => {'application' => 'mongodb'},
     tags    => ['stdout', 'stderr', 'upstart', 'mongodb'],
   }
+
+  @filebeat::prospector { 'mongodb-logstream':
+    paths  => ['/var/log/upstart/mongodb.log'],
+    fields => {'application' => 'mongodb'},
+    tags   => ['stdout', 'stderr', 'upstart', 'mongodb'],
+  }
 }

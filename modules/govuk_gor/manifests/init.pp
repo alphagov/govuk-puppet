@@ -71,6 +71,13 @@ class govuk_gor(
     tags    => ['stdout', 'stderr', 'upstart', 'gor'],
   }
 
+  @filebeat::prospector { 'gor_upstart_log':
+    ensure => $logstream_ensure,
+    fields => {'application' => 'gor'},
+    paths  => ['/var/log/upstart/gor.log'],
+    tags   => ['stdout', 'stderr', 'upstart', 'gor'],
+  }
+
   @@icinga::check { "check_gor_running_${::hostname}":
     ensure              => $nagios_ensure,
     check_command       => 'check_nrpe!check_proc_running!gor',
