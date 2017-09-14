@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # This file need to be run in order to remove elasticsearch 1.7 specific file which
-# prevent elastiocsearch 2.4 from loading
+# prevent elasticsearch 2.4 from loading
 
 echo "Stopping the ES service if it is running"
 sudo service elasticsearch-development.development stop
