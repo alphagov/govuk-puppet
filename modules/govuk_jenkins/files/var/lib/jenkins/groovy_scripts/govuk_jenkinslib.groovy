@@ -207,7 +207,7 @@ def buildProject(Map options = [:]) {
         } else {
           testCommand = env.PUBLISHING_E2E_TESTS_COMMAND
         }
-        runPublishingE2ETests(appCommitishName, testBranch, testCommand, repoName)
+        runPublishingE2ETests(appCommitishName, testBranch, repoName, testCommand)
       }
     }
 
@@ -790,7 +790,7 @@ def setBuildStatus(repoName, commit, message, state) {
   ]);
 }
 
-def runPublishingE2ETests(appCommitishName, testBranch, testCommand, repo) {
+def runPublishingE2ETests(appCommitishName, testBranch, repo, testCommand = "test") {
   fullCommitHash = getFullCommitHash()
   build(
     job: "publishing-e2e-tests/${testBranch}",
