@@ -7,6 +7,7 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
   # Local proxy for licence-finder to access ES cluster.
   if ! $::aws_migration {
     include govuk_elasticsearch::local_proxy
+    include govuk_elasticsearch::rummager_local_proxy
   }
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
