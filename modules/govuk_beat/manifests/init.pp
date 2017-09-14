@@ -4,7 +4,7 @@
 #
 # === Examples
 #
-# To add a Filebeat prospector, update the Hiera key 'govuk_beat::filebeat_prospectors'. Hiera
+# To add a Filebeat prospector, update the Hiera key 'filebeat::prospectors'. Hiera
 # will merge prospector declarations down the Hiera hierarchy
 #
 # filebeat::prospectors:
