@@ -119,6 +119,11 @@ client_max_body_size 500m;
       json    => true,
     }
 
+    filebeat::prospector { "${app_name}_sidekiq_json_log":
+      paths => "/var/apps/${app_name}/log/sidekiq.json.log",
+      fields  => {'application' => $app_name},
+    }
+
     Govuk::App::Envvar {
       app => $app_name,
     }

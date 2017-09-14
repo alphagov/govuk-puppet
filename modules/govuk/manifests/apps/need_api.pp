@@ -73,6 +73,11 @@ class govuk::apps::need_api(
     json    => true,
   }
 
+  filebeat::prospector { 'need-api-org-import-json-log':
+    logfile => '/var/apps/need-api/log/organisation_import.json.log',
+    fields  => {'application' => 'need-api'},
+  }
+
   Govuk::App::Envvar {
     app => 'need-api',
   }

@@ -5,8 +5,18 @@ class govuk_rabbitmq::logging {
     fields  => {'application' => 'rabbitmq'},
   }
 
+  filebeat::prospector { 'rabbitmq_startup_log':
+    paths   => '/var/log/rabbitmq/startup_log',
+    fields  => {'application' => 'rabbitmq'},
+  }
+
   govuk_logging::logstream { 'rabbitmq_startup_error':
     logfile => '/var/log/rabbitmq/startup_error',
+    fields  => {'application' => 'rabbitmq'},
+  }
+
+  filebeat::prospector { 'rabbitmq_startup_error':
+    paths   => '/var/log/rabbitmq/startup_error',
     fields  => {'application' => 'rabbitmq'},
   }
 
@@ -15,13 +25,28 @@ class govuk_rabbitmq::logging {
     fields  => {'application' => 'rabbitmq'},
   }
 
+  filebeat::prospector { 'rabbitmq_shutdown_log':
+    paths   => '/var/log/rabbitmq/shutdown_log',
+    fields  => {'application' => 'rabbitmq'},
+  }
+
   govuk_logging::logstream { 'rabbitmq_shutdown_error':
     logfile => '/var/log/rabbitmq/shutdown_error',
     fields  => {'application' => 'rabbitmq'},
   }
 
+  filebeat::prospector { 'rabbitmq_shutdown_error':
+    paths   => '/var/log/rabbitmq/shutdown_error',
+    fields  => {'application' => 'rabbitmq'},
+  }
+
   govuk_logging::logstream { 'rabbitmq_host_log':
     logfile => "/var/log/rabbitmq/rabbit@${::hostname}.log",
+    fields  => {'application' => 'rabbitmq'},
+  }
+
+  filebeat::prospector { 'rabbitmq_host_log':
+    paths   => "/var/log/rabbitmq/rabbit@${::hostname}.log",
     fields  => {'application' => 'rabbitmq'},
   }
 }

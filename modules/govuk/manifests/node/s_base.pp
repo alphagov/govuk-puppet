@@ -108,6 +108,31 @@ class govuk::node::s_base (
       fields  => {'application' => 'rkhunter'};
   }
 
+  filebeat::prospector {
+    'apt-history':
+      logfile => '/var/log/apt/history.log',
+      paths   => ['history'],
+      fields  => {'application' => 'apt'};
+    'apt-term':
+      logfile => '/var/log/apt/term.log',
+      paths   => ['term'],
+      fields  => {'application' => 'apt'};
+    'dpkg':
+      paths   => '/var/log/dpkg.log',
+      fields  => {'application' => 'dpkg'};
+    'unattended-upgrades':
+      paths   => '/var/log/unattended-upgrades/unattended-upgrades.log',
+      tags    => ['unattended'],
+      fields  => {'application' => 'apt'};
+    'unattended-upgrades-shutdown':
+      paths   => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
+      tags    => ['unattended'],
+      fields  => {'application' => 'apt'};
+    'rkhunter':
+      paths   => '/var/log/rkhunter.log',
+      fields  => {'application' => 'rkhunter'};
+  }
+
   # whoopsie is the ubuntu crash reporter. We don't want to be running any
   # software that sends data from our machines to 3rd-party services. Remove it.
   package { 'whoopsie':
