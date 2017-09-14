@@ -53,6 +53,11 @@
       "refId": "D",
       "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.success, '5m'),0), 5)",
       "textEditor": true
+    },
+    {
+      "refId": "D",
+      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.*.success, '5m'),0), 6)",
+      "textEditor": true
     }
   ],
   "timeFrom": "24h",
