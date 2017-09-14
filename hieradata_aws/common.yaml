@@ -735,6 +735,8 @@ govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_elasticsearch::backup::alert_hostname: 'alert'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_elasticsearch::open_firewall_from_all: true
+
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::github_enterprise_cert::certificate: |
     -----BEGIN CERTIFICATE-----
