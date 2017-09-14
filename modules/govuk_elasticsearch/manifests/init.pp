@@ -42,6 +42,15 @@
 # [*aws_region*]
 #   If in AWS, the region in which the cluster lives.
 #
+# [*log_slow_queries*]
+#   Boolean. Whether to enable Elasticsearch logs of slow search queries.
+#   Default: false
+#
+# [*slow_query_log_level*]
+#   The log level for logging Elasticsearch slow queries. See https://www.elastic.co/guide/en/elasticsearch/reference/2.4/index-modules-slowlog.html
+#   for more information on log levels. Only used if slow query logging is
+#   enabled using the log_slow_queries parameter.
+#
 class govuk_elasticsearch (
   $version,
   $cluster_hosts = ['localhost'],
@@ -62,6 +71,8 @@ class govuk_elasticsearch (
   $cors_allow_origin = 'http://app.quepid.com',
   $aws_cluster_name = undef,
   $aws_region = 'eu-west-1',
+  $log_slow_queries = false,
+  $slow_query_log_level = 'warn'
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -125,11 +136,30 @@ class govuk_elasticsearch (
     }
   }
 
+  if $log_slow_queries {
+    $slowlog_config = {
+      'threshold.query' => {
+        'warn'  => '5s',
+        'info'  => '2s',
+        'debug' => '1s',
+      },
+      'threshold.fetch' => {
+        'warn'  => '1s',
+        'info'  => '800ms',
+        'debug' => '500ms',
+      },
+      'level' => $slow_query_log_level,
+    }
+  } else {
+    $slowlog_config = {}
+  }
+
   $instance_config = {
     'cluster.name'             => $cluster_name,
     'index.number_of_replicas' => $number_of_replicas,
     'index.number_of_shards'   => $number_of_shards,
     'index.refresh_interval'   => $refresh_interval,
+    'index.search.slowlog'     => $slowlog_config,
     'transport.tcp.port'       => $transport_port,
     'network.publish_host'     => $::fqdn,
     'network.host'             => '0.0.0.0',
