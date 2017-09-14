@@ -58,6 +58,9 @@ class govuk::apps::mapit (
   }
 
   govuk::app::envvar {
+    "${title}-DB_PASSWORD":
+        varname => 'MAPIT_DB_PASS',
+        value   => $db_password;
     "${title}-DJANGO_SECRET_KEY":
         varname => 'DJANGO_SECRET_KEY',
         value   => $django_secret_key;
