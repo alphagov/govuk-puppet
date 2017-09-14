@@ -21,6 +21,9 @@
 #   Whether to enable the procfile worker service for the govuk index.
 #   Default: false
 #
+# [*enable_bulk_reindex_listener*]
+#   Whether or not to configure the queue for the rummager bulk indexer
+#
 # [*enable_publishing_listener*]
 #   Whether to enable the procfile indexing service.
 #   Default: false
@@ -67,6 +70,7 @@ class govuk::apps::rummager(
   $port = '3009',
   $enable_procfile_worker = true,
   $enable_govuk_index_listener = false,
+  $enable_bulk_reindex_listener = false,
   $enable_publishing_listener = false,
   $errbit_api_key = undef,
   $sentry_dsn = undef,
@@ -132,6 +136,11 @@ class govuk::apps::rummager(
     default => absent,
   }
 
+  $toggled_bulk_reindex_listener = $enable_bulk_reindex_listener ? {
+    true    => present,
+    default => absent,
+  }
+
   govuk::procfile::worker { 'rummager-publishing-queue-listener':
     ensure         => $toggled_ensure,
     setenv_as      => 'rummager',
@@ -144,6 +153,13 @@ class govuk::apps::rummager(
     setenv_as      => 'rummager',
     enable_service => $enable_govuk_index_listener,
     process_type   => 'govuk-index-queue-listener',
+  }
+
+  govuk::procfile::worker { 'rummager-bulk-reindex-queue-listener':
+    ensure         => $toggled_bulk_reindex_listener,
+    setenv_as      => 'rummager',
+    enable_service => $enable_bulk_reindex_listener,
+    process_type   => 'bulk-reindex-queue-listener',
   }
 
   Govuk::App::Envvar {
