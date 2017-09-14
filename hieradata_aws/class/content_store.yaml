@@ -2,9 +2,9 @@
 
 govuk::apps::content_store::mongodb_name: 'content_store_production'
 govuk::apps::content_store::mongodb_nodes:
-  - 'api-mongo-1'
-  - 'api-mongo-2'
-  - 'api-mongo-3'
+  - 'mongo-1'
+  - 'mongo-2'
+  - 'mongo-3'
 
 govuk::node::s_base::apps:
   - content_store
