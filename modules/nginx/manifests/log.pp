@@ -32,7 +32,7 @@ define nginx::log (
   }
 
   # TODO replace statsd shipping.
-  filebeat::prospector { $name:
+  @filebeat::prospector { $name:
     ensure => $logstream,
     paths  => [$path],
     json   => $json_hash,

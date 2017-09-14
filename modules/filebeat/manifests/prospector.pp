@@ -39,7 +39,7 @@ define filebeat::prospector (
   validate_array($paths, $exclude_files, $include_lines, $exclude_lines, $tags)
   validate_bool($tail_files, $close_renamed, $close_removed, $close_eof, $clean_removed, $symlinks)
 
-  @file { "filebeat-${name}":
+  file { "filebeat-${name}":
     ensure  => $ensure,
     path    => "/etc/filebeat/conf.d/${name}.yml",
     owner   => 'root',
