@@ -124,14 +124,6 @@ govuk::node::s_backup::offsite_backups: true
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
-govuk::node::s_frontend_lb::calculators_frontend_servers:
-  - 'calculators-frontend'
-govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend'
-govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend'
-govuk::node::s_frontend_lb::whitehall_frontend_servers:
-  - 'whitehall-frontend'
 govuk::node::s_logs_elasticsearch::rotate_hour: 06
 govuk::node::s_logs_elasticsearch::rotate_minute: 00
 govuk::node::s_licensify_lb::enable_feed_console: true
