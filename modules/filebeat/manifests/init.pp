@@ -47,4 +47,5 @@ class filebeat (
     create_resources('filebeat::prospector', $prospectors_final)
   }
 
+  Filebeat::Prospector <| |>
 }

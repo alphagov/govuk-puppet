@@ -48,5 +48,4 @@ define filebeat::prospector (
     content => template('filebeat/prospector.yml.erb'),
     notify  => Service['filebeat'],
   }
-
 }

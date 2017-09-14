@@ -25,22 +25,18 @@ define nginx::log (
     statsd_timers => $statsd_timers,
   }
 
-  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
-    # filebeat should automatically infer whether a log is in JSON or not
-    # but if it should be we want to log JSON parsing errors.
-    if $json {
-      $json_hash = {add_error_key => true}
-    } else {
-      $json_hash = {}
-    }
+  if $json {
+    $json_hash = {add_error_key => true}
+  } else {
+    $json_hash = {}
+  }
 
-    # TODO replace statsd shipping.
-    filebeat::prospector { $name:
-      ensure => $logstream,
-      paths  => [$path],
-      json   => $json_hash,
-      tags   => $tags,
-      fields => $fields,
-    }
+  # TODO replace statsd shipping.
+  @filebeat::prospector { $name:
+    ensure => $logstream,
+    paths  => [$path],
+    json   => $json_hash,
+    tags   => $tags,
+    fields => $fields,
   }
 }

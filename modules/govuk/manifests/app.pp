@@ -50,7 +50,7 @@
 #
 # [*legacy_logging*]
 # Whether to support the legacy logging scheme where we collect application
-# logs directly, instead of having logs log to stdout/stderr.
+# logs directly, instead of having apps log to stdout/stderr.
 # Default: true
 #
 #

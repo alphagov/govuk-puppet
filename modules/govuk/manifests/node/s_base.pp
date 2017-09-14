@@ -14,10 +14,7 @@ class govuk::node::s_base (
 
   include backup::client
   include base
-  # Remove conditional to install filebeat on other environments
-  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
-    include govuk_beat
-  }
+  include govuk_beat
   include govuk_firewall
   include govuk_harden
   include govuk_safe_to_reboot
