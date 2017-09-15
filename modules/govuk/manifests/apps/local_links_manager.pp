@@ -102,11 +102,12 @@ class govuk::apps::local_links_manager(
 
   if $enabled {
     govuk::app { $app_name:
-      app_type          => 'rack',
-      port              => $port,
-      sentry_dsn        => $sentry_dsn,
-      vhost_ssl_only    => true,
-      health_check_path => '/healthcheck',
+      app_type           => 'rack',
+      log_format_is_json => true,
+      port               => $port,
+      sentry_dsn         => $sentry_dsn,
+      vhost_ssl_only     => true,
+      health_check_path  => '/healthcheck',
     }
 
     Govuk::App::Envvar {
