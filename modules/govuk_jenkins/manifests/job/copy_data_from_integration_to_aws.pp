@@ -14,7 +14,7 @@ class govuk_jenkins::job::copy_data_from_integration_to_aws (
   $service_description = 'Copy Data from Integration to Aws'
 
   $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_room = 'govuk-infrastructure'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/copy_data_from_integration_to_aws.yaml':
