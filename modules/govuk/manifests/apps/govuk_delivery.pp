@@ -60,6 +60,7 @@ class govuk::apps::govuk_delivery(
   include govuk_python
 
   govuk::app { $app_name:
+    ensure             => 'absent',
     app_type           => 'procfile',
     port               => $port,
     vhost_ssl_only     => true,
@@ -68,6 +69,7 @@ class govuk::apps::govuk_delivery(
   }
 
   govuk::procfile::worker { 'govuk-delivery':
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
   }
 
@@ -76,32 +78,40 @@ class govuk::apps::govuk_delivery(
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
+    ensure   => 'absent',
     hosts    => $mongodb_hosts,
     database => $mongodb_database,
   }
 
   govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
+    ensure => 'absent',
+    host   => $redis_host,
+    port   => $redis_port,
   }
 
   govuk::app::envvar {
     "${title}-GOVDELIVERY_USERNAME":
+      ensure  => 'absent',
       varname => 'GOVDELIVERY_USERNAME',
       value   => $govdelivery_username;
     "${title}-GOVDELIVERY_PASSWORD":
+      ensure  => 'absent',
       varname => 'GOVDELIVERY_PASSWORD',
       value   => $govdelivery_password;
     "${title}-GOVDELIVERY_ACCOUNT_CODE":
+      ensure  => 'absent',
       varname => 'GOVDELIVERY_ACCOUNT_CODE',
       value   => $govdelivery_account_code;
     "${title}-GOVDELIVERY_HOSTNAME":
+      ensure  => 'absent',
       varname => 'GOVDELIVERY_HOSTNAME',
       value   => $govdelivery_hostname;
     "${title}-GOVDELIVERY_SIGNUP_FORM":
+      ensure  => 'absent',
       varname => 'GOVDELIVERY_SIGNUP_FORM',
       value   => $govdelivery_signup_form;
     "${title}-LIST_TITLE_FORMAT":
+      ensure  => 'absent',
       varname => 'LIST_TITLE_FORMAT',
       value   => $list_title_format;
   }
