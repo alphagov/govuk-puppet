@@ -51,6 +51,22 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
       from    => getparam(Govuk_host['search-3'], 'ip'),
       require => Govuk_host['search-3'],
     }
+
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-1':
+      port    => 9200,
+      from    => getparam(Govuk_host['calculators-frontend-1'], 'ip'),
+      require => Govuk_host['calculators-frontend-1'],
+    }
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-2':
+      port    => 9200,
+      from    => getparam(Govuk_host['calculators-frontend-2'], 'ip'),
+      require => Govuk_host['calculators-frontend-2'],
+    }
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-calculators-frontend-3':
+      port    => 9200,
+      from    => getparam(Govuk_host['calculators-frontend-3'], 'ip'),
+      require => Govuk_host['calculators-frontend-3'],
+    }
   }
 
   collectd::plugin::tcpconn { 'es-9200':
