@@ -50,6 +50,18 @@
 # [*ga_token_uri*]
 #   Authentication credentials for Google Analytics
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
 class govuk::apps::transition(
   $port = '3044',
   $enable_procfile_worker = true,
@@ -69,6 +81,10 @@ class govuk::apps::transition(
   $ga_client_x509_cert_url = undef,
   $ga_key_p12_b64 = undef,
   $ga_token_uri = undef,
+  $db_hostname = undef,
+  $db_username = 'transition',
+  $db_password = undef,
+  $db_name = 'transition_production',
 ) {
   $app_name = 'transition'
 
@@ -95,6 +111,16 @@ class govuk::apps::transition(
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
+  }
+
+  if $::govuk_node_class !~ /^(development|training)$/ {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
+    }
   }
 
   if $secret_key_base {
