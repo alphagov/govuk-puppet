@@ -11,6 +11,9 @@
 # [*enable_delayed_job_worker*]
 #   Whether or not to enable the background worker for Delayed Job.
 #   Boolean value.
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -38,11 +41,18 @@
 # [*proxy_percentage_of_asset_requests_to_s3_via_nginx*]
 #   Value between 0 and 100 controlling the percentage of traffic that should
 #   be served by proxying the asset from S3
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
 #
 class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
   $enable_delayed_job_worker = true,
+  $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
@@ -54,7 +64,9 @@ class govuk::apps::asset_manager(
   $aws_region = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
-  $proxy_percentage_of_asset_requests_to_s3_via_nginx = '0'
+  $proxy_percentage_of_asset_requests_to_s3_via_nginx = '0',
+  $redis_host = undef,
+  $redis_port = undef
 ) {
 
   $app_name = 'asset-manager'
@@ -188,6 +200,11 @@ class govuk::apps::asset_manager(
         value   => $oauth_secret;
     }
 
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
     if $secret_key_base {
       govuk::app::envvar {
         "${title}-SECRET_KEY_BASE":
@@ -203,6 +220,10 @@ class govuk::apps::asset_manager(
 
     govuk::delayed_job::worker { 'asset-manager':
       enable_service => $enable_delayed_job_worker,
+    }
+
+    govuk::procfile::worker { $app_name:
+      enable_service => $enable_procfile_worker,
     }
 
     govuk::app::envvar {
