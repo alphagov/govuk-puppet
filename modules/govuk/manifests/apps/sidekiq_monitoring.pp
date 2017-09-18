@@ -3,6 +3,13 @@
 # App to monitor Sidekiq for multiple GOV.UK apps.
 #
 # === Parameters
+# [*asset_manager_redis_host*]
+#   Redis host for Asset Manager Sidekiq.
+#   Default: undef
+#
+# [*asset_manager_redis_port*]
+#   Redis port for Asset Manager Sidekiq.
+#   Default: undef
 #
 # [*content_performance_manager_redis_host*]
 #   Redis host for Content Performance Manager Sidekiq.
@@ -109,6 +116,8 @@
 #   Default: undef
 #
 class govuk::apps::sidekiq_monitoring (
+  $asset_manager_redis_host = undef,
+  $asset_manager_redis_port = undef,
   $content_performance_manager_redis_host = undef,
   $content_performance_manager_redis_port = undef,
   $content_tagger_redis_host = undef,
@@ -152,6 +161,11 @@ class govuk::apps::sidekiq_monitoring (
   }
 
   govuk::app::envvar::redis{
+    "${app_name}_asset_manager":
+      prefix => 'asset_manager',
+      host   => $asset_manager_redis_host,
+      port   => $asset_manager_redis_port;
+
     "${app_name}_content_performance_manager":
       prefix => 'content_performance_manager',
       host   => $content_performance_manager_redis_host,
