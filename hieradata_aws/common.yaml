@@ -268,9 +268,7 @@ govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
-  - rabbitmq-1
-  - rabbitmq-2
-  - rabbitmq-3
+  - rabbitmq
 
 govuk::apps::errbit::nagios_memory_warning: 2600
 govuk::apps::errbit::nagios_memory_critical: 3000
@@ -381,9 +379,7 @@ govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::mapit::enabled: true
 
 govuk::apps::rummager::rabbitmq_hosts:
-  - rabbitmq-1
-  - rabbitmq-2
-  - rabbitmq-3
+  - rabbitmq
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1'
