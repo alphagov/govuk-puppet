@@ -564,8 +564,6 @@ govuk_ci::master::pipeline_jobs:
   async_experiments: {}
   backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
-  deployment:
-    source: 'github-enterprise'
   deprecated_columns: {}
   event-store: {}
   gapy: {}
@@ -601,11 +599,8 @@ govuk_ci::master::pipeline_jobs:
   govuk-tagging-monitor: {}
   govuk_taxonomy_helpers: {}
   govuk-user-reviewer: {}
-  licensify:
-    source: 'github-enterprise'
+  licensify: {}
   omniauth-gds: {}
-  opsmanual:
-    source: 'github-enterprise'
   optic14n: {}
   performance-datastore: {}
   performanceplatform-client.py: {}
@@ -613,8 +608,6 @@ govuk_ci::master::pipeline_jobs:
   performanceplatform-documentation: {}
   performanceplatform-govuk-stats: {}
   plek: {}
-  pp-manual:
-    source: 'github-enterprise'
   pre-transition-stats: {}
   publishing-e2e-tests: {}
   rack-logstasher: {}
