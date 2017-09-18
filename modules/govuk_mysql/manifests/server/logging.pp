@@ -24,11 +24,23 @@ class govuk_mysql::server::logging(
     fields  => {'application' => 'mysql'},
   }
 
+  @filebeat::prospector { 'mysql-error-logs':
+    paths  => [$error_log],
+    tags   => ['error'],
+    fields => {'application' => 'mysql'},
+  }
+
   if $slow_query_log {
     govuk_logging::logstream { 'mysql-slow-query-logs':
       logfile => $slow_query_log,
       tags    => ['slow-query'],
       fields  => {'application' => 'mysql'},
+    }
+
+    @filebeat::prospector { 'mysql-slow-query-logs':
+      paths  => $slow_query_log,
+      tags   => ['slow-query'],
+      fields => {'application' => 'mysql'},
     }
   }
 

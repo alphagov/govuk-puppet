@@ -15,4 +15,12 @@ class icinga::service {
     require => Service['icinga'],
   }
 
+  @filebeat::prospector { 'icinga_server':
+    ensure  => 'present',
+    fields  => {'application' => 'icinga'},
+    paths   => ['/var/log/icinga/icinga.log'],
+    tags    => ['monitoring', 'icinga'],
+    require => Service['icinga'],
+  }
+
 }

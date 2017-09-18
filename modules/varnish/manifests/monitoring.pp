@@ -13,6 +13,11 @@ class varnish::monitoring {
     fields  => {'application' => 'varnish'},
   }
 
+  @filebeat::prospector { 'varnishncsa':
+    paths  => ['/var/log/varnish/varnishncsa.log'],
+    fields => {'application' => 'varnish'},
+  }
+
   @@icinga::check { "check_varnish_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',

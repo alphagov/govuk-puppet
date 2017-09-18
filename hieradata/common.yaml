@@ -205,12 +205,6 @@ filebeat::prospectors:
   unattended-upgrades:
     paths:
       - '/var/log/unattended-upgrades/unattended-upgrades.log'
-    tags:
-      - 'unattended'
-    fields:
-      application: 'apt'
-  unattended-upgrades-shutdown:
-    paths:
       - '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log'
     tags:
       - 'unattended'

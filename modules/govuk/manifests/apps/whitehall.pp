@@ -304,10 +304,22 @@ class govuk::apps::whitehall(
       json    => true,
     }
 
+    @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
+      paths  => ['/var/apps/whitehall/log/production_scheduled_publishing.json.log'],
+      fields => {'application' => 'whitehall'},
+      json   => {'add_error_key' => true},
+    }
+
     govuk_logging::logstream { 'whitehall_sidekiq_json_log':
       logfile => '/var/apps/whitehall/log/sidekiq.json.log',
       fields  => {'application' => 'whitehall-sidekiq'},
       json    => true,
+    }
+
+    @filebeat::prospector { 'whitehall_sidekiq_json_log':
+      paths  => ['/var/apps/whitehall/log/sidekiq.json.log'],
+      fields => {'application' => 'whitehall-sidekiq'},
+      json   => {'add_error_key' => true},
     }
 
     govuk::procfile::worker { 'whitehall-admin':
