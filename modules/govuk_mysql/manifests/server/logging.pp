@@ -38,7 +38,7 @@ class govuk_mysql::server::logging(
     }
 
     @filebeat::prospector { 'mysql-slow-query-logs':
-      paths  => $slow_query_log,
+      paths  => [$slow_query_log],
       tags   => ['slow-query'],
       fields => {'application' => 'mysql'},
     }
