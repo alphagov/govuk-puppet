@@ -19,6 +19,10 @@ class govuk_jenkins::job::deploy_app (
   $ci_deploy_jenkins_api_key = undef,
   $applications = undef,
 ) {
+  if $::aws_migration {
+    $aws_deploy = true
+  }
+
   file { '/etc/jenkins_jobs/jobs/deploy_app.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/deploy_app.yaml.erb'),

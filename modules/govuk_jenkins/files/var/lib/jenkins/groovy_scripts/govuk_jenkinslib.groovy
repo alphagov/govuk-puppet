@@ -769,7 +769,7 @@ def uploadArtefactToS3(artefact_path, s3_path){
                      credentialsId: 'govuk-s3-artefact-creds',
                      usernameVariable: 'AWS_ACCESS_KEY_ID',
                      passwordVariable: 'AWS_SECRET_ACCESS_KEY']]){
-    sh "s3cmd --region eu-west-1 --access_key $AWS_ACCESS_KEY_ID --secret_key $AWS_SECRET_ACCESS_KEY put $artefact_path $s3_path"
+    sh "s3cmd --region eu-west-1 --acl-public --access_key $AWS_ACCESS_KEY_ID --secret_key $AWS_SECRET_ACCESS_KEY put $artefact_path $s3_path"
   }
 }
 
