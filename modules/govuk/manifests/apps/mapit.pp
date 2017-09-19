@@ -14,11 +14,15 @@
 # [*django_secret_key*]
 #   The key for Django to use when signing/encrypting sessions.
 #
+# [*sentry_dsn*]
+#   Configuration for Sentry error reporting
+#
 class govuk::apps::mapit (
   $enabled = false,
   $port    = '3108',
   $db_password,
   $django_secret_key = undef,
+  $sentry_dsn = undef,
 ) {
   if $enabled {
     govuk::app { 'mapit':
@@ -27,7 +31,8 @@ class govuk::apps::mapit (
       port               => $port,
       vhost_ssl_only     => true,
       health_check_path  => '/',
-      log_format_is_json => false;
+      log_format_is_json => false,
+      sentry_dsn         => $sentry_dsn;
     }
 
     govuk_postgresql::db { 'mapit':
