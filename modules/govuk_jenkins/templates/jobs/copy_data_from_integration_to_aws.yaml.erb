@@ -65,11 +65,11 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION=<%= @service_description %>
             NSCA_OUTPUT=<%= @service_description %> failed
-        - slack:
-            team-domain: <%= @slack_team_domain %>
-            auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
-            build-server-url: <%= @slack_build_server_url %>
-            room: <%= @slack_room %>
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
+          room: <%= @slack_room %>
     wrappers:
         - ansicolor:
             colormap: xterm
