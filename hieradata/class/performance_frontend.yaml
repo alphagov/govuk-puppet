@@ -1,7 +1,5 @@
 ---
 
-nodejs::version: '0.10.37-1chl1~%{::lsbdistcodename}1'
-
 govuk::node::s_base::apps:
   - performanceplatform_big_screen_view
   - spotlight
