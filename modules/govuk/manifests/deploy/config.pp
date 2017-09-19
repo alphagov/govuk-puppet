@@ -102,6 +102,7 @@ class govuk::deploy::config(
     govuk_envvar {
       'PLEK_SERVICE_RUMMAGER_URI': value => "https://rummager.${app_domain_internal}";
       'PLEK_SERVICE_SEARCH_URI': value   => "https://search.${app_domain_internal}";
+      'PLEK_SERVICE_ERRBIT_URI': value   => "https://errbit.${app_domain_internal}";
     }
 
   }
