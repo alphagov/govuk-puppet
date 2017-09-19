@@ -99,6 +99,9 @@ class govuk::deploy::config(
   if $::aws_migration {
     $app_domain_internal = hiera('app_domain_internal')
 
+    # These variables are manually set in the draft stack (e.g. s_draft_cache),
+    # make sure they're separated out in those locations otherwise puppet
+    # won't run cleanly.
     govuk_envvar {
       'PLEK_SERVICE_RUMMAGER_URI': value => "https://rummager.${app_domain_internal}";
       'PLEK_SERVICE_SEARCH_URI': value   => "https://search.${app_domain_internal}";
