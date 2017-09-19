@@ -12,6 +12,12 @@ class govuk::node::s_draft_cache() {
 
   govuk_envvar {
     'PLEK_HOSTNAME_PREFIX': value => 'draft-';
-    'PLEK_SERVICE_ERRBIT_URI': value => "https://errbit.${app_domain}";
+  }
+
+  unless $::aws_migration {
+    # This is set for all apps in AWS so we skip adding it here
+    govuk_envvar {
+      'PLEK_SERVICE_ERRBIT_URI': value => "https://errbit.${app_domain}";
+    }
   }
 }
