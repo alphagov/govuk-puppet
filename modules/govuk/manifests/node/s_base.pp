@@ -24,7 +24,11 @@ class govuk::node::s_base (
   include monitoring::client
   include postfix
   include rcs
-  include rkhunter
+
+  # FIXME remove after deployed to Production
+  class { '::rkhunter':
+    ensure => 'absent',
+  }
 
   if ! $::aws_migration {
     include hosts
