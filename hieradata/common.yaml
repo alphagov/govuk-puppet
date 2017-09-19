@@ -875,8 +875,6 @@ grafana::dashboards::deployment_applications:
     # Missing @fields.status
     show_controller_errors: false
   imminence:
-    # Missing @fields.status
-    show_controller_errors: false
     has_workers: true
   info-frontend: {}
   licencefinder:
@@ -885,13 +883,8 @@ grafana::dashboards::deployment_applications:
     show_slow_requests: false
     docs_name: 'licence-finder'
   link-checker-api:
-    # Missing kibana logs with this name
-    show_controller_errors: false
-    show_slow_requests: false
-  local-links-manager:
-    # Missing status, duration, controller
-    show_controller_errors: false
-    show_slow_requests: false
+    has_workers: true
+  local-links-manager: {}
   manuals-frontend:
     # Missing status, duration, controller
     show_controller_errors: false
