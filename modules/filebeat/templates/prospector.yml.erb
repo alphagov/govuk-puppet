@@ -92,7 +92,7 @@ filebeat:
           # If this setting is enabled, Filebeat adds a "json_error" key in case of JSON
           # unmarshaling errors or when a text key is defined in the configuration but cannot
           # be used.
-          <%- if @json['add_error_key'] -%>
+          <%- if [true, false].include? @json['add_error_key'] -%>
           add_error_key: <%= @json['add_error_key'] %>
           <%- end -%>
       <%- end -%>
