@@ -499,6 +499,7 @@ govuk::apps::support_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::transition::db_hostname: "transition-postgresql-master-1.backend"
 govuk::apps::transition::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 
