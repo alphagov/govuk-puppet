@@ -78,7 +78,6 @@ class govuk::node::s_backend_lb (
       'canary-backend',
       'email-alert-api',
       'event-store',
-      'govuk-delivery',
       'support-api',
     ]:
       internal_only => true,
