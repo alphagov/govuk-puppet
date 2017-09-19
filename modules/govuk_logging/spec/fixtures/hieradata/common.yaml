@@ -1,0 +1,3 @@
+govuk_logging::logstream::metrics_only: true
+
+app_domain: 'dev.example.com'

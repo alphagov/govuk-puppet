@@ -45,6 +45,10 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # logstream defined type needs a global disable flag for dev vm
     'govuk_logging::logstream::disabled',
 
+    # Override for a defined type where we want to enable logstream only doing
+    # metrics
+    'govuk_logging::logstream::metrics_only',
+
     'mysql_replica_password',
     'mysql_root',
     'nginx_enable_ssl',

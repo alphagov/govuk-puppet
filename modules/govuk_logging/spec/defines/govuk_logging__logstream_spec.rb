@@ -142,4 +142,36 @@ describe 'govuk_logging::logstream', :type => :define do
         )
     end
   end
+
+  context 'with json set to false and metrics_only set to true' do
+    let(:params) { {
+      :logfile       => log_file,
+      :ensure        => 'present',
+      :json          => false,
+      } }
+    let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
+    it 'should ensure the upstart configuration is absent' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure => 'absent',
+      )
+    end
+  end
+
+  context 'with metrics_only set to true' do
+    let(:params) { {
+      :logfile       => log_file,
+      :ensure        => 'present',
+      :json          => true,
+      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
+                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
+      } }
+    let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
+
+    let(:facts) {{ :aws_migration => true }}
+
+    it 'should not contain any configuration related to logs or redis' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure => 'present').without_content(/#{default_shipper}/)
+    end
+  end
 end
