@@ -33,6 +33,7 @@ class govuk::apps::email_alert_service(
   $rabbitmq_password = 'email_alert_service',
   $sentry_dsn = undef,
   $errbit_api_key = undef,
+  $redis_host = undef,
 ) {
   govuk::app { 'email-alert-service':
     app_type           => 'bare',
@@ -49,6 +50,10 @@ class govuk::apps::email_alert_service(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+  }
+
+  govuk::app::envvar::redis { 'email-alert-service':
+    host => $redis_host,
   }
 
   govuk::app::envvar {
