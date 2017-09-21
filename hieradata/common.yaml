@@ -338,6 +338,12 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.publishing.service.gov.uk/'
   - 'https://www.gov.uk/'
 
+govuk::apps::govuk_delivery::mongodb_hosts:        
+  - 'mongo-1.backend'        
+  - 'mongo-2.backend'        
+  - 'mongo-3.backend'        
+govuk::apps::govuk_delivery::mongodb_database: 'govuk_delivery'
+
 govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
