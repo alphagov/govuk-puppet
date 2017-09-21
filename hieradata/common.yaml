@@ -909,8 +909,16 @@ grafana::dashboards::deployment_applications:
   rummager:
     # @fields.controller is blank and rummager is a sinatra app
     show_controller_errors: false
+    show_elasticsearch_stats: true
+    show_response_times: true
+    show_sidekiq_graphs: true
     show_slow_requests: false
     has_workers: true
+    dependent_app_5xx_errors:
+      - collections
+      - finder-frontend
+      - frontend
+      - whitehall-frontend
   search-admin:
     # No data in kibana
     show_controller_errors: false

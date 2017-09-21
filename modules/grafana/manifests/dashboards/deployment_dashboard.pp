@@ -32,8 +32,12 @@ define grafana::dashboards::deployment_dashboard (
   $has_workers = false,
   $error_threshold = 20,
   $warning_threshold = 10,
+  $show_sidekiq_graphs = false,
   $show_controller_errors = true,
-  $show_slow_requests = true
+  $show_response_times = false,
+  $show_slow_requests = true,
+  $dependent_app_5xx_errors = undef,
+  $show_elasticsearch_stats = false
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
@@ -49,12 +53,47 @@ define grafana::dashboards::deployment_dashboard (
     $errors_by_controller_row = []
   }
 
+  if $show_response_times {
+    $show_response_times_row = [
+      ['response_times']
+    ]
+  } else {
+    $show_response_times_row = []
+  }
+
   if $show_slow_requests {
     $duration_by_controller_row = [
       ['response_times_by_controller']
     ]
   } else {
     $duration_by_controller_row = []
+  }
+
+  if $show_sidekiq_graphs {
+    $sidekiq_graph_row = [
+      ['sidekiq_queue_length', 'sidekiq_errors']
+    ]
+  } else {
+    $sidekiq_graph_row = []
+  }
+
+  if $dependent_app_5xx_errors {
+    $dependent_app_5xx_row = [
+      ['dependent_app_5xx']
+    ]
+  } else {
+    $dependent_app_5xx_row = []
+  }
+
+  if $show_elasticsearch_stats {
+    $elasticsearch_stats = [
+      [
+        'elasticsearch_disk_io',
+        'elasticsearch_free_memory',
+        'elasticsearch_idle_cpu']
+    ]
+  } else {
+    $elasticsearch_stats = []
   }
 
   $panel_partials = concat(
@@ -64,7 +103,11 @@ define grafana::dashboards::deployment_dashboard (
     ],
     $worker_row,
     $errors_by_controller_row,
-    $duration_by_controller_row
+    $show_response_times_row,
+    $duration_by_controller_row,
+    $dependent_app_5xx_row,
+    $sidekiq_graph_row,
+    $elasticsearch_stats
   )
 
   file {
