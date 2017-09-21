@@ -43,18 +43,25 @@ define govuk::app::config (
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
+  $app_ensure = 'present',
   $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
   $sentry_dsn = undef,
 ) {
-  $ensure_directory = $ensure ? {
-    'present' => 'directory',
-    'absent'  => 'absent',
-  }
-  $ensure_file = $ensure ? {
-    'present' => 'file',
-    'absent'  => 'absent',
+
+  if $app_ensure == 'absent' {
+    $ensure_directory = 'absent'
+    $ensure_file = 'absent'
+  } else {
+    $ensure_directory = $ensure ? {
+      'present' => 'directory',
+      'absent'  => 'absent',
+    }
+    $ensure_file = $ensure ? {
+      'present' => 'file',
+      'absent'  => 'absent',
+    }
   }
 
   # Check memory thresholds are approximately right

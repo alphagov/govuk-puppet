@@ -60,7 +60,7 @@ class govuk::apps::govuk_delivery(
   include govuk_python
 
   govuk::app { $app_name:
-    ensure             => absent,
+    app_ensure         => 'absent',
     app_type           => 'procfile',
     port               => $port,
     vhost_ssl_only     => true,
@@ -69,7 +69,7 @@ class govuk::apps::govuk_delivery(
   }
 
   govuk::procfile::worker { 'govuk-delivery':
-    ensure         => absent,
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
   }
 
