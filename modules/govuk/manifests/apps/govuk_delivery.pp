@@ -54,7 +54,7 @@ class govuk::apps::govuk_delivery(
   $govdelivery_hostname = undef,
   $govdelivery_signup_form = undef,
   $port = '3042',
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
 ) {
   $app_name = 'govuk-delivery'
   include govuk_python
