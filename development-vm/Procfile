@@ -152,7 +152,8 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # manuals-publisher has reserved port 3205
 # sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
-content-performance-manager-sidekiq:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq.yml
+content-performance-manager-sidekiq-google-analytics:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/google_analytics.yml
+content-performance-manager-sidekiq-publishing-api:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/publishing_api.yml
 # sidekiq-monitoring for link-checker-api-sidekiq uses port 3209
 link-checker-api:                     govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec rails server -p 3208
 link-checker-api-sidekiq:             govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec sidekiq -C ./config/sidekiq.yml
