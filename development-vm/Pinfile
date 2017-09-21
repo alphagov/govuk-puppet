@@ -15,7 +15,7 @@ process :collections => [:static, :'content-store', :rummager]
 process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
-process :'content-performance-manager' => [:'publishing-api-read', :'content-performance-manager-sidekiq']
+process :'content-performance-manager' => [:'publishing-api-read', :'content-performance-manager-sidekiq-google-analytics', :'content-performance-manager-sidekiq-publishing-api']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
 process :'dummy-content-store'
