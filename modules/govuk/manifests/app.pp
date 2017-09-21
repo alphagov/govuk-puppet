@@ -248,6 +248,7 @@ define govuk::app (
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
+  $app_ensure = 'present',
   $hasrestart = false,
   $depends_on_nfs = false,
   $read_timeout = 15,
@@ -273,6 +274,7 @@ define govuk::app (
   }
 
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+  validate_re($app_ensure, '^(present|absent)$', 'Invalid app_ensure value')
 
   $vhost_real = $vhost ? {
     undef    => $title,
@@ -292,6 +294,7 @@ define govuk::app (
 
   govuk::app::config { $title:
     ensure                         => $ensure,
+    app_ensure                     => $app_ensure,
     require                        => Govuk::App::Package[$title],
     app_type                       => $app_type,
     command                        => $command,
