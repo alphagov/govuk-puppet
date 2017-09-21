@@ -43,8 +43,6 @@
 # [*enable_procfile_worker*]
 #   Run the celery worker defined in the procfile
 class govuk::apps::govuk_delivery(
-  $redis_host,
-  $redis_port,
   $mongodb_hosts,
   $mongodb_database,
   $list_title_format,
@@ -79,11 +77,6 @@ class govuk::apps::govuk_delivery(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_hosts,
     database => $mongodb_database,
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
   }
 
   govuk::app::envvar {
