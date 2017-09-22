@@ -22,6 +22,7 @@ class govuk::apps::mapit (
   $port    = '3108',
   $db_password,
   $django_secret_key = undef,
+  $rate_limit_ips = [],
   $sentry_dsn = undef,
 ) {
   if $enabled {
@@ -69,5 +70,8 @@ class govuk::apps::mapit (
     "${title}-DJANGO_SECRET_KEY":
         varname => 'DJANGO_SECRET_KEY',
         value   => $django_secret_key;
+    "${title}-RATE_LIMIT_IPS":
+        varname => 'RATE_LIMIT_IPS',
+        value   => join($rate_limit_ips,',');
   }
 }
