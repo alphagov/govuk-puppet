@@ -16,11 +16,13 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*ensure*]
+#   Default set to present, but set to absent to remove any associated checks.
+#
 # [*freshness_threshold*]
 #   Raise a WARNING if no passive check submissions have been received
 #   within this time period. Specified in seconds.
 #   Default: none, freshness checks disabled.
-#
 #
 # [*action_url*]
 #   Additional diagnostics URL. Typically a link to a graph in Graphite that
@@ -38,6 +40,7 @@
 define icinga::passive_check (
   $service_description,
   $host_name,
+  $ensure              = 'present',
   $freshness_threshold = '',
   $action_url          = undef,
   $notes_url           = undef,
@@ -54,7 +57,7 @@ define icinga::passive_check (
   Icinga::Host[$host_name] -> Icinga::Passive_check[$title]
 
   file { "/etc/icinga/conf.d/icinga_host_${host_name}/${title}.cfg":
-    ensure  => present,
+    ensure  => $ensure,
     content => template('icinga/passive_service.erb'),
     require => Class['icinga::package'],
     notify  => Class['icinga::service'],

@@ -209,11 +209,6 @@ filebeat::prospectors:
       - 'unattended'
     fields:
       application: 'apt'
-  rkhunter:
-    paths:
-      - '/var/log/rkhunter.log'
-    fields:
-      application: 'rkhunter'
 
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
