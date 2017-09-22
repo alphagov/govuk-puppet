@@ -58,6 +58,7 @@ govuk::node::s_base::apps:
   - email_alert_api
   - email_alert_service
   - event_store
+  - govuk_delivery
   - hmrc_manuals_api
   - imminence
   - kibana

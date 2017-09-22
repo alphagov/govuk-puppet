@@ -24,10 +24,18 @@
 #   The hostname of the alert service, to send ncsa notifications.
 #
 class rkhunter::monitoring (
+  $ensure         = 'present',
   $alert_hostname = 'alert.cluster',
 ) {
+
+  if $ensure =~ /present|installed/ {
+    $ensure_dir = 'directory'
+  } else {
+    $ensure_dir = 'absent'
+  }
+
   file { '/var/lib/rkhunter/db':
-    ensure  => directory,
+    ensure  => $ensure_dir,
     owner   => 'root',
     group   => 'nagios',
     mode    => '0750',
@@ -35,6 +43,7 @@ class rkhunter::monitoring (
   }
 
   file { '/var/lib/rkhunter/db/mirrors.dat':
+    ensure  => $ensure,
     owner   => root,
     group   => nagios,
     mode    => '0644',
@@ -53,13 +62,14 @@ class rkhunter::monitoring (
 
   # Script to run rkhunter as a passive check
   file { '/usr/local/bin/rkhunter-passive-check':
-    ensure  => present,
+    ensure  => $ensure,
     mode    => '0755',
     content => template('rkhunter/rkhunter-passive-check.erb'),
   }
 
   # Run it twice a day to stop superfluous alerting
   cron::crondotdee { 'rkhunter-passive-check':
+    ensure  => $ensure,
     command => '/usr/local/bin/rkhunter-passive-check',
     hour    => '6,14',
     minute  => '0',

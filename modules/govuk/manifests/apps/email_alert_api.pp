@@ -75,6 +75,10 @@ class govuk::apps::email_alert_api(
   $govdelivery_signup_form = undef,
   $errbit_api_key = undef,
   $secret_key_base = undef,
+  $db_username = 'email-alert-api',
+  $db_password = undef,
+  $db_hostname = undef,
+  $db_name = 'email-alert-api_production',
 ) {
 
   if $enabled {
@@ -119,6 +123,16 @@ class govuk::apps::email_alert_api(
 
     Govuk::App::Envvar {
       app => 'email-alert-api',
+    }
+
+    if $::govuk_node_class !~ /^(development|training)$/ {
+      govuk::app::envvar::database_url { 'email-alert-api':
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
     }
 
     govuk::app::envvar::redis { 'email-alert-api':

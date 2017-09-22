@@ -43,8 +43,6 @@
 # [*enable_procfile_worker*]
 #   Run the celery worker defined in the procfile
 class govuk::apps::govuk_delivery(
-  $redis_host,
-  $redis_port,
   $mongodb_hosts,
   $mongodb_database,
   $list_title_format,
@@ -60,7 +58,7 @@ class govuk::apps::govuk_delivery(
   include govuk_python
 
   govuk::app { $app_name:
-    ensure             => absent,
+    ensure             => 'absent',
     app_type           => 'procfile',
     port               => $port,
     vhost_ssl_only     => true,
@@ -69,24 +67,16 @@ class govuk::apps::govuk_delivery(
   }
 
   govuk::procfile::worker { 'govuk-delivery':
-    ensure         => absent,
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
+  Govuk::App::Envvar { app => $app_name,
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
-    ensure   => 'absent',
     hosts    => $mongodb_hosts,
     database => $mongodb_database,
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    ensure => 'absent',
-    host   => $redis_host,
-    port   => $redis_port,
   }
 
   govuk::app::envvar {

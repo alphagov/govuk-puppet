@@ -1,8 +1,10 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class rkhunter::package {
+class rkhunter::package (
+  $ensure = 'installed',
+){
 
   package { 'rkhunter':
-    ensure => installed,
+    ensure => $ensure,
   }
 
   # The rkhunter package adds an entry to cron.daily by default,

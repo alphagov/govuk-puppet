@@ -33,7 +33,7 @@ define govuk_logging::logstream (
   $json = false,
   $redis_servers = '',
   $statsd_metric = undef,
-  $statsd_timers = []
+  $statsd_timers = [],
 ) {
 
   validate_re($ensure, ['^present$','^absent$'])
@@ -41,13 +41,26 @@ define govuk_logging::logstream (
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
   # this is necessary because it is a global override in a defined type
   $disable_logstreams = hiera('govuk_logging::logstream::disabled', false)
-  validate_bool($disable_logstreams)
+  $metrics_only = hiera('govuk_logging::logstream::metrics_only', false)
+  validate_bool($disable_logstreams, $metrics_only)
 
   $app_domain = hiera('app_domain')
   $upstart_name = regsubst($title, "\\.${app_domain}", '')
 
   if ($disable_logstreams) {
     # noop
+  } elsif $metrics_only and $json == false {
+    # If we're only gathering metrics we require json to be true, and we need
+    # to purge any old logstream files that are no longer relevant
+      file { "/etc/init/logstream-${upstart_name}.conf":
+        ensure  => 'absent',
+        require => Exec["logstream-STOP-${upstart_name}"],
+      }
+
+      exec { "logstream-STOP-${upstart_name}" :
+        command => "initctl stop logstream-${upstart_name}",
+        onlyif  => "initctl status logstream-${upstart_name}",
+      }
   } elsif ($ensure == present) {
     if $::lsbdistcodename == 'xenial' {
       file { "/lib/systemd/system/logstream-${upstart_name}.service":
@@ -63,11 +76,20 @@ define govuk_logging::logstream (
       }
       $service_provider = 'systemd'
     } else {
-      file { "/etc/init/logstream-${upstart_name}.conf":
-        ensure    => present,
-        content   => template('govuk_logging/logstream.erb'),
-        notify    => Service["logstream-${upstart_name}"],
-        subscribe => Class['govuk_logging'],
+      if $metrics_only {
+        file { "/etc/init/logstream-${upstart_name}.conf":
+          ensure    => present,
+          content   => template('govuk_logging/logstream_metrics.erb'),
+          notify    => Service["logstream-${upstart_name}"],
+          subscribe => Class['govuk_logging'],
+        }
+      } else {
+        file { "/etc/init/logstream-${upstart_name}.conf":
+          ensure    => present,
+          content   => template('govuk_logging/logstream.erb'),
+          notify    => Service["logstream-${upstart_name}"],
+          subscribe => Class['govuk_logging'],
+        }
       }
       $service_provider = 'upstart'
     }
