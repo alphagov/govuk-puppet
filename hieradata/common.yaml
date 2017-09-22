@@ -287,7 +287,7 @@ govuk::apps::hmrc_manuals_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::link_checker_api::redis_host: "redis-2.backend"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
