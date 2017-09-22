@@ -2,7 +2,7 @@
 
 TIMESTAMP=`date +%Y-%m-%d_%Hh%Mm.%A`
 
-DAYS_TO_KEEP="3"
+DAYS_TO_KEEP="2"
 
 GRAPHITE_STORAGE_DIRECTORY="/opt/graphite/storage"
 GRAPHITE_WHISPER_DIRECTORY_NAME="whisper"
