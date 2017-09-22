@@ -364,6 +364,10 @@ govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::mapit::enabled: true
+govuk::apps::mapit::rate_limit_ips:
+  - '127.0.0.1'
+  - "%{hiera('hosts::production::ip_draft_api_lb')}"
+  - "%{hiera('hosts::production::ip_api_lb')}"
 
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq-1.backend
