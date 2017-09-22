@@ -546,6 +546,8 @@ govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_pre
 govuk::node::s_backend_lb::errbit_servers:
   - 'exception-handler'
 
+govuk::node::s_base::log_remote: false
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
   - 'licensing-backend'

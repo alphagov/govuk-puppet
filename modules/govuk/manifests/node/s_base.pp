@@ -7,8 +7,13 @@
 # [*apps*]
 #   An array of GOV.UK applications that should be included on this machine.
 #
+# [*log_remote*]
+#   Whether to enable sending syslogs to remote syslog server. Parameter should
+#   be removed when we have fully migrated to using Filebeat for shipping logs.
+#
 class govuk::node::s_base (
   $apps = [],
+  $log_remote = true,
 ) {
   validate_array($apps)
 
@@ -48,9 +53,17 @@ class govuk::node::s_base (
     $logging_hostname = 'logging.cluster'
   }
 
-  class { 'rsyslog::client':
-    server    => $logging_hostname,
-    log_local => true,
+  if $log_remote {
+    class { 'rsyslog::client':
+      server    => $logging_hostname,
+      log_local => true,
+    }
+  } else {
+    # Syslogs are collected by Filebeat
+    class { 'rsyslog::client':
+      log_local  => true,
+      log_remote => false,
+    }
   }
 
   # Enable default tcpconn monitoring for port 22
