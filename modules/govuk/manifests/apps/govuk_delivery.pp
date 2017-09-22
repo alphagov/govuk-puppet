@@ -43,8 +43,6 @@
 # [*enable_procfile_worker*]
 #   Run the celery worker defined in the procfile
 class govuk::apps::govuk_delivery(
-  $mongodb_hosts,
-  $mongodb_database,
   $list_title_format,
   $govdelivery_username = undef,
   $govdelivery_password = undef,
@@ -72,11 +70,6 @@ class govuk::apps::govuk_delivery(
   }
 
   Govuk::App::Envvar { app => $app_name,
-  }
-
-  govuk::app::envvar::mongodb_uri { $app_name:
-    hosts    => $mongodb_hosts,
-    database => $mongodb_database,
   }
 
   govuk::app::envvar {
