@@ -54,6 +54,7 @@ class rkhunter::monitoring (
   $warning_age = 8 * (24 * 60 * 60)
 
   @@icinga::check { "check_rkhunter_definitions_${::hostname}":
+    ensure              => $ensure,
     check_command       => "check_nrpe!check_file_age!\"-f /var/lib/rkhunter/db/mirrors.dat -c0 -w${warning_age}\"",
     service_description => 'rkhunter definitions not updated',
     host_name           => $::fqdn,
@@ -76,6 +77,7 @@ class rkhunter::monitoring (
   }
 
   @@icinga::passive_check { "check_rkhunter_${::hostname}":
+    ensure              => $ensure,
     service_description => 'rkhunter warnings',
     host_name           => $::fqdn,
     # 26 hours (cron should run daily, with some leeway)
