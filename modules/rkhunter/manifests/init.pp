@@ -2,18 +2,22 @@
 #
 # Install, configure and periodically run rkhunter on our hosts
 #
-class rkhunter {
+class rkhunter (
+  $ensure = 'present',
+){
 
   anchor { 'rkhunter::begin':
     notify => Class['rkhunter::config'];
   }
 
   class { 'rkhunter::package':
+    ensure  => $ensure,
     require => Anchor['rkhunter::begin'],
     notify  => Class['rkhunter::config'],
   }
 
   class { 'rkhunter::config':
+    ensure  => $ensure,
     require => Class['rkhunter::package'],
     notify  => [
       Class['rkhunter::update'],
@@ -26,6 +30,7 @@ class rkhunter {
   }
 
   class { 'rkhunter::monitoring':
+    ensure  => $ensure,
     require => Class['rkhunter::config'],
   }
 

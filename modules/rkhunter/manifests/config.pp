@@ -1,5 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class rkhunter::config {
+class rkhunter::config (
+  $ensure = 'present',
+) {
 
   $disabled_tests = [
     'apps',
@@ -16,12 +18,12 @@ class rkhunter::config {
   ]
 
   file { '/etc/default/rkhunter':
-    ensure => 'present',
+    ensure => $ensure,
     source => 'puppet:///modules/rkhunter/etc/default/rkhunter',
   }
 
   file { '/etc/rkhunter.conf.local':
-    ensure  => 'present',
+    ensure  => $ensure,
     content => template('rkhunter/rkhunter.conf.local.erb'),
   }
 
