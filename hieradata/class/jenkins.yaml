@@ -58,6 +58,8 @@ govuk_jenkins::plugins:
     version: '1.6.7'
   build-pipeline-plugin:
     version: '1.5.7.1'
+  build-user-vars-plugin:
+    version: '1.5'
   build-with-parameters:
     version: '1.4'
   cloudbees-folder:
