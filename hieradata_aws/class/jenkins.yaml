@@ -1,4 +1,16 @@
 ---
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'jenkins'
+
+mount:
+  /var/lib/jenkins:
+    disk: '/dev/mapper/jenkins-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+
 jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.Hudson.Administer'
   - 'hudson.model.Hudson.Read'
