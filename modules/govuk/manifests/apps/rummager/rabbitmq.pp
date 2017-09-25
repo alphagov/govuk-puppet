@@ -47,6 +47,14 @@ class govuk::apps::rummager::rabbitmq (
     durable       => true,
   }
 
+  # When we want to manually refresh data in search, we can run a task in
+  # publishing API to send "bulk reindex" messages. The routing key has
+  # three components (*.bulk.reindex) so that it doesn't get routed to any
+  # queues except for this one.
+  #
+  # We've kept this separate because the message publish rate is much higher
+  # than we would expect from normal publishing activity, and this gives us
+  # the flexibility to stop/throttle these messages if they become a problem.
   if $enable_bulk_reindex_listener {
     govuk_rabbitmq::queue_with_binding { 'rummager_bulk_reindex':
       amqp_exchange => $amqp_exchange,
