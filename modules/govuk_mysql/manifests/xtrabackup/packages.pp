@@ -13,7 +13,7 @@ class govuk_mysql::xtrabackup::packages (
     require => Class[Mysql::Server],
   }
 
-  package { 's3cmd':
+  package { ['s3cmd', 'awscli']:
     ensure   => 'present',
     provider => 'pip',
   }
