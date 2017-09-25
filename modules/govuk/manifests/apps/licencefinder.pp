@@ -86,7 +86,7 @@ class govuk::apps::licencefinder(
     govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
       app     => $app_name,
       varname => 'ELASTICSEARCH_URI',
-      value   => 'http://elasticsearch:9200',
+      value   => 'http://rummager-elasticsearch:9200',
     }
   }
 }
