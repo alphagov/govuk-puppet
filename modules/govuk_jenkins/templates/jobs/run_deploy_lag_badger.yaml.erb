@@ -1,0 +1,28 @@
+---
+- scm:
+    name: deploy-lag-badger-repo
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-deploy-lag-badger.git
+            branches:
+              - master
+
+- job:
+    name: run-deploy-lag-badger
+    display-name: Run deploy lag badger
+    project-type: freestyle
+    description: "The deploy lag badger notifies developers that there are undeployed PRs"
+    scm:
+      - deploy-lag-badger-repo
+    logrotate:
+        numToKeep: 100
+    triggers:
+        - timed: '0 13 * * *' # 1PM every day
+    builders:
+        - shell: |
+            export REALLY_POST_TO_SLACK=1
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec rake run
+    wrappers:
+      - ansicolor:
+          colormap: xterm
