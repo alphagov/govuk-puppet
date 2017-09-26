@@ -32,8 +32,8 @@ FORGE
     gdsoperations-unattended_reboot (0.3.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
     maestrodev-wget (1.5.0)
-    puppet-archive (1.1.2)
-      puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
+    puppet-archive (1.3.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
     puppet-staging (1.0.7)
     puppet-unattended_upgrades (2.1.0)
       puppetlabs-apt (< 3.0.0, >= 2.2.0)
@@ -81,6 +81,15 @@ FORGE
       puppetlabs-stdlib (< 6.0.0, >= 4.6.0)
       stahnma-epel (< 2.0.0, >= 1.0.1)
     thias-sysctl (0.3.2)
+
+GIT
+  remote: git://github.com/afda16/puppet-prometheus.git
+  ref: puppet3
+  sha: 67deda3ace61d003d8cb843e4af3aa3288c9047c
+  specs:
+    puppet-prometheus (1.0.0)
+      puppet-archive (< 2.0.0, >= 1.3.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-apparmor.git
@@ -203,6 +212,7 @@ DEPENDENCIES
   maestrodev-wget (>= 1.1.0)
   nextrevision-automysqlbackup (>= 0)
   puppet-ext4mount (>= 0)
+  puppet-prometheus (>= 0)
   puppet-unattended_upgrades (>= 2.1.0)
   puppetlabs-apt (= 2.3.0)
   puppetlabs-concat (= 2.2.0)
