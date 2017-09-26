@@ -7,5 +7,9 @@ class monitoring::client::prometheus {
       version    => '0.14.0',
       collectors => ['diskstats','filesystem','loadavg','meminfo','stat','time'],
     }
+
+    @ufw::allow { 'allow-node_exporter-http-9100':
+      port => 9100,
+    }
   }
 }
