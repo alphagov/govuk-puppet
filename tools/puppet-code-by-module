@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# This script sums the number of lines in all the manifest files
+# contained in each module and then displays them.
+
+for module in `ls modules | grep -v bouncer` # bouncer doesn't have any manifests
+do
+  wc -l `find modules/$module -name "*.pp"` | tail -n 1 | awk -v mod="$module" '{ printf("%-40s %5s\n", mod, $1) }'
+done | sort -rn -k 2
