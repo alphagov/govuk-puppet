@@ -12,9 +12,13 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::designprinciples(
   $port = '3023',
   $publishing_api_bearer_token = undef,
+  $sentry_dsn = undef,
 ) {
   govuk::app { 'designprinciples':
     app_type              => 'rack',
@@ -24,6 +28,7 @@ class govuk::apps::designprinciples(
     asset_pipeline        => true,
     asset_pipeline_prefix => 'designprinciples',
     repo_name             => 'design-principles',
+    sentry_dsn            => $sentry_dsn,
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
