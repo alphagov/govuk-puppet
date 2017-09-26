@@ -8,9 +8,6 @@
 # [*port*]
 #   The port that Asset Manager is served on.
 #   Default: 3037
-# [*enable_delayed_job_worker*]
-#   Whether or not to enable the background worker for Delayed Job.
-#   Boolean value.
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
@@ -51,7 +48,6 @@
 class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
-  $enable_delayed_job_worker = true,
   $enable_procfile_worker = true,
   $errbit_api_key = undef,
   $sentry_dsn = undef,
@@ -216,10 +212,6 @@ class govuk::apps::asset_manager(
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
-    }
-
-    govuk::delayed_job::worker { 'asset-manager':
-      enable_service => $enable_delayed_job_worker,
     }
 
     govuk::procfile::worker { $app_name:
