@@ -1588,7 +1588,9 @@ router::nginx::robotstxt: |
   Disallow: /
   # Complaints of 429 'Too many requests' seem to be coming from SharePoint servers
   # (https://social.msdn.microsoft.com/Forums/en-US/3ea268ed-58a6-4166-ab40-d3f4fc55fef4)
-  User-agent: Mozilla/4.0 (compatible; MSIE 4.01; Windows NT; MS Search 6.0 Robot)
+  # The robot doesn't recognise its User-Agent string, see the MS support article:
+  # https://support.microsoft.com/en-us/help/3019711/the-sharepoint-server-crawler-ignores-directives-in-robots-txt
+  User-agent: MS Search 6.0 Robot
   Crawl-delay: 1
 
 sidekiq_host: 'redis-1.backend'
