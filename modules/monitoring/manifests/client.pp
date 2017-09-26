@@ -11,6 +11,10 @@ class monitoring::client (
   include collectd
   include collectd::plugin::tcp
 
+  if $::aws_migration {
+    include monitoring::client::prometheus
+  }
+
   package {'gds-nagios-plugins':
     ensure   => '1.4.0',
     provider => 'pip',
