@@ -33,6 +33,7 @@ class govuk::apps::errbit(
   $oauth_secret = undef,
 ) {
   govuk::app { 'errbit':
+    ensure                 => 'absent',
     app_type               => 'rack',
     port                   => $port,
     vhost_ssl_only         => true,
@@ -41,24 +42,5 @@ class govuk::apps::errbit(
     asset_pipeline         => true,
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
-  }
-
-  Govuk::App::Envvar {
-    app => 'errbit',
-  }
-
-  $app_domain = hiera('app_domain')
-
-  govuk::app::envvar {
-    'ERRBIT_EMAIL_FROM':
-      value => $errbit_email_from;
-    'ERRBIT_HOST':
-      value => "errbit.${app_domain}";
-    'SECRET_KEY_BASE':
-      value => $errbit_secret_key_base;
-    'OAUTH_ID':
-      value => $oauth_id;
-    'OAUTH_SECRET':
-      value => $oauth_secret;
   }
 }

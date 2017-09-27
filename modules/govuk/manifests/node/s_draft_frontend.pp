@@ -21,7 +21,6 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
   unless $::aws_migration {
     # This is set for all apps in AWS so we skip adding it here
     govuk_envvar {
-      'PLEK_SERVICE_ERRBIT_URI': value => "https://errbit.${app_domain}";
       'PLEK_SERVICE_SEARCH_URI': value => "https://search.${app_domain}";
     }
   }

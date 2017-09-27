@@ -30,7 +30,6 @@ process :designprinciples => [:static]
 process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
-process :errbit
 process :'event-store'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']

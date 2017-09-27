@@ -72,7 +72,6 @@ govuk::apps::asset_manager::proxy_percentage_of_asset_requests_to_s3_via_nginx: 
 govuk::apps::content_performance_manager::feature_auditing_allocation: false
 govuk::apps::content_performance_manager::feature_auditing_theme_filtering: false
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::errbit::errbit_email_from: 'govuk-winston+errbit-production@digital.cabinet-office.gov.uk'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
