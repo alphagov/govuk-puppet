@@ -34,7 +34,6 @@ deployable_applications: &deployable_applications
   email-alert-api: {}
   email-alert-frontend: {}
   email-alert-service: {}
-  errbit: {}
   feedback: {}
   finder-frontend: {}
   frontend: {}
