@@ -22,6 +22,8 @@ RSpec.configure do |c|
     c.parser = 'future'
   end
 
+  c.profile_examples = ENV['PUPPET_RSPEC_PROFILE_EXAMPLES'] == '1'
+
   possible_releases = {
     'precise' => '12.04',
     'trusty'  => '14.04',
