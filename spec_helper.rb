@@ -47,6 +47,7 @@ RSpec.configure do |c|
     :puppetversion           => '3.8.6',
     :kernel                  => 'Linux',
     :ipaddress_eth0          => '127.0.0.1',
+    :aws_migration           => false,
   }
 
   c.after(:suite) do
