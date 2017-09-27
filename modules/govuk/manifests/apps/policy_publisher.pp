@@ -21,8 +21,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -46,7 +44,6 @@ class govuk::apps::policy_publisher(
   $port = '3098',
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
-  $errbit_api_key = '',
   $sentry_dsn = undef,
   $db_hostname = undef,
   $db_username = 'policy_publisher',
@@ -82,9 +79,6 @@ class govuk::apps::policy_publisher(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

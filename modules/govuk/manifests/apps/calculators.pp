@@ -15,8 +15,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -25,7 +23,6 @@ class govuk::apps::calculators(
   $port = '3047',
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
-  $errbit_api_key = undef,
   $secret_key_base = undef,
 ) {
   govuk::app { 'calculators':
@@ -46,9 +43,6 @@ class govuk::apps::calculators(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;

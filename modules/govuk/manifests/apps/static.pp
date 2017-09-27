@@ -15,10 +15,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*draft_environment*]
 #   A boolean to indicate whether we are in the draft environment.
 #   Sets the environment variable DRAFT_ENVIRONMENT to 'true' if
@@ -44,7 +40,6 @@
 class govuk::apps::static(
   $vhost = 'static',
   $port = '3013',
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $draft_environment = false,
   $secret_key_base = undef,
@@ -71,13 +66,6 @@ class govuk::apps::static(
 
   Govuk::App::Envvar {
     app => $app_name,
-  }
-
-  if $errbit_api_key {
-    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key,
-    }
   }
 
   if $draft_environment {

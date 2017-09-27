@@ -7,10 +7,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key for sending errors.
-#   Default: undef
-#
 # [*instance_name*]
 #   Environment specific name used when sending emails.
 #   Default: undef
@@ -52,7 +48,6 @@
 #   Default: undef
 #
 class govuk::apps::short_url_manager(
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $instance_name = undef,
   $mongodb_name = undef,
@@ -82,9 +77,6 @@ class govuk::apps::short_url_manager(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

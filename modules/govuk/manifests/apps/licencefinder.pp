@@ -11,10 +11,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
-#
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
 #
@@ -30,7 +26,6 @@
 #
 class govuk::apps::licencefinder(
   $port = '3014',
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',
@@ -49,15 +44,6 @@ class govuk::apps::licencefinder(
     asset_pipeline        => true,
     asset_pipeline_prefix => 'licencefinder',
     repo_name             => 'licence-finder',
-  }
-
-  if $errbit_api_key {
-    govuk::app::envvar {
-      "${title}-ERRBIT_API_KEY":
-        app     => $app_name,
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
-    }
   }
 
   if $::govuk_node_class !~ /^(development|training)$/ {

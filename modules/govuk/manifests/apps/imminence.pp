@@ -17,8 +17,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
@@ -50,7 +48,6 @@
 class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
@@ -83,9 +80,6 @@ class govuk::apps::imminence(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

@@ -12,10 +12,6 @@
 #   The port that the app is served on.
 #   Default: 3132
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*draft_environment*]
 #   A boolean to indicate whether we are in the draft environment.
 #   Sets the environment variable DRAFT_ENVIRONMENT to 'true' if
@@ -41,7 +37,6 @@
 class govuk::apps::static::enable_running_in_draft_mode(
   $vhost = 'draft-static',
   $port = '3132',
-  $errbit_api_key = undef,
   $draft_environment = true,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
@@ -67,13 +62,6 @@ class govuk::apps::static::enable_running_in_draft_mode(
 
   Govuk::App::Envvar {
     app => $app_name,
-  }
-
-  if $errbit_api_key {
-    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key,
-    }
   }
 
   if $draft_environment {

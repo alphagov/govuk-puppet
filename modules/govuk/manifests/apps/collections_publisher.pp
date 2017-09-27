@@ -15,8 +15,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*oauth_id*]
 #   Sets the OAuth ID used by gds-sso
@@ -55,7 +53,6 @@
 class govuk::apps::collections_publisher(
   $port = '3078',
   $secret_key_base = undef,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -98,9 +95,6 @@ class govuk::apps::collections_publisher(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

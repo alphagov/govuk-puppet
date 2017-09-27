@@ -19,10 +19,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
-#
 # [*govuk_upstream_uri*]
 #   The URI of the upstream service that we proxy to.
 #   Default: undef
@@ -47,7 +43,6 @@ class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
   $mongodb_name = 'authenticating_proxy_production',
   $port = '3107',
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $govuk_upstream_uri = undef,
   $oauth_id = undef,
@@ -77,14 +72,6 @@ class govuk::apps::authenticating_proxy(
           app     => $app_name,
           varname => 'GOVUK_UPSTREAM_URI',
           value   => $govuk_upstream_uri;
-    }
-  }
-
-  if $errbit_api_key {
-    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      app     => $app_name,
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key,
     }
   }
 
@@ -126,9 +113,5 @@ class govuk::apps::authenticating_proxy(
       app     => $app_name,
       varname => 'PLEK_SERVICE_SIGNON_URI',
       value   => "https://signon.${app_domain}";
-    "${title}-PLEK_SERVICE_ERRBIT_URI":
-      app     => $app_name,
-      varname => 'PLEK_SERVICE_ERRBIT_URI',
-      value   => "https://errbit.${app_domain}";
   }
 }

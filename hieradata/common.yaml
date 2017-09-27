@@ -662,7 +662,6 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
 govuk_containers::apps::release::envvars:
-  - "ERRBIT_API_KEY=%{hiera('govuk::apps::release::errbit_api_key')}"
   - "OAUTH_ID=%{hiera('govuk::apps::release::oauth_id')}"
   - "OAUTH_SECRET=%{hiera('govuk::apps::release::oauth_secret')}"
   - "GITHUB_USERNAME=%{hiera('govuk::apps::release::github_username')}"

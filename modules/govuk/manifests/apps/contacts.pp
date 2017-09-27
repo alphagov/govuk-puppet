@@ -11,10 +11,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
 #   rails 4.x signed cookie mechanism. If unset the app will be unable to
@@ -78,7 +74,6 @@ class govuk::apps::contacts(
   $db_username = undef,
   $db_password = undef,
   $enabled = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -127,9 +122,6 @@ class govuk::apps::contacts(
     }
 
     govuk::app::envvar {
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         app     => $app_name,
         varname => 'PUBLISHING_API_BEARER_TOKEN',
