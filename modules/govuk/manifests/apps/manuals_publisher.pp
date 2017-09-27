@@ -23,10 +23,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key for sending errors.
-#   Default: undef
-#
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
@@ -58,7 +54,6 @@ class govuk::apps::manuals_publisher(
   $asset_manager_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name,
@@ -102,9 +97,6 @@ class govuk::apps::manuals_publisher(
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
       value   => $asset_manager_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
       varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
       value   => $email_alert_api_bearer_token;

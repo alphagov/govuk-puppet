@@ -7,9 +7,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   An API key to send exceptions to Errbit.
-#
 # [*port*]
 #   The port on which Bouncer is served on.
 #   Default: 3049
@@ -33,7 +30,6 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::bouncer(
-  $errbit_api_key = '',
   $sentry_dsn = undef,
   $db_username = 'bouncer',
   $db_password = '',
@@ -188,11 +184,5 @@ class govuk::apps::bouncer(
       host     => $db_hostname,
       database => $db_name,
     }
-  }
-
-  govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
   }
 }

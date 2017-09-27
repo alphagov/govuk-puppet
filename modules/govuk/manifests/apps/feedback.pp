@@ -7,10 +7,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
-#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -27,7 +23,6 @@
 #
 class govuk::apps::feedback(
   $port = '3028',
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $support_api_bearer_token = undef,
@@ -51,13 +46,6 @@ class govuk::apps::feedback(
 
   Govuk::App::Envvar {
     app => $app_name,
-  }
-
-  if $errbit_api_key {
-    govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key,
-    }
   }
 
   if $secret_key_base != undef {

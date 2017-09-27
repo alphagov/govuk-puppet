@@ -15,10 +15,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key for sending errors.
-#   Default: undef
-#
 # [*enabled*]
 #   Whether the app is enabled.
 #   Default: false
@@ -78,7 +74,6 @@
 class govuk::apps::specialist_publisher(
   $port = '3064',
   $asset_manager_bearer_token = undef,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $enabled = false,
   $enable_procfile_worker = true,
@@ -155,9 +150,6 @@ client_max_body_size 500m;
       "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
       value   => $asset_manager_bearer_token;
-      "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
       "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

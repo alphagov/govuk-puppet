@@ -29,10 +29,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
-#
 # [*instance_name*]
 #   Environment specific name used when sending emails.
 #   Default: undef
@@ -69,7 +65,6 @@ class govuk::apps::signon(
   $devise_pepper = undef,
   $devise_secret_key = undef,
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $instance_name = undef,
   $nagios_memory_critical = undef,
@@ -110,9 +105,6 @@ class govuk::apps::signon(
     "${title}-DEVISE_SECRET_KEY":
       varname => 'DEVISE_SECRET_KEY',
       value   => $devise_secret_key;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-SSO_PUSH_USER_EMAIL":
       varname => 'SSO_PUSH_USER_EMAIL',
       value   => $sso_push_user_email;

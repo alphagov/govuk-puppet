@@ -38,8 +38,6 @@
 # [*basic_auth_password*]
 #   The password to use for Basic Auth
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -64,7 +62,6 @@ class govuk::apps::transition(
   $secret_key_base = undef,
   $basic_auth_username = undef,
   $basic_auth_password = undef,
-  $errbit_api_key = undef,
   $db_hostname = undef,
   $db_username = 'transition',
   $db_password = undef,
@@ -124,9 +121,6 @@ class govuk::apps::transition(
       "${title}-BASIC_AUTH_PASSWORD":
         varname => 'BASIC_AUTH_PASSWORD',
         value   => $basic_auth_password;
-      "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
     }
   }
 }

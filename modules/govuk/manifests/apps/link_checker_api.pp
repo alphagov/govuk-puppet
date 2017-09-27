@@ -27,10 +27,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key for sending errors.
-#   Default: undef
-#
 # [*google_api_key*]
 #   A Google API Key which will be used for Google Safebrowing checks. If
 #   uset these checks won't be performed
@@ -60,7 +56,6 @@ class govuk::apps::link_checker_api (
   $db_name = 'link_checker_api_production',
   $enabled = false,
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $google_api_key = undef,
   $port = 3208,
@@ -92,11 +87,6 @@ class govuk::apps::link_checker_api (
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
-  }
-
-  govuk::app::envvar { "${title}-ERRBIT_API_KEY":
-    varname => 'ERRBIT_API_KEY',
-    value   => $errbit_api_key;
   }
 
   if $google_api_key != undef {

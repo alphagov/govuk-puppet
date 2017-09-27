@@ -31,10 +31,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by Airbrake
-#   Default: undef
-#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -72,7 +68,6 @@ class govuk::apps::rummager(
   $enable_govuk_index_listener = false,
   $enable_bulk_reindex_listener = false,
   $enable_publishing_listener = false,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
@@ -167,9 +162,6 @@ class govuk::apps::rummager(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;

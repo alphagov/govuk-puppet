@@ -39,15 +39,9 @@
 # [*db_username*]
 #   The username to use in the DATABASE_URL.
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #   Default: undef
 #
 # [*highlight_words_to_avoid*]
@@ -111,7 +105,6 @@ class govuk::apps::whitehall(
   $db_password = undef,
   $db_username = undef,
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $highlight_words_to_avoid = false,
   $nagios_memory_warning = undef,
@@ -436,9 +429,6 @@ class govuk::apps::whitehall(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;

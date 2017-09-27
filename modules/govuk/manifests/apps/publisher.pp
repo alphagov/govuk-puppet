@@ -44,8 +44,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*oauth_id*]
 #   The application's OAuth ID from Signon
@@ -72,7 +70,6 @@ class govuk::apps::publisher(
     $jwt_auth_secret = undef,
     $alert_hostname = 'alert.cluster',
     $sentry_dsn = undef,
-    $errbit_api_key = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
     $fact_check_username = undef,
@@ -155,9 +152,6 @@ class govuk::apps::publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-FACT_CHECK_USERNAME":
       varname => 'FACT_CHECK_USERNAME',
       value   => $fact_check_username;

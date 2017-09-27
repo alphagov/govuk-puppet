@@ -22,8 +22,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*oauth_id*]
 #   The application's OAuth ID from Signon
@@ -38,7 +36,6 @@ class govuk::apps::maslow(
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
-  $errbit_api_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
 ) {
@@ -72,9 +69,6 @@ class govuk::apps::maslow(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;

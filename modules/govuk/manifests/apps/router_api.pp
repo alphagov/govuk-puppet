@@ -25,8 +25,6 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -43,7 +41,6 @@ class govuk::apps::router_api(
   $vhost = 'router-api',
   $secret_key_base = undef,
   $sentry_dsn = undef,
-  $errbit_api_key = undef,
   $router_nodes_class = undef,
 ) {
   $app_name = 'router-api'
@@ -68,9 +65,6 @@ class govuk::apps::router_api(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
-    "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:

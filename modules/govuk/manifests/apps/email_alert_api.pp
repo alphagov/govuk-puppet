@@ -46,8 +46,6 @@
 #   URL to the public govdelivery page users are redirected to to enter their
 #   email and subscribe (URL should include a %s to provide a topic ID)
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -73,7 +71,6 @@ class govuk::apps::email_alert_api(
   $govdelivery_account_code = undef,
   $govdelivery_hostname = undef,
   $govdelivery_signup_form = undef,
-  $errbit_api_key = undef,
   $secret_key_base = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
@@ -174,9 +171,6 @@ class govuk::apps::email_alert_api(
       "${title}-GOVDELIVERY_SIGNUP_FORM":
           varname => 'GOVDELIVERY_SIGNUP_FORM',
           value   => $govdelivery_signup_form;
-      "${title}-ERRBIT_API_KEY":
-          varname => 'ERRBIT_API_KEY',
-          value   => $errbit_api_key;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;

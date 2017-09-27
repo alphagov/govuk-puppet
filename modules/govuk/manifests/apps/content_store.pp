@@ -34,10 +34,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: ''
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -50,7 +46,6 @@ class govuk::apps::content_store(
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
-  $errbit_api_key = '',
   $secret_key_base = undef,
   $sentry_dsn = undef,
 ) {
@@ -100,8 +95,5 @@ class govuk::apps::content_store(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
   }
 }

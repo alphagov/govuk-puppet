@@ -37,8 +37,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
 #
 class govuk::apps::frontend(
   $vhost = 'frontend',
@@ -49,7 +47,6 @@ class govuk::apps::frontend(
   $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
 ) {
 
@@ -85,8 +82,5 @@ class govuk::apps::frontend(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-        varname => 'ERRBIT_API_KEY',
-        value   => $errbit_api_key;
   }
 }

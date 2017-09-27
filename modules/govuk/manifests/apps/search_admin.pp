@@ -20,10 +20,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*port*]
 #   The port where the Rails app is running.
 #   Default: 3073
@@ -44,7 +40,6 @@ class govuk::apps::search_admin(
   $db_name = undef,
   $db_password = undef,
   $db_username = undef,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $port = '3073',
   $oauth_id = undef,
@@ -69,9 +64,6 @@ class govuk::apps::search_admin(
   }
 
   govuk::app::envvar {
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

@@ -19,10 +19,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*errbit_api_key*]
-#   Errbit API key used by airbrake
-#   Default: undef
-#
 # [*mongodb_name*]
 #   The Mongo database to be used.
 #
@@ -61,7 +57,6 @@ class govuk::apps::travel_advice_publisher(
   $asset_manager_bearer_token = undef,
   $enable_email_alerts = false,
   $enable_procfile_worker = true,
-  $errbit_api_key = undef,
   $sentry_dsn = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
@@ -107,9 +102,6 @@ class govuk::apps::travel_advice_publisher(
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
       varname => 'ASSET_MANAGER_BEARER_TOKEN',
       value   => $asset_manager_bearer_token;
-    "${title}-ERRBIT_API_KEY":
-      varname => 'ERRBIT_API_KEY',
-      value   => $errbit_api_key;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
