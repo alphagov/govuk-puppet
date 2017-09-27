@@ -14,13 +14,23 @@ class govuk::node::s_monitortest {
 
   include ::govuk::node::s_base
 
+  $numeric_port = scanf('9091', "%i")
+
   class { 'prometheus':
     version        => '1.7.1',
+    init_style     => 'debian',
     scrape_configs => [
       {
         'job_name'        => 'prometheus',
         'scrape_interval' => '30s',
         'scrape_timeout'  => '30s',
+        'ec2_sd_configs'  => [
+          {
+            'region'  => $::aws_region,
+            'profile' => "${::aws_stackname}-${::aws_migration}",
+            'port'    => $numeric_port[0],
+          },
+        ],
         'static_configs'  => [
           {
             'targets' => [
