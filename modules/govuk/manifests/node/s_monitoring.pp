@@ -18,7 +18,7 @@ class govuk::node::s_monitoring (
   validate_bool($enable_fastly_metrics, $offsite_backups)
 
   include govuk_rbenv::all
-  include ::govuk_testing_tools::smokey
+  include ::phantomjs
   include monitoring
 
   if $enable_fastly_metrics {
