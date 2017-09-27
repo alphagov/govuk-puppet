@@ -20,14 +20,17 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
+  # FIXME: remove once package is gone
   rbenv::version { '2.1.4':
-    bundler_version => '1.15.1',
+    ensure => 'absent',
   }
   rbenv::version { '2.1.5':
     bundler_version => '1.15.1',
   }
+
+  # FIXME: remove once package is gone
   rbenv::version { '2.1.8':
-    bundler_version => '1.15.1',
+    ensure => 'absent',
   }
   rbenv::alias { '2.1':
     to_version => '2.1.8',
