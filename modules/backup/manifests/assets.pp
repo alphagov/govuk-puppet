@@ -37,16 +37,6 @@ class backup::assets(
 
   include backup::repo
 
-  # FIXME: remove after deployed to Production
-  file { '/root/.ssh' :
-    ensure => absent,
-  }
-
-  # FIXME: remove after deployed to Production
-  file { '/root/.ssh/id_rsa':
-    ensure  => absent,
-  }
-
   if $backup_private_gpg_key and $backup_private_gpg_key_fingerprint {
     validate_re($backup_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
