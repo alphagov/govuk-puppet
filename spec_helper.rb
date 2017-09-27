@@ -48,6 +48,7 @@ RSpec.configure do |c|
     :fqdn_metrics            => 'fakehost-1_management',
     :puppetversion           => '3.8.6',
     :kernel                  => 'Linux',
+    :kernelrelease           => '3.16.0-77-generic',
     :ipaddress_eth0          => '127.0.0.1',
     :aws_migration           => false,
   }
