@@ -19,12 +19,15 @@ which is a thin wrapper around the `puppet-apply-dev` script.
 
 ## Standards
 
-Please familiarise yourself with [our Puppet style guide][style] before
-contributing to this repository.
+Please familiarise yourself with our Puppet standards before contributing to
+this repository:
 
-[style]: https://github.com/alphagov/styleguides/blob/master/puppet.md
+* [Things that should not be in Puppet](/docs/things-that-should-not-be-in-puppet.md)
+* [Dependency management](/docs/dependency-management.md)
+* [Process supervision](/docs/process-supervision.md)
+* [Nagios checks](/docs/nagios-checks.md)
 
-Pay particular attention to the section '[Things that should not be in the Puppet Repo](https://github.com/alphagov/styleguides/blob/master/puppet.md#things-that-should-not-be-in-the-puppet-repo)'.
+Run `rake spec` and `rake lint` to run the tests and lint before checking in.
 
 ## Dependencies
 
