@@ -33,6 +33,7 @@ class govuk::apps::errbit(
   $oauth_secret = undef,
 ) {
   govuk::app { 'errbit':
+    ensure                 => 'absent',
     app_type               => 'rack',
     port                   => $port,
     vhost_ssl_only         => true,
