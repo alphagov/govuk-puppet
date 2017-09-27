@@ -30,11 +30,6 @@ class govuk::node::s_base (
   include postfix
   include rcs
 
-  # FIXME remove after deployed to Production
-  class { '::rkhunter':
-    ensure => 'absent',
-  }
-
   if ! $::aws_migration {
     include hosts
   }
@@ -117,9 +112,6 @@ class govuk::node::s_base (
       logfile => '/var/log/unattended-upgrades/unattended-upgrades-shutdown.log',
       tags    => ['unattended'],
       fields  => {'application' => 'apt'};
-    'rkhunter':
-      logfile => '/var/log/rkhunter.log',
-      fields  => {'application' => 'rkhunter'};
   }
   # whoopsie is the ubuntu crash reporter. We don't want to be running any
   # software that sends data from our machines to 3rd-party services. Remove it.

@@ -219,11 +219,6 @@ filebeat::prospectors:
       - 'unattended'
     fields:
       application: 'apt'
-  rkhunter:
-    paths:
-      - '/var/log/rkhunter.log'
-    fields:
-      application: 'rkhunter'
 
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1'
@@ -1069,8 +1064,6 @@ rabbitmq::config_stomp: true
 
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
-
-rkhunter::monitoring::alert_hostname: 'alert'
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
