@@ -22,6 +22,10 @@
 #   Rack limit for how many form parameters it will parse.
 #   Default: undef
 #
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
+#
 # [*basic_auth_credentials*]
 #   Basic auth credentials (necessary for LinkChecker config) used
 #   by some environments.
@@ -97,6 +101,7 @@ class govuk::apps::whitehall(
   $admin_db_password = undef,
   $admin_db_username = undef,
   $admin_key_space_limit = undef,
+  $asset_manager_bearer_token = undef,
   $basic_auth_credentials = undef,
   $configure_frontend = false,
   $configure_admin = false,
@@ -332,6 +337,9 @@ class govuk::apps::whitehall(
     # Protocol relative URL so assets in admin are on the same domain but work
     # in production and development. (This is needed for IE8)
     govuk::app::envvar {
+      "${title}-ASSET_MANAGER_BEARER_TOKEN":
+        varname => 'ASSET_MANAGER_BEARER_TOKEN',
+        value   => $asset_manager_bearer_token;
       "${title}-GOVUK_ASSET_ROOT":
         app     => $app_name,
         varname => 'GOVUK_ASSET_ROOT',
