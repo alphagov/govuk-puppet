@@ -34,8 +34,8 @@
             export S3_ARTEFACT_BUCKET="govuk-integration-artefact"
             <% end -%>
 
-            if [ "$DEPLOY_FROM_GITHUB_ENTERPRISE" == "true" ]; then
-              export GIT_ORIGIN_PREFIX="git@github.digital.cabinet-office.gov.uk:gds-production-backup"
+            if [ "$DEPLOY_FROM_GITLAB" == "true" ]; then
+              export GIT_ORIGIN_PREFIX="git@gitlab.com:govuk"
             fi
 
             ./jenkins.sh
@@ -84,6 +84,6 @@
             description: Git tag/committish to deploy.
             default: release
         - bool:
-            name: DEPLOY_FROM_GITHUB_ENTERPRISE
+            name: DEPLOY_FROM_GITLAB
             default: false
-            description: Whether to deploy from GitHub Enterprise in case public GitHub is unavailable
+            description: Whether to deploy from GitLab.com in case GitHub is unavailable
