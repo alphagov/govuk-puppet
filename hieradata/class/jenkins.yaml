@@ -35,10 +35,6 @@ govuk_jenkins::config:
       -Djenkins.install.runSetupWizard=false
       -Dhudson.tasks.MailSender.SEND_TO_USERS_WITHOUT_READ=true
 
-# FIXME: During the upgrade this stopped deploys being triggered from CI. When
-# the resolution has been configured remove this.
-govuk_jenkins::config::csrf_version: false
-
 govuk_jenkins::packages::terraform::version: '0.8.1'
 
 govuk_jenkins::plugins:
