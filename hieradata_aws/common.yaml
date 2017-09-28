@@ -1114,7 +1114,7 @@ router::nginx::robotstxt: |
   # The robot doesn't recognise its User-Agent string, see the MS support article:
   # https://support.microsoft.com/en-us/help/3019711/the-sharepoint-server-crawler-ignores-directives-in-robots-txt
   User-agent: MS Search 6.0 Robot
-  Crawl-delay: 1
+  Disallow: /
 
 sidekiq_host: 'backend-redis'
 sidekiq_port: '6379'
