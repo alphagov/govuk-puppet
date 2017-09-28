@@ -44,6 +44,29 @@ class govuk::node::s_monitortest {
       },
     ],
     extra_options  => '-alertmanager.url http://localhost:9093 -web.console.templates=/opt/prometheus-1.7.1.linux-amd64/consoles -web.console.libraries=/opt/prometheus-1.7.1.linux-amd64/console_libraries',
+    alerts         => [
+      {
+        'name'         => 'InstanceDown',
+        'condition'    => 'up == 0',
+        'timeduration' => '5m',
+        labels         => [
+          {
+            'name'    => 'severity',
+            'content' => 'page'
+          }
+        ],
+        'annotations'  => [
+          {
+            'name'  => 'summary',
+            content => 'Instance {{ $labels.instance }} down'
+          },
+          {
+            'name'  => 'description',
+            content => '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+          },
+        ],
+      },
+    ],
   }
 
   @ufw::allow { 'allow-prometheus-http-9090':
