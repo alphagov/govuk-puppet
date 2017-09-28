@@ -20,7 +20,11 @@ certname = <%= scope.lookupvar('::aws_instanceid') %>
 <%- end -%>
 
 [master]
+<%- if scope.lookupvar('::aws_migration') %>
+reports = store,sentry,prometheus
+<%- else -%>
 reports = store,sentry
+<%- end -%>
 report = true
 storeconfigs = true
 storeconfigs_backend = puppetdb

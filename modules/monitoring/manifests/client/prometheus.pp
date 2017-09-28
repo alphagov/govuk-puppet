@@ -2,7 +2,7 @@
 #
 # Install Prometheus client exporters
 class monitoring::client::prometheus {
-  if $::aws_migration == 'jumpbox' {
+  if $::aws_migration =~ /^(jumpbox|puppetmaster)$/ {
 
     file { ['/var/lib/node_exporter', '/var/lib/node_exporter/textfile_collector']:
       ensure => directory,
