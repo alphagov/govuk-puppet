@@ -99,12 +99,6 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
-  include ::govuk_jenkins::github_enterprise_cert
-  include ::govuk_jenkins::reload
-
-  # Jenkins service needs to be restarted to reload the Java keystore
-  Class['govuk_jenkins::github_enterprise_cert'] ~> Class['jenkins::service']
-
   package { 'ghtools':
     ensure   => '0.20.0',
     provider => pip,
