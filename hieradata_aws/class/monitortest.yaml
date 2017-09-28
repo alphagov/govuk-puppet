@@ -1,0 +1,47 @@
+---
+
+prometheus::scrape_configs:
+  - job_name: 'node'
+    scrape_interval: '30s'
+    scrape_timeout: '30s'
+    static_configs:
+      - targets:
+          - 'localhost:9090'
+        labels:
+          alias: 'prometheus'
+    ec2_sd_configs:
+      - region: '%{::aws_region}'
+        profile: '%{::aws_stackname}-%{::aws_migration}'
+        port: 9091
+    relabel_configs:
+        # Use the instance ID as the instance label
+      - source_labels: [__meta_ec2_instance_id]
+        target_label: instance
+      - source_labels: [__meta_ec2_availability_zone]
+        target_label: aws_availability_zone
+      - source_labels: [__meta_ec2_private_ip]
+        target_label: aws_private_ip
+      - source_labels: [__meta_ec2_tag_aws_autoscaling_groupName]
+        target_label: aws_autoscaling_groupname
+      - source_labels: [__meta_ec2_tag_aws_environment]
+        target_label: aws_environment
+      - source_labels: [__meta_ec2_tag_aws_migration]
+        target_label: aws_migration
+      - source_labels: [__meta_ec2_tag_aws_stackname]
+        target_label: aws_stackname
+      - source_labels: [__meta_ec2_tag_aws_hostname]
+        target_label: aws_hostname
+
+prometheus::alerts:
+  - name: 'InstanceDown'
+    condition:  'up == 0'
+    timeduration: '5m'
+    labels:
+      - name: 'severity'
+        content: 'page'
+    annotations:
+      - name: 'summary'
+        content: 'Instance {{ $labels.instance }} down'
+      - name: 'description'
+        content: '{{ $labels.instance }} of job {{ $labels.job }} has been down for more than 5 minutes.'
+
