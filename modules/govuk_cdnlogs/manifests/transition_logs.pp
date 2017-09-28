@@ -107,11 +107,6 @@ class govuk_cdnlogs::transition_logs (
 
   $process_script = '/usr/local/bin/process_transition_logs'
 
-  # FIXME: remove when deployed to Production
-  file { '/usr/local/bin/process_transition_logs.sh':
-    ensure => 'absent',
-  }
-
   $service_desc = 'Transition logs processing script'
 
   file { $process_script:
