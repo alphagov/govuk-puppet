@@ -26,8 +26,8 @@
 # [*base_backup_cron_hour*]
 #   The hour(s) that the daily base backup(s) run(s).
 #
-# [*incremental_backup_cron_minute*]
-#   The minute(s) that the incremental backup(s) run(s).
+# [*incremental_backup_cron_interval*]
+#   The frequency in minutes that the incremental backup(s) run(s).
 #
 # [*mailto*]
 #   Where the cronjob should mail any output of the job run. Everything already
@@ -44,7 +44,7 @@ define govuk_mysql::xtrabackup::backup (
   $aws_region = 'eu-west-1',
   $base_backup_cron_minute = 10,
   $base_backup_cron_hour = 6,
-  $incremental_backup_cron_minute = '*/15',
+  $incremental_backup_cron_interval = 15,
   $mailto = '""',
   $alert_hostname = 'alert.cluster',
 ) {
@@ -83,7 +83,7 @@ define govuk_mysql::xtrabackup::backup (
     notes_url           => monitoring_docs_url(mysql-xtrabackups-to-s3),
   }
 
-  $incremental_threshold_secs = 15 * 60
+  $incremental_threshold_secs = $incremental_backup_cron_interval * 60
   $incremental_service_desc = 'MySQL Xtrabackup incremental push'
 
   file { '/usr/local/bin/xtrabackup_s3_incremental':
@@ -109,7 +109,7 @@ define govuk_mysql::xtrabackup::backup (
   cron::crondotdee { 'xtrabackup_s3_incremental':
     command => '/usr/bin/timeout 30m /usr/bin/setlock -n /var/run/mysql_xtrabackup /usr/local/bin/xtrabackup_s3_incremental',
     hour    => '*',
-    minute  => $incremental_backup_cron_minute,
+    minute  => "*/${incremental_backup_cron_interval}",
     mailto  => $mailto,
   }
 }
