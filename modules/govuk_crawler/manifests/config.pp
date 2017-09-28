@@ -2,16 +2,23 @@
 #
 # Class for configuring the AWS keys used to upload crawler results to S3.
 #
-# [*aws_access_key*] access key for AWS
-# [*aws_secret_key*] secret for chosen AWS key
+# [*aws_access_key*]
+#   access key for AWS
+#
+# [*aws_secret_key*]
+#   secret for chosen AWS key
 #
 # Will be set using environment variables, see:
 # http://docs.aws.amazon.com/cli/latest/userguide/cli-chap-getting-started.html#cli-environment
 #
-
+# [*crawler_user*]
+#   User that the synchronisation cron job runs as.
+#   Default: 'govuk-crawler'
+#
 class govuk_crawler::config (
   $aws_access_key = undef,
   $aws_secret_key = undef,
+  $crawler_user   = 'govuk-crawler',
 ) {
   $env_name = 's3_sync_mirror'
 
@@ -24,8 +31,8 @@ class govuk_crawler::config (
   }
 
   File {
-    owner   => $govuk_crawler::crawler_user,
-    group   => $govuk_crawler::crawler_user,
+    owner   => $crawler_user,
+    group   => $crawler_user,
     mode    => '0600',
     ensure  => present,
   }
