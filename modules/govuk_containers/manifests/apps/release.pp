@@ -10,8 +10,9 @@ class govuk_containers::apps::release (
 ) {
   validate_array($envvars)
 
-  govuk_containers::app { 'release':
+  govuk_containers::service { 'release':
     image            => $image,
+    image_tag        => 'release',
     port             => $port,
     envvars          => $envvars,
     healthcheck_path => $healthcheck_path,
