@@ -334,8 +334,9 @@ class govuk::apps::whitehall(
           value   => '0';
     }
 
-    # Protocol relative URL so assets in admin are on the same domain but work
-    # in production and development. (This is needed for IE8)
+    # NOTE. The GOVUK_ASSET_ROOT environment variable uses a protocol relative
+    # URL so assets in admin are on the same domain but work in production and
+    # development. (This is needed for IE8)
     govuk::app::envvar {
       "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
