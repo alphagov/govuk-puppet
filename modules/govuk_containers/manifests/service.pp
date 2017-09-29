@@ -59,32 +59,44 @@ define govuk_containers::service (
   validate_integer($restart_attempts)
 
   $exposed_port = "${port}:${port}"
-
-  case $restart_attempts {
-    /\d/:   { $restart_arg = "--restart-max-attempts:${restart_attempts}" }
-    default: { $restart_arg = "--restart-max-attempts:${restart_attempts}" }
-  }
-
-  $envvars_string = join($envvars, ",")
+  $restart_arg = "--restart-max-attempts ${restart_attempts}"
+  $envvars_string = join($envvars, " ")
 
   # Add any extra parameters as an array
   $extra_params = [
     '--update-delay 1m',
     '--restart-window 30s',
+    "----log-opt tag=${title}",
     "--env-file ${global_env_file}",
     $restart_arg,
   ]
 
+  rsyslog::snippet { $title:
+    content => "if $programname == '${title}' then {\n  /var/log/govuk/${title}.log\n  ~\n}"
+  }
+
+  @filebeat::prospector { $title:
+    ensure  => $ensure,
+    paths   => ["/var/log/govuk/${title}.log"],
+    tags    => ['docker'],
+    fields  => {'application' => $title},
+    require => Rsyslog::Snippet[$title],
+  }
+
   ::docker::services { $title:
-    ensure           => $ensure,
-    create           => true,
-    image            => "${image}:${image_tag}",
-    publish          => $exposed_port,
-    env              => $envvars_string,
-    extra_params     => $extra_params,
-    replicas         => $replicas,
-    subscribe        => Class[Govuk_containers::App::Config],
-    require          => Class[Govuk_docker],
+    ensure       => $ensure,
+    service_name => $title,
+    create       => true,
+    image        => "${image}:${image_tag}",
+    publish      => $exposed_port,
+    env          => "${envvars_string}",
+    extra_params => $extra_params,
+    replicas     => $replicas,
+    subscribe    => Class[Govuk_containers::App::Config],
+    require      => [
+      Class[Govuk_docker],
+      Rsyslog::Snippet[$title],
+    ],
   }
 
   if $healthcheck_path {
