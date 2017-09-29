@@ -83,4 +83,7 @@ class govuk_ci::master (
     minute  => 0,
   }
 
+  # Required for a job that issues Jenkins Crumbs
+  ensure_packages(['jq'])
+
 }
