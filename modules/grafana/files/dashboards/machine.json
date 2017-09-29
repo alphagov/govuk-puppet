@@ -258,21 +258,6 @@
             "selected": false
           },
           {
-            "text": "api-elasticsearch-1_api",
-            "value": "api-elasticsearch-1_api",
-            "selected": false
-          },
-          {
-            "text": "api-elasticsearch-2_api",
-            "value": "api-elasticsearch-2_api",
-            "selected": false
-          },
-          {
-            "text": "api-elasticsearch-3_api",
-            "value": "api-elasticsearch-3_api",
-            "selected": false
-          },
-          {
             "text": "api-lb-1_api",
             "value": "api-lb-1_api",
             "selected": false
@@ -965,6 +950,21 @@
           {
             "text": "router-backend-4_router",
             "value": "router-backend-4_router",
+            "selected": false
+          },
+          {
+            "text": "rummager-elasticsearch-1_api",
+            "value": "rummager-elasticsearch-1_api",
+            "selected": false
+          },
+          {
+            "text": "rummager-elasticsearch-2_api",
+            "value": "rummager-elasticsearch-2_api",
+            "selected": false
+          },
+          {
+            "text": "rummager-elasticsearch-3_api",
+            "value": "rummager-elasticsearch-3_api",
             "selected": false
           },
           {
