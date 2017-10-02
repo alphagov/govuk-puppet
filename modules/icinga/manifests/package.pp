@@ -5,7 +5,17 @@ class icinga::package {
 
   # icinga3-cgi has apache2 as a `Recommends:` so it may get unintentionally
   # installed. This gets rid of it in that eventually.
-  include apache::remove
+  service { 'apache2':
+    ensure   => 'stopped',
+    provider => 'base',
+  } ->
+  package { [
+    'apache2',
+    'apache2-mpm-worker',
+    'apache2.2-bin',
+    'apache2.2-common']:
+    ensure => 'purged',
+  }
 
   include nginx::fcgi
 
