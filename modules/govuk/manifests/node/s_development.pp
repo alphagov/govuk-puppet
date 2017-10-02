@@ -28,7 +28,6 @@ class govuk::node::s_development (
   include nodejs
   include redis
   include tmpreaper
-  include wkhtmltopdf
 
   include govuk_python
   include govuk_testing_tools
@@ -135,4 +134,6 @@ class govuk::node::s_development (
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
   }
+
+  ensure_packages(['wkhtmltopdf'])
 }
