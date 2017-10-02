@@ -80,6 +80,8 @@ filebeat:
           # If you enable this setting, the keys are copied top level in the output document.
           <%- if @json['keys_under_root'] -%>
           keys_under_root: <%= @json['keys_under_root'] %>
+          <%- else -%>
+          keys_under_root: true
           <%- end -%>
 
           # If keys_under_root and this setting are enabled, then the values from the decoded
@@ -87,6 +89,8 @@ filebeat:
           # in case of conflicts.
           <%- if @json['overwrite_keys'] -%>
           overwrite_keys: <%= @json['overwrite_keys'] %>
+          <%- else -%>
+          overwrite_keys: true
           <%- end -%>
 
           # If this setting is enabled, Filebeat adds a "json_error" key in case of JSON

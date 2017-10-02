@@ -8,7 +8,7 @@ define filebeat::prospector (
   $encoding              = 'plain',
   $input_type            = 'log',
   $fields                = {},
-  $fields_under_root     = false,
+  $fields_under_root     = true,
   $ignore_older          = undef,
   $close_older           = undef,
   $doc_type              = 'log',
