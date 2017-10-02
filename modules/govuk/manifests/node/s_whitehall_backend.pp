@@ -9,7 +9,7 @@ class govuk::node::s_whitehall_backend (
   include imagemagick
 
   # Package required in order to use PDFKit
-  include wkhtmltopdf
+  ensure_packages(['wkhtmltopdf'])
 
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
