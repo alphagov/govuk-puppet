@@ -1,5 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class varnish::monitoring {
+class varnish::monitoring (
+  $logit_kibana = false,
+) {
 
   file { '/var/log/varnish':
     mode    => '0755',
@@ -29,11 +31,20 @@ class varnish::monitoring {
   }
 
   $app_domain = hiera('app_domain')
-  $kibana_url = "https://kibana.${app_domain}"
   $hostname_prefix = split($::hostname, '-')
-  $kibana_search = {
-    'query' => "@source_host:${hostname_prefix[0]}* AND status:[500 TO 599]",
-    'from'  => '4h',
+
+  if $logit_kibana {
+    $kibana_url = 'https://kibana.logit.io'
+    $kibana_search = {
+      'query' => "host:${hostname_prefix[0]}* AND @fields.status:[500 TO 599]",
+      'from'  => '4h',
+    }
+    } else {
+    $kibana_url = "https://kibana.${app_domain}"
+    $kibana_search = {
+      'query' => "@source_host:${hostname_prefix[0]}* AND status:[500 TO 599]",
+      'from'  => '4h',
+    }
   }
 
   @@icinga::check { "check_varnish_responding_${::hostname}":

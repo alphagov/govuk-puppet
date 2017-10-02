@@ -253,6 +253,8 @@ postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
+puppet::monitoring::logit_kibana: true
+
 router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
 
@@ -318,3 +320,5 @@ users::usernames:
   - timblair
   - tomsabin
   - vanitabarrett
+
+varnish::monitoring::logit_kibana: true
