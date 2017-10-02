@@ -23,29 +23,22 @@ class govuk_safe_to_reboot (
   $reboot_class = "govuk_safe_to_reboot::${can_reboot}"
 
   case $can_reboot {
-    'no', 'careful': {
-            if ($reason == '') {
-              fail('Machine is flagged as unsafe to reboot, but no reason supplied')
-            } else {
-              $real_reason = $reason
-            }
-          }
-    'overnight': {
-            if ($reason == '') {
-              fail('Machine is flagged as safe to reboot overnight, but no reason supplied')
-            } else {
-              $real_reason = $reason
-            }
-          }
-    'yes': {
-            $real_reason = 'Not flagged specifically so assuming safe to reboot'
-          }
-    default: {
-            fail("Invalid value for govuk_safe_to_reboot::can_reboot: ${can_reboot}")
-          }
+    'no', 'careful', 'overnight': {
+      if ($reason == '') {
+        fail("Machine is flagged as '${can_reboot} reboot', but no reason supplied")
+      } else {
+        $real_reason = $reason
+      }
     }
+    'yes': {
+      $real_reason = 'Not flagged specifically so assuming safe to reboot'
+    }
+    default: {
+      fail("Invalid value for govuk_safe_to_reboot::can_reboot: ${can_reboot}")
+    }
+  }
 
   class { $reboot_class:
-      reason => $real_reason,
+    reason => $real_reason,
   }
 }
