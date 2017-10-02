@@ -80,7 +80,7 @@ deployable_applications: &deployable_applications
   travel-advice-publisher: {}
   whitehall: {}
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
@@ -539,6 +539,8 @@ govuk::node::s_backend_lb::errbit_servers:
 
 govuk::node::s_base::log_remote: false
 
+govuk::node::s_docker_base::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
   - 'licensing-backend'
@@ -700,6 +702,10 @@ govuk_containers::apps::release::envvars:
   - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
   - "RAILS_SERVE_STATIC_FILES=true"
 
+govuk_containers::apps::static::envvars:
+  - "SECRET_KEY_BASE=%{hiera('govuk::apps::static::secret_key_base')}"
+  - "REDIS_URL=redis://backend-redis:6379"
+
 govuk_containers::apps::router::envvars:
   - "ROUTER_PUBADDR=localhost:3054"
   - "ROUTER_APIADDR=:3055"
@@ -709,8 +715,6 @@ govuk_containers::apps::router::envvars:
 
 govuk_containers::frontend::haproxy::backend_mappings:
   - "release.%{hiera('app_domain')}": "release"
-govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
-govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard_publishing_key')}"
 
 govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'

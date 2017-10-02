@@ -5,7 +5,6 @@ mod 'attachmentgenie/ufw', '1.0.3'
 mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'fsalum/redis'
-mod 'garethr-docker', '5.3.0'
 mod 'maestrodev/wget', '>= 1.1.0'
 mod 'puppetlabs/apt', '2.3.0'
 mod 'puppetlabs/concat', '2.2.0'
@@ -30,6 +29,11 @@ mod 'stankevich/python', '1.9.8'
 mod 'goldyfruit/grub2',
   :git => 'git://github.com/goldyfruit/puppet-grub2.git',
   :ref => 'a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73'
+
+# Using a commit because there hasn't been a release to Puppetforge in over a year
+mod 'garethr/docker',
+  :git => 'git://github.com/garethr/garethr-docker.git',
+  :ref => 'd8587b2affc98daf5d64e91992aff0a89c0ba751'
 
 # using git version because we need 93a1765bc09
 # which isn't in 0.2.2 (current latest, 2013-11-13)

@@ -7,20 +7,12 @@
 # [*backend_mappings*]
 #   Array of hashes with domain to backend mapping information to configure Haproxy
 #   frontend. The backend needs to match the name of the relevant haproxy::backend
-#   resource in govuk_containers::balancermember: 
+#   resource in govuk_containers::balancermember:
 #
 #   [ { "release.dev.gov.uk" => "release" } ]
 #
-# [*wildcard_publishing_certificate*]
-#   Wildcard publishing certificate
-#
-# [*wildcard_publishing_key*]
-#   Wildcard publishing key
-#
 class govuk_containers::frontend::haproxy (
   $backend_mappings,
-  $wildcard_publishing_certificate,
-  $wildcard_publishing_key,
 ) {
 
   # Override global default options in the upstream module
@@ -43,28 +35,12 @@ class govuk_containers::frontend::haproxy (
     priority => 1001, # 1001 will cause a downgrade if necessary
   }
 
-  file { [ '/etc/haproxy/ssl' ]:
-    ensure  => 'directory',
-    require => File['/etc/haproxy'],
-  }
-
-  file { '/etc/haproxy/ssl/publishing.pem':
-    ensure  => 'present',
-    owner   => haproxy,
-    mode    => '0640',
-    content => inline_template("${wildcard_publishing_certificate}${wildcard_publishing_key}"),
-    require => File['/etc/haproxy/ssl'],
-  }
-
   rsyslog::snippet { 'haproxy':
     content => "\$ModLoad imudp\n\$UDPServerRun 514\n\$UDPServerAddress 127.0.0.1\nlocal0.* /var/log/haproxy.log",
   }
 
   haproxy::frontend { $::hostname:
     mode    => 'http',
-    bind    => {
-      "${::ipaddress_eth0}:443" => ['ssl', 'crt', '/etc/haproxy/ssl/publishing.pem'],
-    },
     options => {
       'timeout client' => '30s',
       'option'         => [
@@ -86,10 +62,6 @@ class govuk_containers::frontend::haproxy (
   haproxy::mapfile { 'domains-to-backends':
     ensure   => 'present',
     mappings => $backend_mappings,
-  }
-
-  @ufw::allow { 'allow-https-from-all':
-    port => 443,
   }
 
 }
