@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk_pam', :type => :class do
+describe 'govuk_harden::pam', :type => :class do
 
   it { is_expected.to compile }
 
