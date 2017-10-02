@@ -61,6 +61,9 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*spelling_dependencies*]
+#   Install the spelling package dependencies
+#
 class govuk::apps::rummager(
   $rabbitmq_user,
   $port = '3009',
@@ -76,8 +79,12 @@ class govuk::apps::rummager(
   $redis_port = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $spelling_dependencies = 'present',
 ) {
-  include aspell
+
+  package { ['aspell', 'aspell-en', 'libaspell-dev']:
+    ensure => $spelling_dependencies,
+  }
 
   govuk::app { 'rummager':
     app_type               => 'rack',
