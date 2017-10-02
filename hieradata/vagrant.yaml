@@ -22,6 +22,7 @@ assets::ssh_private_key::key: |
   /LeZ4erY43uylcslv0IdeARWGNLw7x8dq++QO530
   -----END RSA PRIVATE KEY-----
 
+base::shell::shell_prompt_string: 'dev'
 base::supported_kernel::enabled: true
 
 govuk::apps::stagecraft::enabled: true
@@ -153,8 +154,6 @@ govuk_postgresql::server::snakeoil_ssl_key: |
   -----END RSA PRIVATE KEY-----
 
 govuk_postgresql::wal_e::backup::enabled: true
-
-shell::shell_prompt_string: 'dev'
 
 ssh::config::allow_users:
   - 'assets'

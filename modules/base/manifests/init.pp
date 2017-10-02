@@ -7,6 +7,7 @@ class base {
   include apparmor
   include apt
   include base::packages
+  include base::shell
   include base::supported_kernel
   include cron
   include curl
@@ -27,7 +28,6 @@ class base {
   }
 
   include screen
-  include shell
   include ssh
   include timezone
   include tmpreaper

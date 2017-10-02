@@ -3,6 +3,7 @@ app_domain: 'dev.gov.uk'
 
 assets::mount_asset_master: false
 
+base::shell::shell_prompt_string: 'dev'
 base::supported_kernel::enabled: true
 
 clamav::use_service: false
@@ -347,8 +348,6 @@ postgresql_transition_slave_addresses_live: '127.0.0.1/32'
 
 puppet::use_puppetmaster: false
 puppet::cronjob::enabled: false
-
-shell::shell_prompt_string: 'dev'
 
 sidekiq_host: 'localhost'
 

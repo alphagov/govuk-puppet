@@ -1,5 +1,5 @@
-# == Class: shell
-#
+# == Class: base::shell
+# 
 # Set up a shell on a machine.
 #
 # === Parameters
@@ -7,12 +7,12 @@
 # [*shell_prompt_string*]
 #   The environment name that should appear in the shell prompt
 #
-class shell (
+class base::shell (
   $shell_prompt_string = 'unknown'
 ){
 
   file { '/etc/bash.bashrc':
-    content => template('shell/bashrc.erb'),
+    content => template('base/bashrc.erb'),
   }
 
   # Remove default user .bashrc
