@@ -8,8 +8,11 @@
         numToKeep: 10
     builders:
         - shell: |
+            echo "Getting crumb..."
+            CRUMB=$(curl https://ci_alphagov:$API_KEY@$HOSTNAME/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+
             echo "Triggering post-sync job on $HOSTNAME"
-            curl -f -XPOST https://ci_alphagov:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build -d token=$AUTH_TOKEN --data-urlencode json="{}"
+            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://ci_alphagov:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build -d token=$AUTH_TOKEN --data-urlencode json="{}"
     wrappers:
         - ansicolor:
             colormap: xterm
