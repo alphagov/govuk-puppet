@@ -52,4 +52,7 @@ class govuk::node::s_jenkins (
     content => template('govuk/node/s_jenkins/jenkins.conf.erb'),
     require => Nginx::Config::Ssl['jenkins'],
   }
+
+  # Required for a job that issues Jenkins Crumbs
+  ensure_packages(['jq'])
 }
