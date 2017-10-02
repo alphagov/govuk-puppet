@@ -95,6 +95,15 @@ class govuk::apps::asset_manager(
       location ~ /raw/(.*) {
         internal;
         add_header GOVUK-Asset-Manager-File-Store NFS;
+        <%- if @deny_framing -%>
+        # Avoid the asset being embedded in other pages[1]
+        # This header is already set in the outer virtual host config but the
+        # presence of additional `add_header` calls in this `location` block
+        # mean that the value from the outer block is not being inherited[2].
+        # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+        # [2]: http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header
+        add_header X-Frame-Options DENY;
+        <%- end -%>
         alias /var/apps/asset-manager/uploads/assets/$1;
       }
 
