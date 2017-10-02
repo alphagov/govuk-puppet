@@ -62,6 +62,7 @@ backup::offsite::jobs:
     minute: 12,
     # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
+base::shell::shell_prompt_string: 'production'
 base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
@@ -607,8 +608,6 @@ postfix::smarthost:
   - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
-
-shell::shell_prompt_string: 'production'
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'

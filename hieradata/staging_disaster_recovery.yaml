@@ -2,6 +2,8 @@
 
 app_domain: 'publishing.service.gov.uk'
 
+base::shell::shell_prompt_string: 'staging-promoted'
+
 govuk_safe_to_reboot::can_reboot: 'no'
 
 govuk::deploy::actionmailer_enable_delivery: true
@@ -18,5 +20,3 @@ monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
-
-shell::shell_prompt_string: 'staging-promoted'
