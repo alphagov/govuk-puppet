@@ -24,7 +24,7 @@ class govuk::apps::stagecraft (
 
   if $enabled {
 
-    include libffi
+    ensure_packages(['libffi-dev'])
 
     $port = '3103'
 

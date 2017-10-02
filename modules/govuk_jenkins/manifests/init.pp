@@ -115,7 +115,7 @@ class govuk_jenkins (
   }
 
   # Runtime dependency of: https://github.com/alphagov/search-analytics
-  include libffi
+  ensure_packages(['libffi-dev'])
 
   include govuk_mysql::libdev
   include mysql::client

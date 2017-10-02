@@ -14,7 +14,7 @@ class govuk::apps::performanceplatform_admin (
   if $enabled {
     $port = '3104'
 
-    include libffi
+    ensure_packages(['libffi-dev'])
 
     govuk::app { 'performanceplatform-admin':
       app_type           => 'bare',
