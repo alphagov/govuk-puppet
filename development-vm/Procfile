@@ -39,7 +39,6 @@ travel_advice_publisher: govuk_setenv travel-advice-publisher ./run_in.sh ../../
 travel_advice_publisher_worker: govuk_setenv travel-advice-publisher ./run_in.sh ../../travel-advice-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 release:               govuk_setenv release               ./run_in.sh ../../release        bundle exec rails server -p 3036
 asset-manager:         govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rails server -p 3037
-asset-manager-worker:  govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rake jobs:work
 asset-manager-sidekiq:  govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec sidekiq -C ./config/sidekiq.yml
 # asset-manager sidekiq monitoring uses 3038
 # limelight used port 3040
