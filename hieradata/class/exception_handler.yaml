@@ -1,8 +1,5 @@
 ---
 
-govuk::node::s_base::apps:
-  - errbit
-
 lv:
   mongodb:
     pv:

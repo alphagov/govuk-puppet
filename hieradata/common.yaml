@@ -1156,7 +1156,6 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'draft-whitehall-frontend'
   - 'email-alert-api'
-  - 'errbit'
   - 'event-store'
   - 'hmrc-manuals-api'
   - 'imminence'

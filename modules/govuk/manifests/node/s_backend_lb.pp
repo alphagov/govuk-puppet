@@ -22,9 +22,6 @@
 # [*maintenance_mode*]
 #   Whether the backend should be taken offline in nginx
 #
-# [*errbit_servers*]
-#   An array of errbit servers
-#
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
@@ -32,7 +29,6 @@ class govuk::node::s_backend_lb (
   $whitehall_backend_servers,
   $publishing_api_backend_servers,
   $maintenance_mode = false,
-  $errbit_servers = ['exception-handler-1'],
 ){
   include govuk::node::s_base
   include loadbalancer
@@ -95,10 +91,6 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { 'publishing-api':
       internal_only => true,
       servers       => $publishing_api_backend_servers,
-  }
-
-  loadbalancer::balance { 'errbit':
-    servers => $errbit_servers,
   }
 
   loadbalancer::balance { 'kibana':
