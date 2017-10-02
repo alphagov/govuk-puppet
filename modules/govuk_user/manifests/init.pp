@@ -85,7 +85,7 @@ define govuk_user(
     managehome => true,
     groups     => $groups,
     membership => $membership,
-    require    => Class['shell'],
+    require    => Class['base::shell'],
     shell      => $shell,
   }
 
