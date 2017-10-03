@@ -9,6 +9,7 @@
 #
 class puppet::monitoring (
   $alert_hostname = 'alert.cluster',
+  $logit_kibana = false,
 ) {
   file { '/usr/local/bin/puppet_passive_check_update':
     ensure  => present,
@@ -21,13 +22,24 @@ class puppet::monitoring (
   }
 
   $app_domain = hiera('app_domain')
-  $kibana_url = "https://kibana.${app_domain}"
 
-  # FIXME: Use `fqdn` instead of `hostname`.
-  # https://www.pivotaltracker.com/story/show/47708141
-  $kibana_search = {
-    'query' => "@fields.syslog_program:'puppet-agent' AND @source_host:${::hostname}*",
-    'from'  => '4h',
+  if $logit_kibana {
+    $kibana_url = 'https://kibana.logit.io'
+
+    $kibana_search = {
+      'query' => "syslog_program:'puppet-agent' AND host:${::hostname}*",
+      'from'  => '4h',
+    }
+
+  } else {
+    $kibana_url = "https://kibana.${app_domain}"
+
+    # FIXME: Use `fqdn` instead of `hostname`.
+    # https://www.pivotaltracker.com/story/show/47708141
+    $kibana_search = {
+      'query' => "@fields.syslog_program:'puppet-agent' AND @source_host:${::hostname}*",
+      'from'  => '4h',
+    }
   }
 
   @@icinga::passive_check { "check_puppet_${::hostname}":
