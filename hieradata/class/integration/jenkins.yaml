@@ -1,4 +1,6 @@
 ---
+govuk_jenkins::config::executors: '12'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::backdrop_transactions_explorer_collector
   - govuk_jenkins::job::check_content_consistency
