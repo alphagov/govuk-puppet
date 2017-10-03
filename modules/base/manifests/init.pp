@@ -6,6 +6,7 @@
 class base {
   include apparmor
   include apt
+  include base::firewall
   include base::packages
   include base::screen
   include base::shell
