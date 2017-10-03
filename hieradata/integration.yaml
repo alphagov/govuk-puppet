@@ -36,6 +36,7 @@ govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
+govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch-1.api:9200,http://rummager-elasticsearch-2.api:9200,http://rummager-elasticsearch-3.api:9200'
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'
 govuk::apps::smartanswers::expose_govspeak: true
