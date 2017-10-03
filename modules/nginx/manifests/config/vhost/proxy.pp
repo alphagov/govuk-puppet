@@ -122,10 +122,7 @@ define nginx::config::vhost::proxy(
     if $name =~ /\.(.*)/ {
       $app_name = regsubst($name, '\.(.*)', '')
       $name_internal = "${app_name}.${app_domain_internal}"
-
-      $internal_aliases = regsubst($aliases, '\.(.*)', ".${app_domain_internal}")
     }
-
   }
 
   nginx::config::ssl { $name:

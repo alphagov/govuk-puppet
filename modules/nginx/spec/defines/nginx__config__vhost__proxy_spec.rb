@@ -66,6 +66,24 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'if in aws and passed full domain name and an alias' do
+    let(:title) { 'rabbit.dev.govuk.digital' }
+
+    let(:params) {{
+      :to      => ['a.internal'],
+      :aliases => ['cat.dev.govuk.digital'],
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should add the internal domain name by stripping the external domain name, and add the alias with the internal domain' do
+      is_expected.to contain_nginx__config__site('rabbit.dev.govuk.digital')
+        .with_content(/server_name rabbit.dev.govuk.digital rabbit.dev.govuk-internal.digital cat.dev.govuk.digital  cat.dev.govuk-internal.digital/)
+    end
+  end
+
   context 'if in aws and not passed full domain name' do
     let(:title) { 'rabbit' }
 
@@ -82,6 +100,25 @@ describe 'nginx::config::vhost::proxy', :type => :define do
         .with_content(/rabbit.dev.govuk-internal.digital/)
     end
   end
+
+  context 'if in aws and not passed full domain name, but also passed an alias' do
+    let(:title) { 'rabbit' }
+
+    let(:params) {{
+      :to      => ['a.internal'],
+      :aliases => ['cat', 'mouse.*'],
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should not add the internal domain name, but it should add an alias unless it is foo\.\*' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/rabbit  cat mouse.*  cat.dev.govuk-internal.digital/)
+    end
+  end
+
   context 'with to_ssl true' do
     let(:params) {{
       :to     => ['a.internal', 'b.internal', 'c.internal'],
