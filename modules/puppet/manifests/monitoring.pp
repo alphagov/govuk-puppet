@@ -31,6 +31,7 @@ class puppet::monitoring (
       'from'  => '4h',
     }
 
+    $action_url = "kibana5_url(${kibana_url}, ${kibana_search})"
   } else {
     $kibana_url = "https://kibana.${app_domain}"
 
@@ -40,13 +41,15 @@ class puppet::monitoring (
       'query' => "@fields.syslog_program:'puppet-agent' AND @source_host:${::hostname}*",
       'from'  => '4h',
     }
+
+    $action_url = "kibana3_url(${kibana_url}, ${kibana_search})"
   }
 
   @@icinga::passive_check { "check_puppet_${::hostname}":
     service_description => 'puppet last run errors',
     host_name           => $::fqdn,
     freshness_threshold => 7200,
-    action_url          => kibana3_url($kibana_url, $kibana_search),
+    action_url          => $action_url,
     notes_url           => monitoring_docs_url(puppet-last-run-errors),
   }
 }
