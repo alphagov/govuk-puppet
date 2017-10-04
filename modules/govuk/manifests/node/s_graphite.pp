@@ -133,4 +133,5 @@ class govuk::node::s_graphite (
   }
 
   include grafana
+  include govuk_containers::grafana
 }
