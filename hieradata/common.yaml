@@ -460,7 +460,7 @@ govuk::apps::stagecraft::enabled: true
 govuk::apps::stagecraft::database_password: "%{hiera('govuk::apps::stagecraft::postgresql_db::password')}"
 govuk::apps::stagecraft::message_queue_password: "%{hiera('govuk::apps::stagecraft::rabbitmq::amqp_pass')}"
 govuk::apps::stagecraft::worker::enabled: true
-govuk::apps::stagecraft::beat::enabled: true
+govuk::apps::stagecraft::beat::enabled: false
 govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 
