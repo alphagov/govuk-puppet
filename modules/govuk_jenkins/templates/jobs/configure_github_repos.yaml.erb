@@ -1,0 +1,35 @@
+---
+- scm:
+    name: govuk-saas-config-repo
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-saas-config.git
+            branches:
+              - master
+
+- job:
+    name: configure-github-repos
+    display-name: Configure GitHub repos
+    project-type: freestyle
+    description: "Configures GitHub repos with correct settings, branch protection and webhooks"
+    scm:
+      - govuk-saas-config-repo
+    logrotate:
+        numToKeep: 250
+    triggers:
+        - timed: '0 8 * * *' # 8PM every day
+    builders:
+        - shell: |
+            cd github
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec rake configure_repos
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+      - inject-passwords:
+          global: false
+          mask-password-params: true
+          job-passwords:
+            - name: GITHUB_TOKEN
+              password:
+                '<%= @github_token %>'
