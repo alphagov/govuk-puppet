@@ -4,7 +4,7 @@
 #
 class govuk_harden {
 
-  include ::govuk_pam
+  include ::govuk_harden::pam
   include ::govuk_harden::sysctl
 
   # On modern Ubuntu, these are symlinks to SSH, so Bastille's protectrhost

@@ -1,8 +1,8 @@
-# == Class: govuk_pam
+# == Class: govuk_harden::pam
 #
 # Installs and manages some local PAM settings
 #
-class govuk_pam {
+class govuk_harden::pam {
 
   $pam_packages = [
     'libpam-passwdqc',
@@ -13,11 +13,10 @@ class govuk_pam {
     ensure => installed,
   }
 
-
   # Set a restrictive umask
   file { '/etc/pam.d/common-session':
     ensure    => present,
-    source    => 'puppet:///modules/govuk_pam/common-session',
+    content   => file('govuk_harden/pam/common-session'),
     subscribe => Package['libpam-tmpdir'],
     owner     => 'root',
     group     => 'root',
@@ -25,11 +24,10 @@ class govuk_pam {
 
   file { '/etc/pam.d/common-session-noninteractive':
     ensure    => present,
-    source    => 'puppet:///modules/govuk_pam/common-session-noninteractive',
+    content   => file('govuk_harden/pam/common-session-noninteractive'),
     subscribe => Package['libpam-tmpdir'],
     owner     => 'root',
     group     => 'root',
   }
-
 
 }
