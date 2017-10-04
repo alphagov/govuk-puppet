@@ -208,6 +208,11 @@ class govuk::apps::asset_manager(
       database => $mongodb_name,
     }
 
+    # Temporary code to remove delayed job related files & services
+    govuk::delayed_job::worker { 'asset-manager':
+      enable_service => false,
+    }
+
     govuk::procfile::worker { $app_name:
       enable_service => $enable_procfile_worker,
     }
