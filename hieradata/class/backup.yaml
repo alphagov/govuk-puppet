@@ -3,10 +3,6 @@
 backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
 
 govuk::node::s_backup::directories:
-  backup_mongodb_backups_exception_handler_1:
-    directory: /var/lib/automongodbbackup/
-    fq_dn: exception-handler-1.backend.%{hiera('app_domain')}
-    priority: '003'
   backup_mongodb_backups_mongo:
     directory: /var/lib/automongodbbackup/
     fq_dn: mongo-1.backend.%{hiera('app_domain')}
