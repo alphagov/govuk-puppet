@@ -39,22 +39,28 @@ class varnish::monitoring (
       'query' => "host:${hostname_prefix[0]}* AND @fields.status:[500 TO 599]",
       'from'  => '4h',
     }
-    $action_url = "kibana5_url(${kibana_url}, ${kibana_search})"
+    @@icinga::check { "check_varnish_responding_${::hostname}":
+      check_command       => 'check_nrpe_1arg!check_varnish_responding',
+      service_description => 'varnishd port not responding',
+      host_name           => $::fqdn,
+      use                 => 'govuk_urgent_priority',
+      notes_url           => monitoring_docs_url(varnish-port-not-responding),
+      action_url          => kibana5_url($kibana_url, $kibana_search),
+    }
     } else {
     $kibana_url = "https://kibana.${app_domain}"
     $kibana_search = {
       'query' => "@source_host:${hostname_prefix[0]}* AND status:[500 TO 599]",
       'from'  => '4h',
     }
-    $action_url = "kibana3_url(${kibana_url}, ${kibana_search})"
+    @@icinga::check { "check_varnish_responding_${::hostname}":
+      check_command       => 'check_nrpe_1arg!check_varnish_responding',
+      service_description => 'varnishd port not responding',
+      host_name           => $::fqdn,
+      use                 => 'govuk_urgent_priority',
+      notes_url           => monitoring_docs_url(varnish-port-not-responding),
+      action_url          => kibana3_url($kibana_url, $kibana_search),
+    }
   }
 
-  @@icinga::check { "check_varnish_responding_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_varnish_responding',
-    service_description => 'varnishd port not responding',
-    host_name           => $::fqdn,
-    use                 => 'govuk_urgent_priority',
-    notes_url           => monitoring_docs_url(varnish-port-not-responding),
-    action_url          => $action_url,
-  }
 }
