@@ -29,7 +29,7 @@ error_log  /var/log/nginx/lb-error.log;
 # If slug contains no lowercase letters then lowercase it
 # eg www.gov.uk/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
 # eg WWW.GOV.UK/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
-location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
+location ~ [A-Z] {
   rewrite ^(.*)$ $scheme://$host$uri_lowercase permanent;
 }
 
