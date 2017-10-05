@@ -835,6 +835,8 @@ grafana::dashboards::deployment_applications:
     # Low usage
     show_controller_errors: false
     show_slow_requests: false
+  contacts:
+    docs_name: 'contacts-admin'
   content-performance-manager:
     # Missing duration, status, controller fields
     show_controller_errors: false
