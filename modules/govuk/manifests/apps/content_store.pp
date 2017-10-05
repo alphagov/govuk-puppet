@@ -14,6 +14,14 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
+# [*performance_platform_big_screen_view_url*]
+#   Performance platform big screen view url
+#   Default: undef
+#
+# [*performance_platform_spotlight_url*]
+#   Performance paltform spotlight url
+#   Default: undef
+#
 # [*vhost*]
 #   Virtual host for this application.
 #   Default: content-store
@@ -43,6 +51,8 @@ class govuk::apps::content_store(
   $mongodb_name,
   $vhost = 'content-store',
   $default_ttl = '1800',
+  $performance_platform_big_screen_view_url = undef,
+  $performance_platform_spotlight_url = undef,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -95,5 +105,11 @@ class govuk::apps::content_store(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-PERFORMANCEPLATFORM_BIG_SCREEN_VIEW":
+      varname => 'PLEK_SERVICE_PERFORMANCEPLATFORM_BIG_SCREEN_VIEW_URI',
+      value   => $performance_platform_big_screen_view_url;
+    "${title}-PERFORMANCEPLATFORM_SPOTLIGHT":
+      varname => 'PLEK_SERVICE_SPOTLIGHT_URI',
+      value   => $performance_platform_spotlight_url;
   }
 }
