@@ -95,6 +95,12 @@ class govuk::apps::asset_manager(
       location ~ /raw/(.*) {
         internal;
         add_header GOVUK-Asset-Manager-File-Store NFS;
+
+        # Control whether the asset can be embedded in other pages[1] by
+        # respecting X-Frame-Options from the Rails application.
+        # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+        add_header X-Frame-Options $upstream_http_x_frame_options;
+
         alias /var/apps/asset-manager/uploads/assets/$1;
       }
 
@@ -103,6 +109,7 @@ class govuk::apps::asset_manager(
       set $etag_from_rails $upstream_http_etag;
       set $last_modified_from_rails $upstream_http_last_modified;
       set $content_type_from_rails $upstream_http_content_type;
+      set $x_frame_options_from_rails $upstream_http_x_frame_options;
 
       location ~ /cloud-storage-proxy/(.*) {
         # Prevent requests to this location from outside nginx
@@ -140,15 +147,10 @@ class govuk::apps::asset_manager(
         add_header Last-Modified $last_modified_from_rails;
         add_header Content-Type $content_type_from_rails;
 
-        <%- if @deny_framing -%>
-        # Avoid the asset being embedded in other pages[1]
-        # This header is already set in the outer virtual host config but the
-        # presence of additional `add_header` calls in this `location` block
-        # mean that the value from the outer block is not being inherited[2].
+        # Control whether the asset can be embedded in other pages[1] by
+        # respecting X-Frame-Options from the Rails application.
         # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-        # [2]: http://nginx.org/en/docs/http/ngx_http_headers_module.html#add_header
-        add_header X-Frame-Options DENY;
-        <%- end -%>
+        add_header X-Frame-Options $x_frame_options_from_rails;
 
         # Remove S3 HTTP headers listed in:
         # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
