@@ -10,13 +10,17 @@
 # [*machine_suffix_metrics*]
 #   The machine hostname suffix for Graphite metrics.
 #
-# [$deployment_applications]
+# [*deployment_applications*]
 #   Hash of application that require a deployment dashboard
+#
+# [*logit_only*]
+#   Set to true if the Elasticsearch datasource is using logit.io
 #
 class grafana::dashboards (
   $app_domain = undef,
   $machine_suffix_metrics = undef,
   $deployment_applications = undef,
+  $logit_only = false,
 ) {
   validate_string($app_domain, $machine_suffix_metrics)
 
@@ -42,6 +46,7 @@ class grafana::dashboards (
 
   create_resources('grafana::dashboards::deployment_dashboard', $deployment_applications, {
     'dashboard_directory' => $dashboard_directory,
-    'app_domain' => $app_domain
+    'app_domain'          => $app_domain,
+    'logit_only'          => $logit_only,
   })
 }

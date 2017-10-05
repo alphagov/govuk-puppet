@@ -24,6 +24,9 @@
 # [*error_threshold*]
 #   Point at which count turns `red` in the error count table data
 #
+# [*logit_only*]
+#   Set to true if we're using Logit as the Elasticsearch data source.
+#
 define grafana::dashboards::deployment_dashboard (
   $app_name = $title,
   $docs_name = $title,
@@ -37,7 +40,8 @@ define grafana::dashboards::deployment_dashboard (
   $show_response_times = false,
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
-  $show_elasticsearch_stats = false
+  $show_elasticsearch_stats = false,
+  $logit_only = false,
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]

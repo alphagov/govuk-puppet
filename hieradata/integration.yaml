@@ -222,6 +222,7 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
+grafana::dashboards::logit_only: true
 grafana::version: '4.5.2'
 
 hosts::production::ip_api_lb: '10.1.4.254'

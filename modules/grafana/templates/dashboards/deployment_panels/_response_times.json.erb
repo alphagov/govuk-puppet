@@ -66,7 +66,11 @@
           "type": "percentiles"
         }
       ],
+      <% if @logit_only -%>
+      "query": "application:<%= @app_name %>",
+      <% else -%>
       "query": "@fields.application:<%= @app_name %>",
+      <% end -%>
       "refId": "A",
       "timeField": "@timestamp"
     }
