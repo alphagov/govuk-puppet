@@ -30,7 +30,7 @@ class govuk_docker (
     class {'::docker':
       docker_users => $docker_users,
       version      => $version,
-      log_driver   => 'syslog',
+      log_driver   => 'json-file',
     }
   }
 

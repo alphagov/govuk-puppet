@@ -16,6 +16,6 @@ class govuk_beat::repo(
     location     => "http://${apt_mirror_hostname}/elastic-beats",
     release      => 'stable',
     architecture => $::architecture,
-    key          => '',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 }

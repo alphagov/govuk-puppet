@@ -13,7 +13,11 @@ class base {
   include cron
   include curl
   include govuk::deploy
-  include govuk_apt::unused_kernels
+
+  if $::govuk_node_class != 'puppetserver' {
+    include govuk_apt::unused_kernels
+  }
+
   include govuk_apt::package_blacklist
   include govuk_envsys
   include govuk_scripts
@@ -22,7 +26,10 @@ class base {
   include govuk_unattended_reboot
   include logrotate
   include ntp
-  include puppet
+
+  if $::govuk_node_class != 'puppetserver' {
+    include puppet
+  }
 
   if ! $::aws_migration {
     include resolvconf
