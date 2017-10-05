@@ -78,7 +78,11 @@
           "type": "count"
         }
       ],
+      <% if @logit_only -%>
+      "query": "application:<%= @app_name %> AND @fields.status:[ 500 TO 599 ]",
+      <% else -%>
       "query": "@fields.application:<%= @app_name %> AND @fields.status:[ 500 TO 599 ]",
+      <% end -%>
       "refId": "A",
       "target": "",
       "timeField": "@timestamp"
