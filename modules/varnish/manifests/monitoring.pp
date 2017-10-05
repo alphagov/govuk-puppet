@@ -34,18 +34,12 @@ class varnish::monitoring (
   $hostname_prefix = split($::hostname, '-')
 
   if $logit_kibana {
-    $kibana_url = 'https://kibana.logit.io'
-    $kibana_search = {
-      'query' => "host:${hostname_prefix[0]}* AND @fields.status:[500 TO 599]",
-      'from'  => '4h',
-    }
     @@icinga::check { "check_varnish_responding_${::hostname}":
       check_command       => 'check_nrpe_1arg!check_varnish_responding',
       service_description => 'varnishd port not responding',
       host_name           => $::fqdn,
       use                 => 'govuk_urgent_priority',
       notes_url           => monitoring_docs_url(varnish-port-not-responding),
-      action_url          => kibana5_url($kibana_url, $kibana_search),
     }
     } else {
     $kibana_url = "https://kibana.${app_domain}"
