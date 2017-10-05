@@ -20,9 +20,8 @@
         - timed: '0 8 * * *' # 8PM every day
     builders:
         - shell: |
-            cd github
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            bundle exec rake configure_repos
+            bundle exec rake github:configure_repos
     wrappers:
       - ansicolor:
           colormap: xterm
