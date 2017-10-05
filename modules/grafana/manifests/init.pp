@@ -2,12 +2,19 @@
 #
 # Set up grafana.
 #
-class grafana {
+# === Parameters:
+#
+# [*version*]
+#   Which version of Grafana to pin to.
+#
+class grafana (
+  $version = '3.1.1-1470047149',
+) {
   include grafana::repo
   include grafana::dashboards
 
   package { 'grafana':
-    ensure  => '3.1.1-1470047149',
+    ensure  => $version,
     require => Class['grafana::repo'],
   }
 
