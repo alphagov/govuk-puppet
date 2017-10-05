@@ -80,6 +80,7 @@ class govuk::apps::rummager(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $spelling_dependencies = 'present',
+  $elasticsearch_hosts = undef,
 ) {
 
   package { ['aspell', 'aspell-en', 'libaspell-dev']:
@@ -174,10 +175,8 @@ class govuk::apps::rummager(
       value   => $publishing_api_bearer_token;
   }
 
-  if $::aws_migration {
-    govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-      varname => 'ELASTICSEARCH_URI',
-      value   => 'http://rummager-elasticsearch:9200',
-    }
+  govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
+    varname => 'ELASTICSEARCH_URI',
+    value   => $elasticsearch_hosts,
   }
 }
