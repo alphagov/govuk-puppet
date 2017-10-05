@@ -5,7 +5,7 @@
 class govuk_testing_tools {
   include imagemagick
   include phantomjs
-  include ::xvfb
+  include ::govuk_testing_tools::xvfb
 
   package { [
     'qt4-qmake',     # needed for capybara-webkit

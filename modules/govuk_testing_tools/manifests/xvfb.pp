@@ -1,17 +1,20 @@
-# == Class: xvfb
+# == Class: govuk_testing_tools::xvfb
 #
 # Installs xvfb-server from the Ubuntu repos
-class xvfb {
+#
+class govuk_testing_tools::xvfb(
+  $ensure  = 'present',
+){
 
   package { 'xvfb':
-    ensure => 'present',
+    ensure => $ensure,
   }
 
   file { '/etc/init/xvfb.conf':
-    ensure => present,
-    owner  => root,
-    group  => root,
-    source => 'puppet:///modules/xvfb/xvfb.conf',
+    ensure  => $ensure,
+    owner   => root,
+    group   => root,
+    content => file('govuk_testing_tools/xvfb/xvfb.conf'),
   }
 
   service { 'xvfb':
