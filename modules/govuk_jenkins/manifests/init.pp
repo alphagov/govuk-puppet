@@ -58,6 +58,7 @@ class govuk_jenkins (
   validate_hash($config, $plugins)
 
   include ::govuk_python
+  include ::golang
 
   file { "${jenkins_homedir}/workspace":
     ensure => directory,
