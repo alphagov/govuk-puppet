@@ -1468,6 +1468,8 @@ monitoring::vpn_gateways::endpoints:
   vpn_gateway_router_dr:
     address: "%{hiera('environment_ip_prefix')}.9.1"
 
+mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 
