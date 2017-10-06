@@ -17,9 +17,13 @@ class golang {
     ensure => absent,
   }
 
-  package { ['golang-gom', 'godep']:
+  package { ['godep']:
     ensure  => latest,
     require => Class['govuk_ppa'],
+  }
+
+  package { ['golang-gom']:
+    ensure => absent,
   }
 
   # Ensure that scm tools used by `go get` are present.
