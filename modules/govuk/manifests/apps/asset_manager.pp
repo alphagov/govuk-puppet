@@ -81,7 +81,9 @@ class govuk::apps::asset_manager(
       app => $app_name,
     }
 
-    $deny_framing = true
+    # The X-Frame-Options response header is set explicitly in the
+    # relevant location blocks.
+    $deny_framing = false
 
     $nginx_extra_config = inline_template('
       client_max_body_size 500m;
