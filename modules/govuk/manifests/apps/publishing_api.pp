@@ -117,14 +117,15 @@ class govuk::apps::publishing_api(
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::app { $app_name:
-    ensure            => $ensure,
-    app_type          => 'rack',
-    port              => $port,
-    sentry_dsn        => $sentry_dsn,
-    vhost_ssl_only    => true,
-    health_check_path => '/healthcheck',
-    legacy_logging    => false,
-    deny_framing      => true,
+    ensure             => $ensure,
+    app_type           => 'rack',
+    port               => $port,
+    sentry_dsn         => $sentry_dsn,
+    vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck',
+    legacy_logging     => false,
+    log_format_is_json => true,
+    deny_framing       => true,
   }
 
   govuk::procfile::worker {'publishing-api':
