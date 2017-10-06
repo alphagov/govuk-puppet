@@ -427,6 +427,14 @@ define govuk::app (
                           value => '@fields.view'}],
           }
 
+    @filebeat::prospector { "${title}-app-out":
+      ensure => $ensure,
+      paths  => ["/var/log/${title}/app.out.log"],
+      tags   => ['application'],
+      json   => {'add_error_key' => true},
+      fields => {'application' => $title},
+    }
+
     govuk_logging::logstream { "${title}-app-err":
       ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
@@ -434,9 +442,9 @@ define govuk::app (
       fields  => {'application' => $title},
     }
 
-    @filebeat::prospector { "${title}-app-out-and-err":
+    @filebeat::prospector { "${title}-app-err":
       ensure => $ensure,
-      paths  => ["/var/log/${title}/app.err.log","/var/log/${title}/app.out.log"],
+      paths  => ["/var/log/${title}/app.err.log"],
       tags   => ['application'],
       fields => {'application' => $title},
     }
