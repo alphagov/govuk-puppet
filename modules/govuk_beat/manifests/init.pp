@@ -14,13 +14,16 @@
 #
 # === Parameters:
 #
+# [*enable*]
+#   Set to true to enable.
+#
 # [*hosts*]
 #   Configure Logstash hosts to send the data collected by the beat
 #
 #   Default: localhost
 #
 class govuk_beat (
-  $enable = false,
+  $enable = true,
   $hosts = ['127.0.0.1:5566'],
 ){
   validate_array($hosts)
