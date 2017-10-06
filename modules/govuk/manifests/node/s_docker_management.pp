@@ -6,4 +6,8 @@ class govuk::node::s_docker_management inherits govuk::node::s_base {
   include ::govuk_containers::docker_security_bench
   include ::govuk_containers::etcd
 
+  if $::aws_migration {
+    include ::govuk_containers::terraboard
+  }
+
 }
