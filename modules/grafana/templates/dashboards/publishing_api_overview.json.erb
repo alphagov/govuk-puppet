@@ -69,14 +69,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>method:GET",
               "refId": "A",
               "timeField": "@timestamp",
               "hide": false
@@ -98,14 +98,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -126,14 +126,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -156,14 +156,14 @@
               "hide": false,
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linkables*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linkables*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "D",
               "timeField": "@timestamp"
             },
@@ -184,14 +184,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/linked*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linked*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "E",
               "timeField": "@timestamp"
             },
@@ -212,14 +212,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/expanded-links*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/expanded-links*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "F",
               "timeField": "@timestamp",
               "hide": false
@@ -241,14 +241,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/editions*\" AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/editions*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "G",
               "timeField": "@timestamp",
               "hide": false
@@ -342,14 +342,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.method:(POST,PUT,DELETE,PATCH)",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>method:(POST,PUT,DELETE,PATCH)",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -370,14 +370,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content*\" AND @fields.method:PUT",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:PUT",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -398,14 +398,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/links/*\" AND @fields.method:PATCH",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links/*\" AND <%= @fields_prefix -%>method:PATCH",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -426,14 +426,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "3",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/publish*\" AND @fields.method:POST",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/publish*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "D",
               "timeField": "@timestamp",
               "hide": false
@@ -455,14 +455,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/unpublish*\" AND @fields.method:POST",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/unpublish*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "E",
               "timeField": "@timestamp"
             },
@@ -483,14 +483,14 @@
               "dsType": "elasticsearch",
               "metrics": [
                 {
-                  "field": "@fields.duration",
+                  "field": "<%= @fields_prefix -%>duration",
                   "id": "1",
                   "meta": {},
                   "settings": {},
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.request:\"*/v2/content/*\" AND @fields.request:\"*/discard-draft*\" AND @fields.method:POST",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/discard-draft*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -599,7 +599,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509]",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -625,7 +625,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:GET",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:GET",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -651,7 +651,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND @fields.status:[400 TO 509] AND @fields.method:(POST,PUT,PATCH,DELETE)",
+              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:(POST,PUT,PATCH,DELETE)",
               "refId": "C",
               "timeField": "@timestamp"
             }

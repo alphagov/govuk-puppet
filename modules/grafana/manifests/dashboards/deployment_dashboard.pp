@@ -27,6 +27,12 @@
 # [*logit_only*]
 #   Set to true if we're using Logit as the Elasticsearch data source.
 #
+# [*fields_prefix*]
+#   Add the prefix to Elasticsearch queries. Depending on the version of logstasher
+#   some applications do not include the @fields prefix. Add this prefix by default,
+#   with the option to override with a blank field for apps that use a different
+#   configuration of the logstasher gem.
+#
 define grafana::dashboards::deployment_dashboard (
   $app_name = $title,
   $docs_name = $title,
@@ -42,6 +48,7 @@ define grafana::dashboards::deployment_dashboard (
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
   $logit_only = false,
+  $fields_prefix = '@fields.',
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
