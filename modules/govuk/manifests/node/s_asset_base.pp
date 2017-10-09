@@ -66,6 +66,7 @@ class govuk::node::s_asset_base (
 
   $directories = [
     '/mnt/uploads/whitehall',
+    '/mnt/uploads/whitehall/asset-manager-tmp',
     '/mnt/uploads/whitehall/attachment-cache',
     '/mnt/uploads/whitehall/bulk-upload-zip-file-tmp',
     '/mnt/uploads/whitehall/carrierwave-tmp',

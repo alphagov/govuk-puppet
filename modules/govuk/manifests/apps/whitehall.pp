@@ -373,6 +373,7 @@ class govuk::apps::whitehall(
       # Create the directory structure for whitehall assets in development
       $asset_directories = [
         '/data/uploads/whitehall',
+        '/data/uploads/whitehall/asset-manager-tmp',
         '/data/uploads/whitehall/attachment-cache',
         '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
         '/data/uploads/whitehall/carrierwave-tmp',
@@ -394,6 +395,12 @@ class govuk::apps::whitehall(
 
       # Symlink directories in the whitehall app root to the assets directories
       # Use `force` since some of these are created on git checkout.
+      file { '/var/govuk/whitehall/asset-manager-tmp':
+        ensure => symlink,
+        target => '/data/uploads/whitehall/asset-manager-tmp',
+        force  => true,
+      }
+
       file { '/var/govuk/whitehall/attachment-cache':
         ensure => symlink,
         target => '/data/uploads/whitehall/attachment-cache',
