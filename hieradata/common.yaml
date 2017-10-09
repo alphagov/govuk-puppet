@@ -826,10 +826,11 @@ grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager: {}
   calculators:
-    # Status, duration, controller missing @fields. prefix
-    show_controller_errors: false
-    show_slow_requests: false
-  calendars: {}
+    # logstasher >1.x
+    fields_prefix: ''
+  calendars:
+    # logstasher >1.x
+    fields_prefix: ''
   collections: {}
   collections-publisher:
     # Low usage
@@ -838,13 +839,16 @@ grafana::dashboards::deployment_applications:
   contacts:
     docs_name: 'contacts-admin'
   content-performance-manager:
-    # Missing duration, status, controller fields
-    show_controller_errors: false
-    show_slow_requests: false
+    # logstasher >1.x
+    fields_prefix: ''
   content-store: {}
   content-tagger:
+    # logstasher >1.x
+    fields_prefix: ''
     has_workers: true
   email-alert-api:
+    # logstasher >1.x
+    fields_prefix: ''
     has_workers: true
   email-alert-frontend:
     # Missing duration, status, controller fields
@@ -853,9 +857,8 @@ grafana::dashboards::deployment_applications:
   feedback: {}
   finder-frontend: {}
   frontend:
-    # Status, duration, controller missing @fields. prefix
-    show_controller_errors: false
-    show_slow_requests: false
+    # logstasher >1.x
+    fields_prefix: ''
   government-frontend: {}
   hmrc-manuals-api:
     # Missing @fields.status
@@ -864,9 +867,8 @@ grafana::dashboards::deployment_applications:
     has_workers: true
   info-frontend: {}
   licencefinder:
-    # Status, duration, controller missing @fields. prefix
-    show_controller_errors: false
-    show_slow_requests: false
+    # logstasher >1.x
+    fields_prefix: ''
     docs_name: 'licence-finder'
   link-checker-api:
     has_workers: true
@@ -888,6 +890,8 @@ grafana::dashboards::deployment_applications:
     show_controller_errors: false
     show_slow_requests: false
   publisher:
+    # logstasher >1.x
+    fields_prefix: ''
     has_workers: true
   publishing-api:
     has_workers: true
@@ -932,10 +936,11 @@ grafana::dashboards::deployment_applications:
   travel-advice-publisher:
     has_workers: true
   whitehall:
+    # logstasher >1.x
+    fields_prefix: ''
     has_workers: true
     error_threshold: 50
     warning_threshold: 25
-
 
 grub2::recordfail_timeout: 5
 
