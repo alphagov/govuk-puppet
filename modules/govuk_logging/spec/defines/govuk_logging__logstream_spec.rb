@@ -24,7 +24,7 @@ describe 'govuk_logging::logstream', :type => :define do
 
     it 'should ensure the service is stopped' do
       is_expected.to contain_exec('logstream-STOP-giraffe').with(
-        :command => 'initctl stop logstream-giraffe',
+        :command => 'initctl stop logstream-giraffe || echo \'already stopped\'',
       )
     end
   end
@@ -64,7 +64,7 @@ describe 'govuk_logging::logstream', :type => :define do
 
     it 'should ensure the service is stopped' do
       is_expected.to contain_exec('logstream-STOP-giraffe').with(
-        :command => 'initctl stop logstream-giraffe',
+        :command => 'initctl stop logstream-giraffe || echo \'already stopped\'',
       )
     end
   end

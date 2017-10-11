@@ -41,15 +41,16 @@ define govuk_logging::logstream (
   if ($disable_logstreams) {
     # noop
   } elsif ($statsd_metric == undef and $statsd_timers == []) or ($ensure == 'absent') {
-    file { "/etc/init/logstream-${upstart_name}.conf":
-      ensure  => absent,
-      require => Exec["logstream-STOP-${upstart_name}"],
-    }
 
     exec { "logstream-STOP-${upstart_name}" :
-      command => "initctl stop logstream-${upstart_name}",
+      command => "initctl stop logstream-${upstart_name} || echo 'already stopped'",
       onlyif  => "test -f /etc/init/logstream-${upstart_name}.conf",
+    } ->
+
+    file { "/etc/init/logstream-${upstart_name}.conf":
+      ensure  => absent,
     }
+
   } else {
     file { "/etc/init/logstream-${upstart_name}.conf":
       ensure    => present,
