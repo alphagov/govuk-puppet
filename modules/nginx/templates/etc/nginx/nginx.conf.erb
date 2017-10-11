@@ -38,7 +38,6 @@ http {
       '$ssl_protocol $ssl_cipher';
 
     log_format json_event '{ "@timestamp": "$time_iso8601", '
-                         '"@fields": { '
                          '"remote_addr": "$remote_addr", '
                          '"remote_user": "$remote_user", '
                          '"body_bytes_sent": $body_bytes_sent, '
@@ -64,7 +63,7 @@ http {
                          '"govuk_abtest_educationnavigation": "$http_govuk_abtest_educationnavigation", '
                          '"varnish_id": "$http_x_varnish", '
                          '"ssl_protocol": "$ssl_protocol", '
-                         '"ssl_cipher": "$ssl_cipher" } }';
+                         '"ssl_cipher": "$ssl_cipher" }';
 
     access_log  /var/log/nginx/access.log timed_combined;
     access_log  /var/log/nginx/json.event.access.log json_event;
