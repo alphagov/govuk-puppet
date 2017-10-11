@@ -48,7 +48,7 @@ define govuk_logging::logstream (
 
     exec { "logstream-STOP-${upstart_name}" :
       command => "initctl stop logstream-${upstart_name}",
-      onlyif  => "initctl status logstream-${upstart_name}",
+      onlyif  => "test -f /etc/init/logstream-${upstart_name}.conf",
     }
   } else {
     file { "/etc/init/logstream-${upstart_name}.conf":
