@@ -41,49 +41,23 @@ define govuk_logging::logstream (
   if ($disable_logstreams) {
     # noop
   } elsif ($statsd_metric == undef and $statsd_timers == []) or ($ensure == 'absent') {
-    if $::lsbdistcodename == 'xenial' {
-      file { "/lib/systemd/system/logstream-${upstart_name}.service":
-        ensure => absent,
-      }
+    file { "/etc/init/logstream-${upstart_name}.conf":
+      ensure  => absent,
+      require => Exec["logstream-STOP-${upstart_name}"],
+    }
 
-      service { "logstream-${upstart_name}":
-        ensure => stopped,
-      }
-    } else {
-      file { "/etc/init/logstream-${upstart_name}.conf":
-        ensure  => absent,
-        require => Exec["logstream-STOP-${upstart_name}"],
-      }
-
-      exec { "logstream-STOP-${upstart_name}" :
-        command => "initctl stop logstream-${upstart_name}",
-        onlyif  => "initctl status logstream-${upstart_name}",
-      }
+    exec { "logstream-STOP-${upstart_name}" :
+      command => "initctl stop logstream-${upstart_name}",
+      onlyif  => "initctl status logstream-${upstart_name}",
     }
   } else {
-    if $::lsbdistcodename == 'xenial' {
-      file { "/lib/systemd/system/logstream-${upstart_name}.service":
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'root',
-        content => template('govuk_logging/logstream.systemd.erb'),
-      }~>
-      exec { "logstream-${upstart_name}-systemd-reload":
-        command     => 'systemctl daemon-reload',
-        path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
-        refreshonly => true,
-      }
-      $service_provider = 'systemd'
-    } else {
-      file { "/etc/init/logstream-${upstart_name}.conf":
-        ensure    => present,
-        content   => template('govuk_logging/logstream_metrics.erb'),
-        notify    => Service["logstream-${upstart_name}"],
-        subscribe => Class['govuk_logging'],
-      }
-      $service_provider = 'upstart'
+    file { "/etc/init/logstream-${upstart_name}.conf":
+      ensure    => present,
+      content   => template('govuk_logging/logstream_metrics.erb'),
+      notify    => Service["logstream-${upstart_name}"],
+      subscribe => Class['govuk_logging'],
     }
-
+    $service_provider = 'upstart'
     service { "logstream-${upstart_name}":
       ensure    => running,
       provider  => $service_provider,
