@@ -108,11 +108,6 @@ client_max_body_size 500m;
       asset_pipeline         => true,
     }
 
-    govuk_logging::logstream { "${app_name}_sidekiq_json_log":
-      logfile => "/var/apps/${app_name}/log/sidekiq.json.log",
-      fields  => {'application' => $app_name},
-    }
-
     @filebeat::prospector { "${app_name}_sidekiq_json_log":
       paths  => ["/var/apps/${app_name}/log/sidekiq.json.log"],
       fields => {'application' => $app_name},

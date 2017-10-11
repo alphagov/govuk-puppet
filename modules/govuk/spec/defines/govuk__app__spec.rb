@@ -134,9 +134,6 @@ describe 'govuk::app', :type => :define do
       end
 
       it "collects stderr logging as plain text" do
-        expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
-          .with_logfile("/var/log/#{title}/app.err.log")
-
         expect(subject).to contain_filebeat__prospector("#{title}-app-err")
           .with_paths(["/var/log/#{title}/app.err.log"])
       end
@@ -155,9 +152,6 @@ describe 'govuk::app', :type => :define do
       end
 
       it "collects stderr logging as plain text" do
-        expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
-          .with_logfile("/var/log/#{title}/app.err.log")
-
         expect(subject).to contain_filebeat__prospector("#{title}-app-err")
           .with_paths(["/var/log/#{title}/app.err.log"])
       end
@@ -188,9 +182,6 @@ describe 'govuk::app', :type => :define do
             :command            => '/bin/yes',
             :log_format_is_json => true,
           )
-
-          expect(subject).to contain_govuk_logging__logstream("#{title}-app-err")
-            .with_logfile("/var/log/#{title}/app.err.log")
 
           expect(subject).to contain_filebeat__prospector("#{title}-app-err")
             .with_paths(["/var/log/#{title}/app.err.log"])

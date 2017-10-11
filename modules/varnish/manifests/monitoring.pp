@@ -8,11 +8,6 @@ class varnish::monitoring {
     require => Package['varnish'],
   }
 
-  govuk_logging::logstream { 'varnishncsa':
-    logfile => '/var/log/varnish/varnishncsa.log',
-    fields  => {'application' => 'varnish'},
-  }
-
   @filebeat::prospector { 'varnishncsa':
     paths  => ['/var/log/varnish/varnishncsa.log'],
     fields => {'application' => 'varnish'},
