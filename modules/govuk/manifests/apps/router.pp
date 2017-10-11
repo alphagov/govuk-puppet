@@ -61,7 +61,6 @@ class govuk::apps::router (
     logfile => $error_log,
     tags    => ['error'],
     fields  => {'application' => 'router'},
-    json    => true,
   }
 
   @filebeat::prospector { 'router-error-json-log':

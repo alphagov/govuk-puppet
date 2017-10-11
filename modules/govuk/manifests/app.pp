@@ -369,7 +369,6 @@ define govuk::app (
       ensure  => $ensure,
       logfile => "/var/log/${title}/app.err.log",
       tags    => ['stderr', 'app'],
-      json    => $err_log_json,
       fields  => {'application' => $title},
     }
 
@@ -393,7 +392,6 @@ define govuk::app (
         logfile       => $log_path,
         tags          => ['stdout', 'application'],
         fields        => {'application' => $title},
-        json          => $log_format_is_json,
         statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
         statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
                             value => '@fields.duration'},
@@ -416,7 +414,6 @@ define govuk::app (
       ensure        => $ensure,
       logfile       => "/var/log/${title}/app.out.log",
       tags          => ['application'],
-      json          => true,
       fields        => {'application' => $title},
       statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
       statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",

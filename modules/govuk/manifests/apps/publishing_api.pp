@@ -208,7 +208,6 @@ class govuk::apps::publishing_api(
   govuk_logging::logstream { 'publishing_api_sidekiq_json_log':
     logfile => '/var/apps/publishing-api/log/sidekiq.json.log',
     fields  => {'application' => 'publishing-api-sidekiq'},
-    json    => true,
   }
 
   @filebeat::prospector { 'publishing_api_sidekiq_json_log':

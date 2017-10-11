@@ -97,7 +97,6 @@ class govuk::apps::email_alert_api(
     govuk_logging::logstream { 'email_alert_api_sidekiq_json_log':
       logfile => '/var/apps/email-alert-api/log/sidekiq.json.log',
       fields  => {'application' => 'email-alert-api-sidekiq'},
-      json    => true,
     }
 
     @filebeat::prospector { 'email_alert_api_sidekiq_json_log':
@@ -109,7 +108,6 @@ class govuk::apps::email_alert_api(
     govuk_logging::logstream { 'govdelivery_json_log':
       logfile => '/var/apps/email-alert-api/log/govdelivery.log',
       fields  => {'application' => 'email-alert-api-govdelivery'},
-      json    => true,
     }
 
     @filebeat::prospector { 'govdelivery_json_log':

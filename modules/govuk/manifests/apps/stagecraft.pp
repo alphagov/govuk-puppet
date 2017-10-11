@@ -39,7 +39,6 @@ class govuk::apps::stagecraft (
     govuk_logging::logstream { 'performanceplatform_collectors_log':
       logfile => '/var/apps/stagecraft/log/collectors.json.log',
       fields  => {'application' => 'performanceplatform-collectors'},
-      json    => true,
     }
 
     @filebeat::prospector { 'performanceplatform_collectors_log':

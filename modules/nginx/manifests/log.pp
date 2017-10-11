@@ -20,7 +20,6 @@ define nginx::log (
     logfile       => $path,
     tags          => $tags,
     fields        => $fields,
-    json          => $json,
     statsd_metric => $statsd_metric,
     statsd_timers => $statsd_timers,
   }
