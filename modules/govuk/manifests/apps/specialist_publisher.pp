@@ -111,7 +111,6 @@ client_max_body_size 500m;
     govuk_logging::logstream { "${app_name}_sidekiq_json_log":
       logfile => "/var/apps/${app_name}/log/sidekiq.json.log",
       fields  => {'application' => $app_name},
-      json    => true,
     }
 
     @filebeat::prospector { "${app_name}_sidekiq_json_log":

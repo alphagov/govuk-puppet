@@ -146,7 +146,6 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
-grafana::version: '4.5.2'
 
 icinga::client::check_cputype::cputype: 'amd'
 

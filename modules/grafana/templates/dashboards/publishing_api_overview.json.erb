@@ -76,7 +76,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>method:GET",
               "refId": "A",
               "timeField": "@timestamp",
               "hide": false
@@ -105,7 +105,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -133,7 +133,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -163,7 +163,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linkables*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linkables*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "D",
               "timeField": "@timestamp"
             },
@@ -191,7 +191,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linked*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/linked*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "E",
               "timeField": "@timestamp"
             },
@@ -219,7 +219,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/expanded-links*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/expanded-links*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "F",
               "timeField": "@timestamp",
               "hide": false
@@ -248,7 +248,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/editions*\" AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/editions*\" AND <%= @fields_prefix -%>method:GET",
               "refId": "G",
               "timeField": "@timestamp",
               "hide": false
@@ -349,7 +349,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>method:(POST,PUT,DELETE,PATCH)",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>method:(POST,PUT,DELETE,PATCH)",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -377,7 +377,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:PUT",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content*\" AND <%= @fields_prefix -%>method:PUT",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -405,7 +405,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links/*\" AND <%= @fields_prefix -%>method:PATCH",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/links/*\" AND <%= @fields_prefix -%>method:PATCH",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -433,7 +433,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/publish*\" AND <%= @fields_prefix -%>method:POST",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/publish*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "D",
               "timeField": "@timestamp",
               "hide": false
@@ -462,7 +462,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/unpublish*\" AND <%= @fields_prefix -%>method:POST",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/unpublish*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "E",
               "timeField": "@timestamp"
             },
@@ -490,7 +490,7 @@
                   "type": "max"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/discard-draft*\" AND <%= @fields_prefix -%>method:POST",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>request:\"*/v2/content/*\" AND <%= @fields_prefix -%>request:\"*/discard-draft*\" AND <%= @fields_prefix -%>method:POST",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -599,7 +599,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509]",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -625,7 +625,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:GET",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:GET",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -651,7 +651,7 @@
                   "type": "count"
                 }
               ],
-              "query": "@fields.application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:(POST,PUT,PATCH,DELETE)",
+              "query": "application:publishing-api* AND <%= @fields_prefix -%>status:[400 TO 509] AND <%= @fields_prefix -%>method:(POST,PUT,PATCH,DELETE)",
               "refId": "C",
               "timeField": "@timestamp"
             }

@@ -35,7 +35,6 @@ govuk::apps::content_store::performance_platform_spotlight_url: 'https://perform
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::kibana::logit_only: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
@@ -223,8 +222,6 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
-grafana::dashboards::logit_only: true
-grafana::version: '4.5.2'
 
 hosts::production::ip_api_lb: '10.1.4.254'
 hosts::production::ip_backend_lb: '10.1.3.254'
@@ -258,8 +255,6 @@ monitoring::uptime_collector::environment: 'integration'
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
-
-puppet::monitoring::logit_kibana: true
 
 router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
@@ -327,5 +322,3 @@ users::usernames:
   - timblair
   - tomsabin
   - vanitabarrett
-
-varnish::monitoring::logit_kibana: true

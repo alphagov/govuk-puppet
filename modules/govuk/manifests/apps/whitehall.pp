@@ -299,7 +299,6 @@ class govuk::apps::whitehall(
     govuk_logging::logstream { 'whitehall_scheduled_publishing_json_log':
       logfile => '/var/apps/whitehall/log/production_scheduled_publishing.json.log',
       fields  => {'application' => 'whitehall'},
-      json    => true,
     }
 
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
@@ -311,7 +310,6 @@ class govuk::apps::whitehall(
     govuk_logging::logstream { 'whitehall_sidekiq_json_log':
       logfile => '/var/apps/whitehall/log/sidekiq.json.log',
       fields  => {'application' => 'whitehall-sidekiq'},
-      json    => true,
     }
 
     @filebeat::prospector { 'whitehall_sidekiq_json_log':

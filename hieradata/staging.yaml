@@ -19,7 +19,6 @@ govuk::apps::content_store::performance_platform_spotlight_url: 'https://perform
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::kibana::logit_only: true
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::short_url_manager::instance_name: 'staging'
@@ -161,9 +160,7 @@ govuk_sudo::sudo_conf:
   deploy_service_postgresql:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
 
-grafana::dashboards::logit_only: true
 grafana::dashboards::machine_suffix_metrics: '_staging'
-grafana::version: '4.5.2'
 
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
@@ -544,6 +541,3 @@ router::nginx::robotstxt: |
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
-
-puppet::monitoring::logit_kibana: true
-varnish::monitoring::logit_kibana: true

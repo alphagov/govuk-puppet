@@ -24,9 +24,6 @@
 # [*error_threshold*]
 #   Point at which count turns `red` in the error count table data
 #
-# [*logit_only*]
-#   Set to true if we're using Logit as the Elasticsearch data source.
-#
 # [*fields_prefix*]
 #   Add the prefix to Elasticsearch queries. Depending on the version of logstasher
 #   some applications do not include the @fields prefix. Add this prefix by default,
@@ -47,7 +44,6 @@ define grafana::dashboards::deployment_dashboard (
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
-  $logit_only = false,
   $fields_prefix = '@fields.',
 ) {
   if $has_workers {

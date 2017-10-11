@@ -832,7 +832,6 @@ govuk_unattended_reboot::monitoring_basic_auth:
 
 grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
-grafana::dashboards::logit_only: true
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager: {}
@@ -1053,7 +1052,6 @@ postgresql::globals::version: '9.3'
 puppet::puppetserver::puppetdb_version: '2.0.0-1puppetlabs1'
 
 puppet::monitoring::alert_hostname: 'alert'
-puppet::monitoring::logit_kibana: true
 
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -1143,5 +1141,3 @@ unattended_upgrades::origins:
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
 unicornherder::version: '0.0.8'
-
-varnish::monitoring::logit_kibana: true

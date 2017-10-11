@@ -1,29 +1,30 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_logging::logstream', :type => :define do
+  # Even though we no longer use the default_shipper in logstream, keep it here to test that
+  # it is absent
   let(:default_shipper) { 'redis,\$REDIS_SERVERS,key=logs,bulk=true,bulk_index=logs-current' }
-  let(:default_filters) { 'init_txt,add_timestamp,add_source_host' }
+  let(:default_filters) { 'init_json,add_timestamp,add_source_host' }
   let(:title) { 'giraffe' }
   let(:facts) {{ :fqdn => 'camel.example.com' }}
 
   let(:log_file) { '/var/log/elephant.log' }
   let(:upstart_conf) { '/etc/init/logstream-giraffe.conf' }
 
-  context 'with default args, ensure => present' do
+  context 'with ensure set to absent' do
     let(:params) { {
-      :logfile => log_file,
-      :ensure  => 'present',
-    } }
-
-    it 'should tail correct logfile' do
+      :logfile       => log_file,
+      :ensure        => 'absent',
+      } }
+    it 'should ensure the upstart configuration is absent' do
       is_expected.to contain_file(upstart_conf).with(
-        :content => /^\s+tail -F \/var\/log\/elephant\.log \| logship/,
+        :ensure => 'absent',
       )
     end
 
-    it 'should pass appropriate CLI args' do
-      is_expected.to contain_file(upstart_conf).with(
-        :content => /\| logship -f #{default_filters} -s #{default_shipper}$/,
+    it 'should ensure the service is stopped' do
+      is_expected.to contain_exec('logstream-STOP-giraffe').with(
+        :command => 'initctl stop logstream-giraffe',
       )
     end
   end
@@ -49,17 +50,76 @@ describe 'govuk_logging::logstream', :type => :define do
     end
   end
 
+  context 'statsd_timer and statsd_metric are not defined' do
+    let(:params) { {
+      :logfile => log_file,
+      :ensure  => 'present',
+    } }
+
+    it 'should ensure the upstart configuration is absent' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure => 'absent',
+      )
+    end
+
+    it 'should ensure the service is stopped' do
+      is_expected.to contain_exec('logstream-STOP-giraffe').with(
+        :command => 'initctl stop logstream-giraffe',
+      )
+    end
+  end
+
+  context 'with statsd counter shipper specified' do
+    let(:params) { {
+      :logfile       => log_file,
+      :ensure        => 'present',
+      :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
+    } }
+
+    it 'should pass statsd_counter arg' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure  => 'present',
+        :content => /\| logship -f init_json,add_timestamp,add_source_host -s statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
+      )
+    end
+    it 'should not contain any configuration related to logs or redis' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure => 'present').without_content(/#{default_shipper}/)
+    end
+  end
+
+  context 'with statsd timers specified' do
+    let(:params) { {
+      :logfile       => log_file,
+      :ensure        => 'present',
+      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
+                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
+    } }
+
+    it 'should pass statsd_timer arg' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure  => 'present',
+        :content => /\| logship -f init_json,add_timestamp,add_source_host -s statsd_timer,metric=tom_jerry.foo,timed_field=@fields.foo statsd_timer,metric=tom_jerry.bar,timed_field=@fields.bar$/,
+      )
+    end
+    it 'should not contain any configuration related to logs or redis' do
+      is_expected.to contain_file(upstart_conf).with(
+        :ensure => 'present').without_content(/#{default_shipper}/)
+    end
+  end
+
   context 'with tags => Array' do
     let(:params) { {
       :logfile => log_file,
       :ensure  => 'present',
       :tags    => ['zebra', 'llama'],
+      :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
     } }
 
     it 'should pass add_tags with list in filter chain' do
       is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| logship -f #{default_filters},add_tags:zebra:llama -s #{default_shipper}$/,
+        :content => /\| logship -f #{default_filters},add_tags:zebra:llama -s statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
       )
     end
   end
@@ -69,109 +129,14 @@ describe 'govuk_logging::logstream', :type => :define do
       :logfile => log_file,
       :ensure  => 'present',
       :fields  => {'zebra' => 'stripey', 'llama' => 'fluffy'},
+      :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
     } }
 
     it 'should pass --fields with kv pairs' do
       is_expected.to contain_file(upstart_conf).with(
         :ensure  => 'present',
-        :content => /\| logship -f #{default_filters},add_fields:zebra=stripey:llama=fluffy -s #{default_shipper}$/,
+        :content => /\| logship -f #{default_filters},add_fields:zebra=stripey:llama=fluffy -s statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
       )
-    end
-  end
-
-  context 'with json => true' do
-    let(:params) { {
-      :logfile => log_file,
-      :ensure  => 'present',
-      :json    => true,
-    } }
-
-    it 'should pass --json arg' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper}$/,
-      )
-    end
-  end
-
-  context 'with statsd counter shipper specified' do
-    let(:params) { {
-      :logfile       => log_file,
-      :ensure        => 'present',
-      :json          => true,
-      :statsd_metric => 'tom_jerry.foo.%{@fields.bar}',
-    } }
-
-    it 'should pass statsd_counter arg' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_counter,metric=tom_jerry.foo.%{@fields.bar}$/,
-      )
-    end
-  end
-
-  context 'with statsd timers specified' do
-    let(:params) { {
-      :logfile       => log_file,
-      :ensure        => 'present',
-      :json          => true,
-      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
-                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
-    } }
-
-    it 'should pass statsd_timer arg' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| logship -f init_json,add_timestamp,add_source_host -s #{default_shipper} statsd_timer,metric=tom_jerry.foo,timed_field=@fields.foo statsd_timer,metric=tom_jerry.bar,timed_field=@fields.bar$/,
-      )
-    end
-  end
-
-  context 'with json set to false' do
-    let(:params) { {
-      :logfile       => log_file,
-      :ensure        => 'present',
-      :json          => false,
-      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
-                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
-      } }
-    it 'should not pass through statsd values' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure  => 'present',
-        :content => /\| logship -f init_txt,add_timestamp,add_source_host -s #{default_shipper}$/,
-        )
-    end
-  end
-
-  context 'with json set to false and metrics_only set to true' do
-    let(:params) { {
-      :logfile       => log_file,
-      :ensure        => 'present',
-      :json          => false,
-      } }
-    let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
-    it 'should ensure the upstart configuration is absent' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure => 'absent',
-      )
-    end
-  end
-
-  context 'with metrics_only set to true' do
-    let(:params) { {
-      :logfile       => log_file,
-      :ensure        => 'present',
-      :json          => true,
-      :statsd_timers => [{'metric' => 'tom_jerry.foo','value' => '@fields.foo'},
-                         {'metric' => 'tom_jerry.bar','value' => '@fields.bar'}],
-      } }
-    let(:hiera_config) { File.expand_path('../../fixtures/hiera/hiera.yaml', __FILE__) }
-
-    let(:facts) {{ :aws_migration => true }}
-
-    it 'should not contain any configuration related to logs or redis' do
-      is_expected.to contain_file(upstart_conf).with(
-        :ensure => 'present').without_content(/#{default_shipper}/)
     end
   end
 end

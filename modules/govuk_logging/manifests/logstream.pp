@@ -15,23 +15,15 @@
 # [*ensure*]
 #   If set to absent any existing logstream jobs will be removed. Defaults to present.
 #
-# [*json*]
-#   Whether the log is in json format. Defaults to false.
-#
 # [*statsd_metric*]
 #   if defined, specifies statsd metric (in logship's CLI format) to
 #   send to statsd. Defaults to undef.
-#
-# [*redis_servers*]
-#   Redis servers endpoint for systemd templates
 #
 define govuk_logging::logstream (
   $logfile,
   $ensure = present,
   $tags = [],
   $fields = {},
-  $json = false,
-  $redis_servers = '',
   $statsd_metric = undef,
   $statsd_timers = [],
 ) {
@@ -41,83 +33,35 @@ define govuk_logging::logstream (
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
   # this is necessary because it is a global override in a defined type
   $disable_logstreams = hiera('govuk_logging::logstream::disabled', false)
-  $metrics_only = hiera('govuk_logging::logstream::metrics_only', false)
-  validate_bool($disable_logstreams, $metrics_only)
+  validate_bool($disable_logstreams)
 
   $app_domain = hiera('app_domain')
   $upstart_name = regsubst($title, "\\.${app_domain}", '')
 
   if ($disable_logstreams) {
     # noop
-  } elsif $metrics_only and $json == false {
-    # If we're only gathering metrics we require json to be true, and we need
-    # to purge any old logstream files that are no longer relevant
-      file { "/etc/init/logstream-${upstart_name}.conf":
-        ensure  => 'absent',
-        require => Exec["logstream-STOP-${upstart_name}"],
-      }
-
-      exec { "logstream-STOP-${upstart_name}" :
-        command => "initctl stop logstream-${upstart_name}",
-        onlyif  => "initctl status logstream-${upstart_name}",
-      }
-  } elsif ($ensure == present) {
-    if $::lsbdistcodename == 'xenial' {
-      file { "/lib/systemd/system/logstream-${upstart_name}.service":
-        mode    => '0644',
-        owner   => 'root',
-        group   => 'root',
-        content => template('govuk_logging/logstream.systemd.erb'),
-      }~>
-      exec { "logstream-${upstart_name}-systemd-reload":
-        command     => 'systemctl daemon-reload',
-        path        => [ '/usr/bin', '/bin', '/usr/sbin' ],
-        refreshonly => true,
-      }
-      $service_provider = 'systemd'
-    } else {
-      if $metrics_only {
-        file { "/etc/init/logstream-${upstart_name}.conf":
-          ensure    => present,
-          content   => template('govuk_logging/logstream_metrics.erb'),
-          notify    => Service["logstream-${upstart_name}"],
-          subscribe => Class['govuk_logging'],
-        }
-      } else {
-        file { "/etc/init/logstream-${upstart_name}.conf":
-          ensure    => present,
-          content   => template('govuk_logging/logstream.erb'),
-          notify    => Service["logstream-${upstart_name}"],
-          subscribe => Class['govuk_logging'],
-        }
-      }
-      $service_provider = 'upstart'
+  } elsif ($statsd_metric == undef and $statsd_timers == []) or ($ensure == 'absent') {
+    file { "/etc/init/logstream-${upstart_name}.conf":
+      ensure  => absent,
+      require => Exec["logstream-STOP-${upstart_name}"],
     }
 
+    exec { "logstream-STOP-${upstart_name}" :
+      command => "initctl stop logstream-${upstart_name}",
+      onlyif  => "initctl status logstream-${upstart_name}",
+    }
+  } else {
+    file { "/etc/init/logstream-${upstart_name}.conf":
+      ensure    => present,
+      content   => template('govuk_logging/logstream_metrics.erb'),
+      notify    => Service["logstream-${upstart_name}"],
+      subscribe => Class['govuk_logging'],
+    }
+    $service_provider = 'upstart'
     service { "logstream-${upstart_name}":
       ensure    => running,
       provider  => $service_provider,
       subscribe => Class['govuk_logging'],
-    }
-  } else {
-    if $::lsbdistcodename == 'xenial' {
-      file { "/lib/systemd/system/logstream-${upstart_name}.service":
-        ensure => absent,
-      }
-
-      service { "logstream-${upstart_name}":
-        ensure => stopped,
-      }
-    } else {
-      file { "/etc/init/logstream-${upstart_name}.conf":
-        ensure  => absent,
-        require => Exec["logstream-STOP-${upstart_name}"],
-      }
-
-      exec { "logstream-STOP-${upstart_name}" :
-        command => "initctl stop logstream-${upstart_name}",
-        onlyif  => "initctl status logstream-${upstart_name}",
-      }
     }
   }
 
