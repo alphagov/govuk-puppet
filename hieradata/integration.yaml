@@ -35,7 +35,6 @@ govuk::apps::content_store::performance_platform_spotlight_url: 'https://perform
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::kibana::logit_only: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
