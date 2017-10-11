@@ -160,9 +160,7 @@ govuk_sudo::sudo_conf:
   deploy_service_postgresql:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
 
-grafana::dashboards::logit_only: true
 grafana::dashboards::machine_suffix_metrics: '_staging'
-grafana::version: '4.5.2'
 
 hosts::production::ip_api_lb: '10.2.4.254'
 hosts::production::ip_backend_lb: '10.2.3.254'
