@@ -39,12 +39,14 @@
 # [*govdelivery_account_code*]
 #   Identifier for GOV.UK within the govdelivery service
 #
+# [*govdelivery_protocol*]
+#   Protocol used for the govdelivery service
+#
 # [*govdelivery_hostname*]
 #   Hostname for the govdelivery API (changes depending on environment)
 #
-# [*govdelivery_signup_form*]
-#   URL to the public govdelivery page users are redirected to to enter their
-#   email and subscribe (URL should include a %s to provide a topic ID)
+# [*govdelivery_public_hostname*]
+#   Public hostname for the govdelivery API
 #
 #
 # [*secret_key_base*]
@@ -69,8 +71,9 @@ class govuk::apps::email_alert_api(
   $govdelivery_username = undef,
   $govdelivery_password = undef,
   $govdelivery_account_code = undef,
+  $govdelivery_protocol = 'https',
   $govdelivery_hostname = undef,
-  $govdelivery_signup_form = undef,
+  $govdelivery_public_hostname = undef,
   $secret_key_base = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
@@ -153,12 +156,15 @@ class govuk::apps::email_alert_api(
       "${title}-GOVDELIVERY_ACCOUNT_CODE":
           varname => 'GOVDELIVERY_ACCOUNT_CODE',
           value   => $govdelivery_account_code;
+      "${title}-GOVDELIVERY_PROTOCOL":
+          varname => 'GOVDELIVERY_PROTOCOL',
+          value   => $govdelivery_protocol;
       "${title}-GOVDELIVERY_HOSTNAME":
           varname => 'GOVDELIVERY_HOSTNAME',
           value   => $govdelivery_hostname;
-      "${title}-GOVDELIVERY_SIGNUP_FORM":
-          varname => 'GOVDELIVERY_SIGNUP_FORM',
-          value   => $govdelivery_signup_form;
+      "${title}-GOVDELIVERY_PUBLIC_HOSTNAME":
+          varname => 'GOVDELIVERY_PUBLIC_HOSTNAME',
+          value   => $govdelivery_public_hostname;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
