@@ -66,6 +66,13 @@ class govuk_mtail(
     require              => Class[$repo_class],
   }
 
+  file { '/etc/mtail/nginx_metrics.mtail':
+    ensure  => present,
+    source  => 'puppet:///modules/govuk_mtail/nginx_metrics.mtail',
+    require => File['/etc/mtail'],
+    notify  => Service['mtail'],
+  }
+
   @@icinga::check { "check_mtail_up_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!mtail',
     service_description => 'mtail not running',

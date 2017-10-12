@@ -53,11 +53,8 @@ class mtail(
 
   file { '/etc/mtail':
     ensure  => directory,
-    recurse => true,
-    purge   => true,
-    source  => 'puppet:///modules/mtail/progs',
+    mode    => '0755',
     require => Package['mtail'],
-    notify  => Service['mtail'],
   }
 
   file { '/etc/init.d/mtail':
