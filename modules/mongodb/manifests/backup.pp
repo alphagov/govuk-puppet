@@ -66,13 +66,6 @@ class mongodb::backup(
     group  => 'root',
   }
 
-  govuk_logging::logstream { 'automongodbbackup':
-    ensure  => $present,
-    fields  => {'application' => 'automongodbbackup'},
-    logfile => '/var/log/automongodbbackup/backup.log',
-    tags    => ['backup', 'automongodbbackup', 'mongo'],
-  }
-
   @filebeat::prospector { 'automongodbbackup':
     ensure => $present,
     fields => {'application' => 'automongodbbackup'},

@@ -6,13 +6,17 @@ describe 'govuk_gor', :type => :class do
     '-output-http-method' => %w{GET HEAD OPTIONS},
   }}
 
+  let :pre_condition do
+    'Filebeat::Prospector <| |>'
+  end
+
   context 'default (disabled)' do
     let(:params) {{
       'args' => args_default,
     }}
 
     it { is_expected.to contain_class('gor').with_service_ensure('stopped') }
-    it { is_expected.to contain_govuk_logging__logstream('gor_upstart_log').with_ensure('absent') }
+    it { is_expected.to contain_filebeat__prospector('gor_upstart_log').with_ensure('absent') }
   end
 
   context '#enable' do
@@ -24,7 +28,7 @@ describe 'govuk_gor', :type => :class do
       'data_sync_in_progress' => false,
     }}
 
-    it { is_expected.to contain_govuk_logging__logstream('gor_upstart_log').with_ensure('present') }
+    it { is_expected.to contain_filebeat__prospector('gor_upstart_log').with_ensure('present') }
 
     it {
       is_expected.to contain_class('gor').with(
@@ -43,7 +47,7 @@ describe 'govuk_gor', :type => :class do
       'data_sync_in_progress' => true,
     }}
 
-    it { is_expected.to contain_govuk_logging__logstream('gor_upstart_log').with_ensure('absent') }
+    it { is_expected.to contain_filebeat__prospector('gor_upstart_log').with_ensure('absent') }
 
     it {
       is_expected.to contain_class('gor').with(
@@ -61,7 +65,7 @@ describe 'govuk_gor', :type => :class do
       'data_sync_in_progress' => false,
     }}
 
-    it { is_expected.to contain_govuk_logging__logstream('gor_upstart_log').with_ensure('present') }
+    it { is_expected.to contain_filebeat__prospector('gor_upstart_log').with_ensure('present') }
 
     it {
       is_expected.to contain_class('gor').with(

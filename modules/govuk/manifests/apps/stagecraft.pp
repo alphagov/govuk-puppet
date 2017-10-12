@@ -36,10 +36,6 @@ class govuk::apps::stagecraft (
       health_check_path  => '/_status',
       log_format_is_json => true;
     }
-    govuk_logging::logstream { 'performanceplatform_collectors_log':
-      logfile => '/var/apps/stagecraft/log/collectors.json.log',
-      fields  => {'application' => 'performanceplatform-collectors'},
-    }
 
     @filebeat::prospector { 'performanceplatform_collectors_log':
       paths  => ['/var/apps/stagecraft/log/collectors.json.log'],

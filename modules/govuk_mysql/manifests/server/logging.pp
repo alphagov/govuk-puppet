@@ -18,12 +18,6 @@ class govuk_mysql::server::logging(
   $error_log,
   $slow_query_log=undef,
 ) {
-  govuk_logging::logstream { 'mysql-error-logs':
-    logfile => $error_log,
-    tags    => ['error'],
-    fields  => {'application' => 'mysql'},
-  }
-
   @filebeat::prospector { 'mysql-error-logs':
     paths  => [$error_log],
     tags   => ['error'],
@@ -31,12 +25,6 @@ class govuk_mysql::server::logging(
   }
 
   if $slow_query_log {
-    govuk_logging::logstream { 'mysql-slow-query-logs':
-      logfile => $slow_query_log,
-      tags    => ['slow-query'],
-      fields  => {'application' => 'mysql'},
-    }
-
     @filebeat::prospector { 'mysql-slow-query-logs':
       paths  => [$slow_query_log],
       tags   => ['slow-query'],

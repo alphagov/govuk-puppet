@@ -296,20 +296,10 @@ class govuk::apps::whitehall(
       locations => {'/government/uploads' => '/data/uploads/whitehall/clean'},
     }
 
-    govuk_logging::logstream { 'whitehall_scheduled_publishing_json_log':
-      logfile => '/var/apps/whitehall/log/production_scheduled_publishing.json.log',
-      fields  => {'application' => 'whitehall'},
-    }
-
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
       paths  => ['/var/apps/whitehall/log/production_scheduled_publishing.json.log'],
       fields => {'application' => 'whitehall'},
       json   => {'add_error_key' => true},
-    }
-
-    govuk_logging::logstream { 'whitehall_sidekiq_json_log':
-      logfile => '/var/apps/whitehall/log/sidekiq.json.log',
-      fields  => {'application' => 'whitehall-sidekiq'},
     }
 
     @filebeat::prospector { 'whitehall_sidekiq_json_log':

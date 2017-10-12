@@ -327,27 +327,12 @@ define govuk::app (
     subscribe  => Class['govuk::deploy'],
   }
 
-  govuk_logging::logstream { "${title}-upstart-out":
-    ensure  => $ensure,
-    logfile => "/var/log/${title}/upstart.out.log",
-    tags    => ['stdout', 'upstart'],
-    fields  => {'application' => $title},
-  }
-
   @filebeat::prospector { "${title}-upstart-out":
     ensure => $ensure,
     paths  => ["/var/log/${title}/upstart.out.log"],
     tags   => ['stdout', 'upstart'],
     fields => {'application' => $title},
   }
-
-  govuk_logging::logstream { "${title}-upstart-err":
-    ensure  => $ensure,
-    logfile => "/var/log/${title}/upstart.err.log",
-    tags    => ['stderr', 'upstart'],
-    fields  => {'application' => $title},
-  }
-
   @filebeat::prospector { "${title}-upstart-err":
     ensure => $ensure,
     paths  => ["/var/log/${title}/upstart.err.log"],
@@ -363,13 +348,6 @@ define govuk::app (
       $err_log_json = true
     } else {
       $err_log_json = undef
-    }
-
-    govuk_logging::logstream { "${title}-app-err":
-      ensure  => $ensure,
-      logfile => "/var/log/${title}/app.err.log",
-      tags    => ['stderr', 'app'],
-      fields  => {'application' => $title},
     }
 
     @filebeat::prospector { "${title}-app-err":
@@ -430,13 +408,6 @@ define govuk::app (
       tags   => ['application'],
       json   => {'add_error_key' => true},
       fields => {'application' => $title},
-    }
-
-    govuk_logging::logstream { "${title}-app-err":
-      ensure  => $ensure,
-      logfile => "/var/log/${title}/app.err.log",
-      tags    => ['application'],
-      fields  => {'application' => $title},
     }
 
     @filebeat::prospector { "${title}-app-err":
