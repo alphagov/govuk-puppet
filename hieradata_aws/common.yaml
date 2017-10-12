@@ -522,8 +522,6 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_logging::logstream::metrics_only: true
-
 govuk::node::s_api_postgresql_primary::alert_hostname: 'alert'
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
@@ -543,8 +541,6 @@ govuk::node::s_licensify_lb::backend_app_servers:
 govuk::node::s_licensify_lb::frontend_app_servers:
   - 'licensing-frontend'
   - 'licensing-frontend'
-
-govuk::node::s_logs_elasticsearch::alert_hostname: 'alert'
 
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
@@ -788,8 +784,6 @@ govuk_jenkins::job::integration_deploy::applications: *deployable_applications
 
 govuk_jenkins::job::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
-
-govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
