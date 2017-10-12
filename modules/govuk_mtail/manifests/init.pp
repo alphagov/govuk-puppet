@@ -12,6 +12,9 @@
 #   Whether to use a separate repository to install Statsd
 #   Default: false (use 'govuk_ppa' repository)
 #
+# [*logs*]
+#   List of files to monitor
+#
 # [*port*]
 #   HTTP port to listen on. (default "3903")
 #
@@ -32,6 +35,7 @@
 #
 class govuk_mtail(
   $manage_repo_class = false,
+  $logs = ['/var/log/nginx/access.log'],
   $port = 3903,
   $collectd_socketpath = undef,
   $graphite_host_port = undef,
@@ -41,6 +45,7 @@ class govuk_mtail(
 ) {
 
   validate_bool($manage_repo_class)
+  validate_array($logs)
 
   if $manage_repo_class {
     $repo_class = 'govuk_mtail::repo'
@@ -50,12 +55,8 @@ class govuk_mtail(
 
   include $repo_class
 
-  # Merge all Hiera govuk_mtail::logs values or use the default Nginx 
-  # access log if no values are found.
-  $logs_ = hiera_array('govuk_mtail::logs', ['/var/log/nginx/access.log'])
-
   class { '::mtail':
-    logs                 => join($logs_, ','),
+    logs                 => join($logs, ','),
     enabled              => true,
     port                 => $port,
     collectd_socketpath  => $collectd_socketpath,
