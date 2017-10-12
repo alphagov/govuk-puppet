@@ -12,7 +12,7 @@
 #   List of files to monitor
 #
 # [*enabled*]
-#   Enable Mtail service. (default true)
+#   Enable Mtail service. (default false)
 #
 # [*port*]
 #   HTTP port to listen on. (default "3903")
@@ -35,8 +35,8 @@
 class mtail(
   $logs,
   $manage_repo_class = false,
-  $enabled = true,
-  $port = 3093,
+  $enabled = false,
+  $port = 3903,
   $collectd_socketpath = undef,
   $graphite_host_port = undef,
   $statsd_hostport = undef,
@@ -44,6 +44,7 @@ class mtail(
   $extra_args = '-log_dir /var/log/mtail',
 ) {
 
+  validate_bool($enabled)
   validate_bool($manage_repo_class)
 
   if $manage_repo_class {
