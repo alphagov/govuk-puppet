@@ -785,6 +785,13 @@ govuk_jenkins::job::integration_deploy::applications: *deployable_applications
 govuk_jenkins::job::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
 
+govuk_mtail::extra_args: "-log_dir /var/log/mtail -graphite_prefix %{::fqdn_metrics}."
+govuk_mtail::graphite_host_port: 'graphite:2003'
+govuk_mtail::logs:
+  - '/var/log/nginx/*-access.log'
+govuk_mtail::manage_repo_class: true
+govuk_mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
@@ -1012,8 +1019,6 @@ monitoring::checks::smokey::features:
     feature: draft_environment
   check_travel_advice:
     feature: travel_advice
-
-mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
