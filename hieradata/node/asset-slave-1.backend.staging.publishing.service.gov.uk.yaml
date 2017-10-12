@@ -5,7 +5,6 @@ lv:
       - '/dev/sdc1'
       - '/dev/sdd1'
       - '/dev/sde1'
-      - '/dev/sdf1'
     vg: 'uploads'
   cache:
     pv:
