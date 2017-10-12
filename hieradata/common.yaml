@@ -777,6 +777,13 @@ govuk_jenkins::config::user_permissions:
 
 govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_mtail::extra_args: "-log_dir /var/log/mtail -graphite_prefix %{::fqdn_metrics}."
+govuk_mtail::graphite_host_port: 'graphite.cluster:2003'
+govuk_mtail::logs:
+  - '/var/log/nginx/*-access.log'
+govuk_mtail::manage_repo_class: true
+govuk_mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"

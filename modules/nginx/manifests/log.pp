@@ -30,7 +30,9 @@ define nginx::log (
     $json_hash = {}
   }
 
-  # TODO replace statsd shipping.
+  # Replace statsd shipping with Mtail
+  include ::govuk_mtail
+
   @filebeat::prospector { $name:
     ensure => $logstream,
     paths  => [$path],

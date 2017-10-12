@@ -4,15 +4,11 @@
 #
 # === Parameters
 #
-# [*manage_repo_class*]
-#   Whether to use a separate repository to install Statsd
-#   Default: false (use 'govuk_ppa' repository)
-#
 # [*logs*]
 #   List of files to monitor
 #
 # [*enabled*]
-#   Enable Mtail service. (default true)
+#   Enable Mtail service. (default false)
 #
 # [*port*]
 #   HTTP port to listen on. (default "3903")
@@ -34,9 +30,8 @@
 #
 class mtail(
   $logs,
-  $manage_repo_class = false,
-  $enabled = true,
-  $port = 3093,
+  $enabled = false,
+  $port = 3903,
   $collectd_socketpath = undef,
   $graphite_host_port = undef,
   $statsd_hostport = undef,
@@ -44,13 +39,7 @@ class mtail(
   $extra_args = '-log_dir /var/log/mtail',
 ) {
 
-  validate_bool($manage_repo_class)
-
-  if $manage_repo_class {
-    include mtail::repo
-  } else {
-    include govuk_ppa
-  }
+  validate_bool($enabled)
 
   package { 'mtail':
     ensure  => 'latest',
@@ -64,11 +53,8 @@ class mtail(
 
   file { '/etc/mtail':
     ensure  => directory,
-    recurse => true,
-    purge   => true,
-    source  => 'puppet:///modules/mtail/progs',
+    mode    => '0755',
     require => Package['mtail'],
-    notify  => Service['mtail'],
   }
 
   file { '/etc/init.d/mtail':
@@ -81,11 +67,5 @@ class mtail(
   service { 'mtail':
     ensure  => running,
     require => [Package['mtail'], File['/etc/init.d/mtail']],
-  }
-
-  @@icinga::check { "check_mtail_up_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!mtail',
-    service_description => 'mtail not running',
-    host_name           => $::fqdn,
   }
 }

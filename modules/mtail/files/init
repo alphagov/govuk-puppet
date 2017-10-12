@@ -46,12 +46,12 @@ fi
 . /lib/lsb/init-functions
 
 ARGS="-progs /etc/mtail "
-[ -n "$LOGS" ] && ARGS="${ARGS} -logs $LOGS"
+[ -n "$LOGS" ] && ARGS="${ARGS} -logs $(echo $LOGS | tr ' ' ',')"
 [ -n "$PORT" ] && ARGS="${ARGS} -port $PORT"
 [ -n "$COLLECTD_SOCKETPATH" ] && \
     ARGS="${ARGS} -collectd_socketpath $COLLECTD_SOCKETPATH"
-[ -n "$GRAPHITE_HOSTPORT" ] && \
-    ARGS="${ARGS} -graphite_host_port $GRAPHITE_HOSTPORT"
+[ -n "$GRAPHITE_HOST_PORT" ] && \
+    ARGS="${ARGS} -graphite_host_port $GRAPHITE_HOST_PORT"
 [ -n "$STATSD_HOSTPORT" ] && ARGS="${ARGS} -statsd_hostport $STATSD_HOSTPORT"
 [ -n "$METRIC_PUSH_INTERVAL" ] && \
     ARGS="${ARGS} -metric_push_interval_seconds $METRIC_PUSH_INTERVAL"
@@ -72,7 +72,7 @@ start_mtail()
 stop_mtail() {
     start-stop-daemon --stop --retry TERM/10/KILL/5 --quiet --oknodo --pidfile $PIDFILE
 
-    if [[ $? -eq 0 ]] ; then
+    if [ $? -eq 0 ] ; then
       rm -f $PIDFILE
     fi
 }
