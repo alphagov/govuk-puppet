@@ -789,6 +789,7 @@ govuk_mtail::extra_args: "-log_dir /var/log/mtail -graphite_prefix %{::fqdn_metr
 govuk_mtail::logs:
   - '/var/log/nginx/*-access.log'
 govuk_mtail::manage_repo_class: true
+govuk_mtail::metric_push_interval: 5
 govuk_mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_mysql::server::expire_log_days: 3
