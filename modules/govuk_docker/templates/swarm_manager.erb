@@ -17,6 +17,22 @@ CLUSTER_WORKER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/worker/
 CLUSTER_MANAGER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/manager/token)
 CLUSTER_MANAGER_IP=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/manager/ip)
 
+function create_cluster {
+  echo "Creating cluster ${CLUSTER_NAME}"
+  docker swarm init \
+    --advertise-addr=$(hostname -i)
+
+  WORKER_TOKEN=$(docker swarm join-token worker -q)
+  MANAGER_TOKEN=$(docker swarm join-token manager -q)
+
+  echo "Updating etcd: ${CLUSTER_NAME}/manager/ip"
+  $ETCDCTL_BIN put $CLUSTER_NAME/manager/ip $(hostname -i)
+  echo "Updating etcd: ${CLUSTER_NAME}/manager/token"
+  $ETCDCTL_BIN put $CLUSTER_NAME/manager/token $MANAGER_TOKEN
+  echo "Updating etcd: ${CLUSTER_NAME}/worker/token"
+  $ETCDCTL_BIN put $CLUSTER_NAME/worker/token $WORKER_TOKEN
+}
+
 if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
 
   echo "Checking for active manager elsewhere"
@@ -30,18 +46,10 @@ if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
     if [[ $? == 0 ]]; then
       exit 0
     else
-      echo "No cluster available to join"
+      echo "Unable to join cluster on IP ${CLUSTER_MANAGER_IP}, attempting to recreate"
+      create_cluster
     fi
   else
-    echo "Creating cluster ${CLUSTER_NAME}"
-    docker swarm init \
-      --advertise-addr=$(hostname -i)
-
-    WORKER_TOKEN=$(docker swarm join-token worker -q)
-    MANAGER_TOKEN=$(docker swarm join-token manager -q)
-
-    $ETCDCTL_BIN put $CLUSTER_NAME/manager/ip $(hostname -i)
-    $ETCDCTL_BIN put $CLUSTER_NAME/manager/token $MANAGER_TOKEN
-    $ETCDCTL_BIN put $CLUSTER_NAME/worker/token $WORKER_TOKEN
+    create_cluster
   fi
 fi
