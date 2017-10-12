@@ -18,6 +18,8 @@ govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://p
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
 govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::email_alert_api::govdelivery_hostname: 'stage-api.govdelivery.com'
+govuk::apps::email_alert_api::govdelivery_public_hostname: 'stage-public.govdelivery.com'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
