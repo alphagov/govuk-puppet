@@ -536,6 +536,10 @@ govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_pre
 govuk::node::s_base::log_remote: false
 
 govuk::node::s_docker_base::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_docker_base::apps:
+  - portainer
+  - static
+  - release
 
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
