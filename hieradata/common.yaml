@@ -1307,22 +1307,6 @@ hosts::production::management::hosts:
       - 'graphite'
   logs-cdn-1:
     ip: '10.1.0.27'
-  logging-1:
-    ip: '10.1.0.28'
-    service_aliases:
-      - 'logging'
-  logs-elasticsearch-1:
-    ip: '10.1.0.29'
-    service_aliases:
-      - 'logs-elasticsearch'
-  logs-elasticsearch-2:
-    ip: '10.1.0.30'
-  logs-elasticsearch-3:
-    ip: '10.1.0.31'
-  logs-redis-1:
-    ip: '10.1.0.40'
-  logs-redis-2:
-    ip: '10.1.0.41'
   backup-1:
     ip: '10.1.0.50'
   apt-1:
