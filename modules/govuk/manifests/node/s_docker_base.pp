@@ -3,11 +3,15 @@
 # Base class for docker instances
 #
 class govuk::node::s_docker_base (
+  $apps = [],
   $apt_mirror_hostname = undef,
 ){
 
   include ::govuk::node::s_base
   include ::govuk_docker
+
+  $app_classes = regsubst($apps, '^', 'govuk_containers::apps::')
+  include $app_classes
 
   if $apt_mirror_hostname {
     apt::source { 'etcdctl':

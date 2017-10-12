@@ -9,10 +9,11 @@ class govuk_containers::apps::release (
 ) {
   validate_hash($envvars)
 
-  govuk_containers::cluster::app { 'release':
+  @govuk_containers::cluster::app { 'release':
     port             => $port,
     envvars          => $envvars,
     healthcheck_path => $healthcheck_path,
+    tag              => 'backend',
   }
 
 }

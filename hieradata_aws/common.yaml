@@ -801,6 +801,7 @@ govuk_jenkins::job::smokey::signon_password: "%{hiera('smokey_signon_password')}
 
 govuk_jenkins::job::run_rake_task::applications: *deployable_applications
 govuk_jenkins::job::deploy_app::applications: *deployable_applications
+govuk_jenkins::job::deploy_swarm_app::applications: *deployable_applications
 
 govuk_jenkins::job::integration_deploy::applications: *deployable_applications
 
@@ -829,6 +830,8 @@ govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_sudo::sudo_conf:
   deploy_docker_image:
     content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
+  deploy_docker_service:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/docker service *'
   deploy_init_ctl:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
   deploy_service_docker:

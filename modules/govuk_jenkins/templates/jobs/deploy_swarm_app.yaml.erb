@@ -1,0 +1,79 @@
+---
+- scm:
+    name: alphagov-deployment_Deploy_Swarm_App
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-app-deployment.git
+            branches:
+              - master
+            wipe-workspace: true
+
+- job:
+    name: Deploy_Swarm_App
+    display-name: Deploy_Swarm_App
+    project-type: freestyle
+    description: "Deploy an app into a Docker Swarm cluster"
+    <%- if @auth_token -%>
+    auth-token: <%= @auth_token %>
+    <%- end -%>
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-app-deployment
+    scm:
+      - alphagov-deployment_Deploy_Swarm_App
+    builders:
+        - shell: |
+            #!/usr/bin/env bash
+            export DEPLOY_TO="<%= @environment -%>"
+            export DEPLOY_TASK="$DEPLOY_TASK"
+            export TAG="$TAG"
+            export ORGANISATION="<%= @environment -%>"
+            export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
+
+            if [ "$DEPLOY_FROM_GITLAB" == "true" ]; then
+              export GIT_ORIGIN_PREFIX="git@gitlab.com:govuk"
+            fi
+
+            ./jenkins_swarm.sh
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
+        - build-user-vars
+    parameters:
+        - choice:
+            name: TARGET_APPLICATION
+            description: Application to deploy.
+            choices: <%= ['-- Choose an app'] + @applications.keys %>
+        - choice:
+            name: DEPLOY_TASK
+            description: |
+              Capistrano task to run<br>
+            choices:
+                - swarm
+                - swarm:create
+                - swarm:update
+                - swarm:scale
+                - swarm:recreate
+                - swarm:force_reload
+                - swarm:delete
+        - string:
+            name: TAG
+            description: Git tag/committish to deploy.
+            default: release
+        - string:
+            name: REPLICAS
+            description: Number of replicas to deploy.
+            default: '3'
+        - choice:
+            name: MODE
+            default: replicated
+            description: Replication mode for service
+            choices:
+              - replicated
+              - global
+        - bool:
+            name: DEPLOY_FROM_GITLAB
+            default: false
+            description: Whether to deploy from GitLab.com in case GitHub is unavailable

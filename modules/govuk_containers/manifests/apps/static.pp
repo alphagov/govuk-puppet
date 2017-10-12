@@ -9,9 +9,10 @@ class govuk_containers::apps::static (
 ) {
   validate_hash($envvars)
 
-  govuk_containers::cluster::app { 'static':
+  @govuk_containers::cluster::app { 'static':
     port             => $port,
     envvars          => $envvars,
     healthcheck_path => $healthcheck_path,
+    tag              => 'frontend',
   }
 }

@@ -29,9 +29,9 @@ define govuk_containers::cluster::app (
   $json_healthcheck = false,
   $vhost_aliases = [],
 ) {
-  include ::nginx
-  include ::govuk_docker
   include ::govuk_containers::cluster::global
+  include ::govuk_docker
+  include ::nginx
 
   if $ensure == 'present' {
     $ensure_dir = 'directory'

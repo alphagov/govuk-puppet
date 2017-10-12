@@ -5,15 +5,13 @@
 class govuk::node::s_docker_manager_frontend {
 
   include ::govuk::node::s_docker_base
-  include ::govuk_containers::apps::static
-  include ::govuk_containers::apps::release
-  include ::govuk_containers::apps::portainer
 
   govuk_docker::swarm { "frontend_cluster_manager_${::hostname}":
     role         => 'manager',
-    cluster_name => 'frontend_cluster',
+    cluster_name => 'frontend',
     require      => Class['::govuk::node::s_docker_base'],
   }
 
+  Govuk_containers::Cluster::App <| tag == frontend |>
 
 }
