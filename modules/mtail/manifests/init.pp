@@ -4,10 +4,6 @@
 #
 # === Parameters
 #
-# [*manage_repo_class*]
-#   Whether to use a separate repository to install Statsd
-#   Default: false (use 'govuk_ppa' repository)
-#
 # [*logs*]
 #   List of files to monitor
 #
@@ -34,7 +30,6 @@
 #
 class mtail(
   $logs,
-  $manage_repo_class = false,
   $enabled = false,
   $port = 3903,
   $collectd_socketpath = undef,
@@ -45,13 +40,6 @@ class mtail(
 ) {
 
   validate_bool($enabled)
-  validate_bool($manage_repo_class)
-
-  if $manage_repo_class {
-    include mtail::repo
-  } else {
-    include govuk_ppa
-  }
 
   package { 'mtail':
     ensure  => 'latest',
@@ -82,11 +70,5 @@ class mtail(
   service { 'mtail':
     ensure  => running,
     require => [Package['mtail'], File['/etc/init.d/mtail']],
-  }
-
-  @@icinga::check { "check_mtail_up_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!mtail',
-    service_description => 'mtail not running',
-    host_name           => $::fqdn,
   }
 }
