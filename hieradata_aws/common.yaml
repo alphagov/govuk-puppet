@@ -786,7 +786,6 @@ govuk_jenkins::job::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
 
 govuk_mtail::extra_args: "-log_dir /var/log/mtail -graphite_prefix %{::fqdn_metrics}."
-govuk_mtail::graphite_host_port: 'graphite:2003'
 govuk_mtail::logs:
   - '/var/log/nginx/*-access.log'
 govuk_mtail::manage_repo_class: true
