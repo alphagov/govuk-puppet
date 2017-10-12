@@ -1,0 +1,4 @@
+# File managed by Puppet
+<% @envvars.each do |key, val| -%>
+<%= key.upcase + '=' + val %>
+<% end -%>
