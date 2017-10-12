@@ -17,6 +17,11 @@ class puppet::puppetserver::config {
     source => 'puppet:///modules/puppet/etc/puppet/certsigner.rb',
     mode   => '0755',
   }
+  file { '/etc/puppet/prometheus.yaml':
+    ensure => present,
+    source => 'puppet:///modules/puppet/etc/puppet/prometheus.yaml',
+    mode   => '0644',
+  }
 
   # Track checksums and reload `puppetmaster` service when they change. This
   # is still pretty non-deterministic because it requires a `puppet agent`

@@ -59,6 +59,9 @@ mod 'elasticsearch/logstash',
   :ref => '694fa1a'
 mod 'alphagov/puppet-reporter-sentry',
   :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
+mod 'puppet/prometheus',
+  :git => 'git://github.com/afda16/puppet-prometheus.git',
+  :ref => 'puppet3'
 mod 'puppetlabs/postgresql',
   :git => 'git://github.com/alphagov/puppetlabs-postgresql.git',
   :ref => '2b30e3e1cbb2772bee848d802f6f00cc790a2947'
