@@ -1,6 +1,5 @@
 counter http_requests_total by vhost, status
 counter http_request_duration_milliseconds_sum by vhost, status
-counter http_response_size_bytes_sum by vhost, status
 
 #    log_format timed_combined '$remote_addr - $remote_user [$time_local]  '
 #      '"$request" $status $body_bytes_sent '
@@ -30,5 +29,4 @@ counter http_response_size_bytes_sum by vhost, status
 /$/ {
   http_requests_total[$vhost][$status]++
   http_request_duration_milliseconds_sum[$vhost][$status] += $request_seconds * 1000 + $request_milliseconds
-  http_response_size_bytes_sum[$vhost][$status] += $bytes_sent
 }
