@@ -20,7 +20,6 @@ class govuk::node::s_development (
   include govuk_rabbitmq
   include hosts::development
   include imagemagick
-  include last_puppet_run
   include mailhog
   include memcached
   include mongodb::server
@@ -40,6 +39,14 @@ class govuk::node::s_development (
 
   $app_classes = regsubst($apps, '^', 'govuk::apps::')
   include $app_classes
+
+  # Check when Puppet last ran and recommend that people run it if it's
+  # out-of-date by >=3 days.
+  file { '/etc/profile.d/last_puppet_run.sh':
+    ensure => present,
+    mode   => '0755',
+    source => 'puppet:///modules/govuk/etc/profile.d/devvm_last_puppet_run.sh',
+  }
 
   include govuk_java::openjdk7::jdk
   include govuk_java::openjdk7::jre
