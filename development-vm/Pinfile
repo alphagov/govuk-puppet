@@ -77,7 +77,7 @@ process :'support-api'
 process :transition
 process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_publisher_worker', :'email-alert-api']
 process :travel_advice_publisher_worker
-process :whitehall => [:static, :'publishing-api', :rummager, :'whitehall-worker']
+process :whitehall => [:'asset-manager', :static, :'publishing-api', :rummager, :'whitehall-worker']
 
 # pseudo processes to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
