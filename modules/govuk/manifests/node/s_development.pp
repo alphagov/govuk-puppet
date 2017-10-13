@@ -33,8 +33,6 @@ class govuk::node::s_development (
 
   include govuk_rbenv::all
 
-  include bash_completion
-
   include router::assets_origin
 
   $app_classes = regsubst($apps, '^', 'govuk::apps::')
@@ -46,6 +44,16 @@ class govuk::node::s_development (
     ensure => present,
     mode   => '0755',
     source => 'puppet:///modules/govuk/etc/profile.d/devvm_last_puppet_run.sh',
+  }
+
+  # Install additional bash completions.
+  package { 'bash-completion':
+    ensure  => present,
+  }
+
+  file { '/etc/bash_completion.d/git-completion.bash':
+    ensure => present,
+    source => 'puppet:///modules/govuk/etc/bash_completion.d/git-completion.bash',
   }
 
   include govuk_java::openjdk7::jdk
