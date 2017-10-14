@@ -1,0 +1,82 @@
+#!/bin/bash
+#
+# Wrapper for dynamically creating a new cluster as manager role
+#
+export ETCDCTL_API=3
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+CLUSTER_NAME=$1
+ETCD_ENDPOINTS="etcd:2379"
+ETCDCTL_BIN="/usr/local/bin/etcdctl --endpoints=${ETCD_ENDPOINTS}"
+
+if [[ -z $CLUSTER_NAME ]]; then
+  echo "Must set cluster name"
+  exit 1
+fi
+
+CLUSTER_WORKER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/token/worker)
+CLUSTER_MANAGER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/token/manager)
+CLUSTER_ID=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/id)
+
+function create_cluster {
+  echo "Creating cluster ${CLUSTER_NAME}"
+  docker swarm init \
+    --advertise-addr=$(hostname -i)
+
+  WORKER_TOKEN=$(docker swarm join-token worker -q)
+  MANAGER_TOKEN=$(docker swarm join-token manager -q)
+
+  echo "Publishing manager node: ${CLUSTER_NAME}/managers/$(hostname)"
+  $ETCDCTL_BIN put $CLUSTER_NAME/managers/$(hostname) $(hostname -i)
+
+  echo "Publishing token: ${CLUSTER_NAME}/cluster/token/manager"
+  $ETCDCTL_BIN put $CLUSTER_NAME/cluster/token/manager $MANAGER_TOKEN
+
+  echo "Publishing token: ${CLUSTER_NAME}/cluster/token/worker"
+  $ETCDCTL_BIN put $CLUSTER_NAME/cluster/token/worker $WORKER_TOKEN
+
+  echo "Publishing Cluster ID"
+  $ETCDCTL_BIN put $CLUSTER_NAME/cluster/id "$(date +%s)_${CLUSTER_NAME}"
+}
+
+if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
+
+  echo "Checking for active manager elsewhere..."
+  # See if there are any active managers available to join
+  for manager in $($ETCDCTL_BIN get --prefix --print-value-only $CLUSTER_NAME/managers); do
+    if [[ $manager == "$(hostname -i)" ]]; then
+      echo "IP my own, yet I am not part of any active cluster. Skipping"
+      $ETCDCTL_BIN del $CLUSTER_NAME/managers/$(hostname)
+    else
+      echo "Attempting to join manager IP ${manager}"
+      docker swarm join \
+        --token $CLUSTER_MANAGER_TOKEN \
+        $manager:2377
+
+      if [[ $? == 0 ]]; then
+        echo "Successfully joined cluster!"
+
+        echo "Updating etcd: ${CLUSTER_NAME}/managers/$(hostname)"
+        $ETCDCTL_BIN put $CLUSTER_NAME/managers/$(hostname) $(hostname -i)
+
+        exit 0
+      fi
+    fi
+  done
+
+  echo "Cannot find cluster to join, creating"
+  create_cluster
+  echo "Created cluster with ID $($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/id)"
+else
+  for worker in $($ETCDCTL_BIN get $CLUSTER_NAME/workers --prefix --keys-only |cut -d "/" -f); do
+    if [[ -z "docker node ls |grep ${worker}" ]]; then
+      echo "Maintenance: ${worker} not in swarm, removing from etcd"
+      $ETCDCTL_BIN del $CLUSTER_NAME/workers/${worker}
+    fi
+  done
+  for manager in $($ETCDCTL_BIN get $CLUSTER_NAME/managers --prefix --keys-only |cut -d "/" -f); do
+    if [[ -z "docker node ls |grep ${manager}" ]]; then
+      echo "Maintenance: ${manager} not in swarm, removing from etcd"
+      $ETCDCTL_BIN del $CLUSTER_NAME/managers/${manager}
+    fi
+  done
+fi

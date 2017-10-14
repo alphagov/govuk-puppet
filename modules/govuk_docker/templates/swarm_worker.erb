@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# Wrapper for dynamically managing a Docker Swarm worker
+#
+exec 1> >(logger -s -t $(basename $0)) 2>&1
+export ETCDCTL_API=3
+CLUSTER_NAME=$1
+ETCD_ENDPOINTS="etcd:2379"
+ETCDCTL_BIN="/usr/local/bin/etcdctl --endpoints=${ETCD_ENDPOINTS}"
+
+if [[ -z $CLUSTER_NAME ]]; then
+  echo "Must set cluster name"
+  exit 1
+fi
+
+CLUSTER_WORKER_TOKEN=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/token/worker)
+CLUSTER_MANAGER_IP=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/token/manager)
+CURRENT_CLUSTER_ID=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/workers/$(hostname)/cluster)
+CLUSTER_ID=$($ETCDCTL_BIN get --print-value-only $CLUSTER_NAME/cluster/id)
+
+if docker info 2>/dev/null| grep -qw "Swarm: active"; then
+  if [[ $CURRENT_CLUSTER_ID != $CLUSTER_ID  ]]; then
+    echo "I do not appear to be part of the right cluster, leaving"
+    docker swarm leave
+    sleep 10
+  fi
+fi
+
+if docker info 2>/dev/null| grep -qw "Swarm: error"; then
+  echo "Swarm in error state, leaving to rejoin"
+  docker swarm leave
+  sleep 10
+fi
+
+if ! docker info 2>/dev/null| grep -qw "Swarm: active"; then
+  echo "Joining cluster ${CLUSTER_NAME}"
+  echo "Checking for active managers to join"
+  for manager in $($ETCDCTL_BIN get --prefix --print-value-only $CLUSTER_NAME/managers); do
+    docker swarm join \
+      --token $CLUSTER_WORKER_TOKEN \
+      $manager:2377
+
+    if [[ $? == 0 ]]; then
+      echo "Successfully joined cluster!"
+
+      echo "Publishing worker IP"
+      $ETCDCTL_BIN put $CLUSTER_NAME/workers/$(hostname)/ip $(hostname -i)
+
+      echo "Publishing which cluster I am part of"
+      $ETCDCTL_BIN put $CLUSTER_NAME/workers/$(hostname)/cluster $CLUSTER_ID
+
+      exit 0
+    fi
+  done
+
+  echo "Error: haven't been able to join any clusters"
+  exit 1
+fi
