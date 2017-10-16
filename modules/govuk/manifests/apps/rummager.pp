@@ -64,6 +64,9 @@
 # [*spelling_dependencies*]
 #   Install the spelling package dependencies
 #
+# [*sitemap_generation_time*]
+#   A time of day in a format supported by https://github.com/javan/whenever
+#
 class govuk::apps::rummager(
   $rabbitmq_user,
   $port = '3009',
@@ -81,6 +84,7 @@ class govuk::apps::rummager(
   $nagios_memory_critical = undef,
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
+  $sitemap_generation_time = '1.10am',
 ) {
 
   package { ['aspell', 'aspell-en', 'libaspell-dev']:
@@ -178,5 +182,10 @@ class govuk::apps::rummager(
   govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
     varname => 'ELASTICSEARCH_URI',
     value   => $elasticsearch_hosts,
+  }
+
+  govuk::app::envvar { "${title}-SITEMAP_GENERATION_TIME":
+    varname => 'SITEMAP_GENERATION_TIME',
+    value   => $sitemap_generation_time,
   }
 }
