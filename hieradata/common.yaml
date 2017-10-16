@@ -44,7 +44,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  performanceplatform-big-screen-view: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -61,7 +60,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
-  spotlight: {}
   static: {}
   support: {}
   support-api: {}
