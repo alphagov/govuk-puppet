@@ -18,6 +18,8 @@ class govuk_docker (
 ){
   validate_array($docker_users)
 
+  include ::collectd::plugin::docker
+
   # We only have logit set up for integration, everywhere else use syslog
   if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
     class { '::docker':
