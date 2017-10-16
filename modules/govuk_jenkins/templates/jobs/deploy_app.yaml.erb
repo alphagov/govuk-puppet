@@ -1,13 +1,4 @@
 ---
-- scm:
-    name: alphagov-deployment_Deploy_App
-    scm:
-        - git:
-            url: git@github.com:alphagov/govuk-app-deployment.git
-            branches:
-              - master
-            wipe-workspace: true
-
 - job:
     name: Deploy_App
     display-name: Deploy_App
@@ -16,14 +7,11 @@
     <%- if @auth_token -%>
     auth-token: <%= @auth_token %>
     <%- end -%>
-    properties:
-        - github:
-            url: https://github.com/alphagov/govuk-app-deployment
-    scm:
-      - alphagov-deployment_Deploy_App
     builders:
         - shell: |
             #!/usr/bin/env bash
+            set -x
+
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
@@ -38,6 +26,7 @@
               export GIT_ORIGIN_PREFIX="git@gitlab.com:govuk"
             fi
 
+            git clone ${GIT_ORIGIN_PREFIX="git@github.com:alphagov"}/govuk-app-deployment.git --branch master --single-branch --depth 1 ./
             ./jenkins.sh
     publishers:
         - trigger:
@@ -52,6 +41,7 @@
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
             send-to-individuals: true
     wrappers:
+        - workspace-cleanup
         - ansicolor:
             colormap: xterm
         - build-name:
