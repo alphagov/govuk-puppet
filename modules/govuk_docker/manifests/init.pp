@@ -12,14 +12,17 @@
 #   Pin a version to use
 #   Default is present
 #
+# [*enable_logspout*]
+#   Set to true to use logspout to ship logs
+#
 class govuk_docker (
   $docker_users = [],
   $version = 'present',
+  $enable_logspout = true,
 ){
   validate_array($docker_users)
 
-  # We only have logit set up for integration, everywhere else use syslog
-  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
+  if $enable_logspout {
     class { '::docker':
       docker_users => $docker_users,
       version      => $version,
