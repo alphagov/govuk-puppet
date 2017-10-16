@@ -13,6 +13,11 @@
 #   available alongside other formats (e.g. html, json)
 #   Default: false
 #
+# [*show_draft_flows*]
+#   A boolean value indicating if the draft flows of smart answers will be
+#   shown in an environment
+#   Default: false
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -33,6 +38,7 @@
 class govuk::apps::smartanswers(
   $port = '3010',
   $expose_govspeak = false,
+  $show_draft_flows = false,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
@@ -47,6 +53,14 @@ class govuk::apps::smartanswers(
     govuk::app::envvar {
       "${title}-EXPOSE_GOVSPEAK":
         varname => 'EXPOSE_GOVSPEAK',
+        value   => '1';
+    }
+  }
+
+  if $show_draft_flows {
+    govuk::app::envvar {
+      "${title}-SHOW_DRAFT_FLOWS":
+        varname => 'SHOW_DRAFT_FLOWS',
         value   => '1';
     }
   }
