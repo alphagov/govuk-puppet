@@ -48,20 +48,11 @@
 # this doesn't apply to all app types. (eg Rack apps don't create pid files
 # by default)
 #
-# [*legacy_logging*]
-# Whether to support the legacy logging scheme where we collect application
-# logs directly, instead of having apps log to stdout/stderr.
-# Default: true
-#
-#
 # [*log_format_is_json*]
 # Whether the legacy application logs are in JSON format. If set to true,
 # logstream will consume this as a logstash JSON event formatted stream.
 #
-# This is ignored unless legacy_logging is set to true.
-#
 # Default: false
-#
 #
 # [*health_check_path*]
 # path at which to check the status of the application.
@@ -228,7 +219,6 @@ define govuk::app (
   $port = 0,
   $command = undef,
   $create_pidfile = 'NOTSET',
-  $legacy_logging = true,
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
@@ -343,55 +333,56 @@ define govuk::app (
   $title_escaped = regsubst($title, '\.', '_', 'G')
   $statsd_timer_prefix = "${::fqdn_metrics}.${title_escaped}"
 
-  if $legacy_logging {
-    if ($app_type == 'bare' and $log_format_is_json) {
-      $err_log_json = true
-    } else {
-      $err_log_json = undef
-    }
-
-    @filebeat::prospector { "${title}-app-err":
-      ensure => $ensure,
-      paths  => ["/var/log/${title}/app.err.log"],
-      tags   => ['stderr', 'app'],
-      json   => {'add_error_key' => $err_log_json},
-      fields => {'application' => $title},
-    }
-
-    if ($app_type == 'rack' or  $log_format_is_json) {
-
-      $log_path = $log_format_is_json ? {
-        true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
-        default => "/data/vhost/${vhost_full}/shared/log/production.log"
-      }
-
-      govuk_logging::logstream { "${title}-production-log":
-        ensure        => $ensure,
-        logfile       => $log_path,
-        tags          => ['stdout', 'application'],
-        fields        => {'application' => $title},
-        statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
-        statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
-                            value => '@fields.duration'},
-                          {metric => "${statsd_timer_prefix}.time_db",
-                            value => '@fields.db'},
-                          {metric => "${statsd_timer_prefix}.time_view",
-                            value => '@fields.view'}],
-      }
-
-      @filebeat::prospector { "${title}-production-log":
-        ensure => $ensure,
-        paths  => [$log_path],
-        tags   => ['stdout', 'application'],
-        json   => {'add_error_key' => $log_format_is_json},
-        fields => {'application' => $title},
-      }
-    }
+  if ($app_type == 'bare' and $log_format_is_json) {
+    $err_log_json = { 'add_error_key' => true }
   } else {
-    govuk_logging::logstream { "${title}-app-out":
+    $err_log_json = {}
+  }
+
+  # We still use Logstream for statsd metrics
+  govuk_logging::logstream { "${title}-app-out":
+    ensure        => $ensure,
+    logfile       => "/var/log/${title}/app.out.log",
+    tags          => ['application'],
+    fields        => {'application' => $title},
+    statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+    statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
+                        value => '@fields.duration'},
+                      {metric => "${statsd_timer_prefix}.time_db",
+                        value => '@fields.db'},
+                      {metric => "${statsd_timer_prefix}.time_view",
+                        value => '@fields.view'}],
+        }
+
+  @filebeat::prospector { "${title}-app-out":
+    ensure => $ensure,
+    paths  => ["/var/log/${title}/app.out.log"],
+    tags   => ['stdout', 'application'],
+    json   => {'add_error_key' => true},
+    fields => {'application' => $title},
+  }
+
+  @filebeat::prospector { "${title}-app-err":
+    ensure => $ensure,
+    paths  => ["/var/log/${title}/app.err.log"],
+    tags   => ['stderr', 'application'],
+    json   => $err_log_json,
+    fields => {'application' => $title},
+  }
+
+  # FIXME: when we have migrated all apps to output logs to /var/log this
+  # can be removed
+  if ($app_type == 'rack' or  $log_format_is_json) {
+
+    $log_path = $log_format_is_json ? {
+      true    => "/data/vhost/${vhost_full}/shared/log/production.json.log",
+      default => "/data/vhost/${vhost_full}/shared/log/production.log"
+    }
+
+    govuk_logging::logstream { "${title}-production-log":
       ensure        => $ensure,
-      logfile       => "/var/log/${title}/app.out.log",
-      tags          => ['application'],
+      logfile       => $log_path,
+      tags          => ['stdout', 'application'],
       fields        => {'application' => $title},
       statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
       statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
@@ -400,27 +391,14 @@ define govuk::app (
                           value => '@fields.db'},
                         {metric => "${statsd_timer_prefix}.time_view",
                           value => '@fields.view'}],
-          }
-
-    @filebeat::prospector { "${title}-app-out":
-      ensure => $ensure,
-      paths  => ["/var/log/${title}/app.out.log"],
-      tags   => ['application'],
-      json   => {'add_error_key' => true},
-      fields => {'application' => $title},
     }
 
-    @filebeat::prospector { "${title}-app-err":
+    @filebeat::prospector { "${title}-production-log":
       ensure => $ensure,
-      paths  => ["/var/log/${title}/app.err.log"],
-      tags   => ['application'],
+      paths  => [$log_path],
+      tags   => ['stdout', 'application'],
+      json   => {'add_error_key' => $log_format_is_json},
       fields => {'application' => $title},
-    }
-
-    # Support apps transitioning from legacy_logging.
-    govuk_logging::logstream { "${title}-production-log":
-      ensure  => absent,
-      logfile => "/data/vhost/${vhost_full}/shared/log/production.log",
     }
   }
 }

@@ -83,7 +83,6 @@ class govuk::apps::signon(
     sentry_dsn             => $sentry_dsn,
     vhost_ssl_only         => true,
     health_check_path      => '/users/sign_in',
-    legacy_logging         => false,
     asset_pipeline         => true,
     deny_framing           => true,
     nagios_memory_warning  => $nagios_memory_warning,

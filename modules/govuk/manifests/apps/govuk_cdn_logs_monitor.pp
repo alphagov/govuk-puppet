@@ -47,7 +47,6 @@ class govuk::apps::govuk_cdn_logs_monitor (
       app_type           => 'bare',
       command            => 'bundle exec ruby scripts/monitor_logs.rb',
       enable_nginx_vhost => false,
-      legacy_logging     => false,
     }
   }
 }

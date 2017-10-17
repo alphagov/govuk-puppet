@@ -39,7 +39,6 @@ class govuk::apps::government_frontend(
     sentry_dsn            => $sentry_dsn,
     vhost_ssl_only        => true,
     health_check_path     => '/healthcheck',
-    legacy_logging        => false,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'government-frontend',
     vhost                 => $vhost,
