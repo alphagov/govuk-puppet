@@ -97,7 +97,7 @@ GEM
     rspec-support (3.3.0)
     rsync (1.0.9)
     safe_yaml (1.0.4)
-    sshkey (1.7.0)
+    sshkey (1.9.0)
     thor (0.19.1)
     thread_safe (0.3.4)
     trollop (2.1.2)
@@ -124,5 +124,5 @@ DEPENDENCIES
   puppetlabs_spec_helper (= 1.0.1)
   rake
   rspec-puppet
-  sshkey (= 1.7.0)
+  sshkey (= 1.9.0)
   webmock (~> 1.20.0)
