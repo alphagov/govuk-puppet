@@ -48,12 +48,15 @@
 # [*govdelivery_public_hostname*]
 #   Public hostname for the govdelivery API
 #
+# [*govuk_notify_api_key*]
+#   API key for integration with GOV.UK Notify for sending emails
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -74,6 +77,7 @@ class govuk::apps::email_alert_api(
   $govdelivery_protocol = 'https',
   $govdelivery_hostname = undef,
   $govdelivery_public_hostname = undef,
+  $govuk_notify_api_key = undef,
   $secret_key_base = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
@@ -165,6 +169,9 @@ class govuk::apps::email_alert_api(
       "${title}-GOVDELIVERY_PUBLIC_HOSTNAME":
           varname => 'GOVDELIVERY_PUBLIC_HOSTNAME',
           value   => $govdelivery_public_hostname;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+          varname => 'GOVUK_NOTIFY_API_KEY',
+          value   => $govuk_notify_api_key;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
