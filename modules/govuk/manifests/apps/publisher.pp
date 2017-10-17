@@ -44,12 +44,18 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*oauth_id*]
 #   The application's OAuth ID from Signon
 #
 # [*oauth_secret*]
 #   The application's OAuth Secret from Signon
+#
+# [*run_fact_check_fetcher*]
+#   Whether to perform fetches for fact checks
+#   Default: false
+#
+# [*fact_check_address_format*]
+#   The address format used for sending fact checks
 #
 # [*fact_check_username*]
 #   The username to use for Basic Auth for fact check
@@ -72,6 +78,8 @@ class govuk::apps::publisher(
     $sentry_dsn = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
+    $run_fact_check_fetcher = false,
+    $fact_check_address_format = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
   ) {
@@ -133,6 +141,14 @@ class govuk::apps::publisher(
     app => 'publisher',
   }
 
+  if $run_fact_check_fetcher {
+    govuk::app::envvar {
+      "${title}-RUN_FACT_CHECK_FETCHER":
+        varname => 'RUN_FACT_CHECK_FETCHER',
+        value   => '1';
+    }
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
@@ -152,6 +168,9 @@ class govuk::apps::publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-FACT_CHECK_ADDRESS_FORMAT":
+      varname => 'FACT_CHECK_ADDRESS_FORMAT',
+      value   => $fact_check_address_format;
     "${title}-FACT_CHECK_USERNAME":
       varname => 'FACT_CHECK_USERNAME',
       value   => $fact_check_username;
