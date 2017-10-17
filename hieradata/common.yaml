@@ -10,10 +10,6 @@ app_domain_internal: 'dev.gov.uk'
 deployable_applications: &deployable_applications
   asset-manager: {}
   authenticating-proxy: {}
-  backdrop-read:
-    repository: 'backdrop'
-  backdrop-write:
-    repository: 'backdrop'
   bouncer: {}
   calculators: {}
   calendars: {}
@@ -48,8 +44,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  performanceplatform-admin: {}
-  performanceplatform-big-screen-view: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -66,8 +60,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
-  spotlight: {}
-  stagecraft: {}
   static: {}
   support: {}
   support-api: {}
