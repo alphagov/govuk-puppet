@@ -63,6 +63,15 @@
 # [*fact_check_password*]
 #   The password to use for Basic Auth for fact check
 #
+# [*email_group_dev*]
+#   The email address to use dev alerts
+#
+# [*email_group_business*]
+#   The email address to use business alerts
+#
+# [*email_group_citizen*]
+#   The email address to use citizen alerts
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -82,6 +91,9 @@ class govuk::apps::publisher(
     $fact_check_address_format = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
+    $email_group_dev = undef,
+    $email_group_business = undef,
+    $email_group_citizen = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -177,5 +189,14 @@ class govuk::apps::publisher(
     "${title}-FACT_CHECK_PASSWORD":
       varname => 'FACT_CHECK_PASSWORD',
       value   => $fact_check_password;
+    "${title}-EMAIL_GROUP_DEV":
+      varname => 'EMAIL_GROUP_DEV',
+      value   => $email_group_dev;
+    "${title}-EMAIL_GROUP_BUSINESS":
+      varname => 'EMAIL_GROUP_BUSINESS',
+      value   => $email_group_business;
+    "${title}-EMAIL_GROUP_CITIZEN":
+      varname => 'EMAIL_GROUP_CITIZEN',
+      value   => $email_group_citizen;
   }
 }
