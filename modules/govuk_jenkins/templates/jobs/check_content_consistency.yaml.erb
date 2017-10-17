@@ -90,3 +90,8 @@
           scp draft-$CONTENT_CSV_GZ deploy@$PUBLISHING_API:
           ssh deploy@$PUBLISHING_API "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake check_content_consistency[draft,/home/deploy/draft-$CONTENT_CSV_GZ]"
           ssh deploy@$PUBLISHING_API "rm draft-$CONTENT_CSV_GZ"
+
+          rm -rf $CONTENT_CSV_GZ
+          rm -rf draft-$CONTENT_CSV_GZ
+          rm -rf $ROUTES_CSV_GZ
+          rm -rf draft-$ROUTES_CSV_GZ
