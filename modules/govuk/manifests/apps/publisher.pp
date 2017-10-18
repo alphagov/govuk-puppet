@@ -44,18 +44,33 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*oauth_id*]
 #   The application's OAuth ID from Signon
 #
 # [*oauth_secret*]
 #   The application's OAuth Secret from Signon
 #
+# [*run_fact_check_fetcher*]
+#   Whether to perform fetches for fact checks
+#   Default: false
+#
+# [*fact_check_address_format*]
+#   The address format used for sending fact checks
+#
 # [*fact_check_username*]
 #   The username to use for Basic Auth for fact check
 #
 # [*fact_check_password*]
 #   The password to use for Basic Auth for fact check
+#
+# [*email_group_dev*]
+#   The email address to use dev alerts
+#
+# [*email_group_business*]
+#   The email address to use business alerts
+#
+# [*email_group_citizen*]
+#   The email address to use citizen alerts
 #
 class govuk::apps::publisher(
     $port = '3000',
@@ -72,8 +87,13 @@ class govuk::apps::publisher(
     $sentry_dsn = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
+    $run_fact_check_fetcher = false,
+    $fact_check_address_format = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
+    $email_group_dev = undef,
+    $email_group_business = undef,
+    $email_group_citizen = undef,
   ) {
 
   govuk::app { 'publisher':
@@ -133,6 +153,14 @@ class govuk::apps::publisher(
     app => 'publisher',
   }
 
+  if $run_fact_check_fetcher {
+    govuk::app::envvar {
+      "${title}-RUN_FACT_CHECK_FETCHER":
+        varname => 'RUN_FACT_CHECK_FETCHER',
+        value   => '1';
+    }
+  }
+
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
@@ -152,11 +180,23 @@ class govuk::apps::publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-FACT_CHECK_ADDRESS_FORMAT":
+      varname => 'FACT_CHECK_ADDRESS_FORMAT',
+      value   => $fact_check_address_format;
     "${title}-FACT_CHECK_USERNAME":
       varname => 'FACT_CHECK_USERNAME',
       value   => $fact_check_username;
     "${title}-FACT_CHECK_PASSWORD":
       varname => 'FACT_CHECK_PASSWORD',
       value   => $fact_check_password;
+    "${title}-EMAIL_GROUP_DEV":
+      varname => 'EMAIL_GROUP_DEV',
+      value   => $email_group_dev;
+    "${title}-EMAIL_GROUP_BUSINESS":
+      varname => 'EMAIL_GROUP_BUSINESS',
+      value   => $email_group_business;
+    "${title}-EMAIL_GROUP_CITIZEN":
+      varname => 'EMAIL_GROUP_CITIZEN',
+      value   => $email_group_citizen;
   }
 }
