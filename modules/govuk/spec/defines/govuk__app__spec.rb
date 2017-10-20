@@ -121,10 +121,6 @@ describe 'govuk::app', :type => :define do
     end
 
     context "a 12-factor app" do
-      before :each do
-        params[:legacy_logging] = false
-      end
-
       it "collects stdout logging as JSON" do
         expect(subject).to contain_govuk_logging__logstream("#{title}-app-out")
           .with_logfile("/var/log/#{title}/app.out.log")
@@ -137,20 +133,9 @@ describe 'govuk::app', :type => :define do
         expect(subject).to contain_filebeat__prospector("#{title}-app-err")
           .with_paths(["/var/log/#{title}/app.err.log"])
       end
-
-      it "removes collection of the apps production.log" do
-        expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
-          .with_ensure("absent")
-
-        expect(subject).to_not contain_filebeat__prospector("#{title}-production-log")
-      end
     end
 
     context "a non-12-factor app" do
-      before :each do
-        params[:legacy_logging] = true
-      end
-
       it "collects stderr logging as plain text" do
         expect(subject).to contain_filebeat__prospector("#{title}-app-err")
           .with_paths(["/var/log/#{title}/app.err.log"])
