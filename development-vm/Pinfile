@@ -69,7 +69,6 @@ process :signon
 process :smartanswers => [:static, :'content-store', :imminence]
 process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
-process :spotlight
 process :stagecraft => [:backdrop_write]
 process :static
 process :support => [:'support-api']
