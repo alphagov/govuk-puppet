@@ -15,7 +15,7 @@ class govuk_htpasswd (
 
   file { '/etc/govuk.htpasswd':
     ensure  => 'present',
-    content => template('govuk/etc/govuk.htpasswd.erb'),
+    content => template('govuk_htpasswd/govuk.htpasswd.erb'),
   }
 
 }
