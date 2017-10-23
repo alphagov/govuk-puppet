@@ -38,6 +38,7 @@ class govuk::apps::spotlight (
 
   if $enabled {
     govuk::app { 'spotlight':
+      ensure                  => 'absent',
       alert_5xx_warning_rate  => $alert_5xx_warning_rate,
       alert_5xx_critical_rate => $alert_5xx_critical_rate,
       app_type                => 'bare',
@@ -51,6 +52,7 @@ class govuk::apps::spotlight (
     }
 
     govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+      ensure  => 'absent',
       app     => 'spotlight',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token,
