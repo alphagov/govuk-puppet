@@ -161,8 +161,8 @@ class govuk::apps::bouncer(
     document_root => '/var/apps/bouncer/assets-directgov/directgov_campaigns',
   }
 
-  nginx::config::site {'www.mhra.gov.uk':
-    content => template('bouncer/www.mhra.gov.uk_nginx.conf.erb'),
+  nginx::config::site { 'www.mhra.gov.uk':
+    content => template('govuk/www.mhra.gov.uk_nginx.conf.erb'),
   }
 
   nginx::log {
