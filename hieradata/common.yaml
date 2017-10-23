@@ -1266,7 +1266,6 @@ hosts::production::frontend::app_hostnames:
   - 'service-manual'
   - 'service-manual-frontend'
   - 'smartanswers'
-  - 'spotlight'
   - 'static'
   - 'whitehall-frontend'
 

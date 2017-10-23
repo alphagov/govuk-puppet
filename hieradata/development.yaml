@@ -298,7 +298,6 @@ hosts::development::apps:
   - 'signon'
   - 'smartanswers'
   - 'specialist-publisher'
-  - 'spotlight'
   - 'stagecraft'
   - 'static'
   - 'support'
