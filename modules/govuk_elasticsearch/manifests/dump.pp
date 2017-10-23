@@ -3,7 +3,7 @@ class govuk_elasticsearch::dump (
   $run_es_dump_hour = '3',
 ) {
   package { 'es_dump_restore':
-    ensure   => '2.0.0',
+    ensure   => '2.2.0',
     provider => 'system_gem',
   }
 
