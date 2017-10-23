@@ -88,8 +88,16 @@ class govuk::apps::asset_manager(
     $nginx_extra_config = inline_template('
       client_max_body_size 500m;
 
-      proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
+      # Instruct Nginx to set "Sendfile" headers for both Mainstream and
+      # Whitehall public asset URLs. The Rails app will respond with the
+      # X-Accel-Redirect header set to a path prefixed with /raw/ which will
+      # be handled by the internal `/raw/(.*)` location block below.
+      location ~ ^/(media|government/uploads)/(.*) {
+         proxy_set_header X-Sendfile-Type X-Accel-Redirect;
+         proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
+
+         proxy_pass http://asset-manager.dev.gov.uk-proxy;
+       }
 
       # /raw/(.*) is the path mapping sent from the rails application to
       # nginx and is immediately picked up. /raw/(.*) is not available
