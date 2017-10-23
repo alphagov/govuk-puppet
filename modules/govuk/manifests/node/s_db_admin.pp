@@ -14,15 +14,37 @@
 #  The database user to connect to the remote database as
 #
 class govuk::node::s_db_admin(
-  $mysql_db_host     = undef,
-  $mysql_db_password = undef,
-  $mysql_db_user     = undef,
-  $postgres_host     = undef,
-  $postgres_user     = undef,
-  $postgres_password = undef,
-  $postgres_port     = '5432',
+  $apt_mirror_hostname  = undef,
+  $backup_s3_bucket     = undef,
+  $mysql_db_host        = undef,
+  $mysql_db_password    = undef,
+  $mysql_db_user        = undef,
+  $mysql_backup_hour    = 9,
+  $mysql_backup_min     = 10,
+  $postgres_host        = undef,
+  $postgres_user        = undef,
+  $postgres_password    = undef,
+  $postgres_port        = '5432',
+  $postgres_backup_hour = 7,
+  $postgres_backup_min  = 10,
 ) {
   include ::govuk::node::s_base
+
+  apt::source { 'gof3r':
+    location     => "http://${apt_mirror_hostname}/gof3r",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
+
+  package { 'gof3r':
+    ensure  => '0.5.0',
+    require => Apt::Source['gof3r'],
+  }
+
+  $alert_hostname = 'alert'
+
+  ### MySQL ###
 
   file { '/root/.my.cnf':
     ensure  => 'present',
@@ -37,6 +59,35 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::search_admin::db': } ->
   class { '::govuk::apps::signon::db': } ->
   class { '::govuk::apps::whitehall::db': }
+
+  $mysql_backup_desc = 'RDS MySQL backup to S3'
+
+  @@icinga::passive_check { "check_rds_mysql_s3_backup-${::hostname}":
+    service_description => $mysql_backup_desc,
+    freshness_threshold => 28 * 3600,
+    host_name           => $::fqdn,
+  }
+
+  file { '/usr/local/bin/rds-mysql-to-s3':
+    ensure  => 'present',
+    content => template('govuk/node/s_db_admin/rds-mysql-to-s3.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0775',
+    require => [
+      File['/root/.my.cnf'],
+      Package['gof3r'],
+    ],
+  }
+
+  cron::crondotdee { 'rds-mysql-to-s3':
+    hour    => $mysql_backup_hour,
+    minute  => $mysql_backup_min,
+    command => '/usr/local/bin/rds-mysql-to-s3',
+    require => File['/usr/local/bin/rds-mysql-to-s3'],
+  }
+
+  ### PostgreSQL ###
 
   $default_connect_settings = {
     'PGUSER'     => $postgres_user,
@@ -78,11 +129,30 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::stagecraft::postgresql_db': } ->
   class { '::govuk::apps::support_api::db': }
 
-  $packages = [
-    'mysql-client-5.5',
-  ]
+  $postgres_backup_desc = 'RDS PostgreSQL backup to S3'
 
-  package { $packages:
-    ensure =>  present,
+  @@icinga::passive_check { "check_rds_postgres_s3_backup-${::hostname}":
+    service_description => $postgres_backup_desc,
+    freshness_threshold => 28 * 3600,
+    host_name           => $::fqdn,
+  }
+
+  file { '/usr/local/bin/rds-postgres-to-s3':
+    ensure  => 'present',
+    content => template('govuk/node/s_db_admin/rds-postgres-to-s3.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0775',
+    require => [
+      Package['gof3r'],
+      File['/root/.pgpass'],
+    ],
+  }
+
+  cron::crondotdee { 'rds-postgres-to-s3':
+    hour    => $postgres_backup_hour,
+    minute  => $postgres_backup_min,
+    command => '/usr/local/bin/rds-postgres-to-s3',
+    require => File['/usr/local/bin/rds-postgres-to-s3'],
   }
 }
