@@ -44,6 +44,8 @@ govuk::apps::publisher::fact_check_address_format: 'govuk-factcheck-preview+{id}
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch-1.api:9200,http://rummager-elasticsearch-2.api:9200,http://rummager-elasticsearch-3.api:9200'
+govuk::apps::rummager::enable_bulk_reindex_listener: true
+govuk::apps::rummager::rabbitmq::enable_bulk_reindex_listener: true
 govuk::apps::rummager::sitemap_generation_time: '6.10am'
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'
