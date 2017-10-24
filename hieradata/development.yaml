@@ -151,8 +151,6 @@ govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost
 govuk::apps::rummager::enable_procfile_worker: false
 govuk::apps::rummager::rabbitmq_hosts: ['localhost']
 govuk::apps::rummager::redis_host: 'localhost'
-govuk::apps::rummager::enable_bulk_reindex_listener: true
-govuk::apps::rummager::rabbitmq::enable_bulk_reindex_listener: true
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
