@@ -224,7 +224,7 @@ govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-3'
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
-govuk::apps::bouncer::db_hostname: "transition-postgresql"
+govuk::apps::bouncer::db_hostname: "transition-postgresql-standby"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 
