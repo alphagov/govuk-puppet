@@ -50,9 +50,13 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
-  unless $development {
-    class { 'mongodb::backup':
-      replicaset_members => keys($replicaset_members),
+  if $::aws_migration {
+    include ::mongodb::aws_backup
+  } else {
+    unless $development {
+      class { 'mongodb::backup':
+        replicaset_members => keys($replicaset_members),
+      }
     }
   }
 
