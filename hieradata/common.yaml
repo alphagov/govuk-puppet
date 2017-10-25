@@ -1259,7 +1259,6 @@ hosts::production::frontend::app_hostnames:
   - 'info-frontend'
   - 'manuals-frontend'
   - 'licencefinder'
-  - 'performanceplatform-big-screen-view'
   - 'publicapi'
   - 'public-event-store'
   - 'service-manual'
