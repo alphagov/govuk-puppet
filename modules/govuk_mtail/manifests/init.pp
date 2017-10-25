@@ -75,6 +75,7 @@ class govuk_mtail(
   }
 
   @@icinga::check { "check_mtail_up_${::hostname}":
+    ensure              => 'absent',
     check_command       => 'check_nrpe!check_proc_running!mtail',
     service_description => 'mtail not running',
     host_name           => $::fqdn,
