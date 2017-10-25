@@ -1,0 +1,1513 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": "Visualize AWS RDS metrics",
+  "editable": true,
+  "gnetId": 707,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 16,
+  "links": [],
+  "refresh": false,
+  "rows": [
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 16,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "CPUUtilization",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "ReplicaLag",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPUUtilization/ReplicaLag",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 18,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "DatabaseConnections",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "DiskQueueDepth",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "DatabaseConnections/DiskQueueDepth",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 17,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "FreeableMemory",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "FreeStorageSpace",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "FreeableMemory/FreeStorageSpace",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 19,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "ReadIOPS",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "WriteIOPS",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "ReadIOPS/WriteIOPS",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 20,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "ReadLatency",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "WriteLatency",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "ReadLatency/WriteLatency",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 21,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "ReadThroughput",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "WriteThroughput",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "ReadThroughput/WriteThroughput",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 22,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "NetworkReceiveThroughput",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "NetworkTransmitThroughput",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "NetworkReceiveThroughput/NetworkTransmitThroughput",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "Bps",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 23,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "SwapUsage",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "BinLogDiskUsage",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "SwapUsage/BinLogDiskUsage",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 24,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "VolumeIdleTime_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "CPUCreditUsage",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "DBInstanceIdentifier": "$dbinstanceidentifier"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "CPUCreditBalance",
+              "mode": 0,
+              "namespace": "AWS/RDS",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "CPUCreditUsage/CPUCreditBalance",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "25px",
+      "panels": [
+        {
+          "content": "<a style=\"float: right\" href=\"http://www.monitoringartist.com\" target=\"_blank\" title=\"Dashboard maintained by Monitoring Artist - DevOps / Docker / Kubernetes / AWS ECS / Google GCP / Zabbix / Zenoss / Terraform / Monitoring\"><img src=\"https://monitoringartist.github.io/monitoring-artist-logo-grafana.png\" height=\"30px\" /></a>\n<a style=\"float: left\"  target=\"_blank\" href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/rds-metricscollected.html\">AWS Cloudwatch RDS documentation</a><br/>\n<a style=\"float: left\"  target=\"_blank\" href=\"https://grafana.net/dashboards/707\">Installed from Grafana.net dashboards</a>\n<div style=\"clear:both; width:100%;height:0;font-size:0;\"></div>",
+          "editable": true,
+          "error": false,
+          "id": 2,
+          "links": [],
+          "mode": "html",
+          "span": 12,
+          "title": "Documentation",
+          "type": "text"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [
+    "monitoringartist",
+    "cloudwatch"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "ap-northeast-1",
+          "value": "ap-northeast-1"
+        },
+        "datasource": "CloudWatch",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Region",
+        "multi": false,
+        "name": "region",
+        "options": [],
+        "query": "regions()",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "CloudWatch",
+        "hide": 0,
+        "includeAll": false,
+        "label": "DBInstanceIdentifier",
+        "multi": false,
+        "name": "dbinstanceidentifier",
+        "options": [],
+        "query": "dimension_values($region, AWS/RDS, CPUUtilization, DBInstanceIdentifier)",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-7d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "AWS RDS",
+  "version": 1
+}

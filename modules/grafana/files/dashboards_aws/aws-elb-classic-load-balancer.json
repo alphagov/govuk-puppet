@@ -1,0 +1,921 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "description": "Visualize AWS ELB Classic Load Balancer metrics",
+  "editable": true,
+  "gnetId": 644,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 14,
+  "links": [],
+  "refresh": false,
+  "rows": [
+    {
+      "collapse": false,
+      "height": "300px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 7,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Latency_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "RequestCount",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "Latency",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RequestCount / Latency",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {
+            "HTTPCode_Backend_2XX_Sum": "#7EB26D",
+            "HTTPCode_Backend_5XX_Sum": "#BF1B00",
+            "HTTPCode_ELB_4XX_Sum": "#EAB839",
+            "HTTPCode_ELB_5XX_Sum": "#99440A"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": null,
+            "sortDesc": null,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "HTTPCode_ELB_4XX_Sum",
+              "yaxis": 2
+            },
+            {
+              "alias": "HTTPCode_ELB_5XX_Sum",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_Backend_5XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "D",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_Backend_4XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "C",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_Backend_3XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_Backend_2XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_ELB_4XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "E",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HTTPCode_ELB_5XX",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "F",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HTTPCode",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 8,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Latency_Average",
+              "yaxis": 2
+            },
+            {
+              "alias": "SpilloverCount_Sum",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "SpilloverCount",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "SurgeQueueLength",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Maximum"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "SpilloverCount / SurgeQueueLength",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "250px",
+      "panels": [
+        {
+          "aliasColors": {
+            "BackendConnectionErrors_Sum": "#BF1B00"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 9,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "max": true,
+            "min": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Latency_Average",
+              "yaxis": 2
+            },
+            {
+              "alias": "SpilloverCount_Sum",
+              "yaxis": 2
+            },
+            {
+              "alias": "BackendConnectionErrors_Sum",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "HealthyHostCount",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "UnHealthyHostCount",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "B",
+              "region": "$region",
+              "statistics": [
+                "Average"
+              ]
+            },
+            {
+              "alias": "",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "LoadBalancerName": "$loadbalancername"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "BackendConnectionErrors",
+              "mode": 0,
+              "namespace": "AWS/ELB",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "",
+              "refId": "C",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HostCount / BackendConnectionErrors",
+          "tooltip": {
+            "msResolution": false,
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            },
+            {
+              "format": "none",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": 0,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "25px",
+      "panels": [
+        {
+          "content": "<a style=\"float: right\" href=\"http://www.monitoringartist.com\" target=\"_blank\" title=\"Dashboard maintained by Monitoring Artist - DevOps / Docker / Kubernetes / AWS ECS / Google GCP / Zabbix / Zenoss / Terraform / Monitoring\"><img src=\"https://monitoringartist.github.io/monitoring-artist-logo-grafana.png\" height=\"30px\" /></a>\n<a style=\"float: left\"  target=\"_blank\" href=\"http://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/elb-metricscollected.html\">AWS ELB documentation</a><br/>\n<a style=\"float: left\"  target=\"_blank\" href=\"https://grafana.net/dashboards/644\">Installed from Grafana.net dashboards</a>\n<div style=\"clear:both; width:100%;height:0;font-size:0;\"></div>",
+          "editable": true,
+          "error": false,
+          "id": 2,
+          "links": [],
+          "mode": "html",
+          "span": 12,
+          "title": "Documentation",
+          "type": "text"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "New row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [
+    "monitoringartist",
+    "cloudwatch"
+  ],
+  "templating": {
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "text": "ap-northeast-1",
+          "value": "ap-northeast-1"
+        },
+        "datasource": "CloudWatch",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Region",
+        "multi": false,
+        "name": "region",
+        "options": [],
+        "query": "regions()",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "isNone": true,
+          "text": "None",
+          "value": ""
+        },
+        "datasource": "CloudWatch",
+        "hide": 0,
+        "includeAll": false,
+        "label": "LoadBalancerName",
+        "multi": false,
+        "name": "loadbalancername",
+        "options": [],
+        "query": "dimension_values($region,AWS/ELB,Latency,LoadBalancerName)",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-12h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "browser",
+  "title": "AWS ELB Classic Load Balancer",
+  "version": 1
+}
