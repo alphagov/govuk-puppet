@@ -68,7 +68,10 @@ class govuk::node::s_transition_db_admin(
   class { '::govuk_postgresql::client': } ->
 
   # include all PostgreSQL classes that create databases and users
-  class { '::govuk::apps::transition::postgresql_db': }
+  class { '::govuk::apps::transition::postgresql_db': } ->
+
+  # Include the Bouncer PostgreSQL Role class for its database permissions
+  class { '::govuk::apps::bouncer::postgresql_role': }
 
   $postgres_backup_desc = 'RDS Transition PostgreSQL backup to S3'
 
