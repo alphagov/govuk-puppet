@@ -48,7 +48,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  performanceplatform-admin: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
