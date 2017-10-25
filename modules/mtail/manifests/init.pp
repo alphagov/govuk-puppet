@@ -65,7 +65,8 @@ class mtail(
   }
 
   service { 'mtail':
-    ensure  => running,
+#    ensure  => running,
+    ensure  => stopped,
     require => [Package['mtail'], File['/etc/init.d/mtail']],
   }
 }
