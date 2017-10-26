@@ -71,7 +71,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
-  spotlight: {}
   stagecraft: {}
   static: {}
   support: {}

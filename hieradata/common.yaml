@@ -66,7 +66,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
-  spotlight: {}
   stagecraft: {}
   static: {}
   support: {}
@@ -604,7 +603,6 @@ govuk_ci::master::pipeline_jobs:
   shared_mustache: {}
   slimmer: {}
   smokey: {}
-  spotlight-performance: {}
   transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
@@ -1268,7 +1266,6 @@ hosts::production::frontend::app_hostnames:
   - 'service-manual'
   - 'service-manual-frontend'
   - 'smartanswers'
-  - 'spotlight'
   - 'static'
   - 'whitehall-frontend'
 
@@ -1540,7 +1537,6 @@ router::assets_origin::asset_routes:
   '/licencefinder/': "licencefinder"
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
-  '/spotlight/': "spotlight"
   '/stagecraft/': "stagecraft"
 
 router::assets_origin::vhost_aliases:
