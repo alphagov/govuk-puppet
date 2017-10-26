@@ -56,7 +56,6 @@ govuk::node::s_development::apps:
   - 'manuals_publisher'
   - 'mapit'
   - 'maslow'
-  - 'performanceplatform_admin'
   - 'policy_publisher'
   - 'public_event_store'
   - 'publicapi'
