@@ -98,13 +98,6 @@ class govuk::node::s_backend_lb (
     servers      => $backend_servers,
   }
 
-  if !empty($performance_backend_servers) {
-    loadbalancer::balance { 'performanceplatform-admin':
-      servers       => $performance_backend_servers,
-      internal_only => false,
-    }
-  }
-
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
     to => "https://admin.${perfplat_public_app_domain}/",
   }
