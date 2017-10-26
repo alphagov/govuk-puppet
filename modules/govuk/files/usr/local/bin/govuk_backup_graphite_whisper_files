@@ -21,7 +21,7 @@ BACKUP_FILE_NAME="${BACKUP_FILE_ROOT_NAME}-${TIMESTAMP}.${BACKUP_FILE_NAME_EXTEN
 TAR_COMMAND="ionice -c 3 nice tar"
 
 # Exclude some directories that are huge and we don't care about.
-TAR_OPTIONS="--use-compress-program pigz -c --exclude=\"stats/timers/pp/apps/spotlight/dashboards/*\" --exclude=\"stats_counts/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/status/*\" --exclude=\"stats/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/*\""
+TAR_OPTIONS="--use-compress-program pigz -c --exclude=\"stats_counts/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/status/*\" --exclude=\"stats/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/*\""
 
 BACKUP_USER="govuk-backup:govuk-backup"
 
