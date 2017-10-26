@@ -34,7 +34,7 @@ else
   exit 1
 fi
 
-# Remove any backups older than 7 days
+# Remove any backups older than 2 days
 find ${BACKUP_DIRECTORY} -type f -name "*.${BACKUP_FILE_NAME_EXTENSION}" -mtime ${DAYS_TO_KEEP} | xargs -xi rm {}
 
 # Backup Whisper files
