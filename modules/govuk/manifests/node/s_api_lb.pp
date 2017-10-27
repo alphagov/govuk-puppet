@@ -17,7 +17,6 @@ class govuk::node::s_api_lb (
   loadbalancer::balance {
     [
       'backdrop-read',
-      'stagecraft',
     ]:
       servers       => $api_servers,
       internal_only => true;

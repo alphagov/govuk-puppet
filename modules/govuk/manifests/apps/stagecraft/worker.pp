@@ -15,6 +15,7 @@ class govuk::apps::stagecraft::worker (
     include govuk::apps::stagecraft
 
     govuk::procfile::worker { 'stagecraft-worker':
+      ensure    => 'absent',
       setenv_as => 'stagecraft',
     }
   }

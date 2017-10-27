@@ -15,6 +15,7 @@ class govuk::apps::stagecraft::beat (
     include govuk::apps::stagecraft
 
     govuk::procfile::worker { 'stagecraft-beat':
+      ensure       => 'absent',
       setenv_as    => 'stagecraft',
       process_type => 'beat',
     }

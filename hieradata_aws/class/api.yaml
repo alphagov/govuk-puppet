@@ -1,7 +1,0 @@
----
-
-govuk::node::s_base::apps:
-  - backdrop_read
-  - backdrop_write
-  - stagecraft
-  - 'stagecraft::worker'

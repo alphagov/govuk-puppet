@@ -464,7 +464,6 @@ govuk::apps::stagecraft::message_queue_password: "%{hiera('govuk::apps::stagecra
 govuk::apps::stagecraft::worker::enabled: true
 govuk::apps::stagecraft::beat::enabled: false
 govuk::apps::stagecraft::celerycam::enabled: true
-govuk::apps::stagecraft::postgresql_db::api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
@@ -499,7 +498,6 @@ govuk::apps::local_links_manager::db::rds: true
 govuk::apps::policy_publisher::db::rds: true
 govuk::apps::publishing_api::db::rds: true
 govuk::apps::service_manual_publisher::db::rds: true
-govuk::apps::stagecraft::postgresql_db::rds: true
 govuk::apps::support_api::db::rds: true
 govuk::apps::transition::postgresql_db::rds: true
 

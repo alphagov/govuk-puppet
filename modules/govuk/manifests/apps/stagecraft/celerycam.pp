@@ -15,6 +15,7 @@ class govuk::apps::stagecraft::celerycam (
     include govuk::apps::stagecraft
 
     govuk::procfile::worker { 'stagecraft-celerycam':
+      ensure       => 'absent',
       setenv_as    => 'stagecraft',
       process_type => 'celerycam',
     }

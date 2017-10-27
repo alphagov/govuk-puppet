@@ -31,10 +31,11 @@ class govuk::apps::stagecraft::rabbitmq (
 ) {
 
   rabbitmq_vhost { "/${amqp_vhost}":
-    ensure   => present,
+    ensure   => 'absent',
   }
 
   rabbitmq_user { $amqp_user:
+    ensure   => 'absent',
     admin    => false,
     password => $amqp_pass,
   }
