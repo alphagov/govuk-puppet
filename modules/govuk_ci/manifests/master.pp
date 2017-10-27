@@ -29,7 +29,6 @@ class govuk_ci::master (
 
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
-  include ::govuk_ci::vpn
 
   # After these users have been created, you'll have to retrieve the API token from the UI
   govuk_jenkins::api_user { 'jenkins_agent': }

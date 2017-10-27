@@ -496,8 +496,6 @@ govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhos
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 
-govuk_ghe_vpn::openconnect_version: '6.00-0~21~ubuntu14.04.1'
-
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_htpasswd::http_username: "%{hiera('http_username')}"
@@ -675,48 +673,6 @@ govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::github_enterprise_cert::certificate: |
-    -----BEGIN CERTIFICATE-----
-    MIIG0jCCBbqgAwIBAgIQf/+vsNKptrC7DAKs28C7oDANBgkqhkiG9w0BAQsFADBo
-    MQswCQYDVQQGEwJVUzEWMBQGA1UEChMNR2VvVHJ1c3QgSW5jLjEdMBsGA1UECxMU
-    RG9tYWluIFZhbGlkYXRlZCBTU0wxIjAgBgNVBAMTGUdlb1RydXN0IERWIFNTTCBT
-    SEEyNTYgQ0EwHhcNMTcwNDEzMDAwMDAwWhcNMjAwNDEyMjM1OTU5WjAvMS0wKwYD
-    VQQDDCRnaXRodWIuZGlnaXRhbC5jYWJpbmV0LW9mZmljZS5nb3YudWswggEiMA0G
-    CSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQC1TmTpWQd5zAolTtZxR22wteDG5YPN
-    VcgMOP2RaPEtK2eLlNx0uCv27cB/7TdmwthrAtXty8+UvcKXq7U+oWHxVQRe1nSx
-    Xr1R79LeiYa+k646lusuJKLNA4koEp2ER0UKAfQfGacukOyLZ+4+C8wK+v3+6Gak
-    JaYtszn6guXa9T023izlqEkmLeFN9vmVTiL8/YsasU3RwcxP3UHbSIOVlaT+imlO
-    b3YTGw59llWULF8Ap6TZgdQp6lgOKyWzbzzyjz33bkt4ZO6Kk0yYwkXOoEk/woeh
-    5uhqR0cAkseR3Q5Dp6Sd6vgOsOnRecqjwFhuEXNy5GjDcJ2Rc9+hwch1AgMBAAGj
-    ggOvMIIDqzAvBgNVHREEKDAmgiRnaXRodWIuZGlnaXRhbC5jYWJpbmV0LW9mZmlj
-    ZS5nb3YudWswCQYDVR0TBAIwADArBgNVHR8EJDAiMCCgHqAchhpodHRwOi8vZ3Iu
-    c3ltY2IuY29tL2dyLmNybDCBnQYDVR0gBIGVMIGSMIGPBgZngQwBAgEwgYQwPwYI
-    KwYBBQUHAgEWM2h0dHBzOi8vd3d3Lmdlb3RydXN0LmNvbS9yZXNvdXJjZXMvcmVw
-    b3NpdG9yeS9sZWdhbDBBBggrBgEFBQcCAjA1DDNodHRwczovL3d3dy5nZW90cnVz
-    dC5jb20vcmVzb3VyY2VzL3JlcG9zaXRvcnkvbGVnYWwwHwYDVR0jBBgwFoAUSeyn
-    yKn3xbssqiTn9EOzsTzoVPgwDgYDVR0PAQH/BAQDAgWgMB0GA1UdJQQWMBQGCCsG
-    AQUFBwMBBggrBgEFBQcDAjBXBggrBgEFBQcBAQRLMEkwHwYIKwYBBQUHMAGGE2h0
-    dHA6Ly9nci5zeW1jZC5jb20wJgYIKwYBBQUHMAKGGmh0dHA6Ly9nci5zeW1jYi5j
-    b20vZ3IuY3J0MIIB9QYKKwYBBAHWeQIEAgSCAeUEggHhAd8AdQDd6x0reg1PpiCL
-    ga2BaHB+Lo6dAdVciI09EcTNtuy+zAAAAVtnVXUfAAAEAwBGMEQCIH2QTNQnOdYS
-    zVp/2K8LnocPpsk203aT1EIXNxcr3xO2AiBmQg28ZEWsaofh2ovbUuVYnO8lC20l
-    jCeNfgxbIVWWtQB2AKS5CZC0GFgUh7sTosxncAo8NZgE+RvfuON3zQ7IDdwQAAAB
-    W2dVdVwAAAQDAEcwRQIgSTbavoA5nz7vD6p2BcpRyRWlW0u47EWaKi02L6LztUYC
-    IQC1+SxyxPWdjh60mAjd/42So8X2tG2YtQacvdufpXRFyAB3AO5Lvbd1zmC64UJp
-    H6vhnmajD35fsHLYgwDEe4l6qP3LAAABW2dVd5wAAAQDAEgwRgIhAJlDT5PULhMs
-    0tAmRpDbZtwInT89ZlSoLN4pcCO+BQVtAiEA7gZK8bl1X6QKnwM8/rRh8p6DGkCv
-    t0Ld/hZp/CymKsMAdQC8eOHfxfY8aEZJM02hD6FfCXlpIAnAgbTz9pF/Ptm4pQAA
-    AVtnVXYSAAAEAwBGMEQCIB/zgEfu+OpnB4bIP69vfwLaubYV42FDFnbI+ZoY142y
-    AiAlYIr1CzChFYpX4yg4BO3y1oRprF7e7ab/ip5+3MEGQzANBgkqhkiG9w0BAQsF
-    AAOCAQEAs0ypwm2TqzwHzAmIFwGexPKseH7CICGMFLazHlCUBslR3Pr6P+AYT0ZX
-    nPbgZx/gaxGxqgPLdBIW8nqq+N6P2E+Yh1+9di86MeMXnP2Xgxk6a/5d1SDaGgog
-    u5wImRRcjoR9hozdyhbHCEBWM7Ec94EQSKyRhIR2lJzpKK2rZyYhEaIwBcXhaUiS
-    B7wLqK9BY3aeXVD6rIpfq9vrrGkA7EDepzgy9u0wxUiWMm2zpNZNj1Xw//lEA1Vo
-    jxn13wQ3qzfabkCZWtRawyS23a/Lt/At4KUY4Fq1wY+RuoxKoGRghaWKD0mzTD+G
-    x9cCXeHOPEAL2EKLnELmr+11VzRCVw==
-    -----END CERTIFICATE-----
-govuk_jenkins::github_enterprise_cert::certificate_path: "/var/lib/jenkins/github.digital.cabinet-office.gov.uk.pem"
-govuk_jenkins::github_enterprise_cert::github_enterprise_hostname: "github.digital.cabinet-office.gov.uk"
 govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::job::deploy_app::app_domain: "%{hiera('app_domain')}"
