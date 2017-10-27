@@ -28,7 +28,7 @@ class govuk::apps::performanceplatform_big_screen_view (
       vhost_full => $vhost_full,
     }
     govuk::app::nginx_vhost { $app_name:
-      ensure          => present,
+      ensure          => 'absent',
       single_page_app => '/performance/big-screen/index.html',
       vhost           => $vhost_full,
       ssl_only        => true,
@@ -36,12 +36,13 @@ class govuk::apps::performanceplatform_big_screen_view (
     }
     # Since this is not a full app, we need to ensure env dir exists.
     file { ["/etc/govuk/${app_name}", "/etc/govuk/${app_name}/env.d"]:
-      ensure  => 'directory',
+      ensure  => 'absent',
       purge   => true,
       recurse => true,
       force   => true,
     }
     govuk::app::envvar { "${app_name}-PUBLISHING_API_BEARER_TOKEN":
+      ensure         => 'absent',
       app            => $app_name,
       varname        => 'PUBLISHING_API_BEARER_TOKEN',
       value          => $publishing_api_bearer_token,

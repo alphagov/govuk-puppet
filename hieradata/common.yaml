@@ -49,7 +49,6 @@ deployable_applications: &deployable_applications
   mapit: {}
   maslow: {}
   performanceplatform-admin: {}
-  performanceplatform-big-screen-view: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -1216,7 +1215,6 @@ hosts::production::frontend::app_hostnames:
   - 'info-frontend'
   - 'manuals-frontend'
   - 'licencefinder'
-  - 'performanceplatform-big-screen-view'
   - 'publicapi'
   - 'public-event-store'
   - 'service-manual'
