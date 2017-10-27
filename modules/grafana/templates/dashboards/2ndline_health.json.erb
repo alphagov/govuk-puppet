@@ -491,6 +491,81 @@
             "thresholdMarkers": true,
             "thresholdLabels": false
           }
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "Graphite",
+          "editable": true,
+          "error": false,
+          "format": "none",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "height": "250",
+          "id": 13,
+          "interval": null,
+          "links": [
+            {
+              "dashboard": "origin_health.json",
+              "name": "Drilldown dashboard",
+              "title": "Sentry dashboard",
+              "type": "absolute",
+              "url": "/dashboard/db/sentry-errors"
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "null as zero",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "80%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": true,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "sumSeries(stats.gauges.sentry-error-count-last-hour.*)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "100,1000",
+          "title": "Sentry errors in the last hour",
+          "type": "singlestat",
+          "valueFontSize": "200%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
         }
       ],
       "showTitle": false,
