@@ -2,4 +2,3 @@
 
 govuk::node::s_base::apps:
   - performanceplatform_big_screen_view
-  - spotlight

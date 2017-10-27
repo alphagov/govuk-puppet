@@ -190,7 +190,6 @@ govuk::node::s_frontend_lb::performance_frontend_servers:
   - 'performance-frontend-1.frontend'
   - 'performance-frontend-2.frontend'
 govuk::node::s_frontend_lb::performance_frontend_apps:
-  - 'spotlight'
   - 'performanceplatform-big-screen-view'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'

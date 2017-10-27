@@ -19,7 +19,7 @@
 #   Default: undef
 #
 # [*performance_platform_spotlight_url*]
-#   Performance paltform spotlight url
+#   Performance platform spotlight url
 #   Default: undef
 #
 # [*vhost*]
