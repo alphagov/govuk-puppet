@@ -99,6 +99,8 @@ class govuk_jenkins (
     home_dir     => $jenkins_homedir,
   }
 
+  include ::govuk_jenkins::reload
+
   package { 'ghtools':
     ensure   => '0.20.0',
     provider => pip,
