@@ -76,6 +76,10 @@ class govuk::node::s_apt (
       location => 'http://packages.elastic.co/elasticsearch/2.x/debian',
       release  => 'stable',
       key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
+    'elasticsearch-5.x':
+      location => 'https://artifacts.elastic.co/packages/5.x/apt',
+      release  => 'stable',
+      key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
     'grafana':
       location => 'https://packagecloud.io/grafana/stable/debian',
       release  => 'jessie',
