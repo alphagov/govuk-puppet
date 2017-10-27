@@ -16,30 +16,22 @@ location /robots.txt {
   expires 1w;
 }
 
-location ~ ^/media/ {
-  proxy_set_header Host <%= @asset_manager_host %>;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-Server $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Host $host;
-  proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://<%= @asset_manager_host %>;
+<% [
+  '/media/',
+  '/government/uploads/system/uploads/organisation/logo/'
+].each do |path_to_be_proxied_to_asset_manager| %>
 
-  # Explicitly re-include Strict-Transport-Security header, this
-  # forces nginx not to clear Cache-Control headers further up the
-  # stack.
-  include /etc/nginx/add-sts.conf;
-}
+  location ~ ^<%= path_to_be_proxied_to_asset_manager %> {
+    proxy_set_header Host <%= @asset_manager_host %>;
+    proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-Server $host;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Host $host;
+    proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://<%= @asset_manager_host %>;
 
-location ~ ^/government/uploads/system/uploads/organisation/logo/ {
-  proxy_set_header Host <%= @asset_manager_host %>;
-  proxy_set_header X-Real-IP $remote_addr;
-  proxy_set_header X-Forwarded-Server $host;
-  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-  proxy_set_header X-Forwarded-Host $host;
-  proxy_pass <%= @enable_ssl ? 'https' : 'http' %>://<%= @asset_manager_host %>;
-
-  # Explicitly re-include Strict-Transport-Security header, this
-  # forces nginx not to clear Cache-Control headers further up the
-  # stack.
-  include /etc/nginx/add-sts.conf;
-}
+    # Explicitly re-include Strict-Transport-Security header, this
+    # forces nginx not to clear Cache-Control headers further up the
+    # stack.
+    include /etc/nginx/add-sts.conf;
+  }
+<% end %>
