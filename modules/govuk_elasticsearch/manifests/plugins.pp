@@ -43,13 +43,6 @@ class govuk_elasticsearch::plugins (
       module_dir => 'head',
       instances  => $::fqdn,
     }
-
-    elasticsearch::plugin { 'elasticsearch-migration':
-      module_dir => 'elasticsearch-migration',
-      url        => 'https://github.com/elastic/elasticsearch-migration/releases/download/v2.0.4/elasticsearch-migration-2.0.4.zip',
-      instances  => $::fqdn,
-    }
-
   }
   # If the version is 5.0 or newer, then install the two plugins it got split into:
   # https://www.elastic.co/guide/en/elasticsearch/plugins/5.0/cloud-aws.html
