@@ -18,7 +18,7 @@ trap nagios_passive EXIT
 
 PSQL_OPTS="-U <%= @postgres_user -%> -p <%= @postgres_port -%> -h <%= @postgres_host -%>"
 
-DATABASES=$(psql ${PSQL_OPTS} -At -c 'select datname from pg_catalog.pg_database;' |egrep -v "^template[0-9]$|^postgres$")
+DATABASES=$(psql ${PSQL_OPTS} -At -c 'select datname from pg_catalog.pg_database;' postgres |egrep -v "^template[0-9]$|^postgres$|^rdsadmin$")
 ERRORLOG="/tmp/rds-postgres-to-s3.errors-$(date +%F)"
 
 for database in $DATABASES; do
@@ -35,5 +35,5 @@ done
 
 if [[ ! -e $ERRORLOG ]]; then
   NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: RDS MySQL backup to S3 succeeded"
+  NAGIOS_MESSAGE="OK: RDS PostgreSQL backup to S3 succeeded"
 fi

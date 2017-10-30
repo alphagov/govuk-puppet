@@ -16,7 +16,7 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
-DATABASES=$(mysql --batch --skip-column-names -e "show databases" |egrep -v "^mysql$|^lost\+found$|^information_schema$")
+DATABASES=$(mysql --batch --skip-column-names -e "show databases" |egrep -v "^mysql$|^lost\+found$|^information_schema$|^sys$|^tmp$|^innodb$")
 ERRORLOG="/tmp/rds-mysql-to-s3.errors-$(date +%F)"
 
 for database in $DATABASES; do
