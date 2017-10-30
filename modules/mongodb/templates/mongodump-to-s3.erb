@@ -1,0 +1,58 @@
+#!/bin/bash
+#
+# This script takes a mongodump, copies it to an S3 bucket,
+# and cleans up afterward.
+#
+# At a set time it will push the backup to a different location
+# so we can set shorter expiration on the regular backups, and
+# keep one backup everyday for longer.
+#
+set -e
+
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+NAGIOS_CODE=2
+NAGIOS_MESSAGE='CRITICAL: MongoDB backup to S3 failed'
+
+# Triggered whenever this script exits, successful or otherwise. The values
+# # of CODE/MESSAGE will be taken from that point in time.
+function nagios_passive () {
+  printf "<%= @ipaddress %>\t<%= @service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
+}
+
+function housekeeping() {
+  /bin/rm -f <%= @backup_dir -%>/*mongodump*
+}
+
+function exit_trap() {
+  housekeeping
+  nagios_passive
+}
+
+trap exit_trap EXIT
+
+if [[ "$(date +%H:%M)" == "<%= @daily_time -%>" ]]; then
+  BUCKET_KEY='mongodb/daily/<%= @aws_migration -%>'
+else
+  BUCKET_KEY='mongodb/regular/<%= @aws_migration -%>'
+fi
+
+# Only run on the current primary
+if /usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true; then
+  echo "Starting backup"
+  /usr/bin/mongodump -o <%= @backup_dir -%>/mongodump
+
+  echo "Compressing mongodump to tarball"
+  tar -zcvf <%= @backup_dir -%>/mongodump.tgz <%= @backup_dir -%>/mongodump
+
+  echo "Uploading mongodump to S3"
+  /usr/bin/aws s3 --region <%= @region -%> cp <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
+
+  echo "Completed successfully"
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: MongoDB backup to S3 succeeded"
+else
+  echo "Not the primary instance: skipping backup"
+  NAGIOS_CODE=0
+  NAGIOS_MESSAGE="OK: Not the primary instance"
+fi

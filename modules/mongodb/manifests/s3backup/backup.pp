@@ -75,7 +75,6 @@ class mongodb::s3backup::backup(
 
   validate_re($private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
-
   file { $backup_dir:
     ensure => directory,
     owner  => $user,
@@ -161,13 +160,10 @@ class mongodb::s3backup::backup(
     require => Class['mongodb::s3backup::package'],
   }
 
-
   @@icinga::passive_check { "check_mongodb_s3backup-${::hostname}":
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(backup-passive-checks),
   }
-
 }
-

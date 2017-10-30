@@ -5,7 +5,6 @@
 # [*user*]
 #   The user to run the cronjob as.
 #
-#
 class mongodb::s3backup::cron(
   $user = 'govuk-backup',
   $realtime_hour = '*',
@@ -18,7 +17,6 @@ class mongodb::s3backup::cron(
   include ::backup::client
   require mongodb::s3backup::package
   require mongodb::s3backup::backup
-
 
   if $frequent_backups {
     # Here we use setlock to prevent the jobs from running asynchronously
@@ -36,5 +34,4 @@ class mongodb::s3backup::cron(
     hour    => $daily_hour,
     minute  => $daily_minute,
   }
-
 }
