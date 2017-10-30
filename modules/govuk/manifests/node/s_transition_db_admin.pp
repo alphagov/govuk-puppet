@@ -16,7 +16,14 @@ class govuk::node::s_transition_db_admin(
 ) {
   include ::govuk::node::s_base
 
+  if $backup_s3_bucket {
+    $ensure = 'present'
+  } else {
+    $ensure = 'absent'
+  }
+
   apt::source { 'gof3r':
+    ensure       => $ensure,
     location     => "http://${apt_mirror_hostname}/gof3r",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
@@ -24,7 +31,7 @@ class govuk::node::s_transition_db_admin(
   }
 
   package { 'gof3r':
-    ensure  => '0.5.0',
+    ensure  => $ensure,
     require => Apt::Source['gof3r'],
   }
 
@@ -66,13 +73,14 @@ class govuk::node::s_transition_db_admin(
   $postgres_backup_desc = 'RDS Transition PostgreSQL backup to S3'
 
   @@icinga::passive_check { "check_rds_postgres_s3_backup-${::hostname}":
+    ensure              => $ensure,
     service_description => $postgres_backup_desc,
     freshness_threshold => 28 * 3600,
     host_name           => $::fqdn,
   }
 
   file { '/usr/local/bin/rds-postgres-to-s3':
-    ensure  => 'present',
+    ensure  => $ensure,
     content => template('govuk/node/s_db_admin/rds-postgres-to-s3.erb'),
     owner   => 'root',
     group   => 'root',
@@ -84,6 +92,7 @@ class govuk::node::s_transition_db_admin(
   }
 
   cron::crondotdee { 'rds-transition-postgres-to-s3':
+    ensure  => $ensure,
     hour    => $postgres_backup_hour,
     minute  => $postgres_backup_min,
     command => '/usr/local/bin/rds-postgres-to-s3',
