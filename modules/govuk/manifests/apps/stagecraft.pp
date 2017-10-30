@@ -29,6 +29,7 @@ class govuk::apps::stagecraft (
     $port = '3103'
 
     govuk::app { $app_name:
+      ensure             => 'absent',
       app_type           => 'bare',
       port               => 3103,
       command            => "./venv/bin/gunicorn stagecraft.wsgi:application --bind 127.0.0.1:${port} --workers 4",
@@ -38,13 +39,15 @@ class govuk::apps::stagecraft (
     }
 
     @filebeat::prospector { 'performanceplatform_collectors_log':
+      ensure => 'absent',
       paths  => ['/var/apps/stagecraft/log/collectors.json.log'],
       fields => {'application' => 'performanceplatform-collectors'},
       json   => {'add_error_key' => true},
     }
 
     Govuk::App::Envvar {
-      app => $app_name,
+      app    => $app_name,
+      ensure => 'absent',
     }
 
     govuk::app::envvar {
