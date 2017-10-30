@@ -819,6 +819,8 @@ grafana::dashboards::deployment_applications:
     # Missing @fields.status
     show_controller_errors: false
   imminence:
+    # logstasher >1.x
+    fields_prefix: ''
     has_workers: true
   info-frontend: {}
   licencefinder:
