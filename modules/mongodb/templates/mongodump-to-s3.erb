@@ -33,8 +33,10 @@ trap exit_trap EXIT
 
 if [[ "$(date +%H:%M)" == "<%= @daily_time -%>" ]]; then
   BUCKET_KEY='mongodb/daily/<%= @aws_migration -%>'
+  echo "Creating 'daily' backup for long term storage"
 else
   BUCKET_KEY='mongodb/regular/<%= @aws_migration -%>'
+  echo "Creating 'regular' backup for point in time restores"
 fi
 
 # Only run on the current primary
