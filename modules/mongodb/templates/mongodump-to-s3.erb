@@ -21,7 +21,7 @@ function nagios_passive () {
 }
 
 function housekeeping() {
-  /bin/rm -f <%= @backup_dir -%>/*mongodump*
+  /bin/rm -rf <%= @backup_dir -%>/*mongodump*
 }
 
 function exit_trap() {
