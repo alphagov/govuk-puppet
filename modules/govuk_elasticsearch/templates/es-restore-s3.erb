@@ -5,14 +5,12 @@ set -e
 # Redirect stdout and stderr to syslog
 exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 
-ES_REPO=<%= @es_repo %>
-ES_INDICES=<%= @json_es_indices %>
-ES_SNAPSHOT=snapshot_$(date +%d_%m_%y)
+ES_SNAPSHOT=snapshot_$(date +%F)
 
 # PARAMETERS FOR ELASTICSEARCH SNAPSHOT RESTORE
 RESTORE_DATA=$(cat <<EOD
 {
-  "indices": "${ES_INDICES}",
+  "indices": "<%= @json_es_indices %>",
   "include_global_state": false,
   "rename_pattern": "index_(.+)",
   "rename_replacement": "restored_index_$1"
@@ -21,6 +19,6 @@ EOD
 )
 
 # List the snapshots and grab the last one
-LATEST_SNAPSHOT=$(/usr/bin/curl --connect-timeout 10 -sS -XGET "127.0.0.1:9200/_snapshot/${ES_REPO}/_all?pretty" | /usr/bin/jq --raw-output ".snapshots[].snapshot" |tail -1)
+LATEST_SNAPSHOT=$(/usr/bin/curl --connect-timeout 10 -sS -XGET "127.0.0.1:9200/_snapshot/<%= @es_repo %>/_all?pretty" | /usr/bin/jq --raw-output ".snapshots[].snapshot" |tail -1)
 
 curl -XPOST "localhost:9200/_snapshot/${ES_REPO}/${LATEST_SNAPSHOT}/_restore" -d $"${RESTORE_DATA}"
