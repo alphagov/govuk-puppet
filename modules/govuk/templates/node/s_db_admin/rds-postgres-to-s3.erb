@@ -23,7 +23,7 @@ ERRORLOG="/tmp/rds-postgres-to-s3.errors-$(date +%F)"
 
 for database in $DATABASES; do
   echo "Starting dump of ${database} to S3"
-  pg_dump ${PSQL_OPTS} $database | /usr/local/bin/gof3r put --header "x-amz-server-side-encryption:AES256" --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @backup_s3_bucket -%> -k postgres/$(date +%F)/$database.dump
+  pg_dump ${PSQL_OPTS} $database | gzip | /usr/local/bin/gof3r put --header "x-amz-server-side-encryption:AES256" --endpoint s3-<%= @aws_region -%>.amazonaws.com -b <%= @backup_s3_bucket -%> -k postgres/$(date +%F)/$database.dump.gz
 
   if [[ $? != 0 ]]; then
     echo "Error dumping ${database}"
