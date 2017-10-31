@@ -276,7 +276,6 @@ hosts::development::apps:
   - 'manuals-publisher'
   - 'mapit'
   - 'maslow'
-  - 'performanceplatform-admin'
   - 'policy-publisher'
   - 'publicapi'
   - 'public-event-store'

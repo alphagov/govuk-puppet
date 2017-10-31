@@ -17,6 +17,7 @@ class govuk::apps::performanceplatform_admin (
     ensure_packages(['libffi-dev'])
 
     govuk::app { 'performanceplatform-admin':
+      ensure             => 'absent',
       app_type           => 'bare',
       port               => $port,
       command            => "./venv/bin/gunicorn application:app --bind 127.0.0.1:${port} --workers 4",
