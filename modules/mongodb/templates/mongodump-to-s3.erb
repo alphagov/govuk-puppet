@@ -42,13 +42,13 @@ fi
 # Only run on the current primary
 if /usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true; then
   echo "Starting backup"
-  /usr/bin/mongodump -o <%= @backup_dir -%>/mongodump
+  /usr/bin/mongodump -o <%= @backup_dir -%>/mongodump >/dev/null
 
   echo "Compressing mongodump to tarball"
   tar -zcvf <%= @backup_dir -%>/mongodump.tgz <%= @backup_dir -%>/mongodump
 
   echo "Uploading mongodump to S3"
-  /usr/bin/aws s3 --region <%= @aws_region -%> cp <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
+  /usr/bin/aws s3 --quiet --region <%= @aws_region -%> cp <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
 
   echo "Completed successfully"
   NAGIOS_CODE=0
