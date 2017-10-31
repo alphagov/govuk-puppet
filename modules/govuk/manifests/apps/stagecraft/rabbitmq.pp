@@ -39,14 +39,4 @@ class govuk::apps::stagecraft::rabbitmq (
     admin    => false,
     password => $amqp_pass,
   }
-
-  rabbitmq_user_permissions { "${amqp_user}@/${amqp_vhost}":
-    configure_permission => '.*',
-    read_permission      => '.*',
-    write_permission     => '.*',
-  }
-
-  rabbitmq_user_permissions { "${govuk_rabbitmq::monitoring_user}@/${amqp_vhost}":
-    read_permission      => '.*',
-  }
 }
