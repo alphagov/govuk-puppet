@@ -356,8 +356,6 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::performanceplatform_admin::enabled: true
-
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary-1.backend"
 
