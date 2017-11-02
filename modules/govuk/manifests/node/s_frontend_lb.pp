@@ -4,8 +4,6 @@ class govuk::node::s_frontend_lb (
   $draft_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
-  $performance_frontend_apps = [],
-  $performance_frontend_servers = [],
 ){
   include govuk::node::s_base
   include loadbalancer
@@ -50,7 +48,5 @@ class govuk::node::s_frontend_lb (
       servers       => $calculators_frontend_servers;
     'whitehall-frontend':
       servers       => $whitehall_frontend_servers;
-    $performance_frontend_apps:
-      servers       => $performance_frontend_servers;
   }
 }
