@@ -70,6 +70,7 @@ environment_ip_prefix: '10.3'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::asset_manager::proxy_percentage_of_asset_requests_to_s3_via_nginx: '100'
+govuk::apps::asset_manager::proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx: '100'
 govuk::apps::content_performance_manager::feature_auditing_allocation: false
 govuk::apps::content_performance_manager::feature_auditing_theme_filtering: false
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
