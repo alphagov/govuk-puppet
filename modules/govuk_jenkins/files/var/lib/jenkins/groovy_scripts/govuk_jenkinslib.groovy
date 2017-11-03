@@ -62,15 +62,23 @@
  *        - overrideTestTask A closure containing commands to run to test the
  *          project. This will run instead of the default `bundle exec rake`
  *        - publishingE2ETests Whether or not to run the Publishing end-to-end
-*           tests.  Default: false
+ *          tests.  Default: false
  *        - afterTest A closure containing commands to run after the test stage,
  *          such as report publishing
- *        - newStyleDockerTags. Tag docker images with timestamp and git SHA
+ *        - newStyleDockerTags Tag docker images with timestamp and git SHA
  *          rather than the default of the build number
+ *        - repoName Provide this if the Github Repo name for the app is
+ *          different to the jenkins job name.
  */
 def buildProject(Map options = [:]) {
 
-  repoName = JOB_NAME.split('/')[0]
+  def jobName = JOB_NAME.split('/')[0]
+  def repoName
+  if (options.repoName) {
+    repoName = options.repoName
+  } else {
+    repoName = jobName
+  }
 
   properties([
     buildDiscarder(
@@ -105,7 +113,7 @@ def buildProject(Map options = [:]) {
     }
 
     if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job is building on Jenkins", 'PENDING')
+      setBuildStatus(jobName, params.SCHEMA_COMMIT, "Downstream ${jobName} job is building on Jenkins", 'PENDING')
     }
 
     stage("Checkout") {
@@ -158,7 +166,7 @@ def buildProject(Map options = [:]) {
 
     if (hasDockerfile()) {
       stage("Build Docker image") {
-        buildDockerImage(repoName, env.BRANCH_NAME)
+        buildDockerImage(jobName, env.BRANCH_NAME)
       }
     }
 
@@ -168,7 +176,7 @@ def buildProject(Map options = [:]) {
     }
 
     // Prevent a project's tests from running in parallel on the same node
-    lock("$repoName-$NODE_NAME-test") {
+    lock("$jobName-$NODE_NAME-test") {
       if (hasDatabase()) {
         stage("Set up the database") {
             runRakeTask("db:reset")
@@ -193,7 +201,7 @@ def buildProject(Map options = [:]) {
     if (options.publishingE2ETests == true) {
       stage("End-to-end tests") {
         if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
-          appCommitishName = repoName.replace("-", "_").toUpperCase() + "_COMMITISH"
+          appCommitishName = jobName.replace("-", "_").toUpperCase() + "_COMMITISH"
         } else {
           appCommitishName = env.PUBLISHING_E2E_TESTS_APP_PARAM
         }
@@ -224,10 +232,10 @@ def buildProject(Map options = [:]) {
 
     if (hasDockerfile()) {
       stage("Push Docker image") {
-        pushDockerImage(repoName, env.BRANCH_NAME)
+        pushDockerImage(jobName, env.BRANCH_NAME)
 
         if (params.PUSH_TO_GCR) {
-          pushDockerImageToGCR(repoName, env.BRANCH_NAME)
+          pushDockerImageToGCR(jobName, env.BRANCH_NAME)
         }
       }
     }
@@ -254,17 +262,17 @@ def buildProject(Map options = [:]) {
             dockerTag = options.newStyleDockerTags ?
                         getNewStyleReleaseTag() :
                         "release_${env.BUILD_NUMBER}"
-            pushDockerImage(repoName, env.BRANCH_NAME, dockerTag)
+            pushDockerImage(jobName, env.BRANCH_NAME, dockerTag)
           }
         }
 
         stage("Deploy to integration") {
-          deployIntegration(repoName, env.BRANCH_NAME, "release_${env.BUILD_NUMBER}", 'deploy')
+          deployIntegration(jobName, env.BRANCH_NAME, "release_${env.BUILD_NUMBER}", 'deploy')
         }
       }
     }
     if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job succeeded on Jenkins", 'SUCCESS')
+      setBuildStatus(jobName, params.SCHEMA_COMMIT, "Downstream ${jobName} job succeeded on Jenkins", 'SUCCESS')
     }
 
   } catch (e) {
@@ -274,7 +282,7 @@ def buildProject(Map options = [:]) {
           recipients: 'govuk-ci-notifications@digital.cabinet-office.gov.uk',
           sendToIndividuals: true])
     if (params.IS_SCHEMA_TEST) {
-      setBuildStatus(repoName, params.SCHEMA_COMMIT, "Downstream ${repoName} job failed on Jenkins", 'FAILED')
+      setBuildStatus(jobName, params.SCHEMA_COMMIT, "Downstream ${jobName} job failed on Jenkins", 'FAILED')
     }
     throw e
   }
@@ -787,17 +795,17 @@ def getNewStyleReleaseTag(){
  *
  * Useful for downstream builds that want to report on the upstream PR.
  *
- * @param repoName Name of the repo being built
+ * @param jobName Name of the jenkins job being built
  * @param commit SHA of the triggering commit on govuk-content-schemas
  * @param message The message to report
  * @param state The build state: one of PENDING, SUCCESS, FAILED
  */
-def setBuildStatus(repoName, commit, message, state) {
+def setBuildStatus(jobName, commit, message, state) {
   step([
       $class: "GitHubCommitStatusSetter",
       commitShaSource: [$class: "ManuallyEnteredShaSource", sha: commit],
       reposSource: [$class: "ManuallyEnteredRepositorySource", url: "https://github.com/alphagov/govuk-content-schemas"],
-      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/${repoName}"],
+      contextSource: [$class: "ManuallyEnteredCommitContextSource", context: "continuous-integration/jenkins/${jobName}"],
       errorHandlers: [[$class: "ChangingBuildStatusErrorHandler", result: "UNSTABLE"]],
       statusResultSource: [ $class: "ConditionalStatusResultSource", results: [[$class: "AnyBuildResult", message: message, state: state]] ]
   ]);
