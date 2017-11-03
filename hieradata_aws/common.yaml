@@ -71,7 +71,6 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
-  stagecraft: {}
   static: {}
   support: {}
   support-api: {}
@@ -452,13 +451,6 @@ govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
 govuk::apps::smartanswers::nagios_memory_critical: 4500
-
-govuk::apps::stagecraft::enabled: false
-govuk::apps::stagecraft::database_password: "%{hiera('govuk::apps::stagecraft::postgresql_db::password')}"
-govuk::apps::stagecraft::message_queue_password: "%{hiera('govuk::apps::stagecraft::rabbitmq::amqp_pass')}"
-govuk::apps::stagecraft::worker::enabled: true
-govuk::apps::stagecraft::beat::enabled: false
-govuk::apps::stagecraft::celerycam::enabled: true
 
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"

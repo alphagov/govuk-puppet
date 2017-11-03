@@ -956,11 +956,6 @@
             "selected": false
           },
           {
-            "text": "rabbitmq_%2Fstagecraft",
-            "value": "rabbitmq_%2Fstagecraft",
-            "selected": false
-          },
-          {
             "text": "redis-1_backend",
             "value": "redis-1_backend",
             "selected": false
@@ -1409,11 +1404,6 @@
           {
             "text": "processes-app-specialist-publisher-rebuild",
             "value": "processes-app-specialist-publisher-rebuild",
-            "selected": false
-          },
-          {
-            "text": "processes-app-stagecraft",
-            "value": "processes-app-stagecraft",
             "selected": false
           },
           {

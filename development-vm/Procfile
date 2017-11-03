@@ -107,7 +107,7 @@ email-alert-frontend:  govuk_setenv email-alert-frontend  ./run_in.sh ../../emai
 draft-content-store:   govuk_setenv draft-content-store   ./run_in.sh ../../content-store bundle exec rails server -p 3100 -P tmp/pids/draft-server.pid
 backdrop_read:                                            ./run_in.sh ../../backdrop ./start-app.sh read 3101
 backdrop_write:                                           ./run_in.sh ../../backdrop ./start-app.sh write 3102
-stagecraft:                                               ./run_in.sh ../../stagecraft ./start-app.sh 3103
+# stagecraft used port 3013
 # performanceplatform-admin used port 3104
 # datainsight-everything-recorder used port 3105
 # datainsight-insidegov-recorder used port 3106

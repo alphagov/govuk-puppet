@@ -76,8 +76,6 @@ govuk::node::s_development::apps:
   - 'signon'
   - 'smartanswers'
   - 'specialist_publisher'
-  - 'stagecraft'
-  - 'stagecraft::rabbitmq'
   - 'static'
   - 'static::enable_running_in_draft_mode'
   - 'support'
@@ -159,9 +157,6 @@ govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_development'
-govuk::apps::stagecraft::worker::enabled: true
-govuk::apps::stagecraft::beat::enabled: true
-govuk::apps::stagecraft::celerycam::enabled: true
 govuk::apps::support::enable_procfile_worker: false
 govuk::apps::support_api::enable_procfile_worker: false
 govuk::apps::transition::enable_procfile_worker: false
@@ -294,7 +289,6 @@ hosts::development::apps:
   - 'signon'
   - 'smartanswers'
   - 'specialist-publisher'
-  - 'stagecraft'
   - 'static'
   - 'support'
   - 'support-api'

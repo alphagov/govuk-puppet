@@ -913,11 +913,6 @@
             "selected": false
           },
           {
-            "text": "rabbitmq_%2Fstagecraft",
-            "value": "rabbitmq_%2Fstagecraft",
-            "selected": false
-          },
-          {
             "text": "redis-1_backend",
             "value": "redis-1_backend",
             "selected": false
