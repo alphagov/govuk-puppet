@@ -27,27 +27,17 @@ def user_list
   }
 end
 
-# Pre-existing accounts that don't follow the standard username form.
-#
-# We shouldn't be adding users to this list unless their username does not
-# follow the standard form AND is their LDAP username
-username_whitelist = %w{
-  bob
-}
-
 user_list.each do |username|
   describe "users::#{username}", :type => "class" do
     it 'should have a username of the correct form' do
       user = subject.call.resource('govuk_user', username)
       expect(user).not_to be_nil
 
-      unless username_whitelist.include?(username)
-        uname_from_full = user[:fullname].downcase.gsub(/[^a-z]/i, '')
-        uname_from_email = user[:email].split('@').first.gsub(/[^a-z]/i, '')
+      uname_from_full = user[:fullname].downcase.gsub(/[^a-z]/i, '')
+      uname_from_email = user[:email].split('@').first.gsub(/[^a-z]/i, '')
 
-        expect(uname_from_full).to eq(uname_from_email), "name in fullname(#{user[:fullname]}) must match name in email(#{user[:email]})"
-        expect(user[:name]).to eq(uname_from_full), "expected username '#{user[:name]}' to be '#{uname_from_full}' based on fullname and email"
-      end
+      expect(uname_from_full).to eq(uname_from_email), "name in fullname(#{user[:fullname]}) must match name in email(#{user[:email]})"
+      expect(user[:name]).to eq(uname_from_full), "expected username '#{user[:name]}' to be '#{uname_from_full}' based on fullname and email"
     end
 
     it 'should have a strong SSH key' do
