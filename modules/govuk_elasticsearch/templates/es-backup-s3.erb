@@ -37,11 +37,11 @@ REPO_DATA=$(cat <<EOD
   "settings": {
     "bucket": "<%= @s3_bucket -%>",
     "region": "<%= @aws_region -%>",
-    "base_path": "<%= @base_path -%>",
     <%- if @aws_access_key_id and @aws_secret_access_key -%>
     "access_key": "<%= @aws_access_key_id -%>",
-    "secret_key": "<%= @aws_secret_access_key -%>"
+    "secret_key": "<%= @aws_secret_access_key -%>",
     <%- end -%>
+    "base_path": "<%= @base_path -%>"
   },
   "compress": "true"
 }
