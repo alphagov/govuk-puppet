@@ -1,26 +1,6 @@
 ---
-_: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
-
 app_domain: "%{::aws_stackname}.integration.govuk.digital"
 app_domain_internal: "%{::aws_stackname}.integration.govuk-internal.digital"
-
-backup::mysql::rotation_daily: '2'
-backup::mysql::rotation_weekly: '6'
-backup::mysql::rotation_monthly: '28'
-backup::offsite::jobs:
-  'govuk-datastores-s3':
-    sources:
-      - '/data/backups/*/var/lib/automongodbbackup/latest'
-      - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
-      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-integration/govuk-datastores/'
-    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
-    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
-    hour: 8,
-    minute: 13,
-    gpg_key_id: *offsite_gpg_key
-backup::server::backup_hour: 8
-backup::server::backup_minute: 30
 
 base::shell::shell_prompt_string: 'integration'
 base::supported_kernel::enabled: true
@@ -56,13 +36,6 @@ govuk_cdnlogs::bouncer_monitoring_enabled: false
 
 govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
-govuk_jenkins::config::banner_colour_background: '#ffbf47'
-govuk_jenkins::config::banner_colour_text: 'black'
-govuk_jenkins::config::banner_string: 'Carrenza INTEGRATION'
-govuk_jenkins::config::theme_colour: '#ffbf47'
-govuk_jenkins::config::theme_text_colour: 'black'
-govuk_jenkins::config::theme_environment_name: 'Integration'
-
 govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::job::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
@@ -76,13 +49,7 @@ govuk_jenkins::job::signon_cron_rake_tasks::rake_users_send_suspension_reminders
 
 govuk_jenkins::job::smokey::smokey_task: 'test:integration'
 
-govuk_jenkins::job::network_config_deploy::environments:
-  - 'carrenza-integration'
-  - 'carrenza-integration-dr'
-  - 'carrenza-integration-licensify'
-
 govuk_jenkins::job::deploy_dns::gce_project_id: 'govuk-integration'
-govuk_jenkins::job::deploy_kubernetes::gce_project_id: 'govuk-integration'
 
 govuk_jenkins::job::search_benchmark::cron_schedule: '30 9 * * 1-5'
 govuk_jenkins::job::search_test_spelling_suggestions::cron_schedule: '0 10 * * 1-5'
@@ -92,8 +59,6 @@ govuk_jenkins::job::enhanced_ecommerce::cron_schedule: '30 9 * * 1-5'
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa1zEG3dIOwsTTcJsMybZW0nPmCLBqS9/xzv4WoW5VzvID6yrSlg5XfX1Qxq8FmFGIDaAhb1fna2Z05EAC1Jh8EnCSFK8Q6NaUGxlyYoHRD06kZI8ZdAj3Ct8Hsqa0YaWKa/vSIWKIRtboVKm6SMbNxcLwQ04AG2zP2wtnGpyDKBPZol/L3jxVExx1B2lIww0drSKNFKQzM9kijZyAmhu8ocClNl19Rv86q44v0PcDIv5hkW5bEbsavTghnLNXad2dmiSP5Se68NscumyboetuG+o0lOFbFjuHk8NaXklOWiFZxJaJXiOVLihXHVhpDcuXEzwNoOKhYEzA06vHBVXbngBuEsgns/Hgpz4we2H4y4k9w9eJ4rKNhTvrfAzcYzEsnmhbNtQMZaLbqKnWBt2+X6lKTYUBpnUWXwLMaAb5dqEqD+LGiDxcfJ4b6UctSR7+CF29gRChwv0HUO1NdiVzZ2AMrqsYp9QtCWnfNipveGZl9Rqox3JSt4u/+7+I9xw0d8bFp8xCPxan78eMu42i3jNm4qcbbXGvPU6WFP0htjZZ8S0Fq7Dss4AbADrLxwepW8n7E+PozZRjH2P7TgmZ+wQXS6aUNHdgDeYsv5070NYK33wuE2f9GNVuN35/5ImB9PuyxDNSdHIPXTABMOZk7fVQUqXLCRw=='
 
 govuk_mtail::graphite_host_port: 'graphite:2003'
-
-govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_api_lb::api_servers:
   - "api"
@@ -116,26 +81,16 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend'
 govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api'
-govuk::node::s_backend_lb::docker_backend_servers:
-  - 'docker-backend'
-govuk::node::s_backup::offsite_backups: true
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
-govuk::node::s_licensify_lb::enable_feed_console: true
 govuk::node::s_mirrorer::daily_queue_purge: true
-govuk::node::s_monitoring::offsite_backups: false
-govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-integration'
-govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-integration'
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
-govuk_postgresql::backup::auto_postgresql_backup_hour: 10
-govuk_postgresql::server::standby::pgpassfile_enabled: true
 
 govuk_sudo::sudo_conf:
   deploy_service_postgresql:
@@ -145,13 +100,6 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
-
-icinga::client::check_cputype::cputype: 'amd'
-
-licensify::apps::licensify_admin::environment: 'integration'
-licensify::apps::licensify::environment: 'integration'
-licensify::apps::licensify_feed::environment: 'integration'
-licensify::apps::licensing_web_forms::enabled: true
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-integration'
@@ -179,7 +127,6 @@ users::usernames:
   - andysellick
   - anikahenke
   - bevanloon
-  - bob
   - brendanbutler
   - chrislowis
   - chrispatuzzo
