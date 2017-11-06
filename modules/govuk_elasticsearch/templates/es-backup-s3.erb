@@ -15,6 +15,19 @@ function nagios_passive () {
 
 trap nagios_passive EXIT
 
+<%- if scope.lookupvar('::aws_migration') %>
+  # Get the instance ID for the specific machine.
+  INSTANCE_ID=$(ec2metadata --instance-id)
+  # Which instance ID is enabled for backups?
+  INSTANCE_WITH_BACKUPS_ENABLED=$(aws ec2 describe-tags --filters "Name=key,Values=backups_enabled" "Name=value,Values=1" | jq -r '.Tags[] | [.ResourceId] | @csv' | tr -d '"' )
+
+  if [ "$INSTANCE_WITH_BACKUPS_ENABLED" != "$INSTANCE_ID" ]; then
+    NAGIOS_CODE=0
+    NAGIOS_MESSAGE="OK: This machine does not run ES backups"
+    exit 0
+  fi
+<%- end -%>
+
 ES_SNAPSHOT=snapshot_$(date +%F)
 
 # PARAMETERS FOR ELASTICSEARCH SNAPSHOT REPOSITORY
