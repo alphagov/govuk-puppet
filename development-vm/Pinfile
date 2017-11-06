@@ -5,7 +5,7 @@ process :'authenticating-proxy' => [:'government-frontend']
 process :'asset-manager' => [:'asset-manager-sidekiq']
 process :'asset-manager-worker'
 process :'asset-manager-sidekiq'
-process :backdrop => [:backdrop_read, :backdrop_write, :stagecraft]
+process :backdrop => [:backdrop_read, :backdrop_write]
 process :backdrop_read
 process :backdrop_write
 process :bouncer
@@ -68,7 +68,6 @@ process :signon
 process :smartanswers => [:static, :'content-store', :imminence]
 process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
-process :stagecraft => [:backdrop_write]
 process :static
 process :support => [:'support-api']
 process :'support-api'

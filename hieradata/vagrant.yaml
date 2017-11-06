@@ -25,11 +25,6 @@ assets::ssh_private_key::key: |
 base::shell::shell_prompt_string: 'dev'
 base::supported_kernel::enabled: true
 
-govuk::apps::stagecraft::enabled: true
-govuk::apps::stagecraft::worker::enabled: true
-govuk::apps::stagecraft::beat::enabled: true
-govuk::apps::stagecraft::celerycam::enabled: true
-
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
