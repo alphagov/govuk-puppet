@@ -19,7 +19,7 @@ trap nagios_passive EXIT
   # Get the instance ID for the specific machine.
   INSTANCE_ID=$(ec2metadata --instance-id)
   # Which instance ID is enabled for backups?
-  INSTANCE_WITH_BACKUPS_ENABLED=$(aws ec2 describe-tags --filters "Name=key,Values=backups_enabled" "Name=value,Values=1" | jq -r '.Tags[] | [.ResourceId] | @csv' | tr -d '"' )
+  INSTANCE_WITH_BACKUPS_ENABLED=$(aws ec2 describe-tags --region <%= @aws_region %> --filters "Name=key,Values=backups_enabled" "Name=value,Values=1" | jq -r '.Tags[] | [.ResourceId] | @csv' | tr -d '"' )
 
   if [ "$INSTANCE_WITH_BACKUPS_ENABLED" != "$INSTANCE_ID" ]; then
     NAGIOS_CODE=0
@@ -37,11 +37,11 @@ REPO_DATA=$(cat <<EOD
   "settings": {
     "bucket": "<%= @s3_bucket -%>",
     "region": "<%= @aws_region -%>",
-    "base_path": "<%= @base_path -%>",
     <%- if @aws_access_key_id and @aws_secret_access_key -%>
     "access_key": "<%= @aws_access_key_id -%>",
-    "secret_key": "<%= @aws_secret_access_key -%>"
+    "secret_key": "<%= @aws_secret_access_key -%>",
     <%- end -%>
+    "base_path": "<%= @base_path -%>"
   },
   "compress": "true"
 }
