@@ -28,6 +28,9 @@
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
+# [*deny_crawlers*]
+#   Boolean, whether nginx should serve robots.txt
+#
 # [*is_default_vhost*]
 #   Boolean, whether to set `default_server` in nginx
 #
@@ -68,6 +71,7 @@ define govuk::app::nginx_vhost (
   $ssl_only = false,
   $nginx_extra_config = '',
   $deny_framing = false,
+  $deny_crawlers = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
@@ -103,6 +107,7 @@ define govuk::app::nginx_vhost (
     ssl_only                       => $ssl_only,
     extra_config                   => $nginx_extra_config_real,
     deny_framing                   => $deny_framing,
+    deny_crawlers                  => $deny_crawlers,
     is_default_vhost               => $is_default_vhost,
     hidden_paths                   => $hidden_paths,
     single_page_app                => $single_page_app,

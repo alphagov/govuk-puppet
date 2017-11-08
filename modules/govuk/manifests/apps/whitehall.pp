@@ -210,6 +210,7 @@ class govuk::apps::whitehall(
       protected             => $vhost_protected,
       protected_location    => '/government/admin/fact_check_requests/',
       deny_framing          => true,
+      deny_crawlers         => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
       hidden_paths          => [$health_check_path],
@@ -293,7 +294,8 @@ class govuk::apps::whitehall(
     }
 
     nginx::config::vhost::static { "draft-whitehall-frontend.${app_domain}":
-      locations => {'/government/uploads' => '/data/uploads/whitehall/clean'},
+      locations     => {'/government/uploads' => '/data/uploads/whitehall/clean'},
+      deny_crawlers => true,
     }
 
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':

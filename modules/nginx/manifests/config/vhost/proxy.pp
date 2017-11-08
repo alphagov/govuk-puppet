@@ -69,6 +69,10 @@
 # [*http_host*]
 #   The HTTP `Host` header. Defaults to the HTTP host.
 #
+# [*deny_crawlers*]
+#   Boolean, whether Nginx should serve a robots.txt that
+#   prevents crawlers from indexing the thing being proxied.
+#
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
@@ -90,6 +94,7 @@ define nginx::config::vhost::proxy(
   $alert_5xx_critical_rate = 0.1,
   $proxy_http_version_1_1_enabled = false,
   $http_host = undef,
+  $deny_crawlers = false,
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
