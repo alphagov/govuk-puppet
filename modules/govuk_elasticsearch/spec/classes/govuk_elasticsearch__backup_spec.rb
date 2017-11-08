@@ -39,6 +39,6 @@ describe 'govuk_elasticsearch::backup', :type => :class do
         ],
     }}
 
-    it { is_expected.to raise_error }
+    it { is_expected.to raise_error(Puppet::Error, /Must pass s3_bucket/) }
   end
 end
