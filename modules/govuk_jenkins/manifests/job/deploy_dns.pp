@@ -16,12 +16,17 @@
 # [*gce_credential_id*]
 #   Jenkins credential ID that stores the Gcloud account.
 #
+# [*zones*]
+#   An array of zones to deploy.
 #
 class govuk_jenkins::job::deploy_dns (
   $dyn_zone_id = undef,
   $gce_project_id = undef,
   $gce_credential_id = undef,
+  $zones = [],
 ) {
+
+  validate_array($zones)
 
   contain '::govuk_jenkins::packages::terraform'
 

@@ -33,6 +33,8 @@
             export GOOGLE_PROJECT=<%= @gce_project_id %>
             export GOOGLE_REGION=europe-west1
             export DEPLOY_ENV=<%= @environment %>
+
+            export ZONEFILE=$ZONE.yaml
             ./jenkins.sh ${ACTION}
     parameters:
         - choice:
@@ -40,12 +42,12 @@
             choices:
                 - PICK ONE
                 - all
-                - gce
-                - route53
-        - string:
-            name: ZONEFILE
-            default: publishing.service.gov.uk.yaml
-            description: Set the zonefile to deploy
+                - aws
+                - gcp
+        - choice:
+            name: ZONE
+            description: Choose the zone to deploy
+            choices: <%= ['-- Choose a zone'] + @zones %>
         - string:
             name: AWS_ACCESS_KEY_ID
             default: false
