@@ -134,7 +134,6 @@ govuk_jenkins::job::network_config_deploy::environments:
   - 'carrenza-integration-licensify'
 
 govuk_jenkins::job::deploy_dns::gce_project_id: 'govuk-integration'
-govuk_jenkins::job::deploy_kubernetes::gce_project_id: 'govuk-integration'
 govuk_jenkins::job::deploy_dns::zones:
   - 'dnstest.alphagov.co.uk'
 
