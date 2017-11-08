@@ -54,17 +54,6 @@
             name: AWS_SECRET_ACCESS_KEY
             default: false
             description: This is required for all providers
-        - string:
-            name: ROUTE53_ZONE_ID
-            description: Which AWS Route53 zone to deploy to
-        - string:
-            name: GOOGLE_ZONE_NAME
-            description: Friendly name of the DNS zone within the Google project
-            default: false
-        - string:
-            name: GOOGLE_DNS_NAME
-            description: Full DNS name of the zone (i.e. foo.example.com)
-            default: false
         - choice:
             name: ACTION
             description: Choose whether to plan (default) or apply
