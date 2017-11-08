@@ -30,6 +30,8 @@
                variable: GOOGLE_CREDENTIALS
     builders:
         - shell: |
+            export GOOGLE_PROJECT=<%= @gce_project_id %>
+            export GOOGLE_REGION=europe-west1
             export DEPLOY_ENV=<%= @environment %>
             ./jenkins.sh ${ACTION}
     parameters:
@@ -56,10 +58,6 @@
             name: ROUTE53_ZONE_ID
             description: Which AWS Route53 zone to deploy to
         - string:
-            name: GOOGLE_REGION
-            description: See available zones https://cloud.google.com/compute/images/zones_diagram.svg
-            default: europe-west1
-        - string:
             name: GOOGLE_ZONE_NAME
             description: Friendly name of the DNS zone within the Google project
             default: false
@@ -67,10 +65,6 @@
             name: GOOGLE_DNS_NAME
             description: Full DNS name of the zone (i.e. foo.example.com)
             default: false
-        - string:
-            name: GOOGLE_PROJECT
-            description: The name of the Google Compute Engine project that contains the dns zone you want to interact with.
-            default: <%= @gce_project_id %>
         - choice:
             name: ACTION
             description: Choose whether to plan (default) or apply
