@@ -3,13 +3,9 @@
 # Create the Jenkins job to deploy DNS records.
 # Target platforms are:
 #      AWS Route 53
-#      Dyn
 #      Google Cloud DNS
 #
 # === Parameters
-#
-# [*dyn_customer_name*]
-#    Customer account to use for Dyn (not to be confused with the Dyn user name)
 #
 # [*dyn_zone_id*]
 #   ID of the Dyn DNS zone to upload the DNS records to.
@@ -22,7 +18,6 @@
 #
 #
 class govuk_jenkins::job::deploy_dns (
-  $dyn_customer_name = undef,
   $dyn_zone_id = undef,
   $gce_project_id = undef,
   $gce_credential_id = undef,
