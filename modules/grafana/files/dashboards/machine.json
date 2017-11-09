@@ -288,21 +288,6 @@
             "selected": false
           },
           {
-            "text": "api-postgresql-primary-1_api",
-            "value": "api-postgresql-primary-1_api",
-            "selected": false
-          },
-          {
-            "text": "api-postgresql-standby-1_api",
-            "value": "api-postgresql-standby-1_api",
-            "selected": false
-          },
-          {
-            "text": "api-postgresql-standby-2_api",
-            "value": "api-postgresql-standby-2_api",
-            "selected": false
-          },
-          {
             "text": "api-redis-1_api",
             "value": "api-redis-1_api",
             "selected": false
