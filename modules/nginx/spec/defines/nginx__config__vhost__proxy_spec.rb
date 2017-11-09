@@ -119,6 +119,42 @@ describe 'nginx::config::vhost::proxy', :type => :define do
     end
   end
 
+  context 'if in aws' do
+    let(:title) { 'rabbit' }
+
+    let(:params) {{
+      :to            => ['a.internal'],
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should add original lb headers and client_max_body_size' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/proxy_set_header GOVUK-Request-Id \$govuk_request_id;/)
+        .with_content(/client_max_body_size 4g;/)
+    end
+  end
+
+  context 'if in aws and deny_crawlers set to true' do
+    let(:title) { 'rabbit' }
+
+    let(:params) {{
+      :to            => ['a.internal'],
+      :deny_crawlers => true,
+    }}
+
+    let(:facts) {{
+     :aws_migration => true,
+    }}
+
+    it 'should add location robots.txt' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/location = \/robots.txt/)
+    end
+  end
+  
   context 'with to_ssl true' do
     let(:params) {{
       :to     => ['a.internal', 'b.internal', 'c.internal'],

@@ -17,6 +17,10 @@
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
+# [*deny_crawlers*]
+#   Boolean, whether Nginx should serve a robots.txt that
+#   prevents crawlers from indexing the thing being proxied.
+#
 # [*logstream*]
 #   Whether nginx logs should be shipped to the logging box
 #
@@ -35,6 +39,7 @@ define nginx::config::vhost::static(
   $locations = {},
   $extra_config = '',
   $deny_framing = false,
+  $deny_crawlers = false,
   $logstream = present,
   $is_default_vhost = false,
   $ssl_certtype = 'wildcard_publishing',
