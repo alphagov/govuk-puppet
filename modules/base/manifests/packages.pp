@@ -13,14 +13,18 @@
 # [*ruby_version*]
 #   Which version of the `ruby` package to install
 #
+# [*ensure_packages*]
+#   The state of the base packages. 'absent' or 'present'
+#
 class base::packages (
   $gems = {},
   $packages = [],
   $ruby_version = installed,
+  $ensure_packages = 'present',
 ) {
   validate_array($packages)
 
-  ensure_packages($packages)
+  ensure_packages($packages, { ensure => $ensure_packages })
 
   alternatives { 'editor':
     path    => '/usr/bin/vim.nox',
