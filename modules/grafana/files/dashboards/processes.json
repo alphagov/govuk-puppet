@@ -866,16 +866,6 @@
             "selected": false
           },
           {
-            "text": "performance-frontend-1_frontend",
-            "value": "performance-frontend-1_frontend",
-            "selected": false
-          },
-          {
-            "text": "performance-frontend-2_frontend",
-            "value": "performance-frontend-2_frontend",
-            "selected": false
-          },
-          {
             "text": "performance-mongo-1_api",
             "value": "performance-mongo-1_api",
             "selected": false
