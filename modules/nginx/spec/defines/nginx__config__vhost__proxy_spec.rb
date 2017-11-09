@@ -130,10 +130,9 @@ describe 'nginx::config::vhost::proxy', :type => :define do
      :aws_migration => true,
     }}
 
-    it 'should add original lb headers and client_max_body_size' do
+    it 'should add original lb headers' do
       is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/proxy_set_header GOVUK-Request-Id \$govuk_request_id;/)
-        .with_content(/client_max_body_size 4g;/)
     end
   end
 
