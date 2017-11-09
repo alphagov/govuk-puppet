@@ -23,7 +23,6 @@ namespace :spec do
     # Don't attempt to instantiate these classes as they aren't concrete
     # machine classes, and therefore aren't intended to be instantiated directly.
     $nodes_spec_blacklist_classes = %w(
-      api_postgresql_base
       app_server
       asset_base
       base

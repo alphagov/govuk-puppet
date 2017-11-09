@@ -135,9 +135,6 @@ govuk::node::s_frontend_lb::frontend_servers:
   - 'frontend-1.frontend'
   - 'frontend-2.frontend'
   - 'frontend-3.frontend'
-govuk::node::s_frontend_lb::performance_frontend_servers:
-  - 'performance-frontend-1.frontend'
-  - 'performance-frontend-2.frontend'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
@@ -190,12 +187,6 @@ hosts::production::api::hosts:
     ip: '10.2.4.23'
   api-mongo-4:
     ip: '10.2.12.21'
-  api-postgresql-primary-1:
-    ip: '10.2.4.40'
-  api-postgresql-standby-1:
-    ip: '10.2.4.41'
-  api-postgresql-standby-2:
-    ip: '10.2.12.41'
   api-redis-1:
     ip: '10.2.4.29'
   content-store-1:
@@ -381,10 +372,6 @@ hosts::production::frontend::hosts:
     ip: '10.2.2.200'
   draft-frontend-2:
     ip: '10.2.2.201'
-  performance-frontend-1:
-    ip: '10.2.2.20'
-  performance-frontend-2:
-    ip: '10.2.2.21'
   whitehall-frontend-1:
     ip: '10.2.2.5'
   whitehall-frontend-2:

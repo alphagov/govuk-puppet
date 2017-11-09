@@ -288,21 +288,6 @@
             "selected": false
           },
           {
-            "text": "api-postgresql-primary-1_api",
-            "value": "api-postgresql-primary-1_api",
-            "selected": false
-          },
-          {
-            "text": "api-postgresql-standby-1_api",
-            "value": "api-postgresql-standby-1_api",
-            "selected": false
-          },
-          {
-            "text": "api-postgresql-standby-2_api",
-            "value": "api-postgresql-standby-2_api",
-            "selected": false
-          },
-          {
             "text": "api-redis-1_api",
             "value": "api-redis-1_api",
             "selected": false
@@ -820,16 +805,6 @@
           {
             "text": "performance-backend-2_backend",
             "value": "performance-backend-2_backend",
-            "selected": false
-          },
-          {
-            "text": "performance-frontend-1_frontend",
-            "value": "performance-frontend-1_frontend",
-            "selected": false
-          },
-          {
-            "text": "performance-frontend-2_frontend",
-            "value": "performance-frontend-2_frontend",
             "selected": false
           },
           {
