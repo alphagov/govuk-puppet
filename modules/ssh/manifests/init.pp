@@ -31,6 +31,11 @@ class ssh {
     require => Class['ssh::firewall'],
   }
 
+  # On AWS, make sure decommissioned host keys are purged
+  if $::aws_migration {
+    resources { 'sshkey': purge => true }
+  }
+
   # The "internally-qualified domain name" of a machine is the first two
   # components of its fully-qualified domain name. i.e. the IQDN of a machine with
   # FQDN foo-1.bar.publishing.example.com is foo-1.bar. Internal references to other
