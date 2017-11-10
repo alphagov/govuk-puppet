@@ -5,8 +5,12 @@
 # [*aws_account_id*]
 #   The account ID for Amazon Web Services, required by our Terraform code
 #
+# [*production_aws_account_id*]
+#   The account ID for the production AWS account
+#
 class govuk_jenkins::job::deploy_terraform_project (
   $aws_account_id = '',
+  $production_aws_account_id = '',
 ) {
 
   contain 'govuk_jenkins::packages::terraform'
