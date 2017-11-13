@@ -1627,6 +1627,7 @@ router::assets_origin::asset_routes:
   '/government/placeholder': "whitehall-frontend"
   '/government/uploads/': "whitehall-frontend"
   '/government/uploads/system/uploads/organisation/logo/': "static"
+  '/government/uploads/system/uploads/consultation_response_form_data/file/': "static"
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
