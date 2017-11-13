@@ -48,7 +48,7 @@ if /usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | 
   tar -zcvf <%= @backup_dir -%>/mongodump.tgz <%= @backup_dir -%>/mongodump
 
   echo "Uploading mongodump to S3"
-  /usr/bin/aws s3 --quiet --region <%= @aws_region -%> cp <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
+  /usr/bin/aws s3 --quiet --region <%= @aws_region -%> cp --sse AES256 <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
 
   echo "Completed successfully"
   NAGIOS_CODE=0
