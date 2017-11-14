@@ -1008,7 +1008,6 @@ router::assets_origin::asset_routes:
   '/calculators/': "calculators"
   '/calendars/': "calendars"
   '/collections/': "collections"
-  '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"
