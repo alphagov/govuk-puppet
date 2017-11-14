@@ -88,10 +88,13 @@ class govuk::apps::local_links_manager(
   $redis_port = undef,
   $local_links_manager_passive_checks = false,
   $google_analytics_govuk_view_id = undef,
-  $google_client_email = undef,
-  $google_private_key = undef,
   $publishing_api_bearer_token = undef,
   $link_checker_api_secret_token = undef,
+  $google_client_email = undef,
+  $google_private_key = undef,
+  $google_export_account_id = undef,
+  $google_export_custom_data_import_source_id = undef,
+  $google_export_tracker_id = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -124,6 +127,15 @@ class govuk::apps::local_links_manager(
       "${title}-GOOGLE_PRIVATE_KEY":
         varname => 'GOOGLE_PRIVATE_KEY',
         value   => $google_private_key;
+      "${title}-GOOGLE_EXPORT_ACCOUNT_ID":
+        varname => 'GOOGLE_EXPORT_ACCOUNT_ID',
+        value   => $google_export_account_id;
+      "${title}-GOOGLE_EXPORT_CUSTOM_DATA_IMPORT_SOURCE_ID":
+        varname => 'GOOGLE_EXPORT_CUSTOM_DATA_IMPORT_SOURCE_ID',
+        value   => $google_export_custom_data_import_source_id;
+      "${title}-GOOGLE_EXPORT_TRACKER_ID":
+        varname => 'GOOGLE_EXPORT_TRACKER_ID',
+        value   => $google_export_tracker_id;
       "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
