@@ -1168,7 +1168,6 @@ hosts::production::frontend::app_hostnames:
   - 'calendars'
   - 'canary-frontend'
   - 'collections'
-  - 'designprinciples'
   - 'draft-collections'
   - 'draft-email-alert-frontend'
   - 'draft-frontend'
