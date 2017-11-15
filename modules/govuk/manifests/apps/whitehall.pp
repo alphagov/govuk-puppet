@@ -95,6 +95,12 @@
 #   The secret used to encode JWT authentication tokens. This value needs to be
 #   shared with authenticating-proxy which decodes the tokens.
 #
+# [*co_nss_watchkeeper_email_address*]
+#   The email address of the CO NSS Watchkeeper user, which should only publish
+#   in emergencies. All publishing by this user in production will generate an
+#   email to the content second line group in GDS.
+#   Default: undef
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -126,6 +132,7 @@ class govuk::apps::whitehall(
   $vhost = 'whitehall',
   $vhost_protected,
   $jwt_auth_secret = undef,
+  $co_nss_watchkeeper_email_address = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -462,6 +469,13 @@ class govuk::apps::whitehall(
     govuk::app::envvar { "${title}-JWT_AUTH_SECRET":
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret,
+    }
+  }
+
+  if $co_nss_watchkeeper_email_address != undef {
+    govuk::app::envvar { "${title}-CO_NSS_WATCHKEEPER_EMAIL_ADDRESS":
+      varname => 'CO_NSS_WATCHKEEPER_EMAIL_ADDRESS',
+      value   => $co_nss_watchkeeper_email_address,
     }
   }
 }
