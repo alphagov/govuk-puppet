@@ -109,6 +109,26 @@ class monitoring::checks (
   }
   # END signon
 
+  # START search
+  # TODO: increase the comparison period to a week so alerts don't dissapear if they happen over the weekend
+  # and extend checks to other indices
+  icinga::check::graphite { 'check_rummager_govuk_index_size_increased':
+    target    => 'divideSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "1d"))',
+    warning   => 110,
+    critical  => 125,
+    desc      => 'rummager govuk index size has increased by more than 10% over the last 3 days',
+    host_name => $::fqdn,
+  }
+
+  icinga::check::graphite { 'check_rummager_govuk_index_size_decreased':
+    target    => 'transformNull(divideSeries(timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "1d"), stats.gauges.govuk.app.rummager.govuk_index.docs.count), 10000000)',
+    warning   => 101,
+    critical  => 101,
+    desc      => 'govuk index document count from 1 week ago exceeds current count',
+    host_name => $::fqdn,
+  }
+  # END search
+
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
       target    => 'stats.gauges.govuk.app.support.queues.default',
