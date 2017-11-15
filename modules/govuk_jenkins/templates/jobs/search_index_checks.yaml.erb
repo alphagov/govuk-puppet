@@ -8,7 +8,7 @@
     logrotate:
       numToKeep: 10
     triggers:
-        - timed: '* 10 * * *'
+        - timed: 'H/10 * * * *'
     builders:
         - shell: ssh deploy@$(govuk_node_list -c search --single-node) "cd /var/apps/rummager && govuk_setenv rummager bundle exec rake rummager:monitor_indices"
     wrappers:
