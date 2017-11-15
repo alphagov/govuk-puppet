@@ -7,8 +7,13 @@
 # [*replay_targets*]
 #   Hash of targets to replay traffic against.
 #
+# [*add_hosts*]
+#   Whether to add the target IP to the hosts file or not.
+#   Default: true
+#
 class router::gor (
   $replay_targets = {},
+  $add_hosts = true
 ) {
   validate_hash($replay_targets)
 
@@ -20,15 +25,17 @@ class router::gor (
     $gor_hosts_ensure = present
   }
 
-  # These host entries prevent Gor from performing DNS lookups, which occur
-  # once for *every* request/goroutine, and can be quite overwhelming.
-  $host_defaults = {
-    'ensure'  => $gor_hosts_ensure,
-    'notify'  => 'Class[Govuk_gor]',
-    'comment' => 'Used by Gor. See comments in router::gor.',
-  }
+  if $add_hosts {
+    # These host entries prevent Gor from performing DNS lookups, which occur
+    # once for *every* request/goroutine, and can be quite overwhelming.
+    $host_defaults = {
+      'ensure'  => $gor_hosts_ensure,
+      'notify'  => 'Class[Govuk_gor]',
+      'comment' => 'Used by Gor. See comments in router::gor.',
+    }
 
-  create_resources('host', $replay_targets, $host_defaults)
+    create_resources('host', $replay_targets, $host_defaults)
+  }
 
   class { 'govuk_gor':
     args    => {
