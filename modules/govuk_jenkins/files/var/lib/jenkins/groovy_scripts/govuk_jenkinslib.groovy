@@ -69,6 +69,9 @@
  *          rather than the default of the build number
  *        - repoName Provide this if the Github Repo name for the app is
  *          different to the jenkins job name.
+ *        - extraParameters Provide details here of any extra parameters that
+ *          can be used to configure this build.  See: https://jenkins.io/doc/pipeline/steps/workflow-multibranch/#code-properties-code-set-job-properties
+ *          for details on the format and structure of these extra parameters.
  */
 def buildProject(Map options = [:]) {
 
@@ -80,31 +83,36 @@ def buildProject(Map options = [:]) {
     repoName = jobName
   }
 
+  def parameterDefinitions = [
+    [$class: 'BooleanParameterDefinition',
+      name: 'IS_SCHEMA_TEST',
+      defaultValue: false,
+      description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
+    [$class: 'BooleanParameterDefinition',
+      name: 'PUSH_TO_GCR',
+      defaultValue: false,
+      description: '--TESTING ONLY-- Whether to push the docker image to Google Container Registry.'],
+    [$class: 'StringParameterDefinition',
+      name: 'SCHEMA_BRANCH',
+      defaultValue: 'deployed-to-production',
+      description: 'The branch of govuk-content-schemas to test against'],
+    [$class: 'StringParameterDefinition',
+      name: 'SCHEMA_COMMIT',
+      defaultValue: 'invalid',
+      description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']
+  ]
+
+  if (options.extraParameters) {
+    parameterDefinitions.addAll(options.extraParameters)
+  }
+
   properties([
     buildDiscarder(
       logRotator(
         numToKeepStr: '50')
       ),
     [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
-    [$class: 'ParametersDefinitionProperty',
-      parameterDefinitions: [
-        [$class: 'BooleanParameterDefinition',
-          name: 'IS_SCHEMA_TEST',
-          defaultValue: false,
-          description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
-        [$class: 'BooleanParameterDefinition',
-          name: 'PUSH_TO_GCR',
-          defaultValue: false,
-          description: '--TESTING ONLY-- Whether to push the docker image to Google Container Registry.'],
-        [$class: 'StringParameterDefinition',
-          name: 'SCHEMA_BRANCH',
-          defaultValue: 'deployed-to-production',
-          description: 'The branch of govuk-content-schemas to test against'],
-        [$class: 'StringParameterDefinition',
-          name: 'SCHEMA_COMMIT',
-          defaultValue: 'invalid',
-          description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']],
-    ],
+    [$class: 'ParametersDefinitionProperty', parameterDefinitions: parameterDefinitions],
   ])
 
   try {
