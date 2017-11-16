@@ -332,7 +332,7 @@
           "targets": [
             {
               "hide": false,
-              "target": "movingAverage(asPercent(divideSeries(diffSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_429)), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "target": "movingAverage(asPercent(divideSeries(diffSeries(sumSeries(stats.cache-*.nginx_logs.www-origin.http_4xx), sumSeries(stats.cache-*.nginx_logs.www-origin.http_429)), sumSeries(stats.cache-*.nginx_logs.www-origin.http_*xx)),1), '1min')",
               "refId": "A",
               "textEditor": true
             }
@@ -399,7 +399,7 @@
           "targets": [
             {
               "hide": false,
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-*.nginx_logs.www-origin.http_5xx), sumSeries(stats.cache-*.nginx_logs.www-origin.http_*xx)),1), '1min')",
               "refId": "A",
               "textEditor": true
             }
@@ -466,7 +466,7 @@
           "targets": [
             {
               "hide": false,
-              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_429), sumSeries(stats.cache-?_router.nginx_logs.www-origin.http_*xx)),1), '1min')",
+              "target": "movingAverage(asPercent(divideSeries(sumSeries(stats.cache-*.nginx_logs.www-origin.http_429), sumSeries(stats.cache-*.nginx_logs.www-origin.http_*xx)),1), '1min')",
               "refId": "A",
               "textEditor": true
             }

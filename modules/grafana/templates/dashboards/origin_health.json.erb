@@ -84,7 +84,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(stats.cache-*_router.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")",
+              "target": "aliasSub(stats.cache-*.nginx_logs.www-origin.http_5xx,\".*(cache-\\d+).*\", \"\\1\")",
               "refId": "A"
             }
           ],
@@ -184,7 +184,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(movingMedian(cache-*_router.nginx.nginx_requests, '1min'),\".*(cache-\\d+).*\", \"\\1\")",
+              "target": "aliasSub(movingMedian(cache-*.nginx.nginx_requests, '1min'),\".*(cache-\\d+).*\", \"\\1\")",
               "refId": "A"
             }
           ],
@@ -284,17 +284,17 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-1\")",
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-1_*.nginx_logs.www-origin.http_5xx,sum(stats.cache-1_*.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-1\")",
               "refId": "A",
               "textEditor": true
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-2\")",
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-2_*.nginx_logs.www-origin.http_5xx,sum(stats.cache-2_*.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-2\")",
               "refId": "B",
               "textEditor": true
             },
             {
-              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_router.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_router.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-3\")",
+              "target": "alias(movingAverage(asPercent(divideSeries(stats.cache-3_*.nginx_logs.www-origin.http_5xx,sum(stats.cache-3_*.nginx_logs.www-origin.http_*xx)),1), '1min'),\"cache-3\")",
               "refId": "C",
               "textEditor": true
             }
@@ -405,7 +405,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(stats.timers.cache-*_router.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")",
+              "target": "aliasSub(stats.timers.cache-*.nginx_logs.www-origin.time_request.mean,\".*(cache-\\d+).*\", \"\\1\")",
               "refId": "A"
             }
           ],
@@ -605,8 +605,12 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.*_frontend.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
+              "target": "maximumAbove(aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
               "refId": "A"
+            },
+            {
+              "target": "maximumAbove(aliasSub(groupByNode(stats.frontend-*.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
+              "refId": "B"
             }
           ],
           "title": "HTTP 5xx/app",
