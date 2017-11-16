@@ -35,6 +35,10 @@ class govuk::node::s_jenkins (
 
   if $::aws_migration {
     Govuk_mount['/var/lib/jenkins'] -> Class['govuk_jenkins']
+
+    class { 'govuk_jenkins::deploy_all_apps':
+      require => Class['govuk_jenkins'],
+    }
   }
 
   # Close connection if vhost not known
