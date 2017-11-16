@@ -5,3 +5,8 @@
       entry: bundle exec rake lint
       language: system
       files: \.pp$
+- repo: https://github.com/pre-commit/pre-commit-hooks.git
+  sha: v0.9.5
+  hooks:
+  -  id: no-commit-to-branch
+
