@@ -24,6 +24,7 @@ class govuk_docker (
   if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
     class { '::docker':
       docker_users => $docker_users,
+      use_upstream_package_source => false,
       version      => $version,
     }
 
@@ -31,6 +32,7 @@ class govuk_docker (
   } else {
     class {'::docker':
       docker_users => $docker_users,
+      use_upstream_package_source => false,
       version      => $version,
       log_driver   => 'syslog',
     }
