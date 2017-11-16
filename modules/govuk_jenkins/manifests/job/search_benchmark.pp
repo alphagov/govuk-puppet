@@ -3,12 +3,17 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::job::search_benchmark (
-  $app_domain = hiera('app_domain'),
   $auth_username = undef,
   $auth_password = undef,
   $rate_limit_token = undef,
   $cron_schedule = '30 4 * * *'
 ) {
+
+  $app_domain = hiera('app_domain')
+
+  if $::aws_migration {
+    $app_domain_internal = hiera('app_domain_internal')
+  }
 
   $test_type = 'results'
   $job_name = 'search_benchmark'
