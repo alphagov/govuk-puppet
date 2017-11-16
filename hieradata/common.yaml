@@ -398,8 +398,6 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
-govuk::apps::asset_manager::proxy_percentage_of_asset_requests_to_s3_via_nginx: '100'
-govuk::apps::asset_manager::proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx: '100'
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
