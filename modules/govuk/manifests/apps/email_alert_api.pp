@@ -51,6 +51,10 @@
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
+# [*govuk_notify_rate_per_worker*]
+#   Number of requests per seconds that the notify delivery worker
+#   is allowed to make (currently 50 requests/s / 6 workers = 8 (ish)
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -78,6 +82,7 @@ class govuk::apps::email_alert_api(
   $govdelivery_hostname = undef,
   $govdelivery_public_hostname = undef,
   $govuk_notify_api_key = undef,
+  $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
@@ -172,6 +177,9 @@ class govuk::apps::email_alert_api(
       "${title}-GOVUK_NOTIFY_API_KEY":
           varname => 'GOVUK_NOTIFY_API_KEY',
           value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_RATE_PER_WORKER":
+          varname => 'GOVUK_NOTIFY_RATE_PER_WORKER',
+          value   => $govuk_notify_rate_per_worker;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
