@@ -110,23 +110,49 @@ class monitoring::checks (
   # END signon
 
   # START search
-  # TODO: increase the comparison period to a week so alerts don't dissapear if they happen over the weekend
-  # and extend checks to other indices
-  icinga::check::graphite { 'check_rummager_govuk_index_size_increased':
-    target    => 'divideSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "1d"))',
-    warning   => 110,
-    critical  => 125,
-    desc      => 'rummager govuk index size has increased by more than 10% over the last 3 days',
-    host_name => $::fqdn,
+
+  # On average 326 new documents were created per day in 2017, in total.
+  # The govuk index will only receive a fraction of these until we start
+  # indexing whitehall content in it.
+  icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager govuk index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
   }
 
-  icinga::check::graphite { 'check_rummager_govuk_index_size_decreased':
-    target    => 'transformNull(divideSeries(timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "1d"), stats.gauges.govuk.app.rummager.govuk_index.docs.count), 10000000)',
-    warning   => 101,
-    critical  => 101,
-    desc      => 'govuk index document count from 1 week ago exceeds current count',
-    host_name => $::fqdn,
+  # Mainstream is comparable to the govuk index.
+  icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.mainstream.app.rummager.mainstream_index.docs.count, timeShift(stats.gauges.mainstream.app.rummager.mainstream_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager mainstream index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
   }
+
+  # Government is comparable to the govuk index.
+  icinga::check::graphite { 'check_rummager_government_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.government.app.rummager.government_index.docs.count, timeShift(stats.gauges.government.app.rummager.government_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager government index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
+  # Detailed is smaller than the other indexes (about 4500 documents)
+  icinga::check::graphite { 'check_rummager_detailed_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.detailed.app.rummager.detailed_index.docs.count, timeShift(stats.gauges.detailed.app.rummager.detailed_index.docs.count, "3d"))',
+    warning             => 200,
+    critical            => 400,
+    desc                => 'rummager detailed index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
   # END search
 
   if $enable_support_check {
