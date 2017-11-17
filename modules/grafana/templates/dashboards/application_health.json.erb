@@ -506,11 +506,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*_publishing_service_gov_uk.http_503,3,\"sum\"),\"_.*\",\"\")",
+              "target": "aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*gov*.http_503,3,\"sum\"),\"_.*\",\"\")",
               "refId": "A"
             },
             {
-              "target": "aliasSub(groupByNode(stats.frontend-*.nginx_logs.*_publishing_service_gov_uk.http_503,3,\"sum\"),\"_.*\",\"\")",
+              "target": "aliasSub(groupByNode(stats.frontend-*.nginx_logs.*gov*.http_503,3,\"sum\"),\"_.*\",\"\")",
               "refId": "B"
             }
           ],
