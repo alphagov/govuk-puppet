@@ -2,7 +2,7 @@
 
 TIMESTAMP=`date +%Y-%m-%d_%Hh%Mm.%A`
 
-DAYS_TO_KEEP="1"
+DAYS_TO_KEEP="2"
 
 GRAPHITE_STORAGE_DIRECTORY="/opt/graphite/storage"
 GRAPHITE_WHISPER_DIRECTORY_NAME="whisper"
@@ -35,7 +35,7 @@ else
 fi
 
 # Remove any backups older than 1 days
-find ${BACKUP_DIRECTORY} -type f -name "*.${BACKUP_FILE_NAME_EXTENSION}" -mtime ${DAYS_TO_KEEP} | xargs -xi rm {}
+find ${BACKUP_DIRECTORY} -type f -name "*.${BACKUP_FILE_NAME_EXTENSION}" -mtime +${DAYS_TO_KEEP} | xargs -xi rm {}
 
 # Backup Whisper files
 ${TAR_COMMAND} ${TAR_OPTIONS} -f ${BACKUP_DIRECTORY}/${BACKUP_FILE_NAME} ${GRAPHITE_WHISPER_DIRECTORY}
