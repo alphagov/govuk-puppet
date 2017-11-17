@@ -38,11 +38,15 @@ class govuk::apps::manuals_frontend(
     vhost                 => $vhost,
   }
 
+  Govuk::App::Envvar {
+    app => 'manuals-frontend',
+  }
+
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    app     => 'manuals-frontend',
     varname => 'PUBLISHING_API_BEARER_TOKEN',
     value   => $publishing_api_bearer_token,
   }
+
   if $secret_key_base != undef {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
