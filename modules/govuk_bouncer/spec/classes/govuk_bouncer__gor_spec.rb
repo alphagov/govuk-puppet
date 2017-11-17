@@ -24,7 +24,7 @@ describe 'govuk_bouncer::gor', :type => :class do
   context '#enabled' do
     let(:params) {{
       :enabled => true,
-      :ip_address => ip_address,
+      :target  => ip_address,
     }}
 
     it {
@@ -40,20 +40,7 @@ describe 'govuk_bouncer::gor', :type => :class do
     }
   end
 
-  context 'enabled but no staging IP is invalid' do
-    let(:params) {{
-      :enabled => true,
-      :ip_address => 'not.an.ip.address',
-    }}
-
-    it {
-      is_expected.to contain_class('govuk_gor').with(
-        :enable => false,
-      )
-    }
-  end
-
-  context 'enabled but no staging IP specified' do
+  context 'enabled but no target specified' do
     let(:params) {{
       :enabled => true,
     }}

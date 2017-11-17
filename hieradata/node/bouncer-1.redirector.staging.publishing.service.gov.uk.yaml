@@ -1,4 +1,4 @@
 ---
 
 govuk_bouncer::gor::enabled: true
-govuk_bouncer::gor::ip_address: '31.210.245.101'
+govuk_bouncer::gor::target: '31.210.245.101'
