@@ -605,11 +605,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
+              "target": "maximumAbove(aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*gov*.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
               "refId": "A"
             },
             {
-              "target": "maximumAbove(aliasSub(groupByNode(stats.frontend-*.nginx_logs.*_publishing_service_gov_uk.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
+              "target": "maximumAbove(aliasSub(groupByNode(stats.frontend-*.nginx_logs.*gov*.http_500,3,\"sum\"),\"_.*\",\"\"),0)",
               "refId": "B"
             }
           ],
