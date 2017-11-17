@@ -37,6 +37,8 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::frontend(
   $vhost = 'frontend',
@@ -48,6 +50,7 @@ class govuk::apps::frontend(
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
+  $secret_key_base = undef,
 ) {
 
   govuk::app { 'frontend':
@@ -80,7 +83,15 @@ class govuk::apps::frontend(
 
   govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+  }
+
+  if $secret_key_base != undef {
+    govuk::app::envvar {
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+    }
   }
 }
