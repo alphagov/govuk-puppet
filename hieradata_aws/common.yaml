@@ -108,9 +108,10 @@ apt::sources:
 
 backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-base::packages::gems:
-  ruby-shadow:
-    ensure: 2.5.0
+# Puppet 5 didn't work with Gem provider
+# base::packages::gems:
+#   ruby-shadow:
+#     ensure: 2.5.0
 
 base::packages::packages:
   - 'ack-grep'
@@ -657,6 +658,15 @@ govuk_ci::master::ci_agents:
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+
+govuk_containers::puppetdb::envvars:
+  - "PUPPETDB_DATABASE_CONNECTION=//puppetdb-postgres:5432/puppetdb"
+  - "PUPPETDB_USER=puppetdb"
+  - "PUPPETDB_PASSWORD=testchangeme"
+
+govuk_containers::puppetdb_postgres::envvars:
+  - "POSTGRES_USER=puppetdb"
+  - "POSTGRES_PASSWORD=testchangeme"
 
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=production"

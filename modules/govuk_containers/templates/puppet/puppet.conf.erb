@@ -1,0 +1,29 @@
+[main]
+vardir = /opt/puppetlabs/server/data/puppetserver
+logdir = /var/log/puppetlabs/puppetserver
+rundir = /var/run/puppetlabs/puppetserver
+pidfile = /var/run/puppetlabs/puppetserver/puppetserver.pid
+codedir = /etc/puppetlabs/code
+
+lastrunfile = $statedir/last_run_summary.yaml { mode = 644 }
+usecacheonfailure = false
+environment = <%= scope.lookupvar("::environment") %>
+strict_variables = true
+certname = puppet
+
+[master]
+reports = store,sentry
+report = true
+storeconfigs = true
+storeconfigs_backend = puppetdb
+<%- if scope.lookupvar('::aws_migration') %>
+hiera_config = /usr/share/puppet/production/current/hiera_aws.yml
+<%- else -%>
+hiera_config = /usr/share/puppet/production/current/hiera.yml
+<%- end -%>
+environmentpath = /usr/share/puppet/production/current/environments
+<%- if scope.lookupvar('::aws_migration') %>
+#autosign = /etc/puppetlabs/puppet/certsigner.rb
+autosign = true
+<%- end -%>
+

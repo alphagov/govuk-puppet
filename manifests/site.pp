@@ -29,10 +29,10 @@ Class['apt::update'] -> Package <|
 # Cannot be spoofed by Facter from `puppet agent`.
 $govuk_node_class = govuk_node_class()
 
-if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
-  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
-https://docs.publishing.service.gov.uk/manual/encrypted-hiera-data.html#puppet-fails-because-my-it-can39t-find-a-usable-gpg-key")
-}
+#if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
+#  fail("Hiera eYAML GPG encryption backend is not working; you should read: \
+#https://docs.publishing.service.gov.uk/manual/encrypted-hiera-data.html#puppet-fails-because-my-it-can39t-find-a-usable-gpg-key")
+#}
 
 node default {
   govuk_check_hostname_facts()
