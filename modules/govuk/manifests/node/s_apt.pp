@@ -117,6 +117,11 @@ class govuk::node::s_apt (
       location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
       release  => 'trusty',
       key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
+    'docker':
+      location => 'https://download.docker.com/linux/ubuntu',
+      release  => 'trusty',
+      repos    => ['stable'],
+      key      => '9DC858229FC7DD38854AE2D88D81803C0EBFCD88';
   }
 
   aptly::repo { 'elastic-beats': }
