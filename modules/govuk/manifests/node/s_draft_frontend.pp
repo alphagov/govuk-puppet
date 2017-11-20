@@ -22,6 +22,7 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
     govuk_envvar {
       'PLEK_SERVICE_MAPIT_URI': value  => "https://mapit.${app_domain}";
       'PLEK_SERVICE_SEARCH_URI': value => "https://search.${app_domain}";
+      'PLEK_SERVICE_RUMMAGER_URI': value => "https://rummager.${app_domain}";
     }
   }
 
