@@ -7,23 +7,23 @@
 # [*enabled*]
 #   Boolean to determine if Bouncer traffic will be replayed; defaults to false.
 #
-# [*ip_address*]
-#   IP address of the Bouncer application to replay against; defaults to undef.
+# [*target*]
+#   IP or hostname of the Bouncer application to replay against; defaults to undef.
 #
 class govuk_bouncer::gor (
   $enabled = false,
-  $ip_address = undef,
+  $target = undef,
 ) {
 
   validate_bool($enabled)
 
-  if $enabled and is_ip_address($ip_address) {
-    $gor_enable         = true
+  if ($enabled and $target) {
+    $gor_enable  = true
     # Bouncer only receives traffic over HTTP (port 80)
-    $gor_targets        = ["http://${ip_address}"]
+    $gor_targets = ["http://${target}"]
   } else {
-    $gor_enable         = false
-    $gor_targets        = []
+    $gor_enable  = false
+    $gor_targets = []
   }
 
   class { 'govuk_gor':
