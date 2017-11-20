@@ -109,6 +109,52 @@ class monitoring::checks (
   }
   # END signon
 
+  # START search
+
+  # On average 326 new documents were created per day in 2017, in total.
+  # The govuk index will only receive a fraction of these until we start
+  # indexing whitehall content in it.
+  icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager govuk index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
+  # Mainstream is comparable to the govuk index.
+  icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.mainstream.app.rummager.mainstream_index.docs.count, timeShift(stats.gauges.mainstream.app.rummager.mainstream_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager mainstream index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
+  # Government is comparable to the govuk index.
+  icinga::check::graphite { 'check_rummager_government_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.government.app.rummager.government_index.docs.count, timeShift(stats.gauges.government.app.rummager.government_index.docs.count, "3d"))',
+    warning             => 1500,
+    critical            => 15000,
+    desc                => 'rummager government index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
+  # Detailed is smaller than the other indexes (about 4500 documents)
+  icinga::check::graphite { 'check_rummager_detailed_index_size_changed':
+    target              => 'absolute(diffSeries(stats.gauges.detailed.app.rummager.detailed_index.docs.count, timeShift(stats.gauges.detailed.app.rummager.detailed_index.docs.count, "3d"))',
+    warning             => 200,
+    critical            => 400,
+    desc                => 'rummager detailed index size has significantly increased/decreased over the last 3 days',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
+  # END search
+
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
       target    => 'stats.gauges.govuk.app.support.queues.default',
