@@ -695,6 +695,8 @@ govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
+govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_elasticsearch::backup::alert_hostname: 'alert'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
