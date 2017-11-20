@@ -126,9 +126,10 @@ govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::publishing_api::enable_procfile_worker: false
-govuk::apps::publishing_api::rabbitmq::configure_test_exchange: true
-govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 govuk::apps::publishing_api::govuk_content_schemas_path: '/var/govuk/govuk-content-schemas'
+govuk::apps::publishing_api::rabbitmq::configure_test_exchange: true
+govuk::apps::publishing_api::rabbitmq_hosts: ['localhost']
+govuk::apps::publishing_api::suppress_draft_store_502_error: '1'
 govuk::apps::router::error_log: STDERR
 govuk::apps::router::enable_nginx_vhost: true
 govuk::apps::router::mongodb_name: "%{hiera('govuk::apps::router_api::mongodb_name')}"

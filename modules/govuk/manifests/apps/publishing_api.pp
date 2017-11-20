@@ -63,6 +63,13 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*rabbitmq_hosts*]
+#   RabbitMQ hosts to connect to.
+#   Default: localhost
+#
+# [*rabbitmq_user*]
+#   RabbitMQ username.
+#
 # [*rabbitmq_password*]
 #   A password to connect to RabbitMQ:
 #   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
@@ -102,6 +109,8 @@ class govuk::apps::publishing_api(
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_user = 'publishing_api',
   $rabbitmq_password = undef,
   $govuk_content_schemas_path = '',
   $event_log_aws_bucketname = undef,
@@ -143,6 +152,12 @@ class govuk::apps::publishing_api(
       port => $redis_port,
     }
 
+    govuk::app::envvar::rabbitmq { $app_name:
+      hosts    => $rabbitmq_hosts,
+      user     => $rabbitmq_user,
+      password => $rabbitmq_password,
+    }
+
     govuk::app::envvar {
       "${title}-CONTENT_STORE":
         varname => 'CONTENT_STORE',
@@ -159,9 +174,6 @@ class govuk::apps::publishing_api(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-RABBITMQ_PASSWORD":
-        varname => 'RABBITMQ_PASSWORD',
-        value   => $rabbitmq_password;
       "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
         varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
         value   => $govuk_content_schemas_path;
