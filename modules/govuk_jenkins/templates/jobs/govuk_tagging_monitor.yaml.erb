@@ -26,6 +26,7 @@
           set -eu
 
           cd govuk-tagging-monitor
+          export PUBLISHING_API_BEARER_TOKEN="<%= @publishing_api_bearer_token -%>"
           export RATE_LIMIT_TOKEN="<%= @rate_limit_token -%>"
           bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
           bundle exec rake run

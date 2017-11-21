@@ -11,8 +11,13 @@
 #   Sets the header "Rate-Limit-Token" which ensures that the tagging monitor is
 #   whitelisted by the rate limiting function (receiving 429 status)
 #
+# [*publishing_api_bearer_token*]
+#   Sets the PUBLISHING_API_BEARER_TOKEN when running the
+#   govuk_tagging_monitor to allow it to use the Publishing API.
+#
 class govuk_jenkins::job::govuk_tagging_monitor (
   $rate_limit_token = undef,
+  $publishing_api_bearer_token = undef,
 ) {
 
   file { '/etc/jenkins_jobs/jobs/govuk_tagging_monitor.yaml':
