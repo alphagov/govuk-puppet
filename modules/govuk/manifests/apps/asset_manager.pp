@@ -166,7 +166,7 @@ class govuk::apps::asset_manager(
         # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
         add_header X-Frame-Options $x_frame_options_from_rails;
 
-        # Remove S3 HTTP headers listed in:
+        # Remove S3 HTTP headers including those listed in:
         # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
         # This keeps this HTTP response as similar as possible to the response
         # sent when using Sendfile to serve files from NFS
@@ -174,6 +174,8 @@ class govuk::apps::asset_manager(
         proxy_hide_header x-amz-id-2;
         proxy_hide_header x-amz-request-id;
         proxy_hide_header x-amz-version-id;
+        proxy_hide_header x-amz-replication-status;
+        proxy_hide_header x-amz-meta-md5-hexdigest;
 
         # Add Google DNS server to avoid "no resolver defined to resolve"
         # errors when trying to connect to S3
