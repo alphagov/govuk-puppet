@@ -45,6 +45,8 @@ define grafana::dashboards::deployment_dashboard (
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
   $fields_prefix = '@fields.',
+  $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
+
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
