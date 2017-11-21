@@ -54,10 +54,17 @@ govuk_jenkins::config::banner_string: 'AWS Deploy'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::deploy_app
+  - govuk_jenkins::job::deploy_emergency_banner
   - govuk_jenkins::job::deploy_puppet
   - govuk_jenkins::job::passive_checks
+  - govuk_jenkins::job::remove_emergency_banner
+  - govuk_jenkins::job::run_rake_task
+  - govuk_jenkins::job::search_benchmark
+  - govuk_jenkins::job::search_index_checks
+  - govuk_jenkins::job::search_test_spelling_suggestions
   - govuk_jenkins::job::smokey
   - govuk_jenkins::job::smokey_deploy
+  - govuk_jenkins::job::user_monitor
 
 govuk_jenkins::plugins:
   ace-editor:
