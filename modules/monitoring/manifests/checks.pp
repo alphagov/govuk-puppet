@@ -157,7 +157,7 @@ class monitoring::checks (
 
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
-      target    => 'stats.gauges.govuk.app.support.queues.default',
+      target    => 'stats.gauges.govuk.app.support.workers.queues.default.enqueued',
       warning   => 10,
       critical  => 20,
       desc      => 'support app background processing: unexpectedly large default queue size',
