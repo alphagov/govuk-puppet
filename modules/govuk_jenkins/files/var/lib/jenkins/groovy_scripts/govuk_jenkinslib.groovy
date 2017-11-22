@@ -115,6 +115,20 @@ def buildProject(Map options = [:]) {
     [$class: 'ParametersDefinitionProperty', parameterDefinitions: parameterDefinitions],
   ])
 
+  def defaultParameterValuesMap = [:]
+  parameterDefinitions.each {
+    // to handle params defined with the xxxParam(...) DSL instead of
+    // [$class: ... ] style because we can't call .name / .defaultValue
+    // on them directly
+    if (it.class == org.jenkinsci.plugins.structs.describable.UninstantiatedDescribable) {
+      def mapVersionOfIt = it.toMap()
+      defaultParameterValuesMap[mapVersionOfIt.name] = mapVersionOfIt.defaultValue
+    } else {
+      defaultParameterValuesMap[it.name] = it.defaultValue
+    }
+  }
+  initializeParameters(defaultParameterValuesMap)
+
   try {
     if (!isAllowedBranchBuild(env.BRANCH_NAME)) {
       return
