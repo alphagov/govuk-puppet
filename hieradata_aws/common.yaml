@@ -967,6 +967,8 @@ monitoring::checks::smokey::features:
   check_travel_advice:
     feature: travel_advice
 
+monitoring::uptime_collector::aws: true
+
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 

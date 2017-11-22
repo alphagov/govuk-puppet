@@ -8,8 +8,12 @@
 #   The environment the uptime collecting is running in. For example:
 #     production, integration or staging.
 #
+# [*aws*]
+#   Optional. True or false, depending on whether we're running in AWS or not.
+
 class monitoring::uptime_collector (
   $environment = '',
+  $aws = false,
 ) {
   exec { 'install statsd into 2.3 rbenv':
     environment => 'RBENV_VERSION=2.3',
