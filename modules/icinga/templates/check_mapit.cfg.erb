@@ -1,5 +1,10 @@
 define command {
   command_name check_mapit
+  <%- if scope.lookupvar('::aws_migration') %>
+  command_line /usr/lib/nagios/plugins/check_http -H mapit.<%= @app_domain_internal %> -u /postcode/W54XA -w1 -c2 -s 'E14000676' --ssl
+  <%- else %>
   command_line /usr/lib/nagios/plugins/check_http -H mapit.<%= @app_domain %> -u /postcode/W54XA -w1 -c2 -s 'E14000676' --ssl
+  <%- end %>
+
 }
 
