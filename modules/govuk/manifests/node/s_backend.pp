@@ -24,6 +24,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     ensure => installed,
   }
 
+  package { 'redis-tools':
+    ensure => installed,
+  }
+
   include imagemagick
 
   include nginx
