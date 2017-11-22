@@ -488,7 +488,7 @@ def sassLinter(String dirs = 'app/assets/stylesheets') {
 def precompileAssets() {
   echo 'Precompiling the assets'
   withStatsdTiming("assets_precompile") {
-    sh('bundle exec rake assets:clean assets:precompile')
+    sh('bundle exec rake assets:clobber assets:precompile')
   }
 }
 
