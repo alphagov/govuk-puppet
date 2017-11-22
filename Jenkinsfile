@@ -5,6 +5,10 @@ REPOSITORY = 'govuk-puppet'
 node {
   def govuk = load '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy'
 
+  properties([
+    buildDiscarder(logRotator(numToKeepStr: '50')),
+  ])
+
   try {
     stage("Checkout") {
       govuk.checkoutFromGitHubWithSSH(REPOSITORY)
