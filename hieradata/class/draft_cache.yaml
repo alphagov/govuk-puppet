@@ -25,8 +25,6 @@ govuk::node::s_base::apps:
   - router
   - router_api
 
-govuk::node::s_cache::enable_authenticating_proxy: true
-
 nginx::package::nginx_package: 'nginx-extras'
 
 router::nginx::check_requests_warning: '@0'
