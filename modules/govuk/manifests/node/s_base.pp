@@ -48,6 +48,7 @@ class govuk::node::s_base (
     $apps = regsubst($_apps, '-', '_', G)
 
     $app_classes = regsubst($apps, '^', 'govuk::apps::')
+
     include $app_classes
   }
 
