@@ -4,18 +4,18 @@
 #
 # === Parameters
 #
-# [*apps*]
-#   An array of GOV.UK applications that should be included on this machine.
+# [*node_apps*]
+#   A hash of GOV.UK applications that run on a node class.
 #
 # [*log_remote*]
 #   Whether to enable sending syslogs to remote syslog server. Parameter should
 #   be removed when we have fully migrated to using Filebeat for shipping logs.
 #
 class govuk::node::s_base (
-  $apps = [],
+  $node_apps = {},
   $log_remote = true,
 ) {
-  validate_array($apps)
+  validate_hash($node_apps)
 
   include backup::client
   include base
@@ -34,8 +34,22 @@ class govuk::node::s_base (
     include hosts
   }
 
-  $app_classes = regsubst($apps, '^', 'govuk::apps::')
-  include $app_classes
+  if $::aws_migration {
+    $_node_class = $::aws_migration
+  } else {
+    $_hostname = regsubst($::fqdn_short, '-\d\..*$', '')
+    $_node_class = regsubst($_hostname, '-', '_', G)
+  }
+
+  $node_class = $node_apps[$_node_class]
+
+  unless empty($node_class) {
+    $_apps = $node_class['apps']
+    $apps = regsubst($_apps, '-', '_', G)
+
+    $app_classes = regsubst($apps, '^', 'govuk::apps::')
+    include $app_classes
+  }
 
   class { 'rsyslog':
     preserve_fqdn   => true,

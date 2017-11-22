@@ -9,12 +9,3 @@ govuk::apps::service_manual_frontend::vhost: 'draft-service-manual-frontend'
 
 govuk::apps::static::draft_environment: true
 govuk::apps::static::vhost: 'draft-static'
-
-govuk::node::s_base::apps:
- - collections
- - email_alert_frontend
- - frontend
- - government_frontend
- - manuals_frontend
- - service_manual_frontend
- - static

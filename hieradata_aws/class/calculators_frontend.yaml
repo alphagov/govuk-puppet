@@ -1,10 +1,2 @@
 ---
-
-govuk::node::s_base::apps:
-  - calculators
-  - calendars
-  - finder_frontend
-  - licencefinder
-  - smartanswers
-
 govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"

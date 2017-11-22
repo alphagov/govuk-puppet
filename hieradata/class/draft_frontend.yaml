@@ -20,12 +20,3 @@ mount:
     disk: '/dev/mapper/vhost-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
-
-govuk::node::s_base::apps:
- - collections
- - email_alert_frontend
- - frontend
- - government_frontend
- - manuals_frontend
- - service_manual_frontend
- - static

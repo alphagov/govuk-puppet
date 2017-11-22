@@ -4,6 +4,122 @@ HIERA_SAFETY_CHECK: true
 app_domain: 'dev.gov.uk'
 app_domain_internal: 'dev.gov.uk'
 
+node_class: &node_class
+  api:
+    apps:
+      - backdrop-read
+      - backdrop-write
+  asset_master:
+    apps:
+      - asset_env_sync
+  backend:
+    apps:
+      - asset-manager
+      - canary-backend
+      - collections-publisher
+      - contacts
+      - content-performance-manager
+      - content-tagger
+      - email-alert-api
+      - email-alert-service
+      - event-store
+      - hmrc-manuals-api
+      - imminence
+      - kibana
+      - link-checker-api
+      - local-links-manager
+      - manuals-publisher
+      - maslow
+      - policy-publisher
+      - publisher
+      - release
+      - search-admin
+      - service-manual-publisher
+      - short-url-manager
+      - sidekiq-monitoring
+      - signon
+      - specialist-publisher
+      - support
+      - support-api
+      - transition
+      - travel-advice-publisher
+  bouncer:
+    apps:
+      - bouncer
+  cache:
+    apps:
+      - router
+  content_store:
+    apps:
+      - content-store
+  calculators_frontend:
+    apps:
+      - calculators
+      - calendars
+      - finder-frontend
+      - licencefinder
+      - smartanswers
+  draft_cache:
+    apps:
+      - router
+      - router-api
+  draft_content_store:
+    apps:
+      - content-store
+  draft_frontend:
+    apps:
+      - collections
+      - email-alert-frontend
+      - frontend
+      - government-frontend
+      - manuals-frontend
+      - service-manual-frontend
+      - static
+  frontend:
+    apps:
+      - canary-frontend
+      - collections
+      - designprinciples
+      - email-alert-frontend
+      - feedback
+      - frontend
+      - government-frontend
+      - info-frontend
+      - manuals-frontend
+      - service-manual-frontend
+      - static
+  frontend_lb:
+    apps:
+      - publicapi
+      - public-event-store
+  logs_cdn:
+    apps:
+      - govuk-cdn-logs-monitor
+  mapit:
+    apps:
+      - mapit
+  mirrorer:
+    apps:
+      - govuk-crawler-worker
+  publishing_api:
+    apps:
+      - publishing-api
+  router_backend:
+    apps:
+      - router-api
+  search:
+    apps:
+      - rummager
+  whitehall_backend:
+    apps:
+      - whitehall
+  whitehall_frontend:
+    apps:
+      - whitehall
+
+govuk::node::s_base::node_apps:
+  <<: *node_class
+
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
 # need to add an empty hash
