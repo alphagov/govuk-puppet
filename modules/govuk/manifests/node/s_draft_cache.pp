@@ -5,8 +5,12 @@
 #
 # Includes `govuk::node::s_cache`.
 #
-class govuk::node::s_draft_cache() {
-  include govuk::node::s_cache
+class govuk::node::s_draft_cache(
+  $enable_authenticating_proxy = true,
+) {
+  class { 'govuk::node::s_cache':
+    enable_authenticating_proxy => $enable_authenticating_proxy,
+  }
 
   $app_domain = hiera('app_domain')
 
