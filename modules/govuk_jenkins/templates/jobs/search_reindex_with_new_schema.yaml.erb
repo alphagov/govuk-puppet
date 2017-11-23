@@ -9,7 +9,7 @@
       numToKeep: 10
 <% if @environment == 'integration' %>
     triggers:
-        - timed: '12 * * * 1'  # Every monday
+        - timed: '0 12 * * 1'  # Every monday at midday
 <% end %>
     builders:
         - shell: ssh deploy@$(govuk_node_list -c search --single-node) "cd /var/apps/rummager && govuk_setenv rummager CONFIRM_INDEX_MIGRATION_START=1 bundle exec rake rummager:migrate_schema"
