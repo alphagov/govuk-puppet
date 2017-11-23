@@ -26,7 +26,6 @@ class govuk::node::s_frontend_lb (
     [
       'canary-frontend',
       'collections',
-      'designprinciples',
       'email-alert-frontend',
       'feedback',
       'frontend',

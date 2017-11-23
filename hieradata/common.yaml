@@ -24,8 +24,6 @@ deployable_applications: &deployable_applications
   content-performance-manager: {}
   content-store: {}
   content-tagger: {}
-  designprinciples:
-    repository: 'design-principles'
   email-alert-api: {}
   email-alert-frontend: {}
   email-alert-service: {}
@@ -1180,7 +1178,6 @@ hosts::production::frontend::app_hostnames:
   - 'calendars'
   - 'canary-frontend'
   - 'collections'
-  - 'designprinciples'
   - 'draft-collections'
   - 'draft-email-alert-frontend'
   - 'draft-frontend'
@@ -1458,7 +1455,6 @@ router::assets_origin::asset_routes:
   '/calculators/': "calculators"
   '/calendars/': "calendars"
   '/collections/': "collections"
-  '/designprinciples/': "designprinciples"
   '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"
   '/finder-frontend/': "finder-frontend"

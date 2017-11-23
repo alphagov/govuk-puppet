@@ -21,6 +21,7 @@ class govuk::apps::designprinciples(
   $sentry_dsn = undef,
 ) {
   govuk::app { 'designprinciples':
+    ensure                => 'absent',
     app_type              => 'rack',
     port                  => $port,
     health_check_path     => '/design-principles',
@@ -32,6 +33,7 @@ class govuk::apps::designprinciples(
   }
 
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
+    ensure  => 'absent',
     app     => 'designprinciples',
     varname => 'PUBLISHING_API_BEARER_TOKEN',
     value   => $publishing_api_bearer_token,

@@ -6,7 +6,6 @@ collections-publisher
 contacts-admin
 content-store
 content-tagger
-design-principles
 email-alert-api
 email-alert-frontend
 email-alert-service

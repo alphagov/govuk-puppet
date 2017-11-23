@@ -26,7 +26,6 @@ process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store
 process :'draft-router'
 process :'draft-router-api'
 process :'draft-static'
-process :designprinciples => [:static]
 process :'email-alert-api'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
