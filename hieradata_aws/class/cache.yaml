@@ -4,7 +4,4 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-2'
   - 'router-backend-3'
 
-govuk::node::s_base::apps:
-  - publicapi
-
 govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"

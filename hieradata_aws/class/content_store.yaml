@@ -5,6 +5,3 @@ govuk::apps::content_store::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
   - 'mongo-3'
-
-govuk::node::s_base::apps:
-  - content_store

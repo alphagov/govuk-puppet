@@ -1,8 +1,5 @@
 ---
 
-govuk::node::s_base::apps:
-  - asset_env_sync
-
 govuk::node::s_asset_master::asset_slave_ip_ranges:
   asset_slave_1_nfs:
     from: "%{hiera('environment_ip_prefix')}.3.21"
