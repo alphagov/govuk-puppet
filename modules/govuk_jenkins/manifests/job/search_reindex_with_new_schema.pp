@@ -21,7 +21,6 @@ class govuk_jenkins::job::search_reindex_with_new_schema (
     host_name           => $::fqdn,
     freshness_threshold => 619200,
     action_url          => $job_url,
-    # TODO: add this to the developer docs
-    # notes_url           => monitoring_docs_url(search-reindex-failed),
+    notes_url           => monitoring_docs_url(search-reindex-failed),
   }
 }
