@@ -11,7 +11,9 @@ class govuk_ci::agent::docker {
     docker_users => ['jenkins'],
   }
 
-  include ::docker::compose
+  class { '::docker::compose':
+    version => '1.17.1',
+  }
 
   cron::crondotdee { 'remove_docker_dangling_images' :
     hour    => 10,
