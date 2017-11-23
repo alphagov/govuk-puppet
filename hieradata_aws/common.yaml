@@ -90,10 +90,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  frontend_lb:
-    apps:
-      - publicapi
-      - public-event-store
   logs_cdn:
     apps:
       - govuk-cdn-logs-monitor
