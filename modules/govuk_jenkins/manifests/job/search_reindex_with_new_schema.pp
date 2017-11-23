@@ -4,6 +4,8 @@
 #
 class govuk_jenkins::job::search_reindex_with_new_schema (
   $app_domain = hiera('app_domain'),
+  $icinga_check_enabled = false,
+  $cron_schedule = undef,
 ) {
 
   $check_name = 'search-reindex-with-new-schema'
@@ -16,11 +18,13 @@ class govuk_jenkins::job::search_reindex_with_new_schema (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  @@icinga::passive_check { "${check_name}_${::hostname}":
-    service_description => $service_description,
-    host_name           => $::fqdn,
-    freshness_threshold => 619200,
-    action_url          => $job_url,
-    notes_url           => monitoring_docs_url(search-reindex-failed),
+  if ($icinga_check_enabled) {
+    @@icinga::passive_check { "${check_name}_${::hostname}":
+      service_description => $service_description,
+      host_name           => $::fqdn,
+      freshness_threshold => 619200,
+      action_url          => $job_url,
+      notes_url           => monitoring_docs_url(search-reindex-failed),
+    }
   }
 }

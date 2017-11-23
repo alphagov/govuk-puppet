@@ -7,9 +7,9 @@
       Rebuild new search indexes with up to date settings and mappings, and reindex all content from the existing indexes.
     logrotate:
       numToKeep: 10
-<% if @environment == 'integration' %>
+<% if @cron_schedule %>
     triggers:
-        - timed: '0 12 * * 1'  # Every monday at midday
+        - timed: '<%= @cron_schedule %>'
 <% end %>
     builders:
         - shell: ssh deploy@$(govuk_node_list -c search --single-node) "cd /var/apps/rummager && govuk_setenv rummager CONFIRM_INDEX_MIGRATION_START=1 bundle exec rake rummager:migrate_schema"
