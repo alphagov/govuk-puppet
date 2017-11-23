@@ -17,9 +17,7 @@ class monitoring::client (
     require  => Package['update-notifier-common'],
   }
 
-  class { 'statsd':
-    graphite_hostname => $graphite_hostname,
-  }
+  include statsd
 
   file { '/usr/local/bin/notify_passive_check':
     ensure  => present,
