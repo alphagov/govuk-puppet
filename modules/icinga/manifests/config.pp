@@ -30,6 +30,7 @@ class icinga::config (
   contain icinga::config::smokey
 
   $app_domain = hiera('app_domain','dev.gov.uk')
+  $app_domain_internal = hiera('app_domain_internal','')
 
   $check_graphite_command = '/usr/local/bin/check_graphite'
 
