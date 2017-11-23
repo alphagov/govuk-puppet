@@ -17,6 +17,18 @@
     properties:
         - github:
             url: https://github.com/alphagov/cdn-configs/
+        - slack:
+            notify-start: false
+            notify-success: true
+            notify-aborted: true
+            notify-notbuilt: true
+            notify-unstable: false
+            notify-failure: true
+            notify-backtonormal: false
+            notify-repeatedfailure: false
+            include-test-summary: false
+            room: <%= @slack_room %>
+
     scm:
       - update_cdn_dictionaries
     builders:
@@ -24,6 +36,11 @@
             cd fastly
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec ./dictionaries/configure_dictionaries ${vhost} <%= @environment %>
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
     wrappers:
         - ansicolor:
             colormap: xterm
