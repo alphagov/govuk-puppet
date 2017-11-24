@@ -26,8 +26,10 @@ class monitoring::checks (
 
   $app_domain = hiera('app_domain')
 
-  if $app_domain != 'integration.publishing.service.gov.uk' {
-    include monitoring::checks::reboots
+  unless $::aws_migration {
+    if $app_domain != 'integration.publishing.service.gov.uk' {
+      include monitoring::checks::reboots
+    }
   }
 
   include icinga::plugin::check_http_timeout_noncrit
