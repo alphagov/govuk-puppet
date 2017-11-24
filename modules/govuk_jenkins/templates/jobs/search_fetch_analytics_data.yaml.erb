@@ -24,7 +24,7 @@
         - search-analytics_search-fetch-analytics-data
     builders:
         - shell: |
-            ./nightly-run.sh
+            ./nightly-run.sh <%= @skip_page_traffic_load && 'SKIP_TRAFFIC_LOAD=true' %>
     triggers:
         - timed: '5 4 * * *'
     publishers:

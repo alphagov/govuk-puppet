@@ -5,6 +5,7 @@
 class govuk_jenkins::job::search_fetch_analytics_data (
   $ga_auth_password = undef,
   $app_domain = hiera('app_domain'),
+  $skip_page_traffic_load = false,
 ) {
 
   $check_name = 'search-fetch-analytics-data'

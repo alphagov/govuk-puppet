@@ -138,6 +138,7 @@ govuk_jenkins::job::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::job::deploy_dns::zones:
   - 'dnstest.alphagov.co.uk'
 
+govuk_jenkins::job::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::job::search_benchmark::cron_schedule: '30 9 * * 1-5'
 govuk_jenkins::job::search_reindex_with_new_schema::icinga_check_enabled: true
 govuk_jenkins::job::search_reindex_with_new_schema::cron_schedule: '0 12 * * 1'
