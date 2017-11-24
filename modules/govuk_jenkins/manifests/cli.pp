@@ -12,9 +12,12 @@
 #
 # === Parameters:
 #
-# [*jenkins_home*]
-#   The home directory of the Jenkins install, and where to put the
-#   Jenkins CLI jar.
+# [*jenkins_url*]
+#   The URL of the Jenkins instance. Must include protocol and ports:
+#   http://localhost:8080
+#
+# [*jar_directory*]
+#   Where to install the Jenkins CLI jar file.
 #
 # [*jenkins_api_user*]
 #   The user used to authenticate with the Jenkins API.
@@ -23,15 +26,14 @@
 #   The token used to authenticate with the Jenkins API.
 #
 class govuk_jenkins::cli (
-  $jenkins_home = '/var/lib/jenkins',
+  $jenkins_url = 'http://localhost:8080',
+  $jar_directory = '/var/lib/jenkins',
   $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
 ) {
-  require ::govuk_jenkins
-
   curl::fetch { 'Jenkins CLI tool':
-    source      => 'http://localhost:8080/jnlpJars/jenkins-cli.jar',
-    destination => "${jenkins_home}/jenkins-cli.jar",
+    source      => "${jenkins_url}/jnlpJars/jenkins-cli.jar",
+    destination => "${jar_directory}/jenkins-cli.jar",
     timeout     => 0,
     verbose     => false,
   }
