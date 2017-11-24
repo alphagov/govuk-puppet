@@ -24,6 +24,8 @@ class govuk::deploy::setup (
     $aws_ses_smtp_password,
     $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
+    $jenkins_url = undef,
+    $jenkins_jar_directory = undef,
 ){
   validate_hash($ssh_keys)
 
@@ -105,5 +107,14 @@ class govuk::deploy::setup (
     require   => User['deploy'],
     user_home => '/home/deploy',
     username  => 'deploy',
+  }
+
+  # In AWS we wish to automate deploys using Jenkins when a node is created
+  # for all application instances
+  if $::aws_migration {
+    class { 'govuk_jenkins::cli':
+      jenkins_url   => $jenkins_url,
+      jar_directory => $jenkins_jar_directory,
+    }
   }
 }
