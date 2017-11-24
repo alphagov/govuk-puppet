@@ -4,4 +4,10 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-2'
   - 'router-backend-3'
 
+govuk::apps::router::mongodb_name: 'router'
+govuk::apps::router::mongodb_nodes:
+  - 'router-backend-1'
+  - 'router-backend-2'
+  - 'router-backend-3'
+
 govuk::deploy::config::app_domain: "%{hiera('app_domain_internal')}"
