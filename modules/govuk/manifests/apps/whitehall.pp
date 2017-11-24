@@ -101,6 +101,10 @@
 #   email to the content second line group in GDS.
 #   Default: undef
 #
+# [*link_checker_api_secret_token*]
+#   The Link Checker API secret token.
+#   Default: undef
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -133,6 +137,7 @@ class govuk::apps::whitehall(
   $vhost_protected,
   $jwt_auth_secret = undef,
   $co_nss_watchkeeper_email_address = undef,
+  $link_checker_api_secret_token = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -354,6 +359,9 @@ class govuk::apps::whitehall(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
+      "${title}-LINK_CHECKER_API_SECRET_TOKEN":
+        varname => 'LINK_CHECKER_API_SECRET_TOKEN',
+        value   => $link_checker_api_secret_token;
     }
 
     if $::govuk_node_class !~ /^(development|training)$/ {
