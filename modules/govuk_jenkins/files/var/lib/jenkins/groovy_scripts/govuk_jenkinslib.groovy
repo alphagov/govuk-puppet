@@ -371,11 +371,15 @@ def mergeMasterBranch() {
  *
  * Cannot iterate over maps in Jenkins2 currently
  *
+ * Note: for scope-related reasons the code in here is inlined directly
+ * in the initializeParameters method below, if you change our version
+ * you should update it there too.
+ *
  * @param key
  * @param value
  */
 def setEnvar(String key, String value) {
-  echo 'Setting environment variable'
+  echo 'Setting environment variable ${key}'
   env."${key}" = value
 }
 
@@ -387,12 +391,17 @@ def setEnvar(String key, String value) {
  * every subsequent build, whether it is triggered automatically by a branch
  * push or manually by a Jenkins user.
  *
+ * This doesn't use setEnvar because for some scope-related reason we couldn't
+ * work out, first builds would fail because it couldn't find setEnvar. We
+ * inline the code instead.
+ *
  * @param defaultBuildParams map of build parameter names to default values
  */
 def initializeParameters(Map<String, String> defaultBuildParams) {
   for (param in defaultBuildParams) {
     if (env."${param.key}" == null) {
-      setEnvar(param.key, param.value)
+      echo 'Setting environment variable ${param.key}'
+      env."${param.key}" = param.value
     }
   }
 }
