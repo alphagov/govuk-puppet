@@ -43,8 +43,8 @@ begin
     exit 1
   end
 rescue
-  puts "UNKNOWN: Could not parse puppet summary file"
-  exit 3
+  puts "CRITICAL: Could not parse puppet summary file"
+  exit 2
 end
 
 puts "OK: Puppet is doing good [ver: #{config_version}]"
