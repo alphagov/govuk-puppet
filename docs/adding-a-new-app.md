@@ -183,8 +183,9 @@ files.
 ## Including the app on machines
 
 Once you have created a class for your app, you need to include it in the appropriate nodes.
-These can be found in `hieradata/class/`. Additionally, all apps
-should be included in the development environment.
+These can be found in `hieradata/common.yaml` under the `node_class` key.
+
+Additionally, all apps should be included in the development environment.
 
 ```
 # hieradata/development.yaml
