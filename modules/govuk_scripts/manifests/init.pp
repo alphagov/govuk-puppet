@@ -33,6 +33,8 @@ class govuk_scripts {
       provider => 'pip',
     }
 
+    $app_domain_internal = hiera('app_domain_internal')
+
     file { '/usr/local/bin/govuk_node_list':
       ensure  => present,
       content => template('govuk_scripts/govuk_node_list_aws.erb'),

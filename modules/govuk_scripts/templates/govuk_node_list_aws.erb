@@ -72,7 +72,7 @@ def main():
         query = '["and", ["=", "type", "Class"], {0}]'.format(class_query)
 
         qs = urllib.urlencode({'query': query})
-        res = urllib2.urlopen('http://puppetdb/v2/{0}?{1}'.format(endpoint, qs))
+        res = urllib2.urlopen('https://puppetdb.<%= @app_domain_internal %>/v2/{0}?{1}'.format(endpoint, qs))
         hosts = json.load(res)
 
     else:
