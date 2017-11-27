@@ -115,30 +115,30 @@ class monitoring::checks (
   # The govuk index will only receive a fraction of these until we start
   # indexing whitehall content in it.
   icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
-    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "3d")))',
+    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.govuk_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.govuk_index.docs.count, "7d")))',
     warning             => 1500,
     critical            => 15000,
-    desc                => 'rummager govuk index size has significantly increased/decreased over the last 3 days',
+    desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
   }
 
   # Mainstream is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
-    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.mainstream_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.mainstream_index.docs.count, "3d")))',
+    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.mainstream_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.mainstream_index.docs.count, "7d")))',
     warning             => 1500,
     critical            => 15000,
-    desc                => 'rummager mainstream index size has significantly increased/decreased over the last 3 days',
+    desc                => 'rummager mainstream index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
   }
 
   # Government is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_government_index_size_changed':
-    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.government_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.government_index.docs.count, "3d")))',
+    target              => 'absolute(diffSeries(stats.gauges.govuk.app.rummager.government_index.docs.count, timeShift(stats.gauges.govuk.app.rummager.government_index.docs.count, "7d")))',
     warning             => 1500,
     critical            => 15000,
-    desc                => 'rummager government index size has significantly increased/decreased over the last 3 days',
+    desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
   }
