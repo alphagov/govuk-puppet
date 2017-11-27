@@ -8,6 +8,8 @@
 class govuk::node::s_draft_cache(
   $enable_authenticating_proxy = true,
 ) {
+  include govuk::node::s_app_server
+
   class { 'govuk::node::s_cache':
     enable_authenticating_proxy => $enable_authenticating_proxy,
   }

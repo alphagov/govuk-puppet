@@ -44,7 +44,7 @@ class govuk::apps::authenticating_proxy(
   $mongodb_name = 'authenticating_proxy_production',
   $port = '3107',
   $sentry_dsn = undef,
-  $govuk_upstream_uri = undef,
+  $govuk_upstream_uri = 'http://localhost:3054',
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
