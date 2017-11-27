@@ -90,10 +90,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  frontend_lb:
-    apps:
-      - publicapi
-      - public-event-store
   logs_cdn:
     apps:
       - govuk-cdn-logs-monitor
@@ -121,6 +117,10 @@ node_class: &node_class
 
 govuk::node::s_base::node_apps:
   <<: *node_class
+
+govuk_jenkins::deploy_all_apps::apps_on_nodes:
+  <<: *node_class
+
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
@@ -615,6 +615,8 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_jenkins::deploy_all_apps::deploy_environment: "%{hiera('govuk_jenkins::job_builder::environment')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
