@@ -13,12 +13,13 @@ class base {
   include cron
   include curl
   include govuk::deploy
-  include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
+  include govuk_apt::unused_kernels
   include govuk_envsys
   include govuk_scripts
   include govuk_sshkeys
   include govuk_sudo
+  include govuk_sysdig
   include govuk_unattended_reboot
   include logrotate
   include ntp

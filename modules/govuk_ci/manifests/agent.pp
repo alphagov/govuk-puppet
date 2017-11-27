@@ -35,7 +35,6 @@ class govuk_ci::agent(
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
   include ::govuk_rbenv::all
-  include ::govuk_sysdig
   include ::govuk_testing_tools
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
