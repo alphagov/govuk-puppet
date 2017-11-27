@@ -40,10 +40,6 @@ class govuk::node::s_cache (
   include govuk_htpasswd
   include router::gor
 
-  if $::aws_migration {
-    include ::govuk_containers::apps::router
-  }
-
   class { 'nginx':
     denied_ip_addresses     => $denied_ip_addresses,
     variables_hash_max_size => '768',

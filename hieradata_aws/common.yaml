@@ -791,13 +791,6 @@ govuk_containers::apps::release::envvars:
   - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
   - "RAILS_SERVE_STATIC_FILES=true"
 
-govuk_containers::apps::router::envvars:
-  - "ROUTER_PUBADDR=localhost:3054"
-  - "ROUTER_APIADDR=:3055"
-  - "ROUTER_MONGO_DB=router"
-  - "ROUTER_MONGO_URL=router-backend-1,router-backend-2,router-backend-3"
-  - "ROUTER_BACKEND_HEADER_TIMEOUT=20s"
-
 govuk_containers::frontend::haproxy::backend_mappings:
   - "release.%{hiera('app_domain')}": "release"
 govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
