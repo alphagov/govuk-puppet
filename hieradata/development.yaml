@@ -113,6 +113,7 @@ govuk::apps::licencefinder::mongodb_nodes: ['localhost']
 govuk::apps::manuals_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::link_checker_api::enable_procfile_worker: false
 govuk::apps::link_checker_api::enabled: true
+govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
