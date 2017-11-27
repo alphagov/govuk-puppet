@@ -878,7 +878,6 @@ govuk_sudo::sudo_conf:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
 govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_sysdig::ensure: 'absent'
 
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
