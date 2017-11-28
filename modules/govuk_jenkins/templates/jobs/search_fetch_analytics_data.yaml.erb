@@ -22,9 +22,15 @@
       </ul>
     scm:
         - search-analytics_search-fetch-analytics-data
+<% if @skip_page_traffic_load %>
+    properties:
+        - inject:
+            properties-content: |
+              SKIP_TRAFFIC_LOAD=true
+<% end %>
     builders:
         - shell: |
-            <%= @skip_page_traffic_load && 'SKIP_TRAFFIC_LOAD=true' %> ./nightly-run.sh
+            ./nightly-run.sh
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:
