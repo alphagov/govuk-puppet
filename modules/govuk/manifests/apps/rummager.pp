@@ -184,6 +184,11 @@ class govuk::apps::rummager(
     value   => $elasticsearch_hosts,
   }
 
+  govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
+    varname => 'ELASTICSEARCH_HOSTS',
+    value   => $elasticsearch_hosts,
+  }
+
   govuk::app::envvar { "${title}-SITEMAP_GENERATION_TIME":
     varname => 'SITEMAP_GENERATION_TIME',
     value   => $sitemap_generation_time,
