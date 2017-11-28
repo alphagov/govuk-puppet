@@ -106,12 +106,6 @@ class govuk::apps::email_alert_api(
       enable_service => $enable_procfile_worker,
     }
 
-    @filebeat::prospector { 'email_alert_api_sidekiq_json_log':
-      paths  => ['/var/apps/email-alert-api/log/sidekiq.json.log'],
-      fields => {'application' => 'email-alert-api-sidekiq'},
-      json   => {'add_error_key' => true},
-    }
-
     @filebeat::prospector { 'govdelivery_json_log':
       paths  => ['/var/apps/email-alert-api/log/govdelivery.log'],
       fields => {'application' => 'email-alert-api-govdelivery'},
