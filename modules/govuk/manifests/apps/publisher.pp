@@ -96,7 +96,9 @@ class govuk::apps::publisher(
     $email_group_citizen = undef,
   ) {
 
-  govuk::app { 'publisher':
+  $app_name = 'publisher'
+
+  govuk::app { $app_name:
     app_type            => 'rack',
     port                => $port,
     sentry_dsn          => $sentry_dsn,
@@ -133,24 +135,24 @@ class govuk::apps::publisher(
     group  => 'assets',
   }
 
-  govuk::procfile::worker {'publisher':
+  govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
 
   if $mongodb_nodes != undef {
-    govuk::app::envvar::mongodb_uri { 'publisher':
+    govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
     }
   }
 
-  govuk::app::envvar::redis { 'publisher':
+  govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
   }
 
   Govuk::App::Envvar {
-    app => 'publisher',
+    app => $app_name,
   }
 
   if $run_fact_check_fetcher {
