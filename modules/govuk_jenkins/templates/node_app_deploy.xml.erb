@@ -13,6 +13,9 @@
   <disabled>false</disabled>
   <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
   <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <%- if @auth_token != '' -%>
+  <authToken><%= auth_token %></authToken>
+  <%- end -%>
   <triggers/>
   <concurrentBuild>false</concurrentBuild>
   <builders>

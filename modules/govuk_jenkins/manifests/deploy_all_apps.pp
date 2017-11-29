@@ -27,6 +27,7 @@ class govuk_jenkins::deploy_all_apps (
   $user = 'jenkins',
   $apps_on_nodes = {},
   $deploy_environment = 'development',
+  $auth_token = '',
 ) {
 
   $project_directory = "${jobs_directory}/${project_name}"
@@ -55,6 +56,7 @@ class govuk_jenkins::deploy_all_apps (
   $defaults = {
     project_dir => $project_directory,
     environment => $deploy_environment,
+    auth_token  => $auth_token,
   }
 
   create_resources('govuk_jenkins::node_app_deploy', $apps_on_nodes, $defaults)
