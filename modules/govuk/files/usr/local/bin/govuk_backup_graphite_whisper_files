@@ -2,7 +2,7 @@
 
 TIMESTAMP=`date +%Y-%m-%d_%Hh%Mm.%A`
 
-DAYS_TO_KEEP="2"
+DAYS_TO_KEEP="1"
 
 GRAPHITE_STORAGE_DIRECTORY="/opt/graphite/storage"
 GRAPHITE_WHISPER_DIRECTORY_NAME="whisper"
@@ -21,7 +21,7 @@ BACKUP_FILE_NAME="${BACKUP_FILE_ROOT_NAME}-${TIMESTAMP}.${BACKUP_FILE_NAME_EXTEN
 TAR_COMMAND="ionice -c 3 nice tar"
 
 # Exclude some directories that are huge and we don't care about.
-TAR_OPTIONS="--use-compress-program pigz -c --exclude=\"stats_counts/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/status/*\" --exclude=\"stats/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/*\""
+TAR_OPTIONS="--use-compress-program pigz -c --exclude=\"stats_counts/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/status/*\" --exclude=\"stats/govuk/app/govuk-cdn-logs-monitor/logs-cdn-1/*\" --exclude=\"stats/timers/pp\""
 
 BACKUP_USER="govuk-backup:govuk-backup"
 
