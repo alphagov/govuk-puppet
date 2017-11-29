@@ -137,7 +137,7 @@ class govuk::apps::contacts(
         value   => $secret_key_base;
     }
 
-    if $::govuk_node_class !~ /^(development|training)$/ {
+    if $::govuk_node_class !~ /^development$/ {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
         username => $db_username,

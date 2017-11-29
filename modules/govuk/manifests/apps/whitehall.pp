@@ -202,7 +202,7 @@ class govuk::apps::whitehall(
       ",
     }
 
-    if $::govuk_node_class !~ /^(development|training)$/ {
+    if $::govuk_node_class !~ /^development$/ {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
         username => $db_username,
@@ -364,7 +364,7 @@ class govuk::apps::whitehall(
         value   => $link_checker_api_secret_token;
     }
 
-    if $::govuk_node_class !~ /^(development|training)$/ {
+    if $::govuk_node_class !~ /^development$/ {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
         username => $admin_db_username,
@@ -374,7 +374,7 @@ class govuk::apps::whitehall(
       }
     }
 
-    if $::govuk_node_class =~ /^(development|training)$/ {
+    if $::govuk_node_class =~ /^development$/ {
       # Create the directory structure for whitehall assets in development
       $asset_directories = [
         '/data/uploads/whitehall',
