@@ -19,6 +19,7 @@ define govuk_jenkins::node_app_deploy (
   $user = 'jenkins',
   $apps = [],
   $environment = 'development',
+  $auth_token = '',
 ) {
 
   validate_array($apps)
