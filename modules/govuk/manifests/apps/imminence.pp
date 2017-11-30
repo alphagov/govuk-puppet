@@ -101,7 +101,7 @@ class govuk::apps::imminence(
     }
   }
 
-  if $::govuk_node_class !~ /^(development|training)$/ {
+  if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,

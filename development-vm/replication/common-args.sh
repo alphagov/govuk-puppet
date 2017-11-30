@@ -26,7 +26,6 @@ OPTIONS:
     -q       Skip MySQL import
     -e       Skip Elasticsearch import
     -t       Skip Mapit import
-    -a       Set up as training environment
 
 EOF
 }
@@ -41,7 +40,6 @@ SKIP_MAPIT=false
 SSH_CONFIG="../ssh_config"
 RENAME_DATABASES=true
 DRY_RUN=false
-TRAINING_ENVIRONMENT=false
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="event_store transition backdrop support_contacts"
 
@@ -56,7 +54,7 @@ function ignored() {
   return 1
 }
 
-while getopts "hF:u:d:sri:onmpqeta" OPTION
+while getopts "hF:u:d:sri:onmpqet" OPTION
 do
   case $OPTION in
     h )
@@ -101,9 +99,6 @@ do
       ;;
     t )
       SKIP_MAPIT=true
-      ;;
-    a )
-      TRAINING_ENVIRONMENT=true
       ;;
   esac
 done

@@ -153,7 +153,7 @@ class govuk::apps::content_performance_manager(
     }
   }
 
-  if $::govuk_node_class !~ /^(development|training)$/ {
+  if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
       type     => 'postgresql',
       username => $db_username,

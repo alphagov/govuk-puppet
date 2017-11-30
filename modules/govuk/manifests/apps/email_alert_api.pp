@@ -122,7 +122,7 @@ class govuk::apps::email_alert_api(
       app => 'email-alert-api',
     }
 
-    if $::govuk_node_class !~ /^(development|training)$/ {
+    if $::govuk_node_class !~ /^development$/ {
       govuk::app::envvar::database_url { 'email-alert-api':
         type     => 'postgresql',
         username => $db_username,
