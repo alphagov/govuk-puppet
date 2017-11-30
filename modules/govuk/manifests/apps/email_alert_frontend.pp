@@ -15,6 +15,9 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -25,6 +28,7 @@
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port = '3099',
+  $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
 ) {
@@ -45,5 +49,8 @@ class govuk::apps::email_alert_frontend(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
   }
 }
