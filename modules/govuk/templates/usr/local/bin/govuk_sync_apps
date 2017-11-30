@@ -1,0 +1,5 @@
+#!/bin/bash
+
+set -euo pipefail
+
+curl 'https://<%= @jenkins_domain -%>/buildByToken/build?job=Deploy_Node_Apps/<%= @aws_migration %>&token=<%= @auth_token %>'

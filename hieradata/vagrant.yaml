@@ -29,6 +29,8 @@ govuk::deploy::aws_ses_smtp_host: 'email-smtp.aws.example.com'
 govuk::deploy::config::errbit_environment_name: 'vagrant'
 govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
+govuk::deploy::sync::jenkins_domain: "jenkins.example.com"
+govuk::deploy::sync::auth_token: "example-auth-token"
 
 govuk_beat::enable: false
 

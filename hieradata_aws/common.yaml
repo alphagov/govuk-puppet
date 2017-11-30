@@ -608,6 +608,8 @@ govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhos
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::setup::gemstash_server: 'http://gemstash'
+govuk::deploy::sync::jenkins_domain: "deploy.%{hiera('app_domain_internal')}"
+govuk::deploy::sync::auth_token: "%{hiera('govuk_jenkins::deploy_all_apps::auth_token')}"
 
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

@@ -14,6 +14,8 @@ govuk_ci::agent::gcloud::apt_mirror_hostname: 'apt.example.com'
 govuk::deploy::config::asset_root: 'http://assets.example.com'
 govuk::deploy::config::website_root: 'http://www.example.com'
 govuk::deploy::config::app_domain: 'foo.example.com'
+govuk::deploy::sync::jenkins_domain: "jenkins.example.com"
+govuk::deploy::sync::auth_token: "example-auth-token"
 
 govuk_mount::no_op: false
 
