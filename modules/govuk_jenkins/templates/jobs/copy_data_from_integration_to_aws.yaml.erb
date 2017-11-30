@@ -65,7 +65,7 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION=<%= @service_description %>
             NSCA_OUTPUT=<%= @service_description %> failed
-        - project: trigger_data_sync_complete
+        - project: trigger_data_sync_complete_aws
           condition: 'ALWAYS'
           predefined-parameters: |
             HOSTNAME=deploy.blue.integration.govuk.digital
