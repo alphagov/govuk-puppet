@@ -45,12 +45,12 @@
   "targets": [
     {
       "refId": "B",
-      "target": "alias(stats.gauges.govuk.app.<%= app_name %>.workers.enqueued, 'Enqueued')",
+      "target": "alias(stats.gauges.govuk.app.<%= @app_name %>.workers.enqueued, 'Enqueued')",
       "textEditor": false
     },
     {
       "refId": "C",
-      "target": "alias(perSecond(stats.gauges.govuk.app.<%= app_name %>.workers.processed), 'Prococessed/Sec')",
+      "target": "alias(perSecond(stats.gauges.govuk.app.<%= @app_name %>.workers.processed), 'Prococessed/Sec')",
       "textEditor": false
     }
   ],

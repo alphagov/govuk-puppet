@@ -121,6 +121,7 @@ class monitoring::checks (
     desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
+    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
   }
 
   # Mainstream is comparable to the govuk index.
@@ -131,6 +132,7 @@ class monitoring::checks (
     desc                => 'rummager mainstream index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
+    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
   }
 
   # Government is comparable to the govuk index.
@@ -141,6 +143,7 @@ class monitoring::checks (
     desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
+    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
   }
 
   # Detailed is smaller than the other indexes (about 4500 documents)
@@ -151,6 +154,7 @@ class monitoring::checks (
     desc                => 'rummager detailed index size has significantly increased/decreased over the last 3 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
+    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
   }
 
   # END search
