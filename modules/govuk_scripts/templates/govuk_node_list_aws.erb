@@ -46,6 +46,17 @@ def ec2_nodes(stackname, nodeclass=None):
 
     return(hosts)
 
+def get_hostname_by_id(instance_id):
+    client = boto3.client('ec2', region_name=region)
+    response = client.describe_instances(InstanceIds=[instance_id])
+    key = 'PrivateDnsName'
+    host = response['Reservations'][0]['Instances'][0]['NetworkInterfaces'][0]
+    if not key in host:
+        print("The instance attribute {} does not exist".format(key))
+        exit(1)
+    else:
+        return(host[key])
+
 def main():
     opts, args = parser.parse_args()
 
@@ -73,7 +84,12 @@ def main():
 
         qs = urllib.urlencode({'query': query})
         res = urllib2.urlopen('https://puppetdb.<%= @app_domain_internal %>/v2/{0}?{1}'.format(endpoint, qs))
-        hosts = json.load(res)
+        instance_ids = json.load(res)
+
+        hosts = []
+
+        for instance in instance_ids:
+            hosts.append(get_hostname_by_id(instance[host_key]))
 
     else:
         hosts = ec2_nodes(stackname)
@@ -82,10 +98,7 @@ def main():
         hosts = [random.choice(hosts)]
 
     for host in hosts:
-        if opts.puppet_class:
-            print(host[host_key])
-        else:
-            print(host)
+        print(host)
 
 parser = OptionParser(description='List nodes in this environment')
 
