@@ -28,6 +28,9 @@ class govuk::deploy::setup (
   validate_hash($ssh_keys)
 
   include assets::group
+  if $::aws_migration {
+    include govuk::deploy::sync
+  }
 
   group { 'deploy':
     ensure => 'present',
