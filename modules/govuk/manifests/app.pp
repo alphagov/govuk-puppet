@@ -370,6 +370,12 @@ define govuk::app (
     fields => {'application' => $title},
   }
 
+  @filebeat::prospector { "${title}_sidekiq_json_log":
+    paths  => ["/var/apps/${title}/log/sidekiq*.log"],
+    fields => {'application' => $title},
+    json   => {'add_error_key' => true},
+  }
+
   # FIXME: when we have migrated all apps to output logs to /var/log this
   # can be removed
   if ($app_type == 'rack' or  $log_format_is_json) {

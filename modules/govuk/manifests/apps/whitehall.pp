@@ -316,12 +316,6 @@ class govuk::apps::whitehall(
       json   => {'add_error_key' => true},
     }
 
-    @filebeat::prospector { 'whitehall_sidekiq_json_log':
-      paths  => ['/var/apps/whitehall/log/sidekiq.json.log'],
-      fields => {'application' => 'whitehall-sidekiq'},
-      json   => {'add_error_key' => true},
-    }
-
     govuk::procfile::worker { 'whitehall-admin':
       setenv_as      => $app_name,
       enable_service => $enable_procfile_worker,
