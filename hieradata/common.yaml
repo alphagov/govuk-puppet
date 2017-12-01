@@ -22,6 +22,7 @@ node_class: &node_class
       - content-tagger
       - email-alert-api
       - email-alert-service
+      - email-status-updates
       - event-store
       - hmrc-manuals-api
       - imminence
@@ -1220,6 +1221,7 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'draft-whitehall-frontend'
   - 'email-alert-api'
+  - 'email-status-updates'
   - 'event-store'
   - 'hmrc-manuals-api'
   - 'imminence'

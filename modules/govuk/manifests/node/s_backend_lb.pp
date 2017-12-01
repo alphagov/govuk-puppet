@@ -73,6 +73,7 @@ class govuk::node::s_backend_lb (
       'asset-manager',
       'canary-backend',
       'email-alert-api',
+      'email-status-updates',
       'event-store',
       'support-api',
     ]:
