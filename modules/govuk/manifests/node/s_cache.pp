@@ -84,13 +84,6 @@ class govuk::node::s_cache (
     strip_cookies => $strip_cookies,
   }
 
-  if $enable_authenticating_proxy {
-    include govuk::node::s_app_server
-    class { 'govuk::apps::authenticating_proxy':
-      govuk_upstream_uri => 'http://localhost:3054',
-    }
-  }
-
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target    => "${::fqdn_metrics}.nginx.nginx_connections-writing",
     warning   => 150,

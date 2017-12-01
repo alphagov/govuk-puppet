@@ -63,6 +63,7 @@ node_class: &node_class
       - smartanswers
   draft_cache:
     apps:
+      - authenticating-proxy
       - router
       - router-api
   draft_content_store:
