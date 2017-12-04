@@ -63,6 +63,12 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -91,6 +97,8 @@ class govuk::apps::email_alert_api(
   $govuk_notify_api_key = undef,
   $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -184,6 +192,12 @@ class govuk::apps::email_alert_api(
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
+      "${title}-OAUTH_ID":
+          varname => 'OAUTH_ID',
+          value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+          varname => 'OAUTH_SECRET',
+          value   => $oauth_secret;
     }
 
     if $allow_govdelivery_topic_syncing {
