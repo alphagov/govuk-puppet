@@ -33,6 +33,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::passive_checks
   - govuk_jenkins::job::performance_platform_data_sync
   - govuk_jenkins::job::publishing_api_archive_events
+  - govuk_jenkins::job::record_taxonomy_metrics
   - govuk_jenkins::job::remove_emergency_banner
   - govuk_jenkins::job::run_rake_task
   - govuk_jenkins::job::run_whitehall_data_migrations
