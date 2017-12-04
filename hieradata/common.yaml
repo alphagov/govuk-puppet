@@ -80,7 +80,6 @@ node_class: &node_class
     apps:
       - canary-frontend
       - collections
-      - designprinciples
       - email-alert-frontend
       - feedback
       - frontend
