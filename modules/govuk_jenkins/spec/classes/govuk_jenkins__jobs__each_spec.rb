@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-job_directory = File.join(File.dirname(__FILE__), '../../manifests/job')
+job_directory = File.join(File.dirname(__FILE__), '../../manifests/jobs')
 FILES = Dir.entries(job_directory).reject{ |f| f == "." || f == ".." }
 
 # TODO: make the specs work for these
