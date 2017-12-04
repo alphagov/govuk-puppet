@@ -196,6 +196,13 @@ class govuk::apps::email_alert_api(
     $app_domain = hiera('app_domain')
 
     if $enable_public_proxy {
+      nginx::conf { 'email-alert-api-public-rate-limiting':
+        content => '
+          limit_req_zone $binary_remote_addr zone=email_alert_api_public:1m rate=100r/s;
+          limit_req_status 429;
+        ',
+      }
+
       nginx::config::vhost::proxy { "email-alert-api-public.${app_domain}":
         to               => ["localhost:${port}"],
         ssl_only         => true,
@@ -203,11 +210,7 @@ class govuk::apps::email_alert_api(
         extra_app_config => "
           return 404;
         ",
-        extra_config     => "
-          location ~ ^/status-updates(/|$) {
-            proxy_pass http://localhost:${port};
-          }
-        ",
+        extra_config     => template('govuk/email_alert_api_public_nginx_extra_config.conf.erb'),
       }
     }
   }
