@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*port*]
+#   What port should the app run on?
+#
 # [*enabled*]
 #   Should the application should be enabled. Set in hiera data for each
 #   environment.
@@ -13,9 +16,6 @@
 #   Whether to create a public proxy into this application for handling
 #   select public endpoints
 #   Default: false
-#
-# [*port*]
-#   What port should the app run on?
 #
 # [*enable_procfile_worker*]
 #   Should the Foreman-based background worker be enabled by default. Set in
@@ -28,6 +28,9 @@
 # [*redis_port*]
 #   Redis port for Sidekiq.
 #   Default: undef
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
 #
 # [*allow_govdelivery_topic_syncing*]
 #   If set to `true`, allows the running of a script which deletes all topics
@@ -68,10 +71,6 @@
 #
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
-#
-# [*sentry_dsn*]
-#   The URL used by Sentry to report exceptions
-#
 #
 class govuk::apps::email_alert_api(
   $port = '3088',
