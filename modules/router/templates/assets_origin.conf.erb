@@ -1,5 +1,9 @@
 server {
+  <%- if scope.lookupvar('::aws_migration') %>
+  server_name <%= @vhost_name -%> <%= @vhost_name -%>.* <%= @vhost_aliases.join(' ') -%>;
+  <%- else %>
   server_name <%= @vhost_name -%> <%= @vhost_aliases.join(' ') -%>;
+  <%- end %>
   listen 80;
 <% if @enable_ssl -%>
   rewrite ^/(.*) https://$host/$1 permanent;
@@ -7,7 +11,6 @@ server {
 
 server {
   server_name <%= @vhost_name -%> <%= @vhost_aliases.join(' ') -%>;
-
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/<%= @vhost_name -%>.crt;
   ssl_certificate_key /etc/nginx/ssl/<%= @vhost_name -%>.key;

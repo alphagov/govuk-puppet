@@ -33,14 +33,15 @@ server {
 }
 
 server {
+  <%- if scope.lookupvar('::aws_migration') %>
+  server_name         www.* www-origin.* draft-origin.*;
+  listen 80;
+  <%- else %>
   server_name         www.<%= @app_domain %> www-origin.<%= @app_domain %> draft-origin.<%= @app_domain %>;
-  <%- unless scope.lookupvar('::aws_migration') %>
   listen              443 ssl;
   ssl_certificate     /etc/nginx/ssl/www.<%= @app_domain %>.crt;
   ssl_certificate_key /etc/nginx/ssl/www.<%= @app_domain %>.key;
   include             /etc/nginx/ssl.conf;
-  <%- else %>
-  listen 80;
   <%- end %>
 
   include             /etc/nginx/router_include.conf;

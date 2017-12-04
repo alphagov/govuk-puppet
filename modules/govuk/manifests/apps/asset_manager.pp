@@ -100,7 +100,11 @@ class govuk::apps::asset_manager(
          proxy_set_header X-Sendfile-Type X-Accel-Redirect;
          proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
 
+         <%- if @aws_migration %>
+         proxy_pass http://asset-manager-proxy;
+         <%- else %>
          proxy_pass http://asset-manager.<%= @app_domain %>-proxy;
+         <%- end %>
        }
 
       # /raw/(.*) is the path mapping sent from the rails application to
