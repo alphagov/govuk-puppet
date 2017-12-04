@@ -35,10 +35,10 @@ govuk_jenkins::github_client_id: bar
 govuk_jenkins::github_client_secret: baz
 govuk_jenkins::config::github_web_uri: wibble
 
-govuk_jenkins::job::deploy_app::applications: *deployable_applications
-govuk_jenkins::job::deploy_app::applications: *deployable_applications
-govuk_jenkins::job::integration_deploy::applications: *deployable_applications
-govuk_jenkins::job::run_rake_task::applications: *deployable_applications
+govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
+govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
+govuk_jenkins::jobs::integration_deploy::applications: *deployable_applications
+govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate
 govuk_postgresql::server::snakeoil_ssl_key: key

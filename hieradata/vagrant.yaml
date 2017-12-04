@@ -98,25 +98,25 @@ govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::job::data_sync_complete_staging
-  - govuk_jenkins::job::deploy_app
-  - govuk_jenkins::job::run_rake_task
-  - govuk_jenkins::job::deploy_cdn
-  - govuk_jenkins::job::deploy_licensify
-  - govuk_jenkins::job::deploy_puppet
-  - govuk_jenkins::job::deploy_router_data
-  - govuk_jenkins::job::deploy_terraform_project
-  - govuk_jenkins::job::govuk_cdn_nightly_2xx_status_collection
-  - govuk_jenkins::job::launch_vms
-  - govuk_jenkins::job::network_config_deploy
-  - govuk_jenkins::job::passive_checks
-  - govuk_jenkins::job::run_whitehall_data_migrations
-  - govuk_jenkins::job::smokey
-  - govuk_jenkins::job::smokey_deploy
-  - govuk_jenkins::job::update_cdn_dictionaries
+  - govuk_jenkins::jobs::data_sync_complete_staging
+  - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::deploy_cdn
+  - govuk_jenkins::jobs::deploy_licensify
+  - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::deploy_router_data
+  - govuk_jenkins::jobs::deploy_terraform_project
+  - govuk_jenkins::jobs::govuk_cdn_nightly_2xx_status_collection
+  - govuk_jenkins::jobs::launch_vms
+  - govuk_jenkins::jobs::network_config_deploy
+  - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::run_whitehall_data_migrations
+  - govuk_jenkins::jobs::smokey
+  - govuk_jenkins::jobs::smokey_deploy
+  - govuk_jenkins::jobs::update_cdn_dictionaries
 govuk_jenkins::job_builder::environment: 'dev'
 
-govuk_jenkins::job::network_config_deploy::environments:
+govuk_jenkins::jobs::network_config_deploy::environments:
   - foo
 
 govuk_postgresql::monitoring::password: password
