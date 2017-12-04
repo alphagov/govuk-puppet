@@ -24,6 +24,8 @@ class grafana::dashboards (
 
   $app_domain_metrics = regsubst($app_domain, '\.', '_', 'G')
 
+  $index_names = ['govuk', 'mainstream', 'government', 'detailed']
+
   file { $dashboard_directory:
     ensure  => directory,
     recurse => true,
@@ -38,6 +40,7 @@ class grafana::dashboards (
     "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
     "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
     "${dashboard_directory}/publishing_api_overview.json": content => template('grafana/dashboards/publishing_api_overview.json.erb');
+    "${dashboard_directory}/rummager_index_size.json": content => template('grafana/dashboards/rummager_index_size.json.erb');
   }
 
   create_resources('grafana::dashboards::deployment_dashboard', $deployment_applications, {
