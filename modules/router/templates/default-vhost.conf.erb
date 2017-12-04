@@ -6,6 +6,12 @@ server {
     proxy_pass http://varnish;
   }
 
+  <%- if scope.lookupvar('::aws_migration') %>
+  # Required for L7 ALB
+  location = /_healthcheck {
+    return 200;
+  }
+  <%- end %>
   location / {
     return 444;
   }
