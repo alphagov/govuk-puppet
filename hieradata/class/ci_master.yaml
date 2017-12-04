@@ -286,3 +286,14 @@ govuk_jenkins::plugins:
       version: "0.34"
 
 icinga::client::check_cputype::cputype: 'intel'
+
+lv:
+  data:
+    pv: '/dev/sdb1'
+    vg: 'jenkins'
+
+mount:
+  /var/lib/jenkins:
+    disk: '/dev/mapper/jenkins-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
