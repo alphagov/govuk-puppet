@@ -13,7 +13,7 @@
        - shell: |
            # Clear the Sidekiq queues to stop any residual 'stale' jobs running
            <%- if scope.lookupvar('::aws_migration') %>
-              ssh deploy@${govuk_node_list -c backend --single-node} 'redis-cli -h redis flushall'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'redis-cli -h redis flushall'
            <%- else %>
            for host in $(govuk_node_list -c redis); do
               ssh deploy@${host} 'redis-cli flushall'
