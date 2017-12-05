@@ -1,5 +1,9 @@
 server {
+  <%- if scope.lookupvar('::aws_migration') %>
+  server_name <%= @full_domain %> <%= @full_domain %>.*;
+  <%- else %>
   server_name <%= @full_domain %>;
+  <%- end %>
 
   listen localhost:80;
 

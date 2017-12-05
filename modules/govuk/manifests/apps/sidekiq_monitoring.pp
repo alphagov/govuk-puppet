@@ -147,7 +147,12 @@ class govuk::apps::sidekiq_monitoring (
 ) {
   $app_name = 'sidekiq-monitoring'
   $app_domain = hiera('app_domain')
-  $full_domain = "${app_name}.${app_domain}"
+
+  if $::aws_migration {
+    $full_domain = $app_name
+  } else {
+    $full_domain = "${app_name}.${app_domain}"
+  }
 
   Govuk::App::Envvar::Redis {
     app => $app_name,
