@@ -43,6 +43,9 @@ server {
 
   <%- @asset_routes.each do |alias_path, vhost_name| -%>
   location <%= alias_path %> {
+    <%- if alias_path =~ %r(/government/uploads/) && vhost_name =~ %r(whitehall-frontend) -%>
+      proxy_set_header X-Forwarded-Host $host;
+    <%- end -%>
     proxy_set_header Host <%= vhost_name %>.<%= @app_domain %>;
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
   }
