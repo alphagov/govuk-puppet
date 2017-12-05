@@ -21,6 +21,8 @@ class govuk_containers::redis(
   # store the state dumps here on the docker host
   file { '/srv/redis':
     ensure => directory,
+    mode   => '0770',
+    group  => 'docker',
   }
 
   ::docker::image { $image_name:
