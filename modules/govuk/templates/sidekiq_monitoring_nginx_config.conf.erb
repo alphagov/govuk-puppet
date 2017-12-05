@@ -1,7 +1,11 @@
 server {
+  <%- if scope.lookupvar('::aws_migration') %>
+  server_name <%= @full_domain %> <%= @full_domain %>.*;
+  <%- else %>
   server_name <%= @full_domain %>;
+  <%- end %>
 
-  listen localhost:80;
+  listen 80;
 
   proxy_connect_timeout 1s;
   proxy_read_timeout 15s;
