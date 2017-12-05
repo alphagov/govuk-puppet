@@ -8,19 +8,34 @@ class govuk::apps::canary_backend {
 
   $app_domain = hiera('app_domain')
 
-  nginx::config::site { "canary-backend.${app_domain}":
-    content => "
-      server {
-        listen 80;
-        listen 443 ssl;
-        server_name canary-backend.${app_domain};
-        location / {
-          default_type application/json;
-          add_header cache-control \"max-age=0,no-store,no-cache\";
-          return 200 '{\"message\": \"Tweet tweet\"}\\n';
+  if $::aws_migration {
+    nginx::config::site { 'canary-backend':
+      content => "
+        server {
+          listen 80;
+          server_name canary-backend canary_backend.*;
+          location / {
+            default_type application/json;
+            add_header cache-control \"max-age=0,no-store,no-cache\";
+            return 200 '{\"message\": \"Tweet tweet\"}\\n';
+          }
         }
-      }
-    ",
+      ",
+    }
+  } else {
+    nginx::config::site { "canary-backend.${app_domain}":
+      content => "
+        server {
+          listen 80;
+          listen 443 ssl;
+          server_name canary-backend.${app_domain};
+          location / {
+            default_type application/json;
+            add_header cache-control \"max-age=0,no-store,no-cache\";
+            return 200 '{\"message\": \"Tweet tweet\"}\\n';
+          }
+        }
+      ",
+    }
   }
-
 }
