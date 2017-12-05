@@ -38,10 +38,36 @@ Optional Variables:
   console:
     prettyprint:    whether to prettyprint the console backend
                     output [true or false, default: true]
-*/
+
+Smart Repeater Required Variables:
+  smartRepeater:
+    hosts:              array of host data to repeat information to
+      hostname:         hostname or ip address
+      port:             TCP port
+      protocol:         udp4, udp6, tcp4, tcp6
+
+Smart Repeater Optional Variables:
+  smartRepeater:
+    prefix:               stat prefix (prepended to all outgoing stats)
+    checkExistingPrefix:  true to not prepend the prefix if it's already there
+    batchSize:            max message size to send downstream
+    blacklist:            array of regexes for blacklisting metrics
 {
   graphitePort: 2003
 , graphiteHost: "<%= @graphite_hostname -%>"
+<% if @use_smart_repeater %>
+  smartRepeater: {
+    prefix: "smart_repeater",
+    checkExistingPrefix: false,
+    batchSize: 1024,
+    hosts: [
+      { hostname: "<%= @smart_repeater_hostname %>", port: 8125, protocol: "tcp4" },
+    ],
+    blacklist: [
+      /^statsd/
+    ]
+  },
+<% end %>
 , port: 8125
 , flushInterval: 5000
 }

@@ -1631,6 +1631,9 @@ sidekiq_port: '6379'
 
 ssh::config::allow_users_enable: true
 
+statsd::use_smart_repeater: true
+statsd::graphite_hostname: "graphite.cluster"
+statsd::smart_repeater_hostname: "graphite.cluster"
 statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

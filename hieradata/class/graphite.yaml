@@ -6,6 +6,8 @@ govuk_safe_to_reboot::reason: 'We lose stats and some alerting when this machine
 icinga::client::checks::disk_time_warn: 280 # milliseconds
 icinga::client::checks::disk_time_critical: 400 # milliseconds
 
+statsd::use_smart_repeater: false
+
 lv:
   data:
     pv:
