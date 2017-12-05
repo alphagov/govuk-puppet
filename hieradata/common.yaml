@@ -355,6 +355,7 @@ govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_api::enabled: true
+govuk::apps::email_alert_api::enable_public_proxy: false
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
@@ -1219,6 +1220,7 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'draft-whitehall-frontend'
   - 'email-alert-api'
+  - 'email-alert-api-public'
   - 'event-store'
   - 'hmrc-manuals-api'
   - 'imminence'

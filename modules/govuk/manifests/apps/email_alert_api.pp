@@ -5,12 +5,17 @@
 #
 # === Parameters
 #
+# [*port*]
+#   What port should the app run on?
+#
 # [*enabled*]
 #   Should the application should be enabled. Set in hiera data for each
 #   environment.
 #
-# [*port*]
-#   What port should the app run on?
+# [*enable_public_proxy*]
+#   Whether to create a public proxy into this application for handling
+#   select public endpoints
+#   Default: false
 #
 # [*enable_procfile_worker*]
 #   Should the Foreman-based background worker be enabled by default. Set in
@@ -23,6 +28,9 @@
 # [*redis_port*]
 #   Redis port for Sidekiq.
 #   Default: undef
+#
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
 #
 # [*allow_govdelivery_topic_syncing*]
 #   If set to `true`, allows the running of a script which deletes all topics
@@ -58,12 +66,16 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
-# [*sentry_dsn*]
-#   The URL used by Sentry to report exceptions
+# [*oauth_id*]
+#   Sets the OAuth ID
+#
+# [*oauth_secret*]
+#   Sets the OAuth Secret Key
 #
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
+  $enable_public_proxy = false,
   $enable_procfile_worker = true,
   $sidekiq_retry_critical = '20',
   $sidekiq_retry_warning = '10',
@@ -84,6 +96,8 @@ class govuk::apps::email_alert_api(
   $govuk_notify_api_key = undef,
   $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -177,12 +191,39 @@ class govuk::apps::email_alert_api(
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
+      "${title}-OAUTH_ID":
+          varname => 'OAUTH_ID',
+          value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+          varname => 'OAUTH_SECRET',
+          value   => $oauth_secret;
     }
 
     if $allow_govdelivery_topic_syncing {
       govuk::app::envvar { "${title}-ALLOW_GOVDELIVERY_SYNC":
         varname => 'ALLOW_GOVDELIVERY_SYNC',
         value   => 'allow';
+      }
+    }
+
+    $app_domain = hiera('app_domain')
+
+    if $enable_public_proxy {
+      nginx::conf { 'email-alert-api-public-rate-limiting':
+        content => '
+          limit_req_zone $binary_remote_addr zone=email_alert_api_public:1m rate=100r/s;
+          limit_req_status 429;
+        ',
+      }
+
+      nginx::config::vhost::proxy { "email-alert-api-public.${app_domain}":
+        to               => ["localhost:${port}"],
+        ssl_only         => true,
+        protected        => false,
+        extra_app_config => "
+          return 404;
+        ",
+        extra_config     => template('govuk/email_alert_api_public_nginx_extra_config.conf.erb'),
       }
     }
   }

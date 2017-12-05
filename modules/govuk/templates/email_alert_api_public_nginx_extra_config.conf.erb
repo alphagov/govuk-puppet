@@ -1,0 +1,4 @@
+location ~ ^/status-updates(/|$) {
+  limit_req zone=email_alert_api_public burst=20 nodelay;
+  proxy_pass http://localhost:<%= @port %>;
+}
