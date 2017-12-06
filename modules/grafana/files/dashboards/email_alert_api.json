@@ -1,46 +1,4 @@
 {
-  "__inputs": [
-    {
-      "name": "DS_GRAPHITE",
-      "label": "Graphite",
-      "description": "",
-      "type": "datasource",
-      "pluginId": "graphite",
-      "pluginName": "Graphite"
-    }
-  ],
-  "__requires": [
-    {
-      "type": "grafana",
-      "id": "grafana",
-      "name": "Grafana",
-      "version": "4.5.2"
-    },
-    {
-      "type": "panel",
-      "id": "graph",
-      "name": "Graph",
-      "version": ""
-    },
-    {
-      "type": "datasource",
-      "id": "graphite",
-      "name": "Graphite",
-      "version": "1.0.0"
-    },
-    {
-      "type": "panel",
-      "id": "singlestat",
-      "name": "Singlestat",
-      "version": ""
-    },
-    {
-      "type": "panel",
-      "id": "table",
-      "name": "Table",
-      "version": ""
-    }
-  ],
   "annotations": {
     "list": []
   },
@@ -48,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": null,
+  "id": 34,
   "links": [],
   "rows": [
     {
@@ -64,7 +22,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "format": "none",
           "gauge": {
             "maxValue": 50,
@@ -134,7 +92,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -244,7 +202,7 @@
               "value": "total"
             }
           ],
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect",
           "fontSize": "100%",
           "id": 7,
@@ -305,7 +263,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -384,7 +342,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 6,
           "legend": {
@@ -485,7 +443,7 @@
               "value": "total"
             }
           ],
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect.",
           "fontSize": "100%",
           "id": 9,
@@ -546,7 +504,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 8,
           "legend": {
@@ -631,7 +589,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "description": "This shows the max, mean and min values of the time that has elapsed from when a content change entered the system and an email is first attempted for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
           "fill": 1,
           "id": 10,
@@ -715,7 +673,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "description": "This shows the max, mean and min values of the time that has elapsed from when an email is created in the system and when that email is first sent to notify for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
           "fill": 1,
           "id": 11,
@@ -811,7 +769,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 12,
           "legend": {
@@ -887,7 +845,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 13,
           "legend": {
@@ -959,7 +917,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 14,
           "legend": {
@@ -1031,7 +989,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "${DS_GRAPHITE}",
+          "datasource": "Graphite",
           "fill": 1,
           "id": 15,
           "legend": {
