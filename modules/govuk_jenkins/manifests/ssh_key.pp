@@ -33,6 +33,14 @@ class govuk_jenkins::ssh_key (
     group  => $jenkins_user,
   }
 
+  file { "${ssh_dir}/config":
+    source  => 'puppet:///modules/govuk_jenkins/ssh-config',
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0600',
+    require => File[$ssh_dir],
+  }
+
   if $private_key and $public_key {
     file { $public_key_filename:
       content => "ssh-rsa ${public_key}",
