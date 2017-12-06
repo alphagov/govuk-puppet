@@ -1,4 +1,46 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_GRAPHITE",
+      "label": "Graphite",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "graphite",
+      "pluginName": "Graphite"
+    }
+  ],
+  "__requires": [
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "4.5.2"
+    },
+    {
+      "type": "panel",
+      "id": "graph",
+      "name": "Graph",
+      "version": ""
+    },
+    {
+      "type": "datasource",
+      "id": "graphite",
+      "name": "Graphite",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "singlestat",
+      "name": "Singlestat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": []
   },
@@ -6,7 +48,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 34,
+  "id": null,
   "links": [],
   "rows": [
     {
@@ -22,7 +64,7 @@
             "rgba(237, 129, 40, 0.89)",
             "rgba(50, 172, 45, 0.97)"
           ],
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "format": "none",
           "gauge": {
             "maxValue": 50,
@@ -92,7 +134,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -202,7 +244,7 @@
               "value": "total"
             }
           ],
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect",
           "fontSize": "100%",
           "id": 7,
@@ -263,7 +305,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -342,7 +384,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "fill": 1,
           "id": 6,
           "legend": {
@@ -443,7 +485,7 @@
               "value": "total"
             }
           ],
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect.",
           "fontSize": "100%",
           "id": 9,
@@ -504,7 +546,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "fill": 1,
           "id": 8,
           "legend": {
@@ -589,7 +631,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "description": "This shows the max, mean and min values of the time that has elapsed from when a content change entered the system and an email is first attempted for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
           "fill": 1,
           "id": 10,
@@ -673,7 +715,7 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
+          "datasource": "${DS_GRAPHITE}",
           "description": "This shows the max, mean and min values of the time that has elapsed from when an email is created in the system and when that email is first sent to notify for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
           "fill": 1,
           "id": 11,
@@ -737,6 +779,310 @@
             {
               "format": "short",
               "label": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_GRAPHITE}",
+          "fill": 1,
+          "id": 12,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(stats.gauges.govuk.app.email-alert-api.workers.queues.*.enqueued, 'enqueued')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.gauges.govuk.app.email-alert-api.workers.queues.*.latency, 'latency')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Sidekiq Queue",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_GRAPHITE}",
+          "fill": 1,
+          "id": 13,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(postgresql*.postgresql-global.pg_numbackends, 0)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Postgres Connections",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_GRAPHITE}",
+          "fill": 1,
+          "id": 14,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(*.redis_info.bytes-used_memory, 0)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Redis Memory Usage",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "${DS_GRAPHITE}",
+          "fill": 1,
+          "id": 15,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(*.*email-alert-api.ps_rss, 1)"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Memory Usage",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
