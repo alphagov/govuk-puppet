@@ -9,7 +9,7 @@ class govuk_jenkins::job::search_reindex_with_new_schema (
 ) {
 
   $check_name = 'search-reindex-with-new-schema'
-  $service_description = 'Rebuild new search indexes with up to date settings and mappings, and reindex all content from the existing indexes.'
+  $service_description = 'Rebuild new search indexes with up to date settings and mappings and reindex all content from the existing indexes.'
   $job_url = "https://deploy.${app_domain}/job/search-reindex-with-new-schema/"
 
   file { '/etc/jenkins_jobs/jobs/search_reindex_with_new_schema.yaml':
