@@ -188,7 +188,7 @@ def buildProject(Map options = [:]) {
 
     if (hasDockerfile()) {
       stage("Build Docker image") {
-        buildDockerImage(jobName, env.BRANCH_NAME)
+        buildDockerImage(jobName)
       }
     }
 
@@ -766,8 +766,12 @@ def hasDockerfile() {
   sh(script: "test -e Dockerfile", returnStatus: true) == 0
 }
 
-def buildDockerImage(imageName, tagName) {
-  docker.build("govuk/${imageName}:${tagName}")
+def buildDockerImage(imageName) {
+  docker.build("govuk/${imageName}:${getDockerImageTagName()}")
+}
+
+def getDockerImageTagName() {
+  return env.BRANCH_NAME.replaceAll("/", "_")
 }
 
 
