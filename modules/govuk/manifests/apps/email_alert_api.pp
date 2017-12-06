@@ -79,7 +79,9 @@
 #   Sets the OAuth Secret Key
 #
 # [*email_service_provider*]
-#   Configure which provider to use for sending emails. Either PSEUDO or NOTIFY.
+#   Configure which provider to use for sending emails.
+#    PSUEDO - Don't actually send emails, instead just log them.
+#    NOTIFY - Use GOV.UK Notify to send the emails.
 #
 class govuk::apps::email_alert_api(
   $port = '3088',
