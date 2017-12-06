@@ -78,6 +78,9 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*email_service_provider*]
+#   Configure which provider to use for sending emails. Either PSEUDO or NOTIFY.
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -106,6 +109,7 @@ class govuk::apps::email_alert_api(
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $email_service_provider = 'NOTIFY',
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -211,6 +215,9 @@ class govuk::apps::email_alert_api(
       "${title}-OAUTH_SECRET":
           varname => 'OAUTH_SECRET',
           value   => $oauth_secret;
+      "${title}-EMAIL_SERVICE_PROVIDER":
+          varname => 'EMAIL_SERVICE_PROVIDER',
+          value   => $email_service_provider;
     }
 
     if $allow_govdelivery_topic_syncing {
