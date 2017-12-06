@@ -37,7 +37,7 @@ govuk::apps::email_alert_api::enable_public_proxy: true
 govuk::apps::email_alert_api::govdelivery_account_code: 'UKGOVUKDUP'
 govuk::apps::email_alert_api::govdelivery_hostname: 'stage-api.govdelivery.com'
 govuk::apps::email_alert_api::govdelivery_public_hostname: 'stage-public.govdelivery.com'
-govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '12'
+govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '15'
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
