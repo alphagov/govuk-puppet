@@ -119,6 +119,10 @@ define nginx::config::vhost::proxy(
   # Whether to enable SSL. Used by template.
   $enable_ssl = hiera('nginx_enable_ssl', true)
 
+  if $::aws_migration {
+    $aliases_wildcard = regsubst($aliases, '$', '.*')
+  }
+
   nginx::config::ssl { $name:
     certtype => $ssl_certtype,
   }

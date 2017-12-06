@@ -71,16 +71,16 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
     let(:params) {{
       :to      => ['a.internal'],
-      :aliases => ['cat.dev.govuk.digital'],
+      :aliases => ['cat'],
     }}
 
     let(:facts) {{
      :aws_migration => true,
     }}
 
-    it 'should add a wildcard match, and add the alias' do
+    it 'should add a wildcard match, and add the alias along with an alias wildcard match' do
       is_expected.to contain_nginx__config__site('rabbit')
-        .with_content(/server_name rabbit rabbit.* cat.dev.govuk.digital/)
+        .with_content(/server_name rabbit rabbit.* cat cat.*/)
     end
   end
 
