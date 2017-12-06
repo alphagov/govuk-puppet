@@ -83,16 +83,20 @@ class govuk::node::s_graphite (
   add_header "Access-Control-Allow-Headers" "origin, authorization, accept";
 '
 
+  if $::aws_migration {
+    nginx::config::vhost::default { 'default': }
+
+    $graphite_aliases = undef
+  } else {
+    $graphite_aliases = ['graphite.*']
+  }
+
   nginx::config::vhost::proxy { 'graphite':
     to           => ['localhost:33333'],
     root         => "${graphite_path}/webapp",
-    aliases      => ['graphite.*'],
+    aliases      => $graphite_aliases,
     protected    => false,
     extra_config => $cors_headers,
-  }
-
-  if $::aws_migration {
-    nginx::config::vhost::default { 'default': }
   }
 
   ## Make compressed archives of Whisper data to backup off-box rather than
