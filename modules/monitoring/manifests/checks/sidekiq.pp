@@ -5,7 +5,7 @@
 #
 class monitoring::checks::sidekiq {
 
-  $graphite_target = 'movingAverage(stats.gauges.govuk.app.rummager.workers.queues.default.latency,"-600s")'
+  $graphite_target = 'movingAverage(keepLastValue(stats.gauges.govuk.app.rummager.workers.queues.default.latency),"-600s")'
 
   icinga::check::graphite { 'check_rummager_queue_latency':
     target              => $graphite_target,
