@@ -767,6 +767,7 @@ def hasDockerfile() {
 }
 
 def buildDockerImage(imageName, tagName) {
+  tagName = safeDockerTag(tagName)
   docker.build("govuk/${imageName}:${tagName}")
 }
 
@@ -776,12 +777,14 @@ def buildDockerImage(imageName, tagName) {
  * the image is also tagged with that value otherwise the `tagName` is used.
  */
 def pushDockerImage(imageName, tagName, asTag = null) {
+  tagName = safeDockerTag(tagName)
   docker.withRegistry('https://index.docker.io/v1/', 'govukci-docker-hub') {
     docker.image("govuk/${imageName}:${tagName}").push(asTag ?: tagName)
   }
 }
 
 def pushDockerImageToGCR(imageName, tagName) {
+  tagName = safeDockerTag(tagName)
   gcrName = "gcr.io/govuk-test/${imageName}"
   docker.build(gcrName)
 
@@ -797,6 +800,10 @@ def pushDockerImageToGCR(imageName, tagName) {
     command = "gcloud container images add-tag ${gcrName} ${gcrName}:${tagName}"
     sh command
   }
+}
+
+def safeDockerTag(tagName) {
+  return tagName.replace("/", "_")
 }
 
 /*
