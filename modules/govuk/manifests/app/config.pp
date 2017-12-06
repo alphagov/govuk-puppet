@@ -165,7 +165,11 @@ define govuk::app::config (
     }
   }
 
-  $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
+  if $::aws_migration {
+    $vhost_aliases_real = $vhost_aliases
+  } else {
+    $vhost_aliases_real = regsubst($vhost_aliases, '$', ".${domain}")
+  }
 
   if $enable_nginx_vhost {
 
