@@ -59,6 +59,12 @@
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
+# [*govuk_notify_template_id*]
+#   Template ID for GOV.UK Notify
+#
+# [*govuk_notify_base_url*]
+#   Base URL for GOV.UK Notify API
+#
 # [*govuk_notify_rate_per_worker*]
 #   Number of requests per seconds that the notify delivery worker
 #   is allowed to make (currently 50 requests/s / 6 workers = 8 (ish)
@@ -94,6 +100,8 @@ class govuk::apps::email_alert_api(
   $govdelivery_hostname = undef,
   $govdelivery_public_hostname = undef,
   $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $govuk_notify_base_url = undef,
   $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
@@ -185,6 +193,12 @@ class govuk::apps::email_alert_api(
       "${title}-GOVUK_NOTIFY_API_KEY":
           varname => 'GOVUK_NOTIFY_API_KEY',
           value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+          varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+          value   => $govuk_notify_template_id;
+      "${title}-GOVUK_NOTIFY_BASE_URL":
+          varname => 'GOVUK_NOTIFY_BASE_URL',
+          value   => $govuk_notify_base_url;
       "${title}-GOVUK_NOTIFY_RATE_PER_WORKER":
           varname => 'GOVUK_NOTIFY_RATE_PER_WORKER',
           value   => $govuk_notify_rate_per_worker;
