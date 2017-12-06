@@ -203,7 +203,7 @@
             }
           ],
           "datasource": "Graphite",
-          "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range",
+          "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect",
           "fontSize": "100%",
           "id": 7,
           "links": [],
@@ -404,6 +404,342 @@
               "logBase": 1,
               "max": null,
               "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 259,
+      "panels": [
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            },
+            {
+              "text": "Avg",
+              "value": "avg"
+            },
+            {
+              "text": "Total",
+              "value": "total"
+            }
+          ],
+          "datasource": "Graphite",
+          "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect.",
+          "fontSize": "100%",
+          "id": 9,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 0,
+              "link": false,
+              "pattern": "/.*/",
+              "thresholds": [
+                "1",
+                "1"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.content_changes_created, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Created\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": null,
+          "title": "Content Changes (per 5 minutes)",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 9,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(consolidateBy(sum(stats_counts.govuk.app.email-alert-api.backend-*.content_changes_created), \"sum\"), \"Created\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Content Changes Created",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "This shows the max, mean and min values of the time that has elapsed from when a content change entered the system and an email is first attempted for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
+          "fill": 1,
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Time from content change created until Notify first attempt",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "This shows the max, mean and min values of the time that has elapsed from when an email is created in the system and when that email is first sent to notify for delivery. To provide decent samples the data is summarised to 5 minute intervals.",
+          "fill": 1,
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Time from email created until Notify first attempt",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
               "show": true
             },
             {
