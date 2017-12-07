@@ -38,6 +38,12 @@
 #   Must only be configured to `true` in staging or integration, never production.
 #   Default: false
 #
+# [*use_email_alert_frontend_for_email_collection]
+#   If set, users will be redirected to email-alert-frontend to enter their
+#   email address instead of govdelivery. This affects the `subscription_url`
+#   in responses from the Email Alert API which is used by `collections`,
+#   `finder-frontend` and `whitehall`.
+#
 # [*govdelivery_username*]
 #   Username used to authenticate with govdelivery API
 #
@@ -98,6 +104,7 @@ class govuk::apps::email_alert_api(
   $redis_port = undef,
   $sentry_dsn = undef,
   $allow_govdelivery_topic_syncing = false,
+  $use_email_alert_frontend_for_email_collection = false,
   $govdelivery_username = undef,
   $govdelivery_password = undef,
   $govdelivery_account_code = undef,
@@ -226,6 +233,13 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-ALLOW_GOVDELIVERY_SYNC":
         varname => 'ALLOW_GOVDELIVERY_SYNC',
         value   => 'allow';
+      }
+    }
+
+    if $use_email_alert_frontend_for_email_collection {
+      govuk::app::envvar { "${title}-USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION":
+        varname => 'USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION',
+        value   => 'yes';
       }
     }
 
