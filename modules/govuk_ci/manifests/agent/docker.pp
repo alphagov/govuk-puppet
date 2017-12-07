@@ -15,15 +15,15 @@ class govuk_ci::agent::docker {
     version => '1.17.1',
   }
 
-  cron::crondotdee { 'remove_docker_dangling_images' :
+  cron::crondotdee { 'docker_system_prune' :
     hour    => '*/2',
     minute  => 0,
-    command => 'docker rmi $(docker images --filter "dangling=true" -q --no-trunc)',
+    command => 'docker system prune -a -f --filter="until=24h"',
   }
 
-  cron::crondotdee { 'remove_docker_dangling_volumes' :
+  cron::crondotdee { 'docker_volume_prune' :
     hour    => '*/2',
-    minute  => 2,
-    command => 'docker volume rm $(docker volume ls -qf dangling=true)',
+    minute  => 5,
+    command => 'docker volume prune -f',
   }
 }
