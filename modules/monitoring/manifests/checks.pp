@@ -125,45 +125,45 @@ class monitoring::checks (
   # that if the metrics are missing, then the alerts will fire.
   icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
     target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), "7d")))',
-    warning             => 1500,
-    critical            => 15000,
+    warning             => 2000,
+    critical            => 10000,
     desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
+    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
   }
 
   # Mainstream is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
     target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,132), "7d")))',
-    warning             => 1500,
-    critical            => 15000,
+    warning             => 500,
+    critical            => 1000,
     desc                => 'rummager mainstream index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
+    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
   }
 
   # Government is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_government_index_size_changed':
     target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,132), "7d")))',
-    warning             => 1500,
-    critical            => 15000,
+    warning             => 1600,
+    critical            => 8000,
     desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
+    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
   }
 
   # Detailed is smaller than the other indexes (about 4500 documents)
   icinga::check::graphite { 'check_rummager_detailed_index_size_changed':
     target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,132), "3d")))',
-    warning             => 200,
-    critical            => 400,
+    warning             => 100,
+    critical            => 500,
     desc                => 'rummager detailed index size has significantly increased/decreased over the last 3 days',
     host_name           => $::fqdn,
     notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/db/rummager-elasticsearch-index-sizing",
+    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
   }
 
   # END search
