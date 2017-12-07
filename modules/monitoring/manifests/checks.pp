@@ -100,12 +100,23 @@ class monitoring::checks (
 
   # START signon
   icinga::check::graphite { 'check_signon_queue_sizes':
-    # Check signon background worker average queue sizes over a 5 min period
-    target    => 'summarize(keepLastValue(stats.gauges.govuk.app.signon.workers.queues.*.enqueued),"5mins","avg")',
+    # Check signon background worker average queue sizes
+    target    => 'keepLastValue(stats.gauges.govuk.app.signon.workers.queues.*.enqueued)',
     warning   => 30,
     critical  => 50,
     desc      => 'signon background worker queue size unexpectedly large',
     host_name => $::fqdn,
+    # Get the data over a 24 hour period. As the sidekiq middleware
+    # only reports values when jobs come through, there can be large
+    # periods of empty data. Setting this to 24 hours should avoid too
+    # many false positives from not much activity, while also ensuring
+    # that if there is no data for longer than 24 hours, the alert
+    # will fire with UNKNOWN.
+    from      => '24hours',
+    # Drop all but the last 60 datapoints (at 5 seconds per datapoint,
+    # this is 5 minutes), so that this alert reflects what is going on
+    # currently.
+    args      => '--dropfirst -60',
   }
   # END signon
 
