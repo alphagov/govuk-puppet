@@ -36,7 +36,6 @@ class grafana (
     nginx::config::vhost::proxy { 'grafana':
       to           => ['localhost:3204'],
       root         => '/usr/share/grafana',
-      aliases      => ['grafana.*'],
       protected    => false,
       ssl_only     => true,
       ssl_certtype => 'wildcard_publishing',
