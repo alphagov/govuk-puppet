@@ -123,6 +123,10 @@ class monitoring::checks (
   # minutes, plus a minute of padding to avoid any spurious alerts
   # from late arriving metrics. It's important to set a limit here so
   # that if the metrics are missing, then the alerts will fire.
+
+  # Drop all but the last minute of data (assuming 5 second intervals)
+  $drop_first = '-12'
+
   icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
     target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), "7d")))',
     warning             => 2000,
@@ -131,6 +135,8 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    from                => '15minutes',
+    args                => "--dropfirst ${drop_first}",
   }
 
   # Mainstream is comparable to the govuk index.
@@ -142,6 +148,8 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    from                => '15minutes',
+    args                => "--dropfirst ${drop_first}",
   }
 
   # Government is comparable to the govuk index.
@@ -153,6 +161,8 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    from                => '15minutes',
+    args                => "--dropfirst ${drop_first}",
   }
 
   # Detailed is smaller than the other indexes (about 4500 documents)
@@ -164,6 +174,8 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    from                => '15minutes',
+    args                => "--dropfirst ${drop_first}",
   }
 
   # END search
