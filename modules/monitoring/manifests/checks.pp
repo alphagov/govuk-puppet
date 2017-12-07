@@ -10,13 +10,9 @@
 # [*http_password*]
 #   Password for $http_username
 #
-# [*enable_support_check*]
-#   Enable monitoring for check_support_default_queue_size
-#
 class monitoring::checks (
   $http_username = 'UNSET',
   $http_password = 'UNSET',
-  $enable_support_check = true,
 ) {
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
@@ -98,28 +94,6 @@ class monitoring::checks (
   }
   # END DNS checks
 
-  # START signon
-  icinga::check::graphite { 'check_signon_queue_sizes':
-    # Check signon background worker average queue sizes
-    target    => 'keepLastValue(stats.gauges.govuk.app.signon.workers.queues.*.enqueued)',
-    warning   => 30,
-    critical  => 50,
-    desc      => 'signon background worker queue size unexpectedly large',
-    host_name => $::fqdn,
-    # Get the data over a 24 hour period. As the sidekiq middleware
-    # only reports values when jobs come through, there can be large
-    # periods of empty data. Setting this to 24 hours should avoid too
-    # many false positives from not much activity, while also ensuring
-    # that if there is no data for longer than 24 hours, the alert
-    # will fire with UNKNOWN.
-    from      => '24hours',
-    # Drop all but the last 60 datapoints (at 5 seconds per datapoint,
-    # this is 5 minutes), so that this alert reflects what is going on
-    # currently.
-    args      => '--dropfirst -60',
-  }
-  # END signon
-
   # START search
 
   # On average 326 new documents were created per day in 2017, in total.
@@ -193,16 +167,6 @@ class monitoring::checks (
   }
 
   # END search
-
-  if $enable_support_check {
-    icinga::check::graphite { 'check_support_default_queue_size':
-      target    => 'stats.gauges.govuk.app.support.workers.queues.default.enqueued',
-      warning   => 10,
-      critical  => 20,
-      desc      => 'support app background processing: unexpectedly large default queue size',
-      host_name => $::fqdn,
-    }
-  }
 
   icinga::plugin { 'check_hsts_headers':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_hsts_headers',
