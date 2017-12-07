@@ -22,11 +22,6 @@ server {
     # with ".html" appended, then fallback to the app (bouncer).
     try_files $uri $uri.html @app;
   }
-  <%- if scope.lookupvar('::aws_migration') %>
-  location = /_healthcheck {
-    return 200;
-  }
-  <%- end %>
 
   location @app {
     proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
