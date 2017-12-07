@@ -118,17 +118,20 @@ class monitoring::checks (
   # These metrics are reported from a rake task, run every 10 minutes
   # by Jenkins. Assuming Graphite is keeping metrics in 5 second
   # intervals, there should be a 120 interval gap (600 seconds / 5)
-  # between measurements on average. Therefore, smooth out the data by
-  # using keepLastValue, with a limit of 132 intervals, which is 10
-  # minutes, plus a minute of padding to avoid any spurious alerts
-  # from late arriving metrics. It's important to set a limit here so
-  # that if the metrics are missing, then the alerts will fire.
+  # between measurements on average.
 
   # Drop all but the last minute of data (assuming 5 second intervals)
   $drop_first = '-12'
 
+  # Smooth out the data by using keepLastValue, with a limit of 132
+  # intervals, which is 10 minutes, plus a minute of padding to avoid
+  # any spurious alerts from late arriving metrics. It's important to
+  # set a limit here so that if the metrics are missing, then the
+  # alerts will fire.
+  $keep_last_value_limit = '132'
+
   icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
-    target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,132), "7d")))',
+    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), '7d')))",
     warning             => 2000,
     critical            => 10000,
     desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
@@ -141,7 +144,7 @@ class monitoring::checks (
 
   # Mainstream is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
-    target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,132), "7d")))',
+    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,${keep_last_value_limit}), '7d')))",
     warning             => 500,
     critical            => 1000,
     desc                => 'rummager mainstream index size has significantly increased/decreased over the last 7 days',
@@ -154,7 +157,7 @@ class monitoring::checks (
 
   # Government is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_government_index_size_changed':
-    target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,132), "7d")))',
+    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), '7d')))",
     warning             => 1600,
     critical            => 8000,
     desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
@@ -167,7 +170,7 @@ class monitoring::checks (
 
   # Detailed is smaller than the other indexes (about 4500 documents)
   icinga::check::graphite { 'check_rummager_detailed_index_size_changed':
-    target              => 'absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,132), "3d")))',
+    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,${keep_last_value_limit}), '3d')))",
     warning             => 100,
     critical            => 500,
     desc                => 'rummager detailed index size has significantly increased/decreased over the last 3 days',
