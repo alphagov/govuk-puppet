@@ -356,10 +356,6 @@ class govuk::apps::whitehall(
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
-      "${title}-LINK_CHECKER_API_CALLBACK_HOST":
-        app     => $app_name,
-        varname => 'LINK_CHECKER_API_CALLBACK_HOST',
-        value   => "https://whitehall-admin.${app_domain}";
     }
 
     if $::govuk_node_class !~ /^development$/ {
