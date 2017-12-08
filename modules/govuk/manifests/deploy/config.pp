@@ -22,12 +22,16 @@
 # [*app_domain*]
 #   The app domain for the environment eg dev.gov.uk
 #
+# [*licensify_app_domain*]
+#   The app domain for Licensify hosts, which are different in AWS.
+#
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
   $website_root,
   $app_domain,
+  $licensify_app_domain = undef,
 ){
 
   limits::limits { 'deploy_nofile':
@@ -103,10 +107,11 @@ class govuk::deploy::config(
     # make sure they're separated out in those locations otherwise puppet
     # won't run cleanly.
     govuk_envvar {
-      'PLEK_SERVICE_MAPIT_URI': value    => "https://mapit.${app_domain_internal}";
-      'PLEK_SERVICE_RUMMAGER_URI': value => "https://rummager.${app_domain_internal}";
-      'PLEK_SERVICE_SEARCH_URI': value   => "https://search.${app_domain_internal}";
-      'PLEK_SERVICE_STATIC_URI': value   => "https://static.${app_domain_internal}";
+      'PLEK_SERVICE_MAPIT_URI': value     => "https://mapit.${app_domain_internal}";
+      'PLEK_SERVICE_RUMMAGER_URI': value  => "https://rummager.${app_domain_internal}";
+      'PLEK_SERVICE_SEARCH_URI': value    => "https://search.${app_domain_internal}";
+      'PLEK_SERVICE_STATIC_URI': value    => "https://static.${app_domain_internal}";
+      'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
     }
   }
 }
