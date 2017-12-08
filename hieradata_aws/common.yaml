@@ -768,7 +768,24 @@ govuk_ci::master::ci_agents:
     labels: 'mongodb-3.2 ci-agent-4 elasticsearch'
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
-    labels: 'mongodb-3.2 ci-agent-5 elasticsearch'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-6:
+    agent_hostname: 'ci-agent-6.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-7:
+    agent_hostname: 'ci-agent-7.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-8:
+    agent_hostname: 'ci-agent-8.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
 
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
