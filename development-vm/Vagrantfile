@@ -7,14 +7,7 @@ DEFAULT_VM_PARAMS = {
   memory: 4096,
   cpus: 2,
 }
-BOXES = {
-  virtualbox: {
-    latest_versions: {
-      precise: '20160323',
-      trusty: '20160323',
-    },
-  },
-}
+LATEST_BOX_VERSION = '20171208'
 
 def common_config(config)
   # vagrant-dns is only supported on OS X
@@ -44,7 +37,7 @@ def default_config(config)
 EOS
   end
 
-  config.vm.box = "govuk_dev_#{dist}64_#{BOXES[:virtualbox][:latest_versions][dist]}"
+  config.vm.box = "govuk_dev_#{dist}64_#{LATEST_BOX_VERSION}"
   config.vm.box_url = "https://govuk-dev-boxes-test.s3.amazonaws.com/#{config.vm.box}.box"
   # Static IP for NFS and DNS
   config.vm.network :private_network, :ip => "10.1.1.254"
