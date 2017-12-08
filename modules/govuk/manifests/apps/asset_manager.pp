@@ -126,7 +126,6 @@ class govuk::apps::asset_manager(
       # cloud-storage-proxy location block below.
       set $etag_from_rails $upstream_http_etag;
       set $last_modified_from_rails $upstream_http_last_modified;
-      set $content_type_from_rails $upstream_http_content_type;
       set $x_frame_options_from_rails $upstream_http_x_frame_options;
 
       location ~ /cloud-storage-proxy/(.*) {
@@ -158,12 +157,22 @@ class govuk::apps::asset_manager(
         # proxying the request to S3. This is particularly relevant in the case
         # of ETag & Last-Modified, because we want keep these the same as when
         # Nginx serves the files from NFS to avoid unnecessary cache
-        # invalidation. Note that Cache-Control & Content-Disposition headers
-        # are copied from the Rails response into the proxied response by
+        # invalidation. Note that Cache-Control, Content-Disposition and Content-Type
+        # headers are copied from the Rails response into the proxied response by
         # default, so we do not have to do that explicitly here.
         add_header ETag $etag_from_rails;
         add_header Last-Modified $last_modified_from_rails;
-        add_header Content-Type $content_type_from_rails;
+
+        # Additionally, we always prohibit passing on these headers from S3 to
+        # the client as they are very likely to be wrong. There appears to be
+        # a race condition or similar in nginx that allows the S3 headers to
+        # overwrite those set here or by Rails, possibly depending on the order
+        # in which S3 sends them.
+        proxy_hide_header ETag;
+        proxy_hide_header Last-Modified;
+        proxy_hide_header Content-Type;
+        proxy_hide_header Content-Disposition;
+        proxy_hide_header Cache-Control;
 
         # Control whether the asset can be embedded in other pages[1] by
         # respecting X-Frame-Options from the Rails application.
