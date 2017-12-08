@@ -220,7 +220,7 @@ def buildProject(Map options = [:]) {
       }
     }
 
-    if (options.publishingE2ETests == true) {
+    if (options.publishingE2ETests == true && !params.IS_SCHEMA_TEST) {
       stage("End-to-end tests") {
         if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
           appCommitishName = jobName.replace("-", "_").toUpperCase() + "_COMMITISH"
