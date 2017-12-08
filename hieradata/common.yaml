@@ -727,19 +727,36 @@ govuk_ci::master::pipeline_jobs:
 govuk_ci::master::ci_agents:
   ci-agent-1:
     agent_hostname: 'ci-agent-1.ci'
-    labels: 'mongodb-2.4 docker ci-agent-1 elasticsearch-2.4 terraform-0.8.1'
+    labels: 'mongodb-2.4 ci-agent-1 elasticsearch-2.4 terraform-0.8.1'
   ci-agent-2:
     agent_hostname: 'ci-agent-2.ci'
-    labels: 'mongodb-2.4 docker ci-agent-2 elasticsearch-2.4 terraform'
+    labels: 'mongodb-2.4 ci-agent-2 elasticsearch-2.4 terraform'
   ci-agent-3:
     agent_hostname: 'ci-agent-3.ci'
-    labels: 'mongodb-2.4 docker ci-agent-3 elasticsearch-2.4 terraform'
+    labels: 'mongodb-2.4 ci-agent-3 elasticsearch-2.4 terraform'
   ci-agent-4:
     agent_hostname: 'ci-agent-4.ci'
-    labels: 'mongodb-3.2 docker ci-agent-4 elasticsearch-2.4 terraform'
+    labels: 'mongodb-3.2 ci-agent-4 elasticsearch-2.4 terraform'
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
-    labels: 'mongodb-3.2 docker ci-agent-5 elasticsearch-2.4 terraform'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-6:
+    agent_hostname: 'ci-agent-6.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-7:
+    agent_hostname: 'ci-agent-7.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-8:
+    agent_hostname: 'ci-agent-8.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
 
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
@@ -1260,6 +1277,12 @@ hosts::production::ci::hosts:
     ip: '10.1.6.24'
   ci-agent-5:
     ip: '10.1.6.25'
+  ci-agent-6:
+    ip: '10.1.6.26'
+  ci-agent-7:
+    ip: '10.1.6.27'
+  ci-agent-8:
+    ip: '10.1.6.28'
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:

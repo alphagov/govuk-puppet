@@ -4,7 +4,7 @@
   <description><%= @description %></description>
   <remoteFS><%= @jenkins_home %></remoteFS>
   <numExecutors><%= @executors %></numExecutors>
-  <mode>NORMAL</mode>
+  <mode><% if @exclusive %>EXCLUSIVE<% else %>NORMAL<% end %></mode>
   <retentionStrategy class="hudson.slaves.RetentionStrategy$Always"/>
   <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.16">
     <host><%= @agent_hostname %></host>
