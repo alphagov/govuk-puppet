@@ -21,6 +21,10 @@
 # [*executors*]
 #   Set how many jobs the instance can build at any one time.
 #
+# [*exclusive*]
+#   Boolean to indicate whether or not to "Only build jobs with label
+#   expressions matching this node"
+#
 # [*ssh_port*]
 #   Set the SSH port that the master connects to.
 #
@@ -37,6 +41,7 @@ define govuk_jenkins::ssh_slave (
   $labels = undef,
   $description = 'Generic build agent',
   $executors = 4,
+  $exclusive = false,
   $ssh_port = 22,
   $jenkins_home = '/var/lib/jenkins',
   $jenkins_user = 'jenkins',
