@@ -14,6 +14,7 @@ class govuk_ci::agent(
   $master_ssh_key = undef,
   $elasticsearch_enabled = true,
   $gemstash_server = 'http://gemstash.cluster',
+  $licensing_tests = false,
 ) {
   include ::clamav
   include ::clamav::cron_freshclam
@@ -30,7 +31,9 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
-  include ::govuk_java::oracle8
+  if $licensing_tests {
+    include ::govuk_java::oracle8
+  }
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
