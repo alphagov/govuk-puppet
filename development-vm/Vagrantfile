@@ -9,7 +9,6 @@ DEFAULT_VM_PARAMS = {
 }
 BOXES = {
   virtualbox: {
-    bucket: 'govuk-dev-boxes-test',
     latest_versions: {
       precise: '20160323',
       trusty: '20160323',
@@ -45,10 +44,8 @@ def default_config(config)
 EOS
   end
 
-  default_box = "govuk_dev_#{dist}64_#{BOXES[:virtualbox][:latest_versions][dist]}"
-
-  config.vm.box = default_box
-  config.vm.box_url = "https://#{BOXES[:virtualbox][:bucket]}.s3.amazonaws.com/#{default_box}.box"
+  config.vm.box = "govuk_dev_#{dist}64_#{BOXES[:virtualbox][:latest_versions][dist]}"
+  config.vm.box_url = "https://govuk-dev-boxes-test.s3.amazonaws.com/#{config.vm.box}.box"
   # Static IP for NFS and DNS
   config.vm.network :private_network, :ip => "10.1.1.254"
   config.vm.hostname = "development.development"
