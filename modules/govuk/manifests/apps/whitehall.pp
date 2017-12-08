@@ -188,8 +188,14 @@ class govuk::apps::whitehall(
       $app_protocol = 'https'
     }
 
+    if $::aws_migration {
+      $whitehall_frontend_vhost_ = 'whitehall-frontend'
+    } else {
+      $whitehall_frontend_vhost_ = "whitehall-frontend.${app_domain}"
+    }
+
     govuk::app::nginx_vhost { 'whitehall-frontend':
-      vhost                 => "whitehall-frontend.${app_domain}",
+      vhost                 => $whitehall_frontend_vhost_,
       protected             => $vhost_protected,
       app_port              => $port,
       asset_pipeline        => true,
@@ -216,8 +222,14 @@ class govuk::apps::whitehall(
   if $configure_admin == true {
     include assets
 
+    if $::aws_migration {
+      $whitehall_admin_vhost_ = 'whitehall-admin'
+    } else {
+      $whitehall_admin_vhost_ = "whitehall-admin.${app_domain}"
+    }
+
     govuk::app::nginx_vhost { 'whitehall-admin':
-      vhost                 => "whitehall-admin.${app_domain}",
+      vhost                 => $whitehall_admin_vhost_,
       app_port              => $port,
       protected             => $vhost_protected,
       protected_location    => '/government/admin/fact_check_requests/',
@@ -305,9 +317,18 @@ class govuk::apps::whitehall(
     ',
     }
 
-    nginx::config::vhost::static { "draft-whitehall-frontend.${app_domain}":
+    if $::aws_migration {
+      $draft_whitehall_frontend_vhost_  = 'draft-whitehall-frontend'
+      $draft_whitehall_frontend_aliases = ['draft-whitehall-frontend.*']
+    } else {
+      $draft_whitehall_frontend_vhost_  = "draft-whitehall-frontend.${app_domain}"
+      $draft_whitehall_frontend_aliases = []
+    }
+
+    nginx::config::vhost::static { $draft_whitehall_frontend_vhost_:
       locations     => {'/government/uploads' => '/data/uploads/whitehall/clean'},
       deny_crawlers => true,
+      aliases       => $draft_whitehall_frontend_aliases,
     }
 
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
