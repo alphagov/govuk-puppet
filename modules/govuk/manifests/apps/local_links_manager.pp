@@ -73,6 +73,12 @@
 # [*link_checker_api_secret_token*]
 #   The secret token used when verifying web hook responses from the Link
 #   Checker API.
+#
+# [*run_links_ga_export]
+#   Feature flag to allow a daily rake task to upload a list of bad links
+#   to GA.
+#   Default: false
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -95,6 +101,7 @@ class govuk::apps::local_links_manager(
   $google_export_account_id = undef,
   $google_export_custom_data_import_source_id = undef,
   $google_export_tracker_id = undef,
+  $run_links_ga_export = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -151,6 +158,9 @@ class govuk::apps::local_links_manager(
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+      "${title}-RUN_LINK_GA_EXPORT":
+        varname => 'RUN_LINK_GA_EXPORT',
+        value   => bool2str($run_links_ga_export);
     }
 
     if $local_links_manager_passive_checks {
