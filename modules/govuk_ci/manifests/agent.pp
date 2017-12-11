@@ -20,9 +20,6 @@ class govuk_ci::agent(
   include ::clamav::cron_freshclam
   include ::govuk_ci::agent::redis
   include ::govuk_ci::agent::docker
-  if $elasticsearch_enabled {
-    include ::govuk_ci::agent::elasticsearch
-  }
   include ::golang
   include ::govuk_ci::agent::gcloud
   include ::govuk_ci::agent::mongodb
@@ -40,6 +37,15 @@ class govuk_ci::agent(
   include ::govuk_rbenv::all
   include ::govuk_sysdig
   include ::govuk_testing_tools
+
+  if $elasticsearch_enabled {
+    include ::govuk_ci::agent::elasticsearch
+  } else {
+    class { 'govuk_java::set_defaults':
+      jdk => 'openjdk7',
+      jre => 'openjdk7',
+    }
+  }
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {
