@@ -101,7 +101,7 @@ class govuk::apps::local_links_manager(
   $google_export_account_id = undef,
   $google_export_custom_data_import_source_id = undef,
   $google_export_tracker_id = undef,
-  $run_links_ga_export = undef,
+  $run_links_ga_export = false,
 ) {
   $app_name = 'local-links-manager'
 
