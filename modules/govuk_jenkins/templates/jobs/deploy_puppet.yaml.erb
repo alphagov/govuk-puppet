@@ -42,6 +42,7 @@
             notify-backtonormal: false
             notify-repeatedfailure: false
             include-test-summary: false
+            room: <%= @slack_room %>
     scm:
       - deployment_Deploy_Puppet
     builders:

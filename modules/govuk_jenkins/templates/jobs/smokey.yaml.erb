@@ -24,6 +24,7 @@
           notify-backtonormal: true
           notify-repeatedfailure: false
           include-test-summary: false
+          room: <%= @slack_room %>
     publishers:
       - slack:
           team-domain: <%= @slack_team_domain %>

@@ -31,6 +31,7 @@
             notify-backtonormal: false
             notify-repeatedfailure: false
             include-test-summary: false
+            room: <%= @slack_room %>
     scm:
       - env-sync-and-backup_Copy_Data_from_Integration_to_AWS
     logrotate:
