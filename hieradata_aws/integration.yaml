@@ -1,6 +1,6 @@
 ---
-app_domain: "%{::aws_stackname}.integration.govuk.digital"
-app_domain_internal: "%{::aws_stackname}.integration.govuk-internal.digital"
+app_domain: "integration.publishing.service.gov.uk"
+app_domain_internal: "integration.govuk-internal.digital"
 
 base::shell::shell_prompt_string: 'integration'
 base::supported_kernel::enabled: true
