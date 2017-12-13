@@ -15,7 +15,7 @@
 # [*enable_public_proxy*]
 #   Whether to create a public proxy into this application for handling
 #   select public endpoints
-#   Default: false
+#   Default: true
 #
 # [*enable_procfile_worker*]
 #   Should the Foreman-based background worker be enabled by default. Set in
@@ -92,7 +92,7 @@
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
-  $enable_public_proxy = false,
+  $enable_public_proxy = true,
   $enable_procfile_worker = true,
   $sidekiq_retry_critical = '20',
   $sidekiq_retry_warning = '10',
