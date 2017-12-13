@@ -977,6 +977,7 @@ grafana::dashboards::deployment_applications:
     # Very low usage
     show_controller_errors: false
     show_slow_requests: false
+  policy-publisher: {}
   publisher:
     # logstasher >1.x
     fields_prefix: ''
