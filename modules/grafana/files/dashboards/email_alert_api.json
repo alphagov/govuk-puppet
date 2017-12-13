@@ -133,11 +133,18 @@
           ],
           "thresholds": [
             {
+              "colorMode": "warning",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 280
+            },
+            {
               "colorMode": "critical",
               "fill": true,
               "line": true,
               "op": "gt",
-              "value": 50
+              "value": 360
             }
           ],
           "timeFrom": null,
