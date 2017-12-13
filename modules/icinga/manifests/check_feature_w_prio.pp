@@ -22,5 +22,6 @@ define icinga::check_feature_w_prio (
     use                 => "govuk_${prio}_priority",
     service_description => "Run ${feature} ${prio} priority tests",
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(smokey-checks-fail),
   }
 }
