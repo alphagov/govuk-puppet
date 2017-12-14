@@ -8,6 +8,7 @@
   "hideControls": false,
   "id": 34,
   "links": [],
+  "refresh": "10s",
   "rows": [
     {
       "collapse": false,
@@ -133,11 +134,18 @@
           ],
           "thresholds": [
             {
+              "colorMode": "warning",
+              "fill": true,
+              "line": true,
+              "op": "gt",
+              "value": 280
+            },
+            {
               "colorMode": "critical",
               "fill": true,
               "line": true,
               "op": "gt",
-              "value": 50
+              "value": 360
             }
           ],
           "timeFrom": null,
@@ -214,7 +222,7 @@
             "col": 0,
             "desc": true
           },
-          "span": 4,
+          "span": 3,
           "styles": [
             {
               "alias": "Time",
@@ -285,7 +293,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 5,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -383,6 +391,247 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "Notify Email Send Failures",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "short",
+              "label": "Requests/sec",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 259,
+      "panels": [
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            },
+            {
+              "text": "Avg",
+              "value": "avg"
+            },
+            {
+              "text": "Total",
+              "value": "total"
+            }
+          ],
+          "datasource": "Graphite",
+          "description": "Shows data for the last 5 minutes, the average over a 5 minute period and the total for the time range. Note that in situations where this spans over a large time period (like a year or similar) the current value will be incorrect",
+          "fontSize": "100%",
+          "id": 18,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 0,
+            "desc": true
+          },
+          "span": 3,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 0,
+              "link": false,
+              "pattern": "/.*/",
+              "thresholds": [
+                "1",
+                "1"
+              ],
+              "type": "number",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.status_update.success, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Success\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.status_update.failure, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Failure\")",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": null,
+          "title": "Status Updates (per 5 minutes)",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 19,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 5,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.status_update.success, 1, \"sumSeries\"), \"all\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.status_update.success, 4)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Status Updates Successes",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "short",
+              "label": "Requests/sec",
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.status_update.failure, 1, \"sumSeries\"), \"all\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.status_update.failure, 4)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Status Updates Failures",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -612,7 +861,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -696,7 +945,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -720,6 +969,112 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "Time from email created until Notify first attempt",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "This shows the max, mean and min values of the time it takes to request notify to deliver an email. To provide decent samples the data is summarised to 5 minute intervals.",
+          "fill": 1,
+          "id": 17,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.mean), \"5minutes\", \"avg\")), \"average\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": false,
+              "op": "gt",
+              "value": 5000
+            },
+            {
+              "colorMode": "warning",
+              "fill": true,
+              "line": false,
+              "op": "gt",
+              "value": 1000
+            },
+            {
+              "colorMode": "ok",
+              "fill": true,
+              "line": false,
+              "op": "lt",
+              "value": 200
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Time to request email delivery",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1027,7 +1382,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(*.redis_info.bytes-used_memory, 0)"
+              "target": "aliasByNode(redis-*_backend*.redis_info.bytes-used_memory, 0)"
             }
           ],
           "thresholds": [],
