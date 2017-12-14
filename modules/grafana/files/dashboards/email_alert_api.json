@@ -619,7 +619,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -703,7 +703,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -727,6 +727,112 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "Time from email created until Notify first attempt",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "ms",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "This shows the max, mean and min values of the time it takes to request notify to deliver an email. To provide decent samples the data is summarised to 5 minute intervals.",
+          "fill": 1,
+          "id": 17,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.mean), \"5minutes\", \"avg\")), \"average\")",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [
+            {
+              "colorMode": "critical",
+              "fill": true,
+              "line": false,
+              "op": "gt",
+              "value": 5000
+            },
+            {
+              "colorMode": "warning",
+              "fill": true,
+              "line": false,
+              "op": "gt",
+              "value": 1000
+            },
+            {
+              "colorMode": "ok",
+              "fill": true,
+              "line": false,
+              "op": "lt",
+              "value": 200
+            }
+          ],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Time to request email delivery",
           "tooltip": {
             "shared": true,
             "sort": 0,
