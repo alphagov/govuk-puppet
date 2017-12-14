@@ -1382,7 +1382,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(*.redis_info.bytes-used_memory, 0)"
+              "target": "aliasByNode(redis-*_backend*.redis_info.bytes-used_memory, 0)"
             }
           ],
           "thresholds": [],
