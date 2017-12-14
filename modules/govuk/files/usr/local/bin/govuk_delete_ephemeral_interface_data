@@ -1,7 +1,7 @@
 #!/bin/bash
 # Expunge unneeded ephemeral interface data from the ci-agent-* boxes.
 
-for i in 1 2 3 4 5
+for i in 1 2 3 4 5 6 7 8
 do
   find /opt/graphite/storage/whisper/ci-agent-${i}_ci_integration -type d -name "interface-br*" | xargs -xi rm -rf {}
   find /opt/graphite/storage/whisper/ci-agent-${i}_ci_integration -type d -name "interface-veth*" | xargs -xi rm -rf {}
