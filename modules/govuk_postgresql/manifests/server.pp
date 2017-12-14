@@ -23,13 +23,13 @@
 #   3 for superuser connections, but if it runs out it can have an impact on
 #   applications waiting for connections. Ideally applications should close
 #   their connections to the database, but this doesn't always happen.
-#   Default: 100
+#   Default: 150
 class govuk_postgresql::server (
     $snakeoil_ssl_certificate,
     $snakeoil_ssl_key,
     $listen_addresses = '*',
     $configure_env_sync_user = false,
-    $max_connections = 100,
+    $max_connections = 150,
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
