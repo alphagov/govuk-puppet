@@ -262,6 +262,7 @@ class govuk::apps::asset_manager(
     # that should be served by proxying the request to S3 via nginx
     govuk::app::envvar {
       "${title}-PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX":
+        ensure  => 'absent',
         varname => 'PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX',
         value   => $proxy_percentage_of_asset_requests_to_s3_via_nginx;
     }
@@ -271,6 +272,7 @@ class govuk::apps::asset_manager(
     # nginx
     govuk::app::envvar {
       "${title}-PROXY_PERCENTAGE_OF_WHITEHALL_ASSET_REQUESTS_TO_S3_VIA_NGINX":
+        ensure  => 'absent',
         varname => 'PROXY_PERCENTAGE_OF_WHITEHALL_ASSET_REQUESTS_TO_S3_VIA_NGINX',
         value   => $proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx;
     }
