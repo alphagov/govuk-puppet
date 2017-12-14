@@ -33,12 +33,6 @@
 #   AWS access key for a user with permission to write to the S3 bucket
 # [*aws_secret_access_key*]
 #   AWS secret key for a user with permission to write to the S3 bucket
-# [*proxy_percentage_of_asset_requests_to_s3_via_nginx*]
-#   Value between 0 and 100 controlling the percentage of traffic that should
-#   be served by proxying the asset from S3
-# [*proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx*]
-#   Value between 0 and 100 controlling the percentage of traffic that should
-#   be served by proxying the Whitehall asset from S3
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -60,8 +54,6 @@ class govuk::apps::asset_manager(
   $aws_region = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
-  $proxy_percentage_of_asset_requests_to_s3_via_nginx = '0',
-  $proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx = '0',
   $redis_host = undef,
   $redis_port = undef
 ) {
@@ -256,25 +248,6 @@ class govuk::apps::asset_manager(
       "${title}-AWS_SECRET_KEY":
         varname => 'AWS_SECRET_KEY',
         value   => $aws_secret_access_key;
-    }
-
-    # Write the environment variable to configure the percentage of requests
-    # that should be served by proxying the request to S3 via nginx
-    govuk::app::envvar {
-      "${title}-PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX":
-        ensure  => 'absent',
-        varname => 'PROXY_PERCENTAGE_OF_ASSET_REQUESTS_TO_S3_VIA_NGINX',
-        value   => $proxy_percentage_of_asset_requests_to_s3_via_nginx;
-    }
-
-    # Write the environment variable to configure the percentage of Whitehall
-    # asset requests that should be served by proxying the request to S3 via
-    # nginx
-    govuk::app::envvar {
-      "${title}-PROXY_PERCENTAGE_OF_WHITEHALL_ASSET_REQUESTS_TO_S3_VIA_NGINX":
-        ensure  => 'absent',
-        varname => 'PROXY_PERCENTAGE_OF_WHITEHALL_ASSET_REQUESTS_TO_S3_VIA_NGINX',
-        value   => $proxy_percentage_of_whitehall_asset_requests_to_s3_via_nginx;
     }
   }
 }
