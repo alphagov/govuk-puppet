@@ -104,8 +104,6 @@ class govuk::apps::asset_manager(
         # $args:    Optional querystring params
         set $download_url $1$is_args$args;
 
-        add_header GOVUK-Asset-Manager-File-Store S3;
-
         # The X-CLOUD-STORAGE-URL header contains a signed URL for the asset on
         # S3. The signature of this URL is based in part on the request headers
         # set in the asset-manager Rails app at the time the URL is generated.
