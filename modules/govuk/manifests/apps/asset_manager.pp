@@ -84,43 +84,16 @@ class govuk::apps::asset_manager(
     $nginx_extra_config = inline_template('
       client_max_body_size 500m;
 
-      # Instruct Nginx to set "Sendfile" headers for both Mainstream and
-      # Whitehall public asset URLs. The Rails app will respond with the
-      # X-Accel-Redirect header set to a path prefixed with /raw/ or
-      # /cloud-storage-proxy/ which will be handled by the relevant internal
-      # location block below.
-      location ~ ^/(media|government/uploads)/(.*) {
-         proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-         proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
-
-         <%- if @aws_migration %>
-         proxy_pass http://asset-manager-proxy;
-         <%- else %>
-         proxy_pass http://asset-manager.<%= @app_domain %>-proxy;
-         <%- end %>
-       }
-
-      # /raw/(.*) is the path mapping sent from the Rails application to
-      # Nginx and is immediately picked up. /raw/(.*) is not available
-      # publicly as it is an internal path mapping.
-      location ~ /raw/(.*) {
-        internal;
-        add_header GOVUK-Asset-Manager-File-Store NFS;
-
-        # Control whether the asset can be embedded in other pages[1] by
-        # respecting X-Frame-Options from the Rails application.
-        # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
-        add_header X-Frame-Options $upstream_http_x_frame_options;
-
-        alias /var/apps/asset-manager/uploads/assets/$1;
-      }
-
       # Store values from Rails response headers for use in the
       # cloud-storage-proxy location block below.
       set $etag_from_rails $upstream_http_etag;
       set $last_modified_from_rails $upstream_http_last_modified;
       set $x_frame_options_from_rails $upstream_http_x_frame_options;
 
+      # For public assets requests, the Rails app will respond with the
+      # X-Accel-Redirect header set to a path prefixed with
+      # /cloud-storage-proxy/. This triggers an Nginx internal redirect
+      # to that path which is then handled by this location block.
       location ~ /cloud-storage-proxy/(.*) {
         # Prevent requests to this location from outside Nginx
         internal;
