@@ -7,6 +7,9 @@ FILES.each do |filename|
   classname = filename.split(".")[0]
 
   describe "govuk_jenkins::job::#{classname}", :type => :class do
+
+    let(:pre_condition) { 'include govuk_jenkins::job_builder_update' }
+
     it { is_expected.to compile }
 
     it { is_expected.to compile.with_all_deps }
