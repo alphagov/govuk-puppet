@@ -27,6 +27,9 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api
+#
 class govuk::apps::collections(
   $vhost = 'collections',
   $port = '3070',
@@ -34,6 +37,7 @@ class govuk::apps::collections(
   $sentry_dsn = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $email_alert_api_bearer_token = undef,
 ) {
   govuk::app { 'collections':
     app_type               => 'rack',
@@ -53,6 +57,9 @@ class govuk::apps::collections(
   }
 
   govuk::app::envvar {
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
