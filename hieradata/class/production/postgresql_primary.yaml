@@ -12,4 +12,4 @@ lv:
     pv: '/dev/sdd1'
     vg: 'postgresql'
 
-govuk_postgresql::server::max_connections: 200
+govuk_postgresql::server::max_connections: 300
