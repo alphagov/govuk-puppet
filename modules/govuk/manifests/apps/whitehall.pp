@@ -105,6 +105,9 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -119,6 +122,7 @@ class govuk::apps::whitehall(
   $db_hostname = undef,
   $db_password = undef,
   $db_username = undef,
+  $email_alert_api_bearer_token = undef,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $highlight_words_to_avoid = false,
@@ -465,6 +469,9 @@ class govuk::apps::whitehall(
   }
 
   govuk::app::envvar {
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;

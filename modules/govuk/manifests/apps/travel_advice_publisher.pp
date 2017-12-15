@@ -53,6 +53,9 @@
 # [*show_historical_edition_link*]
 #   Feature flag for showing in-app historical previews.
 #
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api 
+#
 class govuk::apps::travel_advice_publisher(
   $asset_manager_bearer_token = undef,
   $enable_email_alerts = false,
@@ -68,6 +71,7 @@ class govuk::apps::travel_advice_publisher(
   $redis_port = undef,
   $secret_key_base = undef,
   $show_historical_edition_link = false,
+  $email_alert_api_bearer_token = undef,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -111,6 +115,9 @@ class govuk::apps::travel_advice_publisher(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
