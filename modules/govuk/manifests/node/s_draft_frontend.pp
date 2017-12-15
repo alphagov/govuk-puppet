@@ -25,12 +25,4 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
       'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${app_domain}";
     }
   }
-
-  if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
-
-    govuk_envvar {
-      'PLEK_SERVICE_CONTENT_STORE_URI': value => "https://content-store.${app_domain_internal}";
-    }
-  }
 }
