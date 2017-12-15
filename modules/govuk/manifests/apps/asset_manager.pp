@@ -104,11 +104,11 @@ class govuk::apps::asset_manager(
         # $args:    Optional querystring params
         set $download_url $1$is_args$args;
 
-        # The X-CLOUD-STORAGE-URL header contains a signed URL for the asset on
-        # S3. The signature of this URL is based in part on the request headers
-        # set in the asset-manager Rails app at the time the URL is generated.
-        # The headers we send now must match otherwise Nginx will not be
-        # allowed to make the request. Since this location block inherits
+        # The X-Accel-Redirect header contains a signed URL, $download_url, for
+        # the asset on S3. The signature of this URL is based in part on the
+        # request headers set in the asset-manager Rails app at the time the URL
+        # is generated. The headers we send now must match otherwise Nginx will
+        # not be allowed to make the request. Since this location block inherits
         # `proxy_set_header` directives from previous levels[1], we explicitly
         # set the Host so that the inherited headers are over-written.
         #
