@@ -5,6 +5,10 @@ apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
 collectd::plugin::postgresql::password: 'password'
 
+deployable_applications: &deployable_applications
+  authenticating-proxy: {}
+  content-store: {}
+
 govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
@@ -30,6 +34,11 @@ govuk_jenkins::config::github_api_uri: foo
 govuk_jenkins::github_client_id: bar
 govuk_jenkins::github_client_secret: baz
 govuk_jenkins::config::github_web_uri: wibble
+
+govuk_jenkins::job::deploy_app::applications: *deployable_applications
+govuk_jenkins::job::deploy_app::applications: *deployable_applications
+govuk_jenkins::job::integration_deploy::applications: *deployable_applications
+govuk_jenkins::job::run_rake_task::applications: *deployable_applications
 
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate
 govuk_postgresql::server::snakeoil_ssl_key: key
