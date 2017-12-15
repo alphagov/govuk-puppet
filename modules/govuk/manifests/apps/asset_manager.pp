@@ -86,8 +86,9 @@ class govuk::apps::asset_manager(
 
       # Instruct Nginx to set "Sendfile" headers for both Mainstream and
       # Whitehall public asset URLs. The Rails app will respond with the
-      # X-Accel-Redirect header set to a path prefixed with /raw/ which will
-      # be handled by the internal `/raw/(.*)` location block below.
+      # X-Accel-Redirect header set to a path prefixed with /raw/ or
+      # /cloud-storage-proxy/ which will be handled by the relevant internal
+      # location block below.
       location ~ ^/(media|government/uploads)/(.*) {
          proxy_set_header X-Sendfile-Type X-Accel-Redirect;
          proxy_set_header X-Accel-Mapping /var/apps/asset-manager/uploads/assets/=/raw/;
