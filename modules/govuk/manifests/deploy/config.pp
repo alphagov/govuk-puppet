@@ -114,6 +114,7 @@ class govuk::deploy::config(
       'PLEK_SERVICE_LICENSIFY_URI': value       => "https://licensify.${licensify_app_domain}";
       'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain_internal}";
       'PLEK_SERVICE_CONTENT_STORE_URI': value   => "https://content-store.${app_domain_internal}";
+      'PLEK_SERVICE_EMAIL_ALERT_API_URI': value => "https://email-alert-api.${app_domain_internal}";
     }
   }
 }

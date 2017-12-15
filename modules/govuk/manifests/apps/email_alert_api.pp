@@ -253,7 +253,13 @@ class govuk::apps::email_alert_api(
         ',
       }
 
-      nginx::config::vhost::proxy { "email-alert-api-public.${app_domain}":
+      if $::aws_migration {
+        $vhost_ = 'email-alert-api-public'
+      } else {
+        $vhost_ = "email-alert-api-public.${app_domain}"
+      }
+
+      nginx::config::vhost::proxy { $vhost_:
         to               => ["localhost:${port}"],
         ssl_only         => true,
         protected        => false,
