@@ -25,12 +25,16 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api
+#
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port = '3099',
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
+  $email_alert_api_bearer_token = undef,
 ) {
   govuk::app { 'email-alert-frontend':
     app_type              => 'rack',
@@ -52,5 +56,8 @@ class govuk::apps::email_alert_frontend(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
   }
 }
