@@ -59,7 +59,7 @@ process :'rummager-publishing-listener'
 process :'rummager-govuk-index-listener'
 process :'rummager-bulk-reindex-listener'
 process :screenshot_as_a_service
-process :'search-admin' => [:rummager]
+process :'search-admin' => [:rummager, :'publishing-api']
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api', :rummager]
 process :'short-url-manager' => [:'publishing-api']
