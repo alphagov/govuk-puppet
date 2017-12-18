@@ -50,7 +50,7 @@ govuk_jenkins::config::user_permissions:
       - 'hudson.model.Item.Build'
       - 'hudson.model.Item.Read'
 
-govuk_jenkins::config::banner_string: 'AWS Deploy'
+govuk_jenkins::config::banner_string: 'AWS Integration'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::job::data_sync_complete_integration
