@@ -7,3 +7,6 @@
 -%>
 export <%= key -%>="<%= val -%>"
 <% end -%>
+<% if @spoof_target_domain -%>
+export SPOOF_TARGET_DOMAIN=<%= @spoof_target_domain %>
+<% end -%>
