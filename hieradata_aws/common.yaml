@@ -604,7 +604,7 @@ govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::deploy::config::asset_root: "https://%{hiera('router::assets_origin::vhost_name')}"
+govuk::deploy::config::asset_root: "https://assets-origin.%{hiera('app_domain')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::setup::gemstash_server: 'http://gemstash'
@@ -1159,8 +1159,6 @@ router::assets_origin::asset_routes:
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
-
-router::assets_origin::vhost_name: "assets-origin"
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
