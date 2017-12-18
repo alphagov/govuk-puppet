@@ -32,13 +32,13 @@ class monitoring::checks::sidekiq (
     critical  => 50,
     desc      => 'signon background worker queue size unexpectedly large',
     host_name => $::fqdn,
-    # Get the data over a 24 hour period. As the sidekiq middleware
+    # Get the data over a 5 day period. As the sidekiq middleware
     # only reports values when jobs come through, there can be large
-    # periods of empty data. Setting this to 24 hours should avoid too
+    # periods of empty data. Setting this to 5 days should avoid too
     # many false positives from not much activity, while also ensuring
-    # that if there is no data for longer than 24 hours, the alert
+    # that if there is no data for longer than 5 days, the alert
     # will fire with UNKNOWN.
-    from      => '24hours',
+    from      => '5days',
     # Drop all but the last 60 datapoints (at 5 seconds per datapoint,
     # this is 5 minutes), so that this alert reflects what is going on
     # currently.
