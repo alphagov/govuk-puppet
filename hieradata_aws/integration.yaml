@@ -102,6 +102,10 @@ govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
+# FIXME: this should be removed after the migration
+icinga::config::smokey::spoof_target_domain: 'cache.integration.govuk.digital'
+govuk_jenkins::job::smokey::spoof_target_domain: "%{hiera('icinga::config::smokey::spoof_target_domain')}"
+
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-integration'
 mongodb::backup::mongo_backup_node: 'localhost'

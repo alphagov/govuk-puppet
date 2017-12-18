@@ -22,6 +22,10 @@
 # [*smokey_rate_limit_token*]
 #   Token to pass as an HTTP header to bypass rate limiting
 #
+# [*spoof_target_domain*]
+#   If you wish to run tests against an environment that is different to the
+#   main app_domain parameter.
+#
 # [*smokey_task*]
 #   The rake task to run for the tests
 #
@@ -33,7 +37,8 @@ class govuk_jenkins::job::smokey (
   $smokey_bearer_token = undef,
   $smokey_rate_limit_token = undef,
   $smokey_task = 'test:production',
-  $app_domain = hiera('app_domain')
+  $spoof_target_domain = undef,
+  $app_domain = hiera('app_domain'),
 ) {
   $slack_team_domain = 'govuk'
   $slack_room = '2ndline'
