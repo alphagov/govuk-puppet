@@ -49,6 +49,10 @@
 #   start.
 #   Default: undef
 #
+# [*rate_limit_token*]
+#   The token used to bypass the rate limiting on GOV.uk
+#   Default: undef
+#
 class govuk::apps::link_checker_api (
   $db_hostname = undef,
   $db_username = 'link_checker_api',
@@ -62,6 +66,7 @@ class govuk::apps::link_checker_api (
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $rate_limit_token = undef,
 ) {
   $app_name = 'link-checker-api'
 
@@ -99,6 +104,13 @@ class govuk::apps::link_checker_api (
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $rate_limit_token != undef {
+    govuk::app::envvar { "${title}-RATE_LIMIT_TOKEN":
+      varname => 'RATE_LIMIT_TOKEN',
+      value   => $rate_limit_token,
     }
   }
 
