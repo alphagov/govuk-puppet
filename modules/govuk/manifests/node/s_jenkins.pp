@@ -23,6 +23,7 @@ class govuk::node::s_jenkins (
   $environment_variables = {},
 ) inherits govuk::node::s_base {
   include nginx
+  include govuk_postgresql::client
   include govuk_rbenv::all
   include ::phantomjs
 
