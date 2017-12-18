@@ -16,7 +16,7 @@ class govuk_jenkins::job_builder_update (
   include govuk_jenkins::job_builder
 
   exec { 'jenkins_jobs_update':
-    command => '/usr/bin/jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
+    command => '/usr/local/bin/jenkins-jobs update --delete-old /etc/jenkins_jobs/jobs/',
     onlyif  => "/usr/bin/curl ${jenkins_url}",
     require => Class['govuk_jenkins::job_builder'],
   }
