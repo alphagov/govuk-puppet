@@ -5,7 +5,7 @@ server {
   server_name <%= @full_domain %>;
   <%- end %>
 
-  listen 80;
+  listen <%= @port %>;
 
   proxy_connect_timeout 1s;
   proxy_read_timeout 15s;
@@ -74,6 +74,6 @@ server {
     proxy_pass http://localhost:3081;
   }
 
-  root /data/vhost/<%= @full_domain %>/current/public;
+  root <%= @nginx_location_path %>;
 
 }
