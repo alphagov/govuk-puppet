@@ -4,6 +4,13 @@
 # into maintenance mode.
 #
 class loadbalancer::maintenance {
+  file { '/etc/nginx/includes/maintenance.conf':
+    ensure  => present,
+    content => template('loadbalancer/etc/nginx/includes/maintenance.conf.erb'),
+    require => File['/etc/nginx/includes'],
+    notify  => Class['nginx::service'],
+  }
+
   file { '/usr/share/nginx/www':
     ensure  => directory,
     mode    => '0755',

@@ -80,15 +80,6 @@ define loadbalancer::balance(
     }
   }
 
-  if ! defined(File['/etc/nginx/includes/maintenance.conf']) {
-    file { '/etc/nginx/includes/maintenance.conf':
-      ensure  => present,
-      content => template('loadbalancer/etc/nginx/includes/maintenance.conf.erb'),
-      require => File['/etc/nginx/includes'],
-      notify  => Class['nginx::service'],
-    }
-  }
-
   if $maintenance_mode {
     include loadbalancer::maintenance
   }
