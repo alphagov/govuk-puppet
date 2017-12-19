@@ -220,6 +220,16 @@ def buildProject(Map options = [:]) {
       }
     }
 
+    if (hasDockerfile()) {
+      stage("Push Docker image") {
+        pushDockerImage(jobName, env.BRANCH_NAME)
+
+        if (params.PUSH_TO_GCR) {
+          pushDockerImageToGCR(jobName, env.BRANCH_NAME)
+        }
+      }
+    }
+
     if (options.publishingE2ETests == true && !params.IS_SCHEMA_TEST) {
       stage("End-to-end tests") {
         if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
@@ -249,16 +259,6 @@ def buildProject(Map options = [:]) {
     if (hasAssets() && !params.IS_SCHEMA_TEST) {
       stage("Precompile assets") {
         precompileAssets()
-      }
-    }
-
-    if (hasDockerfile()) {
-      stage("Push Docker image") {
-        pushDockerImage(jobName, env.BRANCH_NAME)
-
-        if (params.PUSH_TO_GCR) {
-          pushDockerImageToGCR(jobName, env.BRANCH_NAME)
-        }
       }
     }
 
