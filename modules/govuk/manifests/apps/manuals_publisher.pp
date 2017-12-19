@@ -49,6 +49,10 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
+# [*link_checker_api_secret_token*]
+#   The Link Checker API secret token.
+#   Default: undef
+#
 class govuk::apps::manuals_publisher(
   $port = 3205,
   $asset_manager_bearer_token = undef,
@@ -63,6 +67,7 @@ class govuk::apps::manuals_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $secret_token = undef,
+  $link_checker_api_secret_token = undef,
 ) {
   $app_name = 'manuals-publisher'
 
@@ -109,6 +114,9 @@ class govuk::apps::manuals_publisher(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-LINK_CHECKER_API_SECRET_TOKEN":
+      varname => 'LINK_CHECKER_API_SECRET_TOKEN',
+      value   => $link_checker_api_secret_token;
   }
 
   if $secret_token != undef {
