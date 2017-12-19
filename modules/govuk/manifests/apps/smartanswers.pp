@@ -18,6 +18,10 @@
 #   shown in an environment
 #   Default: false
 #
+# [*enable_debug_partial_template_paths*]
+#   A boolean value indicating if the partials used in view can be linked to in Github.
+#   Default: false
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -31,7 +35,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -39,6 +42,7 @@ class govuk::apps::smartanswers(
   $port = '3010',
   $expose_govspeak = false,
   $show_draft_flows = false,
+  $enable_debug_partial_template_paths = false,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
@@ -61,6 +65,14 @@ class govuk::apps::smartanswers(
     govuk::app::envvar {
       "${title}-SHOW_DRAFT_FLOWS":
         varname => 'SHOW_DRAFT_FLOWS',
+        value   => '1';
+    }
+  }
+
+  if $enable_debug_partial_template_paths {
+    govuk::app::envvar {
+      "${title}-ENABLE_DEBUG_PARTIAL_TEMPLATE_PATHS":
+        varname => 'ENABLE_DEBUG_PARTIAL_TEMPLATE_PATHS',
         value   => '1';
     }
   }
