@@ -42,5 +42,7 @@ class base {
       ensure  => 'present',
       content => template('base/motd.erb'),
     }
+
+    include hosts::migration
   }
 }
