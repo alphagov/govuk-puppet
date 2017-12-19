@@ -24,6 +24,10 @@
 #   The port where the Rails app is running.
 #   Default: 3073
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -42,6 +46,7 @@ class govuk::apps::search_admin(
   $db_username = undef,
   $sentry_dsn = undef,
   $port = '3073',
+  $publishing_api_bearer_token = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
@@ -64,6 +69,9 @@ class govuk::apps::search_admin(
   }
 
   govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
