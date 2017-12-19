@@ -70,8 +70,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(stats.gauges.govuk.app.$Application.workers.queues.$Queues.enqueued, 7)",
-              "textEditor": false
+              "target": "aliasByNode(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.queues.$Queues.enqueued, max, 5), 7)",
+              "textEditor": true
             }
           ],
           "thresholds": [],
@@ -165,7 +165,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "stats.gauges.govuk.app.$Application.workers.retry_set_size"
+              "target": "averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.retry_set_size, max, 5)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -416,7 +417,7 @@
         "multi": true,
         "name": "Queues",
         "options": [],
-        "query": "stats.gauges.govuk.app.$Application.workers.queues.*",
+        "query": "stats.gauges.govuk.app.$Application.*.workers.queues.*",
         "refresh": 2,
         "regex": "",
         "sort": 1,
@@ -459,5 +460,5 @@
   },
   "timezone": "browser",
   "title": "Sidekiq",
-  "version": 7
+  "version": 8
 }
