@@ -103,18 +103,20 @@ class govuk::deploy::config(
   if $::aws_migration {
     $app_domain_internal = hiera('app_domain_internal')
 
-    # These variables are manually set in the draft stack (e.g. s_draft_cache),
-    # make sure they're separated out in those locations otherwise puppet
-    # won't run cleanly.
     govuk_envvar {
+      'GOVUK_APP_DOMAIN_INTERNAL': value        => $app_domain_internal;
+
+      # These variables are manually set in the draft stack (e.g. s_draft_cache),
+      # make sure they're separated out in those locations otherwise puppet
+      # won't run cleanly.
+      'PLEK_SERVICE_CONTENT_STORE_URI': value   => "https://content-store.${app_domain_internal}";
+      'PLEK_SERVICE_EMAIL_ALERT_API_URI': value => "https://email-alert-api.${app_domain_internal}";
+      'PLEK_SERVICE_LICENSIFY_URI': value       => "https://licensify.${licensify_app_domain}";
       'PLEK_SERVICE_MAPIT_URI': value           => "https://mapit.${app_domain_internal}";
+      'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain_internal}";
       'PLEK_SERVICE_RUMMAGER_URI': value        => "https://rummager.${app_domain_internal}";
       'PLEK_SERVICE_SEARCH_URI': value          => "https://search.${app_domain_internal}";
       'PLEK_SERVICE_STATIC_URI': value          => "https://static.${app_domain_internal}";
-      'PLEK_SERVICE_LICENSIFY_URI': value       => "https://licensify.${licensify_app_domain}";
-      'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain_internal}";
-      'PLEK_SERVICE_CONTENT_STORE_URI': value   => "https://content-store.${app_domain_internal}";
-      'PLEK_SERVICE_EMAIL_ALERT_API_URI': value => "https://email-alert-api.${app_domain_internal}";
     }
   }
 }
