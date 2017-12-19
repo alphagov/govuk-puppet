@@ -72,6 +72,7 @@ govuk::node::s_development::apps:
   - 'service_manual_frontend'
   - 'service_manual_publisher'
   - 'short_url_manager'
+  - 'sidekiq_monitoring'
   - 'signon'
   - 'smartanswers'
   - 'specialist_publisher'
@@ -154,6 +155,7 @@ govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_development'
 govuk::apps::short_url_manager::mongodb_nodes: ['localhost']
+govuk::apps::sidekiq_monitoring::nginx_location: '/var/govuk/sidekiq-monitoring/public'
 govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']

@@ -9,6 +9,11 @@
 #   interfaces.
 #   Default: 3211
 #
+# [*nginx_location*]
+#   Path on the server where the public folder of the
+#   sidekiq-monitoring app can be found.
+#   Default: /data/vhost/{value based on app name and domain}/current/public
+#
 # [*asset_manager_redis_host*]
 #   Redis host for Asset Manager Sidekiq.
 #   Default: undef
@@ -123,6 +128,7 @@
 #
 class govuk::apps::sidekiq_monitoring (
   $port = 3211,
+  $nginx_location = undef,
   $asset_manager_redis_host = undef,
   $asset_manager_redis_port = undef,
   $content_performance_manager_redis_host = undef,
@@ -159,6 +165,12 @@ class govuk::apps::sidekiq_monitoring (
     $full_domain = $app_name
   } else {
     $full_domain = "${app_name}.${app_domain}"
+  }
+
+  if $nginx_location == undef {
+    $nginx_location_path = "/data/vhost/${full_domain}/current/public"
+  } else {
+    $nginx_location_path = $nginx_location
   }
 
   Govuk::App::Envvar::Redis {
