@@ -3,6 +3,12 @@
 # App to monitor Sidekiq for multiple GOV.UK apps.
 #
 # === Parameters
+# [*port*]
+#   Port that the sidekiq monitoring web frontend listens
+#   on and proxies requests to the individual app sidekiq
+#   interfaces.
+#   Default: 3211
+#
 # [*asset_manager_redis_host*]
 #   Redis host for Asset Manager Sidekiq.
 #   Default: undef
@@ -116,6 +122,7 @@
 #   Default: undef
 #
 class govuk::apps::sidekiq_monitoring (
+  $port = 3211,
   $asset_manager_redis_host = undef,
   $asset_manager_redis_port = undef,
   $content_performance_manager_redis_host = undef,

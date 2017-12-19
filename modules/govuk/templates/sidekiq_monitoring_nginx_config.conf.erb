@@ -5,7 +5,7 @@ server {
   server_name <%= @full_domain %>;
   <%- end %>
 
-  listen 80;
+  listen <%= @port %>;
 
   proxy_connect_timeout 1s;
   proxy_read_timeout 15s;
