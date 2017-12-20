@@ -656,7 +656,7 @@ def deployIntegration(String application, String branch, String tag, String depl
       string(name: 'TARGET_APPLICATION', value: application),
       string(name: 'TAG', value: tag),
       string(name: 'DEPLOY_TASK', value: deployTask)
-    ]
+    ], wait: false
   }
 }
 
