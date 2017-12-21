@@ -1,13 +1,9 @@
 ---
-- scm:
-    name: travel-advice-email-alert-check
 - job:
     name: travel-advice-email-alert-check
     display-name: TravelAdviceEmailAlertCheck
     project-type: freestyle
     description: "This job checks if travel advice email alerts have been emailed"
-    scm:
-      - travel-advice-email-alert-check
     logrotate:
         numToKeep: 100
     triggers:
