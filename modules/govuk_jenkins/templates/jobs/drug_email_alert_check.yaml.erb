@@ -1,13 +1,9 @@
 ---
-- scm:
-    name: email-alert-check
 - job:
     name: email-alert-check
     display-name: EmailAlertCheck
     project-type: freestyle
     description: "This job checks if drug device email alerts have been emailed"
-    scm:
-      - email-alert-check
     logrotate:
         numToKeep: 100
     triggers:
