@@ -385,6 +385,8 @@ govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 govuk::apps::hmrc_manuals_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::hmrc_manuals_api::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
+
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 # Hardcoded to its own redis server to improve performance

@@ -39,6 +39,7 @@ govuk::apps::email_alert_api::govdelivery_public_hostname: 'stage-public.govdeli
 govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '18'
 govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
+govuk::apps::kibana::logit_environment: 353b2977-c8b4-45e4-9cd7-373bff0d2f63
 govuk::apps::publicapi::backdrop_host: 'www.preview.performance.service.gov.uk'
 govuk::apps::publisher::run_fact_check_fetcher: true
 govuk::apps::publisher::fact_check_address_format: 'govuk-factcheck-preview+{id}@digital.cabinet-office.gov.uk'
