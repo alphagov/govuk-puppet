@@ -1,12 +1,6 @@
 ---
 - scm:
     name: email-alert-check
-    scm:
-        - git:
-            url: git@github.com:alphagov/email-alert-monitoring.git
-            branches:
-              - master
-
 - job:
     name: email-alert-check
     display-name: EmailAlertCheck
@@ -20,9 +14,20 @@
         - timed: '21 * * * *' # every hour on the 21st minute
     builders:
         - shell: |
+            (
+              git clone https://github.com/alphagov/email-alert-monitoring tmp &&
+              rm -rf email-alert-monitoring &&
+              mv tmp email-alert-monitoring
+            ) || echo "Cloning failed. Re-using directory from previous run."
+
+            cd email-alert-monitoring
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run
     publishers:
+      - text-finder:
+          regexp: "Cloning failed"
+          also-check-console-output: true
+          unstable-if-found: true
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
           condition: 'SUCCESS'
