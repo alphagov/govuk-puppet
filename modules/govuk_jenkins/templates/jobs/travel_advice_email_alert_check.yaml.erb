@@ -1,12 +1,6 @@
 ---
 - scm:
     name: travel-advice-email-alert-check
-    scm:
-        - git:
-            url: git@github.com:alphagov/email-alert-monitoring.git
-            branches:
-              - master
-
 - job:
     name: travel-advice-email-alert-check
     display-name: TravelAdviceEmailAlertCheck
@@ -20,19 +14,18 @@
         - timed: '*/15 * * * *' # every 15 minutes
     builders:
         - shell: |
+            (
+              git clone https://github.com/alphagov/email-alert-monitoring tmp &&
+              rm -rf email-alert-monitoring &&
+              mv tmp email-alert-monitoring
+            ) || echo "Cloning failed. Re-using directory from previous run."
+
+            cd email-alert-monitoring
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run_travel_alerts
     publishers:
       - text-finder:
-          regexp: "Could not read from remote repository"
-          also-check-console-output: true
-          unstable-if-found: true
-      - text-finder:
-          regexp: "The remote end hung up unexpectedly"
-          also-check-console-output: true
-          unstable-if-found: true
-      - text-finder:
-          regexp: "GitHub is offline for maintenance"
+          regexp: "Cloning failed"
           also-check-console-output: true
           unstable-if-found: true
       - trigger-parameterized-builds:
