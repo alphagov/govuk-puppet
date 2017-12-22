@@ -63,16 +63,7 @@
     builders:
         - shell: |
             set +x
-            <%- if @spoof_target_domain -%>
-            export SPOOF_TARGET_DOMAIN='<%= @spoof_target_domain %>'
-            <%- end -%>
             export TARGET_PLATFORM=<%= @environment %>
-            export AUTH_USERNAME='<%= @auth_username %>'
-            export AUTH_PASSWORD='<%= @auth_password %>'
-            export SIGNON_EMAIL='<%= @signon_email %>'
-            export SIGNON_PASSWORD='<%= @signon_password %>'
-            export BEARER_TOKEN=<%= @smokey_bearer_token %>
-            export RATE_LIMIT_TOKEN=<%= @smokey_rate_limit_token %>
             export MYTASK=<%= @smokey_task %>
             set -x
             ./jenkins.sh
