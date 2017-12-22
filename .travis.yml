@@ -14,7 +14,11 @@ env:
 before_install:
   # Travis bundler versions are quite out of date and can cause install errors
   # see: https://github.com/rubygems/rubygems/issues/1419
-  - gem update bundler
+  # TODO: recheck 2018/01/13
+  # This has been commented out until the following issues are resolved
+  # https://github.com/bundler/bundler/issues/6144
+  # https://github.com/rubygems/rubygems/issues/2055
+  #- gem update bundler
 install:
   - bundle install --jobs=3 --retry=3 --deployment --path=${BUNDLE_PATH:-vendor/bundle}
   - bundle exec rake librarian:install
