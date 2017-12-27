@@ -19,10 +19,13 @@ class monitoring::checks::smokey (
 
   $service_file = '/etc/init/smokey-loop.conf'
 
+  include govuk::apps::smokey
+
   # TODO: Should this really run as root?
   file { $service_file:
     ensure  => present,
     content => template('monitoring/smokey-loop.conf'),
+    require => Class['govuk::apps::smokey'],
   }
 
   service { 'smokey-loop':
