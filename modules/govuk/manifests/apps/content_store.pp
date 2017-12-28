@@ -89,15 +89,6 @@ class govuk::apps::content_store(
     }
   }
 
-  if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
-
-    govuk::app::envvar { "${title}-PLEK_SERVICE_ROUTER_API_URI":
-      varname => 'PLEK_SERVICE_ROUTER_API_URI',
-      value   => "https://router-api.${app_domain_internal}",
-    }
-  }
-
   govuk::app::envvar {
     "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',

@@ -92,6 +92,45 @@ describe 'govuk::app::config', :type => :define do
       end
     end
 
+    context 'in AWS' do
+      let(:params) do
+        {
+          :port => '8000',
+          :app_type => 'rack',
+          :domain => 'foo.bar.baz',
+          :vhost_full => 'giraffe.foo.bar.baz',
+        }
+      end
+      let(:facts) {{ :aws_migration => true }}
+
+      it do
+        is_expected.to contain_govuk__app__envvar('giraffe-PLEK_SERVICE_APP_URI').with(
+          :varname => 'PLEK_SERVICE_GIRAFFE_URI',
+          :value   => 'https://giraffe.environment.example.com',
+        )
+      end
+    end
+
+    context 'in AWS with hyphenated app name' do
+      let(:title) { 'bella-the-cat' }
+      let(:params) do
+        {
+          :port => '8000',
+          :app_type => 'rack',
+          :domain => 'foo.bar.baz',
+          :vhost_full => 'giraffe.foo.bar.baz',
+        }
+      end
+      let(:facts) {{ :aws_migration => true }}
+
+      it do
+        is_expected.to contain_govuk__app__envvar('bella-the-cat-PLEK_SERVICE_APP_URI').with(
+          :varname => 'PLEK_SERVICE_BELLA_THE_CAT_URI',
+          :value   => 'https://bella-the-cat.environment.example.com',
+        )
+      end
+    end
+
     context 'with app_type => bare, command => ./launch_zoo' do
       let(:params) {{
         :port => '123',
