@@ -135,7 +135,7 @@ hosts::migration::hosts:
   bouncer.integration.publishing.service.gov.uk:
     ip: 52.30.142.193
   draft-origin.integration.publishing.service.gov.uk:
-    ip: 54.171.20.177
+    ip: 54.229.123.10
   whitehall-admin.integration.publishing.service.gov.uk:
     ip: 52.210.192.30
 
