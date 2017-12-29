@@ -15,15 +15,21 @@ class govuk_ci::agent::docker {
     version => '1.17.1',
   }
 
-  cron::crondotdee { 'docker_system_prune' :
+  cron::crondotdee { 'docker_system_prune_dangling' :
     hour    => '*/2',
     minute  => 0,
-    command => 'docker system prune -a -f --filter="until=24h"',
+    command => 'docker system prune -f --filter="until=1h"',
+  }
+
+  cron::crondotdee { 'docker_system_prune_all' :
+    hour    => 4,
+    minute  => 0,
+    command => 'docker system prune -a -f --filter="until=48h"',
   }
 
   cron::crondotdee { 'docker_volume_prune' :
-    hour    => '*/2',
-    minute  => 5,
+    hour    => 5,
+    minute  => 0,
     command => 'docker volume prune -f',
   }
 }
