@@ -6,7 +6,7 @@ ENV['HOME'] = Etc.getpwuid(Process.uid).dir
 
 require 'puppet'
 require 'puppet/ssl/certificate_request'
-require 'aws-sdk-core'
+require 'aws-sdk-ec2'
 
 certname = ARGV.pop
 csr = Puppet::SSL::CertificateRequest.from_s(STDIN.read)
