@@ -24,7 +24,7 @@ class puppet::puppetserver::package(
     require => Package['openjdk-7-jre-headless'],
   }
 
-  package { 'aws-sdk-core':
+  package { ['aws-sdk-ec2', 'aws-sdk-core']:
     provider => system_gem,
   }
 
