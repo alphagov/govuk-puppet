@@ -135,4 +135,13 @@ class govuk_jenkins (
     require => Class['govuk_jenkins::user'],
   }
 
+  # This was created with root permissions which broke deploys.
+  file { "${jenkins_homedir}/bundles":
+    ensure  => directory,
+    owner   => $jenkins_user,
+    group   => $jenkins_user,
+    mode    => '0775',
+    require => Class['govuk_jenkins::user'],
+  }
+
 }
