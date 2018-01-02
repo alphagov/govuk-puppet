@@ -59,8 +59,8 @@
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
@@ -149,8 +149,8 @@
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
