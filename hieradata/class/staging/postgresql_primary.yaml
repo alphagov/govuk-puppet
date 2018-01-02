@@ -1,1 +1,14 @@
+lv:
+  postgresql:
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdd1'
+      - '/dev/sde1'
+      - '/dev/sdf1'
+      - '/dev/sdg1'
+    vg: 'backups'
+  data:
+    pv: '/dev/sdc1'
+    vg: 'postgresql'
+
 govuk_postgresql::server::max_connections: 200

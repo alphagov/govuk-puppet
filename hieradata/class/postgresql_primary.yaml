@@ -11,19 +11,6 @@ govuk_postgresql::server::primary::slave_addresses:
 
 icinga::client::contact_groups: 'urgent-priority'
 
-lv:
-  postgresql:
-    pv:
-      - '/dev/sdb1'
-      - '/dev/sdd1'
-      - '/dev/sde1'
-      - '/dev/sdf1'
-      - '/dev/sdg1'
-    vg: 'backups'
-  data:
-    pv: '/dev/sdc1'
-    vg: 'postgresql'
-
 mount:
   /var/lib/postgresql:
     disk: '/dev/mapper/postgresql-data'
