@@ -132,7 +132,7 @@
           "datasource": "Graphite",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {},
           "id": 4,
           "legend": {
