@@ -12,9 +12,9 @@ process :bouncer
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
-process :'collections-publisher' => [:'publishing-api', :rummager, :'collections-publisher-worker']
+process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker']
 process :'collections-publisher-worker'
-process :'contacts-admin' => [:rummager, :'publishing-api', :whitehall]
+process :'contacts-admin' => [:'publishing-api', :whitehall]
 process :'content-performance-manager' => [:'publishing-api-read', :'content-performance-manager-sidekiq-google-analytics', :'content-performance-manager-sidekiq-publishing-api']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
@@ -32,20 +32,20 @@ process :'email-alert-service'
 process :'event-store'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :rummager, :'content-store']
-process :frontend => [:static, :'content-store', :rummager]
-process :'government-frontend' => [:'content-store', :static, :rummager]
+process :frontend => [:static, :'content-store']
+process :'government-frontend' => [:'content-store', :static]
 process :'hmrc-manuals-api' => [:'publishing-api', :rummager]
 process :imminence => [:mapit]
 process :'info-frontend' => [:static, :'content-store']
-process :licencefinder => [:static, :'content-store', :rummager]
+process :licencefinder => [:static, :'content-store']
 process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
 process :'local-links-manager' => [:'link-checker-api']
 process :'manuals-frontend' => [:static, :'content-store']
-process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
+process :'manuals-publisher' => ['asset-manager', :'publishing-api']
 process :mapit
 process :maslow
-process :'policy-publisher' => [:'publishing-api', :rummager]
+process :'policy-publisher' => [:'publishing-api']
 process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for some requests also uses: mapit
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
@@ -61,12 +61,12 @@ process :'rummager-bulk-reindex-listener'
 process :screenshot_as_a_service
 process :'search-admin' => [:rummager, :'publishing-api']
 process :'service-manual-frontend' => [:'content-store', :static]
-process :'service-manual-publisher' => [:'publishing-api', :rummager]
+process :'service-manual-publisher' => [:'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
 process :signon
 process :smartanswers => [:static, :'content-store', :imminence]
-process :'specialist-publisher' => ['asset-manager', :rummager, :'publishing-api', :'email-alert-api']
-process :'specialist-publisher-worker' => [:rummager, :'email-alert-api']
+process :'specialist-publisher' => ['asset-manager', :'publishing-api', :'email-alert-api']
+process :'specialist-publisher-worker' => [:'email-alert-api']
 process :static
 process :support => [:'support-api']
 process :'support-api'
