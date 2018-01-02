@@ -14,14 +14,15 @@ icinga::client::contact_groups: 'urgent-priority'
 lv:
   postgresql:
     pv:
-      - '/dev/sdb1'
-      - '/dev/sdd1'
+      - '/dev/sda1'
+      - '/dev/sdc1'
       - '/dev/sde1'
       - '/dev/sdf1'
       - '/dev/sdg1'
+      - '/dev/sdh1'
     vg: 'backups'
   data:
-    pv: '/dev/sdc1'
+    pv: '/dev/sdd1'
     vg: 'postgresql'
 
 mount:
