@@ -277,11 +277,11 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.enqueued, '10s', 'max'), 'max'), 'Enqueued')",
+              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.*.workers.enqueued, '10s', 'max'), 'max'), 'Enqueued')",
               "refId": "A"
             },
             {
-              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.workers.retry_set_size, '10s', 'max'), 'max'), 'Retry Set')",
+              "target": "alias(consolidateBy(summarize(stats.gauges.govuk.app.rummager.*.workers.retry_set_size, '10s', 'max'), 'max'), 'Retry Set')",
               "refId": "B"
             }
           ],
