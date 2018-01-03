@@ -10,7 +10,7 @@ class monitoring::checks::sidekiq (
   $enable_support_check = true,
 ) {
   icinga::check::graphite { 'check_rummager_queue_latency':
-    target              => 'keepLastValue(stats.gauges.govuk.app.rummager.workers.queues.default.latency)',
+    target              => 'keepLastValue(maxSeries(stats.gauges.govuk.app.rummager.*.workers.queues.default.latency))',
     warning             => 0.3,
     critical            => 15,
     use                 => 'govuk_normal_priority',
