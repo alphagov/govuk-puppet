@@ -9,7 +9,7 @@
     logrotate:
       daysToKeep: 30
     triggers:
-      - timed: 'H 8-19 * * *'
+      - timed: 'H/30 * * * *'
     builders:
       - shell: |
           #!/bin/bash
