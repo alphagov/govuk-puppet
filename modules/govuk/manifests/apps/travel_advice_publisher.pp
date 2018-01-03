@@ -54,7 +54,11 @@
 #   Feature flag for showing in-app historical previews.
 #
 # [*email_alert_api_bearer_token*]
-#   Bearer token for communication with the email-alert-api 
+#   Bearer token for communication with the email-alert-api
+#
+# [*link_checker_api_secret_token*]
+#   The Link Checker API secret token.
+#   Default: undef
 #
 class govuk::apps::travel_advice_publisher(
   $asset_manager_bearer_token = undef,
@@ -72,6 +76,7 @@ class govuk::apps::travel_advice_publisher(
   $secret_key_base = undef,
   $show_historical_edition_link = false,
   $email_alert_api_bearer_token = undef,
+  $link_checker_api_secret_token = undef,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -121,6 +126,9 @@ class govuk::apps::travel_advice_publisher(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-LINK_CHECKER_API_SECRET_TOKEN":
+        varname => 'LINK_CHECKER_API_SECRET_TOKEN',
+        value   => $link_checker_api_secret_token;
   }
 
   validate_bool($show_historical_edition_link)
