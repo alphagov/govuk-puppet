@@ -42,6 +42,7 @@ class govuk::node::s_asset_slave (
   }
 
   cron { 'sync-asset-manager-from-master':
+    ensure  => 'absent',
     user    => 'assets',
     minute  => '*/10',
     command => '/usr/bin/setlock -n /var/tmp/asset-manager.lock /usr/bin/rsync -a --delete /data/master-uploads/asset-manager/ /mnt/uploads/asset-manager',
