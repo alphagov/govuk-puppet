@@ -9,12 +9,12 @@
   "targets": [
     {
       "refId": "A",
-      "target": "aliasByNode(stats.govuk.app.<%= @app_name %>.workers.*.failure, 5)",
+      "target": "groupByNode(stats.govuk.app.<%= @app_name %>.*.workers.*.*.failure, 6, 'sumSeries')",
       "textEditor": true
     },
     {
       "refId": "B",
-      "target": "aliasByNode(stats.govuk.app.<%= @app_name %>.workers.*.*.failure, 6)",
+      "target": "groupByNode(stats.govuk.app.<%= @app_name %>.*.workers.*.*.failure, 7, 'sumSeries')",
       "textEditor": true
     }
   ],
