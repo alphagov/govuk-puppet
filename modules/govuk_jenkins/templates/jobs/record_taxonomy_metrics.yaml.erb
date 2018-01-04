@@ -7,10 +7,9 @@
       This job runs a rake task in Content Tagger to send metrics
       about the Topic Taxonomy to statsd.
     logrotate:
-      numToKeep: 30
-      artifactDaysToKeep: 3
+      daysToKeep: 30
     triggers:
-      - timed: 'H 8-19 * * *'
+      - timed: 'H/30 * * * *'
     builders:
       - shell: |
           #!/bin/bash
