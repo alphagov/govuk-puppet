@@ -3,7 +3,11 @@
 Facter.add("fqdn_short") do
   setcode do
     fqdn_short = Facter.value("fqdn").dup
-    fqdn_short.gsub!(/\.publishing\.service\.gov\.uk$/, '')
+    if Facter.value(:aws_migration)
+      fqdn_short.gsub(/\..*/, '')
+    else
+      fqdn_short.gsub!(/\.publishing\.service\.gov\.uk$/, '')
+    end
 
     fqdn_short
   end
