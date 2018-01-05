@@ -71,7 +71,7 @@ govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::job::integration_deploy
+  - govuk_jenkins::jobs::integration_deploy
 
 govuk_jenkins::plugins:
     ace-editor:

@@ -58,19 +58,19 @@ govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Integration'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::job::data_sync_complete_integration
-  - govuk_jenkins::job::deploy_app
-  - govuk_jenkins::job::deploy_emergency_banner
-  - govuk_jenkins::job::deploy_puppet
-  - govuk_jenkins::job::passive_checks
-  - govuk_jenkins::job::remove_emergency_banner
-  - govuk_jenkins::job::run_rake_task
-  - govuk_jenkins::job::search_benchmark
-  - govuk_jenkins::job::search_index_checks
-  - govuk_jenkins::job::search_test_spelling_suggestions
-  - govuk_jenkins::job::smokey
-  - govuk_jenkins::job::smokey_deploy
-  - govuk_jenkins::job::user_monitor
+  - govuk_jenkins::jobs::data_sync_complete_integration
+  - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_emergency_banner
+  - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::remove_emergency_banner
+  - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::search_benchmark
+  - govuk_jenkins::jobs::search_index_checks
+  - govuk_jenkins::jobs::search_test_spelling_suggestions
+  - govuk_jenkins::jobs::smokey
+  - govuk_jenkins::jobs::smokey_deploy
+  - govuk_jenkins::jobs::user_monitor
 
 govuk_jenkins::plugins:
   ace-editor:
