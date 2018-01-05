@@ -16,26 +16,18 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
   }
 
   class { 'govuk_elasticsearch':
-    cluster_hosts          => ['rummager-elasticsearch-1.api:9300', 'rummager-elasticsearch-2.api:9300', 'rummager-elasticsearch-3.api:9300'],
-    cluster_name           => 'govuk-content',
-    heap_size              => "${es_heap_size}m",
-    number_of_replicas     => '1',
-    host                   => $::fqdn,
-    open_firewall_from_all => false,
-    require                => Class['govuk_java::openjdk7::jre'],
-    aws_cluster_name       => $aws_cluster_name,
-    log_slow_queries       => true,
-    slow_query_log_level   => 'info',
+    cluster_hosts        => ['rummager-elasticsearch-1.api:9300', 'rummager-elasticsearch-2.api:9300', 'rummager-elasticsearch-3.api:9300'],
+    cluster_name         => 'govuk-content',
+    heap_size            => "${es_heap_size}m",
+    number_of_replicas   => '1',
+    host                 => $::fqdn,
+    require              => Class['govuk_java::openjdk7::jre'],
+    aws_cluster_name     => $aws_cluster_name,
+    log_slow_queries     => true,
+    slow_query_log_level => 'info',
   }
 
-  if $::aws_migration {
-
-    @ufw::allow { 'allow-elasticsearch-http-9200':
-      port => 9200,
-    }
-
-  } else {
-
+  unless $::aws_migration {
     @ufw::allow { 'allow-elasticsearch-http-9200-from-search-1':
       port    => 9200,
       from    => getparam(Govuk_host['search-1'], 'ip'),
