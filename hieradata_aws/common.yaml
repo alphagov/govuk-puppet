@@ -570,6 +570,7 @@ govuk::apps::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
+govuk::apps::static::asset_manager_host: "asset-manager.%{hiera('app_domain_internal')}"
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
 
