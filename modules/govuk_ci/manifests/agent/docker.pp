@@ -15,8 +15,16 @@ class govuk_ci::agent::docker {
     version => '1.17.1',
   }
 
-  cron::crondotdee { 'docker_system_prune_dangling' :
+  # TODO: remove this once the file has been purged
+  cron::crondotdee { 'docker_system_prune' :
+    ensure  => 'absent',
     hour    => '*/2',
+    minute  => 0,
+    command => 'docker system prune -a -f --filter="until=24h"',
+  }
+
+  cron::crondotdee { 'docker_system_prune_dangling' :
+    hour    => '*',
     minute  => 0,
     command => 'docker system prune -f --filter="until=1h"',
   }
@@ -28,8 +36,8 @@ class govuk_ci::agent::docker {
   }
 
   cron::crondotdee { 'docker_volume_prune' :
-    hour    => 5,
-    minute  => 0,
+    hour    => '*',
+    minute  => 5,
     command => 'docker volume prune -f',
   }
 }
