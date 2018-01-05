@@ -456,6 +456,8 @@ govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
 
 govuk::apps::info_frontend::enabled: true
+govuk::apps::info_frontend::vhost_aliases:
+  - 'info-frontend'
 
 govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
