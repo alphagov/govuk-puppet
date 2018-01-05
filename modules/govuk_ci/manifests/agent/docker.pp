@@ -15,6 +15,14 @@ class govuk_ci::agent::docker {
     version => '1.17.1',
   }
 
+  # TODO: remove this once the file has been purged
+  cron::crondotdee { 'docker_system_prune' :
+    ensure  => 'absent',
+    hour    => '*/2',
+    minute  => 0,
+    command => 'docker system prune -a -f --filter="until=24h"',
+  }
+
   cron::crondotdee { 'docker_system_prune_dangling' :
     hour    => '*/2',
     minute  => 0,
