@@ -24,7 +24,7 @@ class govuk_ci::agent::docker {
   }
 
   cron::crondotdee { 'docker_system_prune_dangling' :
-    hour    => '*/2',
+    hour    => '*',
     minute  => 0,
     command => 'docker system prune -f --filter="until=1h"',
   }
@@ -36,8 +36,8 @@ class govuk_ci::agent::docker {
   }
 
   cron::crondotdee { 'docker_volume_prune' :
-    hour    => 5,
-    minute  => 0,
+    hour    => '*',
+    minute  => 5,
     command => 'docker volume prune -f',
   }
 }
