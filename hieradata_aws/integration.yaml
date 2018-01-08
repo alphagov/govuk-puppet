@@ -103,6 +103,8 @@ govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
+# FIXME: remove this after it has been deployed
+hosts::migration::ensure: 'absent'
 # FIXME: this should be removed after the migration when DNS has been switched over
 hosts::migration::hosts:
   assets-origin.integration.publishing.service.gov.uk:
