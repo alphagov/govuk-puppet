@@ -32,7 +32,7 @@ class govuk_jenkins::jobs::integration_deploy (
   $jenkins_integration_api_password = undef,
   $jenkins_integration_aws_api_user = undef,
   $jenkins_integration_aws_api_password = undef,
-  $aws_deploy_url = 'deploy.blue.integration.govuk.digital',
+  $aws_deploy_url = 'deploy.integration.publishing.service.gov.uk',
   $puppet_auth_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/integration_app_deploy.yaml':
