@@ -7,7 +7,7 @@ govuk_elasticsearch::version: '2.4.6'
 
 lv:
   data:
-    pv: '/dev/xvdf'
+    pv: '/dev/nvme1n1'
     vg: 'elasticsearch'
 
 mount:
