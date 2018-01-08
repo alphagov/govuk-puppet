@@ -957,7 +957,9 @@ grafana::dashboards::deployment_applications:
   frontend:
     # logstasher >1.x
     fields_prefix: ''
-  government-frontend: {}
+  government-frontend:
+    # logstasher >1.x
+    fields_prefix: ''
   hmrc-manuals-api:
     # Missing @fields.status
     show_controller_errors: false
@@ -972,7 +974,9 @@ grafana::dashboards::deployment_applications:
     docs_name: 'licence-finder'
   link-checker-api:
     has_workers: true
-  local-links-manager: {}
+  local-links-manager:
+    # logstasher >1.x
+    fields_prefix: ''
   manuals-frontend:
     # Missing status, duration, controller
     show_controller_errors: false
