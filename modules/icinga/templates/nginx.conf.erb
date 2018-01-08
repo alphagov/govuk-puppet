@@ -1,5 +1,5 @@
 server {
-  server_name nagios nagios.* icinga icinga.* alert alert.*;
+  server_name nagios nagios.* icinga icinga.* alert alert.* ci-alert ci-alert.*;
 
   <%- if scope.lookupvar('::aws_migration') %>
   listen 80;

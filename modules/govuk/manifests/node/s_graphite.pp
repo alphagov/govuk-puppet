@@ -88,7 +88,7 @@ class govuk::node::s_graphite (
 
     $graphite_aliases = undef
   } else {
-    $graphite_aliases = ['graphite.*']
+    $graphite_aliases = ['graphite.*', 'ci-graphite.*']
   }
 
   nginx::config::vhost::proxy { 'graphite':
