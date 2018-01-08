@@ -1013,7 +1013,17 @@ grafana::dashboards::deployment_applications:
   smartanswers:
     docs_name: 'smart-answers'
   specialist-publisher: {}
-  static: {}
+  static:
+    dependent_app_5xx_errors:
+      - calendars
+      - collections
+      - contacts
+      - finder-frontend
+      - frontend
+      - government-frontend
+      - manuals-frontend
+      - smartanswers
+      - whitehall-frontend
   support: {}
   support-api: {}
   transition:
