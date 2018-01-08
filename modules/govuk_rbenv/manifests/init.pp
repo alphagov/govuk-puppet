@@ -8,11 +8,11 @@ class govuk_rbenv {
 
   unless $::lsbdistcodename == 'xenial' {
     rbenv::version { '1.9.3-p550':
-      bundler_version => '1.7.4',
+      bundler_version  => '1.7.4',
+      install_gem_docs => false,
     }
     rbenv::alias { '1.9.3':
       to_version => '1.9.3-p550',
     }
   }
-
 }

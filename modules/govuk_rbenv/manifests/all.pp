@@ -21,37 +21,47 @@ class govuk_rbenv::all (
   }
 
   rbenv::version { '2.1.5':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.2.2':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.2.3':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.2.4':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.2.8':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.3.0':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.3.1':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.3.5':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.4.0':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
   rbenv::version { '2.4.2':
-    bundler_version => '1.15.1',
+    bundler_version  => '1.15.1',
+    install_gem_docs => false,
   }
 
-  # These aliases resolve .ruby-version 2.x to an installed Ruby version.
+  # These aliases re solve .ruby-version 2.x to an installed Ruby version.
   rbenv::alias { '2.2':
     to_version => '2.2.8',
   }
