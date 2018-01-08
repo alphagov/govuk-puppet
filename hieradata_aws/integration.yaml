@@ -106,11 +106,11 @@ grafana::dashboards::machine_suffix_metrics: '_integration'
 # FIXME: this should be removed after the migration when DNS has been switched over
 hosts::migration::hosts:
   assets-origin.integration.publishing.service.gov.uk:
-    ip: 54.154.251.153
+    ip: 54.72.106.18
     host_aliases:
       - 'www-origin.integration.publishing.service.gov.uk'
   backend.integration.publishing.service.gov.uk:
-    ip: 54.229.131.171
+    ip: 52.209.64.175
     host_aliases:
       - 'collections-publisher.integration.publishing.service.gov.uk'
       - 'contacts-admin.integration.publishing.service.gov.uk'
@@ -133,11 +133,11 @@ hosts::migration::hosts:
       - 'transition.integration.publishing.service.gov.uk'
       - 'travel-advice-publisher.integration.publishing.service.gov.uk'
   bouncer.integration.publishing.service.gov.uk:
-    ip: 54.229.111.17
+    ip: 52.213.179.163
   draft-origin.integration.publishing.service.gov.uk:
-    ip: 54.171.170.185
+    ip: 52.51.208.154
   whitehall-admin.integration.publishing.service.gov.uk:
-    ip: 34.250.228.194
+    ip: 54.76.229.24
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-integration'
