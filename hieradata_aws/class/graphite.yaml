@@ -9,7 +9,7 @@ icinga::client::checks::disk_time_critical: 400 # milliseconds
 lv:
   data:
     pv:
-      - /dev/xvdf
+      - /dev/nvme1n1
     vg: graphite
 
 mount:
