@@ -7,6 +7,7 @@ class govuk_jenkins::jobs::copy_data_from_integration_to_aws (
   $mysql_dst_root_pw = undef,
   $pg_src_env_sync_pw = undef,
   $pg_dst_env_sync_pw = undef,
+  $pg_tr_dst_env_sync_pw = undef,
   $whitehall_mysql_password = undef,
   $app_domain = hiera('app_domain'),
 ) {
