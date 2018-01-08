@@ -23,6 +23,9 @@
 #   The URL of the AWS Integration stack. This may potentially change in the future
 #   so it is added as a parameter.
 #
+# [*ci_deploy_url*]
+#   The URL of the CI stack to deploy Puppet changes into.
+#
 # [*puppet_auth_token*]
 #   This token is used to authenticate with the deploy job in Integration.
 #
@@ -33,6 +36,7 @@ class govuk_jenkins::jobs::integration_deploy (
   $jenkins_integration_aws_api_user = undef,
   $jenkins_integration_aws_api_password = undef,
   $aws_deploy_url = 'deploy.integration.publishing.service.gov.uk',
+  $ci_deploy_url = 'ci-deploy.integration.publishing.service.gov.uk',
   $puppet_auth_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/integration_app_deploy.yaml':
