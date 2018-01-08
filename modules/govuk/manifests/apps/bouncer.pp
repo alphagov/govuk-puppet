@@ -63,18 +63,6 @@ class govuk::apps::bouncer(
 
   if $::aws_migration {
     $vhost = 'bouncer'
-
-    nginx::config::site { 'healthcheck':
-      content => '
-        # Required for ALB healthchecks
-        server {
-          listen 80;
-          location = /_healthcheck {
-            return 200;
-          }
-        }
-      ',
-    }
   } else {
     $vhost = "bouncer.${app_domain}"
   }
