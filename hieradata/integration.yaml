@@ -20,7 +20,7 @@ backup::offsite::jobs:
 backup::server::backup_hour: 8
 backup::server::backup_minute: 30
 
-base::shell::shell_prompt_string: 'integration'
+base::shell::shell_prompt_string: 'ci-integration'
 base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
