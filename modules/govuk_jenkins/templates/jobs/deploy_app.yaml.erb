@@ -18,6 +18,7 @@
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
             export GRAPHITE_HOST="<%= @graphite_host -%>"
+            export GRAPHITE_PORT="<%= @graphite_port -%>"
             <%- if @aws_deploy %>
             export USE_S3="true"
             export S3_ARTEFACT_BUCKET="govuk-integration-artefact"

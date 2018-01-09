@@ -626,6 +626,8 @@ govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostn
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::jobs::deploy_app::graphite_host: 'graphite'
+govuk_jenkins::jobs::deploy_app::graphite_port: '443'
+
 govuk_jenkins::deploy_all_apps::deploy_environment: "%{hiera('govuk_jenkins::job_builder::environment')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
