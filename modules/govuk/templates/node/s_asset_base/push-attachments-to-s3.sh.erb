@@ -32,7 +32,7 @@ if [ ! "$DIRECTORY_TO_COPY" ]; then
  usage
 fi
 
-if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --cache-file=/tmp/s3cmd_attachments.cache --server-side-encryption sync --exclude="lost+found" --skip-existing --delete-removed "$DIRECTORY_TO_COPY/" "s3://<%= @s3_bucket -%>$DIRECTORY_TO_COPY/"; then
+if envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd --cache-file=/tmp/s3cmd_attachments.cache --server-side-encryption sync --exclude="lost+found" --exclude="asset-manager" --skip-existing --delete-removed "$DIRECTORY_TO_COPY/" "s3://<%= @s3_bucket -%>$DIRECTORY_TO_COPY/"; then
   echo "Attachments copied to S3 (<%= @s3_bucket -%>) successfully"
 else
   echo "Attachments errored while copying to S3 (<%= @s3_bucket -%>)"
