@@ -220,7 +220,9 @@ def buildProject(Map options = [:]) {
       }
     }
 
-    if (hasDockerfile()) {
+    // We won't push docker images for deployed-to-* branches as they should be
+    // created automatically at deployment time.
+    if (hasDockerfile() && !(env.BRANCH_NAME ==~ /^deployed-to/)) {
       stage("Push Docker image") {
         pushDockerImage(jobName, env.BRANCH_NAME)
 
