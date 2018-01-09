@@ -50,6 +50,7 @@ process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for 
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
+process :'publishing-components'
 process :release
 process :router
 process :'router-api'
