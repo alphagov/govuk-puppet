@@ -24,7 +24,7 @@ class grafana::dashboards (
 
   $app_domain_metrics = regsubst($app_domain, '\.', '_', 'G')
 
-  $index_names = ['govuk', 'mainstream', 'government', 'detailed']
+  $index_names = ['govuk', 'government', 'detailed']
 
   file { $dashboard_directory:
     ensure  => directory,

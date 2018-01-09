@@ -127,19 +127,6 @@ class monitoring::checks (
     args                => "--dropfirst ${drop_first}",
   }
 
-  # Mainstream is comparable to the govuk index.
-  icinga::check::graphite { 'check_rummager_mainstream_index_size_changed':
-    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.mainstream_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 500,
-    critical            => 1000,
-    desc                => 'rummager mainstream index size has significantly increased/decreased over the last 7 days',
-    host_name           => $::fqdn,
-    notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
-    from                => '15minutes',
-    args                => "--dropfirst ${drop_first}",
-  }
-
   # Government is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_government_index_size_changed':
     target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), \"7d\")))",
