@@ -19,6 +19,7 @@ class govuk_jenkins::jobs::deploy_app (
   $ci_deploy_jenkins_api_key = undef,
   $applications = undef,
   $graphite_host = 'graphite.cluster',
+  $graphite_port = '80',
 ) {
   if $::aws_migration {
     $aws_deploy = true
