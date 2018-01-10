@@ -55,6 +55,12 @@ class govuk::apps::static(
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
 
+  if $::aws_migration {
+    $proxy_pass_asset_manager_host_https = true
+  } else {
+    $proxy_pass_asset_manager_host_https = false
+  }
+
   govuk::app { $app_name:
     app_type              => 'rack',
     port                  => $port,
