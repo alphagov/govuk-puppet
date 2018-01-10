@@ -158,4 +158,4 @@ link-checker-api:                     govuk_setenv link-checker-api            .
 link-checker-api-sidekiq:             govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for specialist-publisher uses port 3210
 # sidekiq-monitoring's web frontend listens on port 3211 and proxies requests per app to other ports (defined elsewhere in this file)
-publishing-components:                govuk_setenv publishing-components       ./run_in.sh ../../govuk_publishing_components foreman start
+publishing-components:                govuk_setenv publishing-components       ./run_in.sh ../../govuk_publishing_components bundle exec foreman start
