@@ -1,4 +1,5 @@
 ---
 
+base::supported_kernel::enabled: false
 govuk_postgresql::server::listen_addresses: localhost
 govuk_postgresql::server::max_connections: 100

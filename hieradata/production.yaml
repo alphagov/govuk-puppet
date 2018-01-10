@@ -64,7 +64,7 @@ backup::offsite::jobs:
     # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 base::shell::shell_prompt_string: 'production'
-base::supported_kernel::enabled: true
+base::supported_kernel::enabled: false
 
 environment_ip_prefix: '10.3'
 

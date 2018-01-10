@@ -3,7 +3,7 @@ app_domain: "integration.publishing.service.gov.uk"
 app_domain_internal: "integration.govuk-internal.digital"
 
 base::shell::shell_prompt_string: 'integration'
-base::supported_kernel::enabled: true
+base::supported_kernel::enabled: false
 
 cron::weekly_dow: 1
 cron::daily_hour: 6

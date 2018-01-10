@@ -4,7 +4,7 @@ app_domain: 'staging.publishing.service.gov.uk'
 backup::server::backup_hour: 9
 
 base::shell::shell_prompt_string: 'staging'
-base::supported_kernel::enabled: true
+base::supported_kernel::enabled: false
 
 cron::daily_hour: 6
 
