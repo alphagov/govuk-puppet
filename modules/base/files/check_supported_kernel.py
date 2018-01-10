@@ -1,5 +1,7 @@
 #!/usr/bin/python
 
+from decimal import Decimal
+import math
 import os
 import sys
 
@@ -20,19 +22,12 @@ def unknown(message):
     nagios_exit("UNKNOWN: " + message, 3)
 
 try:
-    version = os.uname()[2].split('.')
-    major_version = int(version[0])
-    minor_version = int(version[1])
-    if major_version == 3:
-        if minor_version == 13 :
-            ok("Running the recommended kernel version")
-        elif minor_version in [ 11, 8, 5 ]:
-            critical("Not running a supported kernel version, see https://wiki.ubuntu.com/1204_HWE_EOL - may just need to reboot")
-        elif minor_version == 2:
-            warning("Not running a recommended kernel version, upgrade to linux-generic-lts-trusty series, see https://wiki.ubuntu.com/1204_HWE_EOL - may just need to reboot")
-        else:
-            critical("Unknown kernel - not expecting Ubuntu machines to run a 3.{0} kernel".format(minor_version))
+    version = Decimal("{0}.{1}".format(*os.uname()[2].split('.')))
+    if version < Decimal('4.4'):
+        critical("Not running a supported kernel version, see https://wiki.ubuntu.com/1404_HWE_EOL - may just need to reboot")
+    elif version >= 5:
+        unknown("Not expecting a kernel major version of {0} - see https://wiki.ubuntu.com/1404_HWE_EOL".format(math.floor(version)))
     else:
-        unknown("Not expecting a kernel major version of {0} - see https://wiki.ubuntu.com/1204_HWE_EOL".format(major_version))
+        ok("Running the recommended kernel version")
 except Exception, e:
     unknown("Unknown error: {0}".format(e))
