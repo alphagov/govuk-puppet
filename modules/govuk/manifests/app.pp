@@ -378,6 +378,7 @@ define govuk::app (
     paths  => ["/var/apps/${title}/log/sidekiq*.log"],
     fields => {'application' => $title},
     json   => {'add_error_key' => true},
+    tags   => ['sidekiq'],
   }
 
   # FIXME: when we have migrated all apps to output logs to /var/log this
