@@ -233,6 +233,11 @@ class govuk::apps::whitehall(
         varname => 'PLEK_SERVICE_WHITEHALL_ADMIN_URI',
         value   => "https://whitehall-admin.${app_domain}",
       }
+
+      govuk::app::envvar { 'PLEK_SERVICE_DRAFT_ORIGIN_URI':
+        varname => 'PLEK_SERVICE_DRAFT_ORIGIN_URI',
+        value   => "https://draft-origin.${app_domain}",
+      }
     } else {
       $whitehall_admin_vhost_ = "whitehall-admin.${app_domain}"
     }
