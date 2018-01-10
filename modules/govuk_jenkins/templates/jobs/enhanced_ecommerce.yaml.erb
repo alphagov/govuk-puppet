@@ -6,7 +6,11 @@
     project-type: freestyle
     builders:
         - shell: |
+          <%- if scope.lookupvar('::aws_migration') %>
+            ssh deploy@$(govuk_node_list -c search --single-node) '
+          <%- else -%>
             ssh deploy@search-1.api '
+          <%- end -%>
             cd /var/apps/rummager &&
             govuk_setenv rummager bundle exec rake analytics:create_data_import_csv EXPORT_PATH=/data/export/enhanced_ecommerce &&
             govuk_setenv rummager bundle exec rake analytics:delete_old_files EXPORT_PATH=/data/export/enhanced_ecommerce EXPORT_FILE_LIMIT=10
