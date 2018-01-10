@@ -19,10 +19,10 @@ class monitoring (
   include nsca::server
 
   include govuk_htpasswd
+  include monitoring::contacts
 
   unless $ci_environment {
     # Monitoring server only.
-    include monitoring::contacts
     include monitoring::checks
     include monitoring::edge
     include monitoring::event_handlers
