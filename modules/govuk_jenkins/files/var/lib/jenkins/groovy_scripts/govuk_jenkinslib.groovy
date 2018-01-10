@@ -220,7 +220,9 @@ def buildProject(Map options = [:]) {
       }
     }
 
-    if (hasDockerfile()) {
+    // We won't push docker images for deployed-to-* branches as they should be
+    // created automatically at deployment time.
+    if (hasDockerfile() && !(env.BRANCH_NAME ==~ /^deployed-to/)) {
       stage("Push Docker image") {
         pushDockerImage(jobName, env.BRANCH_NAME)
 
@@ -281,10 +283,7 @@ def buildProject(Map options = [:]) {
 
         if (hasDockerfile()) {
           stage("Tag Docker image") {
-            dockerTag = options.newStyleDockerTags ?
-                        getNewStyleReleaseTag() :
-                        "release_${env.BUILD_NUMBER}"
-            pushDockerImage(jobName, env.BRANCH_NAME, dockerTag)
+            dockerTagMasterBranch(jobName, env.BRANCH_NAME, env.BUILD_NUMBER, options.newStyleDockerTags)
           }
         }
 
@@ -345,6 +344,20 @@ def isCurrentCommitOnMaster() {
     script: 'git rev-list origin/master | grep $(git rev-parse HEAD)',
     returnStatus: true
   ) == 0
+}
+
+/**
+ * Check whether there is a git branch named release
+ * This test is useful for determining whether we should update this branch or
+ * not
+ */
+def releaseBranchExists() {
+  sshagent(["govuk-ci-ssh-key"]) {
+    sh(
+      script: "git ls-remote --exit-code --refs origin release",
+      returnStatus: true
+    ) == 0
+  }
 }
 
 /**
@@ -611,12 +624,7 @@ def pushTag(String repository, String branch, String tag) {
       // (e.g. repositories containing Ruby gems). For now, just check
       // if the release branch exists on the remote, and only push to it
       // if it does.
-      def releaseBranchExists = sh(
-        script: "git ls-remote --exit-code --refs origin release",
-        returnStatus: true
-      ) == 0
-
-      if (releaseBranchExists) {
+      if (releaseBranchExists()) {
         echo "Updating alphagov/${repository} release branch"
         sh("git push git@github.com:alphagov/${repository}.git HEAD:refs/heads/release")
       }
@@ -771,6 +779,16 @@ def buildDockerImage(imageName, tagName) {
   docker.build("govuk/${imageName}:${tagName}")
 }
 
+/**
+ */
+def dockerTagMasterBranch(jobName, branchName, buildNumber, newStyleDockerTags = false) {
+  dockerTag = newStyleDockerTags ? getNewStyleReleaseTag() : "release_${buildNumber}"
+  pushDockerImage(jobName, branchName, dockerTag)
+
+  if (releaseBranchExists()) {
+    pushDockerImage(jobName, branchName, "release")
+  }
+}
 
 /*
  * Push the image to the govuk docker hub and tag it. If `asTag` is set then
