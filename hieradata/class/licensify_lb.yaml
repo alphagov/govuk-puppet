@@ -1,5 +1,6 @@
 ---
 
+base::supported_kernel::enabled: false
 hosts::production::external_licensify: false
 
 hosts::production::licensify::app_hostnames:
