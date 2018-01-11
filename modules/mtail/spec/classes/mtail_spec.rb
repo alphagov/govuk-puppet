@@ -10,9 +10,9 @@ describe 'mtail', :type => :class do
     it { is_expected.to compile }
     it { is_expected.to compile.with_all_deps }
 
-    it { is_expected.to contain_package('mtail') }
-    it { is_expected.to contain_service('mtail') }
+#    it { is_expected.to contain_package('mtail') }
+#    it { is_expected.to contain_service('mtail') }
 
-    it { is_expected.to contain_file('/etc/default/mtail').with_content(/LOGS="\/var\/log\/nginx\/access\.log"$/) }
+#    it { is_expected.to contain_file('/etc/default/mtail').with_content(/LOGS="\/var\/log\/nginx\/access\.log"$/) }
   end
 end

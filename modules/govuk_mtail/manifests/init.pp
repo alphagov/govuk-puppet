@@ -53,7 +53,7 @@ class govuk_mtail(
     $repo_class = 'govuk_ppa'
   }
 
-  include $repo_class
+#  include $repo_class
 
   class { '::mtail':
     logs                 => join($logs, ','),
@@ -64,14 +64,15 @@ class govuk_mtail(
     statsd_hostport      => $statsd_hostport,
     metric_push_interval => $metric_push_interval,
     extra_args           => $extra_args,
-    require              => Class[$repo_class],
+#    require              => Class[$repo_class],
   }
 
   file { '/etc/mtail/nginx_metrics.mtail':
-    ensure  => present,
-    source  => 'puppet:///modules/govuk_mtail/nginx_metrics.mtail',
-    require => File['/etc/mtail'],
-    notify  => Service['mtail'],
+#    ensure  => present,
+    ensure => 'absent',
+    source => 'puppet:///modules/govuk_mtail/nginx_metrics.mtail',
+#    require => File['/etc/mtail'],
+#    notify  => Service['mtail'],
   }
 
   @@icinga::check { "check_mtail_up_${::hostname}":
