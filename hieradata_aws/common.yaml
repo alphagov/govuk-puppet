@@ -521,6 +521,8 @@ govuk::apps::service_manual_publisher::db_hostname: 'postgresql-primary'
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
+govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
