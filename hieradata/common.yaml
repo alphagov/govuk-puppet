@@ -869,13 +869,6 @@ govuk_jenkins::config::user_permissions:
 
 govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_mtail::extra_args: "-log_dir /var/log/mtail -graphite_prefix %{::fqdn_metrics}."
-govuk_mtail::logs:
-  - '/var/log/nginx/*-access.log'
-govuk_mtail::manage_repo_class: true
-govuk_mtail::metric_push_interval: 5
-govuk_mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk_mysql::server::expire_log_days: 3
 govuk_mysql::server::monitoring::master::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
 govuk_mysql::server::monitoring::slave::plaintext_mysql_password: "%{hiera('mysql_nagios')}"
@@ -1552,8 +1545,6 @@ monitoring::vpn_gateways::endpoints:
     address: "%{hiera('environment_ip_prefix')}.13.1"
   vpn_gateway_router_dr:
     address: "%{hiera('environment_ip_prefix')}.9.1"
-
-mtail::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'

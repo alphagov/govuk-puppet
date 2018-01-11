@@ -42,31 +42,35 @@ class mtail(
   validate_bool($enabled)
 
   package { 'mtail':
-    ensure  => 'latest',
+#    ensure  => 'latest',
+    ensure => 'absent',
   }
 
   file { '/etc/default/mtail':
+    ensure  => 'absent',
     content => template('mtail/default_mtail'),
-    require => Package['mtail'],
-    notify  => Service['mtail'],
+#    require => Package['mtail'],
+#    notify  => Service['mtail'],
   }
 
   file { '/etc/mtail':
-    ensure  => directory,
-    mode    => '0755',
-    require => Package['mtail'],
+#    ensure  => directory,
+    ensure => 'absent',
+    mode   => '0755',
+#    require => Package['mtail'],
   }
 
   file { '/etc/init.d/mtail':
-    ensure  => present,
-    mode    => '0755',
-    source  => 'puppet:///modules/mtail/init',
-    require => Package['mtail'],
+#    ensure  => present,
+    ensure => 'absent',
+    mode   => '0755',
+    source => 'puppet:///modules/mtail/init',
+#    require => Package['mtail'],
   }
 
-  service { 'mtail':
+#  service { 'mtail':
 #    ensure  => running,
-    ensure  => stopped,
-    require => [Package['mtail'], File['/etc/init.d/mtail']],
-  }
+#    ensure => stopped,
+#    require => [Package['mtail'], File['/etc/init.d/mtail']],
+#  }
 }
