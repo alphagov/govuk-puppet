@@ -40,6 +40,10 @@ class govuk_rbenv::all (
     bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
+  rbenv::version { '2.5.0':
+    bundler_version  => '1.16.1',
+    install_gem_docs => false,
+  }
 
   # These aliases re solve .ruby-version 2.x to an installed Ruby version.
   rbenv::alias { '2.2':
@@ -50,5 +54,8 @@ class govuk_rbenv::all (
   }
   rbenv::alias { '2.4':
     to_version => '2.4.2',
+  }
+  rbenv::alias { '2.5':
+    to_version => '2.5.0',
   }
 }
