@@ -332,6 +332,10 @@ govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
   - 'mongo-3'
+
+govuk::apps::asset_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::asset_manager::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-standby"
