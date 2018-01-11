@@ -1,3 +1,7 @@
+#
+# This is now only used for the CI environment and Licensing.
+# Please use hieradata_aws/integration.yaml for changes to Integration.
+#
 ---
 _: &offsite_gpg_key 'DA204134165653A8D32526FCDBAB06CD60D07A2C'
 app_domain: 'integration.publishing.service.gov.uk'

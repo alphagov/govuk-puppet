@@ -1,3 +1,6 @@
+#
+# Please also update hieradata_aws/common.yaml
+#
 ---
 HIERA_SAFETY_CHECK: true
 
