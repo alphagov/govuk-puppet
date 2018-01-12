@@ -19,4 +19,4 @@
           
           CONTENT_TAGGER=$(govuk_node_list --single-node -c backend)
           
-          ssh deploy@$CONTENT_TAGGER "cd /var/apps/content-tagger && govuk_setenv content-tagger bundle exec rake metrics:taxonomy:count_content_per_level metrics:taxonomy:record_content_coverage_metrics"
+          ssh deploy@$CONTENT_TAGGER "cd /var/apps/content-tagger && govuk_setenv content-tagger bundle exec rake metrics:taxonomy:record_all"
