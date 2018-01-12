@@ -21,5 +21,5 @@
             <%- else -%>
               HOSTNAME="backend-1.backend"
             <%- end %>
-            rsync --delete -avz -e ssh data/transition-stats deploy@HOSTNAME:/var/apps/transition/data
-            ssh deploy@HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:hits[data/transition-stats/hits/logs_cdn_*]"
+            rsync --delete -avz -e ssh data/transition-stats deploy@$HOSTNAME:/var/apps/transition/data
+            ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:hits[data/transition-stats/hits/logs_cdn_*]"
