@@ -392,7 +392,7 @@ def mergeMasterBranch() {
  * @param value
  */
 def setEnvar(String key, String value) {
-  echo 'Setting environment variable ${key}'
+  echo "Setting environment variable ${key}"
   env."${key}" = value
 }
 
@@ -413,7 +413,7 @@ def setEnvar(String key, String value) {
 def initializeParameters(Map<String, String> defaultBuildParams) {
   for (param in defaultBuildParams) {
     if (env."${param.key}" == null) {
-      echo 'Setting environment variable ${param.key}'
+      echo "Setting environment variable ${param.key}"
       env."${param.key}" = param.value
     }
   }
@@ -575,7 +575,7 @@ def runTests(String test_task = 'default') {
  * addition to the versions currently supported by all GOV.UK applications
  */
 def testGemWithAllRubies(extraRubyVersions = []) {
-  def rubyVersions = ["2.2", "2.3", "2.4"]
+  def rubyVersions = ["2.3", "2.4", "2.5"]
 
   rubyVersions.addAll(extraRubyVersions)
 
