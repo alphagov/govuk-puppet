@@ -104,6 +104,10 @@ class govuk::deploy::config(
       # By default traffic should route internally
       'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
       'GOVUK_APP_DOMAIN_INTERNAL':  value => $app_domain_internal;
+      # Apps lookup the draft origin to link users to, so that they
+      # can preview content, therefore it needs to be the Publishing
+      # domain
+      'PLEK_SERVICE_DRAFT_ORIGIN_URI': value => "https://draft-origin.${app_domain}";
       # We do not host Licensify in AWS, so need to redirect to
       # it's external domain
       'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
