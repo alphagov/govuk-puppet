@@ -139,6 +139,10 @@ define govuk::app::config (
         value   => "https://${title}.${app_domain}",
       }
 
+      govuk::app::envvar { 'PLEK_SERVICE_DRAFT_ORIGIN_URI':
+        varname => 'PLEK_SERVICE_DRAFT_ORIGIN_URI',
+        value   => "https://draft-origin.${app_domain}",
+      }
     }
 
     if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
