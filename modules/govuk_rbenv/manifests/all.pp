@@ -20,44 +20,28 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  rbenv::version { '2.1.5':
-    bundler_version  => '1.15.1',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.2.2':
-    bundler_version  => '1.15.1',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.2.3':
-    bundler_version  => '1.15.1',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.2.4':
-    bundler_version  => '1.15.1',
-    install_gem_docs => false,
-  }
   rbenv::version { '2.2.8':
-    bundler_version  => '1.15.1',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.3.0':
-    bundler_version  => '1.15.1',
+    bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
   rbenv::version { '2.3.1':
-    bundler_version  => '1.15.1',
+    bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
   rbenv::version { '2.3.5':
-    bundler_version  => '1.15.1',
+    bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
   rbenv::version { '2.4.0':
-    bundler_version  => '1.15.1',
+    bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
   rbenv::version { '2.4.2':
-    bundler_version  => '1.15.1',
+    bundler_version  => '1.16.1',
+    install_gem_docs => false,
+  }
+  rbenv::version { '2.5.0':
+    bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
 
@@ -70,5 +54,8 @@ class govuk_rbenv::all (
   }
   rbenv::alias { '2.4':
     to_version => '2.4.2',
+  }
+  rbenv::alias { '2.5':
+    to_version => '2.5.0',
   }
 }
