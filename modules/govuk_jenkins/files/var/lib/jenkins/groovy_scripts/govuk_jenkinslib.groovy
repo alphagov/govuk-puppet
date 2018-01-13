@@ -369,6 +369,35 @@ def checkoutFromGitHubWithSSH(String repository, Map options = [:]) {
 }
 
 /**
+ * Checkout a dependent repo.
+ * This function acts as a wrapper around checkoutFromGitHubWithSSH with
+ * options tailored towards the needs of a secondary repo cloned as part of a
+ * pipeline job
+ *
+ * It can accept an optional closure that is run within the directory that has
+ * been cloned
+ */
+def checkoutDependent(String repository, options = [:], Closure closure = null) {
+  def defaultOptions = [
+    branch: "master",
+    changelog: false,
+    directory: "tmp/${repository}",
+    poll: false
+  ]
+  options = defaultOptions << options
+
+  stage("Cloning ${repository}") {
+    checkoutFromGitHubWithSSH(repository, options)
+  }
+
+  if (closure) {
+    dir(options.directory) {
+      closure.call()
+    }
+  }
+}
+
+/**
   * Check if the git HEAD is ahead of master.
   * This will be false for development branches and true for release branches,
   * and master itself.
