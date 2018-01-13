@@ -322,14 +322,48 @@ def cleanupGit() {
 /**
  * Checkout repo using SSH key
  */
-def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String url = 'github.com') {
+def checkoutFromGitHubWithSSH(String repository, Map options = [:]) {
+  def defaultOptions = [
+    branch: null,
+    changelog: true,
+    directory: null,
+    org: "alphagov",
+    poll: true,
+    host: "github.com"
+  ]
+  options = defaultOptions << options
+
+  def branches
+  if (options.branch) {
+    branches = [[ name: options.branch ]]
+  } else {
+    branches = scm.branches
+  }
+
+  def extensions = []
+
+  if(options.directory) {
+    extensions << [
+      $class: "RelativeTargetDirectory",
+      relativeTargetDir: options.directory
+    ]
+  }
+
   withStatsdTiming("github_ssh_checkout") {
-    checkout([$class: 'GitSCM',
-      branches: scm.branches,
-      userRemoteConfigs: [[
-        credentialsId: 'govuk-ci-ssh-key',
-        url: "git@${url}:${org}/${repository}.git"
-      ]]
+    checkout([
+      changelog: options.changelog,
+      poll: options.poll,
+      scm: [
+        $class: 'GitSCM',
+        branches: branches,
+        doGenerateSubmoduleConfigurations: false,
+        extensions: extensions,
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+          credentialsId: 'govuk-ci-ssh-key',
+          url: "git@${options.host}:${options.org}/${repository}.git"
+        ]]
+      ]
     ])
   }
 }
