@@ -153,10 +153,7 @@ def buildProject(Map options = [:]) {
       setEnvar("DISPLAY", ":99")
     }
 
-    stage("Set up content schema dependency") {
-      contentSchemaDependency(params.SCHEMA_BRANCH)
-      setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
-    }
+    contentSchemaDependency(params.SCHEMA_BRANCH)
 
     stage("bundle install") {
       if (isGem()) {
@@ -572,14 +569,8 @@ def precompileAssets() {
  * Clone govuk-content-schemas dependency for contract tests
  */
 def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
-  sshagent(['govuk-ci-ssh-key']) {
-    echo 'Cloning govuk-content-schemas'
-    sh('rm -rf tmp/govuk-content-schemas')
-    sh('git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas')
-    dir("tmp/govuk-content-schemas") {
-      sh("git checkout ${schemaGitCommit}")
-    }
-    env."GOVUK_CONTENT_SCHEMAS_PATH" = "tmp/govuk-content-schemas"
+  checkoutDependent("govuk-content-schemas", [ branch: schemaGitCommit ]) {
+    setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", pwd())
   }
 }
 
