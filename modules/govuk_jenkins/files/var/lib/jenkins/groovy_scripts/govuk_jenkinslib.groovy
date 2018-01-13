@@ -142,10 +142,6 @@ def buildProject(Map options = [:]) {
       checkoutFromGitHubWithSSH(repoName)
     }
 
-    stage("Clean up workspace") {
-      cleanupGit()
-    }
-
     stage("Merge master") {
       mergeMasterBranch()
     }
@@ -326,7 +322,7 @@ def checkoutFromGitHubWithSSH(String repository, Map options = [:]) {
   def defaultOptions = [
     branch: null,
     changelog: true,
-    directory: null,
+    location: null,
     org: "alphagov",
     poll: true,
     host: "github.com"
@@ -340,7 +336,11 @@ def checkoutFromGitHubWithSSH(String repository, Map options = [:]) {
     branches = scm.branches
   }
 
-  def extensions = []
+  def extensions = [
+    [
+      $class: "CleanCheckout"
+    ]
+  ]
 
   if(options.directory) {
     extensions << [
