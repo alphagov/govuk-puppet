@@ -72,7 +72,7 @@ process :static
 process :support => [:'support-api']
 process :'support-api'
 process :transition
-process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_publisher_worker', :'email-alert-api']
+process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_publisher_worker', :'email-alert-api', :'link-checker-api']
 process :travel_advice_publisher_worker
 process :whitehall => [:'asset-manager', :static, :'publishing-api', :rummager, :'whitehall-worker', :'link-checker-api']
 
