@@ -1,2 +1,0 @@
----
-govuk::node::s_docker_frontend::enable_memcache: true

@@ -1,1 +1,0 @@
-govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-2.backend"
