@@ -42,7 +42,7 @@ def ec2_nodes(stackname, nodeclass=None):
 
     hosts = []
     for instance in nodes:
-        hosts.append((instance['Instances'][0]['NetworkInterfaces'][0]['PrivateDnsName']))
+        hosts.append((instance['Instances'][0]['PrivateDnsName']))
 
     return(hosts)
 
