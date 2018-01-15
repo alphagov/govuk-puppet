@@ -106,46 +106,6 @@ govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
-# FIXME: remove this after it has been deployed
-hosts::migration::ensure: 'absent'
-# FIXME: this should be removed after the migration when DNS has been switched over
-hosts::migration::hosts:
-  assets-origin.integration.publishing.service.gov.uk:
-    ip: 52.48.37.76
-    host_aliases:
-      - 'www-origin.integration.publishing.service.gov.uk'
-  backend.integration.publishing.service.gov.uk:
-    ip: 54.77.11.116
-    host_aliases:
-      - 'collections-publisher.integration.publishing.service.gov.uk'
-      - 'contacts-admin.integration.publishing.service.gov.uk'
-      - 'content-performance-manager.integration.publishing.service.gov.uk'
-      - 'content-tagger.integration.publishing.service.gov.uk'
-      - 'hmrc-manuals-api.integration.publishing.service.gov.uk'
-      - 'imminence.integration.publishing.service.gov.uk'
-      - 'local-links-manager.integration.publishing.service.gov.uk'
-      - 'manuals-publisher.integration.publishing.service.gov.uk'
-      - 'maslow.integration.publishing.service.gov.uk'
-      - 'policy-publisher.integration.publishing.service.gov.uk'
-      - 'publisher.integration.publishing.service.gov.uk'
-      - 'release.integration.publishing.service.gov.uk'
-      - 'search-admin.integration.publishing.service.gov.uk'
-      - 'service-manual-publisher.integration.publishing.service.gov.uk'
-      - 'short-url-manager.integration.publishing.service.gov.uk'
-      - 'signon.integration.publishing.service.gov.uk'
-      - 'specialist-publisher.integration.publishing.service.gov.uk'
-      - 'support.integration.publishing.service.gov.uk'
-      - 'transition.integration.publishing.service.gov.uk'
-      - 'travel-advice-publisher.integration.publishing.service.gov.uk'
-  bouncer.integration.publishing.service.gov.uk:
-    ip: 52.49.244.25
-  draft-origin.integration.publishing.service.gov.uk:
-    ip: 54.77.195.72
-  whitehall-admin.integration.publishing.service.gov.uk:
-    ip: 54.76.88.158
-
-mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
-mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-integration'
 mongodb::backup::mongo_backup_node: 'localhost'
 mongodb::s3backup::cron::daily_hour: 16
 
