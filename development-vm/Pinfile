@@ -42,7 +42,7 @@ process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
 process :'local-links-manager' => [:'link-checker-api']
 process :'manuals-frontend' => [:static, :'content-store']
-process :'manuals-publisher' => ['asset-manager', :'publishing-api']
+process :'manuals-publisher' => ['asset-manager', :'publishing-api', :'link-checker-api']
 process :mapit
 process :maslow
 process :'policy-publisher' => [:'publishing-api']
