@@ -46,7 +46,7 @@ process :'manuals-publisher' => ['asset-manager', :rummager, :'publishing-api']
 process :mapit
 process :maslow
 process :'policy-publisher' => [:'publishing-api', :rummager]
-process :publisher => [:'publishing-api', 'publisher-worker', :calendars] # for some requests also uses: mapit
+process :publisher => [:'publishing-api', 'publisher-worker', :calendars, :'link-checker-api', :'link-checker-api-sidekiq'] # for some requests also uses: mapit
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
