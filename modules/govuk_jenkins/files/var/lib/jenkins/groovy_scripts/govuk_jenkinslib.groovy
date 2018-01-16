@@ -142,10 +142,6 @@ def buildProject(Map options = [:]) {
       checkoutFromGitHubWithSSH(repoName)
     }
 
-    stage("Clean up workspace") {
-      cleanupGit()
-    }
-
     stage("Merge master") {
       mergeMasterBranch()
     }
@@ -157,10 +153,7 @@ def buildProject(Map options = [:]) {
       setEnvar("DISPLAY", ":99")
     }
 
-    stage("Set up content schema dependency") {
-      contentSchemaDependency(params.SCHEMA_BRANCH)
-      setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", "tmp/govuk-content-schemas")
-    }
+    contentSchemaDependency(params.SCHEMA_BRANCH)
 
     stage("bundle install") {
       if (isGem()) {
@@ -322,15 +315,82 @@ def cleanupGit() {
 /**
  * Checkout repo using SSH key
  */
-def checkoutFromGitHubWithSSH(String repository, String org = 'alphagov', String url = 'github.com') {
+def checkoutFromGitHubWithSSH(String repository, Map options = [:]) {
+  def defaultOptions = [
+    branch: null,
+    changelog: true,
+    location: null,
+    org: "alphagov",
+    poll: true,
+    host: "github.com"
+  ]
+  options = defaultOptions << options
+
+  def branches
+  if (options.branch) {
+    branches = [[ name: options.branch ]]
+  } else {
+    branches = scm.branches
+  }
+
+  def extensions = [
+    [
+      $class: "CleanCheckout"
+    ]
+  ]
+
+  if(options.directory) {
+    extensions << [
+      $class: "RelativeTargetDirectory",
+      relativeTargetDir: options.directory
+    ]
+  }
+
   withStatsdTiming("github_ssh_checkout") {
-    checkout([$class: 'GitSCM',
-      branches: scm.branches,
-      userRemoteConfigs: [[
-        credentialsId: 'govuk-ci-ssh-key',
-        url: "git@${url}:${org}/${repository}.git"
-      ]]
+    checkout([
+      changelog: options.changelog,
+      poll: options.poll,
+      scm: [
+        $class: 'GitSCM',
+        branches: branches,
+        doGenerateSubmoduleConfigurations: false,
+        extensions: extensions,
+        submoduleCfg: [],
+        userRemoteConfigs: [[
+          credentialsId: 'govuk-ci-ssh-key',
+          url: "git@${options.host}:${options.org}/${repository}.git"
+        ]]
+      ]
     ])
+  }
+}
+
+/**
+ * Checkout a dependent repo.
+ * This function acts as a wrapper around checkoutFromGitHubWithSSH with
+ * options tailored towards the needs of a secondary repo cloned as part of a
+ * pipeline job
+ *
+ * It can accept an optional closure that is run within the directory that has
+ * been cloned
+ */
+def checkoutDependent(String repository, options = [:], Closure closure = null) {
+  def defaultOptions = [
+    branch: "master",
+    changelog: false,
+    directory: "tmp/${repository}",
+    poll: false
+  ]
+  options = defaultOptions << options
+
+  stage("Cloning ${repository}") {
+    checkoutFromGitHubWithSSH(repository, options)
+  }
+
+  if (closure) {
+    dir(options.directory) {
+      closure.call()
+    }
   }
 }
 
@@ -509,14 +569,8 @@ def precompileAssets() {
  * Clone govuk-content-schemas dependency for contract tests
  */
 def contentSchemaDependency(String schemaGitCommit = 'deployed-to-production') {
-  sshagent(['govuk-ci-ssh-key']) {
-    echo 'Cloning govuk-content-schemas'
-    sh('rm -rf tmp/govuk-content-schemas')
-    sh('git clone git@github.com:alphagov/govuk-content-schemas.git tmp/govuk-content-schemas')
-    dir("tmp/govuk-content-schemas") {
-      sh("git checkout ${schemaGitCommit}")
-    }
-    env."GOVUK_CONTENT_SCHEMAS_PATH" = "tmp/govuk-content-schemas"
+  checkoutDependent("govuk-content-schemas", [ branch: schemaGitCommit ]) {
+    setEnvar("GOVUK_CONTENT_SCHEMAS_PATH", pwd())
   }
 }
 
