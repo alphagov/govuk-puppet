@@ -1036,6 +1036,7 @@ router::assets_origin::asset_routes:
   '/government/uploads/system/uploads/organisation/logo/': "static"
   '/government/uploads/system/uploads/consultation_response_form_data/file/': "static"
   '/government/uploads/system/uploads/promotional_feature_item/image/': "static"
+  '/government/uploads/system/uploads/take_part_page/image/': "static"
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"

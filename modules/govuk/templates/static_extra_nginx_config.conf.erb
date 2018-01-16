@@ -20,7 +20,8 @@ location /robots.txt {
   '/media/',
   '/government/uploads/system/uploads/organisation/logo/',
   '/government/uploads/system/uploads/consultation_response_form_data/file/',
-  '/government/uploads/system/uploads/promotional_feature_item/image/'
+  '/government/uploads/system/uploads/promotional_feature_item/image/',
+  '/government/uploads/system/uploads/take_part_page/image/'
 ].each do |path_to_be_proxied_to_asset_manager| %>
 
   location ~ ^<%= path_to_be_proxied_to_asset_manager %> {
