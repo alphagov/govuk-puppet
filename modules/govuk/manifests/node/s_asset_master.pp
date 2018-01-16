@@ -16,9 +16,15 @@ class govuk::node::s_asset_master (
   $asset_slave_ip_ranges = {},
 ) inherits govuk::node::s_asset_base {
 
-  include assets::ssh_private_key
+  if $::aws_migration {
+    $cron_user = 'deploy'
+  } else {
+    include assets::ssh_private_key
 
-  create_resources('ufw::allow', $asset_slave_ip_ranges)
+    create_resources('ufw::allow', $asset_slave_ip_ranges)
+
+    $cron_user = 'assets'
+  }
 
   # daemontools provides setlock
   $cron_requires = [
@@ -30,34 +36,49 @@ class govuk::node::s_asset_master (
     Package['daemontools'],
   ]
 
+  unless $::aws_migration {
+    cron { 'copy-attachments-to-slaves':
+      user    => 'assets',
+      minute  => '*',
+      command => '/usr/bin/setlock /var/run/virus_scan/copy-attachments-to-slaves.lock /usr/local/bin/copy-attachments-to-slaves.sh /tmp/attachments',
+      require => $cron_requires,
+    }
+
+    # FIXME: There may be a couple of directories underneath /mnt/uploads that shouldn't be synced.
+    # Over time we should exclude directories once we know they're not required.
+    cron { 'rsync-uploads':
+      user    => 'assets',
+      hour    => $copy_attachments_hour,
+      minute  => '18',
+      command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-uploads.lock /usr/local/bin/copy-attachments.sh /mnt/uploads',
+      require => $cron_requires,
+    }
+
+    @@icinga::passive_check { "copy_attachments_to_slaves_${::hostname}":
+      service_description => 'Copy attachments to asset slaves',
+      host_name           => $::fqdn,
+      freshness_threshold => 1800,
+      notes_url           => monitoring_docs_url(asset-master-attachment-processing),
+    }
+
+    @@icinga::passive_check { "full_attachments_sync_${::hostname}":
+      service_description => 'Full attachments sync',
+      host_name           => $::fqdn,
+      freshness_threshold => 100800,
+    }
+  }
+
   cron { 'process-incoming-files':
-    user    => 'assets',
+    user    => $cron_user,
     minute  => '*',
     command => '/usr/bin/setlock -n /var/run/virus_scan/incoming.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/incoming /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected /tmp/attachments',
     require => $cron_requires,
   }
 
   cron { 'process-draft-incoming-files':
-    user    => 'assets',
+    user    => $cron_user,
     minute  => '*',
     command => '/usr/bin/setlock -n /var/run/virus_scan/incoming-draft.lock /usr/local/bin/process-uploaded-attachments.sh /mnt/uploads/whitehall/draft-incoming /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected /tmp/attachments',
-    require => $cron_requires,
-  }
-
-  cron { 'copy-attachments-to-slaves':
-    user    => 'assets',
-    minute  => '*',
-    command => '/usr/bin/setlock /var/run/virus_scan/copy-attachments-to-slaves.lock /usr/local/bin/copy-attachments-to-slaves.sh /tmp/attachments',
-    require => $cron_requires,
-  }
-
-  # FIXME: There may be a couple of directories underneath /mnt/uploads that shouldn't be synced.
-  # Over time we should exclude directories once we know they're not required.
-  cron { 'rsync-uploads':
-    user    => 'assets',
-    hour    => $copy_attachments_hour,
-    minute  => '18',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-uploads.lock /usr/local/bin/copy-attachments.sh /mnt/uploads',
     require => $cron_requires,
   }
 
@@ -66,19 +87,6 @@ class govuk::node::s_asset_master (
     host_name           => $::fqdn,
     freshness_threshold => 1800,
     notes_url           => monitoring_docs_url(asset-master-attachment-processing),
-  }
-
-  @@icinga::passive_check { "copy_attachments_to_slaves_${::hostname}":
-    service_description => 'Copy attachments to asset slaves',
-    host_name           => $::fqdn,
-    freshness_threshold => 1800,
-    notes_url           => monitoring_docs_url(asset-master-attachment-processing),
-  }
-
-  @@icinga::passive_check { "full_attachments_sync_${::hostname}":
-    service_description => 'Full attachments sync',
-    host_name           => $::fqdn,
-    freshness_threshold => 100800,
   }
 
   @@icinga::check::graphite { "check_uploads_scan_waiting_time_${::hostname}":
@@ -91,7 +99,7 @@ class govuk::node::s_asset_master (
   }
 
   cron { 'virus-scan-clean':
-    user    => 'assets',
+    user    => $cron_user,
     hour    => '*',
     minute  => '18',
     command => '/usr/bin/setlock -n /var/run/virus_scan/clean.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
@@ -99,7 +107,7 @@ class govuk::node::s_asset_master (
   }
 
   cron { 'virus-scan-clean-draft':
-    user    => 'assets',
+    user    => $cron_user,
     hour    => '*',
     minute  => '48',
     command => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
