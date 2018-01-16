@@ -35,6 +35,10 @@ define govuk::app::envvar (
       content => $nulls_for_newlines_value,
       notify  => Govuk::App::Service[$app],
     }
+
+    if defined(Govuk::Procfile::Worker[$app]) {
+      File["${envdir}/${varname}"] ~> Govuk::Procfile::Worker[$app]
+    }
   } else {
     file { "${envdir}/${varname}":
       ensure  => $ensure,
