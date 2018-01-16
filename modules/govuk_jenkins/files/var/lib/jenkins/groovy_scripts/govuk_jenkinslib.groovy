@@ -153,108 +153,13 @@ def buildProject(Map options = [:]) {
       setEnvar("DISPLAY", ":99")
     }
 
-    contentSchemaDependency(params.SCHEMA_BRANCH)
-
-    stage("bundle install") {
-      if (isGem()) {
-        bundleGem()
-      } else {
-        bundleApp()
-      }
-    }
-
-    if (hasLint()) {
-      stage("Lint Ruby") {
-        rubyLinter("app lib spec test")
-      }
+    if (hasDockerfile() && !params.IS_SCHEMA_TEST) {
+      parallel (
+        "build" : { nonDockerBuildTasks(options, jobName, repoName) },
+        "docker" : { dockerBuildTasks(options, jobName) }
+      )
     } else {
-      echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
-    }
-
-    if (hasAssets() && hasLint() && options.sassLint != false) {
-      stage("Lint SASS") {
-        sassLinter()
-      }
-    } else {
-      echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
-    }
-
-    if (hasDockerfile()) {
-      stage("Build Docker image") {
-        buildDockerImage(jobName, env.BRANCH_NAME)
-      }
-    }
-
-    if (options.beforeTest) {
-      echo "Running pre-test tasks"
-      options.beforeTest.call()
-    }
-
-    // Prevent a project's tests from running in parallel on the same node
-    lock("$jobName-$NODE_NAME-test") {
-      if (hasDatabase()) {
-        stage("Set up the database") {
-            runRakeTask("db:reset")
-        }
-      }
-
-      if (options.overrideTestTask) {
-        echo "Running custom test task"
-        options.overrideTestTask.call()
-      } else {
-        if (isGem()) {
-          def extraRubyVersions = options.extraRubyVersions == null ? [] : options.extraRubyVersions
-          testGemWithAllRubies(extraRubyVersions)
-        } else {
-          stage("Run tests") {
-            runTests()
-          }
-        }
-      }
-    }
-
-    // We won't push docker images for deployed-to-* branches as they should be
-    // created automatically at deployment time.
-    if (hasDockerfile() && !(env.BRANCH_NAME ==~ /^deployed-to/)) {
-      stage("Push Docker image") {
-        pushDockerImage(jobName, env.BRANCH_NAME)
-
-        if (params.PUSH_TO_GCR) {
-          pushDockerImageToGCR(jobName, env.BRANCH_NAME)
-        }
-      }
-    }
-
-    if (options.publishingE2ETests == true && !params.IS_SCHEMA_TEST) {
-      stage("End-to-end tests") {
-        if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
-          appCommitishName = jobName.replace("-", "_").toUpperCase() + "_COMMITISH"
-        } else {
-          appCommitishName = env.PUBLISHING_E2E_TESTS_APP_PARAM
-        }
-        if ( env.PUBLISHING_E2E_TESTS_BRANCH == null ) {
-          testBranch = "test-against"
-        } else {
-          testBranch = env.PUBLISHING_E2E_TESTS_BRANCH
-        }
-        if ( env.PUBLISHING_E2E_TESTS_COMMAND == null ) {
-          testCommand = "test"
-        } else {
-          testCommand = env.PUBLISHING_E2E_TESTS_COMMAND
-        }
-        runPublishingE2ETests(appCommitishName, testBranch, repoName, testCommand)
-      }
-    }
-
-    if (options.afterTest) {
-      echo "Running post-test tasks"
-      options.afterTest.call()
-    }
-
-    if (hasAssets() && !params.IS_SCHEMA_TEST) {
-      stage("Precompile assets") {
-        precompileAssets()
-      }
+      nonDockerBuildTasks(options, jobName, repoName)
     }
 
     if (env.BRANCH_NAME == "master") {
@@ -299,6 +204,106 @@ def buildProject(Map options = [:]) {
       setBuildStatus(jobName, params.SCHEMA_COMMIT, "Downstream ${jobName} job failed on Jenkins", 'FAILED')
     }
     throw e
+  }
+}
+
+def nonDockerBuildTasks(options, jobName, repoName) {
+  contentSchemaDependency(params.SCHEMA_BRANCH)
+
+  stage("bundle install") {
+    isGem() ? bundleGem() : bundleApp()
+  }
+
+  if (hasLint()) {
+    stage("Lint Ruby") {
+      rubyLinter("app lib spec test")
+    }
+  } else {
+    echo "WARNING: You do not have Ruby linting turned on. Please install govuk-lint and enable."
+  }
+
+  if (hasAssets() && hasLint() && options.sassLint != false) {
+    stage("Lint SASS") {
+      sassLinter()
+    }
+  } else {
+    echo "WARNING: You do not have SASS linting turned on. Please install govuk-lint and enable."
+  }
+
+  if (options.beforeTest) {
+    echo "Running pre-test tasks"
+    options.beforeTest.call()
+  }
+
+  // Prevent a project's tests from running in parallel on the same node
+  lock("$jobName-$NODE_NAME-test") {
+    if (hasDatabase()) {
+      stage("Set up the database") {
+          runRakeTask("db:reset")
+      }
+    }
+
+    if (options.overrideTestTask) {
+      echo "Running custom test task"
+      options.overrideTestTask.call()
+    } else {
+      if (isGem()) {
+        def extraRubyVersions = options.extraRubyVersions == null ? [] : options.extraRubyVersions
+        testGemWithAllRubies(extraRubyVersions)
+      } else {
+        stage("Run tests") {
+          runTests()
+        }
+      }
+    }
+  }
+
+  if (options.publishingE2ETests == true && !params.IS_SCHEMA_TEST) {
+    stage("End-to-end tests") {
+      if ( env.PUBLISHING_E2E_TESTS_APP_PARAM == null ) {
+        appCommitishName = jobName.replace("-", "_").toUpperCase() + "_COMMITISH"
+      } else {
+        appCommitishName = env.PUBLISHING_E2E_TESTS_APP_PARAM
+      }
+      if ( env.PUBLISHING_E2E_TESTS_BRANCH == null ) {
+        testBranch = "test-against"
+      } else {
+        testBranch = env.PUBLISHING_E2E_TESTS_BRANCH
+      }
+      if ( env.PUBLISHING_E2E_TESTS_COMMAND == null ) {
+        testCommand = "test"
+      } else {
+        testCommand = env.PUBLISHING_E2E_TESTS_COMMAND
+      }
+      runPublishingE2ETests(appCommitishName, testBranch, repoName, testCommand)
+    }
+  }
+
+  if (options.afterTest) {
+    echo "Running post-test tasks"
+    options.afterTest.call()
+  }
+
+  if (hasAssets() && !params.IS_SCHEMA_TEST) {
+    stage("Precompile assets") {
+      precompileAssets()
+    }
+  }
+}
+
+def dockerBuildTasks(options, jobName) {
+  stage("Build Docker image") {
+    buildDockerImage(jobName, env.BRANCH_NAME, true)
+  }
+
+  if (!(env.BRANCH_NAME ==~ /^deployed-to/)) {
+    stage("Push Docker image") {
+      pushDockerImage(jobName, env.BRANCH_NAME)
+
+      if (params.PUSH_TO_GCR) {
+        pushDockerImageToGCR(jobName, env.BRANCH_NAME)
+      }
+    }
   }
 }
 
@@ -828,9 +833,10 @@ def hasDockerfile() {
   sh(script: "test -e Dockerfile", returnStatus: true) == 0
 }
 
-def buildDockerImage(imageName, tagName) {
+def buildDockerImage(imageName, tagName, quiet = false) {
   tagName = safeDockerTag(tagName)
-  docker.build("govuk/${imageName}:${tagName}")
+  args = quiet ? "--quiet ." : "."
+  docker.build("govuk/${imageName}:${tagName}", args)
 }
 
 /**
