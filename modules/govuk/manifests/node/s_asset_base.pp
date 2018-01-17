@@ -42,7 +42,10 @@ class govuk::node::s_asset_base (
 ) inherits govuk::node::s_base{
   validate_string($firewall_allow_ip_range)
 
-  include assets::user
+  unless $::aws_migration {
+    include assets::user
+  }
+
   include clamav
 
   if $::aws_migration {
@@ -84,27 +87,32 @@ class govuk::node::s_asset_base (
     # the rest of the directories are created after mounting to the EFS share
     file { '/mnt/uploads':
       ensure  => directory,
-      owner   => 'assets',
-      group   => 'assets',
+      owner   => 'deploy',
+      group   => 'deploy',
       mode    => '0775',
       purge   => false,
       require => [
-        Group['assets'],
-        User['assets'],
+        Group['deploy'],
+        User['deploy'],
       ],
     }
 
     file { $directories:
       ensure  => directory,
-      owner   => 'assets',
-      group   => 'assets',
+      owner   => 'deploy',
+      group   => 'deploy',
       mode    => '0775',
       purge   => false,
       require => [
-        Group['assets'],
-        User['assets'],
+        Group['deploy'],
+        User['deploy'],
         Mount['/mnt/uploads'],
       ],
+    }
+
+    file { '/var/run/virus_scan':
+      ensure => directory,
+      owner  => 'deploy',
     }
   } else {
     file { '/mnt/uploads':
@@ -131,6 +139,11 @@ class govuk::node::s_asset_base (
         User['assets'],
         Govuk_mount['/mnt/uploads']
       ],
+    }
+
+    file { '/var/run/virus_scan':
+      ensure => directory,
+      owner  => 'assets',
     }
 
     file { '/etc/exports':
@@ -204,11 +217,6 @@ class govuk::node::s_asset_base (
   file { '/usr/local/bin/copy-attachments.sh':
     content => template('govuk/node/s_asset_base/copy-attachments.sh.erb'),
     mode    => '0755',
-  }
-
-  file { '/var/run/virus_scan':
-    ensure => directory,
-    owner  => 'assets',
   }
 
   if $s3_bucket {
