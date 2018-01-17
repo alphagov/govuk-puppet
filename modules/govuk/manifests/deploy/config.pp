@@ -103,7 +103,7 @@ class govuk::deploy::config(
     govuk_envvar {
       # By default traffic should route internally
       'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
-      'GOVUK_APP_DOMAIN_INTERNAL':  value => $app_domain_internal;
+      'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
       # Apps lookup the draft origin to link users to, so that they
       # can preview content, therefore it needs to be the Publishing
       # domain
@@ -116,8 +116,9 @@ class govuk::deploy::config(
       'PLEK_SERVICE_SIGNON_URI':    value => "https://signon.${app_domain}";
     }
   } else {
-    govuk_envvar { 'GOVUK_APP_DOMAIN':
-      value => $app_domain,
+    govuk_envvar {
+      'GOVUK_APP_DOMAIN':           value => $app_domain;
+      'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
     }
   }
 }
