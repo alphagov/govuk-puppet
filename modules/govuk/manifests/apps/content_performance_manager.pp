@@ -22,14 +22,6 @@
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
 #
-# [*feature_auditing_allocation*]
-#   Whether the auditing allocation feature should be enabled/disabled.
-#   Default: false
-#
-# [*feature_auditing_theme_filtering*]
-#   Whether the auditing filters for themes are enabled/disabled.
-#   Default: false
-#
 # [*google_client_email*]
 #   Google authentication email
 #   Default: undef
@@ -74,8 +66,6 @@ class govuk::apps::content_performance_manager(
   $db_password = undef,
   $db_username = 'content_performance_manager',
   $enable_procfile_worker = true,
-  $feature_auditing_allocation = false,
-  $feature_auditing_theme_filtering = false,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
@@ -115,12 +105,6 @@ class govuk::apps::content_performance_manager(
   }
 
   govuk::app::envvar {
-    "${title}-FEATURE_AUDITING_ALLOCATION":
-      varname => 'FEATURE_AUDITING_ALLOCATION',
-      value   => bool2str($feature_auditing_allocation);
-    "${title}-FEATURE_AUDITING_THEME_FILTERING":
-      varname => 'FEATURE_AUDITING_THEME_FILTERING',
-      value   => bool2str($feature_auditing_theme_filtering);
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
       value   => $google_analytics_govuk_view_id;
