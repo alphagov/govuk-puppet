@@ -11,7 +11,12 @@
 class assets (
   $mount_asset_master = true,
   ) {
-  include assets::user
+
+  unless $::aws_migration {
+    include assets::user
+
+    Class['assets::user'] -> File['/data/uploads']
+  }
 
   package { 'nfs-common':
     ensure => installed,
@@ -23,11 +28,10 @@ class assets (
 
   # Ownership and permissions come from the mount.
   file { '/data/uploads':
-    ensure  => directory,
-    owner   => undef,
-    group   => undef,
-    mode    => undef,
-    require => Class['assets::user'],
+    ensure => directory,
+    owner  => undef,
+    group  => undef,
+    mode   => undef,
   }
 
   validate_bool($mount_asset_master)
