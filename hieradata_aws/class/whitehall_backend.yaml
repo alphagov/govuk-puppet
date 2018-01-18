@@ -6,5 +6,5 @@ govuk::apps::whitehall::port: '3026'
 govuk::apps::whitehall::vhost: 'whitehall-admin'
 govuk::apps::whitehall::vhost_protected: true
 
-govuk::deploy::setup::deploy_uid: 2910
-govuk::deploy::setup::deploy_gid: 2910
+govuk::deploy::setup::deploy_uid: 2899
+govuk::deploy::setup::deploy_gid: 2899
