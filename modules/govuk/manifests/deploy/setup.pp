@@ -30,7 +30,7 @@ class govuk::deploy::setup (
     $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
     $deploy_uid = undef,
-    $deploy_gui = undef,
+    $deploy_gid = undef,
 ){
   validate_hash($ssh_keys)
 
@@ -48,7 +48,7 @@ class govuk::deploy::setup (
   group { 'deploy':
     ensure => 'present',
     name   => 'deploy',
-    gid    => $::deploy_gid,
+    gid    => $deploy_gid,
   }
 
   user { 'deploy':
@@ -57,7 +57,7 @@ class govuk::deploy::setup (
     managehome => true,
     groups     => $deploy_groups,
     shell      => '/bin/bash',
-    uid        => $::deploy_uid,
+    uid        => $deploy_uid,
     gid        => 'deploy',
     require    => Group['deploy'],
   }
