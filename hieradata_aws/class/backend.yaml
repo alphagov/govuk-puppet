@@ -41,5 +41,5 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'mongo-2'
   - 'mongo-3'
 
-govuk::deploy::setup::deploy_uid: 2910
-govuk::deploy::setup::deploy_gid: 2910
+govuk::deploy::setup::deploy_uid: 2899
+govuk::deploy::setup::deploy_gid: 2899
