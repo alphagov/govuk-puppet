@@ -16,6 +16,11 @@
 # [*ssh_keys*]
 #   Hash of SSH authorized_keys entries to allow deployments from.
 #
+# [*deploy_uid*]
+#   Deploy UID
+#
+# [*deploy_gid*]
+#   Deploy GID
 class govuk::deploy::setup (
     $setup_actionmailer_ses_config,
     $actionmailer_enable_delivery,
@@ -24,27 +29,37 @@ class govuk::deploy::setup (
     $aws_ses_smtp_password,
     $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
+    $deploy_uid = undef,
+    $deploy_gui = undef,
 ){
   validate_hash($ssh_keys)
 
-  include assets::group
   if $::aws_migration {
     include govuk::deploy::sync
+
+    $deploy_groups = []
+  } else {
+    include assets::group
+
+    $deploy_groups = ['assets']
+    Group['assets'] -> User['deploy']
   }
 
   group { 'deploy':
     ensure => 'present',
     name   => 'deploy',
+    gid    => $::deploy_gid,
   }
 
   user { 'deploy':
     ensure     => present,
     home       => '/home/deploy',
     managehome => true,
-    groups     => ['assets'],
+    groups     => $deploy_groups,
     shell      => '/bin/bash',
+    uid        => $::deploy_uid,
     gid        => 'deploy',
-    require    => [Group['deploy'],Group['assets']];
+    require    => Group['deploy'],
   }
 
   file { '/etc/govuk':
