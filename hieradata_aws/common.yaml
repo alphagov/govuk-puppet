@@ -19,6 +19,7 @@ node_class: &node_class
       - canary-backend
       - collections-publisher
       - contacts
+      - content-audit-tool
       - content-performance-manager
       - content-tagger
       - email-alert-api
@@ -353,6 +354,11 @@ govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::content_audit_tool::db_hostname: "postgresql-primary"
+govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
@@ -525,6 +531,8 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
@@ -604,6 +612,7 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::content_audit_tool::db::rds: true
 govuk::apps::content_performance_manager::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
