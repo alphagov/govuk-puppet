@@ -9,6 +9,7 @@
 
     location ~ "-[0-9a-f]{32,}\." {
       expires max;
+      add_header Cache-Control "public, immutable";
     }
   }
 
