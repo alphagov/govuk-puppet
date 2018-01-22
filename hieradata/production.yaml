@@ -1,6 +1,6 @@
 ---
 
-_: &offsite_gpg_key 'E240885935A3A7C22C3B07D597D47738D7E71BFA'
+_: &offsite_gpg_key 'C30AC3E9B1CA573BC7F1D71AE6482BDB7C6961BD'
 
 app_domain: 'publishing.service.gov.uk'
 
