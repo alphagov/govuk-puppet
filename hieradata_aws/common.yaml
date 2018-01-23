@@ -1043,6 +1043,7 @@ router::assets_origin::asset_routes:
   '/government/uploads/system/uploads/promotional_feature_item/image/': "static"
   '/government/uploads/system/uploads/take_part_page/image/': "static"
   '/government/uploads/system/uploads/image_data/file/': "static"
+  '/government/uploads/uploaded/number10/': "static"
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
