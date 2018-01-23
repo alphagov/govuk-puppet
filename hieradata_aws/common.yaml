@@ -821,7 +821,7 @@ grafana::dashboards::deployment_applications:
     # logstasher >1.x
     fields_prefix: ''
   hmrc-manuals-api:
-    # Missing @fields.status
+    # Missing status from logs
     show_controller_errors: false
   imminence:
     # logstasher >1.x

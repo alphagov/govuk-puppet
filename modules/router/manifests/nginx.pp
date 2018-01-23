@@ -100,9 +100,9 @@ class router::nginx (
     'lb-json.event.access.log':
       json          => true,
       logstream     => present,
-      statsd_metric => "${::fqdn_metrics}.nginx_logs.www-origin.http_%{@fields.status}",
+      statsd_metric => "${::fqdn_metrics}.nginx_logs.www-origin.http_%{status}",
       statsd_timers => [{metric => "${::fqdn_metrics}.nginx_logs.www-origin.time_request",
-                          value => '@fields.request_time'}];
+                          value => 'request_time'}];
     'lb-error.log':
       logstream => present;
   }

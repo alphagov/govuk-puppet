@@ -138,9 +138,9 @@ define nginx::config::vhost::proxy(
       json          => true,
       logpath       => $logpath,
       logstream     => $ensure,
-      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_metric => "${counter_basename}.http_%{status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
-                          value => '@fields.request_time'}];
+                          value => 'request_time'}];
     $error_log:
       logpath   => $logpath,
       logstream => $ensure;
