@@ -4,6 +4,7 @@ _: &offsite_gpg_key 'C30AC3E9B1CA573BC7F1D71AE6482BDB7C6961BD'
 
 app_domain: 'publishing.service.gov.uk'
 
+backup::assets::backup_private_gpg_key_fingerprint: *offsite_gpg_key
 backup::assets::jobs:
   'assets-whitehall-s3':
     sources: '/mnt/uploads/whitehall'
