@@ -22,7 +22,7 @@
     proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
   }
 
-  location ~ ^/api/content/ {
+  location ~ ^/api/content(/|$) {
     limit_except GET {
       deny all;
     }
