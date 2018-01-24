@@ -49,9 +49,9 @@ class router::assets_origin(
     "${vhost_name}-json.event.access.log":
       json          => true,
       logstream     => present,
-      statsd_metric => "${::fqdn_metrics}.nginx_logs.assets-origin.http_%{@fields.status}",
+      statsd_metric => "${::fqdn_metrics}.nginx_logs.assets-origin.http_%{status}",
       statsd_timers => [{metric => "${::fqdn_metrics}.nginx_logs.assets-origin.time_request",
-                          value => '@fields.request_time'}];
+                          value => 'request_time'}];
     "${vhost_name}-error.log":
       logstream => present;
   }

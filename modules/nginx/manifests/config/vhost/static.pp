@@ -77,9 +77,9 @@ define nginx::config::vhost::static(
       json          => true,
       logpath       => $logpath,
       logstream     => $logstream_ensure,
-      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_metric => "${counter_basename}.http_%{status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
-                          value => '@fields.request_time'}];
+                          value => 'request_time'}];
     $error_log:
       logpath   => $logpath,
       logstream => $logstream_ensure;

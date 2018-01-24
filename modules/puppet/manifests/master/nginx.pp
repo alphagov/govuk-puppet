@@ -23,9 +23,9 @@ class puppet::master::nginx (
     'puppetmaster-json.event.access.log':
       json          => true,
       logstream     => present,
-      statsd_metric => "${counter_basename}.http_%{@fields.status}",
+      statsd_metric => "${counter_basename}.http_%{status}",
       statsd_timers => [{metric => "${counter_basename}.time_request",
-                          value => '@fields.request_time'}];
+                          value => 'request_time'}];
     'puppetmaster-error.log':
       logstream => present;
   }
