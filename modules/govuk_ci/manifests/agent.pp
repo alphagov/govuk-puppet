@@ -72,6 +72,14 @@ class govuk_ci::agent(
     provider => 'pip',
   }
 
+  # Needed for govuk-taxonomy-supervised-learning
+  package { 'python3-dev':
+    ensure => installed,
+  }
+  package { 'libfreetype6-dev':
+    ensure => installed,
+  }
+
   govuk_bundler::config {'jenkins-bundler':
     server    => $gemstash_server,
     username  => 'jenkins',
