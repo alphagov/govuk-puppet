@@ -39,6 +39,9 @@
 #   The secret used to decode JWT authentication tokens. This value needs to be
 #   shared with the publishing apps that generate the encoded tokens.
 #
+# [*signon_uri_scheme*]
+#   Scheme to use for signon URI.
+#   Default: 'https'
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
   $mongodb_name = 'authenticating_proxy_production',
@@ -49,6 +52,7 @@ class govuk::apps::authenticating_proxy(
   $oauth_secret = undef,
   $secret_key_base = undef,
   $jwt_auth_secret = undef,
+  $signon_uri_scheme = 'https',
 ) {
   $app_name = 'authenticating-proxy'
 
@@ -112,6 +116,6 @@ class govuk::apps::authenticating_proxy(
     "${title}-PLEK_SERVICE_SIGNON_URI":
       app     => $app_name,
       varname => 'PLEK_SERVICE_SIGNON_URI',
-      value   => "https://signon.${app_domain}";
+      value   => "${signon_uri_scheme}://signon.${app_domain}";
   }
 }
