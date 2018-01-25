@@ -309,6 +309,7 @@ filebeat::prospectors:
   syslog:
     paths:
       - '/var/log/syslog'
+      - '/var/log/auth.log'
     fields:
       application: 'syslog'
   unattended-upgrades:
