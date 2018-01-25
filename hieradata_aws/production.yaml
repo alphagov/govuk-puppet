@@ -1,0 +1,116 @@
+---
+app_domain: 'publishing.service.gov.uk'
+app_domain_internal: "production.govuk-internal.digital"
+
+backup::server::backup_hour: 9
+
+base::shell::shell_prompt_string: 'production'
+base::supported_kernel::enabled: false
+
+cron::daily_hour: 6
+
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
+govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
+govuk::apps::email_alert_api::allow_govdelivery_topic_syncing: true
+govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::email_alert_api::govdelivery_account_code: 'UKGOVUK'
+govuk::apps::email_alert_api::govdelivery_hostname: 'api.govdelivery.com'
+govuk::apps::email_alert_api::govdelivery_public_hostname: 'public.govdelivery.com'
+govuk::apps::email_alert_api::govuk_notify_base_url: 'https://api.production-notify.works'
+govuk::apps::email_alert_api::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
+govuk::apps::hmrc_manuals_api::publish_topics: false
+govuk::apps::kibana::logit_environment: 0ea55710-075b-4eab-bfc3-475f28cdd0c3
+govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
+govuk::apps::publisher::run_fact_check_fetcher: false
+govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
+govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
+govuk::apps::short_url_manager::instance_name: 'production'
+govuk::apps::signon::instance_name: 'production'
+govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
+govuk::apps::travel_advice_publisher::enable_email_alerts: true
+
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: 'production'
+govuk::deploy::setup::ssh_keys:
+    jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w==' 
+
+# Staging never receives requests to bouncer
+govuk_cdnlogs::bouncer_monitoring_enabled: false
+# Increase the freshness-threshold for govuk logs as traffic is slower
+govuk_cdnlogs::warning_cdn_freshness: 86400   # 1 day
+govuk_cdnlogs::critical_cdn_freshness: 172800 # 2 days
+
+govuk_crawler::seed_enable: true
+govuk_crawler::sync_enable: true
+govuk_crawler::targets:
+  - 's3://govuk-mirror-production/'
+
+govuk_jenkins::config::banner_colour_background: '#df3034'
+govuk_jenkins::config::banner_colour_text: 'white'
+govuk_jenkins::config::banner_string: 'AWS Production'
+govuk_jenkins::config::theme_colour: '#df3034'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'AWS Production'
+
+govuk_elasticsearch::dump::run_es_dump_hour: '4'
+
+govuk_jenkins::job_builder::environment: 'production'
+
+govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
+govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
+govuk_jenkins::jobs::smokey::smokey_task: 'test:production'
+
+govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
+  -
+    old: publishing.service.gov.uk
+    new: production.publishing.service.gov.uk
+  -
+    old: performance.service.gov.uk
+    new: production.performance.service.gov.uk
+  -
+    old: -production.cloudapps.digital
+    new: -production.cloudapps.digital
+
+govuk_jenkins::jobs::deploy_dns::gce_client_name: 'govuk-dns-deploy'
+govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-production-160211'
+
+govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
+
+govuk_mysql::server::expire_log_days: 1
+govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
+govuk_mysql::server::slow_query_log: true
+
+govuk::node::s_asset_master::copy_attachments_hour: 7
+
+govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
+govuk::node::s_monitoring::offsite_backups: false
+
+govuk_sudo::sudo_conf:
+  deploy_service_postgresql:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
+
+grafana::dashboards::machine_suffix_metrics: '_production'
+
+licensify::apps::licensify_admin::environment: 'production'
+licensify::apps::licensify::environment: 'production'
+licensify::apps::licensify_feed::environment: 'production'
+#Do not enable this without speaking to Tim Blair first
+licensify::apps::licensing_web_forms::enabled: false
+
+monitoring::checks::sidekiq::enable_support_check: false
+monitoring::checks::ses::region: eu-west-1
+monitoring::checks::smokey::environment: 'production'
+monitoring::uptime_collector::environment: 'production'
+
+postfix::smarthost:
+  - 'email-smtp.us-east-1.amazonaws.com:587'
+  - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
+postfix::rewrite_mail_list: 'machine.email.carrenza'
+
+router::nginx::robotstxt: |
+  User-agent: *
+  Disallow: /
