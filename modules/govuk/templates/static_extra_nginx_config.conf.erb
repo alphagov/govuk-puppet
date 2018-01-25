@@ -32,7 +32,6 @@ location /robots.txt {
 ].each do |path_to_be_proxied_to_asset_manager| %>
 
   location ~ ^<%= path_to_be_proxied_to_asset_manager %> {
-    proxy_set_header Host <%= @asset_manager_host %>;
     proxy_set_header X-Real-IP $remote_addr;
     proxy_set_header X-Forwarded-Server $host;
     proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
