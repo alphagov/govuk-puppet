@@ -140,6 +140,7 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
+  content-audit-tool: {}
   content-performance-manager: {}
   content-store: {}
   content-tagger: {}
