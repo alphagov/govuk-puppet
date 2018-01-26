@@ -5,8 +5,8 @@
 # === Parameters
 #
 # [*ensure*]
-# Whether the application should be exist. Can be specified for each
-# environment using deployment hieradata.
+#   Whether the application should be exist. Can be specified for each
+#   environment using deployment hieradata.
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
