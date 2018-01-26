@@ -69,6 +69,8 @@ base::supported_kernel::enabled: false
 
 environment_ip_prefix: '10.3'
 
+govuk::apps::content_audit_tool::ensure: 'absent'
+
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
@@ -120,6 +122,9 @@ govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-production'
   - 'carrenza-production-dr'
   - 'skyscape-production'
+
+govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency: '0 1 * * 0,3'
+govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency: '0 6 * * 0,3'
 
 govuk_jenkins::jobs::content_performance_manager::rake_import_all_content_items_frequency: '0 2 * * *'
 govuk_jenkins::jobs::content_performance_manager::rake_import_all_ga_metrics_frequency: '0 7 * * *'

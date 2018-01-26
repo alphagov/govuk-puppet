@@ -47,6 +47,7 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { [
     'collections-publisher',
     'contacts-admin',
+    'content-audit-tool',
     'content-performance-manager',
     'content-tagger',
     'email-alert-api-public',
