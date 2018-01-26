@@ -20,24 +20,6 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  # FIXME: Once this has been deployed and run on production these absents can
-  # be removed
-  rbenv::version { '2.1.5':
-    ensure => absent,
-  }
-  rbenv::version { '2.2.2':
-    ensure => absent,
-  }
-  rbenv::version { '2.2.3':
-    ensure => absent,
-  }
-  rbenv::version { '2.2.4':
-    ensure => absent,
-  }
-  rbenv::version { '2.3.0':
-    ensure => absent,
-  }
-
   rbenv::version { '2.2.8':
     bundler_version  => '1.16.1',
     install_gem_docs => false,
