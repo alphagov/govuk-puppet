@@ -31,6 +31,7 @@ govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk_jenkins::jobs::whitehall_update_integration_data::whitehall_mysql_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
