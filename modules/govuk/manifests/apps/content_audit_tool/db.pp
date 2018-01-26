@@ -8,6 +8,9 @@
 # [*backend_ip_range*]
 #   Backend IP addresses to allow access to the database.
 #
+# [*rds]
+#   Flag for whether we are usng AWS RDS.
+#
 class govuk::apps::content_audit_tool::db (
   $password,
   $backend_ip_range = undef,
