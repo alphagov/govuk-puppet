@@ -73,6 +73,20 @@ class govuk::apps::asset_manager(
         value   => "private-asset-manager.${app_domain}";
     }
 
+    if $::aws_migration {
+      # The Asset Manager app needs to look up 'draft-assets' in order to
+      # decide whether to authenticate requests and to be able to redirect
+      # requests for draft assets. Thus the URI returned from `Plek#find` for
+      # 'draft-assets' needs to be on the public-facing domain and not the
+      # domain for internal services which is the default.
+      govuk::app::envvar {
+        "${title}-PLEK_SERVICE_DRAFT_ASSETS_URI":
+          app     => 'asset-manager',
+          varname => 'PLEK_SERVICE_DRAFT_ASSETS_URI',
+          value   => "https://draft-assets.${app_domain}";
+      }
+    }
+
     Govuk::App::Envvar {
       app => $app_name,
     }
