@@ -22,6 +22,10 @@ server {
     proxy_pass http://localhost:3038;
   }
 
+  location /content-audit-tool {
+    proxy_pass http://localhost:3212;
+  }
+
   location /content-performance-manager {
     proxy_pass http://localhost:3207;
   }
