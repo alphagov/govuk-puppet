@@ -26,7 +26,7 @@ class router::draft_assets(
     $upstream_ssl = $enable_ssl
   }
 
-  nginx::config::site { 'draft-assets':
+  nginx::config::site { $vhost_name:
     content => template('router/draft-assets.conf.erb'),
   }
 }
