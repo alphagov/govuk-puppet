@@ -127,6 +127,7 @@ class govuk::node::s_db_admin(
   class { '::govuk_postgresql::client': } ->
 
   # include all PostgreSQL classes that create databases and users
+  class { '::govuk::apps::content_audit_tool::db': } ->
   class { '::govuk::apps::content_performance_manager::db': } ->
   class { '::govuk::apps::content_tagger::db': } ->
   class { '::govuk::apps::email_alert_api::db': } ->
