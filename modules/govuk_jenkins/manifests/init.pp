@@ -111,6 +111,11 @@ class govuk_jenkins (
     provider => 'pip',
   }
 
+  package { 'pipenv':
+    ensure   => 'present',
+    provider => 'pip',
+  }
+
   # Runtime dependency of: https://github.com/alphagov/search-analytics
   ensure_packages(['libffi-dev'])
 

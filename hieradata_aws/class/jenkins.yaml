@@ -68,6 +68,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
   - govuk_jenkins::jobs::enhanced_ecommerce
+  - govuk_jenkins::jobs::extract_app_performance
   - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::record_taxonomy_metrics
