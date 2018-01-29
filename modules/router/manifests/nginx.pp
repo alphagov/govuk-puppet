@@ -61,6 +61,10 @@ class router::nginx (
     real_ip_header => $real_ip_header,
   }
 
+  class { 'router::draft_assets':
+    real_ip_header => $real_ip_header,
+  }
+
   $app_domain = hiera('app_domain')
 
   nginx::config::ssl { "www.${app_domain}":
