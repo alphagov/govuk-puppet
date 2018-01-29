@@ -1638,6 +1638,7 @@ router::assets_origin::app_specific_asset_routes:
   '/smartanswers/': "smartanswers"
 
 router::assets_origin::asset_manager_routes:
+  - '/media/'
   - '/government/uploads/government/uploads/system/uploads/'
   - '/government/uploads/system/uploads/organisation/logo/'
   - '/government/uploads/system/uploads/classification_featuring_image_data/file/'
