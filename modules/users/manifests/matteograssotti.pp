@@ -1,8 +1,0 @@
-# Creates the matteograssotti user
-class users::matteograssotti {
-  govuk_user { 'matteograssotti':
-    fullname => 'Matteo Grassotti',
-    email    => 'matteo.grassotti@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDg/A4fkWGGhn2wYySjNH0dW4CAMoFqZW4XGrhBIBuc9f10bmMzERpHKRwDfT1Mg4WePOQ1JbbKr15YDI8e+PoVqpvgaGJ2JQ7BoAWLCNcg+LuXcVJtmQeuefB3ENI8goR9nS/vFxVPraKtGMxvX+oCX/ViJ9G1p64VcvjaWKiDCbOBjLJjrHHfQx3Fccxh9yLLCkKv4qhBXghPhtUCLz7QUFhTLNS4tyyUJ7ltDiApANCyMygpf06Pj0uZQhnlOKKzXBsOvISJyISmDB3df0NcRecaOF/GEI8diXaSa+Lfo5X3zGdjWNsc1oG24wyvr7KWxTRslQsegPjObcfHcixOb97HT5JxQBZjXv6d0sNcpwe/T0WTqYFf7ge7cuzdEtuuUhN5wWHGDr6wQHTf6FwoYSUx+LKh95G1ho86jDx0k49GwBT8QsubuBVWVAt78auyzEiiqTbALVOx2qlQw31SrMVosNIHwbZXqh33KB6y1QmT+sgkPhF2Tt24ByYUYZpfMlWmJzI4VHWmYXakre1755mb3qXobr9UPlef9pC4vHPFc+SJJi7r23htvb2ZQsk7oWo6gJ4mcjvgSiSej34UpFxXY1wP7Ygw5f9c0XGU8Y+ZRxq9EjG9eKE1p5pes40I9w9hASF3I6fnDUKVqwb1V8rwM7/W2eSJGrJgR9PRWw== matteo.grassotti@digital.cabinet-office.gov.uk',
-  }
-}
