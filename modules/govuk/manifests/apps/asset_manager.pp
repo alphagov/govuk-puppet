@@ -68,6 +68,7 @@ class govuk::apps::asset_manager(
 
     govuk::app::envvar {
       "${title}-PRIVATE_ASSET_MANAGER_HOST":
+        ensure  => 'absent',
         app     => 'asset-manager',
         varname => 'PRIVATE_ASSET_MANAGER_HOST',
         value   => "private-asset-manager.${app_domain}";
@@ -169,7 +170,6 @@ class govuk::apps::asset_manager(
       sentry_dsn         => $sentry_dsn,
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
-      vhost_aliases      => ['private-asset-manager'],
       log_format_is_json => true,
       deny_framing       => $deny_framing,
       depends_on_nfs     => true,
