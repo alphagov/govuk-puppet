@@ -1653,6 +1653,7 @@ router::assets_origin::vhost_aliases:
   - 'assets.publishing.service.gov.uk'
 
 router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
+router::draft_assets::vhost_name: "draft-assets.%{hiera('app_domain')}"
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
