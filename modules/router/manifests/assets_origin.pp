@@ -22,7 +22,7 @@
 #
 class router::assets_origin(
   $asset_routes = {},
-  $asset_manager_routes = {},
+  $asset_manager_routes = [],
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',

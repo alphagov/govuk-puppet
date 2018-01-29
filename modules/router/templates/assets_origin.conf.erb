@@ -47,9 +47,9 @@ server {
   }
   <%- end -%>
 
-  <%- @asset_manager_routes.each do |alias_path, vhost_name| -%>
-  location <%= alias_path %> {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
+  <%- @asset_manager_routes.each do |path| -%>
+  location <%= path %> {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   }
   <%- end -%>
 

@@ -60,8 +60,8 @@ describe "router::assets_origin", :type => :class do
       let(:pre_condition) { "include hosts::production" }
 
       it "should have host entries for each route target" do
-        asset_manager_routes.each do |_, target|
-          hostname = "#{target}.publishing.service.gov.uk"
+        asset_manager_routes.each do |_path|
+          hostname = "static.publishing.service.gov.uk"
           message = "asset_manager_routes point at non-existent host '#{hostname}' in production"
           expect(all_hostnames).to include(hostname), message
         end
@@ -73,8 +73,8 @@ describe "router::assets_origin", :type => :class do
       let(:pre_condition) { "include hosts::development" }
 
       it "should have host entries for each route target" do
-        asset_manager_routes.each do |_, target|
-          hostname = "#{target}.dev.gov.uk"
+        asset_manager_routes.each do |_path|
+          hostname = "static.dev.gov.uk"
           message = "asset_manager_routes point at non-existent host '#{hostname}' on the dev VM"
           expect(all_hostnames).to include(hostname), message
         end
