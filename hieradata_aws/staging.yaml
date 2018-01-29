@@ -59,13 +59,11 @@ govuk_jenkins::config::theme_environment_name: 'AWS Staging'
 govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
 govuk_jenkins::job_builder::environment: 'staging'
-govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::deploy_app
-  - govuk_jenkins::jobs::deploy_puppet
-  - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::run_rake_task
-  - govuk_jenkins::jobs::smokey
-  - govuk_jenkins::jobs::smokey_deploy
+
+govuk_jenkins::jobs::network_config_deploy::environments:
+  - 'carrenza-staging'
+  - 'carrenza-staging-dr'
+  - 'skyscape-staging'
 
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'

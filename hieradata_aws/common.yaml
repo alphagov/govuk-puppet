@@ -755,43 +755,6 @@ govuk_jenkins::jobs::integration_deploy::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
 
-govuk_jenkins::config::banner_string: 'AWS Integration'
-govuk_jenkins::config::banner_colour_background: '#005EA5'
-govuk_jenkins::config::banner_colour_text: 'white'
-govuk_jenkins::config::theme_colour: '#005EA5'
-govuk_jenkins::config::theme_text_colour: 'white'
-govuk_jenkins::config::theme_environment_name: 'AWS Integration'
-
-govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::check_content_consistency
-  - govuk_jenkins::jobs::check_content_store
-  - govuk_jenkins::jobs::configure_github_repos
-  - govuk_jenkins::jobs::data_sync_complete_integration
-  - govuk_jenkins::jobs::deploy_app
-  - govuk_jenkins::jobs::deploy_dns
-  - govuk_jenkins::jobs::deploy_emergency_banner
-  - govuk_jenkins::jobs::deploy_puppet
-  - govuk_jenkins::jobs::deploy_router_data
-  - govuk_jenkins::jobs::enhanced_ecommerce
-  - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::record_taxonomy_metrics
-  - govuk_jenkins::jobs::remove_emergency_banner
-  - govuk_jenkins::jobs::run_deploy_lag_badger
-  - govuk_jenkins::jobs::run_rake_task
-  - govuk_jenkins::jobs::run_whitehall_data_migrations
-  - govuk_jenkins::jobs::search_benchmark
-  - govuk_jenkins::jobs::search_fetch_analytics_data
-  - govuk_jenkins::jobs::search_index_checks
-  - govuk_jenkins::jobs::search_reindex_with_new_schema
-  - govuk_jenkins::jobs::search_test_spelling_suggestions
-  - govuk_jenkins::jobs::signon_cron_rake_tasks
-  - govuk_jenkins::jobs::smokey
-  - govuk_jenkins::jobs::smokey_deploy
-  - govuk_jenkins::jobs::transition_load_site_config
-  - govuk_jenkins::jobs::transition_load_transition_stats_hits
-  - govuk_jenkins::jobs::user_monitor
-  - govuk_jenkins::jobs::whitehall_update_integration_data
-
 govuk_postgresql::backup::alert_hostname: 'alert'
 govuk_postgresql::server::configure_env_sync_user: true
 
