@@ -57,6 +57,10 @@ server {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   }
 
+  location /__canary__ {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+  }
+
   location / {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   }
