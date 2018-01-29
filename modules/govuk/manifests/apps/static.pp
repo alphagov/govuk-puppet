@@ -54,6 +54,7 @@ class govuk::apps::static(
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
+  $asset_manager_routes = hiera('router::assets_origin::asset_manager_routes', [])
 
   if $::aws_migration {
     $proxy_pass_asset_manager_host_https = true
