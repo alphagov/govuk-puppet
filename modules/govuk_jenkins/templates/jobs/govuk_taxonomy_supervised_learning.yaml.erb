@@ -1,0 +1,45 @@
+---
+- scm:
+    name: govuk-taxonomy-supervised-learning
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-taxonomy-supervised-learning.git
+            branches:
+              - master
+
+- job:
+    name: govuk_taxonomy_supervised_learning
+    display-name: Taxonomy Supervised Learning Pipeline
+    project-type: freestyle
+    description: |
+      This job runs the taxonomy supervised learning pipeline
+    logrotate:
+      numToKeep: 20
+    scm:
+      - router-govuk-taxonomy-supervised-learning
+    triggers:
+        - timed: '00 05 * * 1-5'
+    builders:
+      - shell: |
+          #!/bin/bash
+          git checkout -B ${GIT_BRANCH} origin/${GIT_BRANCH}
+
+          rm -rf ./venv
+          virtualenv --python=python3 --no-site-packages ./venv
+          export VIRTUAL_ENV="$PWD/venv"
+          export PATH="$PWD/venv/bin:$PATH"
+          pip3 install --upgrade pip
+
+          make pip_install
+
+          export PLEK_SERVICE_RUMMAGER_URI=https://<%= @rummager_api -%>
+          export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api -%>
+
+          make clean
+          make data/taxons.json
+          make data/content.json
+    parameters:
+        - string:
+            name: GIT_BRANCH
+            description: The Git branch of the govuk-taxonomy-supervised-learning repository to use.
+            default: master
