@@ -1630,6 +1630,14 @@ router::assets_origin::asset_routes:
   '/government/assets/': "whitehall-frontend"
   '/government/placeholder': "whitehall-frontend"
   '/government/uploads/': "whitehall-frontend"
+  '/government-frontend/': "government-frontend"
+  '/info-frontend/': "info-frontend"
+  '/manuals-frontend/': "manuals-frontend"
+  '/licencefinder/': "licencefinder"
+  '/service-manual-frontend/': "service-manual-frontend"
+  '/smartanswers/': "smartanswers"
+
+router::assets_origin::asset_manager_routes:
   '/government/uploads/government/uploads/system/uploads/': "static"
   '/government/uploads/system/uploads/organisation/logo/': "static"
   '/government/uploads/system/uploads/classification_featuring_image_data/file/': "static"
@@ -1641,12 +1649,6 @@ router::assets_origin::asset_routes:
   '/government/uploads/system/uploads/take_part_page/image/': "static"
   '/government/uploads/system/uploads/image_data/file/': "static"
   '/government/uploads/uploaded/number10/': "static"
-  '/government-frontend/': "government-frontend"
-  '/info-frontend/': "info-frontend"
-  '/manuals-frontend/': "manuals-frontend"
-  '/licencefinder/': "licencefinder"
-  '/service-manual-frontend/': "service-manual-frontend"
-  '/smartanswers/': "smartanswers"
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
