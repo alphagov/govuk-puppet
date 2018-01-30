@@ -41,12 +41,25 @@ server {
   add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
-  <%- @asset_routes.each do |alias_path, vhost_name| -%>
+  <%- @app_specific_asset_routes.each do |alias_path, vhost_name| -%>
   location <%= alias_path %> {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
   }
-
   <%- end -%>
+
+  <%- @asset_manager_routes.each do |path| -%>
+  location <%= path %> {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+  }
+  <%- end -%>
+
+  location = /static/a {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+  }
+
+  location /__canary__ {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+  }
 
   location / {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;

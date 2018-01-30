@@ -4,7 +4,10 @@
 #
 # === Parameters
 #
-# [*asset_routes*]
+# [*app_specific_asset_routes*]
+#   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
+#
+# [*asset_manager_routes*]
 #   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
 #
 # [*real_ip_header*]
@@ -18,7 +21,8 @@
 #   Primary vhost that assets should be served on at origin
 #
 class router::assets_origin(
-  $asset_routes = {},
+  $app_specific_asset_routes = {},
+  $asset_manager_routes = [],
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',

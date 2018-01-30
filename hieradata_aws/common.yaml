@@ -1035,7 +1035,7 @@ rcs::tmptime: '7'
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
-router::assets_origin::asset_routes:
+router::assets_origin::app_specific_asset_routes:
   '/asset-manager': "asset-manager"
   '/calculators/': "calculators"
   '/calendars/': "calendars"
@@ -1047,23 +1047,26 @@ router::assets_origin::asset_routes:
   '/government/assets/': "whitehall-frontend"
   '/government/placeholder': "whitehall-frontend"
   '/government/uploads/': "whitehall-frontend"
-  '/government/uploads/government/uploads/system/uploads/': "static"
-  '/government/uploads/system/uploads/organisation/logo/': "static"
-  '/government/uploads/system/uploads/classification_featuring_image_data/file/': "static"
-  '/government/uploads/system/uploads/consultation_response_form_data/file/': "static"
-  '/government/uploads/system/uploads/default_news_organisation_image_data/file/': "static"
-  '/government/uploads/system/uploads/feature/image/': "static"
-  '/government/uploads/system/uploads/person/image/': "static"
-  '/government/uploads/system/uploads/promotional_feature_item/image/': "static"
-  '/government/uploads/system/uploads/take_part_page/image/': "static"
-  '/government/uploads/system/uploads/image_data/file/': "static"
-  '/government/uploads/uploaded/number10/': "static"
   '/government-frontend/': "government-frontend"
   '/info-frontend/': "info-frontend"
   '/manuals-frontend/': "manuals-frontend"
   '/licencefinder/': "licencefinder"
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
+
+router::assets_origin::asset_manager_routes:
+  - '/media/'
+  - '/government/uploads/government/uploads/system/uploads/'
+  - '/government/uploads/system/uploads/organisation/logo/'
+  - '/government/uploads/system/uploads/classification_featuring_image_data/file/'
+  - '/government/uploads/system/uploads/consultation_response_form_data/file/'
+  - '/government/uploads/system/uploads/default_news_organisation_image_data/file/'
+  - '/government/uploads/system/uploads/feature/image/'
+  - '/government/uploads/system/uploads/person/image/'
+  - '/government/uploads/system/uploads/promotional_feature_item/image/'
+  - '/government/uploads/system/uploads/take_part_page/image/'
+  - '/government/uploads/system/uploads/image_data/file/'
+  - '/government/uploads/uploaded/number10/'
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
