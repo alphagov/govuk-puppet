@@ -1,0 +1,79 @@
+client_max_body_size 500m;
+
+# Store values from Rails response headers for use in the
+# cloud-storage-proxy location block below.
+set $etag_from_rails $upstream_http_etag;
+set $last_modified_from_rails $upstream_http_last_modified;
+set $x_frame_options_from_rails $upstream_http_x_frame_options;
+
+# For public assets requests, the Rails app will respond with the
+# X-Accel-Redirect header set to a path prefixed with
+# /cloud-storage-proxy/. This triggers an Nginx internal redirect
+# to that path which is then handled by this location block.
+location ~ /cloud-storage-proxy/(.*) {
+  # Prevent requests to this location from outside Nginx
+  internal;
+
+  # Construct download URL from:
+  # $1:       Host + path from regexp match in location
+  # $is_args: Optional ? delimiter
+  # $args:    Optional querystring params
+  set $download_url $1$is_args$args;
+
+  # The X-Accel-Redirect header contains a signed URL, $download_url, for
+  # the asset on S3. The signature of this URL is based in part on the
+  # request headers set in the asset-manager Rails app at the time the URL
+  # is generated. The headers we send now must match otherwise Nginx will
+  # not be allowed to make the request. Since this location block inherits
+  # `proxy_set_header` directives from previous levels[1], we explicitly
+  # set the Host so that the inherited headers are over-written.
+  #
+  # [1] http://nginx.org/en/docs/http/ngx_http_proxy_module.html#proxy_set_header
+  proxy_set_header Host $proxy_host;
+
+  # Set response headers in the proxied response based on values stored
+  # from the Rails response headers. This is so that the Rails app can
+  # remain the canonical source of response headers, even though we are
+  # proxying the request to S3. This is particularly relevant in the case
+  # of ETag & Last-Modified, because we want keep these the same as when
+  # Nginx serves the files from NFS to avoid unnecessary cache
+  # invalidation. Note that Cache-Control, Content-Disposition and Content-Type
+  # headers are copied from the Rails response into the proxied response by
+  # default, so we do not have to do that explicitly here.
+  add_header ETag $etag_from_rails;
+  add_header Last-Modified $last_modified_from_rails;
+
+  # Additionally, we always prohibit passing on these headers from S3 to
+  # the client as they are very likely to be wrong. There appears to be
+  # a race condition or similar in Nginx that allows the S3 headers to
+  # overwrite those set here or by Rails, possibly depending on the order
+  # in which S3 sends them.
+  proxy_hide_header ETag;
+  proxy_hide_header Last-Modified;
+  proxy_hide_header Content-Type;
+  proxy_hide_header Content-Disposition;
+  proxy_hide_header Cache-Control;
+
+  # Control whether the asset can be embedded in other pages[1] by
+  # respecting X-Frame-Options from the Rails application.
+  # [1]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Frame-Options
+  add_header X-Frame-Options $x_frame_options_from_rails;
+
+  # Remove S3 HTTP headers including those listed in:
+  # http://docs.aws.amazon.com/AmazonS3/latest/API/RESTCommonResponseHeaders.html
+  # This keeps this HTTP response as similar as possible to the response
+  # sent when using Sendfile to serve files from NFS
+  proxy_hide_header x-amz-delete-marker;
+  proxy_hide_header x-amz-id-2;
+  proxy_hide_header x-amz-request-id;
+  proxy_hide_header x-amz-version-id;
+  proxy_hide_header x-amz-replication-status;
+  proxy_hide_header x-amz-meta-md5-hexdigest;
+
+  # Add Google DNS server to avoid "no resolver defined to resolve"
+  # errors when trying to connect to S3
+  resolver 8.8.8.8;
+
+  # Download the file and send it to client
+  proxy_pass $download_url;
+}
