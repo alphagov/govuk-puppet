@@ -111,9 +111,6 @@ class govuk::deploy::config(
       # We do not host Licensify in AWS, so need to redirect to
       # it's external domain
       'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
-      # Applications use Plek to redirect users back to Signon, so we need
-      # set Signon to use the Publishing domain
-      'PLEK_SERVICE_SIGNON_URI':    value => "https://signon.${app_domain}";
     }
   } else {
     govuk_envvar {
