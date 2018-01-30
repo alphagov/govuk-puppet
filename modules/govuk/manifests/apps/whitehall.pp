@@ -229,11 +229,6 @@ class govuk::apps::whitehall(
 
     if $::aws_migration {
       $whitehall_admin_vhost_ = 'whitehall-admin'
-
-      govuk::app::envvar { 'PLEK_SERVICE_WHITEHALL_ADMIN_URI':
-        varname => 'PLEK_SERVICE_WHITEHALL_ADMIN_URI',
-        value   => "https://whitehall-admin.${app_domain}",
-      }
     } else {
       $whitehall_admin_vhost_ = "whitehall-admin.${app_domain}"
     }
