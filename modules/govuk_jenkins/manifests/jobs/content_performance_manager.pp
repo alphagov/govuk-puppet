@@ -14,6 +14,7 @@
 #   Default: undef
 #
 class govuk_jenkins::jobs::content_performance_manager (
+  $rake_import_daily_metrics_frequency = undef,
   $rake_import_all_content_items_frequency = undef,
   $rake_import_all_ga_metrics_frequency = undef,
 ) {
