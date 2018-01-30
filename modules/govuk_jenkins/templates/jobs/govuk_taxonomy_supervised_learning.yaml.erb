@@ -32,8 +32,8 @@
 
           make pip_install
 
-          export PLEK_SERVICE_RUMMAGER_URI=https://<%= @rummager_api -%>
-          export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api -%>
+          export PLEK_SERVICE_RUMMAGER_URI=https://<%= @rummager_api %>
+          export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api %>
 
           make clean
           make data/taxons.json
