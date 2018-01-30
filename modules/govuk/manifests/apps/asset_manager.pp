@@ -82,8 +82,6 @@ class govuk::apps::asset_manager(
     # relevant location blocks.
     $deny_framing = false
 
-    $nginx_extra_config = template('govuk/asset_manager_extra_nginx_config.conf.erb')
-
     govuk::app { $app_name:
       app_type           => 'rack',
       port               => $port,
@@ -93,7 +91,7 @@ class govuk::apps::asset_manager(
       log_format_is_json => true,
       deny_framing       => $deny_framing,
       depends_on_nfs     => true,
-      nginx_extra_config => $nginx_extra_config,
+      nginx_extra_config => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
     }
 
     govuk::app::envvar {
