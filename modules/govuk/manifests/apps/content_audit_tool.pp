@@ -76,7 +76,7 @@ class govuk::apps::content_audit_tool(
   $google_private_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3212',
+  $port = '3213',
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,

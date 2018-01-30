@@ -159,7 +159,7 @@ link-checker-api-sidekiq:             govuk_setenv link-checker-api            .
 # sidekiq-monitoring for specialist-publisher uses port 3210
 # sidekiq-monitoring's web frontend listens on port 3211 and proxies requests per app to other ports (defined elsewhere in this file)
 publishing-components:                govuk_setenv publishing-components       ./run_in.sh ../../govuk_publishing_components bundle exec foreman start
-# sidekiq-monitoring for content-audit-tool uses port 3212
-content-audit-tool: govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec rails server -p 3212
+# sidekiq-monitoring for content-audit-tool uses port 3213
+content-audit-tool: govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec rails server -p 3213
 content-audit-tool-sidekiq-google-analytics:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/google_analytics.yml
 content-audit-tool-sidekiq-publishing-api:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/publishing_api.yml
