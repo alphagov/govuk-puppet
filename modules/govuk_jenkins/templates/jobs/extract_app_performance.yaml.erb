@@ -19,5 +19,6 @@
         - shell: |
             PIPENV_VENV_IN_PROJECT=1 pipenv install --three --skip-lock
             PIPENV_VENV_IN_PROJECT=1 GRAPHITE_URL='https://graphite.<%= app_domain_internal %>' pipenv run python run_summary.py
+            PIPENV_VENV_IN_PROJECT=1 pipenv run python lint_data.py output/*.csv
     triggers:
         - timed: '<%= @cron_schedule %>'
