@@ -1638,18 +1638,18 @@ router::assets_origin::app_specific_asset_routes:
   '/smartanswers/': "smartanswers"
 
 router::assets_origin::asset_manager_routes:
-  - '/media/'
   - '/government/uploads/government/uploads/system/uploads/'
-  - '/government/uploads/system/uploads/organisation/logo/'
   - '/government/uploads/system/uploads/classification_featuring_image_data/file/'
   - '/government/uploads/system/uploads/consultation_response_form_data/file/'
   - '/government/uploads/system/uploads/default_news_organisation_image_data/file/'
   - '/government/uploads/system/uploads/feature/image/'
+  - '/government/uploads/system/uploads/image_data/file/'
+  - '/government/uploads/system/uploads/organisation/logo/'
   - '/government/uploads/system/uploads/person/image/'
   - '/government/uploads/system/uploads/promotional_feature_item/image/'
   - '/government/uploads/system/uploads/take_part_page/image/'
-  - '/government/uploads/system/uploads/image_data/file/'
   - '/government/uploads/uploaded/number10/'
+  - '/media/'
 
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
