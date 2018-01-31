@@ -32,6 +32,11 @@ server {
   add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
+  # Avoid falling through to the default host if none of our locations match
+  location / {
+    return 404;
+  }
+
   location /auth/ {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   }
