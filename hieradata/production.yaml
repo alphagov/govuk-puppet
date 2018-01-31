@@ -4,6 +4,9 @@ _: &offsite_gpg_key 'BF7CE69AB6DA000D8CC3841EA98D1837723776D7'
 
 app_domain: 'publishing.service.gov.uk'
 
+# Staging/production will not have separate internal load balancers until migrated to AWS
+app_domain_internal: 'publishing.service.gov.uk'
+
 backup::assets::backup_private_gpg_key_fingerprint: *offsite_gpg_key
 backup::assets::jobs:
   'assets-whitehall-s3':
