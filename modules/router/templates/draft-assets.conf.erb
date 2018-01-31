@@ -32,6 +32,10 @@ server {
   add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
+  location /auth/gds/ {
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+  }
+
   <%- @asset_manager_routes.each do |path| -%>
   location <%= path %> {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
