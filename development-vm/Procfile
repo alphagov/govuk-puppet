@@ -16,6 +16,7 @@ static:                govuk_setenv static                ./run_in.sh ../../stat
 licencefinder:         govuk_setenv licencefinder         ./run_in.sh ../../licence-finder bundle exec rails server -p 3014
 # migratorator used port 3015
 signon:                govuk_setenv signon                ./run_in.sh ../../signon         bundle exec rails server -p 3016
+signon-sidekiq:        govuk_setenv signon                ./run_in.sh ../../signon         bundle exec sidekiq -C ./config/sidekiq.yml
 # tradetariff used port 3017
 # tradetariffapi used port 3018
 # efg used port 3019

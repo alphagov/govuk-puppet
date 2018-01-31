@@ -65,7 +65,8 @@ process :'search-admin' => [:rummager, :'publishing-api']
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
-process :signon
+process :signon => [:'signon-sidekiq']
+process :'signon-sidekiq'
 process :smartanswers => [:static, :'content-store', :imminence]
 process :'specialist-publisher' => ['asset-manager', :'publishing-api', :'email-alert-api']
 process :'specialist-publisher-worker' => [:'email-alert-api']
