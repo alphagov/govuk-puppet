@@ -138,7 +138,7 @@
               "fill": true,
               "line": true,
               "op": "gt",
-              "value": 280
+              "value": 300
             },
             {
               "colorMode": "critical",
@@ -169,7 +169,7 @@
               "format": "short",
               "label": "Requests/sec",
               "logBase": 1,
-              "max": null,
+              "max": "420",
               "min": "0",
               "show": true
             },
