@@ -1,0 +1,24 @@
+---
+- scm:
+    name: extract-app-performance
+    scm:
+        - git:
+            url: git@github.com:alphagov/app-performance-summary.git
+            branches:
+              - master
+- job:
+    name: extract-app-performance
+    display-name: extract-app-performance
+    project-type: freestyle
+    description: |
+      <p>Extracts error rate information in graphite.</p>
+      <p>More information:<a href='https://github.com/alphagov/app-performance-summary'>alphagov/app-performance-summary on GitHub</a>.</p>
+    scm:
+        - extract-app-performance
+    builders:
+        - shell: |
+            PIPENV_VENV_IN_PROJECT=1 pipenv install --three --skip-lock
+            PIPENV_VENV_IN_PROJECT=1 GRAPHITE_URL='https://graphite.<%= app_domain_internal %>' pipenv run python run_summary.py
+            PIPENV_VENV_IN_PROJECT=1 pipenv run python lint_data.py output/*.csv
+    triggers:
+        - timed: '<%= @cron_schedule %>'
