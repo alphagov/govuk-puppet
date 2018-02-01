@@ -881,11 +881,7 @@ def pushDockerImageToGCR(imageName, tagName) {
 }
 
 def safeDockerTag(tagName) {
-  // A valid tag is:
-  //   ascii, uppercase, lowercase, digits, underscore, dash, period,
-  //   128 chars, can't start with dash or period
-  // See: https://docs.docker.com/engine/reference/commandline/tag/#extended-description
-  return tagName.replaceAll(/[^a-zA-Z0-9-_.]|^[-.]/, "_"​).take(128)
+  return tagName.replace("/", "_")
 }
 
 /*
