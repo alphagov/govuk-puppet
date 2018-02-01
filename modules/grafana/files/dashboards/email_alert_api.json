@@ -19,14 +19,14 @@
           "colorBackground": false,
           "colorValue": false,
           "colors": [
-            "rgba(245, 54, 54, 0.9)",
+            "rgba(50, 172, 45, 0.97)",
             "rgba(237, 129, 40, 0.89)",
-            "rgba(50, 172, 45, 0.97)"
+            "rgba(245, 54, 54, 0.9)"
           ],
           "datasource": "Graphite",
           "format": "none",
           "gauge": {
-            "maxValue": 50,
+            "maxValue": 420,
             "minValue": 0,
             "show": true,
             "thresholdLabels": false,
@@ -71,11 +71,11 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.*, 1, \"sumSeries\")",
+              "target": "groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, \"sumSeries\")",
               "textEditor": true
             }
           ],
-          "thresholds": "",
+          "thresholds": "300,360",
           "title": "Notify Email Send Requests/second",
           "type": "singlestat",
           "valueFontSize": "80%",
@@ -122,13 +122,13 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.*, 1, \"sumSeries\"), \"all\")",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, \"sumSeries\"), \"all\")",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "groupByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.*, 4, \"sumSeries\")",
+              "target": "groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 4, \"sumSeries\")",
               "textEditor": true
             }
           ],
@@ -138,7 +138,7 @@
               "fill": true,
               "line": true,
               "op": "gt",
-              "value": 280
+              "value": 300
             },
             {
               "colorMode": "critical",
@@ -169,7 +169,7 @@
               "format": "short",
               "label": "Requests/sec",
               "logBase": 1,
-              "max": null,
+              "max": "420",
               "min": "0",
               "show": true
             },
@@ -252,12 +252,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.notify.email_send_request.success, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Success\")",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Success\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.notify.email_send_request.failure, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Failure\")",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Failure\")",
               "textEditor": true
             }
           ],
@@ -299,12 +299,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.success, 1, \"sumSeries\"), \"all\")",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.success, 1, \"sumSeries\"), \"all\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.success, 4)",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.success, 4)",
               "textEditor": true
             }
           ],
@@ -378,12 +378,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.failure, 1, \"sumSeries\"), \"all\")",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.failure, 1, \"sumSeries\"), \"all\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.notify.email_send_request.failure, 4)",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.failure, 4)",
               "textEditor": true
             }
           ],
@@ -493,12 +493,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.status_update.success, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Success\")",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.*.status_update.success, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Success\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.status_update.failure, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Failure\")",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.*.status_update.failure, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Failure\")",
               "textEditor": true
             }
           ],
@@ -540,12 +540,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.status_update.success, 1, \"sumSeries\"), \"all\")",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.*.status_update.success, 1, \"sumSeries\"), \"all\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.status_update.success, 4)",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.*.status_update.success, 4)",
               "textEditor": true
             }
           ],
@@ -619,12 +619,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.backend-*.status_update.failure, 1, \"sumSeries\"), \"all\")",
+              "target": "alias(groupByNode(stats.govuk.app.email-alert-api.*.status_update.failure, 1, \"sumSeries\"), \"all\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(stats.govuk.app.email-alert-api.backend-*.status_update.failure, 4)",
+              "target": "aliasByNode(stats.govuk.app.email-alert-api.*.status_update.failure, 4)",
               "textEditor": true
             }
           ],
@@ -734,7 +734,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.backend-*.content_changes_created, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Created\")",
+              "target": "alias(consolidateBy(groupByNode(summarize(transformNull(stats_counts.govuk.app.email-alert-api.*.content_changes_created, 0), \"5minute\"), 1, \"sum\"), \"sum\"), \"Created\")",
               "textEditor": true
             },
             {
@@ -781,7 +781,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(consolidateBy(sum(stats_counts.govuk.app.email-alert-api.backend-*.content_changes_created), \"sum\"), \"Created\")",
+              "target": "alias(consolidateBy(sum(stats_counts.govuk.app.email-alert-api.*.content_changes_created), \"sum\"), \"Created\")",
               "textEditor": true
             }
           ],
@@ -867,17 +867,17 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
               "textEditor": true
             },
             {
               "refId": "C",
-              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.content_change_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
               "textEditor": true
             }
           ],
@@ -951,17 +951,17 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.*.email_created_to_first_delivery_attempt.mean), \"5minutes\", \"avg\")), \"average\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.*.email_created_to_first_delivery_attempt.upper), \"5minutes\", \"max\")), \"maximum\")",
               "textEditor": true
             },
             {
               "refId": "C",
-              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.email_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.*.email_created_to_first_delivery_attempt.lower), \"5minutes\", \"min\")), \"minimum\")",
               "textEditor": true
             }
           ],
@@ -1035,17 +1035,17 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.mean), \"5minutes\", \"avg\")), \"average\")",
+              "target": "alias(keepLastValue(summarize(avg(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.mean), \"5minutes\", \"avg\")), \"average\")",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.upper), \"5minutes\", \"max\")), \"maximum\")",
+              "target": "alias(keepLastValue(summarize(maxSeries(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.upper), \"5minutes\", \"max\")), \"maximum\")",
               "textEditor": true
             },
             {
               "refId": "C",
-              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.backend-*.notify.email_send_request.timing.lower), \"5minutes\", \"min\")), \"minimum\")",
+              "target": "alias(keepLastValue(summarize(minSeries(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.lower), \"5minutes\", \"min\")), \"minimum\")",
               "textEditor": true
             }
           ],
@@ -1152,7 +1152,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(stats.gauges.govuk.app.email-alert-api.backend-1.workers.queues.*.enqueued, \"sum\")), 8),  \"(.*)\", \"\\1 enqueued\")",
+              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(groupByNode(stats.gauges.govuk.app.email-alert-api.*.workers.queues.*.enqueued, 8, \"averageSeries\"), \"sum\")), 0), \"(.*)\", \"\\1 enqueued\")",
               "textEditor": true
             }
           ],
@@ -1225,7 +1225,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(stats.gauges.govuk.app.email-alert-api.backend-1.workers.queues.*.latency, \"sum\")), 8),  \"(.*)\", \"\\1 latency\")",
+              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(groupByNode(stats.gauges.govuk.app.email-alert-api.*.workers.queues.*.latency, 8, \"averageSeries\"), \"sum\")), 0), \"(.*)\", \"\\1 latency\")",
               "textEditor": true
             }
           ],
@@ -1539,5 +1539,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 4
+  "version": 5
 }
