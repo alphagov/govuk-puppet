@@ -12,7 +12,7 @@
   "rows": [
     {
       "collapse": false,
-      "height": 295,
+      "height": "280",
       "panels": [
         {
           "cacheTimeout": null,
@@ -193,7 +193,7 @@
     },
     {
       "collapse": false,
-      "height": 270,
+      "height": 200,
       "panels": [
         {
           "columns": [
@@ -434,7 +434,7 @@
     },
     {
       "collapse": false,
-      "height": 259,
+      "height": "200",
       "panels": [
         {
           "columns": [
@@ -675,7 +675,7 @@
     },
     {
       "collapse": false,
-      "height": 259,
+      "height": "160",
       "panels": [
         {
           "columns": [
@@ -831,7 +831,7 @@
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": "240",
       "panels": [
         {
           "aliasColors": {},
@@ -1117,7 +1117,7 @@
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": "240",
       "panels": [
         {
           "aliasColors": {},
@@ -1445,7 +1445,7 @@
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": "250",
       "panels": [
         {
           "aliasColors": {},
