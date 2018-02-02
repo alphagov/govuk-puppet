@@ -7,37 +7,39 @@ set -eu
 
 . $(dirname $0)/common-args.sh
 
-if ! [ -x "$(command -v jq)" ]; then
-  echo 'Error: jq is not installed. https://stedolan.github.io/jq/' >&2
-  exit 1
-fi
+if ! ($SKIP_DOWNLOAD) then
+  if ! [ -x "$(command -v jq)" ]; then
+    echo 'Error: jq is not installed. https://stedolan.github.io/jq/' >&2
+    exit 1
+  fi
 
-# setup AWS access
-SESSION_NAME=$(whoami)-$(date +%d-%m-%y_%H-%M)
-ROLE_ARN=$(awk '/role_arn/ {print $3}' ~/.aws/config)
-MFA_ARN=$(awk '/mfa_serial/ {print $3}' ~/.aws/config)
+  # setup AWS access
+  SESSION_NAME=$(whoami)-$(date +%d-%m-%y_%H-%M)
+  ROLE_ARN=$(awk '/role_arn/ {print $3}' ~/.aws/config)
+  MFA_ARN=$(awk '/mfa_serial/ {print $3}' ~/.aws/config)
 
-if [[ "${MFA_TOKEN}" == "" ]]; then
-  echo "Error: must provide token"
-  echo "MFA_TOKEN=token $0"
-  exit 1
-fi
+  if [[ "${MFA_TOKEN}" == "" ]]; then
+    echo "Error: must provide token"
+    echo "MFA_TOKEN=token $0"
+    exit 1
+  fi
 
-unset AWS_SESSION_TOKEN
+  unset AWS_SESSION_TOKEN
 
-CREDENTIALS=$(aws sts assume-role \
-                --role-session-name $SESSION_NAME \
-                --role-arn $ROLE_ARN \
-                --serial-number $MFA_ARN \
-                --token-code $MFA_TOKEN)
+  CREDENTIALS=$(aws sts assume-role \
+                  --role-session-name $SESSION_NAME \
+                  --role-arn $ROLE_ARN \
+                  --serial-number $MFA_ARN \
+                  --token-code $MFA_TOKEN)
 
-if [[ $? == 0 ]]; then
-  echo "export AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId')"
-  echo "export AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey')"
-  echo "export AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
-  status "Logging in with AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId') AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey') AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
-else
-  exit "Unable to get AWS access"
+  if [[ $? == 0 ]]; then
+    echo "export AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId')"
+    echo "export AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey')"
+    echo "export AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
+    status "Logging in with AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId') AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey') AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
+  else
+    exit "Unable to get AWS access"
+  fi
 fi
 
 status "Running bundle install"

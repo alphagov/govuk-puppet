@@ -13,7 +13,7 @@ ${USAGE_DESCRIPTION-}
 
 OPTIONS:
     -h       Show this message
-    -a       2FA autherisation code (REQUIRED)
+    -a       2FA autherisation code (REQUIRED when downloading)
     -F file  Use a custom SSH configuration file
     -u user  SSH user to log in as (overrides SSH config)
     -d dir   Use named directory to store and load backups
@@ -77,6 +77,7 @@ do
       DIR=$OPTARG
       ;;
     s )
+      TOKEN_SET=1
       SKIP_DOWNLOAD=true
       ;;
     r )
