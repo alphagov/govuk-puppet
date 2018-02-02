@@ -214,6 +214,12 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*unicorn_worker_processe*s]
+#   The number of unicorn worker processes to run, set as an env var
+#   and read by govuk_app_config.  The default value of undef means
+#   don't set the env var, and use on govuk_app_config's default value.
+#   Default: undef
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -244,6 +250,7 @@ define govuk::app (
   $proxy_http_version_1_1_enabled = false,
   $repo_name = undef,
   $sentry_dsn = undef,
+  $unicorn_worker_processes = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -313,6 +320,7 @@ define govuk::app (
     read_timeout                   => $read_timeout,
     sentry_dsn                     => $sentry_dsn,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
+    unicorn_worker_processes       => $unicorn_worker_processes,
   }
 
   govuk::app::service { $title:

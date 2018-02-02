@@ -19,6 +19,12 @@
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
 #
+# [*unicorn_worker_processe*s]
+#   The number of unicorn worker processes to run, set as an env var
+#   and read by govuk_app_config.  The default value of undef means
+#   don't set the env var, and use on govuk_app_config's default value.
+#   Default: undef
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -47,6 +53,7 @@ define govuk::app::config (
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
   $sentry_dsn = undef,
+  $unicorn_worker_processes = undef,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -158,6 +165,13 @@ define govuk::app::config (
       govuk::app::envvar { "${title}-GOVUK_APP_CMD":
         varname => 'GOVUK_APP_CMD',
         value   => $command,
+      }
+    }
+
+    if $unicorn_worker_processes {
+      govuk::app::envvar { "${title}-UNICORN_WORKER_PROCESSES":
+        varname => 'UNICORN_WORKER_PROCESSES',
+        value   => $unicorn_worker_processes;
       }
     }
   }
