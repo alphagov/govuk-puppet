@@ -23,7 +23,7 @@ class mongodb::aws_backup (
   $ensure     = 'present',
   $backup_dir = '/var/lib/mongodump',
   $bucket     = undef,
-  $interval   = 15,
+  $interval   = 30,
   $daily_time = '00:00',
 ) {
 
