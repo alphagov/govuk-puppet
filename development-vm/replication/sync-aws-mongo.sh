@@ -24,12 +24,12 @@ fi
 
 SRC_HOSTNAME=$1
 
-MONGO_DIR="${DIR}/mongo/${SRC_HOSTNAME}/$(date '+%Y-%m-%d_%H%M')"
-
-status "Starting MongoDB replication from S3: ${SRC_HOSTNAME}"
+MONGO_DIR="${DIR}/mongo/${SRC_HOSTNAME}"
 
 if ! $SKIP_DOWNLOAD; then
   mkdir -p $MONGO_DIR
+
+  status "Starting MongoDB replication from S3: ${SRC_HOSTNAME}"
 
   # get the last file name from s3
   remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ | tail -n1)
@@ -41,8 +41,6 @@ if ! $SKIP_DOWNLOAD; then
   # need to copy as file not folder
   aws s3 cp s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/${FILE_NAME} $MONGO_DIR/
 fi
-
-status "Importing MongoDB backup from S3: ${SRC_HOSTNAME}"
 
 if [ ! -d $MONGO_DIR ]; then
   error "No such directory $MONGO_DIR"
@@ -69,7 +67,7 @@ else
   NAME_MUNGE_COMMAND="cat"
 fi
 
-for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
+for dir in $(find $MONGO_DIR -mindepth 5 -maxdepth 5 -type d | grep -v '*'); do
   if $DRY_RUN; then
     status "MongoDB (not) restoring $(basename $dir)"
   else

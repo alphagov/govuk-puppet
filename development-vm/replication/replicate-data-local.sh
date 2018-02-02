@@ -33,10 +33,10 @@ if ! ($SKIP_DOWNLOAD) then
                   --token-code $MFA_TOKEN)
 
   if [[ $? == 0 ]]; then
-    echo "export AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId')"
-    echo "export AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey')"
-    echo "export AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
-    status "Logging in with AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId') AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey') AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')"
+    export AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId')
+    export AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey')
+    export AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')
+    status "Logging in with AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN"
   else
     exit "Unable to get AWS access"
   fi
@@ -48,7 +48,7 @@ bundle install --quiet
 $(dirname $0)/sync-aws-mysql.sh "$@" mysql-master
 
 $(dirname $0)/sync-aws-mongo.sh "$@" mongo
-$(dirname $0)/sync-aws-mongo.sh "$@" router_backend
+# $(dirname $0)/sync-aws-mongo.sh "$@" router_backend
 
 $(dirname $0)/sync-aws-postgresql.sh "$@" postgresql-primary-1
 
