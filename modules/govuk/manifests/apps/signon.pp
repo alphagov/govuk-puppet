@@ -57,6 +57,10 @@
 # [*sso_push_user_email*]
 #   Email address for the SSO sync push user.
 #
+# [*unicorn_worker_processe*s]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::signon(
   $db_hostname = undef,
   $db_name = undef,
@@ -74,19 +78,21 @@ class govuk::apps::signon(
   $redis_port = undef,
   $secret_key_base = undef,
   $sso_push_user_email = undef,
+  $unicorn_worker_processes = undef,
 ) {
   $app_name = 'signon'
 
   govuk::app { $app_name:
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_ssl_only         => true,
-    health_check_path      => '/users/sign_in',
-    asset_pipeline         => true,
-    deny_framing           => true,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/users/sign_in',
+    asset_pipeline           => true,
+    deny_framing             => true,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {
