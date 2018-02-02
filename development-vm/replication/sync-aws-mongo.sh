@@ -31,8 +31,15 @@ status "Starting MongoDB replication from S3: ${SRC_HOSTNAME}"
 if ! $SKIP_DOWNLOAD; then
   mkdir -p $MONGO_DIR
 
-  status "Downloading latest MongoDB backup from S3: ${SRC_HOSTNAME}"
-  aws s3 sync s3://govuk-integration-database-backups/mongo/daily/${SRC_HOSTNAME}/mongodump-$(date '+%Y-%m-%d_%H%M').tgz $MONGO_DIR/
+  # get the last file name from s3
+  remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ | tail -n1)
+  arr_file_details=($remote_file_details)
+  FILE_NAME=${arr_file_details[3]}
+
+  status "Downloading latest MongoDB backup from S3: '${SRC_HOSTNAME}/${FILE_NAME}'"
+
+  # need to copy as file not folder
+  aws s3 cp s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/${FILE_NAME} $MONGO_DIR/
 fi
 
 status "Importing MongoDB backup from S3: ${SRC_HOSTNAME}"

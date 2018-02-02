@@ -13,6 +13,7 @@ ${USAGE_DESCRIPTION-}
 
 OPTIONS:
     -h       Show this message
+    -a       2FA autherisation code (REQUIRED)
     -F file  Use a custom SSH configuration file
     -u user  SSH user to log in as (overrides SSH config)
     -d dir   Use named directory to store and load backups
@@ -54,9 +55,14 @@ function ignored() {
   return 1
 }
 
-while getopts "hF:u:d:sri:onmpqet" OPTION
+TOKEN_SET=0
+while getopts "a:hF:u:d:sri:onmpqet" OPTION
 do
   case $OPTION in
+    a )
+      TOKEN_SET=1
+      MFA_TOKEN=$OPTARG
+      ;;
     h )
       usage
       exit 1
@@ -102,3 +108,9 @@ do
       ;;
   esac
 done
+
+if [ $TOKEN_SET -eq 0 ]
+  then
+  usage
+  exit 2
+fi
