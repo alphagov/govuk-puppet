@@ -21,6 +21,7 @@ node_class: &node_class
       - canary-backend
       - collections-publisher
       - contacts
+      - content-audit-tool
       - content-performance-manager
       - content-tagger
       - email-alert-api
@@ -140,6 +141,7 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
+  content-audit-tool: {}
   content-performance-manager: {}
   content-store: {}
   content-tagger: {}
@@ -942,6 +944,9 @@ grafana::dashboards::deployment_applications:
     show_slow_requests: false
   contacts:
     docs_name: 'contacts-admin'
+  content-audit-tool:
+    # logstasher >1.x
+    fields_prefix: ''
   content-performance-manager:
     # logstasher >1.x
     fields_prefix: ''
@@ -1265,6 +1270,7 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
+  - 'content-audit-tool'
   - 'content-performance-manager'
   - 'content-tagger'
   - 'docs'
