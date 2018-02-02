@@ -35,7 +35,7 @@
         - ansicolor:
             colormap: xterm
         - build-name:
-            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
+            name: '${ENV,var="artefact_number"} #${BUILD_NUMBER}'
     parameters:
         - choice:
             name: BETA_PAYMENT_ACCOUNTS
