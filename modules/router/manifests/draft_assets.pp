@@ -30,4 +30,8 @@ class router::draft_assets(
   nginx::config::site { $vhost_name:
     content => template('router/draft-assets.conf.erb'),
   }
+
+  nginx::config::ssl { $vhost_name:
+    certtype => 'wildcard_publishing',
+  }
 }
