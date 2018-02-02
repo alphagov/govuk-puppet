@@ -42,9 +42,9 @@ if [ ! -d $MYSQL_DIR ]; then
   exit 1
 fi
 
-echo "Mapping database names for a development VM"
 
 if $RENAME_DATABASES; then
+  status "Mapping database names for a development VM"
   NAME_MUNGE_COMMAND="sed -f $(dirname $0)/mappings/names.sed"
 else
   NAME_MUNGE_COMMAND="cat"
@@ -60,7 +60,7 @@ for file in $(find $MYSQL_DIR -name '*production*.gz'); do
   if $DRY_RUN; then
     status "MySQL (not) restoring $(basename $file)"
   else
-    PROD_DB_NAME=$(zgrep -m 1 -o 'USE `\(.*\)`' < $file | sed 's/.*`\(.*\)`.*/\1/')
+    PROD_DB_NAME=$(zgrep -m 1 -o 'Database: \([^ ]*\)' < $file | sed 's/.* \([^ ]*\)$/\1/')
     TARGET_DB_NAME=$(echo $PROD_DB_NAME | $NAME_MUNGE_COMMAND)
     for ignore_match in $IGNORE; do
       if [[ "${PROD_DB_NAME}" == "${ignore_match}" || "${TARGET_DB_NAME}" == "${ignore_match}" || "${PROD_DB_NAME}" == "${ignore_match}_production" ]]; then
@@ -73,6 +73,7 @@ for file in $(find $MYSQL_DIR -name '*production*.gz'); do
     if $RENAME_DATABASES; then
       awk '{print "/^CREATE DATABASE/,+10",$0}' $(dirname $0)/mappings/names.sed > ${TEMP_SED_SCRIPT}
     fi
+
     if [[ -f $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed ]] ; then
       cat $(dirname $0)/mappings/dbs/${PROD_DB_NAME}.sed >> ${TEMP_SED_SCRIPT}
     fi
@@ -81,7 +82,8 @@ for file in $(find $MYSQL_DIR -name '*production*.gz'); do
     MYSQL_ARGUMENTS="-u root"
     status $PROD_DB_NAME '->' $TARGET_DB_NAME
     mysql $MYSQL_ARGUMENTS -e "DROP DATABASE IF EXISTS $TARGET_DB_NAME"
-    $PV_COMMAND $file | zcat | ${DB_MUNGE_COMMAND} | mysql $MYSQL_ARGUMENTS
+    mysql $MYSQL_ARGUMENTS -e "CREATE DATABASE $TARGET_DB_NAME"
+    $PV_COMMAND $file | zcat | ${DB_MUNGE_COMMAND} | mysql $MYSQL_ARGUMENTS $TARGET_DB_NAME
     rm ${TEMP_SED_SCRIPT}
   fi
 done
