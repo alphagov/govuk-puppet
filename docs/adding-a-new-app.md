@@ -195,6 +195,8 @@ files.
 
 ## Including the app on machines
 
+*For AWS hosted environments, where `hieradata` is mentioned below you will need to add configs into `hieradata_aws`*.
+
 Once you have created a class for your app, you need to include it in the appropriate nodes.
 These can be found in `hieradata/common.yaml` under the `node_class` key.
 
