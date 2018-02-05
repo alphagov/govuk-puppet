@@ -32,20 +32,13 @@ class govuk::node::s_asset_slave (
 
   # FIXME: Remove the NFS mount once asset-manager is no longer using it.
   mount { '/data/master-uploads':
-    ensure   => 'mounted',
+    ensure   => 'absent',
     device   => "asset-master.${app_domain}:/mnt/uploads",
     fstype   => 'nfs',
     options  => 'rw,soft',
     remounts => false,
     atboot   => true,
     require  => File['/data/master-uploads'],
-  }
-
-  cron { 'sync-asset-manager-from-master':
-    ensure  => 'absent',
-    user    => 'assets',
-    minute  => '*/10',
-    command => '/usr/bin/setlock -n /var/tmp/asset-manager.lock /usr/bin/rsync -a --delete /data/master-uploads/asset-manager/ /mnt/uploads/asset-manager',
   }
 
   $master_metrics_hostname = regsubst($::fqdn_metrics, 'slave-\d', 'master-1')
