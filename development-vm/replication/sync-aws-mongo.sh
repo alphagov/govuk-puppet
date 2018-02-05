@@ -79,6 +79,7 @@ for dir in $(find $MONGO_DIR -mindepth 5 -maxdepth 5 -type d | grep -v '*'); do
         continue 2
       fi
     done
+
     status "MongoDB restoring $(basename $dir)"
     mongorestore --drop -d $TARGET_DB_NAME $dir
   fi

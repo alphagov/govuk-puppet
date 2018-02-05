@@ -42,7 +42,7 @@ SSH_CONFIG="../ssh_config"
 RENAME_DATABASES=true
 DRY_RUN=false
 # By default, ignore large databases which are not useful when replicated.
-IGNORE="event_store transition backdrop support_contacts"
+IGNORE="event_store transition backdrop support_contacts draft_content_store imminence"
 
 # Test whether the given value is in the ignore list.
 function ignored() {
@@ -55,12 +55,12 @@ function ignored() {
   return 1
 }
 
-TOKEN_SET=0
+TOKEN_REQUIRED=1
 while getopts "a:hF:u:d:sri:onmpqet" OPTION
 do
   case $OPTION in
     a )
-      TOKEN_SET=1
+      TOKEN_REQUIRED=0
       MFA_TOKEN=$OPTARG
       ;;
     h )
@@ -77,7 +77,7 @@ do
       DIR=$OPTARG
       ;;
     s )
-      TOKEN_SET=1
+      TOKEN_REQUIRED=0
       SKIP_DOWNLOAD=true
       ;;
     r )
@@ -110,8 +110,11 @@ do
   esac
 done
 
-if [ $TOKEN_SET -eq 0 ]
+if [ $TOKEN_REQUIRED -eq 1 ]
   then
   usage
+  echo '---------------------------'
+  echo "!! MISSING MFA/2FA TOKEN !!"
+  echo '---------------------------'
   exit 2
 fi

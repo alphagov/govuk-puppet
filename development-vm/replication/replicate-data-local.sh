@@ -56,13 +56,6 @@ if ! ($SKIP_MONGO || $DRY_RUN); then
   mongo --quiet --eval 'db = db.getSiblingDB("draft_router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".integration.publishing.service.gov.uk", ".dev.gov.uk").replace("https","http"); db.backends.save(b); } );'
 fi
 
-#$(dirname $0)/sync-postgresql.sh "$@" postgresql-primary-1.backend.integration
-#if ignored "transition"; then
-#  status "Skipping transition"
-#else
-#  $(dirname $0)/sync-postgresql.sh "$@" transition-postgresql-master-1.backend.integration
-#fi
-
 if ignored "mapit"; then
  status "Skipping mapit"
 else
