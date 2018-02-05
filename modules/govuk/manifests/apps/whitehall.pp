@@ -353,14 +353,6 @@ class govuk::apps::whitehall(
       process_count  => $procfile_worker_process_count,
     }
 
-    # FIXME: Remove this when Whitehall is using Rack 1.7
-    govuk::app::envvar {
-      "${title}-RACK_MULTIPART_PART_LIMIT":
-          app     =>  $app_name,
-          varname => 'RACK_MULTIPART_PART_LIMIT',
-          value   => '0';
-    }
-
     # NOTE. The GOVUK_ASSET_ROOT environment variable uses a protocol relative
     # URL so assets in admin are on the same domain but work in production and
     # development. (This is needed for IE8)
