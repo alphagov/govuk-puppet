@@ -22,7 +22,6 @@
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
-
 #
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
