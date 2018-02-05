@@ -8,11 +8,6 @@ set -eu
 . $(dirname $0)/common-args.sh
 
 if ! ($SKIP_DOWNLOAD) then
-  if ! [ -x "$(command -v jq)" ]; then
-    echo 'Error: jq is not installed. https://stedolan.github.io/jq/' >&2
-    exit 1
-  fi
-
   # setup AWS access
   SESSION_NAME=$(whoami)-$(date +%d-%m-%y_%H-%M)
   ROLE_ARN=$(awk '/role_arn/ {print $3}' ~/.aws/config)
@@ -33,9 +28,12 @@ if ! ($SKIP_DOWNLOAD) then
                   --token-code $MFA_TOKEN)
 
   if [[ $? == 0 ]]; then
-    export AWS_ACCESS_KEY_ID=$(echo ${CREDENTIALS} | jq -r '.Credentials | .AccessKeyId')
-    export AWS_SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SecretAccessKey')
-    export AWS_SESSION_TOKEN=$(echo ${CREDENTIALS} | jq -r '.Credentials | .SessionToken')
+    ACCESS_KEY_ID=$(echo ${CREDENTIALS} | ruby -e 'require "json"; c = JSON.parse(STDIN.read)["Credentials"]; STDOUT << c["AccessKeyId"]')
+    export AWS_ACCESS_KEY_ID=${ACCESS_KEY_ID}
+    SECRET_ACCESS_KEY=$(echo ${CREDENTIALS} | ruby -e 'require "json"; c = JSON.parse(STDIN.read)["Credentials"]; STDOUT << c["SecretAccessKey"]')
+    export AWS_SECRET_ACCESS_KEY=${SECRET_ACCESS_KEY}
+    SESSION_TOKEN=$(echo ${CREDENTIALS} | ruby -e 'require "json"; c = JSON.parse(STDIN.read)["Credentials"]; STDOUT << c["SessionToken"]')
+    export AWS_SESSION_TOKEN=${SESSION_TOKEN}
     status "Logging in with AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY AWS_SESSION_TOKEN=$AWS_SESSION_TOKEN"
   else
     exit "Unable to get AWS access"
@@ -48,7 +46,7 @@ bundle install --quiet
 $(dirname $0)/sync-aws-mysql.sh "$@" mysql-master
 
 $(dirname $0)/sync-aws-mongo.sh "$@" mongo
-# $(dirname $0)/sync-aws-mongo.sh "$@" router_backend
+$(dirname $0)/sync-aws-mongo.sh "$@" router_backend
 
 $(dirname $0)/sync-aws-postgresql.sh "$@" postgresql-primary-1
 
