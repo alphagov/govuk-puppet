@@ -49,6 +49,14 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
+# [*secret_key_base*]
+#   The secret key base value for rails
+#   Default: undef
+#
+# [*secret_token*]
+#   Deprecated. The old name for the secret key base valur
+#   Default: undef
+#
 # [*link_checker_api_secret_token*]
 #   The Link Checker API secret token.
 #   Default: undef
@@ -66,6 +74,7 @@ class govuk::apps::manuals_publisher(
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $secret_key_base = undef,
   $secret_token = undef,
   $link_checker_api_secret_token = undef,
 ) {
@@ -119,6 +128,15 @@ class govuk::apps::manuals_publisher(
       value   => $link_checker_api_secret_token;
   }
 
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
+    }
+  }
+
+  # @FIXME: This should be removed once secret_token has been changed to
+  # secret_key_base in https://github.com/alphagov/govuk-secrets/pull/213
   if $secret_token != undef {
     govuk::app::envvar { "${title}-SECRET_TOKEN":
       varname => 'SECRET_TOKEN',
