@@ -41,13 +41,6 @@ class govuk::node::s_asset_slave (
     require  => File['/data/master-uploads'],
   }
 
-  cron { 'sync-asset-manager-from-master':
-    ensure  => 'absent',
-    user    => 'assets',
-    minute  => '*/10',
-    command => '/usr/bin/setlock -n /var/tmp/asset-manager.lock /usr/bin/rsync -a --delete /data/master-uploads/asset-manager/ /mnt/uploads/asset-manager',
-  }
-
   $master_metrics_hostname = regsubst($::fqdn_metrics, 'slave-\d', 'master-1')
   $graphite_mnt_uploads_metric = 'df-mnt-uploads.df_complex-used'
   $master_metric = "${master_metrics_hostname}.${graphite_mnt_uploads_metric}"
