@@ -214,7 +214,7 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*unicorn_worker_processe*s]
+# [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run, set as an env var
 #   and read by govuk_app_config.  The default value of undef means
 #   don't set the env var, and use on govuk_app_config's default value.

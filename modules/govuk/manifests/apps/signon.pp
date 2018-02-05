@@ -57,7 +57,7 @@
 # [*sso_push_user_email*]
 #   Email address for the SSO sync push user.
 #
-# [*unicorn_worker_processe*s]
+# [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run
 #   Default: undef
 #
