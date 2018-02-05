@@ -39,20 +39,24 @@
             name: '${BUILD_NUMBER}/${ENV,var="CI_JOB_NAME"}/${ENV,var="artefact_number"}'
     parameters:
         - choice:
-            name: BETA_PAYMENT_ACCOUNTS
+            name: CI_JOB_NAME
             choices:
-                - 'false'
+                - 'Licensify'
+                - 'Licensify_Branches'
+            description: Which job on CI Jenkins to fetch the artifact from
         - string:
             name: artefact_number
             description: This is the build number from CI Jenkins
         - string:
             name: app_version
-            description: version of the application (i.e. 1.1.0)
-        - string:
-            name: CI_JOB_NAME
-            default: Licensify
-            description: Which job on CI Jenkins to fetch the artifact from
-        - string:
+            description: Version of the application (i.e. 1.1.1). Must match the value in conf/application.conf of the built application.
+        - choice:
             name: ARTIFACT_PATH
-            default: target/universal
+            choices:
+                - 'target/universal'
             description: The path on CI Jenkins where the artifacts are stored
+        - choice:
+            name: BETA_PAYMENT_ACCOUNTS
+            choices:
+                - 'false'
+            description: Use beta test payment accounts? (No longer used.)
