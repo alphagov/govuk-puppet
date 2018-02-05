@@ -79,6 +79,10 @@
 #   to GA.
 #   Default: false
 #
+# [*unicorn_worker_processe*s]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -102,17 +106,19 @@ class govuk::apps::local_links_manager(
   $google_export_custom_data_import_source_id = undef,
   $google_export_tracker_id = undef,
   $run_links_ga_export = false,
+  $unicorn_worker_processes = undef,
 ) {
   $app_name = 'local-links-manager'
 
   if $enabled {
     govuk::app { $app_name:
-      app_type           => 'rack',
-      log_format_is_json => true,
-      port               => $port,
-      sentry_dsn         => $sentry_dsn,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
+      app_type                 => 'rack',
+      log_format_is_json       => true,
+      port                     => $port,
+      sentry_dsn               => $sentry_dsn,
+      vhost_ssl_only           => true,
+      health_check_path        => '/healthcheck',
+      unicorn_worker_processes =>  $unicorn_worker_processes,
     }
 
     Govuk::App::Envvar {

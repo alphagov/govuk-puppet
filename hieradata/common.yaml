@@ -474,6 +474,7 @@ govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
@@ -572,6 +573,7 @@ govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::signon::nagios_memory_warning: 900
 govuk::apps::signon::nagios_memory_critical: 1000
+govuk::apps::signon::unicorn_worker_processes: "4"
 
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::nagios_memory_warning: 1100

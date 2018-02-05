@@ -164,20 +164,21 @@ class govuk::apps::whitehall(
   }
 
   govuk::app { $app_name:
-    app_type               => 'rack',
-    vhost                  => $vhost,
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    log_format_is_json     => true,
-    health_check_path      => $health_check_path,
-    expose_health_check    => false,
-    json_health_check      => true,
-    depends_on_nfs         => true,
-    enable_nginx_vhost     => false,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    unicorn_herder_timeout => 45,
-    require                => Package['unzip'],
+    app_type                 => 'rack',
+    vhost                    => $vhost,
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    log_format_is_json       => true,
+    health_check_path        => $health_check_path,
+    expose_health_check      => false,
+    json_health_check        => true,
+    depends_on_nfs           => true,
+    enable_nginx_vhost       => false,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_herder_timeout   => 45,
+    require                  => Package['unzip'],
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {
@@ -480,9 +481,6 @@ class govuk::apps::whitehall(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-UNICORN_WORKER_PROCESSES":
-      varname => 'UNICORN_WORKER_PROCESSES',
-      value   => $unicorn_worker_processes;
   }
 
   if $basic_auth_credentials != undef {
