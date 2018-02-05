@@ -43,6 +43,7 @@
 #   email address instead of govdelivery. This affects the `subscription_url`
 #   in responses from the Email Alert API which is used by `collections`,
 #   `finder-frontend` and `whitehall`.
+#   Default: false
 #
 # [*govdelivery_username*]
 #   Username used to authenticate with govdelivery API
