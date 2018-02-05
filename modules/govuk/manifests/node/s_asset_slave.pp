@@ -32,7 +32,7 @@ class govuk::node::s_asset_slave (
 
   # FIXME: Remove the NFS mount once asset-manager is no longer using it.
   mount { '/data/master-uploads':
-    ensure   => 'mounted',
+    ensure   => 'absent',
     device   => "asset-master.${app_domain}:/mnt/uploads",
     fstype   => 'nfs',
     options  => 'rw,soft',
