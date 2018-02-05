@@ -38,7 +38,13 @@
 #   Must only be configured to `true` in staging or integration, never production.
 #   Default: false
 #
-# [*use_email_alert_frontend_for_email_collection*]
+# [* disable_govdelivery_emails*]
+#   If set this disables the sending of email bulletins to govdelivery and will
+#   mean users aren't notified of events unless a different system (notably
+#   the notify based one) is in operation.
+#   Default: false
+#
+# [*use_email_alert_frontend_for_email_collection]
 #   If set, users will be redirected to email-alert-frontend to enter their
 #   email address instead of govdelivery. This affects the `subscription_url`
 #   in responses from the Email Alert API which is used by `collections`,
@@ -105,6 +111,7 @@ class govuk::apps::email_alert_api(
   $redis_port = undef,
   $sentry_dsn = undef,
   $allow_govdelivery_topic_syncing = false,
+  $disable_govdelivery_emails = false,
   $use_email_alert_frontend_for_email_collection = false,
   $govdelivery_username = undef,
   $govdelivery_password = undef,
@@ -234,6 +241,13 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-ALLOW_GOVDELIVERY_SYNC":
         varname => 'ALLOW_GOVDELIVERY_SYNC',
         value   => 'allow';
+      }
+    }
+
+    if $disable_govdelivery_emails {
+      govuk::app::envvar { "${title}-DISABLE_GOVDELIVERY_EMAILS":
+        varname => 'DISABLE_GOVDELIVERY_EMAILS',
+        value   => 'yes';
       }
     }
 
