@@ -335,6 +335,7 @@ govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}
 govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
+govuk::apps::bouncer::unicorn_worker_processes: "8"
 
 govuk::apps::collections::nagios_memory_warning: 900
 govuk::apps::collections::nagios_memory_critical: 1000
@@ -466,6 +467,7 @@ govuk::apps::imminence::redis_host: 'redis-1.backend'
 govuk::apps::imminence::redis_port: '6379'
 govuk::apps::imminence::nagios_memory_warning: 1200
 govuk::apps::imminence::nagios_memory_critical: 1400
+govuk::apps::imminence::unicorn_worker_processes: "4"
 
 govuk::apps::info_frontend::enabled: true
 govuk::apps::info_frontend::vhost_aliases:

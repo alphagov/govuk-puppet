@@ -79,7 +79,7 @@
 #   to GA.
 #   Default: false
 #
-# [*unicorn_worker_processe*s]
+# [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run
 #   Default: undef
 #

@@ -45,6 +45,10 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::imminence(
   $port = '3002',
   $enable_procfile_worker = true,
@@ -58,7 +62,7 @@ class govuk::apps::imminence(
   $secret_key_base = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
-
+  $unicorn_worker_processes = undef,
 ) {
 
   $app_name = 'imminence'
@@ -68,15 +72,16 @@ class govuk::apps::imminence(
   }
 
   govuk::app { $app_name:
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_ssl_only         => true,
-    health_check_path      => '/',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   govuk::app::envvar {
