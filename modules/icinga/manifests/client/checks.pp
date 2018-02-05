@@ -135,9 +135,10 @@ class icinga::client::checks (
 
   $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
 
-  # we use disks with sd in the name in vcloud and xvd in AWS
+  # In vCloud, disk names begin with sd, whereas in AWS they begin with either
+  # xvd or nvm, hence the regex.
   if $::aws_migration {
-    $disk_prefix = 'xvd'
+    $disk_prefix = '{xvd*,nvm*}'
   } else {
     $disk_prefix = 'sd'
   }
