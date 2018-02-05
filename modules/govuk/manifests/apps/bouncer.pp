@@ -29,6 +29,10 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::bouncer(
   $sentry_dsn = undef,
   $db_username = 'bouncer',
@@ -38,6 +42,7 @@ class govuk::apps::bouncer(
   $port = '3049',
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $unicorn_worker_processes = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -45,16 +50,17 @@ class govuk::apps::bouncer(
   }
 
   govuk::app { 'bouncer':
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_ssl_only         => false,
-    health_check_path      => '/healthcheck',
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => false,
+    health_check_path        => '/healthcheck',
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
-    enable_nginx_vhost     => false,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    enable_nginx_vhost       => false,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   include govuk_postgresql::client
