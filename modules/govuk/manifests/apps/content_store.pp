@@ -45,6 +45,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
@@ -58,19 +61,21 @@ class govuk::apps::content_store(
   $nagios_memory_critical = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
+  $unicorn_worker_processes = undef,
 ) {
   $app_name = 'content-store'
 
   govuk::app { $app_name:
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_ssl_only         => true,
-    health_check_path      => '/healthcheck',
-    log_format_is_json     => true,
-    vhost                  => $vhost,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/healthcheck',
+    log_format_is_json       => true,
+    vhost                    => $vhost,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {
