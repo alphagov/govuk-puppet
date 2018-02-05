@@ -66,14 +66,6 @@ class govuk::apps::asset_manager(
 
     $app_domain = hiera('app_domain')
 
-    govuk::app::envvar {
-      "${title}-PRIVATE_ASSET_MANAGER_HOST":
-        ensure  => 'absent',
-        app     => 'asset-manager',
-        varname => 'PRIVATE_ASSET_MANAGER_HOST',
-        value   => "private-asset-manager.${app_domain}";
-    }
-
     Govuk::App::Envvar {
       app => $app_name,
     }
