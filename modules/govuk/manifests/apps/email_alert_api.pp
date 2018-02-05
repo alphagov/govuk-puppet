@@ -38,7 +38,7 @@
 #   Must only be configured to `true` in staging or integration, never production.
 #   Default: false
 #
-# [*use_email_alert_frontend_for_email_collection]
+# [*use_email_alert_frontend_for_email_collection*]
 #   If set, users will be redirected to email-alert-frontend to enter their
 #   email address instead of govdelivery. This affects the `subscription_url`
 #   in responses from the Email Alert API which is used by `collections`,
