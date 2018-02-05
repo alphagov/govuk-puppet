@@ -63,11 +63,12 @@
 #   Redis port for sidekiq.
 #   Default: 6379
 #
+# [*secret_key_base*]
+#   The secret key base value for rails
+#   Default: undef
+#
 # [*secret_token*]
-#   Used to set the app ENV var SECRET_TOKEN which is used to configure
-#   rails 4.x signed cookie mechanism. If unset the app will be unable to
-#   start. SECRET_TOKEN is used rather than SECRET_KEY_BASE so that
-#   specialist publisher can share signed cookies with version 1.
+#   Deprecated. The old name for the secret key base valur
 #   Default: undef
 #
 class govuk::apps::specialist_publisher(
@@ -87,6 +88,7 @@ class govuk::apps::specialist_publisher(
   $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $secret_key_base = undef,
   $secret_token = undef,
 ) {
 
@@ -151,6 +153,15 @@ client_max_body_size 500m;
       value   => $email_alert_api_bearer_token;
     }
 
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    # @FIXME: This should be removed once secret_token has been changed to
+    # secret_key_base in https://github.com/alphagov/govuk-secrets/pull/213
     if $secret_token != undef {
       govuk::app::envvar { "${title}-SECRET_TOKEN":
         varname => 'SECRET_TOKEN',
