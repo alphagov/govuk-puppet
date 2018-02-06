@@ -1,0 +1,15 @@
+---
+govuk_jenkins::config::banner_string: 'AWS Production'
+govuk_jenkins::config::banner_colour_background: '#005EA5'
+govuk_jenkins::config::banner_colour_text: 'white'
+govuk_jenkins::config::theme_colour: '#005EA5'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'AWS Production'
+
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::smokey
+  - govuk_jenkins::jobs::smokey_deploy
