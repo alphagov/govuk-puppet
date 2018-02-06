@@ -50,6 +50,9 @@ $(dirname $0)/sync-aws-mongo.sh "$@" router_backend
 
 $(dirname $0)/sync-aws-postgresql.sh "$@" postgresql-primary-1
 
+$(dirname $0)/sync-aws-elasticsearch.sh "$@"
+
+
 if ! ($SKIP_MONGO || $DRY_RUN); then
   status "Munging router backend hostnames for dev VM"
   mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".integration.publishing.service.gov.uk", ".dev.gov.uk").replace("https","http"); db.backends.save(b); } );'
@@ -61,8 +64,6 @@ if ignored "mapit"; then
 else
  $(dirname $0)/sync-mapit.sh
 fi
-
-#$(dirname $0)/sync-elasticsearch.sh "$@" rummager-elasticsearch-1.api.integration
 
 #if ! ($SKIP_ELASTIC || $DRY_RUN); then
 #  status "Deleting old elasticsearch indexes"
