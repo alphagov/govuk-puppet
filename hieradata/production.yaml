@@ -72,8 +72,6 @@ base::supported_kernel::enabled: false
 
 environment_ip_prefix: '10.3'
 
-govuk::apps::content_audit_tool::ensure: 'absent'
-
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'

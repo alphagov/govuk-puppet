@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*ensure*]
-#   Whether the application should be exist. Can be specified for each
-#   environment using deployment hieradata.
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -65,7 +62,6 @@
 #   The URL used by Sentry to report exceptions
 #
 class govuk::apps::content_audit_tool(
-  $ensure = 'present',
   $db_hostname = undef,
   $db_name = 'content_audit_tool_production',
   $db_password = undef,
@@ -86,7 +82,6 @@ class govuk::apps::content_audit_tool(
   $app_name = 'content-audit-tool'
 
   govuk::app { $app_name:
-    ensure            => $ensure,
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
@@ -94,64 +89,63 @@ class govuk::apps::content_audit_tool(
     asset_pipeline    => true,
   }
 
-  if $ensure == 'present' {
-    Govuk::App::Envvar {
-      app    => $app_name,
-    }
+  Govuk::App::Envvar {
+    app    => $app_name,
+  }
 
-    govuk::procfile::worker { "${app_name}-google-analytics-worker":
-      enable_service => $enable_procfile_worker,
-      setenv_as      => $app_name,
-      process_type   => 'google-analytics-worker',
-    }
+  govuk::procfile::worker { "${app_name}-google-analytics-worker":
+    enable_service => $enable_procfile_worker,
+    setenv_as      => $app_name,
+    process_type   => 'google-analytics-worker',
+  }
 
-    govuk::procfile::worker { "${app_name}-publishing-api-worker":
-      enable_service => $enable_procfile_worker,
-      setenv_as      => $app_name,
-      process_type   => 'publishing-api-worker',
-    }
+  govuk::procfile::worker { "${app_name}-publishing-api-worker":
+    enable_service => $enable_procfile_worker,
+    setenv_as      => $app_name,
+    process_type   => 'publishing-api-worker',
+  }
 
-    govuk::app::envvar {
-      "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
-        varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
-        value   => $google_analytics_govuk_view_id;
-      "${title}-GOOGLE_PRIVATE_KEY":
-        varname => 'GOOGLE_PRIVATE_KEY',
-        value   => $google_private_key;
-      "${title}-GOOGLE_CLIENT_EMAIL":
-        varname => 'GOOGLE_CLIENT_EMAIL',
-        value   => $google_client_email;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
-    }
+  govuk::app::envvar {
+    "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
+      varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
+      value   => $google_analytics_govuk_view_id;
+    "${title}-GOOGLE_PRIVATE_KEY":
+      varname => 'GOOGLE_PRIVATE_KEY',
+      value   => $google_private_key;
+    "${title}-GOOGLE_CLIENT_EMAIL":
+      varname => 'GOOGLE_CLIENT_EMAIL',
+      value   => $google_client_email;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+  }
 
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
+  }
 
-    if $secret_key_base != undef {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base,
-      }
-    }
-
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'postgresql',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+  if $secret_key_base != undef {
+    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base,
     }
   }
+
+  if $::govuk_node_class !~ /^development$/ {
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
+    }
+  }
+
 }
