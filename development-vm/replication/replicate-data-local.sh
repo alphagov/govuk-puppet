@@ -60,21 +60,17 @@ if ! ($SKIP_MONGO || $DRY_RUN); then
 fi
 
 if ignored "mapit"; then
- status "Skipping mapit"
+  status "Skipping mapit"
 else
- $(dirname $0)/sync-mapit.sh
+  $(dirname $0)/sync-mapit.sh
 fi
 
-#if ! ($SKIP_ELASTIC || $DRY_RUN); then
-#  status "Deleting old elasticsearch indexes"
-#  ruby $(dirname $0)/delete_closed_indices.rb
-#fi
 
 if ! $DRY_RUN; then
- status "Munging Signon db tokens for dev VM"
- if [[ -d $(dirname $0)/../../../signon ]]; then
-   cd $(dirname $0)/../../../signon && bundle install && bundle exec ruby script/make_oauth_work_in_dev
- fi
+  status "Munging Signon db tokens for dev VM"
+  if [[ -d $(dirname $0)/../../../signon ]]; then
+    cd $(dirname $0)/../../../signon && bundle install && bundle exec ruby script/make_oauth_work_in_dev
+  fi
 fi
 
 ok "Data replication complete"
