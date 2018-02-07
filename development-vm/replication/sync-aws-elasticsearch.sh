@@ -50,12 +50,11 @@ else
   remote_paths=$(echo $remote_file_details | ruby -e 'STDOUT << STDIN.read.split("PRE").group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   for remote_path in $remote_paths; do
     status "Syncing data from ${remote_path}"
-    mkdir -p $LOCAL_ARCHIVE_PATH/$remote_path
     aws s3 sync s3://govuk-integration-database-backups/elasticsearch/indices/${remote_path} $LOCAL_ARCHIVE_PATH/indices/$remote_path/
   done
 fi
 
-FILE_COUNT=`ls -l ${LOCAL_ARCHIVE_PATH}/indices/ | wc -l | tr -d ' '`
+FILE_COUNT=$(ls -l ${LOCAL_ARCHIVE_PATH}/indices/ | wc -l | tr -d ' ')
 
 if [ $FILE_COUNT -lt 1 ]; then
   error "No archives found in ${LOCAL_ARCHIVE_PATH}"

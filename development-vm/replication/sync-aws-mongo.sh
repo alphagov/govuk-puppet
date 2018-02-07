@@ -39,7 +39,7 @@ if ! $SKIP_DOWNLOAD; then
   status "Downloading latest MongoDB backup from S3: '${SRC_HOSTNAME}/${FILE_NAME}'"
 
   # need to copy as file not folder
-  aws s3 cp s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/${FILE_NAME} $MONGO_DIR/
+  aws s3 sync s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ $MONGO_DIR/ --exclude "*" --include "${FILE_NAME}"
 fi
 
 if [ ! -d $MONGO_DIR ]; then
