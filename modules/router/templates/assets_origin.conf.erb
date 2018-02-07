@@ -49,7 +49,16 @@ server {
 
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+    # Explicitly re-include Strict-Transport-Security header, this
+    # forces nginx not to clear Cache-Control headers further up the
+    # stack.
+    include /etc/nginx/add-sts.conf;
+
+    add_header "Access-Control-Allow-Origin" "*";
+    add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
+    add_header "Access-Control-Allow-Headers" "origin, authorization";
+
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   }
   <%- end -%>
 

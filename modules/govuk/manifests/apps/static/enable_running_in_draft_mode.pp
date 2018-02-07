@@ -44,16 +44,8 @@ class govuk::apps::static::enable_running_in_draft_mode(
   $redis_port = undef,
 ) {
   $app_domain = hiera('app_domain')
-  $asset_manager_host = "asset-manager.${app_domain}"
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'draft-static'
-  $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
-
-  if $::aws_migration {
-    $proxy_pass_asset_manager_host_https = true
-  } else {
-    $proxy_pass_asset_manager_host_https = false
-  }
 
   govuk::app { $app_name:
     app_type              => 'rack',
