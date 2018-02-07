@@ -67,10 +67,6 @@
 #   The secret key base value for rails
 #   Default: undef
 #
-# [*secret_token*]
-#   Deprecated. The old name for the secret key base valur
-#   Default: undef
-#
 class govuk::apps::specialist_publisher(
   $port = '3064',
   $asset_manager_bearer_token = undef,
@@ -89,7 +85,6 @@ class govuk::apps::specialist_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
-  $secret_token = undef,
 ) {
 
   $app_name = 'specialist-publisher'
@@ -157,15 +152,6 @@ client_max_body_size 500m;
       govuk::app::envvar { "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base,
-      }
-    }
-
-    # @FIXME: This should be removed once secret_token has been changed to
-    # secret_key_base in https://github.com/alphagov/govuk-secrets/pull/213
-    if $secret_token != undef {
-      govuk::app::envvar { "${title}-SECRET_TOKEN":
-        varname => 'SECRET_TOKEN',
-        value   => $secret_token,
       }
     }
   }
