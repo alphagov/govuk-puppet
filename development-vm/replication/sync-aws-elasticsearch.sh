@@ -37,19 +37,25 @@ else
 
   status "Downloading latest es backups from AWS"
 
+  # Get the meta and snap files require to do the restore
+  remote_config_paths=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/ | grep snapshot | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
+  status "${remote_config_paths}"
+  for remote_config_path in $remote_config_paths; do
+    status "Syncing data from ${remote_config_path}"
+    aws s3 cp s3://govuk-integration-database-backups/elasticsearch/${remote_config_path} $LOCAL_ARCHIVE_PATH/
+  done
+
+  # get the index directories
   remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/indices/)
   remote_paths=$(echo $remote_file_details | ruby -e 'STDOUT << STDIN.read.split("PRE").group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   for remote_path in $remote_paths; do
     status "Syncing data from ${remote_path}"
-    mkdir $LOCAL_ARCHIVE_PATH/$remote_path
-    aws s3 sync s3://govuk-integration-database-backups/elasticsearch/indices/${remote_path} $LOCAL_ARCHIVE_PATH/$remote_path/ --only-show-errors
+    mkdir -p $LOCAL_ARCHIVE_PATH/$remote_path
+    aws s3 sync s3://govuk-integration-database-backups/elasticsearch/indices/${remote_path} $LOCAL_ARCHIVE_PATH/indices/$remote_path/
   done
-
-  exit 0
 fi
 
-exit 1
-FILE_COUNT=`ls -l ${LOCAL_ARCHIVE_PATH}/*.zip | wc -l | tr -d ' '`
+FILE_COUNT=`ls -l ${LOCAL_ARCHIVE_PATH}/indices/ | wc -l | tr -d ' '`
 
 if [ $FILE_COUNT -lt 1 ]; then
   error "No archives found in ${LOCAL_ARCHIVE_PATH}"
@@ -61,42 +67,46 @@ else
 fi
 
 if [ $# -gt 0 ]; then
-  filenames=""
-  for index_name in $@; do
-    filenames="$filenames $LOCAL_ARCHIVE_PATH/$index_name.zip"
-  done
-
-  for filename in $filenames; do
-    if [ ! -e $filename ]; then
-      error "File $filename not found: aborting."
-      exit 1
-    fi
-  done
+  possible_names=$@
 else
-  filenames=${LOCAL_ARCHIVE_PATH}/*.zip
+  possible_names=$(ls ${LOCAL_ARCHIVE_PATH}/indices)
 fi
 
-status "Restoring data into Elasticsearch"
-
-for f in $filenames
-do
-  if $DRY_RUN; then
-    status "$f (dry run)"
-  else
-    if curl $LOCAL_ES_HOST -o /dev/null 2> /dev/null; then
-      ok "Elasticsearch is running on ${LOCAL_ES_HOST}"
-    else
-      error "Elasticsearch is not running on ${LOCAL_ES_HOST}. Aborting..."
-      exit 1
-    fi
-
-    alias_name=$(basename $f .zip)
-    iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr [:upper:] [:lower:])z"
-    real_name="$alias_name-$iso_date-00000000-0000-0000-0000-000000000000"
-
-    status "Importing $f to $alias_name (real name $real_name)"
-    bundle exec es_dump_restore restore_alias "$LOCAL_ES_HOST" "$alias_name" "$real_name" "$f" '{"settings":{"index":{"number_of_replicas":"0","number_of_shards":"1"}}}' 250
+index_names=""
+first_name=1
+for index_name in $possible_names; do
+  if [ $first_name -lt 1 ]; then
+    index_names="$index_names,"
   fi
+  first_name=0
+  index_names="$index_names$(ls ${LOCAL_ARCHIVE_PATH}/indices | grep ${index_name})"
 done
+
+if $DRY_RUN; then
+  status "Restoring data into Elasticsearch for $index_names (dry run)"
+else
+  status "Restoring data into Elasticsearch for $index_names"
+
+  # setup the snapshot details on the server
+  curl localhost:9200/_snapshot/snapshots?wait_for_completion=true -X PUT -d "{
+    \"type\": \"fs\",
+    \"settings\": {
+      \"compress\": true,
+      \"location\": \"/var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}\"
+    }
+  }"
+
+  # restore the snapshot
+  curl localhost:9200/_snapshot/snapshots/snapshot_2018-02-07/_restore?wait_for_completion=true -X POST -d "{
+    \"indices\": \"${index_names}\",
+    \"index_settings\": {
+      \"index.number_of_replicas\": 0
+    }
+  }"
+
+  status ""
+  status "Remove alises from old indices and archiving"
+  ruby $(dirname $0)/close_and_delete_old_indices.rb ${index_names}
+fi
 
 ok "Restore complete"
