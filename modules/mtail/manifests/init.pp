@@ -57,6 +57,7 @@ class mtail(
 #    ensure  => directory,
     ensure => 'absent',
     mode   => '0755',
+    force  => true,
 #    require => Package['mtail'],
   }
 
