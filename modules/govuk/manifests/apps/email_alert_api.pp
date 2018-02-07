@@ -76,7 +76,7 @@
 #   Template ID for GOV.UK Notify
 #
 # [*govuk_notify_base_url*]
-#   Base URL for GOV.UK Notify API
+#   Deprecated env var to switch notify environments. 
 #
 # [*govuk_notify_rate_per_worker*]
 #   Number of requests per seconds that the notify delivery worker
@@ -120,8 +120,8 @@ class govuk::apps::email_alert_api(
   $govdelivery_hostname = undef,
   $govdelivery_public_hostname = undef,
   $govuk_notify_api_key = undef,
-  $govuk_notify_template_id = undef,
   $govuk_notify_base_url = undef,
+  $govuk_notify_template_id = undef,
   $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
@@ -218,6 +218,7 @@ class govuk::apps::email_alert_api(
           varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
           value   => $govuk_notify_template_id;
       "${title}-GOVUK_NOTIFY_BASE_URL":
+          ensure  => 'absent',
           varname => 'GOVUK_NOTIFY_BASE_URL',
           value   => $govuk_notify_base_url;
       "${title}-GOVUK_NOTIFY_RATE_PER_WORKER":

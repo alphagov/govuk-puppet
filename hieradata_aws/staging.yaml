@@ -18,7 +18,6 @@ govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
 govuk::apps::email_alert_api::govdelivery_account_code: 'UKGOVUK'
 govuk::apps::email_alert_api::govdelivery_hostname: 'stage-api.govdelivery.com'
 govuk::apps::email_alert_api::govdelivery_public_hostname: 'stage-public.govdelivery.com'
-govuk::apps::email_alert_api::govuk_notify_base_url: 'https://api.staging-notify.works'
 govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::kibana::logit_environment: d414187a-2796-4ea7-9b9a-d40c341646d6
