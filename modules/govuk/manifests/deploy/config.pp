@@ -108,6 +108,8 @@ class govuk::deploy::config(
       # can preview content, therefore it needs to be the Publishing
       # domain
       'PLEK_SERVICE_DRAFT_ORIGIN_URI': value => "https://draft-origin.${app_domain}";
+      # Apps lookup Content Tagger to link to it, so use the external domain
+      'PLEK_SERVICE_CONTENT_TAGGER_URI': value => "https://content-tagger.${app_domain}";
       # We do not host Licensify in AWS, so need to redirect to
       # it's external domain
       'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
