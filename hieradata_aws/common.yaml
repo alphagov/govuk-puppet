@@ -1057,8 +1057,8 @@ router::assets_origin::app_specific_asset_routes:
   '/smartanswers/': "smartanswers"
 
 router::assets_origin::whitehall_asset_routes:
-  '/government/placeholder': "whitehall-frontend"
-  '/government/uploads/': "whitehall-frontend"
+  - '/government/placeholder'
+  - '/government/uploads/'
 
 router::assets_origin::asset_manager_routes:
   - '/government/uploads/government/uploads/system/uploads/'
