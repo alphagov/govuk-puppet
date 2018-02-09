@@ -4,13 +4,13 @@
 #
 # === Parameters
 #
-# [*app_specific_asset_routes*]
+# [*app_specific_static_asset_routes*]
 #   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
 #
-# [*asset_manager_routes*]
+# [*asset_manager_uploaded_assets_routes*]
 #   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
 #
-# [*whitehall_asset_routes*]
+# [*whitehall_uploaded_assets_routes*]
 #   Array of paths to proxy to whitehall-frontend.  Each entry will be added as a route in the vhost
 #
 # [*real_ip_header*]
@@ -24,9 +24,9 @@
 #   Primary vhost that assets should be served on at origin
 #
 class router::assets_origin(
-  $app_specific_asset_routes = {},
-  $asset_manager_routes = [],
-  $whitehall_asset_routes = [],
+  $app_specific_static_asset_routes = {},
+  $asset_manager_uploaded_assets_routes = [],
+  $whitehall_uploaded_assets_routes = [],
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',

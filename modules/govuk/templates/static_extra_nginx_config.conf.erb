@@ -16,7 +16,7 @@ location /robots.txt {
   expires 1w;
 }
 
-<% @asset_manager_routes.each do |path_to_be_proxied_to_asset_manager| %>
+<% @asset_manager_uploaded_assets_routes.each do |path_to_be_proxied_to_asset_manager| %>
 
   location ~ ^<%= path_to_be_proxied_to_asset_manager %> {
     proxy_set_header X-Real-IP $remote_addr;

@@ -1629,7 +1629,7 @@ resolvconf::options:
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
-router::assets_origin::app_specific_asset_routes:
+router::assets_origin::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
   '/calculators/': "calculators"
   '/calendars/': "calendars"
@@ -1646,11 +1646,11 @@ router::assets_origin::app_specific_asset_routes:
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
 
-router::assets_origin::whitehall_asset_routes:
+router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
   - '/government/uploads/'
 
-router::assets_origin::asset_manager_routes:
+router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/government/uploads/government/uploads/system/uploads/'
   - '/government/uploads/system/uploads/attachment/file'
   - '/government/uploads/system/uploads/classification_featuring_image_data/file/'
