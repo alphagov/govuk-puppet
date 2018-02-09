@@ -796,84 +796,68 @@ grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::deployment_applications:
   asset-manager:
+    fields_prefix: ''
     show_sidekiq_graphs: true
     has_workers: true
   calculators:
-    # logstasher >1.x
     fields_prefix: ''
   calendars:
-    # logstasher >1.x
     fields_prefix: ''
   collections: {}
   collections-publisher:
-    # Low usage
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   contacts:
+    fields_prefix: ''
     docs_name: 'contacts-admin'
   content-audit-tool:
-    # logstasher >1.x
     fields_prefix: ''
   content-performance-manager:
-    # logstasher >1.x
     fields_prefix: ''
-  content-store: {}
+  content-store:
+    fields_prefix: ''
   content-tagger:
-    # logstasher >1.x
     fields_prefix: ''
     has_workers: true
   email-alert-api:
-    # logstasher >1.x
     fields_prefix: ''
     has_workers: true
   email-alert-frontend:
-    # Missing duration, status, controller fields
-    show_controller_errors: false
-    show_slow_requests: false
-  feedback: {}
-  finder-frontend: {}
+    fields_prefix: ''
+  feedback:
+    fields_prefix: ''
+  finder-frontend:
+    fields_prefix: ''
   frontend:
-    # logstasher >1.x
     fields_prefix: ''
   government-frontend:
-    # logstasher >1.x
     fields_prefix: ''
   hmrc-manuals-api:
-    # Missing status from logs
-    show_controller_errors: false
+    fields_prefix: ''
   imminence:
-    # logstasher >1.x
     fields_prefix: ''
     has_workers: true
-  info-frontend: {}
+  info-frontend:
+    fields_prefix: ''
   licencefinder:
-    # logstasher >1.x
     fields_prefix: ''
     docs_name: 'licence-finder'
   link-checker-api:
+    fields_prefix: ''
     has_workers: true
   local-links-manager:
-    # logstasher >1.x
     fields_prefix: ''
   manuals-frontend:
-    # Missing status, duration, controller
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   manuals-publisher:
-    # Very low usage
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   mapit:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
   maslow:
-    # Very low usage
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   policy-publisher: {}
   publisher:
-    # logstasher >1.x
     fields_prefix: ''
     has_workers: true
   publishing-api:
@@ -881,7 +865,7 @@ grafana::dashboards::deployment_applications:
   release: {}
   router-api: {}
   rummager:
-    # @fields.controller is blank and rummager is a sinatra app
+    # rummager is a sinatra app
     show_controller_errors: false
     show_elasticsearch_stats: true
     show_response_times: true
@@ -894,21 +878,24 @@ grafana::dashboards::deployment_applications:
       - frontend
       - whitehall-frontend
   search-admin:
-    # No data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   service-manual-frontend: {}
   service-manual-publisher:
     # Status, duration, controller missing @fields. prefix
     show_controller_errors: false
     show_slow_requests: false
-  short-url-manager: {}
+  short-url-manager:
+    fields_prefix: ''
   signon:
+    fields_prefix: ''
     has_workers: true
   smartanswers:
+    fields_prefix: ''
     docs_name: 'smart-answers'
-  specialist-publisher: {}
+  specialist-publisher:
+    fields_prefix: ''
   static:
+    fields_prefix: ''
     dependent_app_5xx_errors:
       - calendars
       - collections
@@ -919,17 +906,16 @@ grafana::dashboards::deployment_applications:
       - manuals-frontend
       - smartanswers
       - whitehall-frontend
-  support: {}
-  support-api: {}
+  support:
+    fields_prefix: ''
+  support-api:
+    fields_prefix: ''
   transition:
-    # Status, duration, controller missing @fields.prefix
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
     has_workers: true
   travel-advice-publisher:
     has_workers: true
   whitehall:
-    # logstasher >1.x
     fields_prefix: ''
     show_sidekiq_graphs: true
     has_workers: true
