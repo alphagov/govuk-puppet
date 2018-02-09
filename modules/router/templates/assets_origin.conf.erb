@@ -53,7 +53,7 @@ server {
   }
   <%- end -%>
 
-  <%- @whitehall_asset_routes.each do |path| -%>
+  <%- @whitehall_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
   }

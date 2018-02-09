@@ -1646,7 +1646,7 @@ router::assets_origin::app_specific_static_asset_routes:
   '/service-manual-frontend/': "service-manual-frontend"
   '/smartanswers/': "smartanswers"
 
-router::assets_origin::whitehall_asset_routes:
+router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
   - '/government/uploads/'
 
