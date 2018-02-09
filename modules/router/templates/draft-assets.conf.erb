@@ -52,7 +52,7 @@ server {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   }
 
-  <%- @asset_manager_routes.each do |path| -%>
+  <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   }

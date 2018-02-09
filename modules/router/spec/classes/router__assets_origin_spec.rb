@@ -42,8 +42,8 @@ describe "router::assets_origin", :type => :class do
     end
   end
 
-  describe "asset_manager_routes targets" do
-    let(:asset_manager_routes) { YAML.load_file(File.expand_path("../../../../../hieradata/common.yaml", __FILE__))['router::assets_origin::asset_manager_routes'] }
+  describe "asset_manager_uploaded_assets_routes targets" do
+    let(:asset_manager_uploaded_assets_routes) { YAML.load_file(File.expand_path("../../../../../hieradata/common.yaml", __FILE__))['router::assets_origin::asset_manager_uploaded_assets_routes'] }
 
     let(:all_hostnames) {
       subject.call.resources.each_with_object([]) do |resource, hostnames|
@@ -60,9 +60,9 @@ describe "router::assets_origin", :type => :class do
       let(:pre_condition) { "include hosts::production" }
 
       it "should have host entries for each route target" do
-        asset_manager_routes.each do |_path|
+        asset_manager_uploaded_assets_routes.each do |_path|
           hostname = "static.publishing.service.gov.uk"
-          message = "asset_manager_routes point at non-existent host '#{hostname}' in production"
+          message = "asset_manager_uploaded_assets_routes point at non-existent host '#{hostname}' in production"
           expect(all_hostnames).to include(hostname), message
         end
       end
@@ -73,9 +73,9 @@ describe "router::assets_origin", :type => :class do
       let(:pre_condition) { "include hosts::development" }
 
       it "should have host entries for each route target" do
-        asset_manager_routes.each do |_path|
+        asset_manager_uploaded_assets_routes.each do |_path|
           hostname = "static.dev.gov.uk"
-          message = "asset_manager_routes point at non-existent host '#{hostname}' on the dev VM"
+          message = "asset_manager_uploaded_assets_routes point at non-existent host '#{hostname}' on the dev VM"
           expect(all_hostnames).to include(hostname), message
         end
       end

@@ -1650,7 +1650,7 @@ router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
   - '/government/uploads/'
 
-router::assets_origin::asset_manager_routes:
+router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/government/uploads/government/uploads/system/uploads/'
   - '/government/uploads/system/uploads/attachment/file'
   - '/government/uploads/system/uploads/classification_featuring_image_data/file/'

@@ -49,9 +49,9 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # metrics
     'govuk_logging::logstream::metrics_only',
 
-    # Allow sharing of asset_manager_routes array between assets-origin and static
+    # Allow sharing of asset_manager_uploaded_assets_routes array between assets-origin and static
     # nginx virtual host configuration
-    'router::assets_origin::asset_manager_routes',
+    'router::assets_origin::asset_manager_uploaded_assets_routes',
 
     'mysql_replica_password',
     'mysql_root',
