@@ -1638,23 +1638,6 @@ router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/uploads/uploaded/hmrc/'
 
 router::assets_origin::asset_manager_uploaded_assets_routes:
-  - '/government/uploads/government/uploads/system/uploads/'
-  - '/government/uploads/system/uploads/attachment/file'
-  - '/government/uploads/system/uploads/classification_featuring_image_data/file/'
-  - '/government/uploads/system/uploads/consultation_response_form/file'
-  - '/government/uploads/system/uploads/consultation_response_form_data/file/'
-  - '/government/uploads/system/uploads/default_news_organisation_image_data/file/'
-  - '/government/uploads/system/uploads/edition_organisation_image_data/file'
-  - '/government/uploads/system/uploads/edition_world_location_image_data/file'
-  - '/government/uploads/system/uploads/feature/image/'
-  - '/government/uploads/system/uploads/image_data/file/'
-  - '/government/uploads/system/uploads/news_article/featuring_image'
-  - '/government/uploads/system/uploads/news_article/image'
-  - '/government/uploads/system/uploads/organisation/logo/'
-  - '/government/uploads/system/uploads/person/image/'
-  - '/government/uploads/system/uploads/promotional_feature_item/image/'
-  - '/government/uploads/system/uploads/take_part_page/image/'
-  - '/government/uploads/system/uploads/topical_event/logo'
   - '/government/uploads/'
   - '/media/'
 
