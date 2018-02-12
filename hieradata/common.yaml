@@ -417,6 +417,7 @@ govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.u
 govuk::apps::publisher::email_group_business: 'govuk-dev@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'govuk-dev@digital.cabinet-office.gov.uk'
 
+
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -525,6 +526,7 @@ govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
 govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
 govuk::apps::rummager::redis_host: 'api-redis-1.api'
 govuk::apps::rummager::redis_port: '6379'
+govuk::apps::rummager::unicorn_worker_processes: "6"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'master.mysql'

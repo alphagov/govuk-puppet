@@ -67,6 +67,9 @@
 # [*sitemap_generation_time*]
 #   A time of day in a format supported by https://github.com/javan/whenever
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 class govuk::apps::rummager(
   $rabbitmq_user,
   $port = '3009',
@@ -85,6 +88,7 @@ class govuk::apps::rummager(
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
   $sitemap_generation_time = '1.10am',
+  $unicorn_worker_processes = undef,
 ) {
 
   package { ['aspell', 'aspell-en', 'libaspell-dev']:
@@ -92,17 +96,17 @@ class govuk::apps::rummager(
   }
 
   govuk::app { 'rummager':
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    health_check_path      => '/search?q=search_healthcheck',
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    health_check_path        => '/search?q=search_healthcheck',
 
     # support search as an alias for ease of migration from old
     # cluster running in backend VDC.
-    vhost_aliases          => ['search'],
+    vhost_aliases            => ['search'],
 
-    log_format_is_json     => true,
-    nginx_extra_config     => '
+    log_format_is_json       => true,
+    nginx_extra_config       => '
     client_max_body_size 500m;
 
     location ^~ /sitemap.xml {
@@ -114,8 +118,9 @@ class govuk::apps::rummager(
       add_header Cache-Control public;
     }
     ',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   govuk::app::envvar::rabbitmq { 'rummager':
