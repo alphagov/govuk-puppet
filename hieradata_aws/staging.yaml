@@ -48,13 +48,6 @@ govuk_crawler::sync_enable: true
 govuk_crawler::targets:
   - 's3://govuk-mirror-staging/'
 
-govuk_jenkins::config::banner_colour_background: '#ffbf47'
-govuk_jenkins::config::banner_colour_text: 'black'
-govuk_jenkins::config::banner_string: 'AWS Staging'
-govuk_jenkins::config::theme_colour: '#ffbf47'
-govuk_jenkins::config::theme_text_colour: 'black'
-govuk_jenkins::config::theme_environment_name: 'AWS Staging'
-
 govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
 govuk_jenkins::job_builder::environment: 'staging'
