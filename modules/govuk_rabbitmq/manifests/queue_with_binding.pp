@@ -13,7 +13,8 @@
 # At present the workaround for changing a binding is to create a new queue for the new binding. Then switch the
 # consumers over to the new queue, and remove the old queue.
 # Another side effect of this problem is you can't define more than one binding for a queue.
-# This may be fixed by https://github.com/voxpupuli/puppet-rabbitmq/pull/504
+# This is possible in version 6.0.0, however that version also drops Puppet 3 support.
+# https://forge.puppet.com/puppet/rabbitmq/changelog
 #
 # govuk_rabbitmq::remove_queues and govuk_rabbitmq::remove_bindings can be used
 # to ensure old queues and bindings are cleaned up.

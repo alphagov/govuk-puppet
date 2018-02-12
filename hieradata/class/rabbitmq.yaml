@@ -5,6 +5,7 @@ govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - email_alert_service
   - publishing_api
   - rummager
+  - content_performance_manager
 
 govuk_safe_to_reboot::can_reboot: 'careful'
 govuk_safe_to_reboot::reason: 'rabbitmq-1 is a single point of failure for content-store, apps not resilient'
