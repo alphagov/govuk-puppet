@@ -1,4 +1,11 @@
 ---
+govuk_jenkins::config::banner_colour_background: '#ffbf47'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'AWS Staging'
+govuk_jenkins::config::theme_colour: '#ffbf47'
+govuk_jenkins::config::theme_text_colour: 'black'
+govuk_jenkins::config::theme_environment_name: 'AWS Staging'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_puppet
