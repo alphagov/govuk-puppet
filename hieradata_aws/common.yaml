@@ -799,6 +799,8 @@ grafana::dashboards::deployment_applications:
     fields_prefix: ''
     show_sidekiq_graphs: true
     has_workers: true
+  authenticating-proxy:
+    fields_prefix: ''
   calculators:
     fields_prefix: ''
   calendars:
