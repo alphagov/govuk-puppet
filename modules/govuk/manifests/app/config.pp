@@ -124,15 +124,19 @@ define govuk::app::config (
       "${title}-GOVUK_APP_RUN":
         varname => 'GOVUK_APP_RUN',
         value   => $govuk_app_run;
-      "${title}-GOVUK_APP_LOGROOT":
-        varname => 'GOVUK_APP_LOGROOT',
-        value   => "/var/log/${title}";
       "${title}-GOVUK_STATSD_PREFIX":
         varname => 'GOVUK_STATSD_PREFIX',
         value   => "govuk.app.${title}.${::hostname}";
       "${title}-SENTRY_DSN":
         varname => 'SENTRY_DSN',
         value   => $sentry_dsn;
+    }
+
+    if $::govuk_node_class !~ /^development$/ {
+      govuk::app::envvar { "${title}-GOVUK_APP_LOGROOT":
+        varname => 'GOVUK_APP_LOGROOT',
+        value   => "/var/log/${title}",
+      }
     }
 
     if $::aws_migration {
