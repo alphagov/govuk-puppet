@@ -90,6 +90,7 @@ class govuk::apps::signon(
     health_check_path        => '/users/sign_in',
     asset_pipeline           => true,
     deny_framing             => true,
+    log_format_is_json       => true,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
     unicorn_worker_processes => $unicorn_worker_processes,
