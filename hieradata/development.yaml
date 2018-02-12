@@ -250,6 +250,7 @@ hosts::development::apps:
   - 'contacts-admin'
   - 'content-store'
   - 'content-tagger'
+  - 'draft-assets'
   - 'draft-content-store'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
