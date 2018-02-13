@@ -95,8 +95,11 @@ else
     }
   }"
 
+  # get the snapshot name
+  SNAPSHOT_NAME=$(curl localhost:9200/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
+
   # restore the snapshot
-  curl localhost:9200/_snapshot/snapshots/snapshot_2018-02-07/_restore?wait_for_completion=true -X POST -d "{
+  curl localhost:9200/_snapshot/snapshots/snapshot_$SNAPSHOT_NAME/_restore?wait_for_completion=true -X POST -d "{
     \"indices\": \"${index_names}\",
     \"index_settings\": {
       \"index.number_of_replicas\": 0
