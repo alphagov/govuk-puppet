@@ -8,6 +8,7 @@ clamav::use_service: false
 
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
 postgresql::globals::version: '9.3'
+govuk_postgresql::server::enable_collectd: false
 
 govuk_mysql::server::innodb_flush_log_at_trx_commit: 2
 govuk_mysql::server::innodb_buffer_pool_size_proportion: 0.05
