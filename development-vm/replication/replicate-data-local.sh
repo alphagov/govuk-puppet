@@ -65,7 +65,7 @@ if ! ($SKIP_DOWNLOAD); then
     exit
   fi
 fi
-exit
+
 if ! ($SKIP_MONGO || $DRY_RUN); then
   status "Munging router backend hostnames for dev VM"
   mongo --quiet --eval 'db = db.getSiblingDB("router"); db.backends.find().forEach( function(b) { b.backend_url = b.backend_url.replace(".integration.publishing.service.gov.uk", ".dev.gov.uk").replace("https","http"); db.backends.save(b); } );'
