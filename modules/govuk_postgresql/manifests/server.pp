@@ -30,6 +30,7 @@ class govuk_postgresql::server (
     $listen_addresses = '*',
     $configure_env_sync_user = false,
     $max_connections = 150,
+    $enable_collectd = true,
 ) {
   if !(
     defined(Class["${name}::standalone"]) or
@@ -82,25 +83,27 @@ class govuk_postgresql::server (
     include govuk_postgresql::env_sync_user
   }
 
-  include collectd::plugin::postgresql
-  collectd::plugin::tcpconn { 'postgresql':
-    incoming => 5432,
-    outgoing => 5432,
-  }
-
   postgresql::server::config_entry {
     'max_connections':
       value => $max_connections;
   }
 
-  $warning_conns = $max_connections * 0.8
-  $critical_conns = $max_connections * 0.9
+  if $enable_collectd {
+    include collectd::plugin::postgresql
+    collectd::plugin::tcpconn { 'postgresql':
+      incoming => 5432,
+      outgoing => 5432,
+    }
 
-  @@icinga::check::graphite { "check_postgres_conns_used_${::hostname}":
-    target    => "${::fqdn_metrics}.postgresql-global.pg_numbackends",
-    desc      => 'postgres high connections used',
-    warning   => $warning_conns,
-    critical  => $critical_conns,
-    host_name => $::fqdn,
+    $warning_conns = $max_connections * 0.8
+    $critical_conns = $max_connections * 0.9
+
+    @@icinga::check::graphite { "check_postgres_conns_used_${::hostname}":
+      target    => "${::fqdn_metrics}.postgresql-global.pg_numbackends",
+      desc      => 'postgres high connections used',
+      warning   => $warning_conns,
+      critical  => $critical_conns,
+      host_name => $::fqdn,
+    }
   }
 }
