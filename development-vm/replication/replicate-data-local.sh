@@ -11,7 +11,7 @@ if ! ($SKIP_DOWNLOAD) then
   # setup AWS access
   SESSION_NAME=$(whoami)-$(date +%d-%m-%y_%H-%M)
   ROLE_ARN=$(awk '/role_arn/ {print $3}' ~/.aws/config)
-  MFA_ARN=$(awk '/mfa_serial/ {print $3}' ~/.aws/config)
+  MFA_SERIAL=$(awk '/mfa_serial/ {print $3}' ~/.aws/config)
 
   if [[ "${MFA_TOKEN}" == "" ]]; then
     echo "Error: must provide token"
@@ -24,7 +24,7 @@ if ! ($SKIP_DOWNLOAD) then
   CREDENTIALS=$(aws sts assume-role \
                   --role-session-name $SESSION_NAME \
                   --role-arn $ROLE_ARN \
-                  --serial-number $MFA_ARN \
+                  --serial-number $MFA_SERIAL§f \
                   --token-code $MFA_TOKEN)
 
   if [[ $? == 0 ]]; then
