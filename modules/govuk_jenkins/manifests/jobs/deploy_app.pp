@@ -13,6 +13,13 @@
 # [*ci_deploy_jenkins_api_key*]
 #   API key to download build artefacts from CI servers
 #
+# [*notify_release_app*]
+#   Set to true to ensure the Release app is updated with the latest deployment
+#   release version.
+#
+# [*enable_slack_notifications*]
+#   Set to true to post details of a deployment into a Slack channel.
+#
 class govuk_jenkins::jobs::deploy_app (
   $app_domain = undef,
   $auth_token = undef,
@@ -20,6 +27,8 @@ class govuk_jenkins::jobs::deploy_app (
   $applications = undef,
   $graphite_host = 'graphite.cluster',
   $graphite_port = '80',
+  $notify_release_app = true,
+  $enable_slack_notifications = true,
 ) {
   if $::aws_migration {
     $aws_deploy = true

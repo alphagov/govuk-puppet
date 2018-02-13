@@ -84,3 +84,11 @@
             name: DEPLOY_FROM_GITLAB
             default: false
             description: Whether to deploy from GitLab.com in case GitHub is unavailable
+        - bool:
+            name: NOTIFY_RELEASE_APP
+            default: <%= @notify_release_app.to_s %>
+            description: Whether to notify the Release app of the deployment
+        - bool:
+            name: SLACK_NOTIFICATIONS
+            default: <%= @enable_slack_notifications.to_s %>
+            description: Whether to enable notifications into Slack

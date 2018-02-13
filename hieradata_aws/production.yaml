@@ -62,6 +62,9 @@ govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 govuk_jenkins::jobs::smokey::smokey_task: 'test:production'
 
+govuk_jenkins::jobs::deploy_app::notify_release_app: false
+govuk_jenkins::jobs::deploy_app::enable_slack_notifications: false
+
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
   -
     old: publishing.service.gov.uk
