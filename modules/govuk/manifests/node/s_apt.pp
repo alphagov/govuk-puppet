@@ -141,6 +141,7 @@ class govuk::node::s_apt (
   }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
+  aptly::repo { 'vale': }
 
   include nginx
   nginx::config::site { $apt_service:
