@@ -20,6 +20,7 @@ class govuk::node::s_monitoring (
   include govuk_rbenv::all
   include ::phantomjs
   include monitoring
+  include collectd::plugin::icinga
 
   if $enable_fastly_metrics {
     include collectd::plugin::cdn_fastly
