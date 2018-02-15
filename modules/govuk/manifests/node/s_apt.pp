@@ -139,6 +139,7 @@ class govuk::node::s_apt (
   aptly::repo { 'rbenv-ruby-xenial':
     distribution => 'xenial',
   }
+  aptly::repo { 'sops': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
   aptly::repo { 'vale': }

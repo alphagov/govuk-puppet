@@ -1,5 +1,7 @@
 # == Class: govuk_jenkins::jobs::deploy_terraform_project
 #
+# This deploys the old Terraform code. New code should be moved to govuk-aws.
+#
 # === Parameters
 #
 # [*aws_account_id*]

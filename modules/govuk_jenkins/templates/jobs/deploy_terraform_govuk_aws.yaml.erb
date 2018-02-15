@@ -1,0 +1,73 @@
+---
+- scm:
+    name: govuk-aws_Deploy_Terraform_Govuk_AWS
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-aws.git
+            branches:
+                - master
+- job:
+    name: Deploy_Terraform_Project
+    display-name: Deploy_Terraform_Project
+    project-type: freestyle
+    description: |
+        Deploy GOV.UK AWS Infrastructure using Terraform.
+
+        For available projects to deploy, please see the <a href=https://github.com/alphagov/govuk-aws/tree/master/terraform/projects>Terraform repository</a>
+
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-aws/
+    scm:
+        - govuk-aws_Deploy_Terraform_Govuk_AWS
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - build-name:
+          name: '${ENV,var=ENVIRONMENT} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
+    builders:
+        - shell: |
+            ./jenkins.sh
+
+    parameters:
+        - string:
+            name: AWS_ACCESS_KEY_ID
+            description: Your AWS access key ID
+            default: false
+        - password:
+            name: AWS_SECRET_ACCESS_KEY
+            description: Your AWS secret access key
+            default: false
+        - password:
+            name: AWS_SESSION_TOKEN
+            description: The AWS session token
+            default: false
+        - choice:
+            name: COMMAND
+            description: Choose whether to plan (default), apply or destroy
+            choices:
+                - plan
+                - apply
+                - destroy
+        - choice:
+            name: ENVIRONMENT
+            description: Which environment to deploy to
+            choices:
+                - integration
+                - staging
+                - production
+        - choice:
+            name: STACKNAME
+            description: Choose which stack to deploy into
+            choices:
+                - blue
+                - green
+                - govuk
+        - string:
+            name: PROJECT
+            description: Name of the project you wish to deploy
+            default: false
+        - string:
+            name: TERRAFORM_VERSION
+            description: Version of Terraform to run against. Leave blank for default.
+            default: false
