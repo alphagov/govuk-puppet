@@ -21,7 +21,7 @@
             export GRAPHITE_PORT="<%= @graphite_port -%>"
             <%- if @aws_deploy %>
             export USE_S3="true"
-            export S3_ARTEFACT_BUCKET="govuk-integration-artefact"
+            export S3_ARTEFACT_BUCKET="govuk-<%= @environment -%>-artefact"
             <% end -%>
 
             if [ "$DEPLOY_FROM_GITLAB" == "true" ]; then
