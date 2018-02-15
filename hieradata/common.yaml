@@ -1019,9 +1019,7 @@ grafana::dashboards::deployment_applications:
     fields_prefix: ''
   service-manual-frontend: {}
   service-manual-publisher:
-    # Status, duration, controller missing @fields. prefix
-    show_controller_errors: false
-    show_slow_requests: false
+    fields_prefix: ''
   short-url-manager:
     fields_prefix: ''
   signon:
