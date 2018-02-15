@@ -72,7 +72,8 @@ class govuk_elasticsearch (
   $aws_cluster_name = undef,
   $aws_region = 'eu-west-1',
   $log_slow_queries = false,
-  $slow_query_log_level = 'warn'
+  $slow_query_log_level = 'warn',
+  $repo_path = undef,
 ) {
 
   validate_re($version, '^\d+\.\d+\.\d+$', 'govuk_elasticsearch::version must be in the form x.y.z')
@@ -189,8 +190,14 @@ class govuk_elasticsearch (
     })
   }
 
+  if $repo_path == undef {
+    $instance_config_real2 = $instance_config_real
+  } else {
+    $instance_config_real2 = merge($instance_config_real, { 'path.repo' => $repo_path })
+  }
+
   elasticsearch::instance { $::fqdn:
-    config        => $instance_config_real,
+    config        => $instance_config_real2,
     datadir       => '/mnt/elasticsearch',
     init_defaults => {
       'ES_HEAP_SIZE' => $heap_size,

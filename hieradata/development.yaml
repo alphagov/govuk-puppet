@@ -196,6 +196,8 @@ govuk_containers::app::config::global_envvars:
 
 govuk_elasticsearch::version: '2.4.6'
 govuk_elasticsearch::cors_enabled: true
+govuk_elasticsearch::repo_path:
+  - '/var/govuk/govuk-puppet/development-vm/replication/backups'
 
 govuk_logging::logstream::disabled: true
 

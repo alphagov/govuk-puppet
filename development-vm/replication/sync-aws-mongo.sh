@@ -24,19 +24,22 @@ fi
 
 SRC_HOSTNAME=$1
 
-MONGO_SRC="${SRC_HOSTNAME}:/var/lib/automongodbbackup/latest/*.tgz"
 MONGO_DIR="${DIR}/mongo/${SRC_HOSTNAME}"
-
-status "Starting mongo replication from ${SRC_HOSTNAME}"
 
 if ! $SKIP_DOWNLOAD; then
   mkdir -p $MONGO_DIR
 
-  status "Downloading latest mongo backup from ${SRC_HOSTNAME}"
-  rsync -P -e "ssh ${SSH_CONFIG:+-F ${SSH_CONFIG}}" ${SSH_USER:+${SSH_USER}@}$MONGO_SRC $MONGO_DIR
-fi
+  status "Starting MongoDB replication from S3: ${SRC_HOSTNAME}"
 
-status "Importing mongo backup from ${SRC_HOSTNAME}"
+  # get the last file name from s3
+  remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ | tail -n1)
+  arr_file_details=($remote_file_details)
+  FILE_NAME=${arr_file_details[3]}
+
+  status "Downloading latest MongoDB backup from S3: '${SRC_HOSTNAME}/${FILE_NAME}'"
+
+  aws s3 sync s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ $MONGO_DIR/ --exclude "*" --include "${FILE_NAME}"
+fi
 
 if [ ! -d $MONGO_DIR ]; then
   error "No such directory $MONGO_DIR"
@@ -63,7 +66,7 @@ else
   NAME_MUNGE_COMMAND="cat"
 fi
 
-for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
+for dir in $(find $MONGO_DIR -mindepth 5 -maxdepth 5 -type d | grep -v '*'); do
   if $DRY_RUN; then
     status "MongoDB (not) restoring $(basename $dir)"
   else
@@ -75,9 +78,10 @@ for dir in $(find $MONGO_DIR -mindepth 2 -maxdepth 2 -type d | grep -v '*'); do
         continue 2
       fi
     done
+
     status "MongoDB restoring $(basename $dir)"
     mongorestore --drop -d $TARGET_DB_NAME $dir
   fi
 done
 
-ok "Mongo replication from ${SRC_HOSTNAME} complete."
+ok "Mongo replication from S3 (${SRC_HOSTNAME}) complete."
