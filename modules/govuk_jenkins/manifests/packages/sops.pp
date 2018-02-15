@@ -14,7 +14,7 @@ class govuk_jenkins::packages::sops (
 
   apt::source { 'sops':
     location     => "http://${apt_mirror_hostname}/sops",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
