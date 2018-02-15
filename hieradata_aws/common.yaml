@@ -707,6 +707,7 @@ govuk_cdnlogs::service_port_map:
   bouncer: 6516
 
 govuk_cdnlogs::transition_logs::alert_hostname: 'alert'
+govuk_cdnlogs::transition_logs::enabled: false
 
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=production"
