@@ -24,7 +24,7 @@
         - ansicolor:
             colormap: xterm
         - build-name:
-          name: '${ENV,var=ENVIRONMENT} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
+            name: '${ENV,var=ENVIRONMENT} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
     builders:
         - shell: |
             ./jenkins.sh
