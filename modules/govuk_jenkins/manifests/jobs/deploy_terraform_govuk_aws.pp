@@ -6,4 +6,6 @@ class govuk_jenkins::jobs::deploy_terraform_govuk_aws {
     content => template('govuk_jenkins/jobs/deploy_terraform_govuk_aws.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  include ::govuk_jenkins::packages::terraform
 }
