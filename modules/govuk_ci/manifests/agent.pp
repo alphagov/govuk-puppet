@@ -32,6 +32,7 @@ class govuk_ci::agent(
     include ::govuk_java::oracle8
   }
   include ::govuk_jenkins::packages::terraform
+  include ::govuk_jenkins::packages::vale
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
   include ::govuk_rbenv::all
