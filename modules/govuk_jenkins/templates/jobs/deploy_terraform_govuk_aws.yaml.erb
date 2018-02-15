@@ -7,8 +7,8 @@
             branches:
                 - master
 - job:
-    name: Deploy_Terraform_Project
-    display-name: Deploy_Terraform_Project
+    name: Deploy_Terraform_GOVUK_AWS
+    display-name: Deploy_Terraform_GOVUK_AWS
     project-type: freestyle
     description: |
         Deploy GOV.UK AWS Infrastructure using Terraform.
@@ -24,7 +24,7 @@
         - ansicolor:
             colormap: xterm
         - build-name:
-            name: '${ENV,var=ENVIRONMENT} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
+            name: '${ENV,var="ENVIRONMENT"} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
     builders:
         - shell: |
             ./jenkins.sh
