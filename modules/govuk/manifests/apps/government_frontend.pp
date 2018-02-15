@@ -17,11 +17,16 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::government_frontend(
   $vhost = 'government-frontend',
   $port = '3090',
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $unicorn_worker_processes = undef,
 ) {
   Govuk::App::Envvar {
     app => 'government-frontend',
@@ -34,13 +39,14 @@ class govuk::apps::government_frontend(
     }
   }
   govuk::app { 'government-frontend':
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    vhost_ssl_only        => true,
-    health_check_path     => '/healthcheck',
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'government-frontend',
-    vhost                 => $vhost,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/healthcheck',
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => 'government-frontend',
+    vhost                    => $vhost,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 }
