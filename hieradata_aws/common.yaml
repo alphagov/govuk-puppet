@@ -364,6 +364,8 @@ govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_performance_manager::rabbitmq_hosts:
+  - rabbitmq
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
