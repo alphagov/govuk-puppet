@@ -139,18 +139,6 @@ define govuk::app::config (
       }
     }
 
-    if $::aws_migration {
-      $app_domain = hiera('app_domain')
-      $app_uri = "${title}.${app_domain}"
-
-      $app_env_var = regsubst(upcase($title), '-', '_', G)
-
-      govuk::app::envvar { "${title}-PLEK_SERVICE_APP_URI":
-        varname => "PLEK_SERVICE_${app_env_var}_URI",
-        value   => "https://${title}.${app_domain}",
-      }
-    }
-
     if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
       govuk::app::envvar { "${title}-UNICORN_HERDER_TIMEOUT":
         varname => 'UNICORN_HERDER_TIMEOUT',
