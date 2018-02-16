@@ -76,7 +76,7 @@
 #   Template ID for GOV.UK Notify
 #
 # [*govuk_notify_base_url*]
-#   Deprecated env var to switch notify environments. 
+#   Deprecated env var to switch notify environments.
 #
 # [*govuk_notify_rate_per_worker*]
 #   Number of requests per seconds that the notify delivery worker
@@ -95,6 +95,12 @@
 #   Configure which provider to use for sending emails.
 #    PSUEDO - Don't actually send emails, instead just log them.
 #    NOTIFY - Use GOV.UK Notify to send the emails.
+#
+# [*email_address_override*]
+#   Configure all emails to be sent to this address instead.
+#
+# [*email_address_override_whitelist*]
+#   Allow a whitelist of email addresses that ignore the override option.
 #
 class govuk::apps::email_alert_api(
   $port = '3088',
@@ -127,6 +133,8 @@ class govuk::apps::email_alert_api(
   $oauth_id = undef,
   $oauth_secret = undef,
   $email_service_provider = 'NOTIFY',
+  $email_address_override = undef,
+  $email_address_override_whitelist = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -236,6 +244,16 @@ class govuk::apps::email_alert_api(
       "${title}-EMAIL_SERVICE_PROVIDER":
           varname => 'EMAIL_SERVICE_PROVIDER',
           value   => $email_service_provider;
+      "${title}-EMAIL_ADDRESS_OVERRIDE":
+          varname => 'EMAIL_ADDRESS_OVERRIDE',
+          value   => $email_address_override;
+    }
+
+    if $email_address_override_whitelist {
+      govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST":
+        varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
+        value   => join($email_address_override_whitelist, ',');
+      }
     }
 
     if $allow_govdelivery_topic_syncing {
