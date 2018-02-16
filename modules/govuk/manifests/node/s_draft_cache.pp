@@ -15,8 +15,4 @@ class govuk::node::s_draft_cache(
   }
 
   $app_domain = hiera('app_domain')
-
-  govuk_envvar {
-    'PLEK_HOSTNAME_PREFIX': value => 'draft-';
-  }
 }
