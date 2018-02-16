@@ -110,12 +110,4 @@ class govuk::apps::authenticating_proxy(
       value   => $jwt_auth_secret,
     }
   }
-
-  $app_domain = hiera('app_domain')
-  govuk::app::envvar {
-    "${title}-PLEK_SERVICE_SIGNON_URI":
-      app     => $app_name,
-      varname => 'PLEK_SERVICE_SIGNON_URI',
-      value   => "${signon_uri_scheme}://signon.${app_domain}";
-  }
 }
