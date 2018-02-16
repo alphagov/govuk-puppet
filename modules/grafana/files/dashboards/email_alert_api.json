@@ -1480,7 +1480,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(groupByNode(stats.gauges.govuk.app.email-alert-api.*.workers.queues.*.enqueued, 8, \"averageSeries\"), \"sum\")), 0), \"(.*)\", \"\\1 enqueued\")",
+              "target": "aliasSub(aliasByNode(keepLastValue(consolidateBy(groupByNode(stats.gauges.govuk.app.email-alert-api.*.workers.queues.*.enqueued, 8, \"averageSeries\"), \"average\")), 0), \"(.*)\", \"\\1 enqueued\")",
               "textEditor": true
             }
           ],
