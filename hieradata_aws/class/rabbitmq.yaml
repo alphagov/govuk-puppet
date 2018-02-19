@@ -5,7 +5,6 @@ govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - email_alert_service
   - publishing_api
   - rummager
-  - content_performance_manager
 
 govuk_rabbitmq::aws_clustering: true
 

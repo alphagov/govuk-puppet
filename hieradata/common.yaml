@@ -352,17 +352,10 @@ govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_performance_manager::rabbitmq::amqp_pass: 'content_performance_manager'
-govuk::apps::content_performance_manager::rabbitmq_password: 'content_performance_manager'
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_performance_manager::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
-
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
@@ -549,7 +542,6 @@ govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
-
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
