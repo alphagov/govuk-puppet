@@ -61,10 +61,6 @@ class govuk_ci::agent(
     require => Class['::govuk_jenkins::user'],
   }
 
-  package { 'libffi-dev': # needed for ffi: a dependency of govuk-lint
-    ensure => installed,
-  }
-
   package { 'libgdal-dev': # needed for mapit
     ensure => installed,
   }
