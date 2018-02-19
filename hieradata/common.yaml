@@ -399,6 +399,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - christopher.dennett@digital.cabinet-office.gov.uk
   - martin.lugton@digital.cabinet-office.gov.uk
   - hong.nguyen@digital.cabinet-office.gov.uk
+  - thomas.leese@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
