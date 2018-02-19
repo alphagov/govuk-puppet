@@ -384,25 +384,6 @@ govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: 'postgresql-primary'
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
-govuk::apps::email_alert_api::email_address_override_whitelist:
-  - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  - graham.pengelly@digital.cabinet-office.gov.uk
-  - kevin.dew@digital.cabinet-office.gov.uk
-  - keith.emmerson@digital.cabinet-office.gov.uk
-  - paul.cronk@digital.cabinet-office.gov.uk
-  - antonia.simmons@digital.cabinet-office.gov.uk
-  - antonia.nadine@gmail.com
-  - antoniadrake@hotmail.com
-  - tijmen.brommet@digital.cabinet-office.gov.uk
-  - steve.messer@digital.cabinet-office.gov.uk
-  - stevenjmesser@gmail.com
-  - lee.ryan@digital.cabinet-office.gov.uk
-  - si.stephens@digital.cabinet-office.gov.uk
-  - simonstephens@gmail.com
-  - christopher.dennett@digital.cabinet-office.gov.uk
-  - martin.lugton@digital.cabinet-office.gov.uk
-  - hong.nguyen@digital.cabinet-office.gov.uk
-  - thomas.leese@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
