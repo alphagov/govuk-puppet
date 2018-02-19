@@ -829,11 +829,28 @@ def hasDatabase() {
   sh(script: "test -e config/database.yml", returnStatus: true) == 0
 }
 
+def validateDockerFileRubyVersion() {
+  if (fileExists(file: ".ruby-version")) {
+    def rubyVersion = readFile(file: ".ruby-version")
+    // Remove any patch information from the ruby version. 2.0.0-p648 -> 2.0.0
+    rubyVersion = rubyVersion.trim().split("-")[0]
+
+    // The Dockerfile base image version can be optionally suffixed with a - followed by a variant
+    // e.g. ruby:2.4.2-slim
+    def hasMatchingVersions = sh(script: "egrep \"FROM ruby:${rubyVersion}(\$|-)\" Dockerfile", returnStatus: true) == 0
+    if (!hasMatchingVersions) {
+      def baseImageDefinition = sh(script: "egrep \"FROM \" Dockerfile", returnStdout: true).trim()
+      error("Dockerfile uses base image \"${baseImageDefinition}\", this mismatches .ruby-version \"${rubyVersion}\"")
+    }
+  }
+}
+
 def hasDockerfile() {
   sh(script: "test -e Dockerfile", returnStatus: true) == 0
 }
 
 def buildDockerImage(imageName, tagName, quiet = false) {
+  validateDockerFileRubyVersion()
   tagName = safeDockerTag(tagName)
   args = quiet ? "--quiet ." : "."
   docker.build("govuk/${imageName}:${tagName}", args)
