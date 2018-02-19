@@ -37,10 +37,6 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
-# [*asset_manager_host*]
-#   The hostname that will proxy pass to asset manager.
-#   Default: undef
-#
 class govuk::apps::static(
   $vhost = 'static',
   $port = '3013',
@@ -50,17 +46,9 @@ class govuk::apps::static(
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $asset_manager_host = undef,
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
-  $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
-
-  if $::aws_migration {
-    $proxy_pass_asset_manager_host_https = true
-  } else {
-    $proxy_pass_asset_manager_host_https = false
-  }
 
   govuk::app { $app_name:
     app_type              => 'rack',
