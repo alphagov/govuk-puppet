@@ -6,7 +6,7 @@
     description: "Kicks off an appliction deploy in the Integration environment"
     builders:
       - shell: |
-          JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}], \"\": \"\"}"
+          JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"
 
           # Deploy to AWS Integration environment
           CRUMB=$(curl https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
