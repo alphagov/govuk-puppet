@@ -38,13 +38,14 @@ define govuk_rabbitmq::queue_with_binding (
   $amqp_exchange,
   $amqp_queue,
   $routing_key,
-  $durable = true
+  $durable = true,
+  $ensure = 'present'
 ) {
   validate_re($routing_key, '^.+$', '$routing_key must be non-empty')
   $amqp_user = $title
 
   rabbitmq_queue { "${amqp_queue}@/":
-    ensure      => present,
+    ensure      => $ensure,
     user        => 'root',
     password    => $::govuk_rabbitmq::root_password,
     durable     => $durable,
@@ -52,7 +53,7 @@ define govuk_rabbitmq::queue_with_binding (
     arguments   => {},
   } ->
   rabbitmq_binding { "binding_${routing_key}_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => present,
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -62,7 +63,7 @@ define govuk_rabbitmq::queue_with_binding (
   }
 
   govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
-    ensure            => present,
+    ensure            => $ensure,
     rabbitmq_hostname => 'localhost',
     rabbitmq_queue    => $amqp_queue,
   }

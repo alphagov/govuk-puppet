@@ -29,6 +29,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
+    ensure        => 'absent',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.#.#',
@@ -36,6 +37,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   } ->
 
   govuk_rabbitmq::consumer { $amqp_user:
+    ensure               => 'absent',
     amqp_pass            => $amqp_pass,
     read_permission      => "^${amqp_queue}\$",
     write_permission     => "^\$",
