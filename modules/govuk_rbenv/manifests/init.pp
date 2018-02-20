@@ -6,6 +6,12 @@
 class govuk_rbenv {
   include rbenv
 
+  # @FIXME - Check once [ffi-gem](https://github.com/ffi/ffi) is past 1.9.21
+  # whether we still need to require this.
+  # It was added in as many ruby apps are installed with 1.9.21 and are
+  # failing to install some environments where this is not required.
+  ensure_packages(['libffi-dev'])
+
   unless $::lsbdistcodename == 'xenial' {
     rbenv::version { '1.9.3-p550':
       bundler_version  => '1.7.4',
