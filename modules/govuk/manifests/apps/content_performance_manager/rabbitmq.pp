@@ -23,13 +23,13 @@
 #
 class govuk::apps::content_performance_manager::rabbitmq (
   $amqp_user  = 'content_performance_manager',
-  $amqp_pass,
+  $amqp_pass = undef,
   $amqp_exchange = 'published_documents',
   $amqp_queue = 'content_performance_manager',
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
-    ensure        => 'absent',
+    ensure        => 'present',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.#.#',
@@ -37,7 +37,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   } ->
 
   govuk_rabbitmq::consumer { $amqp_user:
-    ensure               => 'absent',
+    ensure               => 'present',
     amqp_pass            => $amqp_pass,
     read_permission      => "^${amqp_queue}\$",
     write_permission     => "^\$",
