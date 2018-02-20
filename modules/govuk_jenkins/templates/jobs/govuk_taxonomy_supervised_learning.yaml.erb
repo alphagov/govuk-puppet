@@ -36,8 +36,8 @@
           export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api %>
 
           make clean
-          make data/taxons.json
-          make data/content.json
+          make data/taxons.json.gz
+          make data/content.json.gz
     parameters:
         - string:
             name: GIT_BRANCH
