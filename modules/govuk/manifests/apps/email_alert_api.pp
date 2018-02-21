@@ -102,6 +102,9 @@
 # [*email_address_override_whitelist*]
 #   Allow a whitelist of email addresses that ignore the override option.
 #
+# [*email_address_override_whitelist_only*]
+#   Specify that only emails that are whitelisted should be sent out.
+#
 # [*delivery_request_threshold*]
 #   Configure the number of requests that the rate limit will allow to be made in one minute.
 #
@@ -138,6 +141,7 @@ class govuk::apps::email_alert_api(
   $email_service_provider = 'NOTIFY',
   $email_address_override = undef,
   $email_address_override_whitelist = undef,
+  $email_address_override_whitelist_only = false,
   $delivery_request_threshold = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
@@ -257,6 +261,13 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST":
         varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
         value   => join($email_address_override_whitelist, ',');
+      }
+    }
+
+    if $email_address_override_whitelist_only {
+      govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY":
+        varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY',
+        value   => 'yes';
       }
     }
 
