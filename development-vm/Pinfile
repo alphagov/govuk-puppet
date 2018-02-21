@@ -69,8 +69,8 @@ process :'short-url-manager' => [:'publishing-api']
 process :signon => [:'signon-sidekiq']
 process :'signon-sidekiq'
 process :smartanswers => [:static, :'content-store', :imminence]
-process :'specialist-publisher' => ['asset-manager', :'publishing-api', :'email-alert-api']
-process :'specialist-publisher-worker' => [:'email-alert-api']
+process :'specialist-publisher' => [:'asset-manager', :'publishing-api', :'email-alert-api', :'specialist-publisher-worker']
+process :'specialist-publisher-worker' => [:'publishing-api', :'email-alert-api']
 process :static
 process :support => [:'support-api']
 process :'support-api'
