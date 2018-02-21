@@ -65,9 +65,8 @@ screenshot_as_a_service:                                  ./run_in.sh ../../scre
 # business-support-api used port 3061
 finder-frontend:       govuk_setenv finder-frontend       ./run_in.sh ../../finder-frontend bundle exec rails server -p 3062
 # finder-api used port 3063
-specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../../specialist-publisher bundle exec foreman start
+specialist-publisher:  govuk_setenv specialist-publisher  ./run_in.sh ../../specialist-publisher bundle exec rails server -p 3064
 specialist-publisher-worker: govuk_setenv specialist-publisher ./run_in.sh ../../specialist-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-manuals-publisher:     govuk_setenv manuals-publisher     ./run_in.sh ../../manuals-publisher bundle exec foreman start
 # specialist-frontend used port 3065
 content-store:         govuk_setenv content-store         ./run_in.sh ../../content-store  bundle exec rails server -p 3068
 dummy-content-store:   govuk_setenv content-store         ./run_in.sh ../../govuk-content-schemas  bundle exec ruby app.rb
@@ -149,7 +148,8 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # kibana has reserved port 3202
 # sidekiq-monitoring for travel-advice-publisher uses port 3203
 # grafana has reserved port 3204
-# manuals-publisher has reserved port 3205
+manuals-publisher:  govuk_setenv manuals-publisher  ./run_in.sh ../../manuals-publisher bundle exec rails server -p 3205
+manuals-publisher-worker: govuk_setenv manuals-publisher ./run_in.sh ../../manuals-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 # sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
 content-performance-manager-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
