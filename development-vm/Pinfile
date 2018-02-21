@@ -27,7 +27,8 @@ process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store
 process :'draft-router'
 process :'draft-router-api'
 process :'draft-static'
-process :'email-alert-api'
+process :'email-alert-api' => [:'email-alert-api-worker']
+process :'email-alert-api-worker'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
 process :'event-store'
