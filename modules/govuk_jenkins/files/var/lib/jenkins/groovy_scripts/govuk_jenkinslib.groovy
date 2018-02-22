@@ -106,6 +106,14 @@ def buildProject(Map options = [:]) {
     )
   ]
 
+  if (options.publishingE2ETests == true && env.PUBLISHING_E2E_TESTS_BRANCH == null) {
+    parameterDefinitions << stringParam(
+      name: "PUBLISHING_E2E_TESTS_BRANCH",
+      defaultValue: "test-against",
+      description: "The branch of publishing-e2e-tests to test against"
+    )
+  }
+
   if (options.extraParameters) {
     parameterDefinitions.addAll(options.extraParameters)
   }
