@@ -9,10 +9,6 @@
 #   The port that hmrc-manuals-api is served on.
 #   Default: 3071
 #
-# [*enable_procfile_worker*]
-#   Whether to enable the procfile worker
-#   Default: true
-#
 # [*allow_unknown_hmrc_manual_slugs*]
 #   Feature flag to allow publishing manuals (and their sections) with
 #   non-whitelisted manual slugs.
@@ -38,24 +34,14 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*redis_host*]
-#   Redis host for sidekiq.
-#
-# [*redis_port*]
-#   Redis port for sidekiq.
-#   Default: undef
-#
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
-  $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $allow_unknown_hmrc_manual_slugs = false,
   $oauth_id = undef,
   $oauth_secret = undef,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
-  $redis_host = undef,
-  $redis_port = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -76,11 +62,6 @@ class govuk::apps::hmrc_manuals_api(
         varname => 'PUBLISH_TOPICS',
         value   => '1';
     }
-  }
-
-  govuk::app::envvar::redis { 'hmrc-manuals-api':
-    host => $redis_host,
-    port => $redis_port,
   }
 
   govuk::app::envvar {
@@ -104,7 +85,8 @@ class govuk::apps::hmrc_manuals_api(
     log_format_is_json => true,
   }
 
+  # FIXME - Remove this when it's been run in production
   govuk::procfile::worker {'hmrc-manuals-api':
-    enable_service => $enable_procfile_worker,
+    ensure         => 'absent',
   }
 }
