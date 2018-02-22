@@ -27,7 +27,8 @@ process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store
 process :'draft-router'
 process :'draft-router-api'
 process :'draft-static'
-process :'email-alert-api'
+process :'email-alert-api' => [:'email-alert-api-worker']
+process :'email-alert-api-worker'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
 process :'event-store'
@@ -43,7 +44,8 @@ process :'link-checker-api' => [:'link-checker-api-sidekiq']
 process :'link-checker-api-sidekiq'
 process :'local-links-manager' => [:'link-checker-api']
 process :'manuals-frontend' => [:static, :'content-store']
-process :'manuals-publisher' => ['asset-manager', :'publishing-api', :'link-checker-api']
+process :'manuals-publisher' => [:'asset-manager', :'publishing-api', :'link-checker-api', :'manuals-publisher-worker']
+process :'manuals-publisher-worker' => [:'publishing-api']
 process :mapit
 process :maslow
 process :'policy-publisher' => [:'publishing-api']
@@ -68,8 +70,8 @@ process :'short-url-manager' => [:'publishing-api']
 process :signon => [:'signon-sidekiq']
 process :'signon-sidekiq'
 process :smartanswers => [:static, :'content-store', :imminence]
-process :'specialist-publisher' => ['asset-manager', :'publishing-api', :'email-alert-api']
-process :'specialist-publisher-worker' => [:'email-alert-api']
+process :'specialist-publisher' => [:'asset-manager', :'publishing-api', :'email-alert-api', :'specialist-publisher-worker']
+process :'specialist-publisher-worker' => [:'publishing-api', :'email-alert-api']
 process :static
 process :support => [:'support-api']
 process :'support-api'
