@@ -65,8 +65,6 @@
  *          tests.  Default: false
  *        - afterTest A closure containing commands to run after the test stage,
  *          such as report publishing
- *        - newStyleDockerTags Tag docker images with timestamp and git SHA
- *          rather than the default of the build number
  *        - repoName Provide this if the Github Repo name for the app is
  *          different to the jenkins job name.
  *        - extraParameters Provide details here of any extra parameters that
@@ -181,7 +179,7 @@ def buildProject(Map options = [:]) {
 
         if (hasDockerfile()) {
           stage("Tag Docker image") {
-            dockerTagMasterBranch(jobName, env.BRANCH_NAME, env.BUILD_NUMBER, options.newStyleDockerTags)
+            dockerTagMasterBranch(jobName, env.BRANCH_NAME, env.BUILD_NUMBER)
           }
         }
 
@@ -858,8 +856,8 @@ def buildDockerImage(imageName, tagName, quiet = false) {
 
 /**
  */
-def dockerTagMasterBranch(jobName, branchName, buildNumber, newStyleDockerTags = false) {
-  dockerTag = newStyleDockerTags ? getNewStyleReleaseTag() : "release_${buildNumber}"
+def dockerTagMasterBranch(jobName, branchName, buildNumber) {
+  dockerTag = "release_${buildNumber}"
   pushDockerImage(jobName, branchName, dockerTag)
 
   if (releaseBranchExists()) {
@@ -916,15 +914,6 @@ def uploadArtefactToS3(artefact_path, s3_path){
                      passwordVariable: 'AWS_SECRET_ACCESS_KEY']]){
     sh "s3cmd --region eu-west-1 --acl-public --access_key $AWS_ACCESS_KEY_ID --secret_key $AWS_SECRET_ACCESS_KEY put $artefact_path $s3_path"
   }
-}
-
-/*
- * Return string formatted to the new tag style of `release_<timestamp>_<sha>`
- */
-def getNewStyleReleaseTag(){
-  gitCommit = getGitCommit()
-  timestamp = sh(returnStdout: true, script: 'date +%s').trim()
-  return "release_${timestamp}_${gitCommit}"
 }
 
 /**
