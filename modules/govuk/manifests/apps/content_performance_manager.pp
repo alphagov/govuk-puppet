@@ -46,18 +46,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*rabbitmq_hosts*]
-#   RabbitMQ hosts to connect to.
-#   Default: localhost
-#
-# [*rabbitmq_user*]
-#   RabbitMQ username.
-#   This is a required parameter
-#
-# [*rabbitmq_password*]
-#   RabbitMQ password.
-#   This is a required parameter
-#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -85,10 +73,6 @@ class govuk::apps::content_performance_manager(
   $oauth_secret = undef,
   $port = '3206',
   $publishing_api_bearer_token = undef,
-  $rabbitmq_hosts = ['localhost'],
-  $rabbitmq_vhost = '/',
-  $rabbitmq_password,
-  $rabbitmq_user,
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
@@ -120,12 +104,6 @@ class govuk::apps::content_performance_manager(
     process_type   => 'publishing-api-worker',
   }
 
-  govuk::procfile::worker { "${app_name}-publishing-api-consumer":
-    enable_service => $enable_procfile_worker,
-    setenv_as      => $app_name,
-    process_type   => 'publishing-api-consumer',
-  }
-
   govuk::app::envvar {
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
@@ -145,18 +123,6 @@ class govuk::apps::content_performance_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-    "${title}-RABBITMQ_HOSTS":
-      varname => 'RABBITMQ_HOSTS',
-      value   => join($rabbitmq_hosts, ',');
-    "${title}-RABBITMQ_VHOST":
-      varname => 'RABBITMQ_VHOST',
-      value   => $rabbitmq_vhost;
-    "${title}-RABBITMQ_USER":
-      varname => 'RABBITMQ_USER',
-      value   => $rabbitmq_user;
-    "${title}-RABBITMQ_PASSWORD":
-      varname => 'RABBITMQ_PASSWORD',
-      value   => $rabbitmq_password;
   }
 
   govuk::app::envvar::redis { $app_name:
