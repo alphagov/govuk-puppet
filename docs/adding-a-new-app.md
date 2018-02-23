@@ -117,6 +117,19 @@ This entry should be encrypted.
 Add a values for `db::password` and `db_password` in `hieradata/vagrant_credentials.yaml`.
 This is necessary for puppet specs to pass on CI.
 
+### AWS RDS Database Management with db_admin
+
+`db_admin` needs to know about the database in order to administrate it. See docs in `govuk-aws` on [RDS Database Management](https://github.com/alphagov/govuk-aws/blob/master/doc/guides/rds-database-management.md).
+
+For example when using PostgreSQL, to enable `db_admin` edit [modules/govuk/manifests/node/s_db_admin.pp](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/node/s_db_admin.pp) and add `your_app`:
+
+```
+# include all PostgreSQL classes that create databases and users
+  class { '::govuk::apps::your_app::db': } ->
+  class { '::govuk::apps::another_app::db': } ->
+  class { '::govuk::apps::yet_another_app::db': }
+```
+
 ## Environment variables
 
 If your application needs other environment variables, they will need to be added to
@@ -181,6 +194,8 @@ setting the default to be `true` and removing all the flags in the hieradata
 files.
 
 ## Including the app on machines
+
+*For AWS hosted environments, where `hieradata` is mentioned below you will need to add configs into `hieradata_aws`*.
 
 Once you have created a class for your app, you need to include it in the appropriate nodes.
 These can be found in `hieradata/common.yaml` under the `node_class` key.
