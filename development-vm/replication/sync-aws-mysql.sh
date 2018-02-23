@@ -31,8 +31,9 @@ status "Starting MySQL replication from S3 ${SRC_HOSTNAME}"
 if ! $SKIP_DOWNLOAD; then
   mkdir -p $MYSQL_DIR
 
-  status "Downloading latest mysql backup from ${SRC_HOSTNAME}"
-  aws s3 sync s3://govuk-integration-database-backups/mysql/$(date '+%Y-%m-%d')/ $MYSQL_DIR/
+  exclude=""
+  for i in $IGNORE; do exclude="${exclude}--exclude ${i}_production.dump.gz "; done
+  aws s3 sync ${exclude} s3://govuk-integration-database-backups/mysql/$(date '+%Y-%m-%d')/ $MYSQL_DIR/
 fi
 
 status "Importing mysql backup from ${SRC_HOSTNAME}"

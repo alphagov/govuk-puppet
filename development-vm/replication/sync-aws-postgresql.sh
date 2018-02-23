@@ -29,7 +29,9 @@ POSTGRESQL_DIR="${DIR}/postgresql/"
 status "Starting PostgreSQL replication from AWS backups"
 
 if ! $SKIP_DOWNLOAD; then
-  aws s3 sync s3://govuk-integration-database-backups/postgres/$(date '+%Y-%m-%d')/ $POSTGRESQL_DIR/
+  exclude=""
+  for i in $IGNORE; do exclude="${exclude}--exclude ${i}_production.dump.gz "; done
+  aws s3 sync ${exclude} s3://govuk-integration-database-backups/postgres/$(date '+%Y-%m-%d')/ $POSTGRESQL_DIR
 fi
 
 status "Importing PostgreSQL backups"
