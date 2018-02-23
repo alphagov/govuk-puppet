@@ -84,7 +84,7 @@ define govuk::procfile::worker (
       require => Exec["stop_service_${service_name}"],
     }
 
-    file { "/etc/init/${service_name}-child.conf":
+    file { "/etc/init/${service_name}_child.conf":
       ensure  => absent,
       require => Exec["stop_service_${service_name}"],
     }
