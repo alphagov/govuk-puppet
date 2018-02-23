@@ -7,7 +7,9 @@ set -eu
 
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent PostgreSQL dump files from the Integration backup bucket."
-. ./common-args.sh
+
+. $(dirname $0)/aws.sh
+. $(dirname $0)/common-args.sh
 
 if $SKIP_POSTGRES; then
   exit

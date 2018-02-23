@@ -7,7 +7,9 @@ set -eu
 
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent MongoDB dump files from the given host."
-. ./common-args.sh
+
+. $(dirname $0)/common-args.sh
+. $(dirname $0)/aws.sh
 
 if $SKIP_MONGO; then
   exit

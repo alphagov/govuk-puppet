@@ -7,7 +7,10 @@ USAGE_DESCRIPTION="Download Elasticsearch index archives and import into another
 
 If one or more index names are given, only those index files are imported;
 otherwise, all index files are imported."
-. ./common-args.sh
+
+. $(dirname $0)/common-args.sh
+. $(dirname $0)/aws.sh
+
 if $SKIP_ELASTIC; then
   exit
 fi

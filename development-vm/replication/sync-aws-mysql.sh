@@ -7,7 +7,9 @@ set -eu
 
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent MySQL dump files from the Integration backup bucket."
-. ./common-args.sh
+
+. $(dirname $0)/common-args.sh
+. $(dirname $0)/aws.sh
 
 if $SKIP_MYSQL; then
   exit
