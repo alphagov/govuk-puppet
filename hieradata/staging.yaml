@@ -268,6 +268,12 @@ hosts::production::backend::hosts:
     ip: '10.2.3.16'
   elasticsearch-3:
     ip: '10.2.3.17'
+  email-alert-api-1:
+    ip: '10.2.3.40'
+  email-alert-api-2:
+    ip: '10.2.3.41'
+  email-alert-api-3:
+    ip: '10.2.3.42'
   mongo-1:
     ip: '10.2.3.6'
     service_aliases:
