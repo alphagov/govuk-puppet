@@ -119,8 +119,9 @@ define govuk_postgresql::db (
         tag      => 'govuk_postgresql::server::not_slave',
     }
 
+    validate_array($extensions)
+
     if ! $rds {
-      validate_array($extensions)
       if (!empty($extensions)) {
           $temp_extensions = prefix($extensions,"${db_name}:")
           @govuk_postgresql::extension { $temp_extensions:
@@ -157,6 +158,13 @@ define govuk_postgresql::db (
     if ! $rds {
       collectd::plugin::postgresql_db{$db_name:}
       govuk_postgresql::monitoring::db{$db_name:}
+    }
+  } else {
+    if (!empty($extensions)) {
+      postgresql::server::extension { $extensions:
+        ensure   => present,
+        database => $db_name,
+      }
     }
   }
 }
