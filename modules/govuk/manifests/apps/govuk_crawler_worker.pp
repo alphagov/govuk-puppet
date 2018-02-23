@@ -76,7 +76,7 @@ class govuk::apps::govuk_crawler_worker (
       'REDIS_ADDRESS':
         value => '127.0.0.1:6379';
       'REDIS_KEY_PREFIX':
-        value => 'govuk_crawler_worker';
+        value => 'gcw';
       'ROOT_URLS':
         value => join($root_urls, ',');
       'MIRROR_ROOT':
