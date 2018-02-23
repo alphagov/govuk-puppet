@@ -33,6 +33,7 @@ if ! $SKIP_DOWNLOAD; then
 
   exclude=""
   for i in $IGNORE; do exclude="${exclude}--exclude ${i}_production.dump.gz "; done
+  aws_auth
   aws s3 sync ${exclude} s3://govuk-integration-database-backups/mysql/$(date '+%Y-%m-%d')/ $MYSQL_DIR/
 fi
 

@@ -38,18 +38,22 @@ else
   status "Downloading latest es backups from AWS"
 
   # Get the meta and snap files require to do the restore
+  aws_auth
   remote_config_paths=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/ | grep snapshot | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   status "${remote_config_paths}"
   for remote_config_path in $remote_config_paths; do
     status "Syncing data from ${remote_config_path}"
+    aws_auth
     aws s3 cp s3://govuk-integration-database-backups/elasticsearch/${remote_config_path} $LOCAL_ARCHIVE_PATH/
   done
 
   # get the index directories
+  aws_auth
   remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/indices/)
   remote_paths=$(echo $remote_file_details | ruby -e 'STDOUT << STDIN.read.split("PRE").group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   for remote_path in $remote_paths; do
     status "Syncing data from ${remote_path}"
+    aws_auth
     aws s3 sync s3://govuk-integration-database-backups/elasticsearch/indices/${remote_path} $LOCAL_ARCHIVE_PATH/indices/$remote_path/
   done
 fi
