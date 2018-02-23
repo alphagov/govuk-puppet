@@ -84,23 +84,35 @@ def buildProject(Map options = [:]) {
   }
 
   def parameterDefinitions = [
-    [$class: 'BooleanParameterDefinition',
+    booleanParam(
       name: 'IS_SCHEMA_TEST',
       defaultValue: false,
-      description: 'Identifies whether this build is being triggered to test a change to the content schemas'],
-    [$class: 'BooleanParameterDefinition',
+      description: 'Identifies whether this build is being triggered to test a change to the content schemas'
+    ),
+    booleanParam(
       name: 'PUSH_TO_GCR',
       defaultValue: false,
-      description: '--TESTING ONLY-- Whether to push the docker image to Google Container Registry.'],
-    [$class: 'StringParameterDefinition',
+      description: '--TESTING ONLY-- Whether to push the docker image to Google Container Registry.'
+    ),
+    stringParam(
       name: 'SCHEMA_BRANCH',
       defaultValue: 'deployed-to-production',
-      description: 'The branch of govuk-content-schemas to test against'],
-    [$class: 'StringParameterDefinition',
+      description: 'The branch of govuk-content-schemas to test against'
+    ),
+    stringParam(
       name: 'SCHEMA_COMMIT',
       defaultValue: 'invalid',
-      description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test']
+      description: 'The commit of govuk-content-schemas that triggered this build, if it is a schema test'
+    )
   ]
+
+  if (options.publishingE2ETests == true && env.PUBLISHING_E2E_TESTS_BRANCH == null) {
+    parameterDefinitions << stringParam(
+      name: "PUBLISHING_E2E_TESTS_BRANCH",
+      defaultValue: "test-against",
+      description: "The branch of publishing-e2e-tests to test against"
+    )
+  }
 
   if (options.extraParameters) {
     parameterDefinitions.addAll(options.extraParameters)
@@ -108,9 +120,8 @@ def buildProject(Map options = [:]) {
 
   properties([
     buildDiscarder(
-      logRotator(
-        numToKeepStr: '50')
-      ),
+      logRotator(numToKeepStr: '50')
+    ),
     [$class: 'RebuildSettings', autoRebuild: false, rebuildDisabled: false],
     [$class: 'ParametersDefinitionProperty', parameterDefinitions: parameterDefinitions],
   ])
