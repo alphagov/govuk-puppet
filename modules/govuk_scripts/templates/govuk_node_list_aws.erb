@@ -46,6 +46,24 @@ def ec2_nodes(stackname, nodeclass=None):
 
     return(hosts)
 
+def ec2_classes(stackname):
+    client = boto3.client('ec2', region_name=region)
+
+    response = client.describe_instances(
+           Filters=[
+              {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+              {'Name': 'instance-state-name','Values': ['running']}
+           ]
+       )
+
+    nodes = response['Reservations']
+
+    classes = []
+    for instance in nodes:
+    classes.append(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags'])[0]['Value'])
+
+    return(sorted(set(classes)))
+
 def get_hostname_by_id(instance_id):
     client = boto3.client('ec2', region_name=region)
     response = client.describe_instances(InstanceIds=[instance_id])
@@ -60,7 +78,12 @@ def get_hostname_by_id(instance_id):
 def main():
     opts, args = parser.parse_args()
 
-    if opts.node_class:
+    if opts.classes:
+        classes = ec2_classes(stackname)
+        print("\n".join(classes))
+        exit(0)
+
+    elif opts.node_class:
         if any('-' in c for c in opts.node_class):
             parser.error('Node classes should not use hyphens. Hint: Try an underscore')
 
@@ -125,6 +148,13 @@ parser.add_option(
     help='Select a single node at random',
     action='store_true',
     dest='single_node',
+)
+
+parser.add_option(
+    '--classes',
+    help='List the available classes',
+    action='store_true',
+    dest='classes',
 )
 
 if __name__ == '__main__':
