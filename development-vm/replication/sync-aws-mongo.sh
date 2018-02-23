@@ -55,7 +55,7 @@ if [ -e $MONGO_DIR/.extracted ]; then
   status "Mongo dump has already been extracted."
 else
   status "Extracting compressed files..."
-  tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
+  pv $MONGO_DIR/*.tgz | tar -zxf - -C $MONGO_DIR
   touch $MONGO_DIR/.extracted
 fi
 
