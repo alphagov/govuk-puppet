@@ -60,7 +60,7 @@ def ec2_classes(stackname):
 
     classes = []
     for instance in nodes:
-    classes.append(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags'])[0]['Value'])
+        classes.append(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags'])[0]['Value'])
 
     return(sorted(set(classes)))
 
