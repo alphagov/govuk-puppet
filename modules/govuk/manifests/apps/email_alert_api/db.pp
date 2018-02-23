@@ -23,5 +23,6 @@ class govuk::apps::email_alert_api::db (
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
+    extensions              => ['uuid-ossp'],
   }
 }
