@@ -352,8 +352,8 @@ govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_performance_manager::rabbitmq::amqp_pass: 'content_performance_manager'
-govuk::apps::content_performance_manager::rabbitmq_password: 'content_performance_manager'
+govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
+govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
 govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_performance_manager::rabbitmq_hosts:
