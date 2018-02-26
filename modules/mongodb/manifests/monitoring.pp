@@ -70,5 +70,6 @@ class mongodb::monitoring (
     check_command       => 'check_nrpe!check_mongodb!replset_state',
     service_description => 'mongod replset state',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(recreate-a-mongo-instance-in-aws),
   }
 }
