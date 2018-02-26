@@ -220,6 +220,13 @@
 #   don't set the env var, and use on govuk_app_config's default value.
 #   Default: undef
 #
+# [*cpu_warning*]
+#   CPU usage percentage that alerts are sounded at
+#   Default: undef
+#
+# [*cpu_critical*]
+#   CPU usage percentage that alerts are sounded at
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -251,6 +258,8 @@ define govuk::app (
   $repo_name = undef,
   $sentry_dsn = undef,
   $unicorn_worker_processes = undef,
+  $cpu_warning = 150,
+  $cpu_critical = 200,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -321,6 +330,8 @@ define govuk::app (
     sentry_dsn                     => $sentry_dsn,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     unicorn_worker_processes       => $unicorn_worker_processes,
+    cpu_warning                    => $cpu_warning,
+    cpu_critical                   => $cpu_critical,
   }
 
   govuk::app::service { $title:

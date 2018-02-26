@@ -25,6 +25,13 @@
 #   don't set the env var, and use on govuk_app_config's default value.
 #   Default: undef
 #
+# [*cpu_warning*]
+#   CPU usage percentage that alerts are sounded at
+#   Default: undef
+#
+# [*cpu_critical*]
+#   CPU usage percentage that alerts are sounded at
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -54,6 +61,8 @@ define govuk::app::config (
   $proxy_http_version_1_1_enabled = false,
   $sentry_dsn = undef,
   $unicorn_worker_processes = undef,
+  $cpu_warning = 150,
+  $cpu_critical = 200,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -235,8 +244,8 @@ define govuk::app::config (
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure    => $ensure,
       target    => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
-      warning   => 150,
-      critical  => 200,
+      warning   => $cpu_warning,
+      critical  => $cpu_critical,
       desc      => "high CPU usage for ${title} app",
       host_name => $::fqdn,
     }

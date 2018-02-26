@@ -108,6 +108,13 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*cpu_warning*]
+#   CPU usage percentage that alerts are sounded at
+#   Default: undef
+#
+# [*cpu_critical*]
+#   CPU usage percentage that alerts are sounded at
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -142,6 +149,8 @@ class govuk::apps::whitehall(
   $jwt_auth_secret = undef,
   $co_nss_watchkeeper_email_address = undef,
   $link_checker_api_secret_token = undef,
+  $cpu_warning = 150,
+  $cpu_critical = 200,
 ) {
 
   $app_name = 'whitehall'
@@ -179,6 +188,8 @@ class govuk::apps::whitehall(
     unicorn_herder_timeout   => 45,
     require                  => Package['unzip'],
     unicorn_worker_processes => $unicorn_worker_processes,
+    cpu_warning              => $cpu_warning,
+    cpu_critical             => $cpu_critical,
   }
 
   Govuk::App::Envvar {
