@@ -24,6 +24,7 @@ node_class: &node_class
       - content-audit-tool
       - content-performance-manager
       - content-tagger
+      # Remove the next two apps after migration to new servers
       - email-alert-api
       - email-alert-service
       - event-store
@@ -80,6 +81,10 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
+  email_alert_api:
+    apps:
+      - email-alert-api
+      - email-alert-service
   frontend:
     apps:
       - canary-frontend
