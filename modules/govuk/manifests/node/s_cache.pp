@@ -30,15 +30,23 @@
 #
 #   Default: false
 #
+# [*router_as_container*]
+#   Set to true to run Router as a container in Docker.
+#
 class govuk::node::s_cache (
   $protect_cache_servers = false,
   $real_ip_header = undef,
   $denied_ip_addresses = undef,
   $enable_authenticating_proxy = false,
+  $router_as_container = false,
 ) inherits govuk::node::s_base {
 
   include govuk_htpasswd
   include router::gor
+
+  if $router_as_container {
+    include ::govuk_containers::apps::router
+  }
 
   class { 'nginx':
     denied_ip_addresses     => $denied_ip_addresses,
