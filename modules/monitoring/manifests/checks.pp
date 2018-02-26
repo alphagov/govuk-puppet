@@ -123,6 +123,7 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    notes_url           => monitoring_docs_url(rummager-index-size-change),
     from                => '15minutes',
     args                => "--dropfirst ${drop_first}",
   }
@@ -136,6 +137,7 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    notes_url           => monitoring_docs_url(rummager-index-size-change),
     from                => '15minutes',
     args                => "--dropfirst ${drop_first}",
   }
@@ -149,6 +151,7 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notification_period => 'inoffice',
     action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
+    notes_url           => monitoring_docs_url(rummager-index-size-change),
     from                => '15minutes',
     args                => "--dropfirst ${drop_first}",
   }
