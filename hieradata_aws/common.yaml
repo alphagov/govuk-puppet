@@ -721,6 +721,13 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
+govuk_containers::apps::router::envvars:
+  - "ROUTER_PUBADDR=localhost:3054"
+  - "ROUTER_APIADDR=:3055"
+  - "ROUTER_MONGO_DB=router"
+  - "ROUTER_MONGO_URL=router-backend-1,router-backend-2,router-backend-3"
+  - "ROUTER_BACKEND_HEADER_TIMEOUT=20s"
+
 govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
