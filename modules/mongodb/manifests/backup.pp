@@ -89,6 +89,7 @@ class mongodb::backup(
       service_description => $service_desc,
       freshness_threshold => $threshold_secs,
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(low-space-for-automongodbbackup),
     }
   }
 
