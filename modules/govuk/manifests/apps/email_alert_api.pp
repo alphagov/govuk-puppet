@@ -8,6 +8,11 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*ensure*]
+#   Should the application be present or absent. Used for transitioning from
+#   backend servers to own servers.
+#   Default: present
+#
 # [*enabled*]
 #   Should the application should be enabled. Set in hiera data for each
 #   environment.
@@ -44,7 +49,7 @@
 #   the notify based one) is in operation.
 #   Default: false
 #
-# [*use_email_alert_frontend_for_email_collection]
+# [*use_email_alert_frontend_for_email_collection*]
 #   If set, users will be redirected to email-alert-frontend to enter their
 #   email address instead of govdelivery. This affects the `subscription_url`
 #   in responses from the Email Alert API which is used by `collections`,
@@ -110,6 +115,7 @@
 #
 class govuk::apps::email_alert_api(
   $port = '3088',
+  $ensure = 'present',
   $enabled = false,
   $enable_public_proxy = true,
   $enable_procfile_worker = true,
@@ -151,6 +157,7 @@ class govuk::apps::email_alert_api(
 
   if $enabled {
     govuk::app { 'email-alert-api':
+      ensure             => $ensure,
       app_type           => 'rack',
       port               => $port,
       sentry_dsn         => $sentry_dsn,
@@ -162,6 +169,7 @@ class govuk::apps::email_alert_api(
     include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
     govuk::procfile::worker {'email-alert-api':
+      ensure         => $ensure,
       enable_service => $enable_procfile_worker,
     }
 

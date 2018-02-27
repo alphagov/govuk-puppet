@@ -22,9 +22,6 @@ node_class: &node_class
       - content-audit-tool
       - content-performance-manager
       - content-tagger
-      # Remove the next two apps after migration to new servers
-      - email-alert-api
-      - email-alert-service
       - event-store
       - hmrc-manuals-api
       - imminence
