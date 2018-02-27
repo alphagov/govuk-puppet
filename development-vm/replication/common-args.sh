@@ -13,7 +13,6 @@ ${USAGE_DESCRIPTION-}
 
 OPTIONS:
     -h       Show this message
-    -a       2FA authorisation code (REQUIRED when downloading)
     -F file  Use a custom SSH configuration file
     -u user  SSH user to log in as (overrides SSH config)
     -d dir   Use named directory to store and load backups
@@ -55,14 +54,10 @@ function ignored() {
   return 1
 }
 
-TOKEN_REQUIRED=1
-while getopts "a:hF:u:d:sri:onmpqet" OPTION
+
+while getopts "hF:u:d:sri:onmpqet" OPTION
 do
   case $OPTION in
-    a )
-      TOKEN_REQUIRED=0
-      MFA_TOKEN=$OPTARG
-      ;;
     h )
       usage
       exit 1
@@ -77,7 +72,6 @@ do
       DIR=$OPTARG
       ;;
     s )
-      TOKEN_REQUIRED=0
       SKIP_DOWNLOAD=true
       ;;
     r )
@@ -109,12 +103,3 @@ do
       ;;
   esac
 done
-
-if [ $TOKEN_REQUIRED -eq 1 ]
-  then
-  usage
-  echo '---------------------------'
-  echo "!! MISSING MFA/2FA TOKEN !!"
-  echo '---------------------------'
-  exit 2
-fi

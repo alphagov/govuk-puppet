@@ -7,7 +7,9 @@ set -eu
 
 USAGE_LINE="$0 [options] SRC_HOSTNAME"
 USAGE_DESCRIPTION="Load the most recent MongoDB dump files from the given host."
-. ./common-args.sh
+
+. $(dirname $0)/common-args.sh
+. $(dirname $0)/aws.sh
 
 if $SKIP_MONGO; then
   exit
@@ -32,6 +34,7 @@ if ! $SKIP_DOWNLOAD; then
   status "Starting MongoDB replication from S3: ${SRC_HOSTNAME}"
 
   # get the last file name from s3
+  aws_auth
   remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/mongodb/daily/${SRC_HOSTNAME}/ | tail -n1)
   arr_file_details=($remote_file_details)
   FILE_NAME=${arr_file_details[3]}
@@ -54,7 +57,7 @@ if [ -e $MONGO_DIR/.extracted ]; then
   status "Mongo dump has already been extracted."
 else
   status "Extracting compressed files..."
-  tar -zxf $MONGO_DIR/*.tgz -C $MONGO_DIR
+  pv $MONGO_DIR/*.tgz | tar -zxf - -C $MONGO_DIR
   touch $MONGO_DIR/.extracted
 fi
 
