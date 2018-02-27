@@ -5,11 +5,6 @@
 #
 # === Parameters
 #
-# [*ensure*]
-#   Should the application be present or absent. Used for transitioning from
-#   backend servers to own servers.
-#   Default: present
-#
 # [*enabled*]
 #   Should the application should be enabled. Set in hiera data for each
 #   environment.
@@ -34,7 +29,6 @@
 #   Bearer token for communication with the email-alert-api
 #
 class govuk::apps::email_alert_service(
-  $ensure = 'present',
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'email_alert_service',
   $rabbitmq_password = 'email_alert_service',
@@ -43,7 +37,6 @@ class govuk::apps::email_alert_service(
   $email_alert_api_bearer_token = undef,
 ) {
   govuk::app { 'email-alert-service':
-    ensure             => $ensure,
     app_type           => 'bare',
     enable_nginx_vhost => false,
     sentry_dsn         => $sentry_dsn,
