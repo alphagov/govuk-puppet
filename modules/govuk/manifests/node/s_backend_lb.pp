@@ -94,11 +94,11 @@ class govuk::node::s_backend_lb (
 
   loadbalancer::balance { 'email-alert-api':
       internal_only => true,
-      servers       => unique(flatten([$backend_servers, $email_alert_api_backend_servers])),
+      servers       => $email_alert_api_backend_servers,
   }
 
   loadbalancer::balance { 'email-alert-api-public':
-      servers       => unique(flatten([$backend_servers, $email_alert_api_backend_servers])),
+      servers       => $email_alert_api_backend_servers,
   }
 
   loadbalancer::balance { 'publishing-api':
