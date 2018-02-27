@@ -16,6 +16,9 @@
 # [*whitehall_backend_servers*]
 #   An array of whitehall backend app servers
 #
+# [*email_alert_api_backend_servers*]
+#   An array of email-alert-api backend app servers
+#
 # [*publishing_api_backend_servers*]
 #   An array of publishing-api backend app servers
 #
@@ -27,6 +30,7 @@ class govuk::node::s_backend_lb (
   $backend_servers,
   $performance_backend_servers = [],
   $whitehall_backend_servers,
+  $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
   $maintenance_mode = false,
 ){
@@ -50,7 +54,6 @@ class govuk::node::s_backend_lb (
     'content-audit-tool',
     'content-performance-manager',
     'content-tagger',
-    'email-alert-api-public',
     'imminence',
     'link-checker-api',
     'local-links-manager',
@@ -74,7 +77,6 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { [
       'asset-manager',
       'canary-backend',
-      'email-alert-api',
       'event-store',
       'support-api',
     ]:
@@ -88,6 +90,15 @@ class govuk::node::s_backend_lb (
     ]:
       deny_crawlers => true,
       servers       => $whitehall_backend_servers,
+  }
+
+  loadbalancer::balance { 'email-alert-api':
+      internal_only => true,
+      servers       => unique(flatten([$backend_servers, $email_alert_api_backend_servers])),
+  }
+
+  loadbalancer::balance { 'email-alert-api-public':
+      servers       => unique(flatten([$backend_servers, $email_alert_api_backend_servers])),
   }
 
   loadbalancer::balance { 'publishing-api':

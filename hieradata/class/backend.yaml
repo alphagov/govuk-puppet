@@ -5,6 +5,8 @@ govuk::apps::contacts::db_hostname: 'mysql-master-1.backend'
 govuk::apps::contacts::db_username: 'contacts'
 govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"
 
+govuk::apps::email_alert_api::enable_procfile_worker: false
+
 govuk::apps::event_store::mongodb_servers:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -47,6 +49,7 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
+
 
 govuk_elasticsearch::local_proxy::servers:
   - 'elasticsearch-1.backend'
