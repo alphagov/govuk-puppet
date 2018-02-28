@@ -1,0 +1,29 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.libs.GlobalLibraries plugin="workflow-cps-global-lib@2.8">
+  <libraries>
+    <%- @jenkins_libraries.each do |name, values| -%>
+    <org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+      <name><%= name %></name>
+      <retriever class="org.jenkinsci.plugins.workflow.libs.SCMSourceRetriever">
+        <scm class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.0.5">
+          <checkoutCredentialsId>SAME</checkoutCredentialsId>
+          <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
+          <repoOwner><%= values['org'] %></repoOwner>
+          <repository><%= values['repository'] %></repository>
+          <includes>*</includes>
+          <excludes></excludes>
+          <buildOriginBranch>true</buildOriginBranch>
+          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
+          <buildOriginPRMerge>false</buildOriginPRMerge>
+          <buildOriginPRHead>false</buildOriginPRHead>
+          <buildForkPRMerge>true</buildForkPRMerge>
+          <buildForkPRHead>false</buildForkPRHead>
+        </scm>
+      </retriever>
+      <defaultVersion><%= values['default_version'] %></defaultVersion>
+      <implicit><%= values['implicit_load'].to_s %></implicit>
+      <allowVersionOverride>true</allowVersionOverride>
+    </org.jenkinsci.plugins.workflow.libs.LibraryConfiguration>
+    <%- end -%>
+  </libraries>
+</org.jenkinsci.plugins.workflow.libs.GlobalLibraries>
