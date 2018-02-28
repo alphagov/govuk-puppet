@@ -24,21 +24,10 @@
           #!/bin/bash
           git checkout -B ${GIT_BRANCH} origin/${GIT_BRANCH}
 
-          rm -rf ./venv
-          virtualenv --python=python3 --no-site-packages ./venv
-          export VIRTUAL_ENV="$PWD/venv"
-          export PATH="$PWD/venv/bin:$PATH"
-          pip3 install --upgrade pip
-
-          make pip_install
-
           export PLEK_SERVICE_RUMMAGER_URI=https://<%= @rummager_api %>
           export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api %>
 
-          make clean
-          make data/taxons.json.gz
-          make data/content.json.gz
-          make measure_average_taxons
+          source bin/govuk_taxonomy_supervised_learning_jenkins_script
     parameters:
         - string:
             name: GIT_BRANCH
