@@ -7,6 +7,7 @@ mongodb::server::replicaset_members:
 clamav::use_service: false
 
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
+govuk_ci::agent::postgresql::email_alert_api_role_password: 'email-alert-api'
 postgresql::globals::version: '9.3'
 govuk_postgresql::server::enable_collectd: false
 
