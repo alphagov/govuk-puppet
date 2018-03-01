@@ -40,6 +40,10 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -51,25 +55,27 @@ class govuk::apps::frontend(
   $redis_port = undef,
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $unicorn_worker_processes = undef,
 ) {
 
   govuk::app { 'frontend':
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_protected        => $vhost_protected,
-    health_check_path      => '/',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'frontend',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    vhost                  => $vhost,
-    nginx_extra_config     => '
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_protected          => $vhost_protected,
+    health_check_path        => '/',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => 'frontend',
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    vhost                    => $vhost,
+    nginx_extra_config       => '
   location ^~ /frontend/homepage/no-cache/ {
     expires epoch;
   }
   ',
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   govuk::app::envvar::redis { 'frontend':
