@@ -90,7 +90,6 @@ govuk_mysql::server::slow_query_log: true
 govuk::node::s_asset_master::copy_attachments_hour: 7
 
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
-govuk::node::s_cache::router_as_container: true
 govuk::node::s_monitoring::offsite_backups: false
 
 govuk_sudo::sudo_conf:
