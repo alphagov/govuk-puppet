@@ -460,6 +460,8 @@ echo ======================================================================
       then
         mkdir -p "$BACKUPDIR/monthly/$MDB"
       fi
+      # Delete all files older than 90 days/3 months
+      find $BACKUPDIR/monthly/$MDB/ -type f -mtime +90 -exec rm {} \+
       echo Monthly Backup of $MDB...
         dbdump "$MDB" "$BACKUPDIR/monthly/$MDB/${MDB}_$DATE.$M.$MDB.$EXT"
         compression "$BACKUPDIR/monthly/$MDB/${MDB}_$DATE.$M.$MDB.$EXT"
