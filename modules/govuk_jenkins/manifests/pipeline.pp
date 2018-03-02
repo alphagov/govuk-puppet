@@ -35,6 +35,8 @@ class govuk_jenkins::pipeline (
   }
 
   file { '/var/lib/jenkins/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml':
+    owner   => $user,
+    group   => $group,
     ensure  => present,
     content => template('govuk_jenkins/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml'),
   }
