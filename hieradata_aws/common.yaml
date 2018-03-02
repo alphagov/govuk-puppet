@@ -388,6 +388,7 @@ govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: 'postgresql-primary'
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
+govuk::apps::email_alert_api::unicorn_worker_processes: '4'
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
