@@ -15,6 +15,7 @@ finder-frontend
 frontend
 gds-api-adapters
 government-frontend
+govuk-aws
 govuk-content-schema-test-helpers
 govuk-content-schemas
 govuk-puppet
