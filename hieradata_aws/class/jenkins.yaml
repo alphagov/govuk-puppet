@@ -60,6 +60,7 @@ govuk_jenkins::config::theme_environment_name: 'AWS Integration'
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::check_content_consistency
   - govuk_jenkins::jobs::check_content_store
+  - govuk_jenkins::jobs::clear_frontend_caches
   - govuk_jenkins::jobs::configure_github_repos
   - govuk_jenkins::jobs::data_sync_complete_integration
   - govuk_jenkins::jobs::deploy_app

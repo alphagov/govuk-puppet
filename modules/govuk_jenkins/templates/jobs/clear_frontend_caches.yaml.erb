@@ -1,0 +1,23 @@
+---
+- job:
+    name: clear-frontend-caches
+    display-name: Clear the frontend caches
+    project-type: freestyle
+    description: "Clears the application caches for all frontend applications"
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          <% {
+            frontend: %w[collections email-alert-frontend feedback frontend government-frontend info-frontend manuals-frontend service-manual-frontend static],
+            whitehall_frontend: %w[whitehall],
+            calculators_frontend: %w[calculators calendars finder-frontend licencefinder smartanswers],
+          }.each do |class_name, apps| %>
+          <% apps.each do |app_name| %>
+          ssh deploy@$(govuk_node_list -c <%= class_name %> --single-node) "cd /var/apps/<%= app_name %> && govuk_setenv <%= app_name %> bundle exec bundle exec rails runner 'puts Rails.cache.clear'"
+          <% end %>
+          <% end %>
+
+    wrappers:
+      - ansicolor:
+          colormap: xterm
