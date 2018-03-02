@@ -598,6 +598,7 @@ govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
 govuk::apps::smartanswers::nagios_memory_critical: 4500
+govuk::apps::smartanswers::unicorn_worker_processes: "4"
 
 govuk::apps::smokey::http_username: "%{hiera('http_username')}"
 govuk::apps::smokey::http_password: "%{hiera('http_password')}"
