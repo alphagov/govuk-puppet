@@ -2,8 +2,6 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_jenkins::pipeline', :type => :class do
   describe 'manage config' do
-    it { is_expected.to contain_file('/var/lib/jenkins/groovy_scripts').with_ensure('directory') }
-    it { is_expected.to contain_file('/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy') }
     it { is_expected.to contain_file('/var/lib/jenkins/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml').with_content(/<name>govuk<\/name/) }
     it { is_expected.to contain_file('/var/lib/jenkins/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml').with_content(/<repoOwner>alphagov<\/repoOwner>/) }
     it { is_expected.to contain_file('/var/lib/jenkins/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml').with_content(/<repository>govuk-jenkinslib<\/repository>/) }
