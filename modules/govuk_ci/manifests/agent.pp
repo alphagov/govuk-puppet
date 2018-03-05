@@ -66,6 +66,7 @@ class govuk_ci::agent(
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
     'libgdal-dev', # mapit
     'python3-dev', # govuk-taxonomy-supervised-learning
+    'shellcheck',
   ]
 
   ensure_packages($deb_packages, {'ensure' => 'installed'})
