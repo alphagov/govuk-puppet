@@ -9,11 +9,11 @@
 
 - job:
     name: copy_sanitised_whitehall_database
-    display-name: Copy sanitised whitehall database
+    display-name: Copy and Sync sanitised whitehall database
     project-type: freestyle
     description: |
-        This job sanitises the whitehall database and synchronises it
-        to other environments periodically to keep them up to date.
+        This job sanitises the whitehall database and then loads it
+        into integration to keep them up to date.
     properties:
         - github:
             url: https://github.com/alphagov/env-sync-and-backup/
@@ -27,9 +27,7 @@
         - shell: |
             cd "$WORKSPACE/whitehall/"
             echo "Sanitising whitehall database"
-            ./sanitise-db.sh "<%= @whitehall_mysql_password %>"
-            echo "Syncing sanitised database"
-            ./copy-sanitised-database.sh "jumpbox.integration.publishing.service.gov.uk"
+            ./sanitise-and-sync-db.sh "<%= @whitehall_mysql_password %>"
     wrappers:
         - ansicolor:
             colormap: xterm
