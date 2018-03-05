@@ -9,7 +9,10 @@ lv:
       - '/dev/sdf1'
       - '/dev/sdg1'
       - '/dev/sdh1'
+      - '/dev/sdj1'
     vg: 'backups'
   data:
-    pv: '/dev/sdc1'
+    pv:
+      - '/dev/sdc1'
+      - '/dev/sdi1'
     vg: 'postgresql'
