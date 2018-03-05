@@ -61,24 +61,19 @@ class govuk_ci::agent(
     require => Class['::govuk_jenkins::user'],
   }
 
-  package { 'libgdal-dev': # needed for mapit
-    ensure => installed,
-  }
-  package { 'jq':
-    ensure => installed,
-  }
+  $deb_packages = [
+    'jq',
+    'libfreetype6-dev', # govuk-taxonomy-supervised-learning
+    'libgdal-dev', # mapit
+    'python3-dev', # govuk-taxonomy-supervised-learning
+    'shellcheck',
+  ]
+
+  ensure_packages($deb_packages, {'ensure' => 'installed'})
 
   package { 's3cmd':
     ensure   => 'present',
     provider => 'pip',
-  }
-
-  # Needed for govuk-taxonomy-supervised-learning
-  package { 'python3-dev':
-    ensure => installed,
-  }
-  package { 'libfreetype6-dev':
-    ensure => installed,
   }
 
   govuk_bundler::config {'jenkins-bundler':
