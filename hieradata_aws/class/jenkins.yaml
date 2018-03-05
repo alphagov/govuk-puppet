@@ -88,7 +88,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::transition_load_site_config
   - govuk_jenkins::jobs::transition_load_transition_stats_hits
   - govuk_jenkins::jobs::user_monitor
-  - govuk_jenkins::jobs::whitehall_update_integration_data
 
 govuk_jenkins::packages::terraform::version: '0.8.1'
 
