@@ -35,6 +35,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 class govuk::apps::smartanswers(
   $port = '3010',
   $expose_govspeak = false,
@@ -44,6 +47,7 @@ class govuk::apps::smartanswers(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $secret_key_base = undef,
+  $unicorn_worker_processes = undef,
 ) {
   Govuk::App::Envvar {
     app => 'smartanswers',
@@ -75,17 +79,18 @@ class govuk::apps::smartanswers(
   }
 
   govuk::app { 'smartanswers':
-    app_type                => 'rack',
-    port                    => $port,
-    sentry_dsn              => $sentry_dsn,
-    health_check_path       => '/pay-leave-for-parents',
-    log_format_is_json      => true,
-    asset_pipeline          => true,
-    asset_pipeline_prefix   => 'smartanswers',
-    nagios_memory_warning   => $nagios_memory_warning,
-    nagios_memory_critical  => $nagios_memory_critical,
-    alert_5xx_warning_rate  => 0.001,
-    alert_5xx_critical_rate => 0.005,
-    repo_name               => 'smart-answers',
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    health_check_path        => '/pay-leave-for-parents',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => 'smartanswers',
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    alert_5xx_warning_rate   => 0.001,
+    alert_5xx_critical_rate  => 0.005,
+    repo_name                => 'smart-answers',
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 }

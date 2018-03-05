@@ -383,6 +383,7 @@ govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: 'postgresql-primary-1.backend'
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
 govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '12'
+govuk::apps::email_alert_api::unicorn_worker_processes: '4'
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
@@ -597,6 +598,7 @@ govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::smartanswers::nagios_memory_warning: 4000
 govuk::apps::smartanswers::nagios_memory_critical: 4500
+govuk::apps::smartanswers::unicorn_worker_processes: "4"
 
 govuk::apps::smokey::http_username: "%{hiera('http_username')}"
 govuk::apps::smokey::http_password: "%{hiera('http_password')}"

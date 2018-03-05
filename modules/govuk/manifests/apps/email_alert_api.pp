@@ -108,6 +108,9 @@
 # [*delivery_request_threshold*]
 #   Configure the number of requests that the rate limit will allow to be made in one minute.
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -147,16 +150,18 @@ class govuk::apps::email_alert_api(
   $db_password = undef,
   $db_hostname = undef,
   $db_name = 'email-alert-api_production',
+  $unicorn_worker_processes = undef,
 ) {
 
   if $enabled {
     govuk::app { 'email-alert-api':
-      app_type           => 'rack',
-      port               => $port,
-      sentry_dsn         => $sentry_dsn,
-      log_format_is_json => true,
-      health_check_path  => '/healthcheck',
-      json_health_check  => true,
+      app_type                 => 'rack',
+      port                     => $port,
+      sentry_dsn               => $sentry_dsn,
+      log_format_is_json       => true,
+      health_check_path        => '/healthcheck',
+      json_health_check        => true,
+      unicorn_worker_processes => $unicorn_worker_processes,
     }
 
     include govuk_postgresql::client #installs libpq-dev package needed for pg gem
