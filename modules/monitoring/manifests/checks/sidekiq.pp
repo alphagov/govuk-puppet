@@ -27,7 +27,7 @@ class monitoring::checks::sidekiq (
 
   icinga::check::graphite { 'check_signon_queue_sizes':
     # Check signon background worker average queue sizes
-    target    => 'keepLastValue(stats.gauges.govuk.app.signon.workers.queues.*.enqueued)',
+    target    => 'keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued)',
     warning   => 30,
     critical  => 50,
     desc      => 'signon background worker queue size unexpectedly large',
