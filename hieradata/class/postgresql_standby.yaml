@@ -12,7 +12,9 @@ lv:
     pv: '/dev/sdb1'
     vg: 'backups'
   data:
-    pv: '/dev/sdc1'
+    pv:
+      - '/dev/sdc1'
+      - '/dev/sdd1'
     vg: 'postgresql'
 
 mount:
