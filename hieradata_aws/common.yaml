@@ -390,6 +390,8 @@ govuk::apps::email_alert_api::db_hostname: 'postgresql-primary'
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
 govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '12'
 govuk::apps::email_alert_api::unicorn_worker_processes: '4'
+govuk::apps::email_alert_api::disable_govdelivery_emails: true
+govuk::apps::email_alert_api::use_email_alert_frontend_for_email_collection: true
 
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
