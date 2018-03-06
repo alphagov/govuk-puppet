@@ -831,7 +831,7 @@
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": 267,
       "panels": [
         {
           "aliasColors": {},
@@ -846,6 +846,7 @@
             "alignAsTable": false,
             "avg": false,
             "current": false,
+            "hideZero": true,
             "max": false,
             "min": false,
             "rightSide": false,
@@ -863,7 +864,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -889,7 +890,7 @@
                   "type": "count"
                 }
               ],
-              "query": "(application:email-alert-api.*publishing.service.gov.uk-json.event.access OR application: email-alert-api-public.*publishing.service.gov.uk-json.event.access) AND beat.hostname: backend-lb-*",
+              "query": "application:email-alert-api.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-*",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -915,7 +916,7 @@
                   "type": "count"
                 }
               ],
-              "query": "(application:email-alert-api.*publishing.service.gov.uk-json.event.access OR application: email-alert-api-public.*publishing.service.gov.uk-json.event.access) AND beat.hostname: backend-lb-* AND status: [200 TO 299]",
+              "query": "application:email-alert-api.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [200 TO 299]",
               "refId": "B",
               "timeField": "@timestamp"
             },
@@ -941,7 +942,7 @@
                   "type": "count"
                 }
               ],
-              "query": "(application:email-alert-api.*publishing.service.gov.uk-json.event.access OR application: email-alert-api-public.*publishing.service.gov.uk-json.event.access) AND beat.hostname: backend-lb-* AND status: [400 TO 499]",
+              "query": "application:email-alert-api.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [400 TO 499]",
               "refId": "C",
               "timeField": "@timestamp"
             },
@@ -967,15 +968,400 @@
                   "type": "count"
                 }
               ],
-              "query": "(application:email-alert-api.*publishing.service.gov.uk-json.event.access OR application: email-alert-api-public.*publishing.service.gov.uk-json.event.access) AND beat.hostname: backend-lb-* AND status: [500 TO 599]",
+              "query": "application:email-alert-api.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [500 TO 599]",
               "refId": "D",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "All",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-internal\"",
+              "refId": "E",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "2xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-internal\" AND backend_status_code: [200 TO 299]",
+              "refId": "F",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "4xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-internal\" AND backend_status_code: [400 TO 499]",
+              "refId": "G",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "5xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-internal\" AND backend_status_code: [500 TO 599]",
+              "refId": "H",
               "timeField": "@timestamp"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Traffic In",
+          "title": "Traffic In Internal",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Elasticsearch",
+          "fill": 1,
+          "id": 28,
+          "interval": "",
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "All",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "application:email-alert-api-public.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-*",
+              "refId": "A",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "2xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "application:email-alert-api-public.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [200 TO 299]",
+              "refId": "B",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "4xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "application:email-alert-api-public.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [400 TO 499]",
+              "refId": "C",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "5xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "application:email-alert-api-public.*publishing.service.gov.uk-json.event.access AND beat.hostname: backend-lb-* AND status: [500 TO 599]",
+              "refId": "D",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "All",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-public\"",
+              "refId": "E",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "2xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-public\" AND backend_status_code: [200 TO 299]",
+              "refId": "F",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "4xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-public\" AND backend_status_code: [400 TO 499]",
+              "refId": "G",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "5xx Responses",
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "1",
+                  "type": "count"
+                }
+              ],
+              "query": "_type: elb AND loadbalancer: \"email-alert-api-public\" AND backend_status_code: [500 TO 599]",
+              "refId": "H",
+              "timeField": "@timestamp"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Traffic In External",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1825,5 +2211,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 5
+  "version": 6
 }
