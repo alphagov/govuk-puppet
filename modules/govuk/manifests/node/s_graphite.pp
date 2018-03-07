@@ -46,14 +46,6 @@ class govuk::node::s_graphite (
     ],
   }
 
-  limits::limits { 'www-data_nofile':
-    ensure     => present,
-    user       => 'www-data',
-    limit_type => 'nofile',
-    both       => 16384,
-    notify     => Class['graphite::service'],
-  }
-
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-cache.py',
     service_description => 'carbon-cache running',
