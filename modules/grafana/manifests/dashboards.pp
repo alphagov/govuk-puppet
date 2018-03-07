@@ -33,12 +33,6 @@ class grafana::dashboards (
     source  => 'puppet:///modules/grafana/dashboards',
   }
   file {
-    "${dashboard_directory}/2ndline_health.json": content => template('grafana/dashboards/2ndline_health.json.erb');
-    "${dashboard_directory}/application_http_error_codes.json": content => template('grafana/dashboards/application_http_error_codes.json.erb');
-    "${dashboard_directory}/application_health.json": content => template('grafana/dashboards/application_health.json.erb');
-    "${dashboard_directory}/edge_health.json": content => template('grafana/dashboards/edge_health.json.erb');
-    "${dashboard_directory}/origin_health.json": content => template('grafana/dashboards/origin_health.json.erb');
-    "${dashboard_directory}/whitehall_health.json": content => template('grafana/dashboards/whitehall_health.json.erb');
     "${dashboard_directory}/publishing_api_overview.json": content => template('grafana/dashboards/publishing_api_overview.json.erb');
     "${dashboard_directory}/rummager_index_size.json": content => template('grafana/dashboards/rummager_index_size.json.erb');
   }
