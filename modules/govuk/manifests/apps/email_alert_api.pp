@@ -309,7 +309,7 @@ class govuk::apps::email_alert_api(
     if $enable_public_proxy {
       nginx::conf { 'email-alert-api-public-rate-limiting':
         content => '
-          limit_req_zone $binary_remote_addr zone=email_alert_api_public:1m rate=100r/s;
+          limit_req_zone $binary_remote_addr zone=email_alert_api_public:1m rate=50r/s;
           limit_req_status 429;
         ',
       }

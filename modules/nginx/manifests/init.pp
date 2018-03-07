@@ -18,6 +18,13 @@ class nginx (
     notify => Class['nginx::service'];
   }
 
+  limits::limits { 'www-data_nofile':
+    ensure     => present,
+    user       => 'www-data',
+    limit_type => 'nofile',
+    both       => 16384,
+  }
+
   class { 'nginx::package':
     require => Anchor['nginx::begin'],
     notify  => Class['nginx::service'];
