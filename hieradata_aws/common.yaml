@@ -417,7 +417,7 @@ govuk::apps::frontend::unicorn_worker_processes: "4"
 
 govuk::apps::government-frontend::nagios_memory_warning: 900
 govuk::apps::government-frontend::nagios_memory_critical: 1000
-govuk::apps::government-frontend::unicorn_worker_processes: "2"
+govuk::apps::government-frontend::unicorn_worker_processes: "8"
 
 govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
