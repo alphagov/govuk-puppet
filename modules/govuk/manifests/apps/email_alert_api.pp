@@ -59,10 +59,6 @@
 # [*govuk_notify_base_url*]
 #   Deprecated env var to switch notify environments.
 #
-# [*govuk_notify_rate_per_worker*]
-#   Number of requests per seconds that the notify delivery worker
-#   is allowed to make (currently 50 requests/s / 6 workers = 8 (ish)
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -115,7 +111,6 @@ class govuk::apps::email_alert_api(
   $govuk_notify_api_key = undef,
   $govuk_notify_base_url = undef,
   $govuk_notify_template_id = undef,
-  $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -220,9 +215,6 @@ class govuk::apps::email_alert_api(
           ensure  => 'absent',
           varname => 'GOVUK_NOTIFY_BASE_URL',
           value   => $govuk_notify_base_url;
-      "${title}-GOVUK_NOTIFY_RATE_PER_WORKER":
-          varname => 'GOVUK_NOTIFY_RATE_PER_WORKER',
-          value   => $govuk_notify_rate_per_worker;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
