@@ -86,7 +86,7 @@
             HOSTNAME=deploy.blue.staging.govuk.digital
             API_KEY=<%= @ci_alphagov_api_key %>
             AUTH_TOKEN=<%= @auth_token %>
-     - slack:
+      - slack:
         team-domain: <%= @slack_team_domain %>
         auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
         build-server-url: <% @slack_build_server_url %>
