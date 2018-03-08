@@ -32,12 +32,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*allow_govdelivery_topic_syncing*]
-#   If set to `true`, allows the running of a script which deletes all topics
-#   in GovDelivery and replaces them with copies from the email alert API database.
-#   Must only be configured to `true` in staging or integration, never production.
-#   Default: false
-#
 # [* disable_govdelivery_emails*]
 #   If set this disables the sending of email bulletins to govdelivery and will
 #   mean users aren't notified of events unless a different system (notably
@@ -125,7 +119,6 @@ class govuk::apps::email_alert_api(
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
-  $allow_govdelivery_topic_syncing = false,
   $disable_govdelivery_emails = false,
   $use_email_alert_frontend_for_email_collection = false,
   $govdelivery_username = undef,
@@ -280,13 +273,6 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-DELIVERY_REQUEST_THRESHOLD":
         varname => 'DELIVERY_REQUEST_THRESHOLD',
         value   => $delivery_request_threshold;
-      }
-    }
-
-    if $allow_govdelivery_topic_syncing {
-      govuk::app::envvar { "${title}-ALLOW_GOVDELIVERY_SYNC":
-        varname => 'ALLOW_GOVDELIVERY_SYNC',
-        value   => 'allow';
       }
     }
 
