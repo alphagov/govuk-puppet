@@ -10,7 +10,6 @@ BROKEN_SPECS = %w[
   copy_data_to_staging.pp
   deploy_cdn.pp
   deploy_puppet.pp
-  email_alert_rake_tasks.pp
   smokey.pp
   update_cdn_dictionaries.pp
   whitehall_update_integration_data.pp
