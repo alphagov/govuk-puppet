@@ -32,19 +32,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [* disable_govdelivery_emails*]
-#   If set this disables the sending of email bulletins to govdelivery and will
-#   mean users aren't notified of events unless a different system (notably
-#   the notify based one) is in operation.
-#   Default: false
-#
-# [*use_email_alert_frontend_for_email_collection*]
-#   If set, users will be redirected to email-alert-frontend to enter their
-#   email address instead of govdelivery. This affects the `subscription_url`
-#   in responses from the Email Alert API which is used by `collections`,
-#   `finder-frontend` and `whitehall`.
-#   Default: false
-#
 # [*govdelivery_username*]
 #   Username used to authenticate with govdelivery API
 #
@@ -119,8 +106,6 @@ class govuk::apps::email_alert_api(
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
-  $disable_govdelivery_emails = false,
-  $use_email_alert_frontend_for_email_collection = false,
   $govdelivery_username = undef,
   $govdelivery_password = undef,
   $govdelivery_account_code = undef,
@@ -273,20 +258,6 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-DELIVERY_REQUEST_THRESHOLD":
         varname => 'DELIVERY_REQUEST_THRESHOLD',
         value   => $delivery_request_threshold;
-      }
-    }
-
-    if $disable_govdelivery_emails {
-      govuk::app::envvar { "${title}-DISABLE_GOVDELIVERY_EMAILS":
-        varname => 'DISABLE_GOVDELIVERY_EMAILS',
-        value   => 'yes';
-      }
-    }
-
-    if $use_email_alert_frontend_for_email_collection {
-      govuk::app::envvar { "${title}-USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION":
-        varname => 'USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION',
-        value   => 'yes';
       }
     }
 
