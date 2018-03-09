@@ -77,8 +77,8 @@ class govuk_postgresql::server::standby (
   @@icinga::check::graphite { "check_postgres_replication_lag_${::hostname}":
     target    => "movingMedian(transformNull(removeBelowValue(diffSeries(keepLastValue(${primary_metric}),keepLastValue(${standby_metric})),0),0),5)",
     desc      => 'replication on the postgres standby is too far behind primary [value in bytes]',
-    warning   => to_bytes('8 MB'),
-    critical  => to_bytes('16 MB'),
+    warning   => to_bytes('256 MB'),
+    critical  => to_bytes('512 MB'),
     args      => '--droplast 1',
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(postgresql-replication-too-far-behind),
