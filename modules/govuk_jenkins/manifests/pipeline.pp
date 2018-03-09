@@ -14,19 +14,15 @@ class govuk_jenkins::pipeline (
   $user  = 'jenkins',
   $group = 'jenkins',
 ) {
+
+  # FIXME: remove when deployed
   file { '/var/lib/jenkins/groovy_scripts':
-    ensure  => directory,
-    owner   => $user,
-    group   => $group,
-    require => Class['govuk_jenkins::user'],
+    ensure  => absent,
   }
 
+  # FIXME: remove when deployed
   file { '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy':
-    ensure  => file,
-    owner   => $user,
-    group   => $group,
-    source  => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy',
-    require => File['/var/lib/jenkins/groovy_scripts'],
+    ensure  => absent,
   }
 
   $jenkins_libraries = {
@@ -40,6 +36,8 @@ class govuk_jenkins::pipeline (
 
   file { '/var/lib/jenkins/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml':
     ensure  => present,
+    owner   => $user,
+    group   => $group,
     content => template('govuk_jenkins/config/org.jenkinsci.plugins.workflow.libs.GlobalLibraries.xml'),
   }
 }
