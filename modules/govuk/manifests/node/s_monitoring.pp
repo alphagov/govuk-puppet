@@ -50,4 +50,7 @@ class govuk::node::s_monitoring (
     group  => 'deploy',
   }
 
+  package { 'redis-tools':
+    ensure => installed,
+  }
 }
