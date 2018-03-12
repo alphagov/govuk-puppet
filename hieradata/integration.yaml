@@ -182,7 +182,6 @@ postfix::smarthost:
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
 users::usernames:
-  - adrianclay
   - alextorrance
   - anafernandez
   - andrewgarner
@@ -195,20 +194,16 @@ users::usernames:
   - chrispatuzzo
   - chrisroos
   - christopherbaines
-  - danburnley
   - danielroseman
   - davidhenry
   - davidsilva
-  - davidwinter
   - deanwilson
   - deborahchua
   - elenatanasoiu
   - emmabeynon
   - felisialoukou
   - felixharrison
-  - igordealcantarabarroso
   - isabelllong
-  - jakubnaliwajek
   - jamesalderman
   - jamesmead
   - jessicajones
@@ -228,12 +223,9 @@ users::usernames:
   - petergoddard
   - peterhartshorn
   - philippotter
-  - richardboulton
   - rochtrinque
-  - rorymacdonald
   - rossjones
   - rubenarakelyan
-  - ryanmacgillivray
   - sebastianschmieschek
   - simonhughesdon
   - stephenharker
