@@ -53,9 +53,4 @@ class govuk_ci::credentials (
   file {"${jenkins_home}/.pypirc":
     content => template('govuk_ci/pypirc.erb'),
   }
-
-  # FIXME: Remove this once the npmrc file has been removed from all nodes
-  file {"${jenkins_home}/.npmrc":
-    ensure => 'absent',
-  }
 }
