@@ -9,3 +9,7 @@ location /api {
   allow all;
   auth_basic off;
 }
+
+location /apply-for-a-licence/ {
+  client_max_body_size 70M;
+}
