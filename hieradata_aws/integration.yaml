@@ -133,7 +133,6 @@ router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
 
 users::usernames:
-  - adrianclay
   - alextorrance
   - anafernandez
   - andrewgarner
@@ -146,20 +145,16 @@ users::usernames:
   - chrispatuzzo
   - chrisroos
   - christopherbaines
-  - danburnley
   - danielroseman
   - davidhenry
   - davidsilva
-  - davidwinter
   - deanwilson
   - deborahchua
   - elenatanasoiu
   - emmabeynon
   - felisialoukou
   - felixharrison
-  - igordealcantarabarroso
   - isabelllong
-  - jakubnaliwajek
   - jamesalderman
   - jamesmead
   - jessicajones
@@ -178,12 +173,9 @@ users::usernames:
   - paulhayes
   - peterhartshorn
   - philippotter
-  - richardboulton
   - rochtrinque
-  - rorymacdonald
   - rossjones
   - rubenarakelyan
-  - ryanmacgillivray
   - sebastianschmieschek
   - simonhughesdon
   - stephenharker
