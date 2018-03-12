@@ -84,9 +84,4 @@ class govuk::apps::hmrc_manuals_api(
     health_check_path  => '/healthcheck',
     log_format_is_json => true,
   }
-
-  # FIXME - Remove this when it's been run in production
-  govuk::procfile::worker {'hmrc-manuals-api':
-    ensure         => 'absent',
-  }
 }
