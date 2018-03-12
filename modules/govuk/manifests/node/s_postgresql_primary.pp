@@ -21,6 +21,13 @@ class govuk::node::s_postgresql_primary (
     slave_password => $standby_password,
   }
 
+  limits::limits { 'postgres_nproc':
+    ensure     => present,
+    user       => 'postgres',
+    limit_type => 'nproc',
+    both       => 1024,
+  }
+
   govuk_postgresql::wal_e::backup { $title:
     aws_access_key_id                => $aws_access_key_id,
     aws_secret_access_key            => $aws_secret_access_key,
