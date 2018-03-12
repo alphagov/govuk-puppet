@@ -10,6 +10,6 @@ location /api {
   auth_basic off;
 }
 
-location /apply-for-a-licence/ {
+location /apply-for-a-licence {
   client_max_body_size 70M;
 }
