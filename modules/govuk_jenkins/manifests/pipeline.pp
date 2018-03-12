@@ -14,17 +14,6 @@ class govuk_jenkins::pipeline (
   $user  = 'jenkins',
   $group = 'jenkins',
 ) {
-
-  # FIXME: remove when deployed
-  file { '/var/lib/jenkins/groovy_scripts':
-    ensure  => absent,
-  }
-
-  # FIXME: remove when deployed
-  file { '/var/lib/jenkins/groovy_scripts/govuk_jenkinslib.groovy':
-    ensure  => absent,
-  }
-
   $jenkins_libraries = {
     'govuk' => {
       'org'             => 'alphagov',
