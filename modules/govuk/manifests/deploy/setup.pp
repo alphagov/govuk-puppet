@@ -31,6 +31,9 @@ class govuk::deploy::setup (
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
     $deploy_uid = undef,
     $deploy_gid = undef,
+    $assets_aws_s3_bucket_name = undef,
+    $assets_aws_access_key_id = undef,
+    $assets_aws_secret_access_key = undef,
 ){
   validate_hash($ssh_keys)
 
@@ -123,5 +126,23 @@ class govuk::deploy::setup (
     require   => User['deploy'],
     user_home => '/home/deploy',
     username  => 'deploy',
+  }
+
+  # After deploy, frontend apps will upload their assets to S3
+  package { 's3cmd':
+    ensure   => 'present',
+    provider => 'pip',
+  }
+
+  govuk::app::envvar {
+    "${title}-ASSETS_AWS_S3_BUCKET":
+      varname => 'ASSETS_AWS_S3_BUCKET_NAME',
+      value   => $assets_aws_s3_bucket_name;
+    "${title}-ASSETS_AWS_ACCESS_KEY":
+      varname => 'ASSETS_AWS_ACCESS_KEY',
+      value   => $assets_aws_access_key_id;
+    "${title}-ASSETS_AWS_SECRET_KEY":
+      varname => 'ASSETS_AWS_SECRET_KEY',
+      value   => $assets_aws_secret_access_key;
   }
 }
