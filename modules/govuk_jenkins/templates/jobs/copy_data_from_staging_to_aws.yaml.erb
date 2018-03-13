@@ -8,13 +8,13 @@
               - master
 
 - job:
-    name: Copy_Data_from_Staging_to_AWS
-    display-name: Copy_Data_from_Staging_to_AWS
+    name: Copy_Data_from_Staging_to_AWS_Staging
+    display-name: Copy_Data_from_Staging_to_AWS_Staging
     project-type: freestyle
     description: |
-        This job copies databases from staging to AWS. It runs nightly and
-        can be run in an ad-hoc fashion. It doesn't copy the signon or
-        performance-platform databases.
+        This job copies databases from Carrenza staging to AWS. It runs
+        nightly and can be run in an ad-hoc fashion. It doesn't copy the signon
+        or performance-platform databases.
     properties:
         - github:
             url: https://github.com/alphagov/env-sync-and-backup/
