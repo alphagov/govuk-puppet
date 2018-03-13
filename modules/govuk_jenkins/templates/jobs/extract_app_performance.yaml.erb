@@ -17,8 +17,8 @@
         - extract-app-performance
     builders:
         - shell: |
-            PIPENV_VENV_IN_PROJECT=1 pipenv install --three --skip-lock
-            PIPENV_VENV_IN_PROJECT=1 GRAPHITE_URL='https://graphite.<%= @app_domain_internal %>' ./run.sh
+            pipenv install --three --skip-lock
+            GRAPHITE_URL='https://graphite.<%= @app_domain_internal %>' ./run.sh
     triggers:
         - timed: '<%= @cron_schedule %>'
 
