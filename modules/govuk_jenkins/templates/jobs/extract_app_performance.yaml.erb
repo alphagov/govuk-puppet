@@ -18,7 +18,32 @@
     builders:
         - shell: |
             PIPENV_VENV_IN_PROJECT=1 pipenv install --three --skip-lock
-            PIPENV_VENV_IN_PROJECT=1 GRAPHITE_URL='https://graphite.<%= app_domain_internal %>' pipenv run python run_summary.py
-            PIPENV_VENV_IN_PROJECT=1 pipenv run python lint_data.py output/*.csv
+            PIPENV_VENV_IN_PROJECT=1 GRAPHITE_URL='https://graphite.<%= @app_domain_internal %>' ./run.sh
     triggers:
         - timed: '<%= @cron_schedule %>'
+
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+      - inject-passwords:
+          global: false
+          mask-password-params: true
+          job-passwords:
+            - name: GOOGLE_PRIVATE_KEY_ID
+              password:
+                '<%= @google_private_key_id %>'
+            - name: GOOGLE_PRIVATE_KEY
+              password:
+                '<%= @google_private_key %>'
+            - name: GOOGLE_CLIENT_EMAIL
+              password:
+                '<%= @google_client_email %>'
+            - name: GOOGLE_CLIENT_ID
+              password:
+                '<%= @google_client_id %>'
+
+    parameters:
+        - share_email:
+            name: PLATFORM_METRICS_MAILING_LIST
+            description: Email to share reports with.
+            default: <%= @google_share_email %>
