@@ -14,9 +14,6 @@ govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::email_alert_api::govdelivery_account_code: 'UKGOVUK'
-govuk::apps::email_alert_api::govdelivery_hostname: 'api.govdelivery.com'
-govuk::apps::email_alert_api::govdelivery_public_hostname: 'public.govdelivery.com'
 govuk::apps::email_alert_api::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::kibana::logit_environment: 0ea55710-075b-4eab-bfc3-475f28cdd0c3

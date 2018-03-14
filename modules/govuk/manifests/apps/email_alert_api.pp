@@ -32,37 +32,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [* disable_govdelivery_emails*]
-#   If set this disables the sending of email bulletins to govdelivery and will
-#   mean users aren't notified of events unless a different system (notably
-#   the notify based one) is in operation.
-#   Default: false
-#
-# [*use_email_alert_frontend_for_email_collection*]
-#   If set, users will be redirected to email-alert-frontend to enter their
-#   email address instead of govdelivery. This affects the `subscription_url`
-#   in responses from the Email Alert API which is used by `collections`,
-#   `finder-frontend` and `whitehall`.
-#   Default: false
-#
-# [*govdelivery_username*]
-#   Username used to authenticate with govdelivery API
-#
-# [*govdelivery_password*]
-#   Password used to authenticate with govdelivery API
-#
-# [*govdelivery_account_code*]
-#   Identifier for GOV.UK within the govdelivery service
-#
-# [*govdelivery_protocol*]
-#   Protocol used for the govdelivery service
-#
-# [*govdelivery_hostname*]
-#   Hostname for the govdelivery API (changes depending on environment)
-#
-# [*govdelivery_public_hostname*]
-#   Public hostname for the govdelivery API
-#
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
@@ -71,10 +40,6 @@
 #
 # [*govuk_notify_base_url*]
 #   Deprecated env var to switch notify environments.
-#
-# [*govuk_notify_rate_per_worker*]
-#   Number of requests per seconds that the notify delivery worker
-#   is allowed to make (currently 50 requests/s / 6 workers = 8 (ish)
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -119,18 +84,9 @@ class govuk::apps::email_alert_api(
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
-  $disable_govdelivery_emails = false,
-  $use_email_alert_frontend_for_email_collection = false,
-  $govdelivery_username = undef,
-  $govdelivery_password = undef,
-  $govdelivery_account_code = undef,
-  $govdelivery_protocol = 'https',
-  $govdelivery_hostname = undef,
-  $govdelivery_public_hostname = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_base_url = undef,
   $govuk_notify_template_id = undef,
-  $govuk_notify_rate_per_worker = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -161,12 +117,6 @@ class govuk::apps::email_alert_api(
 
     govuk::procfile::worker {'email-alert-api':
       enable_service => $enable_procfile_worker,
-    }
-
-    @filebeat::prospector { 'govdelivery_json_log':
-      paths  => ['/var/apps/email-alert-api/log/govdelivery.log'],
-      fields => {'application' => 'email-alert-api-govdelivery'},
-      json   => {'add_error_key' => true},
     }
 
     Govuk::App::Envvar {
@@ -207,24 +157,6 @@ class govuk::apps::email_alert_api(
       "${title}-SIDEKIQ_QUEUE_LATENCY_WARNING_THRESHOLD":
           varname => 'SIDEKIQ_QUEUE_LATENCY_WARNING',
           value   => $sidekiq_queue_latency_warning;
-      "${title}-GOVDELIVERY_USERNAME":
-          varname => 'GOVDELIVERY_USERNAME',
-          value   => $govdelivery_username;
-      "${title}-GOVDELIVERY_PASSWORD":
-          varname => 'GOVDELIVERY_PASSWORD',
-          value   => $govdelivery_password;
-      "${title}-GOVDELIVERY_ACCOUNT_CODE":
-          varname => 'GOVDELIVERY_ACCOUNT_CODE',
-          value   => $govdelivery_account_code;
-      "${title}-GOVDELIVERY_PROTOCOL":
-          varname => 'GOVDELIVERY_PROTOCOL',
-          value   => $govdelivery_protocol;
-      "${title}-GOVDELIVERY_HOSTNAME":
-          varname => 'GOVDELIVERY_HOSTNAME',
-          value   => $govdelivery_hostname;
-      "${title}-GOVDELIVERY_PUBLIC_HOSTNAME":
-          varname => 'GOVDELIVERY_PUBLIC_HOSTNAME',
-          value   => $govdelivery_public_hostname;
       "${title}-GOVUK_NOTIFY_API_KEY":
           varname => 'GOVUK_NOTIFY_API_KEY',
           value   => $govuk_notify_api_key;
@@ -235,9 +167,6 @@ class govuk::apps::email_alert_api(
           ensure  => 'absent',
           varname => 'GOVUK_NOTIFY_BASE_URL',
           value   => $govuk_notify_base_url;
-      "${title}-GOVUK_NOTIFY_RATE_PER_WORKER":
-          varname => 'GOVUK_NOTIFY_RATE_PER_WORKER',
-          value   => $govuk_notify_rate_per_worker;
       "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',
           value   => $secret_key_base;
@@ -273,20 +202,6 @@ class govuk::apps::email_alert_api(
       govuk::app::envvar { "${title}-DELIVERY_REQUEST_THRESHOLD":
         varname => 'DELIVERY_REQUEST_THRESHOLD',
         value   => $delivery_request_threshold;
-      }
-    }
-
-    if $disable_govdelivery_emails {
-      govuk::app::envvar { "${title}-DISABLE_GOVDELIVERY_EMAILS":
-        varname => 'DISABLE_GOVDELIVERY_EMAILS',
-        value   => 'yes';
-      }
-    }
-
-    if $use_email_alert_frontend_for_email_collection {
-      govuk::app::envvar { "${title}-USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION":
-        varname => 'USE_EMAIL_ALERT_FRONTEND_FOR_EMAIL_COLLECTION',
-        value   => 'yes';
       }
     }
 

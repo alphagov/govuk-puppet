@@ -382,10 +382,7 @@ govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: 'postgresql-primary-1.backend'
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
-govuk::apps::email_alert_api::govuk_notify_rate_per_worker: '12'
 govuk::apps::email_alert_api::unicorn_worker_processes: '4'
-govuk::apps::email_alert_api::disable_govdelivery_emails: true
-govuk::apps::email_alert_api::use_email_alert_frontend_for_email_collection: true
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
