@@ -19,6 +19,9 @@
       nightly, at a later time than log rotation typically happens.
     scm:
       - govuk-cdn-logs-monitor
+    discard_old: # Discard old builds after:
+      days: 30 # Optional, number of days after which the build is deleted
+      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: |
           ssh deploy@logs-cdn-1.management '
