@@ -4,6 +4,10 @@
     display-name: Run_Whitehall_Data_Migrations
     project-type: freestyle
     description: "This job SSHes onto a whitehall-backend node and runs 'cd /var/apps/whitehall ; RAILS_ENV=production bundle exec rake db:data:migrate'"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) "cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake db:data:migrate"

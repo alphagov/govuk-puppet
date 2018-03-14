@@ -4,6 +4,10 @@
     display-name: Deploy the emergency banner
     project-type: freestyle
     description: "Deploy the emergency banner on GOV.UK."
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications.
       # Rake does not handle commas in its arguments very well, so we have to escape them with a backslash. Since we're

@@ -19,6 +19,10 @@
       nightly, at a later time than log rotation typically happens.
     scm:
       - govuk-cdn-logs-monitor
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           ssh deploy@logs-cdn-1.management '

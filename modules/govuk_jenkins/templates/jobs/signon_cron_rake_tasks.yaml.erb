@@ -24,6 +24,10 @@
     display-name: "Signon: Sync organisations with Whitehall (scheduled)"
     project-type: freestyle
     description: "<p>Regularly run the organisations:fetch rake task for signon.</p>"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - trigger-builds:
             - project: run-rake-task

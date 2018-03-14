@@ -8,6 +8,10 @@
         numToKeep: 100
     triggers:
         - timed: '*/15 * * * *' # every 15 minutes
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             (

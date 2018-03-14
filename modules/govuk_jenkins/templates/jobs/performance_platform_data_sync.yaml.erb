@@ -14,6 +14,9 @@
     description: |
         This job copies the Performance Platform database from production to integration.
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/env-sync-and-backup/
     scm:

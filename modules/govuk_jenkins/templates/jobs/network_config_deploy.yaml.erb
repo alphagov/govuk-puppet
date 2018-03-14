@@ -16,6 +16,9 @@
     project-type: freestyle
     description: "This job configures the edge gateway in *<%= @environment -%>*. It uses the configuration in the govuk-provisioning repo."
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk-provisioning/
     scm:

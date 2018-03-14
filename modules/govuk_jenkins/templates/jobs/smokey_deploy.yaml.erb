@@ -12,6 +12,9 @@
     display-name: Smokey_Deploy
     project-type: freestyle
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/smokey/
     scm:

@@ -14,6 +14,10 @@
     project-type: freestyle
     scm:
       - alphagov-deployment_Licensify_Deploy
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             cd "$WORKSPACE"

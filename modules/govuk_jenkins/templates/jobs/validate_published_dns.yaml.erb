@@ -17,6 +17,9 @@
     logrotate:
         numToKeep: 30
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk-dns/
     scm:

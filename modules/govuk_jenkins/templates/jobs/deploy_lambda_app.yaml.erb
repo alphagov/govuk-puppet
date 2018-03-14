@@ -19,6 +19,9 @@
         - inject:
             properties-content: |
               ENVIRONMENT=<%= @environment %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - govuk-lambda-app-deployment_Deploy_Lambda_App
     builders:

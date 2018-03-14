@@ -16,6 +16,10 @@
       - transition-config_Transition_load_site_config
     logrotate:
       numToKeep: 30
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             <%- if scope.lookupvar('::aws_migration') %>

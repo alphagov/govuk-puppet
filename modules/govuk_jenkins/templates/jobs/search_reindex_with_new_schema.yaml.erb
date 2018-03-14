@@ -11,6 +11,10 @@
     triggers:
         - timed: '<%= @cron_schedule %>'
 <% end %>
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: ssh deploy@$(govuk_node_list -c search --single-node) "cd /var/apps/rummager && govuk_setenv rummager bundle exec rake rummager:migrate_schema CONFIRM_INDEX_MIGRATION_START=1 RUMMAGER_INDEX=all"
     wrappers:

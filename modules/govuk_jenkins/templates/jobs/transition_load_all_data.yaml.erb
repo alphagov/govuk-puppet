@@ -6,6 +6,10 @@
     description: "<p>Loads mapping data and statistics into Transition/Bouncer.</p>"
     logrotate:
       numToKeep: 30
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             rm -rf data

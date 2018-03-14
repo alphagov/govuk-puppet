@@ -7,6 +7,10 @@
     <%- if @auth_token -%>
     auth-token: <%= @auth_token %>
     <%- end -%>
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             #!/usr/bin/env bash

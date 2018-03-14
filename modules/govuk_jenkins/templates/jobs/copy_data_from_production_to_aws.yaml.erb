@@ -21,6 +21,9 @@
         - inject:
             properties-content: |
               PARALLEL_JOBS=3
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - env-sync-and-backup_Copy_Data_from_Production_to_AWS
     logrotate:

@@ -22,6 +22,9 @@
         - inject:
             properties-content: |
               DEPLOY_ENV=<%= @environment %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
         - govuk-terraform-provisioning_Deploy_Terraform_Project
     wrappers:

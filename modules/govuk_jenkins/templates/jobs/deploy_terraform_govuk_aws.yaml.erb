@@ -16,6 +16,9 @@
         For available projects to deploy, please see the <a href=https://github.com/alphagov/govuk-aws/tree/master/terraform/projects>Terraform repository</a>
 
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk-aws/
     scm:

@@ -18,6 +18,9 @@
         - inject:
             properties-content: |
               PARALLEL_JOBS=2
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - env-sync-and-backup_Copy_Licensify_Data_to_Staging
     logrotate:

@@ -4,6 +4,10 @@
     display-name: integration-licensify-deploy
     project-type: freestyle
     description: "Kicks off a Licensify deploy in the Integration environment"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           JSON="{\"parameter\": [{\"name\": \"BETA_PAYMENT_ACCOUNTS\", \"value\": \"false\"}, {\"name\": \"artefact_number\", \"value\": \"$artefact_number\"}, {\"name\": \"app_version\", \"value\": \"$appVersion\"}, {\"name\": \"CI_JOB_NAME\", \"value\": \"Licensify\"}, {\"name\": \"ARTIFACT_PATH\", \"value\": \"target/universal\"}], \"\": \"\"}"

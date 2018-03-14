@@ -15,6 +15,9 @@
     display-name: Deploy_CDN
     project-type: freestyle
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/fastly-configure/
         - slack:

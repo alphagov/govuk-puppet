@@ -4,6 +4,10 @@
     name: <%= @job_name %>
     display-name: <%= @job_name %>
     project-type: freestyle
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
           <%- if scope.lookupvar('::aws_migration') %>
@@ -29,4 +33,3 @@
               predefined-parameters: |
                   NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                   NSCA_OUTPUT=<%= @service_description %> failed
-

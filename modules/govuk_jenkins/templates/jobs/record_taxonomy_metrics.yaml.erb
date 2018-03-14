@@ -10,13 +10,17 @@
       daysToKeep: 30
     triggers:
       - timed: 'H/30 * * * *'
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           #!/bin/bash
           set -eu
-          
+
           cd "${WORKSPACE}"
-          
+
           CONTENT_TAGGER=$(govuk_node_list --single-node -c backend)
-          
+
           ssh deploy@$CONTENT_TAGGER "cd /var/apps/content-tagger && govuk_setenv content-tagger bundle exec rake metrics:taxonomy:record_all"

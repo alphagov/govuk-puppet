@@ -20,6 +20,9 @@
         - inject:
             properties-content: |
               PARALLEL_JOBS=3
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - slack:
             notify-start: false
             notify-success: true

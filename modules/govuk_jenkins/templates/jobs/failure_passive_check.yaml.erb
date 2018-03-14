@@ -5,6 +5,10 @@
     project-type: freestyle
     description: "This job should be used to send a passive check to Icinga with a FAILED
       status. As such this should only be used as a triggered build for a FAILED (or unstable)       condition."
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           IPADDRESS=$(facter ipaddress)

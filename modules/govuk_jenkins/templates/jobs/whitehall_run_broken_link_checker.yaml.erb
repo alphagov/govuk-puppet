@@ -4,6 +4,10 @@
     display-name: whitehall_run_broken_link_checker
     project-type: freestyle
     description: "<p>Triggers the broken link checker rake task on whitehall-backend-1.</p>"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
             ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall; govuk_setenv whitehall nohup bundle exec rake generate_broken_link_reports[/tmp/bad_link_reports,second-line-content@digital.cabinet-office.gov.uk]'
@@ -29,4 +33,3 @@
                   NSCA_OUTPUT=<%= @service_description %> failed
     logrotate:
         numToKeep: 10
-

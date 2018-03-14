@@ -6,6 +6,10 @@
     description: "This job should be used to send a passive check to Icinga with a SUCCESS
       status. As such this should only be used as a triggered build for a stable (or related)
       condition."
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           IPADDRESS=$(facter ipaddress)

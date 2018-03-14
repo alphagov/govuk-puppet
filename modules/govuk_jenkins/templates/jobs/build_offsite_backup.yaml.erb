@@ -13,6 +13,9 @@
     description: "Deploy an off-site backup box to a specified vCloud installation by:\r\n<br
         />\r\n1) Building the box<br />\r\n2) Creating networking rules"
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: http://github.com/alphagov/govuk_offsitebackups-puppet/
     scm:

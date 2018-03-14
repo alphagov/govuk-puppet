@@ -14,6 +14,9 @@
     project-type: freestyle
     description: "This job compares the IP ranges that Pingdom publishes against the ranges configured in govuk-provisioning and errors if they don't match."
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk_mirror-deployment/
     scm:

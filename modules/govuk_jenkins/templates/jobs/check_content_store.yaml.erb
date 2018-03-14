@@ -10,6 +10,10 @@
       artifactDaysToKeep: 3
     triggers:
         - timed: '40 * * * *'
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
       - shell: |
           #!/bin/bash

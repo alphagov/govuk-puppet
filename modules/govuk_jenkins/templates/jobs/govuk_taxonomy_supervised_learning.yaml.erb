@@ -19,6 +19,10 @@
       - govuk-taxonomy-supervised-learning
     triggers:
         - timed: 'H 2 * * 1-5'
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
       - shell: |
           #!/bin/bash

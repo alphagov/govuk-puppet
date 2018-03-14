@@ -4,6 +4,10 @@
     display-name: integration-puppet-deploy
     project-type: freestyle
     description: "Kicks off a Puppet deploy in the integration environment"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: |
           JSON="{\"parameter\": [{\"name\": \"TAG\", \"value\": \"$TAG\"}], \"\": \"\"}"

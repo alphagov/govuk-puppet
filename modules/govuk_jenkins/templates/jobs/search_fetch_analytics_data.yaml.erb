@@ -22,12 +22,15 @@
       </ul>
     scm:
         - search-analytics_search-fetch-analytics-data
-<% if @skip_page_traffic_load %>
     properties:
+        <% if @skip_page_traffic_load %>
         - inject:
             properties-content: |
               SKIP_TRAFFIC_LOAD=true
-<% end %>
+        <% end %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             ./nightly-run.sh

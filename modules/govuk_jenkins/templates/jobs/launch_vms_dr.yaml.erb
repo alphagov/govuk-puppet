@@ -23,6 +23,9 @@
               VCLOUD_ENV=<%= @vcloud_properties_dr['environment'] %>
               VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
               VCLOUD_HOST=<%= @vcloud_properties['host'] %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - govuk-provisioning_Launch_VMs_DR
     builders:

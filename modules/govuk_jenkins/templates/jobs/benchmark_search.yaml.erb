@@ -44,6 +44,9 @@
                   NSCA_OUTPUT=<%= @service_description %> failed
                   NSCA_CODE=1
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - inject:
             properties-content: |
               AUTH_USERNAME=<%= @auth_username %>

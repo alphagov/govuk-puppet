@@ -15,6 +15,9 @@
         This job sanitises the whitehall database and then loads it
         into integration to keep them up to date.
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/env-sync-and-backup/
     scm:

@@ -18,6 +18,10 @@
         numToKeep: 100
     triggers:
         - timed: '35 * * * *' # every hour on the 35th minute
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment

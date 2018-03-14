@@ -6,6 +6,10 @@
     description: "This job triggers the Data_Sync_Complete jobs on a remote Jenkins machine"
     logrotate:
         numToKeep: 10
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             echo "Getting crumb..."

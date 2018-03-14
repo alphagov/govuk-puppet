@@ -23,6 +23,9 @@
               VCLOUD_ENV=<%= @vcloud_properties_licensify['environment'] %>
               VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
               VCLOUD_HOST=<%= @vcloud_properties_licensify['host'] %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - govuk-provisioning_Launch_VMs_Licensify
     builders:

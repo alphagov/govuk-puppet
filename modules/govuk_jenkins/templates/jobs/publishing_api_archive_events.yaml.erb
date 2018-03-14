@@ -4,6 +4,10 @@
     display-name: Publishing_API_Archive_Events
     project-type: freestyle
     description: "This job periodically archives publishing API events to S3"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
       - shell: ssh deploy@$(govuk_node_list -c publishing_api --single-node) "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake events:export_to_s3"
     logrotate:

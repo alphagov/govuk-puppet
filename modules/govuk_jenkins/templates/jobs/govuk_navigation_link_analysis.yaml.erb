@@ -21,6 +21,10 @@
       numToKeep: 10
     triggers:
         - timed: 'H 0 * * 1'
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
       - shell: |
           #!/bin/bash
