@@ -36,8 +36,6 @@
       - env-sync-and-backup_Copy_Data_to_Staging
     logrotate:
         numToKeep: 10
-    triggers:
-        - timed: 'H 11 * * *'
     builders:
         - shell: |
             set +x
