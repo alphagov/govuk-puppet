@@ -18,6 +18,9 @@
             url: https://github.com/alphagov/govuk-provisioning/
     scm:
       - govuk-provisioning_Check_CDN_IP_Ranges
+    discard_old: # Discard old builds after:
+      days: 30 # Optional, number of days after which the build is deleted
+      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment

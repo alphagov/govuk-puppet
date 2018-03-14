@@ -9,6 +9,9 @@
       numToKeep: 10
     triggers:
         - timed: 'H/10 * * * *'
+    discard_old: # Discard old builds after:
+      days: 30 # Optional, number of days after which the build is deleted
+      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: ssh deploy@$(govuk_node_list -c search --single-node) "cd /var/apps/rummager && govuk_setenv rummager bundle exec rake rummager:monitor_indices"
     wrappers:
