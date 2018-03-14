@@ -1,4 +1,6 @@
 ---
+govuk_jenkins::config::executors: '6'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::check_content_consistency
   - govuk_jenkins::jobs::check_content_store
