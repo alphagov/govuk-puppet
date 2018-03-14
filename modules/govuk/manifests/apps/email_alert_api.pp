@@ -32,24 +32,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*govdelivery_username*]
-#   Username used to authenticate with govdelivery API
-#
-# [*govdelivery_password*]
-#   Password used to authenticate with govdelivery API
-#
-# [*govdelivery_account_code*]
-#   Identifier for GOV.UK within the govdelivery service
-#
-# [*govdelivery_protocol*]
-#   Protocol used for the govdelivery service
-#
-# [*govdelivery_hostname*]
-#   Hostname for the govdelivery API (changes depending on environment)
-#
-# [*govdelivery_public_hostname*]
-#   Public hostname for the govdelivery API
-#
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
@@ -102,12 +84,6 @@ class govuk::apps::email_alert_api(
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
-  $govdelivery_username = undef,
-  $govdelivery_password = undef,
-  $govdelivery_account_code = undef,
-  $govdelivery_protocol = 'https',
-  $govdelivery_hostname = undef,
-  $govdelivery_public_hostname = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_base_url = undef,
   $govuk_notify_template_id = undef,
@@ -141,12 +117,6 @@ class govuk::apps::email_alert_api(
 
     govuk::procfile::worker {'email-alert-api':
       enable_service => $enable_procfile_worker,
-    }
-
-    @filebeat::prospector { 'govdelivery_json_log':
-      paths  => ['/var/apps/email-alert-api/log/govdelivery.log'],
-      fields => {'application' => 'email-alert-api-govdelivery'},
-      json   => {'add_error_key' => true},
     }
 
     Govuk::App::Envvar {
@@ -187,24 +157,6 @@ class govuk::apps::email_alert_api(
       "${title}-SIDEKIQ_QUEUE_LATENCY_WARNING_THRESHOLD":
           varname => 'SIDEKIQ_QUEUE_LATENCY_WARNING',
           value   => $sidekiq_queue_latency_warning;
-      "${title}-GOVDELIVERY_USERNAME":
-          varname => 'GOVDELIVERY_USERNAME',
-          value   => $govdelivery_username;
-      "${title}-GOVDELIVERY_PASSWORD":
-          varname => 'GOVDELIVERY_PASSWORD',
-          value   => $govdelivery_password;
-      "${title}-GOVDELIVERY_ACCOUNT_CODE":
-          varname => 'GOVDELIVERY_ACCOUNT_CODE',
-          value   => $govdelivery_account_code;
-      "${title}-GOVDELIVERY_PROTOCOL":
-          varname => 'GOVDELIVERY_PROTOCOL',
-          value   => $govdelivery_protocol;
-      "${title}-GOVDELIVERY_HOSTNAME":
-          varname => 'GOVDELIVERY_HOSTNAME',
-          value   => $govdelivery_hostname;
-      "${title}-GOVDELIVERY_PUBLIC_HOSTNAME":
-          varname => 'GOVDELIVERY_PUBLIC_HOSTNAME',
-          value   => $govdelivery_public_hostname;
       "${title}-GOVUK_NOTIFY_API_KEY":
           varname => 'GOVUK_NOTIFY_API_KEY',
           value   => $govuk_notify_api_key;
