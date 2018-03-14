@@ -1,4 +1,5 @@
 ---
+govuk_jenkins::config::executors: '6'
 govuk_jenkins::jobs::validate_published_dns::run_daily: true
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::bouncer_cdn
