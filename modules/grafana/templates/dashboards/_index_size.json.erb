@@ -50,17 +50,17 @@
         "targets": [
           {
             "refId": "A",
-            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), '7d')),'Change')",
+            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), '7d')),'Change')",
             "textEditor": true
           },
           {
             "refId": "B",
-            "target": "alias(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132),'Index size')",
+            "target": "alias(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252),'Index size')",
             "textEditor": true
           },
           {
             "refId": "C",
-            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), '7d'),'Index size (last week)')",
+            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), '7d'),'Index size (last week)')",
             "textEditor": true
           }
         ],
@@ -111,17 +111,17 @@
         "targets": [
           {
             "refId": "C",
-            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), '7d')),'Change')",
+            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), '7d')),'Change')",
             "textEditor": true
           },
           {
             "refId": "A",
-            "target": "alias(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132), 'Index size')",
+            "target": "alias(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252), 'Index size')",
             "textEditor": true
           },
           {
             "refId": "B",
-            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,132),'7d'), 'Index size (last week)')",
+            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.rummager.<%= index_name %>_index.docs.count,252),'7d'), 'Index size (last week)')",
             "textEditor": true
           }
         ],
