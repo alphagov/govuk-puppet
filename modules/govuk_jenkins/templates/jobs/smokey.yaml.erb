@@ -14,6 +14,9 @@
     scm:
       - smokey_Smokey
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
       - slack:
           notify-start: false
           notify-success: false
@@ -60,9 +63,6 @@
             - developers
             - culprits
 
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             set +x

@@ -21,15 +21,15 @@
         - inject:
             properties-content: |
               PARALLEL_JOBS=3
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - env-sync-and-backup_Copy_Data_from_Production_to_AWS
     logrotate:
         numToKeep: 10
     triggers:
         - timed: 'H 11 * * *'
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             set +x

@@ -22,6 +22,9 @@
         - inject:
             properties-content: |
               DEPLOY_ENV=<%= @environment %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
         - govuk-terraform-provisioning_Deploy_Terraform_Project
     wrappers:
@@ -29,9 +32,6 @@
             colormap: xterm
         - build-name:
             name: '${ENV,var="PROJECT_NAME"} ${ENV,var="ACTION"}'
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             if [ -n "$ADDITIONAL_ENVIRONMENT_VARIABLES" ]; then

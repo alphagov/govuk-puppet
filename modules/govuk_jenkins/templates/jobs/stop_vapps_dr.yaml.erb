@@ -26,6 +26,9 @@
               VCLOUD_ENV=<%= @vcloud_properties_dr['env'] %>
               VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
               VCLOUD_HOST=<%= @vcloud_properties_dr['host'] %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
         - govuk-provisioning_stop_vapps_dr
     wrappers:
@@ -35,9 +38,6 @@
             job-passwords:
                 - name: VCLOUD_PASSWORD
                   password: '<%= @vcloud_properties_dr['password'] -%>'
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             cd tools/start_stop_vapps/

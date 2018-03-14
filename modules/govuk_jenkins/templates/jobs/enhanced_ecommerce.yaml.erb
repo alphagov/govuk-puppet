@@ -4,9 +4,10 @@
     name: <%= @job_name %>
     display-name: <%= @job_name %>
     project-type: freestyle
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
     builders:
         - shell: |
           <%- if scope.lookupvar('::aws_migration') %>
@@ -32,4 +33,3 @@
               predefined-parameters: |
                   NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                   NSCA_OUTPUT=<%= @service_description %> failed
-

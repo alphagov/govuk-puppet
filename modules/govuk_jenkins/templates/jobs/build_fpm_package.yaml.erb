@@ -12,6 +12,9 @@
     display-name: Build fpm package
     project-type: freestyle
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/packager/
     scm:
@@ -20,9 +23,6 @@
         - string:
             name: RECIPE_NAME
             description: The name of an fpm-cookery recipe
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             cd fpm/

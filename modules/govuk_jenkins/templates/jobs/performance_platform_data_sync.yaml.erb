@@ -14,15 +14,15 @@
     description: |
         This job copies the Performance Platform database from production to integration.
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/env-sync-and-backup/
     scm:
       - env-sync-and-backup_Performance_Platform_Data_Sync
     logrotate:
         numToKeep: 10
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             set -eu

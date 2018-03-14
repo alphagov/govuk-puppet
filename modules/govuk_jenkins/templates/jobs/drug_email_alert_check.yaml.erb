@@ -8,9 +8,10 @@
         numToKeep: 100
     triggers:
         - timed: '21 * * * *' # every hour on the 21st minute
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             (

@@ -22,15 +22,15 @@
       </ul>
     scm:
         - search-analytics_search-fetch-analytics-data
-<% if @skip_page_traffic_load %>
     properties:
+        <% if @skip_page_traffic_load %>
         - inject:
             properties-content: |
               SKIP_TRAFFIC_LOAD=true
-<% end %>
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
+        <% end %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     builders:
         - shell: |
             ./nightly-run.sh

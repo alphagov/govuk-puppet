@@ -15,6 +15,9 @@
     display-name: Deploy_CDN
     project-type: freestyle
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/fastly-configure/
         - slack:
@@ -30,9 +33,6 @@
             room: <%= @slack_room %>
     scm:
       - cdn-configs_Deploy_CDN
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             export ENVIRONMENT=<%= @environment %>

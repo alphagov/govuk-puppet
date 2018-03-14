@@ -14,13 +14,13 @@
     project-type: freestyle
     description: "This job compares the IP ranges that Pingdom publishes against the ranges configured in govuk-provisioning and errors if they don't match."
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk_mirror-deployment/
     scm:
       - govuk-provisioning_Check_Pingdom_IP_Ranges
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             ruby tools/pingdom_ips.rb

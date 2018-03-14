@@ -19,11 +19,11 @@
         - inject:
             properties-content: |
               ENVIRONMENT=<%= @environment %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
     scm:
       - govuk-lambda-app-deployment_Deploy_Lambda_App
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: |
           #!/usr/bin/env bash

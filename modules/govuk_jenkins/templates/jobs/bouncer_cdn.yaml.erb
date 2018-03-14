@@ -13,15 +13,15 @@
     project-type: freestyle
     description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the CDN for those domains is routed to Bouncer."
     properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/cdn-configs/
     scm:
         - cdn-configs_Bouncer_CDN
     logrotate:
         numToKeep: 20
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             cd fastly
