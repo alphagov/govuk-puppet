@@ -20,9 +20,6 @@
       numToKeep: 10
     triggers:
         - timed: 'H * * * *'
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: |
           #!/bin/bash

@@ -5,9 +5,6 @@
     project-type: freestyle
     description: "Run a rake task on an application."
     concurrent: true
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: ssh deploy@$(govuk_node_list -c $MACHINE_CLASS --single-node) "cd /var/apps/$TARGET_APPLICATION && govuk_setenv $TARGET_APPLICATION bundle exec rake $RAKE_TASK"
     wrappers:

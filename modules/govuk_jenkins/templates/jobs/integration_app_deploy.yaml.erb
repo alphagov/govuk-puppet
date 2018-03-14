@@ -4,9 +4,6 @@
     display-name: integration-app-deploy
     project-type: freestyle
     description: "Kicks off an appliction deploy in the Integration environment"
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: |
           JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"

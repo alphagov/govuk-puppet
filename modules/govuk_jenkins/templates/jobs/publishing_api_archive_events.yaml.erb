@@ -4,9 +4,6 @@
     display-name: Publishing_API_Archive_Events
     project-type: freestyle
     description: "This job periodically archives publishing API events to S3"
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: ssh deploy@$(govuk_node_list -c publishing_api --single-node) "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake events:export_to_s3"
     logrotate:

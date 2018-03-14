@@ -4,9 +4,6 @@
     display-name: Deploy the emergency banner
     project-type: freestyle
     description: "Deploy the emergency banner on GOV.UK."
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications.
       # Rake does not handle commas in its arguments very well, so we have to escape them with a backslash. Since we're

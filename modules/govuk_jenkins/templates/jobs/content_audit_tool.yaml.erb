@@ -4,9 +4,6 @@
     display-name: Content Audit Tool - import inventory
     project-type: freestyle
     description: "<p>Run the import:all_content_items rake task.</p>"
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: ssh deploy@$(govuk_node_list -c backend --single-node) "cd /var/apps/content-audit-tool && govuk_setenv content-audit-tool bundle exec rake import:all_content_items"
     wrappers:

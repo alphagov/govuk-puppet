@@ -6,9 +6,6 @@
     description: "This job should be used to send a passive check to Icinga with a SUCCESS
       status. As such this should only be used as a triggered build for a stable (or related)
       condition."
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
       - shell: |
           IPADDRESS=$(facter ipaddress)

@@ -6,9 +6,6 @@
     description: "This job triggers the Data_Sync_Complete jobs on a remote Jenkins machine"
     logrotate:
         numToKeep: 10
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
             echo "Getting crumb..."

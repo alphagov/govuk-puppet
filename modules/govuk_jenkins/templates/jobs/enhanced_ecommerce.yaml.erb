@@ -4,9 +4,6 @@
     name: <%= @job_name %>
     display-name: <%= @job_name %>
     project-type: freestyle
-    discard_old: # Discard old builds after:
-      days: 30 # Optional, number of days after which the build is deleted
-      artifact_number: 4 # Optional, number of builds after which the artifact is deleted
     builders:
         - shell: |
           <%- if scope.lookupvar('::aws_migration') %>
