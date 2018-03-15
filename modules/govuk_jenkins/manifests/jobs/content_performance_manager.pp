@@ -5,7 +5,12 @@
 #
 # === Parameters:
 #
+# [*rake_etl_master_process_cron_schedule *]
+#   The cron timings for the etl:master process
+#   Default: undef
+#
 class govuk_jenkins::jobs::content_performance_manager (
+  $rake_etl_master_process_cron_schedule = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/content_performance_manager.yaml':
     ensure  => present,
