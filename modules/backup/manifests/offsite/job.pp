@@ -108,9 +108,9 @@ define backup::offsite::job(
   }
 
   if $weekday == undef { # duplicity job runs daily
-    $freshness_threshold = 28 * 60 * 60 # one day plus 4 hours
+    $freshness_threshold = 32 * 60 * 60 # one day plus 8 hours
   } else { # duplicity runs weekly
-    $freshness_threshold = (4 + (7 * 24)) * 60 * 60 # one week plus 4 hours
+    $freshness_threshold = (8 + (7 * 24)) * 60 * 60 # one week plus 8 hours
   }
 
   @@icinga::passive_check { "check_backup_offsite-${title}-${::hostname}":
