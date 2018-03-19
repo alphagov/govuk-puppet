@@ -202,10 +202,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
   - 'whitehall-frontend-3.frontend'
-  - 'whitehall-frontend-4.frontend'
-  - 'whitehall-frontend-5.frontend'
-  - 'whitehall-frontend-6.frontend'
-  - 'whitehall-frontend-7.frontend'
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
@@ -458,14 +454,6 @@ hosts::production::frontend::hosts:
     ip: '10.3.2.6'
   whitehall-frontend-3:
     ip: '10.3.2.10'
-  whitehall-frontend-4:
-    ip: '10.3.2.14'
-  whitehall-frontend-5:
-    ip: '10.3.2.15'
-  whitehall-frontend-6:
-    ip: '10.3.2.16'
-  whitehall-frontend-7:
-    ip: '10.3.2.17'
   frontend-lb-1:
     ip: '10.3.2.101'
   frontend-lb-2:
