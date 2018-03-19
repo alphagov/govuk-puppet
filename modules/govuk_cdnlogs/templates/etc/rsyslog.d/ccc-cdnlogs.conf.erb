@@ -13,7 +13,7 @@ $DefaultNetstreamDriverCertFile <%= @crt_file %>
 $DefaultNetstreamDriverKeyFile <%= @key_file %>
 
 # Verify server, not client.
-$InputTCPServerStreamDriverMode 1
+$InputTCPServerStreamDriverMode <%= @use_tls %>
 $InputTCPServerStreamDriverAuthMode anon
 
 # Temporarily disable message de-dupe.

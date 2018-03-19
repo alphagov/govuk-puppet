@@ -24,6 +24,11 @@
 #   Hash of service names and ports, e.g.
 #     { 'govuk' => 6514 }
 #
+# [*use_tls*]
+#   0: do not expect encrypted connection
+#   1: expect encrypted connection
+#
+
 class govuk_cdnlogs (
   $log_dir,
   $govuk_monitoring_enabled = true,
@@ -33,6 +38,7 @@ class govuk_cdnlogs (
   $critical_cdn_freshness = 3600,
   $server_key,
   $server_crt,
+  $use_tls = '1' ,
   $service_port_map,
 ) {
   validate_hash($service_port_map)
