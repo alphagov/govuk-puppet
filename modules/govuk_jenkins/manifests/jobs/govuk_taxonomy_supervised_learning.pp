@@ -15,7 +15,7 @@ class govuk_jenkins::jobs::govuk_taxonomy_supervised_learning (
   }
 
   $rummager_api = "search.${app_domain_to_use}"
-  $draft_content_store_api = "draft-content-store.${app_domain_to_use}"
+  $content_store_api = "content-store.${app_domain_to_use}"
 
   file { '/etc/jenkins_jobs/jobs/govuk_taxonomy_supervised_learning.yaml':
     ensure  => present,
