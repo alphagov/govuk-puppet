@@ -29,7 +29,7 @@
           git checkout -B ${GIT_BRANCH} origin/${GIT_BRANCH}
 
           export PLEK_SERVICE_RUMMAGER_URI=https://<%= @rummager_api %>
-          export PLEK_SERVICE_DRAFT_CONTENT_STORE_URI=https://<%= @draft_content_store_api %>
+          export PLEK_SERVICE_CONTENT_STORE_URI=https://<%= @content_store_api %>
 
           source bin/govuk_taxonomy_supervised_learning_jenkins_script
     parameters:
