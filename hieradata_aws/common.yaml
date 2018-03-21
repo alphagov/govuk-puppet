@@ -22,6 +22,7 @@ node_class: &node_class
       - content-audit-tool
       - content-performance-manager
       - content-tagger
+      - email-alert-api
       - event-store
       - hmrc-manuals-api
       - imminence
