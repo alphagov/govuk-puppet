@@ -80,7 +80,8 @@ sub vcl_recv {
   # For simplicity and security most applications should not use cookies.
   # With the exception of:
   #   - Licensing
-  if (req.url !~ "^/apply-for-a-licence") {
+  #   - email-alert-frontend (for subscription management)
+  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email") {
     unset req.http.Cookie;
   }
   <% end %>
@@ -116,7 +117,7 @@ sub vcl_fetch {
 
   <% if @strip_cookies %>
   # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
-  if (req.url !~ "^/apply-for-a-licence") {
+  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email") {
     unset beresp.http.Set-Cookie;
   }
   <% end %>
