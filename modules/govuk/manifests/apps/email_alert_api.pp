@@ -103,6 +103,8 @@ class govuk::apps::email_alert_api(
 ) {
 
   if $enabled {
+    notify { 'Email alert api enabled': }
+
     govuk::app { 'email-alert-api':
       app_type                 => 'rack',
       port                     => $port,
@@ -233,6 +235,8 @@ class govuk::apps::email_alert_api(
     }
   }
   else {
+    notify { 'Email alert api not enabled': }
+
     govuk::app { 'email-alert-api':
       ensure   => 'absent',
       app_type => 'rack',
