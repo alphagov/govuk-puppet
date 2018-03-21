@@ -49,6 +49,10 @@ class govuk::node::s_db_admin(
     require => Apt::Source['gof3r'],
   }
 
+  package { 'redis-tools':
+    ensure  => $ensure,
+  }
+
   $alert_hostname = 'alert'
 
   ### MySQL ###
