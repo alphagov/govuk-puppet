@@ -43,14 +43,6 @@ class govuk::apps::smokey (
     require        => File["/etc/govuk/${app}/env.d"],
   }
 
-  if $::aws_migration {
-    # For Smokey tests we need to use the Publishing domain rather than
-    # the internal domain so that we can do the correct Signon callback
-    govuk::app::envvar { 'GOVUK_APP_DOMAIN':
-      value => $app_domain,
-    }
-  }
-
   govuk::app::envvar {
     'AUTH_PASSWORD':    value => $http_password;
     'AUTH_USERNAME':    value => $http_username;
