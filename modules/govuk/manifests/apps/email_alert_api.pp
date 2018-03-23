@@ -232,4 +232,16 @@ class govuk::apps::email_alert_api(
       }
     }
   }
+  else {
+    govuk::app { 'email-alert-api':
+      ensure   => 'absent',
+      app_type => 'rack',
+      port     => $port,
+    }
+
+    govuk::procfile::worker {'email-alert-api':
+      ensure         => 'absent',
+      enable_service => false,
+    }
+  }
 }
