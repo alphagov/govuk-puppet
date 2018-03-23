@@ -143,6 +143,7 @@ class govuk::node::s_apt (
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
   aptly::repo { 'vale': }
+  aptly::repo { 'whisper-backup': }
 
   include nginx
   nginx::config::site { $apt_service:
