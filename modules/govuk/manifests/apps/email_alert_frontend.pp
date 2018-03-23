@@ -28,6 +28,9 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*subscription_management_enabled*]
+#   Whether the subscription management interface is enabled.
+#
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port = '3099',
@@ -35,6 +38,7 @@ class govuk::apps::email_alert_frontend(
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $email_alert_api_bearer_token = undef,
+  $subscription_management_enabled = false,
 ) {
   govuk::app { 'email-alert-frontend':
     app_type              => 'rack',
@@ -59,5 +63,12 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
+  }
+
+  if $subscription_management_enabled {
+    govuk::app::envvar { "${title}-SUBSCRIPTION_MANAGEMENT_ENABLED":
+      varname => 'SUBSCRIPTION_MANAGEMENT_ENABLED',
+      value   => 'yes';
+    }
   }
 }
