@@ -122,6 +122,8 @@ node_class: &node_class
 govuk::node::s_base::node_apps:
   <<: *node_class
 
+govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
 
