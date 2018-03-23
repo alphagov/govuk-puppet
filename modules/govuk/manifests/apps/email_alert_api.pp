@@ -103,6 +103,8 @@ class govuk::apps::email_alert_api(
 ) {
 
   if $enabled {
+    notify { 'Email alert api enabled': }
+
     govuk::app { 'email-alert-api':
       app_type                 => 'rack',
       port                     => $port,
@@ -230,6 +232,20 @@ class govuk::apps::email_alert_api(
         ",
         extra_config     => template('govuk/email_alert_api_public_nginx_extra_config.conf.erb'),
       }
+    }
+  }
+  else {
+    notify { 'Email alert api not enabled': }
+
+    govuk::app { 'email-alert-api':
+      ensure   => 'absent',
+      app_type => 'rack',
+      port     => $port,
+    }
+
+    govuk::procfile::worker {'email-alert-api':
+      ensure         => 'absent',
+      enable_service => false,
     }
   }
 }
