@@ -34,6 +34,7 @@ class monitoring::checks::smokey (
     require  => File[$service_file],
   }
 
-  create_resources(icinga::check_feature, $features)
+  $defaults = { 'notes_url' => monitoring_docs_url(high-priority-tests) }
+  create_resources(icinga::check_feature, $features, $defaults)
 
 }
