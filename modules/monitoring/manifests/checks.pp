@@ -117,7 +117,7 @@ class monitoring::checks (
 
   icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
     target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 2000,
+    warning             => 3000,
     critical            => 10000,
     desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
@@ -131,7 +131,7 @@ class monitoring::checks (
   # Government is comparable to the govuk index.
   icinga::check::graphite { 'check_rummager_government_index_size_changed':
     target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 1600,
+    warning             => 2500,
     critical            => 8000,
     desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
     host_name           => $::fqdn,
