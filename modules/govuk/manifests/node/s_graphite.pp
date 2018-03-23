@@ -91,41 +91,74 @@ class govuk::node::s_graphite (
     extra_config => $cors_headers,
   }
 
-  ## Make compressed archives of Whisper data to backup off-box rather than
-  ## backing up the raw files
-  file { '/usr/local/bin/govuk_backup_graphite_whisper_files':
-    ensure => present,
-    source => 'puppet:///modules/govuk/usr/local/bin/govuk_backup_graphite_whisper_files',
-    mode   => '0755',
-  }
+  ## Backing up whisper database directly to S3 using the whisper-backup script
+  if $::aws_migration {
+    $apt_mirror_hostname  = undef
+    apt::source { 'whisper-backup':
+      ensure       => present,
+      location     => "http://${apt_mirror_hostname}/whisper-backup",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
 
-  file { '/usr/local/bin/govuk_delete_ephemeral_interface_data':
-    ensure => present,
-    source => 'puppet:///modules/govuk/usr/local/bin/govuk_delete_ephemeral_interface_data',
-    mode   => '0755',
-  }
+    package { 'whisper-backup':
+      ensure  => installed,
+      require => Apt::Source['whisper-backup'],
+    }
 
-  package { 'pigz':
-    ensure => installed,
-  }
+    package { 'python-snappy':
+      ensure => installed,
+    }
 
-  file { '/opt/graphite/storage/backups':
-    ensure => 'directory',
-    owner  => 'govuk-backup',
-    group  => 'govuk-backup',
-    mode   => '0770',
-  }
+    $s3_database_backups_bucket = "govuk-${::aws_environment}-database-backups"
+    $source_path = "${graphite_path}/storage/whisper/"
+    $destination_path = '/whisper/'
+    $s3_backup_cmd = "whisper-backup -a sz -b ${s3_database_backups_bucket} -p ${source_path} --storage-path=${destination_path} backup s3 eu-west-1"
 
-  cron::crondotdee { 'create_compressed_archive_of_whisper_data':
-    command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
-    hour    => $graphite_backup_hour,
-    minute  => 45,
-  }
+    cron::crondotdee { 'backup_whisper_database_to_s3':
+      command => $s3_backup_cmd,
+      hour    => $graphite_backup_hour,
+      minute  => 5,
+    }
+  } else {
 
-  cron::crondotdee { 'delete_ephemeral_interface_data_from_ci_agents':
-    command => '/usr/local/bin/govuk_delete_ephemeral_interface_data',
-    hour    => $graphite_backup_hour,
-    minute  => 30,
+      ## Make compressed archives of Whisper data to backup off-box rather than
+      ## backing up the raw files
+      file { '/usr/local/bin/govuk_backup_graphite_whisper_files':
+        ensure => present,
+        source => 'puppet:///modules/govuk/usr/local/bin/govuk_backup_graphite_whisper_files',
+        mode   => '0755',
+      }
+
+      file { '/usr/local/bin/govuk_delete_ephemeral_interface_data':
+        ensure => present,
+        source => 'puppet:///modules/govuk/usr/local/bin/govuk_delete_ephemeral_interface_data',
+        mode   => '0755',
+      }
+
+      package { 'pigz':
+        ensure => installed,
+      }
+
+      file { '/opt/graphite/storage/backups':
+        ensure => 'directory',
+        owner  => 'govuk-backup',
+        group  => 'govuk-backup',
+        mode   => '0770',
+      }
+
+      cron::crondotdee { 'create_compressed_archive_of_whisper_data':
+        command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
+        hour    => $graphite_backup_hour,
+        minute  => 45,
+      }
+
+      cron::crondotdee { 'delete_ephemeral_interface_data_from_ci_agents':
+        command => '/usr/local/bin/govuk_delete_ephemeral_interface_data',
+        hour    => $graphite_backup_hour,
+        minute  => 30,
+      }
   }
 
   if ! $::aws_migration {
