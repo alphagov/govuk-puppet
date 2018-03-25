@@ -26,6 +26,7 @@ OPTIONS:
     -q       Skip MySQL import
     -e       Skip Elasticsearch import
     -t       Skip Mapit import
+    -k       Keep backups after import (will delete by default)
 
 EOF
 }
@@ -40,6 +41,7 @@ SKIP_MAPIT=false
 SSH_CONFIG="../ssh_config"
 RENAME_DATABASES=true
 DRY_RUN=false
+KEEP_BACKUPS=false
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="event_store transition backdrop support_contacts draft_content_store imminence draft_router"
 
@@ -55,7 +57,7 @@ function ignored() {
 }
 
 
-while getopts "hF:u:d:sri:onmpqet" OPTION
+while getopts "hF:u:d:sri:onmpqetk" OPTION
 do
   case $OPTION in
     h )
@@ -100,6 +102,9 @@ do
       ;;
     t )
       SKIP_MAPIT=true
+      ;;
+    k )
+      KEEP_BACKUPS=true
       ;;
   esac
 done

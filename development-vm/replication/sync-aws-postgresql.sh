@@ -97,6 +97,11 @@ for file in $(find $POSTGRESQL_DIR -name '*_production.dump.gz'); do
     do
       ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
     done
+
+    if ! $KEEP_BACKUPS; then
+      status "Deleting ${DUMP_FILENAME}"
+      rm ${file}
+    fi
   fi
 done
 

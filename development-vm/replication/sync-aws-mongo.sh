@@ -89,4 +89,9 @@ for dir in $(find $MONGO_DIR -mindepth 5 -maxdepth 5 -type d | grep -v '*'); do
   fi
 done
 
+if ! ($KEEP_BACKUPS || $DRY_RUN); then
+  status "Deleting ${MONGO_DIR} backups"
+  rm -rf $MONGO_DIR
+fi
+
 ok "Mongo replication from S3 (${SRC_HOSTNAME}) complete."

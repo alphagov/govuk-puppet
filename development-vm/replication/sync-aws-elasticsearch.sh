@@ -116,6 +116,11 @@ else
   status ""
   status "Remove alises from old indices and archiving"
   ruby $(dirname $0)/close_and_delete_old_indices.rb ${index_names}
+
+  if ! $KEEP_BACKUPS; then
+    status "Deleting ${LOCAL_ARCHIVE_PATH}"
+    rm -rf ${LOCAL_ARCHIVE_PATH}
+  fi
 fi
 
 ok "Restore complete"
