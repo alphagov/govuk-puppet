@@ -57,7 +57,9 @@ if [ -e $MONGO_DIR/.extracted ]; then
   status "Mongo dump has already been extracted."
 else
   status "Extracting compressed files..."
-  pv $MONGO_DIR/*.tgz | tar -zxf - -C $MONGO_DIR
+  exclude=""
+  for i in $IGNORE; do exclude="${exclude}--exclude var/lib/mongodump/mongodump/${i}_production --exclude var/lib/mongodump/mongodump/${i} "; done
+  pv $MONGO_DIR/*.tgz | tar -zx ${exclude} -f - -C $MONGO_DIR
   touch $MONGO_DIR/.extracted
 fi
 
