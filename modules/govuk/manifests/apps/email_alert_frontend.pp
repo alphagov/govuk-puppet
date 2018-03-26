@@ -28,6 +28,10 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*email_alert_auth_token*]
+#   Sets the secret token used for encrypting and decrypting messages shared
+#   between email alert applications
+#
 # [*subscription_management_enabled*]
 #   Whether the subscription management interface is enabled.
 #
@@ -38,6 +42,7 @@ class govuk::apps::email_alert_frontend(
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $email_alert_api_bearer_token = undef,
+  $email_alert_auth_token = undef,
   $subscription_management_enabled = false,
 ) {
   govuk::app { 'email-alert-frontend':
@@ -63,6 +68,9 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
+    "${title}-EMAIL_ALERT_AUTH_TOKEN":
+        varname => 'EMAIL_ALERT_AUTH_TOKEN',
+        value   => $email_alert_auth_token;
   }
 
   if $subscription_management_enabled {

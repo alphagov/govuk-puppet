@@ -50,6 +50,10 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*email_alert_auth_token*]
+#   Sets the secret token used for encrypting and decrypting messages shared
+#   between email alert applications
+#
 # [*email_service_provider*]
 #   Configure which provider to use for sending emails.
 #    PSUEDO - Don't actually send emails, instead just log them.
@@ -90,6 +94,7 @@ class govuk::apps::email_alert_api(
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $email_alert_auth_token = undef,
   $email_service_provider = 'NOTIFY',
   $email_address_override = undef,
   $email_address_override_whitelist = undef,
@@ -176,6 +181,9 @@ class govuk::apps::email_alert_api(
       "${title}-OAUTH_SECRET":
           varname => 'OAUTH_SECRET',
           value   => $oauth_secret;
+      "${title}-EMAIL_ALERT_AUTH_TOKEN":
+          varname => 'EMAIL_ALERT_AUTH_TOKEN',
+          value   => $email_alert_auth_token;
       "${title}-EMAIL_SERVICE_PROVIDER":
           varname => 'EMAIL_SERVICE_PROVIDER',
           value   => $email_service_provider;
