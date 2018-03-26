@@ -10,9 +10,14 @@
 # [*graphite_backup_hour*]
 #   Hour of the day to run the backup crons.
 #
+#  [*apt_mirror_hostname*]
+#    The hostname of the local aptly mirror.
+#
+
 class govuk::node::s_graphite (
   $graphite_path = '/opt/graphite',
   $graphite_backup_hour = 23,
+  $apt_mirror_hostname = 'apt.production.alphagov.co.uk',
 ) inherits govuk::node::s_base {
   class { 'graphite':
     version                    => '0.9.13',
@@ -93,7 +98,6 @@ class govuk::node::s_graphite (
 
   ## Backing up whisper database directly to S3 using the whisper-backup script
   if $::aws_migration {
-    $apt_mirror_hostname  = undef
     apt::source { 'whisper-backup':
       ensure       => present,
       location     => "http://${apt_mirror_hostname}/whisper-backup",
