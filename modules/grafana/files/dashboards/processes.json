@@ -1056,26 +1056,6 @@
             "selected": false
           },
           {
-            "text": "whitehall-frontend-4_frontend",
-            "value": "whitehall-frontend-4_frontend",
-            "selected": false
-          },
-          {
-            "text": "whitehall-frontend-5_frontend",
-            "value": "whitehall-frontend-5_frontend",
-            "selected": false
-          },
-          {
-            "text": "whitehall-frontend-6_frontend",
-            "value": "whitehall-frontend-6_frontend",
-            "selected": false
-          },
-          {
-            "text": "whitehall-frontend-7_frontend",
-            "value": "whitehall-frontend-7_frontend",
-            "selected": false
-          },
-          {
             "text": "whitehall-mysql-backup-1_backend",
             "value": "whitehall-mysql-backup-1_backend",
             "selected": false

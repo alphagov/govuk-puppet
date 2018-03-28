@@ -78,6 +78,8 @@ govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://p
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
+govuk::apps::government-frontend::cpu_warning: 200
+govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::kibana::logit_environment: 0ea55710-075b-4eab-bfc3-475f28cdd0c3
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
@@ -200,10 +202,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
   - 'whitehall-frontend-3.frontend'
-  - 'whitehall-frontend-4.frontend'
-  - 'whitehall-frontend-5.frontend'
-  - 'whitehall-frontend-6.frontend'
-  - 'whitehall-frontend-7.frontend'
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
@@ -456,14 +454,6 @@ hosts::production::frontend::hosts:
     ip: '10.3.2.6'
   whitehall-frontend-3:
     ip: '10.3.2.10'
-  whitehall-frontend-4:
-    ip: '10.3.2.14'
-  whitehall-frontend-5:
-    ip: '10.3.2.15'
-  whitehall-frontend-6:
-    ip: '10.3.2.16'
-  whitehall-frontend-7:
-    ip: '10.3.2.17'
   frontend-lb-1:
     ip: '10.3.2.101'
   frontend-lb-2:

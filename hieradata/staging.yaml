@@ -24,6 +24,8 @@ govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
+govuk::apps::government-frontend::cpu_warning: 200
+govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::kibana::logit_environment: d414187a-2796-4ea7-9b9a-d40c341646d6
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
@@ -151,10 +153,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
   - 'whitehall-frontend-3.frontend'
-  - 'whitehall-frontend-4.frontend'
-  - 'whitehall-frontend-5.frontend'
-  - 'whitehall-frontend-6.frontend'
-  - 'whitehall-frontend-7.frontend'
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-staging'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
@@ -396,14 +394,6 @@ hosts::production::frontend::hosts:
     ip: '10.2.2.6'
   whitehall-frontend-3:
     ip: '10.2.2.10'
-  whitehall-frontend-4:
-    ip: '10.2.2.14'
-  whitehall-frontend-5:
-    ip: '10.2.2.15'
-  whitehall-frontend-6:
-    ip: '10.2.2.16'
-  whitehall-frontend-7:
-    ip: '10.2.2.17'
   frontend-lb-1:
     ip: '10.2.2.101'
   frontend-lb-2:
