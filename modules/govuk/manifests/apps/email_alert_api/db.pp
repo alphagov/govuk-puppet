@@ -1,7 +1,7 @@
 # == Class: govuk::apps::email_alert_api:db
 #
-# Email Alert API uses PostgreSQL to keep a record of topics that have been
-# created in the third party GovDelivery service.
+# Email Alert API uses PostgreSQL to keep a record of lists, subscribers,
+# emails, and delivery attempts.
 #
 # === Parameters
 #
