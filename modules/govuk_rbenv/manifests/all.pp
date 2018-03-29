@@ -40,6 +40,10 @@ class govuk_rbenv::all (
     bundler_version  => '1.16.1',
     install_gem_docs => false,
   }
+  rbenv::version { '2.4.4':
+    bundler_version  => '1.16.1',
+    install_gem_docs => false,
+  }
   rbenv::version { '2.5.0':
     bundler_version  => '1.16.1',
     install_gem_docs => false,
@@ -53,7 +57,7 @@ class govuk_rbenv::all (
     to_version => '2.3.5',
   }
   rbenv::alias { '2.4':
-    to_version => '2.4.2',
+    to_version => '2.4.4',
   }
   rbenv::alias { '2.5':
     to_version => '2.5.0',
