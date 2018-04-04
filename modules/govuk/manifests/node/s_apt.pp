@@ -122,6 +122,10 @@ class govuk::node::s_apt (
       release  => 'trusty',
       repos    => ['stable'],
       key      => '9DC858229FC7DD38854AE2D88D81803C0EBFCD88';
+    'openjdk':
+      location => 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu/',
+      release  => 'trusty',
+      key      => 'DA1A4A13543B466853BAF164EB9B1D8886F44E2A';
   }
 
   aptly::repo { 'elastic-beats': }
