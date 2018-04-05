@@ -62,6 +62,14 @@
 #   Redis port for Link Checker API Sidekiq.
 #   Default: undef
 #
+# [*manuals_publisher_redis_host*]
+#   Redis host for Manuals Publisher Sidekiq.
+#   Default: undef
+#
+# [*manuals_publisher_redis_port*]
+#   Redis port for Manuals Publisher Sidekiq.
+#   Default: undef
+#
 # [*publisher_redis_host*]
 #   Redis host for Publisher Sidekiq.
 #   Default: undef
@@ -149,6 +157,8 @@ class govuk::apps::sidekiq_monitoring (
   $imminence_redis_port = undef,
   $link_checker_api_redis_host = undef,
   $link_checker_api_redis_port = undef,
+  $manuals_publisher_redis_host = undef,
+  $manuals_publisher_redis_port = undef,
   $publisher_redis_host = undef,
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
@@ -224,6 +234,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'link_checker_api',
       host   => $link_checker_api_redis_host,
       port   => $link_checker_api_redis_port;
+
+    "${app_name}_manuals_publisher":
+      prefix => 'manuals_publisher',
+      host   => $manuals_publisher_redis_host,
+      port   => $manuals_publisher_redis_port;
 
     "${app_name}_publisher":
       prefix => 'publisher',
