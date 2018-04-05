@@ -102,20 +102,20 @@
 #   Redis port for Specialist Publisher Sidekiq.
 #   Default: undef
 #
-# [*travel_advice_publisher_redis_host*]
-#   Redis host for Travel Advice Publisher Sidekiq.
-#   Default: undef
-#
-# [*travel_advice_publisher_redis_port*]
-#   Redis port for Travel Advice Publisher Sidekiq.
-#   Default: undef
-#
 # [*transition_redis_host*]
 #   Redis host for Transition Sidekiq.
 #   Default: undef
 #
 # [*transition_redis_port*]
 #   Redis port for Transition Sidekiq.
+#   Default: undef
+#
+# [*travel_advice_publisher_redis_host*]
+#   Redis host for Travel Advice Publisher Sidekiq.
+#   Default: undef
+#
+# [*travel_advice_publisher_redis_port*]
+#   Redis port for Travel Advice Publisher Sidekiq.
 #   Default: undef
 #
 # [*whitehall_redis_host*]
@@ -151,10 +151,10 @@ class govuk::apps::sidekiq_monitoring (
   $signon_redis_port = undef,
   $specialist_publisher_redis_host = undef,
   $specialist_publisher_redis_port = undef,
-  $travel_advice_publisher_redis_host = undef,
-  $travel_advice_publisher_redis_port = undef,
   $transition_redis_host = undef,
   $transition_redis_port = undef,
+  $travel_advice_publisher_redis_host = undef,
+  $travel_advice_publisher_redis_port = undef,
   $whitehall_redis_host = undef,
   $whitehall_redis_port = undef,
 ) {
