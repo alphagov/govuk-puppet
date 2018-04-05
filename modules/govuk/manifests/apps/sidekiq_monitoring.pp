@@ -102,6 +102,14 @@
 #   Redis port for Specialist Publisher Sidekiq.
 #   Default: undef
 #
+# [*support_api_redis_host*]
+#   Redis host for Support API Sidekiq.
+#   Default: undef
+#
+# [*support_api_redis_port*]
+#   Redis port for Support API Sidekiq.
+#   Default: undef
+#
 # [*transition_redis_host*]
 #   Redis host for Transition Sidekiq.
 #   Default: undef
@@ -151,6 +159,8 @@ class govuk::apps::sidekiq_monitoring (
   $signon_redis_port = undef,
   $specialist_publisher_redis_host = undef,
   $specialist_publisher_redis_port = undef,
+  $support_api_redis_host = undef,
+  $support_api_redis_port = undef,
   $transition_redis_host = undef,
   $transition_redis_port = undef,
   $travel_advice_publisher_redis_host = undef,
@@ -239,6 +249,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'specialist_publisher',
       host   => $specialist_publisher_redis_host,
       port   => $specialist_publisher_redis_port;
+
+    "${app_name}_support_api":
+      prefix => 'support_api',
+      host   => $support_api_redis_host,
+      port   => $support_api_redis_port;
 
     "${app_name}_transition":
       prefix => 'transition',

@@ -78,6 +78,7 @@ manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manu
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
 # contacts-frontend used port 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
+# sidekiq-monitoring for support-api uses port 3215
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
 # smartdown-frontend used port 3077
 # content-register used port 3077

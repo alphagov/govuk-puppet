@@ -66,6 +66,10 @@ server {
     proxy_pass http://localhost:3210;
   }
 
+  location /support-api {
+    proxy_pass http://localhost:3215;
+  }
+
   location /transition {
     proxy_pass http://localhost:3086;
   }
