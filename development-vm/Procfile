@@ -78,6 +78,7 @@ manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manu
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
 # contacts-frontend used port 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
+# sidekiq-monitoring for support-api uses port 3215
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
 # smartdown-frontend used port 3077
 # content-register used port 3077
@@ -151,6 +152,7 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # grafana has reserved port 3204
 manuals-publisher:  govuk_setenv manuals-publisher  ./run_in.sh ../../manuals-publisher bundle exec rails server -p 3205
 manuals-publisher-worker: govuk_setenv manuals-publisher ./run_in.sh ../../manuals-publisher bundle exec sidekiq -C ./config/sidekiq.yml
+# sidekiq-monitoring for manuals-publisher uses port 3214
 # sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
 content-performance-manager-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer

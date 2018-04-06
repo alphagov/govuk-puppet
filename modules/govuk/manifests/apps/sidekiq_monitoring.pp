@@ -62,6 +62,14 @@
 #   Redis port for Link Checker API Sidekiq.
 #   Default: undef
 #
+# [*manuals_publisher_redis_host*]
+#   Redis host for Manuals Publisher Sidekiq.
+#   Default: undef
+#
+# [*manuals_publisher_redis_port*]
+#   Redis port for Manuals Publisher Sidekiq.
+#   Default: undef
+#
 # [*publisher_redis_host*]
 #   Redis host for Publisher Sidekiq.
 #   Default: undef
@@ -102,12 +110,12 @@
 #   Redis port for Specialist Publisher Sidekiq.
 #   Default: undef
 #
-# [*travel_advice_publisher_redis_host*]
-#   Redis host for Travel Advice Publisher Sidekiq.
+# [*support_api_redis_host*]
+#   Redis host for Support API Sidekiq.
 #   Default: undef
 #
-# [*travel_advice_publisher_redis_port*]
-#   Redis port for Travel Advice Publisher Sidekiq.
+# [*support_api_redis_port*]
+#   Redis port for Support API Sidekiq.
 #   Default: undef
 #
 # [*transition_redis_host*]
@@ -116,6 +124,14 @@
 #
 # [*transition_redis_port*]
 #   Redis port for Transition Sidekiq.
+#   Default: undef
+#
+# [*travel_advice_publisher_redis_host*]
+#   Redis host for Travel Advice Publisher Sidekiq.
+#   Default: undef
+#
+# [*travel_advice_publisher_redis_port*]
+#   Redis port for Travel Advice Publisher Sidekiq.
 #   Default: undef
 #
 # [*whitehall_redis_host*]
@@ -141,6 +157,8 @@ class govuk::apps::sidekiq_monitoring (
   $imminence_redis_port = undef,
   $link_checker_api_redis_host = undef,
   $link_checker_api_redis_port = undef,
+  $manuals_publisher_redis_host = undef,
+  $manuals_publisher_redis_port = undef,
   $publisher_redis_host = undef,
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
@@ -151,10 +169,12 @@ class govuk::apps::sidekiq_monitoring (
   $signon_redis_port = undef,
   $specialist_publisher_redis_host = undef,
   $specialist_publisher_redis_port = undef,
-  $travel_advice_publisher_redis_host = undef,
-  $travel_advice_publisher_redis_port = undef,
+  $support_api_redis_host = undef,
+  $support_api_redis_port = undef,
   $transition_redis_host = undef,
   $transition_redis_port = undef,
+  $travel_advice_publisher_redis_host = undef,
+  $travel_advice_publisher_redis_port = undef,
   $whitehall_redis_host = undef,
   $whitehall_redis_port = undef,
 ) {
@@ -215,6 +235,11 @@ class govuk::apps::sidekiq_monitoring (
       host   => $link_checker_api_redis_host,
       port   => $link_checker_api_redis_port;
 
+    "${app_name}_manuals_publisher":
+      prefix => 'manuals_publisher',
+      host   => $manuals_publisher_redis_host,
+      port   => $manuals_publisher_redis_port;
+
     "${app_name}_publisher":
       prefix => 'publisher',
       host   => $publisher_redis_host,
@@ -239,6 +264,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'specialist_publisher',
       host   => $specialist_publisher_redis_host,
       port   => $specialist_publisher_redis_port;
+
+    "${app_name}_support_api":
+      prefix => 'support_api',
+      host   => $support_api_redis_host,
+      port   => $support_api_redis_port;
 
     "${app_name}_transition":
       prefix => 'transition',

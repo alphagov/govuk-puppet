@@ -46,6 +46,10 @@ server {
     proxy_pass http://localhost:3209;
   }
 
+  location /manuals-publisher {
+    proxy_pass http://localhost:3214;
+  }
+
   location /publisher {
     proxy_pass http://localhost:3079;
   }
@@ -64,6 +68,10 @@ server {
 
   location /specialist-publisher {
     proxy_pass http://localhost:3210;
+  }
+
+  location /support-api {
+    proxy_pass http://localhost:3215;
   }
 
   location /transition {
