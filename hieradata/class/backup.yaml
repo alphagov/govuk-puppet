@@ -57,6 +57,7 @@ lv:
       - '/dev/sdb1'
       - '/dev/sdc1'
       - '/dev/sdd1'
+      - '/dev/sde1'
     vg: 'backups'
 
 mount:
