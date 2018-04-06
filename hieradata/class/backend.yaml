@@ -6,6 +6,7 @@ govuk::apps::contacts::db_username: 'contacts'
 govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"
 
 govuk::apps::email_alert_api::enabled: false
+govuk::apps::email_alert_service::enabled: false
 
 govuk::apps::event_store::mongodb_servers:
   - 'mongo-1.backend'
