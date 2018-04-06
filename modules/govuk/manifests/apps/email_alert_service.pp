@@ -29,6 +29,7 @@
 #   Bearer token for communication with the email-alert-api
 #
 class govuk::apps::email_alert_service(
+  $enabled = false,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'email_alert_service',
   $rabbitmq_password = 'email_alert_service',
@@ -36,7 +37,14 @@ class govuk::apps::email_alert_service(
   $redis_host = undef,
   $email_alert_api_bearer_token = undef,
 ) {
+
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
   govuk::app { 'email-alert-service':
+    ensure             => $ensure,
     app_type           => 'bare',
     enable_nginx_vhost => false,
     sentry_dsn         => $sentry_dsn,
@@ -44,7 +52,9 @@ class govuk::apps::email_alert_service(
   }
 
   Govuk::App::Envvar {
-    app => 'email-alert-service',
+    ensure          => $ensure,
+    app             => 'email-alert-service',
+    notify_service  => $enabled,
   }
 
   govuk::app::envvar::rabbitmq { 'email-alert-service':
