@@ -1687,8 +1687,6 @@ router::nginx::check_requests_critical: '@8'
 router::nginx::robotstxt: |
   User-agent: *
   Disallow: /*/print$
-  # Don't allow indexing of search results
-  Disallow: /search?
   # We only allow indexing of the licence-finder landing page
   Disallow: /licence-finder/
   Allow: /licence-finder
