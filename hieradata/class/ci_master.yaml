@@ -20,13 +20,6 @@ jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.View.Read'
   - 'hudson.scm.SCM.Tag'
 
-govuk_jenkins::config:
-  JAVA_ARGS:
-    value: >-
-      -Djava.awt.headless=true
-      -Djenkins.install.runSetupWizard=false
-      -Xmx6144m
-
 govuk_jenkins::config::user_permissions:
   -
     user: 'ci_alphagov'
