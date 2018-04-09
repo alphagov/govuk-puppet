@@ -37,29 +37,15 @@ class govuk::node::s_apt (
       location => 'http://repo.aptly.info',
       release  => 'squeeze',
       key      => '9E3E53F19C7DE460';
-    'puppetlabs-precise':
-      location => 'http://apt.puppetlabs.com/',
-      repos    => ['main', 'dependencies'],
-      release  => 'precise',
-      key      => 'EF8D349F';
-    'puppetlabs-trusty':
-      location => 'http://apt.puppetlabs.com/',
-      repos    => ['main', 'dependencies'],
+    'duplicity':
+      location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
       release  => 'trusty',
-      key      => 'EF8D349F';
-    'puppetlabs-xenial':
-      location => 'http://apt.puppetlabs.com/',
-      repos    => ['PC1'],
-      release  => 'xenial',
-      key      => 'EF8D349F';
-    'govuk-ppa-precise':
-      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
-      release  => 'precise',
-      key      => '914D5813';
-    'govuk-ppa-trusty':
-      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
+      key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
+    'docker':
+      location => 'https://download.docker.com/linux/ubuntu',
       release  => 'trusty',
-      key      => '914D5813';
+      repos    => ['stable'],
+      key      => '9DC858229FC7DD38854AE2D88D81803C0EBFCD88';
     'elasticsearch-1.4':
       location => 'http://packages.elasticsearch.org/elasticsearch/1.4/debian',
       release  => 'stable',
@@ -80,14 +66,18 @@ class govuk::node::s_apt (
       location => 'https://artifacts.elastic.co/packages/5.x/apt',
       release  => 'stable',
       key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
+    'govuk-ppa-precise':
+      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
+      release  => 'precise',
+      key      => '914D5813';
+    'govuk-ppa-trusty':
+      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
+      release  => 'trusty',
+      key      => '914D5813';
     'grafana':
       location => 'https://packagecloud.io/grafana/stable/debian',
       release  => 'jessie',
       key      => '418A7F2FB0E1E6E7EABF6FE8C2E73424D59097AB';
-    'rabbitmq':
-      location => 'http://www.rabbitmq.com/debian',
-      release  => 'testing',
-      key      => '6026DFCA';
     'mongodb':
       location => 'http://downloads-distro.mongodb.org/repo/ubuntu-upstart',
       release  => 'dist',
@@ -101,6 +91,10 @@ class govuk::node::s_apt (
       release  => 'trusty',
       repos    => ['main'],
       key      => '68576280';
+    'openjdk':
+      location => 'http://ppa.launchpad.net/openjdk-r/ppa/ubuntu/',
+      release  => 'trusty',
+      key      => 'DA1A4A13543B466853BAF164EB9B1D8886F44E2A';
     'percona':
       location => 'http://repo.percona.com/apt',
       release  => 'trusty',
@@ -109,19 +103,29 @@ class govuk::node::s_apt (
       location => 'http://apt.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
+    'puppetlabs-precise':
+      location => 'http://apt.puppetlabs.com/',
+      repos    => ['main', 'dependencies'],
+      release  => 'precise',
+      key      => 'EF8D349F';
+    'puppetlabs-trusty':
+      location => 'http://apt.puppetlabs.com/',
+      repos    => ['main', 'dependencies'],
+      release  => 'trusty',
+      key      => 'EF8D349F';
+    'puppetlabs-xenial':
+      location => 'http://apt.puppetlabs.com/',
+      repos    => ['PC1'],
+      release  => 'xenial',
+      key      => 'EF8D349F';
+    'rabbitmq':
+      location => 'http://www.rabbitmq.com/debian',
+      release  => 'testing',
+      key      => '6026DFCA';
     'sysdig':
       location => 'http://download.draios.com/stable/deb',
       release  => 'stable-amd64/',
       key      => 'D27A72F32D867DF9300A241574490FD6EC51E8C4';
-    'duplicity':
-      location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
-      release  => 'trusty',
-      key      => 'AF953139C1DF9EF3476DE1D58F571BB27A86F4A2';
-    'docker':
-      location => 'https://download.docker.com/linux/ubuntu',
-      release  => 'trusty',
-      repos    => ['stable'],
-      key      => '9DC858229FC7DD38854AE2D88D81803C0EBFCD88';
   }
 
   aptly::repo { 'elastic-beats': }
