@@ -560,6 +560,8 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
+govuk::apps::sidekiq_monitoring::collections_publisher_redis_host: "%{hiera('govuk::apps::collections_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::collections_publisher_redis_port: "%{hiera('govuk::apps::collections_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
 
