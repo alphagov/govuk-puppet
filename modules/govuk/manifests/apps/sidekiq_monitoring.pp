@@ -30,6 +30,14 @@
 #   Redis port for Collections Publisher Sidekiq.
 #   Default: undef
 #
+# [*content_audit_tool_redis_host*]
+#   Redis host for Content Audit Tool Sidekiq.
+#   Default: undef
+#
+# [*content_audit_tool_redis_port*]
+#   Redis port for Content Audit Tool Sidekiq.
+#   Default: undef
+#
 # [*content_performance_manager_redis_host*]
 #   Redis host for Content Performance Manager Sidekiq.
 #   Default: undef
@@ -157,6 +165,8 @@ class govuk::apps::sidekiq_monitoring (
   $asset_manager_redis_port = undef,
   $collections_publisher_redis_host = undef,
   $collections_publisher_redis_port = undef,
+  $content_audit_tool_redis_host = undef,
+  $content_audit_tool_redis_port = undef,
   $content_performance_manager_redis_host = undef,
   $content_performance_manager_redis_port = undef,
   $content_tagger_redis_host = undef,
@@ -224,6 +234,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'collections_publisher',
       host   => $collections_publisher_redis_host,
       port   => $collections_publisher_redis_port;
+
+    "${app_name}_content_audit_tool":
+      prefix => 'content_audit_tool',
+      host   => $content_audit_tool_redis_host,
+      port   => $content_audit_tool_redis_port;
 
     "${app_name}_content_performance_manager":
       prefix => 'content_performance_manager',
