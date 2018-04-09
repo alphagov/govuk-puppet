@@ -23,6 +23,7 @@ node_class: &node_class
       - content-performance-manager
       - content-tagger
       - email-alert-api
+      - email-alert-service
       - event-store
       - hmrc-manuals-api
       - imminence
@@ -404,6 +405,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - thomas.leese@digital.cabinet-office.gov.uk
   - tijmen.brommet@digital.cabinet-office.gov.uk
 
+govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
