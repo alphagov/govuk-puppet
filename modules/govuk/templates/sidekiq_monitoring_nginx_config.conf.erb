@@ -22,8 +22,12 @@ server {
     proxy_pass http://localhost:3038;
   }
 
+  location /collections-publisher {
+    proxy_pass http://localhost:3216;
+  }
+
   location /content-audit-tool {
-    proxy_pass http://localhost:3214;
+    proxy_pass http://localhost:3217;
   }
 
   location /content-performance-manager {

@@ -78,13 +78,11 @@ manuals-frontend:      govuk_setenv manuals-frontend      ./run_in.sh ../../manu
 search-admin:          govuk_setenv search-admin          ./run_in.sh ../../search-admin   bundle exec rails server -p 3073
 # contacts-frontend used port 3074
 support-api:           govuk_setenv support-api           ./run_in.sh ../../support-api    bundle exec rails server -p 3075
-# sidekiq-monitoring for support-api uses port 3215
 short-url-manager:     govuk_setenv short-url-manager     ./run_in.sh ../../short-url-manager   bundle exec rails server -p 3076
 # smartdown-frontend used port 3077
 # content-register used port 3077
 collections-publisher: govuk_setenv collections-publisher ./run_in.sh ../../collections-publisher bundle exec rails server -p 3078
 collections-publisher-worker: govuk_setenv collections-publisher        ./run_in.sh ../../collections-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring for collections-publisher uses 3216
 # sidekiq-monitoring uses 3079-3081 and 3086
 service-manual:        govuk_setenv service-manual        ./run_in.sh ../../government-service-design-manual  bundle exec unicorn -p 3082
 # transition-postgres used port 3083
@@ -153,9 +151,8 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # grafana has reserved port 3204
 manuals-publisher:  govuk_setenv manuals-publisher  ./run_in.sh ../../manuals-publisher bundle exec rails server -p 3205
 manuals-publisher-worker: govuk_setenv manuals-publisher ./run_in.sh ../../manuals-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-# sidekiq-monitoring for manuals-publisher uses port 3214
-# sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3206
+# sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
 content-performance-manager-sidekiq-google-analytics: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/google_analytics.yml
 content-performance-manager-sidekiq-publishing-api:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/publishing_api.yml
@@ -165,7 +162,10 @@ link-checker-api-sidekiq:             govuk_setenv link-checker-api            .
 # sidekiq-monitoring for specialist-publisher uses port 3210
 # sidekiq-monitoring's web frontend listens on port 3211 and proxies requests per app to other ports (defined elsewhere in this file)
 publishing-components:                govuk_setenv publishing-components       ./run_in.sh ../../govuk_publishing_components bundle exec foreman start
-# sidekiq-monitoring for content-audit-tool uses port 3213
 content-audit-tool: govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec rails server -p 3213
+# sidekiq-monitoring for manuals-publisher uses port 3214
+# sidekiq-monitoring for support-api uses port 3215
+# sidekiq-monitoring for collections-publisher uses 3216
 content-audit-tool-sidekiq-google-analytics:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/google_analytics.yml
 content-audit-tool-sidekiq-publishing-api:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/publishing_api.yml
+# sidekiq-monitoring for content-audit-tool uses port 3217
