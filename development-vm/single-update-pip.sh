@@ -4,10 +4,6 @@ set -e
 
 . ./support_functions.sh
 
-run_pip_install () {
-  $DIRECTORY/bin/pip install -qr requirements.txt
-}
-
 DIRECTORY='.venv'
 
 cd "$(dirname "$0")"
@@ -24,10 +20,18 @@ else
   outputfile=$(mktemp -t update-pip.XXXXXX)
   trap "rm -f '$outputfile'" EXIT
 
-  if $(run_pip_install) >"$outputfile" 2>&1; then
+  . $DIRECTORY/bin/activate
+
+  if ! pip install --upgrade setuptools >"$outputfile" 2>&1; then
+    error "failed to upgrade setuptools with pip output:"
+    cat "$outputfile"
+    exit 1
+  fi
+
+  if pip install -r requirements.txt >"$outputfile" 2>&1; then
     ok "ok"
   else
-    error "failed with pip output:"
+    error "failed to install dependencies with pip output:"
     cat "$outputfile"
     exit 1
   fi
