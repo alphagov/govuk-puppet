@@ -112,7 +112,7 @@ class govuk_jenkins (
   }
 
   package { 'pipenv':
-    ensure   => 'present',
+    ensure   => '11.8',
     provider => 'pip',
   }
 
