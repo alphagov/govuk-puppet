@@ -1,4 +1,4 @@
-# Creates mahmudhussain user
+# Creates vitaliemogoreanu user
 class users::vitaliemogoreanu {
   govuk_user { 'vitaliemogoreanu':
     fullname => 'Vitalie Mogoreanu',
