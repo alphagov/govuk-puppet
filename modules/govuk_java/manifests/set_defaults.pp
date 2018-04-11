@@ -17,6 +17,7 @@ class govuk_java::set_defaults (
   $jdk_real = $jdk ? {
     'openjdk6' => 'java-1.6.0-openjdk',
     'openjdk7' => 'java-1.7.0-openjdk',
+    'openjdk8' => 'java-1.8.0-openjdk',
     'oracle7'  => 'java-7-oracle',
     default    => 'UNKNOWN'
   }
@@ -24,6 +25,7 @@ class govuk_java::set_defaults (
   $jre_real = $jre ? {
     'openjdk6' => 'java-1.6.0-openjdk',
     'openjdk7' => 'java-1.7.0-openjdk',
+    'openjdk8' => 'java-1.8.0-openjdk',
     'oracle7'  => 'java-7-oracle',
     default    => 'UNKNOWN'
   }
@@ -39,12 +41,14 @@ class govuk_java::set_defaults (
   $path_javac = $jdk ? {
     'openjdk6' => '/usr/lib/jvm/java-6-openjdk/bin/javac',
     'openjdk7' => '/usr/lib/jvm/java-7-openjdk-amd64/bin/javac',
+    'openjdk8' => '/usr/lib/jvm/java-8-openjdk-amd64/bin/javac',
     'oracle7'  => '/usr/lib/jvm/java-7-oracle/bin/javac',
   }
 
   $path_java = $jre ? {
     'openjdk6' => '/usr/lib/jvm/java-6-openjdk/jre/bin/java',
     'openjdk7' => '/usr/lib/jvm/java-7-openjdk-amd64/jre/bin/java',
+    'openjdk8' => '/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java',
     'oracle7'  => '/usr/lib/jvm/java-7-oracle/jre/bin/java',
   }
 
