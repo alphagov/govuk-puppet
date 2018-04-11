@@ -106,4 +106,6 @@ class govuk_postgresql::server (
       host_name => $::fqdn,
     }
   }
+  
+  Class['postgresql::server::install'] -> Class['postgresql::server::initdb']
 }
