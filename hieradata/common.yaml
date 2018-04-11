@@ -859,6 +859,8 @@ govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"

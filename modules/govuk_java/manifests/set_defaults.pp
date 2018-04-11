@@ -13,6 +13,7 @@ class govuk_java::set_defaults (
   $jdk = 'openjdk6',
   $jre = 'openjdk6'
 ) {
+  include govuk_java::repo
 
   $jdk_real = $jdk ? {
     'openjdk6' => 'java-1.6.0-openjdk',
