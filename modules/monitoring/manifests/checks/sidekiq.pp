@@ -47,7 +47,7 @@ class monitoring::checks::sidekiq (
 
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
-      target    => 'keepLastValue(stats.gauges.govuk.app.support.workers.queues.default.enqueued)',
+      target    => 'averageSeries(keepLastValue(stats.gauges.govuk.app.support.*.workers.queues.default.enqueued))',
       from      => '24hours',
       # Take an average over the most recent 36 datapoints, which at 5
       # seconds per datapoint is the last 3 minutes
