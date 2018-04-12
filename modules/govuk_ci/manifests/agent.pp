@@ -10,7 +10,6 @@
 class govuk_ci::agent(
   $master_ssh_key = undef,
   $gemstash_server = 'http://gemstash.cluster',
-  $licensing_tests = false,
 ) {
   include ::govuk_java::openjdk8::jre
   include ::govuk_java::openjdk8::jdk
@@ -31,9 +30,6 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
-  if $licensing_tests {
-    include ::govuk_java::oracle8
-  }
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::packages::vale
   include ::govuk_jenkins::pipeline
