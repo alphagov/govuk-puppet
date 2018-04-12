@@ -10,9 +10,6 @@ FORGE
     darin-zypprepo (1.0.2)
     fsalum-redis (1.0.0)
       thias-sysctl (>= 0.3.0)
-    gdsoperations-aptly (0.6.0)
-      puppetlabs-apt (< 3.0.0, >= 2.0.0)
-      puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
     gdsoperations-auditd (0.2.0)
       puppetlabs-concat (>= 1.0.0)
       puppetlabs-stdlib (>= 3.0.0)
@@ -161,6 +158,15 @@ GIT
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
+  remote: git://github.com/gds-operations/puppet-aptly.git
+  ref: 143919794c96450ef887dc757cea002345161870
+  sha: 143919794c96450ef887dc757cea002345161870
+  specs:
+    gdsoperations-aptly (0.6.0)
+      puppetlabs-apt (< 3.0.0, >= 2.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
+
+GIT
   remote: git://github.com/goldyfruit/puppet-grub2.git
   ref: a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73
   sha: a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73
@@ -189,7 +195,7 @@ DEPENDENCIES
   elasticsearch-elasticsearch (>= 0)
   elasticsearch-logstash (>= 0)
   fsalum-redis (>= 0)
-  gdsoperations-aptly (= 0.6.0)
+  gdsoperations-aptly (>= 0)
   gdsoperations-auditd (= 0.2.0)
   gdsoperations-goenv (= 0.0.4)
   gdsoperations-gor (>= 0)
