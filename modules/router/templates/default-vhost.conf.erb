@@ -7,6 +7,8 @@ server {
   }
 
   <%- if scope.lookupvar('::aws_migration') %>
+  # Send the Strict-Transport-Security header
+  include /etc/nginx/add-sts.conf;
   # Required for L7 ALB
   location = /_healthcheck {
     return 200;
