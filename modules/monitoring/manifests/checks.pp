@@ -74,10 +74,14 @@ class monitoring::checks (
     host_name           => $::fqdn,
     service_description => "check the STAR.${app_domain} SSL certificate is valid and not due to expire",
   }
-  icinga::check { 'check_mirror_provider1_cert_valid':
-    check_command       => 'check_ssl_cert!www-origin.mirror.provider1.production.govuk.service.gov.uk!www-origin.mirror.provider1.production.govuk.service.gov.uk!30',
-    host_name           => $::fqdn,
-    service_description => 'check the provider1 mirror SSL certificate is valid and not due to expire',
+
+  # AWS cannot access mirror machines in Carrenza
+  unless $::aws_migration {
+    icinga::check { 'check_mirror_provider1_cert_valid':
+      check_command       => 'check_ssl_cert!www-origin.mirror.provider1.production.govuk.service.gov.uk!www-origin.mirror.provider1.production.govuk.service.gov.uk!30',
+      host_name           => $::fqdn,
+      service_description => 'check the provider1 mirror SSL certificate is valid and not due to expire',
+    }
   }
   # END ssl certificate checks
 
@@ -167,10 +171,15 @@ class monitoring::checks (
     require => Icinga::Plugin['check_hsts_headers'],
   }
 
-  icinga::check { "check_hsts_headers_from_${::hostname}":
-    check_command       => 'check_hsts_headers',
-    service_description => 'Strict-Transport-Security headers',
-    host_name           => $::fqdn,
+  # We can't have Strict-Transport-Security headers in AWS since
+  # SSL is terminated at the ELB, which doesn't support this header,
+  # and nginx only receives HTTP requests.
+  unless $::aws_migration {
+    icinga::check { "check_hsts_headers_from_${::hostname}":
+      check_command       => 'check_hsts_headers',
+      service_description => 'Strict-Transport-Security headers',
+      host_name           => $::fqdn,
+    }
   }
 
   # In AWS this is liable to happen more often as machines come and go
