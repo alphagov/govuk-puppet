@@ -7,15 +7,17 @@
 # [*master_ssh_key*]
 #   The public SSH key of the CI master to enable SSH based agent builds
 #
-# [*elasticsearch_enabled*]
-#   Boolean.  Allows the exclusion of the elasticsearch class.
-#
 class govuk_ci::agent(
   $master_ssh_key = undef,
-  $elasticsearch_enabled = true,
   $gemstash_server = 'http://gemstash.cluster',
-  $licensing_tests = false,
 ) {
+  include ::govuk_java::openjdk8::jre
+  include ::govuk_java::openjdk8::jdk
+  class { 'govuk_java::set_defaults':
+    jdk => 'openjdk8',
+    jre => 'openjdk8',
+  }
+
   include ::clamav
   include ::clamav::cron_freshclam
   include ::govuk_ci::agent::redis
@@ -28,9 +30,6 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
-  if $licensing_tests {
-    include ::govuk_java::oracle8
-  }
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::packages::vale
   include ::govuk_jenkins::pipeline
@@ -39,14 +38,7 @@ class govuk_ci::agent(
   include ::govuk_sysdig
   include ::govuk_testing_tools
 
-  if $elasticsearch_enabled {
-    include ::govuk_ci::agent::elasticsearch
-  } else {
-    class { 'govuk_java::set_defaults':
-      jdk => 'openjdk7',
-      jre => 'openjdk7',
-    }
-  }
+  include ::govuk_ci::agent::elasticsearch
 
   # Override sudoers.d resource (managed by sudo module) to enable Jenkins user to run sudo tests
   File<|title == '/etc/sudoers.d/'|> {

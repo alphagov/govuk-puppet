@@ -25,8 +25,8 @@ class govuk_jenkins::package (
   ) {
   validate_hash($config, $plugins)
 
-  include govuk_java::openjdk7::jdk
-  include govuk_java::openjdk7::jre
+  include govuk_java::openjdk8::jdk
+  include govuk_java::openjdk8::jre
 
   apt::source { 'govuk-jenkins':
     location     => "http://${apt_mirror_hostname}/govuk-jenkins",
@@ -36,11 +36,11 @@ class govuk_jenkins::package (
   }
 
   class { 'govuk_java::set_defaults':
-    jdk     => 'openjdk7',
-    jre     => 'openjdk7',
+    jdk     => 'openjdk8',
+    jre     => 'openjdk8',
     require => [
-                  Class['govuk_java::openjdk7::jdk'],
-                  Class['govuk_java::openjdk7::jre'],
+                  Class['govuk_java::openjdk8::jdk'],
+                  Class['govuk_java::openjdk8::jre'],
                 ],
     notify  => Class['jenkins::service'],
   }
