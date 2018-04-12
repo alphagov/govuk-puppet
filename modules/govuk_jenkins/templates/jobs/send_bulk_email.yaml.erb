@@ -1,0 +1,33 @@
+---
+- job:
+    name: send-bulk-email
+    display-name: Send bulk email
+    project-type: freestyle
+    description: "Send a bulk email to a number of subscriber lists."
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          hostname=$(govuk_node_list -c email_alert_api --single-node)
+          command="cd /var/apps/email-alert-api && govuk_setenv email-alert-api bundle exec rake \"bulk:email[$SUBSCRIBER_LIST_IDS]\""
+
+          echo "Running $command on $hostname"
+
+          ssh deploy@$hostname "export SUBJECT=\"$SUBJECT\" && export BODY=\"$BODY\" && $command"
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+    parameters:
+      - string:
+          name: SUBJECT
+          description: The subject of the email
+      - text:
+          name: BODY
+          description: The body of the email
+      - string:
+          name: SUBSCRIBER_LIST_IDS
+          description: The IDs of the subscriber lists to send the email to
