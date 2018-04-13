@@ -38,7 +38,6 @@ class govuk_ci::master (
     github_client_secret  => $github_client_secret,
     jenkins_api_token     => $jenkins_api_token,
     environment_variables => $environment_variables,
-    version               => '2.107.2',
   }
 
   # Manually add jobs that we do not want to included in the 'Deploy App' job

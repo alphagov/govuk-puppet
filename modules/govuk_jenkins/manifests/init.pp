@@ -48,7 +48,7 @@ class govuk_jenkins (
   $plugins = {},
   $ssh_private_key = undef,
   $ssh_public_key = undef,
-  $version = '2.46.2',
+  $version = '2.107.2',
   $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
   $jenkins_user = 'jenkins',
