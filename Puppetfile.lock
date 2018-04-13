@@ -19,7 +19,7 @@ FORGE
       stankevich-python (< 2.0.0, >= 1.7.0)
     gdsoperations-openconnect (1.2.2)
       puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
-    gdsoperations-rbenv (1.3.0)
+    gdsoperations-rbenv (1.3.1)
     gdsoperations-resolvconf (0.2.0)
       puppetlabs-stdlib (>= 3.0.0)
     gdsoperations-unattended_reboot (0.3.0)
