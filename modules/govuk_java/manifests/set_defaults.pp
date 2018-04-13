@@ -15,6 +15,14 @@ class govuk_java::set_defaults (
 ) {
   include govuk_java::repo
 
+  # This file is copied in because the update-java-alternatives executable
+  # provided with Ubuntu Trusty does not work correctly with openjdk8
+  file { '/usr/sbin/update-java-alternatives':
+    ensure => file,
+    source => 'puppet:///modules/govuk_java/update-java-alternatives',
+    mode   => '0755',
+  }
+
   $jdk_real = $jdk ? {
     'openjdk6' => 'java-1.6.0-openjdk',
     'openjdk7' => 'java-1.7.0-openjdk-amd64',
