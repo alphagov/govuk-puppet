@@ -57,11 +57,11 @@ class govuk::node::s_development (
     source => 'puppet:///modules/govuk/etc/bash_completion.d/git-completion.bash',
   }
 
-  include govuk_java::openjdk7::jdk
-  include govuk_java::openjdk7::jre
+  include govuk_java::openjdk8::jdk
+  include govuk_java::openjdk8::jre
   class { 'govuk_java::set_defaults':
-    jdk => 'openjdk7',
-    jre => 'openjdk7',
+    jdk => 'openjdk8',
+    jre => 'openjdk8',
   }
 
   class { 'govuk_elasticsearch':
@@ -148,6 +148,11 @@ class govuk::node::s_development (
     'sqlite3':        ensure => 'installed'; # gds-sso uses sqlite3 to run its test suite
     'vegeta':         ensure => installed; # vegeta is used by the router test suite
     'mawk-1.3.4':     ensure => installed; # Provides /opt/mawk required by pre-transition-stats
+  }
+
+  package { 'graphviz':
+    ensure  => installed,
+    require => Class['govuk_java::set_defaults'],
   }
 
   ensure_packages(['wkhtmltopdf'])
