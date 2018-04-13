@@ -29,6 +29,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*ga_universal_id*]
+#   The Google Analytics ID.
+#   Default: undef
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -44,6 +48,7 @@ class govuk::apps::static(
   $draft_environment = false,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $ga_universal_id = undef,
   $redis_host = undef,
   $redis_port = undef,
 ) {
@@ -89,5 +94,12 @@ class govuk::apps::static(
   govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
     varname => 'PUBLISHING_API_BEARER_TOKEN',
     value   => $publishing_api_bearer_token,
+  }
+
+  if $ga_universal_id != undef {
+    govuk::app::envvar { "${title}-GA_UNIVERSAL_ID":
+      varname => 'GA_UNIVERSAL_ID',
+      value   => $ga_universal_id,
+    }
   }
 }
