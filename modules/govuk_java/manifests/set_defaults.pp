@@ -17,16 +17,16 @@ class govuk_java::set_defaults (
 
   $jdk_real = $jdk ? {
     'openjdk6' => 'java-1.6.0-openjdk',
-    'openjdk7' => 'java-1.7.0-openjdk',
-    'openjdk8' => 'java-1.8.0-openjdk',
+    'openjdk7' => 'java-1.7.0-openjdk-amd64',
+    'openjdk8' => 'java-1.8.0-openjdk-amd64',
     'oracle7'  => 'java-7-oracle',
     default    => 'UNKNOWN'
   }
 
   $jre_real = $jre ? {
     'openjdk6' => 'java-1.6.0-openjdk',
-    'openjdk7' => 'java-1.7.0-openjdk',
-    'openjdk8' => 'java-1.8.0-openjdk',
+    'openjdk7' => 'java-1.7.0-openjdk-amd64',
+    'openjdk8' => 'java-1.8.0-openjdk-amd64',
     'oracle7'  => 'java-7-oracle',
     default    => 'UNKNOWN'
   }
