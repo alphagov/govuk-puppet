@@ -1,0 +1,155 @@
+#! /bin/bash
+
+shopt -s dotglob
+
+prog=$(basename $0)
+
+usage()
+{
+    rv=$1
+    cat >&2 <<-EOF
+	usage: $prog [--jre-headless] [--jre] [--plugin] [-v|--verbose]
+	           -l|--list [<jname>]
+	           -s|--set <jname>
+	           -a|--auto
+	           -h|-?|--help
+	EOF
+    exit $rv
+}
+
+action=
+uaopts='--quiet'
+
+while [ "$#" -gt 0 ]; do
+    case "$1" in
+      -a|--auto)
+	[ -z "$action" ] || usage 1
+	action=auto;;
+      -hl|--jre-headless)
+	hlonly=yes;;
+      -j|--jre)
+	jreonly=yes;;
+      --plugin)
+	pluginonly=yes;;
+      -l|--list)
+	[ -z "$action" ] || usage 1
+	action=list
+	if [ "$#" -gt 0 ]; then
+	    shift
+	    jname=$1
+	fi
+	;;
+      -s|--set)
+	[ -z "$action" ] || usage 1
+	action=set
+	shift
+	[ "$#" -gt 0 ] || usage 1
+	jname=$1
+	;;
+      -v|--verbose)
+	verbose=yes
+	uaopts="${uaopts/--quiet/}";;
+      -h|-?|--help)
+	usage 0;;
+      -*)
+	echo "X: $1"
+	usage 1;;
+      *)
+	break;;
+    esac
+    shift
+done
+
+[ "$#" -eq 0 ] || usage 1
+[ -n "$action" ] || usage 1
+
+which='^(hl|jre|jdk|jdkhl|plugin|DUMMY) '
+if [ -n "$hlonly$jreonly$pluginonly" ]; then
+    which='^('
+    [ -n "$hlonly" ] && which="${which}hl|"
+    [ -n "$jreonly" ] && [ -n "$hlonly" ] && which="${which}jre|"
+    [ -n "$jreonly" ] && [ -z "$hlonly" ] && which="${which}hl|jre|"
+    [ -n "$pluginonly" ] && which="${which}plugin|"
+    which="${which}DUMMY) "
+fi
+
+top=/usr/lib/jvm
+
+if [ -n "$jname" ]; then
+    arch=$(dpkg --print-architecture)
+    if [ ! -x $top/$jname/bin/java ] && [ -x $top/$jname-$arch/bin/java ]; then
+	echo >&2 "$prog: obsolete <jname>, please use $jname-$arch instead"
+	jname=$jname-$arch
+    fi
+    case "$jname" in
+	/*) jdir=$jname; jname=$(basename $jdir);;
+	*)  jdir=$top/$jname
+    esac
+    if [ ! -d $jdir ]; then
+	echo >&2 "$prog: directory does not exist: $jdir"
+	exit 1
+    fi
+    if [ -f $top/.$jname.jinfo ]; then
+	jinfo=$top/.$jname.jinfo
+    elif [ -f $top/$jname.jinfo ]; then
+	jinfo=$top/$jname.jinfo
+    else
+	echo >&2 "$prog: file does not exist: $top/.$jname.jinfo"
+	exit 1
+    fi
+fi
+
+vecho()
+{
+    [ -z "$verbose" ]  || echo >&2 "$@"
+}
+
+jinfo_files=
+
+do_auto()
+{
+    vecho "resetting java alternatives"
+    awk "/$which/ {print \$2}" $top/*.jinfo | sort -u \
+	| \
+    while read name; do
+	update-alternatives $uaopts --auto $name
+    done
+}
+
+do_list()
+{
+    vecho "listing java alternatives:"
+    for i in ${jinfo:-$top/*.jinfo}; do
+	alias=$(basename ${i%.jinfo})
+	alias=${alias#.}
+	prio=$(awk -F= '/priority=/ {print $2}' $i)
+	printf "%-30s %-10s %s\n" $alias "$prio " $top/$alias
+	[ -n "$verbose" ] && egrep "$which" $i
+    done
+}
+
+do_set()
+{
+    do_auto
+
+    awk "/$which/ {print}" $jinfo | sort -u \
+	| \
+    while read type name location; do
+	if [ $type = jdk -a -z "$hlonly$jreonly$pluginonly" -a ! -f $location ]; then
+	    echo >&2 "$prog: jdk alternative does not exist: $location"
+	    continue
+	fi
+	if [ $type = plugin -a -z "$hlonly$jreonly" -a ! -f $location ]; then
+	    echo >&2 "$prog: plugin alternative does not exist: $location"
+	    continue
+	fi
+	update-alternatives $uaopts --set $name $location
+    done
+}
+
+if [ "$action" != list ] && [ "$(id -u)" -ne 0 ]; then
+    echo >&2 "$prog: no root privileges"
+    exit 1
+fi
+
+do_$action
