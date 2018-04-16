@@ -1,0 +1,6 @@
+<?xml version='1.1' encoding='UTF-8'?>
+<jenkins.security.UpdateSiteWarningsConfiguration>
+  <ignoredWarnings>
+    <string>SECURITY-248</string>
+  </ignoredWarnings>
+</jenkins.security.UpdateSiteWarningsConfiguration>

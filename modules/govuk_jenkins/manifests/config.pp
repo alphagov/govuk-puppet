@@ -192,6 +192,11 @@ class govuk_jenkins::config (
       source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.security.QueueItemAuthenticatorConfiguration.xml',
     }
 
+    file {'/var/lib/jenkins/jenkins.security.UpdateSiteWarningsConfiguration.xml':
+      ensure => file,
+      source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/jenkins.security.UpdateSiteWarningsConfiguration.xml',
+    }
+
     file {'/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml':
       ensure => file,
       source => 'puppet:///modules/govuk_jenkins/var/lib/jenkins/org.jenkinsci.plugins.conditionalbuildstep.singlestep.SingleConditionalBuilder.xml',
