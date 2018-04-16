@@ -151,6 +151,10 @@
   </views>
   <primaryView>all</primaryView>
   <slaveAgentPort><%= @agent_tcp_port %></slaveAgentPort>
+  <disabledAgentProtocols>
+    <string>JNLP-connect</string>
+    <string>JNLP2-connect</string>
+  </disabledAgentProtocols>
   <label></label>
   <%- if @csrf_version -%>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
