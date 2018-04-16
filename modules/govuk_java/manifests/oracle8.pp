@@ -3,7 +3,12 @@
 # Installs (and removes) the oracle-java8-installer package and accepts the
 # license agreement.
 #
-class govuk_java::oracle8 {
+# [*ensure*]
+# Whether to install the package. Default: 'present'
+#
+class govuk_java::oracle8 (
+  $ensure = 'present'
+) {
 
   include govuk_ppa
 
@@ -15,7 +20,7 @@ class govuk_java::oracle8 {
   }
 
   package { 'oracle-java8-installer':
-    ensure  => present,
+    ensure  => $ensure,
     require => [Exec['set-licence-selected'], Exec['set-licence-seen']],
   }
 
