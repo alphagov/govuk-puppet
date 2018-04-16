@@ -51,12 +51,12 @@
   "targets": [
     {
       "refId": "A",
-      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.failure, '5m'),0), 5 )",
+      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.failure, '5m'),0), 6)",
       "textEditor": true
     },
     {
       "refId": "B",
-      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.workers.*.*.failure, '5m'),0), 6)",
+      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.*.failure, '5m'),0), 6, 7)",
       "textEditor": true
     }
   ],
