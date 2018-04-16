@@ -1,4 +1,4 @@
-<?xml version='1.0' encoding='UTF-8'?>
+<?xml version='1.1' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors>
     <string>hudson.diagnosis.ReverseProxySetupMonitor</string>
@@ -7,6 +7,10 @@
     <string>jenkins.security.RekeySecretAdminMonitor</string>
   </disabledAdministrativeMonitors>
   <version><%= @version %></version>
+  <installState class="jenkins.install.InstallState$5">
+    <isSetupComplete>true</isSetupComplete>
+    <name>RESTART</name>
+  </installState>
   <numExecutors><%= @executors %></numExecutors>
   <mode>NORMAL</mode>
   <useSecurity>true</useSecurity>
@@ -113,7 +117,7 @@
   <views>
     <hudson.model.AllView>
       <owner class="hudson" reference="../../.."/>
-      <name>All</name>
+      <name>all</name>
       <filterExecutors>false</filterExecutors>
       <filterQueue>false</filterQueue>
       <properties class="hudson.model.View$PropertyList"/>
@@ -145,8 +149,12 @@
     </listView>
     <%- end -%>
   </views>
-  <primaryView>All</primaryView>
+  <primaryView>all</primaryView>
   <slaveAgentPort><%= @agent_tcp_port %></slaveAgentPort>
+  <disabledAgentProtocols>
+    <string>JNLP-connect</string>
+    <string>JNLP2-connect</string>
+  </disabledAgentProtocols>
   <label></label>
   <%- if @csrf_version -%>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
@@ -182,4 +190,3 @@
     </hudson.slaves.EnvironmentVariablesNodeProperty>
   </globalNodeProperties>
 </hudson>
-
