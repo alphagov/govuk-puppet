@@ -172,9 +172,8 @@ govuk_jenkins::plugins:
     version: '1.0'
   simple-theme-plugin:
     version: '0.4'
-  # Don't upgrade this to 2.2, it has bugs
   slack:
-    version: '1.7'
+    version: '2.3'
   ssh-credentials:
     version: '1.13'
   ssh-slaves:
