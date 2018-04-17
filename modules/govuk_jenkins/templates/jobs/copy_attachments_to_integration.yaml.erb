@@ -1,0 +1,68 @@
+---
+- scm:
+    name: env-sync-and-backup_Copy_Attachments_to_Integration
+    scm:
+        - git:
+            url: git@github.com:alphagov/env-sync-and-backup.git
+            branches:
+              - master
+
+- job:
+    name: Copy_Attachments_to_Integration
+    display-name: Copy_Attachments_to_Integration
+    project-type: freestyle
+    description: |
+        This job copies databases from production to integration. It runs periodically
+        to keep the integration environment up to date. The signon database isn't copied.
+    properties:
+        - github:
+            url: https://github.com/alphagov/env-sync-and-backup/
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - slack:
+            notify-start: false
+            notify-success: true
+            notify-aborted: true
+            notify-notbuilt: true
+            notify-unstable: false
+            notify-failure: true
+            notify-backtonormal: false
+            notify-repeatedfailure: false
+            include-test-summary: false
+            room: <%= @slack_room %>
+    scm:
+      - env-sync-and-backup_Copy_Data_to_Integration
+    logrotate:
+        numToKeep: 10
+    triggers:
+        - timed: 'H 1 * * 1-5'
+    builders:
+        - shell: |
+            set -eu
+
+            cd "${WORKSPACE}"
+
+            echo "Syncing attachments"
+            JOBLIST=attachments bash sync production integration
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
+          room: <%= @slack_room %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - timestamps
