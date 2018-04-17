@@ -980,20 +980,28 @@ grafana::dashboards::deployment_applications:
   collections: {}
   collections-publisher:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   contacts:
     fields_prefix: ''
     docs_name: 'contacts-admin'
   content-audit-tool:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   content-performance-manager:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   content-store:
     fields_prefix: ''
   content-tagger:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   email-alert-api:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   email-alert-frontend:
     fields_prefix: ''
@@ -1009,6 +1017,7 @@ grafana::dashboards::deployment_applications:
     fields_prefix: ''
   imminence:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   info-frontend:
     fields_prefix: ''
@@ -1017,6 +1026,7 @@ grafana::dashboards::deployment_applications:
     docs_name: 'licence-finder'
   link-checker-api:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   local-links-manager:
     fields_prefix: ''
@@ -1024,6 +1034,8 @@ grafana::dashboards::deployment_applications:
     fields_prefix: ''
   manuals-publisher:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   mapit:
     # No data in kibana
     show_controller_errors: false
@@ -1033,8 +1045,10 @@ grafana::dashboards::deployment_applications:
   policy-publisher: {}
   publisher:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   publishing-api:
+    show_sidekiq_graphs: true
     has_workers: true
   release: {}
   router-api: {}
@@ -1060,12 +1074,15 @@ grafana::dashboards::deployment_applications:
     fields_prefix: ''
   signon:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   smartanswers:
     fields_prefix: ''
     docs_name: 'smart-answers'
   specialist-publisher:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   static:
     fields_prefix: ''
     dependent_app_5xx_errors:
@@ -1080,12 +1097,18 @@ grafana::dashboards::deployment_applications:
       - whitehall-frontend
   support:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   support-api:
     fields_prefix: ''
+    show_sidekiq_graphs: true
+    has_workers: true
   transition:
     fields_prefix: ''
+    show_sidekiq_graphs: true
     has_workers: true
   travel-advice-publisher:
+    show_sidekiq_graphs: true
     has_workers: true
   whitehall:
     fields_prefix: ''
