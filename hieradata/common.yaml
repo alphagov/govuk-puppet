@@ -762,6 +762,7 @@ govuk_ci::master::pipeline_jobs:
   rails_translation_manager: {}
   router-data: {}
   screenshot-as-a-service: {}
+  seal: {}
   shared_mustache: {}
   slimmer: {}
   smokey: {}
