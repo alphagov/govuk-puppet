@@ -106,4 +106,12 @@ class govuk_postgresql::server (
       host_name => $::fqdn,
     }
   }
+
+  file { "/var/lib/postgresql/${postgresql::globals::version}":
+    ensure => directory,
+    owner  => $postgresql::params::user,
+    group  => $postgresql::params::group,
+    mode   => '0755',
+  }
+
 }
