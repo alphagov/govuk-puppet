@@ -1,6 +1,8 @@
 server {
   <%- if scope.lookupvar('::aws_migration') %>
   server_name <%= @vhost_name %> <%= @vhost_name %>.*;
+  # Send the Strict-Transport-Security header
+  include /etc/nginx/add-sts.conf;
   <%- else %>
   server_name <%= @vhost_name %>;
   <%- end %>
