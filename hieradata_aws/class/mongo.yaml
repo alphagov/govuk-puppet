@@ -17,7 +17,7 @@ lv:
     vg: 'mongo'
 
 mount:
-  /mnt/elasticsearch:
+  /mnt/mongo:
     disk: '/dev/mapper/mongo-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
