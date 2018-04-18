@@ -17,7 +17,11 @@
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
+    publishers:
       - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
           notify-start: false
           notify-success: false
           notify-aborted: true
@@ -27,12 +31,6 @@
           notify-backtonormal: true
           notify-repeatedfailure: false
           include-test-summary: false
-          room: <%= @slack_room %>
-    publishers:
-      - slack:
-          team-domain: <%= @slack_team_domain %>
-          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
-          build-server-url: <%= @slack_build_server_url %>
           room: <%= @slack_room %>
       - email-ext:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk

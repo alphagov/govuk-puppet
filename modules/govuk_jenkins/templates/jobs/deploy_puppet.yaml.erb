@@ -35,17 +35,6 @@
             artifact-num-to-keep: 5
         - github:
             url: https://github.com/alphagov/govuk-secrets/
-        - slack:
-            notify-start: true
-            notify-success: true
-            notify-aborted: true
-            notify-notbuilt: true
-            notify-unstable: false
-            notify-failure: true
-            notify-backtonormal: false
-            notify-repeatedfailure: false
-            include-test-summary: false
-            room: <%= @slack_room %>
     scm:
       - deployment_Deploy_Puppet
     builders:
@@ -62,6 +51,15 @@
             team-domain: <%= @slack_team_domain %>
             auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
             build-server-url: <%= @slack_build_server_url %>
+            notify-start: true
+            notify-success: true
+            notify-aborted: true
+            notify-notbuilt: true
+            notify-unstable: false
+            notify-failure: true
+            notify-backtonormal: false
+            notify-repeatedfailure: false
+            include-test-summary: false
             room: <%= @slack_room %>
         <%- end -%>
     wrappers:
