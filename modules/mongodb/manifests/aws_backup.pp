@@ -31,7 +31,7 @@ class mongodb::aws_backup (
   validate_re($daily_time, '^(\d\d):(\d\d)$')
 
   $alert_hostname = 'alert'
-  $threshold_secs = 3600
+  $threshold_secs = 4800
   $service_desc = 'MongoDB backup to S3'
 
   if $ensure == 'present' {
