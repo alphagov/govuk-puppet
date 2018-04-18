@@ -4,6 +4,7 @@
 #
 class govuk_jenkins::jobs::deploy_cdn(
   $app_domain = hiera('app_domain'),
+  $enable_slack_notifications = false,
 ) {
 
   $slack_team_domain = 'govuk'

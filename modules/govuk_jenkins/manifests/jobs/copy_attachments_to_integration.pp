@@ -4,6 +4,7 @@
 #
 class govuk_jenkins::jobs::copy_attachments_to_integration (
   $app_domain = hiera('app_domain'),
+  $enable_slack_notifications = true,
 ) {
 
   $check_name = 'copy_attachments_to_integration'

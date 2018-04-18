@@ -7,12 +7,16 @@
 # [*auth_token*]
 #   Token which will allow this job to be triggered remotely
 #
+# [*enable_slack_notifications*]
+#   Whether slack should be notified about this job
+#
 # [*commitish*]
 #   The commitish that the job should deploy by default. Defaults to 'release'
 #
 class govuk_jenkins::jobs::deploy_puppet (
   $auth_token = undef,
   $commitish   = 'release',
+  $enable_slack_notifications = false,
   $app_domain = hiera('app_domain')
 ) {
   $slack_team_domain = 'govuk'

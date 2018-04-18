@@ -68,6 +68,7 @@
             HOSTNAME=deploy.integration.publishing.service.gov.uk
             API_KEY=<%= @ci_alphagov_api_key %>
             AUTH_TOKEN=<%= @auth_token %>
+      <% if $enable_slack_notifications %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
@@ -82,6 +83,7 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+      <% end %>
     wrappers:
         - ansicolor:
             colormap: xterm

@@ -18,6 +18,7 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     publishers:
+      <% if @enable_slack_notifications %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
@@ -32,6 +33,7 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+      <% end %>
       - email-ext:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
           attach-build-log: true

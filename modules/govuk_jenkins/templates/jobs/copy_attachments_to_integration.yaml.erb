@@ -46,6 +46,7 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION=<%= @service_description %>
             NSCA_OUTPUT=<%= @service_description %> failed
+      <% if @enable_slack_notifications %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
@@ -60,6 +61,7 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+      <% end %>
     wrappers:
         - ansicolor:
             colormap: xterm
