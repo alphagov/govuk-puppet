@@ -1,0 +1,21 @@
+---
+- job:
+    name: whitehall_publisher_notifications
+    display-name: "Whitehall: Send publisher notifications (scheduled)"
+    project-type: freestyle
+    description: "<p>Regularly run the publisher_notifications:send rake task for whitehall publisher.</p>"
+    builders:
+        - trigger-builds:
+            - project: run-rake-task
+              block: true
+              predefined-parameters: |
+                TARGET_APPLICATION=whitehall
+                MACHINE_CLASS=whitehall_backend
+                RAKE_TASK=publisher_notifications:send
+    publishers:
+        - email:
+            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+    triggers:
+      - timed: "0 1 * * *"
+    logrotate:
+        numToKeep: 10
