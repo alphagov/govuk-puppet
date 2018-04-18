@@ -1,0 +1,45 @@
+#
+# Snippet: base
+#
+
+NODE=$1
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] START SNIPPET: base"
+
+# Source DISTRIB_* env vars
+. /etc/lsb-release
+
+export DEBIAN_FRONTEND=noninteractive
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: configure locales ..."
+echo "LC_ALL=en_GB.UTF-8" > /etc/environment
+locale-gen "en_GB.UTF-8"
+dpkg-reconfigure locales
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: install Puppet repository ..."
+TMPFILE=$(mktemp)
+wget -qO $TMPFILE http://apt.puppetlabs.com/puppetlabs-release-$DISTRIB_CODENAME.deb
+dpkg -i $TMPFILE
+rm $TMPFILE
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: ensure the packages are up to date ..."
+apt-get update -qq
+apt-get -y upgrade
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: install LVM ..."
+apt-get install -y lvm2
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: generate local facts ..."
+
+mkdir -p /etc/facter/facts.d/
+
+echo "aws_stackname=blue" | tee -a /etc/facter/facts.d/aws_stackname.txt
+echo "aws_environment=vagrant" | tee -a /etc/facter/facts.d/aws_environment.txt
+echo "aws_migration=${NODE}" | tee -a /etc/facter/facts.d/aws_migration.txt
+echo "aws_hostname=${NODE}-1" | tee -a /etc/facter/facts.d/aws_hostname.txt
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] base: install Puppet ..."
+apt-get -y install make ruby1.9.3 puppet='3.8.*' puppet-common='3.8.*'
+service puppet stop
+
+echo "[$(date '+%H:%M:%S %d-%m-%Y')] END SNIPPET: base"
