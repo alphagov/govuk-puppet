@@ -9,7 +9,7 @@
   "targets": [
     {
       "refId": "A",
-      "target": "groupByNode(stats.govuk.app.<%= @app_name %>.*.workers.*.failure, 6, 'sumSeries')",
+      "target": "aliasByNode(sumSeriesWithWildcards(stats.govuk.app.<%= @app_name %>.*.workers.*.failure, 4), 5)",
       "textEditor": true
     },
     {
