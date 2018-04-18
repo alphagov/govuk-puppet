@@ -42,11 +42,13 @@ server {
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
   <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
+  set $upstream_<%= vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
   location <%= alias_path %> {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
+    proxy_pass $upstream_<%= vhost_name.delete "-" %>;
   }
   <%- end -%>
 
+  set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
     # Explicitly re-include Strict-Transport-Security header, this
@@ -58,25 +60,27 @@ server {
     add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
     add_header "Access-Control-Allow-Headers" "origin, authorization";
 
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    proxy_pass $upstream_asset_manager;
   }
   <%- end -%>
-
+  
+  set $upstream_whitehall <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
   <%- @whitehall_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
+    proxy_pass $upstream_whitehall;
   }
   <%- end -%>
-
+  
+  set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   location = /static/a {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+    proxy_pass $upstream_static;
   }
 
   location /__canary__ {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+    proxy_pass $upstream_static;
   }
 
   location / {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+    proxy_pass $upstream_static;
   }
 }
