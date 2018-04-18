@@ -44,7 +44,7 @@ define grafana::dashboards::deployment_dashboard (
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
-  $fields_prefix = '@fields.',
+  $fields_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
 ) {
