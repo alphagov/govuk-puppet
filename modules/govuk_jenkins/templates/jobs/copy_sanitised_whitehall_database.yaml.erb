@@ -25,7 +25,9 @@
     logrotate:
         numToKeep: 10
     triggers:
-        - timed: '15 5 * * 1-5'
+        - timed: |
+            TZ=Europe/London
+            15 5 * * 1-5'
     builders:
         - shell: |
             cd "$WORKSPACE/whitehall/"

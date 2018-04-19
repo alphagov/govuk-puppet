@@ -32,4 +32,6 @@
     logrotate:
       numToKeep: 14
     triggers:
-      - timed: 'H 7 * * *'
+        - timed: |
+            TZ=Europe/London
+            H 7 * * *

@@ -13,7 +13,9 @@
             ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall; govuk_setenv whitehall nohup bundle exec rake generate_broken_link_reports[/tmp/bad_link_reports,second-line-content@digital.cabinet-office.gov.uk]'
             echo "Broken link checker run"
     triggers:
-        - timed: '0 2 1 * *'
+        - timed: |
+            TZ=Europe/London
+            0 2 1 * *
     wrappers:
         - ansicolor:
             colormap: xterm

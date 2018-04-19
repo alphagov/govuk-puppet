@@ -17,7 +17,10 @@
     logrotate:
         numToKeep: 250
     triggers:
-        - timed: '0 8 * * *' # 8PM every day
+        - timed: |
+            TZ=Europe/London
+            # 8PM every day
+            0 8 * * *
     properties:
         - build-discarder:
             days-to-keep: 30

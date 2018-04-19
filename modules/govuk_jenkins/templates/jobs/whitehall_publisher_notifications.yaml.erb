@@ -16,6 +16,8 @@
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
-      - timed: "0 1 * * *"
+        - timed: |
+            TZ=Europe/London
+            0 1 * * *
     logrotate:
         numToKeep: 10

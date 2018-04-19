@@ -29,7 +29,9 @@
     logrotate:
         numToKeep: 10
     triggers:
-        - timed: 'H 11 * * *'
+        - timed: |
+            TZ=Europe/London
+            H 11 * * *
     builders:
         - shell: |
             set +x

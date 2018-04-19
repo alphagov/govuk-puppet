@@ -29,4 +29,6 @@
         - email:
             recipients: 2nd-line-support@digital.cabinet-office.gov.uk
     triggers:
-        - timed: 'H 3 * * *'
+        - timed: |
+            TZ=Europe/London
+            H 3 * * *

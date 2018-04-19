@@ -28,4 +28,6 @@
             <%- end %>
             sh -x deploy.sh
     triggers:
-        - timed: 'H 9 * * *'
+        - timed: |
+            TZ=Europe/London
+            H 9 * * *

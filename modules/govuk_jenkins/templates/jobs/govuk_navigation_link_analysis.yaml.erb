@@ -20,7 +20,9 @@
     logrotate:
       numToKeep: 10
     triggers:
-        - timed: 'H 0 * * 1'
+        - timed: |
+            TZ=Europe/London
+            H 0 * * 1
     properties:
         - build-discarder:
             days-to-keep: 30
