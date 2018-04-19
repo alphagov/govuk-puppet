@@ -4,13 +4,15 @@
   # requests made to that path without a trailing slash, *if* there is a
   # proxy_pass directive in the block.
 
+  set upstream_whitehall_api <%= @privateapi_protocol %>://<%= @whitehallapi %>;
   location ~ ^/api/(governments|organisations|specialist|worldwide-organisations|world-locations)(/|$) {
     expires 30m;
 
     proxy_set_header Host <%= @whitehallapi %>;
-    proxy_pass <%= @privateapi_protocol %>://<%= @whitehallapi %>;
+    proxy_pass $upstream_whitehall_api;
   }
 
+  set upstream_rummager_api <%= @privateapi_protocol %>://<%= @rummager_api %>;
   location ~ ^/api/search.json {
     expires 30m;
 
@@ -19,9 +21,10 @@
     add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
-    proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
+    proxy_pass $upstream_rummager_api;
   }
 
+  set upstream_content_store_api <%= @privateapi_protocol %>://<%= @content_store_api %>;
   location ~ ^/api/content(/|$) {
     limit_except GET {
       deny all;
@@ -31,7 +34,7 @@
 
     add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @content_store_api %>;
-    proxy_pass <%= @privateapi_protocol %>://<%= @content_store_api %>;
+    proxy_pass $upstream_content_store_api;
   }
 
   location ~ ^/api(/|$) {
