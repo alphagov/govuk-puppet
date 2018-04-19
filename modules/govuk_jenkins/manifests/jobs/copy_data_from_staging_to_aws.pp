@@ -15,10 +15,6 @@ class govuk_jenkins::jobs::copy_data_from_staging_to_aws (
   $check_name = 'copy_data_from_staging_to_aws'
   $service_description = 'Copy Data from Production to Aws'
 
-  $slack_team_domain = 'govuk'
-  $slack_room = 'govuk-infrastructure'
-  $slack_build_server_url = "https://deploy.${app_domain}/"
-
   file { '/etc/jenkins_jobs/jobs/copy_data_from_staging_to_aws.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/copy_data_from_staging_to_aws.yaml.erb'),

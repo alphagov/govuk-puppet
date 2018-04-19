@@ -4,10 +4,14 @@
 #
 # === Parameters
 #
+# [*enable_slack_notifications*]
+#   Whether slack should be notified about this job
+#
 # [*smokey_task*]
 #   The rake task to run for the tests
 #
 class govuk_jenkins::jobs::smokey (
+  $enable_slack_notifications = false,
   $smokey_task = 'test:production',
 ) {
   $app_domain = hiera('app_domain')

@@ -22,17 +22,6 @@
         - build-discarder:
             days-to-keep: 30
             artifact-num-to-keep: 5
-        - slack:
-            notify-start: false
-            notify-success: true
-            notify-aborted: true
-            notify-notbuilt: true
-            notify-unstable: false
-            notify-failure: true
-            notify-backtonormal: false
-            notify-repeatedfailure: false
-            include-test-summary: false
-            room: <%= @slack_room %>
     scm:
       - env-sync-and-backup_Copy_Data_to_Staging
     logrotate:
@@ -91,11 +80,22 @@
             HOSTNAME=deploy.staging.publishing.service.gov.uk
             API_KEY=<%= @ci_alphagov_api_key %>
             AUTH_TOKEN=<%= @auth_token %>
+      <% if @enable_slack_notifications %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
           build-server-url: <%= @slack_build_server_url %>
+          notify-start: false
+          notify-success: true
+          notify-aborted: true
+          notify-notbuilt: true
+          notify-unstable: false
+          notify-failure: true
+          notify-backtonormal: false
+          notify-repeatedfailure: false
+          include-test-summary: false
           room: <%= @slack_room %>
+      <% end %>
     wrappers:
         - ansicolor:
             colormap: xterm

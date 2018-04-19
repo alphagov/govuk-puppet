@@ -10,6 +10,7 @@ class govuk_jenkins::jobs::copy_data_to_integration (
   $pg_tr_dst_env_sync_pw = undef,
   $ci_alphagov_api_key = undef,
   $auth_token = undef,
+  $enable_slack_notifications = true,
   $app_domain = hiera('app_domain'),
 ) {
 
