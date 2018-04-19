@@ -45,6 +45,10 @@
             sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
             sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
 
+            echo "Putting in the real Transition Postgresql transition password"
+            sed -i.bak "s/PG_TR_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_TR_SRC_ENV_SYNC_PW='<%= @pg_tr_src_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
+            sed -i "s/PG_TR_DST_ENV_SYNC_PW=PLACEHOLDER/PG_TR_DST_ENV_SYNC_PW='<%= @pg_tr_dst_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
+
             set +e
 
             echo "Disabling Gor traffic replay"
@@ -80,6 +84,11 @@
             HOSTNAME=deploy.blue.staging.govuk.digital
             API_KEY=<%= @ci_alphagov_api_key %>
             AUTH_TOKEN=<%= @auth_token %>
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
+          room: <%= @slack_room %>            
     wrappers:
         - ansicolor:
             colormap: xterm
