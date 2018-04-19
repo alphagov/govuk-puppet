@@ -51,12 +51,22 @@
   "targets": [
     {
       "refId": "A",
-      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.success, '5m'),0), 6)",
+      "target": "aliasByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.success, '5m'), 0), 4), 5)",
       "textEditor": true
     },
     {
       "refId": "B",
-      "target": "aliasByNode(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.*.success, '5m'),0), 6, 7)",
+      "target": "aliasByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.*.success, '5m'), 0), 4), 5, 6)",
+      "textEditor": true
+    },
+    {
+      "refId": "C",
+      "target": "aliasByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.*.*.success, '5m'), 0), 4), 5, 6, 7)",
+      "textEditor": true
+    },
+    {
+      "refId": "D",
+      "target": "aliasByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.<%= @app_name %>.*.workers.*.*.*.*.success, '5m'), 0), 4), 5, 6, 7, 8)",
       "textEditor": true
     }
   ],
