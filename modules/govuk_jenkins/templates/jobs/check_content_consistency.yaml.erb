@@ -20,7 +20,9 @@
       numToKeep: 10
       artifactDaysToKeep: 3
     triggers:
-        - timed: 'H 11 * * *'
+        - timed: |
+            TZ=Europe/London
+            H 11 * * *
     properties:
         - build-discarder:
             days-to-keep: 30
