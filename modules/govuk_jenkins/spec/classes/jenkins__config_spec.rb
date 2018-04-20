@@ -2,8 +2,8 @@ require_relative '../../../../spec_helper'
 
 describe 'govuk_jenkins::config', :type => :class do
   let(:default_params) {{
-    :github_client_id     => 'bar',
-    :github_client_secret => 'baz',
+    :github_client_id               => 'bar',
+    :github_client_secret_encrypted => 'baz',
   }}
 
   describe 'manage config' do

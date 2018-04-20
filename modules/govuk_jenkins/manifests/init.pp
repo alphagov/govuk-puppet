@@ -8,8 +8,8 @@
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
-# [*github_client_secret*]
-#   The Github client secret is used to authenticate against Github.
+# [*github_client_secret_encrypted*]
+#   The encrypted Github client secret is used to authenticate against Github.
 #
 # [*config*]
 #   A hash of Jenkins config options to set
@@ -43,7 +43,7 @@
 #
 class govuk_jenkins (
   $github_client_id,
-  $github_client_secret,
+  $github_client_secret_encrypted,
   $config = {},
   $plugins = {},
   $ssh_private_key = undef,
@@ -77,9 +77,9 @@ class govuk_jenkins (
   }
 
   class { 'govuk_jenkins::config':
-    github_client_id      => $github_client_id,
-    github_client_secret  => $github_client_secret,
-    environment_variables => $environment_variables,
+    github_client_id               => $github_client_id,
+    github_client_secret_encrypted => $github_client_secret_encrypted,
+    environment_variables          => $environment_variables,
   }
 
   class { 'govuk_jenkins::package':

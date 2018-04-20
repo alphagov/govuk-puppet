@@ -7,15 +7,15 @@
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
-# [*github_client_secret*]
-#   The Github client secret is used to authenticate against Github.
+# [*github_client_secret_encrypted*]
+#   The encrypted Github client secret is used to authenticate against Github.
 #
 # [*environment_variables*]
 #   A hash of environment variables that should be set for all Jenkins jobs.
 #
 class govuk_ci::master (
   $github_client_id,
-  $github_client_secret,
+  $github_client_secret_encrypted,
   $jenkins_api_token,
   $pipeline_jobs = {},
   $environment_variables = {},
@@ -34,10 +34,10 @@ class govuk_ci::master (
   govuk_jenkins::api_user { 'jenkins_agent': }
 
   class { '::govuk_jenkins':
-    github_client_id      => $github_client_id,
-    github_client_secret  => $github_client_secret,
-    jenkins_api_token     => $jenkins_api_token,
-    environment_variables => $environment_variables,
+    github_client_id               => $github_client_id,
+    github_client_secret_encrypted => $github_client_secret_encrypted,
+    jenkins_api_token              => $jenkins_api_token,
+    environment_variables          => $environment_variables,
   }
 
   # Manually add jobs that we do not want to included in the 'Deploy App' job

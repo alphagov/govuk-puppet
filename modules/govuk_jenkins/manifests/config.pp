@@ -35,8 +35,8 @@
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
-# [*github_client_secret*]
-#   The Github client secret is used to authenticate against Github.
+# [*github_client_secret_encrypted*]
+#   The encrypted Github client secret is used to authenticate against Github.
 #
 # [*theme_colour*]
 #   The colour that is used to indicate the environment in Jenkins web interface.
@@ -102,7 +102,7 @@ class govuk_jenkins::config (
   $github_web_uri,
   $github_api_uri,
   $github_client_id,
-  $github_client_secret,
+  $github_client_secret_encrypted,
   $admins = [],
   $user_permissions = [],
   $manage_permissions_github_teams = true,
