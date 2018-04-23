@@ -40,7 +40,7 @@ class govuk::apps::service_manual_frontend(
       port                  => $port,
       sentry_dsn            => $sentry_dsn,
       vhost_ssl_only        => true,
-      health_check_path     => '/healthcheck',
+      health_check_path     => '/service-manual',
       asset_pipeline        => true,
       asset_pipeline_prefix => 'service-manual-frontend',
       vhost                 => $vhost,
