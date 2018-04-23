@@ -82,7 +82,7 @@ class govuk::apps::smartanswers(
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/pay-leave-for-parents',
+    health_check_path        => '/pay-leave-for-parents/y',
     log_format_is_json       => true,
     asset_pipeline           => true,
     asset_pipeline_prefix    => 'smartanswers',
