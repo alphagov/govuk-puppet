@@ -130,10 +130,8 @@ govuk_jenkins::plugins:
     version: '3.8.0'
   github-api:
     version: '1.90'
-  # Updating this will require changing the configuration as the format has
-  # changed.
   github-branch-source:
-    version: '2.0.5'
+    version: '2.3.4'
   github:
     version: '1.29.0'
   github-oauth:
