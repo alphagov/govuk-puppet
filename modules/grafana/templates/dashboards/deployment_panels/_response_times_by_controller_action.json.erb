@@ -49,6 +49,17 @@
           "type": "terms"
         },
         {
+          "fake": true,
+          "field": "<%= @fields_prefix -%>action",
+          "id": "4",
+          "settings": {
+            "order": "desc",
+            "orderBy": "_count"
+            "size": "10",
+          }
+          "type": "terms",
+        },
+        {
           "field": "@timestamp",
           "id": "2",
           "settings": {
