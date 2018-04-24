@@ -72,7 +72,7 @@ define grafana::dashboards::deployment_dashboard (
 
   if $show_slow_requests {
     $duration_by_controller_row = [
-      ['response_times_by_controller']
+      ['response_times_by_controller_action']
     ]
   } else {
     $duration_by_controller_row = []
