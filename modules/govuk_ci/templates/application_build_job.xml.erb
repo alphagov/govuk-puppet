@@ -46,8 +46,8 @@
         <strategy class="jenkins.branch.NamedExceptionsBranchPropertyStrategy">
           <defaultProperties class="empty-list"/>
           <namedExceptions class="java.util.Arrays$ArrayList">
-            <% @branches_to_exclude.each do |branch| %>
             <a class="jenkins.branch.NamedExceptionsBranchPropertyStrategy$Named-array">
+              <% @branches_to_exclude.each do |branch| %>
               <jenkins.branch.NamedExceptionsBranchPropertyStrategy_-Named>
                 <props class="java.util.Arrays$ArrayList">
                   <a class="jenkins.branch.BranchProperty-array">
@@ -56,8 +56,8 @@
                 </props>
                 <name><%= branch %></name>
               </jenkins.branch.NamedExceptionsBranchPropertyStrategy_-Named>
+              <% end %>
             </a>
-            <% end %>
           </namedExceptions>
         </strategy>
       </jenkins.branch.BranchSource>
