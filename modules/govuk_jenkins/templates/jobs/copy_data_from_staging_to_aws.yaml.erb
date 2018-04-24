@@ -30,7 +30,7 @@
         numToKeep: 10
     builders:
         - shell: |
-            set +x
+            set -eu
             cd "${WORKSPACE}"
 
             echo "Putting in the real MySQL root password"

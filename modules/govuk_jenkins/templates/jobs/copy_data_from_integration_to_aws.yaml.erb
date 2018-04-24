@@ -28,10 +28,6 @@
       - env-sync-and-backup_Copy_Data_from_Integration_to_AWS
     logrotate:
         numToKeep: 10
-    triggers:
-        - timed: |
-            TZ=Europe/London
-            H 11 * * 1-5
     builders:
         - shell: |
             set -eu
@@ -45,7 +41,10 @@
             echo "Putting in the real PostgreSQL env-sync password"
             sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
             sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
-            sed -i "s/PG_DST_ENV_SYNC_PW=TR_PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_tr_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
+
+            echo "Putting in the real Transition Postgresql transition password"
+            sed -i.bak "s/PG_TR_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_TR_SRC_ENV_SYNC_PW='<%= @pg_tr_src_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
+            sed -i "s/PG_TR_DST_ENV_SYNC_PW=PLACEHOLDER/PG_TR_DST_ENV_SYNC_PW='<%= @pg_tr_dst_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
 
             echo "Syncing data"
             bash sync integration aws
