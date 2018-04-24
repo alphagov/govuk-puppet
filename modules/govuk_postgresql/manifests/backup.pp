@@ -23,7 +23,7 @@
 #   The hostname of the alert service, to send ncsa notifications.
 #
 class govuk_postgresql::backup (
-  $auto_postgresql_backup_hour = 8,
+  $auto_postgresql_backup_hour = 6,
   $auto_postgresql_backup_minute = 0,
   $alert_hostname = 'alert.cluster',
 ) {
