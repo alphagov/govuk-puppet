@@ -1,52 +1,40 @@
-<?xml version='1.0' encoding='UTF-8'?>
-<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.9.2">
+<?xml version='1.1' encoding='UTF-8'?>
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.17">
   <actions/>
   <description></description>
-  <properties/>
-  <views>
-    <hudson.model.AllView>
-      <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../../.."/>
-      <name>All</name>
-      <filterExecutors>false</filterExecutors>
-      <filterQueue>false</filterQueue>
-      <properties class="hudson.model.View$PropertyList"/>
-    </hudson.model.AllView>
-  </views>
-  <viewsTabBar class="hudson.views.DefaultViewsTabBar"/>
+  <properties>
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.2.8">
+      <dockerLabel></dockerLabel>
+      <registry plugin="docker-commons@1.11"/>
+    </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
+  </properties>
+  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.19">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </folderViews>
   <healthMetrics/>
-  <icon class="com.cloudbees.hudson.plugins.folder.icons.StockFolderIcon" plugin="cloudbees-folder@5.13"/>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@5.13">
+  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.19">
+    <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+  </icon>
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.4">
     <pruneDeadBranches>true</pruneDeadBranches>
     <daysToKeep>30</daysToKeep>
     <numToKeep>50</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
-  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@1.11.1">
+  <disabled>false</disabled>
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.19">
     <data>
       <jenkins.branch.BranchSource>
-        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@1.10">
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.3.4">
           <id>45dd6853-59d2-4695-80ac-4520f8a2b64f</id>
-<%- if @source == 'github' -%>
-          <checkoutCredentialsId>govuk-ci-ssh-key</checkoutCredentialsId>
-          <scanCredentialsId>github-token-govuk-ci-username</scanCredentialsId>
+          <credentialsId>github-token-govuk-ci-username</credentialsId>
           <repoOwner><%= @repo_owner %></repoOwner>
-<%- elsif @source == 'github-enterprise' -%>
-          <apiUri>https://github.digital.cabinet-office.gov.uk/api/v3/</apiUri>
-          <checkoutCredentialsId>SAME</checkoutCredentialsId>
-          <scanCredentialsId>github-enterprise-token-govukjenkinsci-username</scanCredentialsId>
-          <repoOwner>gds</repoOwner>
-<%- end -%>
           <repository><%= @repository %></repository>
-          <includes>*</includes>
-          <excludes><%= @branches_to_exclude.join(' ') %></excludes>
-          <buildOriginBranch>true</buildOriginBranch>
-          <buildOriginBranchWithPR>true</buildOriginBranchWithPR>
-          <buildOriginPRMerge>false</buildOriginPRMerge>
-          <buildOriginPRHead>false</buildOriginPRHead>
-          <buildForkPRMerge>false</buildForkPRMerge>
-          <buildForkPRHead>false</buildForkPRHead>
           <traits>
-            <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait plugin="git@3.5.1">
+            <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+              <strategyId>3</strategyId>
+            </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
+            <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait plugin="git@3.8.0">
               <templates>
                 <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait_-RefSpecTemplate>
                   <value>+refs/heads/*:refs/remotes/@{remote}/*</value>
@@ -55,8 +43,22 @@
             </jenkins.plugins.git.traits.RefSpecsSCMSourceTrait>
           </traits>
         </source>
-        <strategy class="jenkins.branch.DefaultBranchPropertyStrategy">
-          <properties class="empty-list"/>
+        <strategy class="jenkins.branch.NamedExceptionsBranchPropertyStrategy">
+          <defaultProperties class="empty-list"/>
+          <namedExceptions class="java.util.Arrays$ArrayList">
+            <% @branches_to_exclude.each do |branch| %>
+            <a class="jenkins.branch.NamedExceptionsBranchPropertyStrategy$Named-array">
+              <jenkins.branch.NamedExceptionsBranchPropertyStrategy_-Named>
+                <props class="java.util.Arrays$ArrayList">
+                  <a class="jenkins.branch.BranchProperty-array">
+                    <jenkins.branch.NoTriggerBranchProperty/>
+                  </a>
+                </props>
+                <name><%= branch %></name>
+              </jenkins.branch.NamedExceptionsBranchPropertyStrategy_-Named>
+            </a>
+            <% end %>
+          </namedExceptions>
         </strategy>
       </jenkins.branch.BranchSource>
     </data>
@@ -64,5 +66,6 @@
   </sources>
   <factory class="org.jenkinsci.plugins.workflow.multibranch.WorkflowBranchProjectFactory">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
+    <scriptPath>Jenkinsfile</scriptPath>
   </factory>
 </org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject>
