@@ -82,6 +82,15 @@ class mongodb::server (
     notify       => Class['mongodb::service'];
   }
 
+  # Some places we mount a separate disk for the mongodb
+  # so need to ensure the owner of the directory is set
+  file { "Ensure correct owner of ${dbpath}":
+    path  => $dbpath,
+    owner => 'mongodb',
+    group => 'mongodb',
+    mode  => '0755',
+  }
+
   class { 'mongodb::config':
     config_filename => $config_filename,
     dbpath          => $dbpath,
