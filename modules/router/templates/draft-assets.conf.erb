@@ -50,13 +50,14 @@ server {
     return 404;
   }
 
+  set upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   location /auth/ {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    proxy_pass $upstream_asset_manager;
   }
 
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    proxy_pass $upstream_asset_manager;
   }
   <%- end -%>
 }

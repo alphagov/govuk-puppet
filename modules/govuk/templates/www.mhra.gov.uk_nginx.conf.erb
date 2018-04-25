@@ -61,12 +61,10 @@ server {
   <% end %>
 
   # Fall back to Bouncer
+  set upstream_bouncerproxy <%= scope.lookupvar('::aws_migration') ? 'http://bouncer-proxy' : "bouncer.#{@app_domain}-proxy" %>;
+
   location / {
-    <%- if scope.lookupvar('::aws_migration') %>
-    proxy_pass http://bouncer-proxy;
-    <%- else %>
-    proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
-    <%- end %>
+    proxy_pass $upstream_bouncerproxy;
     proxy_set_header Host $http_host;
   }
 }
