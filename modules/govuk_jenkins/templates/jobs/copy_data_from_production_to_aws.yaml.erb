@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: env-sync-and-backup_Copy_Data_to_Production
+    name: backup_Copy_Data_from_Production_to_AWS
     scm:
         - git:
             url: git@github.com:alphagov/env-sync-and-backup.git
@@ -25,7 +25,7 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
     scm:
-      - env-sync-and-backup_Copy_Data_from_Production_to_AWS
+      - backup_Copy_Data_from_Production_to_AWS
     logrotate:
         numToKeep: 10
     builders:
