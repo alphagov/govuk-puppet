@@ -715,6 +715,8 @@ govuk::node::s_transition_postgresql_master::alert_hostname: 'alert'
 govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
 govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
+govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_bundler::config::service: 'http://gemstash'
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
