@@ -202,3 +202,5 @@ users::usernames:
   - tomsabin
   - vanitabarrett
   - vitaliemogoreanu
+
+nginx::config::stack_network_prefix: '10.1.0'
