@@ -39,8 +39,37 @@ else
   echo "Creating 'regular' backup for point in time restores"
 fi
 
-# Only run on the current primary
-if /usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | grep -q true; then
+# Create a list of members in the cluster.
+members=( $(mongo --quiet --eval 'rs.conf().members.forEach(function(x){ print(x.host) })') )
+
+# Check each member to see if it's a secondary and return it.
+if [ ${#members[@]} -gt 1 ]; then
+  for member in "${members[@]}"; do
+    is_secondary=$(mongo --quiet --host "$member" --eval 'rs.isMaster().secondary')
+      case "$is_secondary" in
+        'true')     # First secondary wins ...
+           secondary=$member
+           break
+        ;;
+        'false')    # Skip particular member if it is a Primary.
+           continue
+	;;
+        *)          # Skip irrelevant entries.  Should not be any anyway ...
+           continue
+        ;;
+      esac
+  done
+else
+ echo "ERROR: We could not find a secondary mongo instance."
+ exit 1
+fi
+
+# Get my member name
+my_name=( $( mongo --quiet --eval 'rs.isMaster().me') )
+
+# Only run if I am the elected member.
+if [ "${my_name}" == "${secondary}" ] 
+ then
   echo "Starting backup"
   /usr/bin/mongodump -o <%= @backup_dir -%>/mongodump >/dev/null
 
@@ -54,7 +83,7 @@ if /usr/bin/mongo --quiet --eval "db.isMaster().primary === db.isMaster().me" | 
   NAGIOS_CODE=0
   NAGIOS_MESSAGE="OK: MongoDB backup to S3 succeeded"
 else
-  echo "Not the primary instance: skipping backup"
+  echo "The secondary instance has a problem: skipping backup"
   NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: Not the primary instance"
+  NAGIOS_MESSAGE="OK: The secondary instance has a problem"
 fi
