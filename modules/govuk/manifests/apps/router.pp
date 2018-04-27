@@ -55,6 +55,7 @@ class govuk::apps::router (
     check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
     service_description => 'router app healthcheck',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(app-healthcheck-failed),
   }
 
   govuk_logging::logstream { 'router-error-json-log':
