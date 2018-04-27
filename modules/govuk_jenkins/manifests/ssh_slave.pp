@@ -70,6 +70,7 @@ define govuk_jenkins::ssh_slave (
     check_command       => "check_nrpe!check_jenkins_agent!${agent_name}",
     service_description => "${title} is not connected to the Jenkins master",
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(jenkins-agent-not-connected-to-master),
   }
 
 }
