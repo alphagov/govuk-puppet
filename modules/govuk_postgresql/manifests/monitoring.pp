@@ -26,6 +26,7 @@ class govuk_postgresql::monitoring (
     check_command       => 'check_nrpe!check_proc_running!postgres',
     service_description => 'postgresql not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @icinga::nrpe_config { 'check_postgresql_database':

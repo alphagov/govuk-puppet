@@ -40,5 +40,6 @@ class govuk_containers::memcached(
     check_command       => 'check_nrpe!check_proc_running!memcached',
     service_description => 'memcached running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }

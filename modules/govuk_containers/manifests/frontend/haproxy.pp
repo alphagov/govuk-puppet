@@ -79,6 +79,7 @@ class govuk_containers::frontend::haproxy (
     check_command       => 'check_nrpe!check_proc_running_with_arg!haproxy /etc/haproxy/haproxy.cfg',
     service_description => 'HAProxy running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   class { 'collectd::plugin::haproxy': }

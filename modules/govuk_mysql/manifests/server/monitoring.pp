@@ -19,6 +19,7 @@ class govuk_mysql::server::monitoring (
     check_command       => 'check_nrpe!check_proc_running!mysqld',
     service_description => 'mysqld not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @@icinga::check::graphite { "check_mysql_connections_${::hostname}":

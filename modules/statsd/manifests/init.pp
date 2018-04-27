@@ -46,5 +46,6 @@ class statsd(
     check_command       => 'check_nrpe!check_upstart_status!statsd',
     service_description => 'statsd upstart up',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }

@@ -77,6 +77,7 @@ class nginx (
     check_command       => 'check_nrpe!check_proc_running!nginx',
     service_description => 'nginx not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   if $::aws_migration {
@@ -88,12 +89,14 @@ class nginx (
       check_command       => 'check_nrpe!check_http_local!monitoring-vhost.test 5 10',
       service_description => 'nginx http port unresponsive',
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(check-process-running),
     }
   } else {
     @@icinga::check { "check_http_response_${::hostname}":
       check_command       => 'check_http_port!monitoring-vhost.test!5!10',
       service_description => 'nginx http port unresponsive',
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(check-process-running),
     }
   }
 

@@ -17,6 +17,7 @@ class varnish::monitoring {
     check_command       => 'check_nrpe!check_proc_running!varnishd',
     service_description => 'varnishd not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @icinga::nrpe_config { 'check_varnish_responding':

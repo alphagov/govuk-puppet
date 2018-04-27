@@ -80,5 +80,6 @@ class govuk_mtail(
     check_command       => 'check_nrpe!check_proc_running!mtail',
     service_description => 'mtail not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }
