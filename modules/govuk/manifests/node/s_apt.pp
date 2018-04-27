@@ -146,6 +146,7 @@ class govuk::node::s_apt (
   aptly::repo { 'sops': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
+  aptly::repo { 'terraform-docs': }
   aptly::repo { 'vale': }
   aptly::repo { 'whisper-backup': }
 
