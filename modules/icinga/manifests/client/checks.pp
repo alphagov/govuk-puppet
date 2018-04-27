@@ -74,6 +74,7 @@ class icinga::client::checks (
       service_description => 'low available disk space on /boot',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(low-available-disk-space),
     }
   }
 
