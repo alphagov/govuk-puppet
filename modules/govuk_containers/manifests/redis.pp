@@ -45,5 +45,6 @@ class govuk_containers::redis(
     check_command       => 'check_nrpe!check_proc_running!redis-server',
     service_description => 'redis running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }

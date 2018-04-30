@@ -22,6 +22,7 @@ class clamav::service (
       check_command       => 'check_nrpe!check_proc_running!clamd',
       service_description => 'clamd not running',
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(check-process-running),
     }
   }
 }

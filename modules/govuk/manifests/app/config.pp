@@ -331,5 +331,6 @@ define govuk::app::config (
     check_command       => "check_nrpe!check_upstart_status!${title}",
     service_description => "${title} upstart not up",
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }

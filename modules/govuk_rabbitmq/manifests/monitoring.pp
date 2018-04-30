@@ -16,6 +16,7 @@ class govuk_rabbitmq::monitoring (
     check_command       => 'check_nrpe!check_proc_running!rabbitmq-server',
     service_description => 'rabbitmq-server not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @@icinga::check { "check_rabbitmq_network_partitions_${::hostname}":

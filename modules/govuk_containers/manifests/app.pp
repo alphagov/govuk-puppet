@@ -98,6 +98,7 @@ define govuk_containers::app (
       check_command       => "check_nrpe!check_app_up!${port} ${healthcheck_path}",
       service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(app-healthcheck-failed),
     }
     if $json_healthcheck {
       include icinga::client::check_json_healthcheck

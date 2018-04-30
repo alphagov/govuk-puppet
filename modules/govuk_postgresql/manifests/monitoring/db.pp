@@ -15,6 +15,7 @@ define govuk_postgresql::monitoring::db () {
     check_command       => "check_nrpe!check_postgresql_database_connection!${title}",
     service_description => "Connection to ${title} postgresql database",
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
 }

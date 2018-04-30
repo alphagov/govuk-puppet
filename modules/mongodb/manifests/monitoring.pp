@@ -38,12 +38,14 @@ class mongodb::monitoring (
     check_command       => 'check_nrpe!check_proc_running!mongod',
     service_description => 'mongod not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @@icinga::check { "check_mongod_responds_${::hostname}":
     check_command       => 'check_nrpe!check_mongodb!connect 2 4',
     service_description => 'mongod not responding',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @@icinga::check { "check_mongod_rollbacks_${::hostname}":

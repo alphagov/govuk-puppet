@@ -37,6 +37,7 @@ class nsca::server {
     check_command       => 'check_nrpe!check_proc_running!nsca',
     service_description => 'nsca not running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
 }

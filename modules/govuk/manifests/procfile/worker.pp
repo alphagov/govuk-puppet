@@ -71,6 +71,7 @@ define govuk::procfile::worker (
         check_command       => "check_nrpe!check_procfile_workers!${service_name} ${process_count}",
         service_description => "${title} procfile worker upstart up",
         host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url(check-process-running),
       }
     }
   } else {

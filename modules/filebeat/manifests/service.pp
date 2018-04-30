@@ -18,6 +18,7 @@ class filebeat::service {
     check_command       => 'check_nrpe!check_proc_running!filebeat',
     service_description => 'filebeat running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
 }

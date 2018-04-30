@@ -39,5 +39,6 @@ class govuk_containers::gemstash(
     check_command       => 'check_nrpe!check_proc_running!gemstash',
     service_description => 'gemstash running',
     host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 }
