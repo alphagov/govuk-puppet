@@ -7,7 +7,7 @@ class govuk_jenkins::jobs::deploy_cdn(
   $enable_slack_notifications = false,
 ) {
 
-  $slack_team_domain = 'govuk'
+  $slack_team_domain = 'gds'
   $slack_room = 'govuk-deploy'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 

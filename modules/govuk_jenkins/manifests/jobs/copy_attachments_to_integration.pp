@@ -11,8 +11,8 @@ class govuk_jenkins::jobs::copy_attachments_to_integration (
   $service_description = 'Copy Attachments to Integration'
   $job_url = "https://deploy.${app_domain}/job/copy_attachments_to_integration"
 
-  $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_team_domain = 'gds'
+  $slack_room = 'govuk-2ndline'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/copy_attachments_to_integration.yaml':

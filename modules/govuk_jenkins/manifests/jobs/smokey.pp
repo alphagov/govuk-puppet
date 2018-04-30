@@ -16,8 +16,8 @@ class govuk_jenkins::jobs::smokey (
 ) {
   $app_domain = hiera('app_domain')
 
-  $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_team_domain = 'gds'
+  $slack_room = 'govuk-2ndline'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   include govuk::apps::smokey

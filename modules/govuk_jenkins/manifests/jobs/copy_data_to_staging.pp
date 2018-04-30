@@ -17,8 +17,8 @@ class govuk_jenkins::jobs::copy_data_to_staging (
   $service_description = 'Copy Data to Staging'
   $job_url = "https://deploy.${app_domain}/job/copy_data_to_staging/"
 
-  $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_team_domain = 'gds'
+  $slack_room = 'govuk-2ndline'
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/copy_data_to_staging.yaml':
