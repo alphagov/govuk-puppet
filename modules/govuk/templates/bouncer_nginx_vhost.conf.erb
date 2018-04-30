@@ -22,8 +22,8 @@ server {
     # with ".html" appended, then fallback to the app (bouncer).
     try_files $uri $uri.html @app;
   }
-  
-  set upstream_bouncerproxy http://<%= scope.lookupvar('::aws_migration') ? 'bouncer-proxy' : "bouncer.#{@app_domain}-proxy" %>;
+
+  set $upstream_bouncerproxy http://<%= scope.lookupvar('::aws_migration') ? 'bouncer-proxy' : "bouncer.#{@app_domain}-proxy" %>;
 
   location @app {
     proxy_pass $upstream_bouncerproxy;
