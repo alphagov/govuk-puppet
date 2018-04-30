@@ -50,7 +50,7 @@ server {
     return 404;
   }
 
-  set upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+  set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   location /auth/ {
     proxy_pass $upstream_asset_manager;
   }
