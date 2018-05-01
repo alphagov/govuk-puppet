@@ -23,10 +23,16 @@ server {
     try_files $uri $uri.html @app;
   }
 
-  set $upstream_bouncerproxy http://<%= scope.lookupvar('::aws_migration') ? 'bouncer-proxy' : "bouncer.#{@app_domain}-proxy" %>;
+    <%- if scope.lookupvar('::aws_migration') %>
+    set $upstream_bouncerproxy http://bouncer-proxy;
+    <%- end %>
 
   location @app {
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_bouncerproxy;
+    <%- else %>
+    proxy_pass http://<%= "bouncer.#{@app_domain}-proxy" %>;
+    <%- end %>
     proxy_set_header Host $http_host;
   }
 }
