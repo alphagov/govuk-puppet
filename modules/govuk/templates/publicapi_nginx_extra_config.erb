@@ -4,15 +4,23 @@
   # requests made to that path without a trailing slash, *if* there is a
   # proxy_pass directive in the block.
 
+  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_whitehall_api <%= @privateapi_protocol %>://<%= @whitehallapi %>;
+  <%- end %>
   location ~ ^/api/(governments|organisations|specialist|worldwide-organisations|world-locations)(/|$) {
     expires 30m;
 
     proxy_set_header Host <%= @whitehallapi %>;
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_whitehall_api;
+    <%- else %>
+    proxy_pass <%= @privateapi_protocol %>://<%= @whitehallapi %>;
+    <%- end %>
   }
 
+  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_rummager_api <%= @privateapi_protocol %>://<%= @rummager_api %>;
+  <%- end %>
   location ~ ^/api/search.json {
     expires 30m;
 
@@ -21,10 +29,16 @@
     add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @rummager_api %>;
     proxy_set_header API-PREFIX api;
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_rummager_api;
+    <%- else %>
+    proxy_pass <%= @privateapi_protocol %>://<%= @rummager_api %>;
+    <%- end %>
   }
 
+  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_content_store_api <%= @privateapi_protocol %>://<%= @content_store_api %>;
+  <%- end %>
   location ~ ^/api/content(/|$) {
     limit_except GET {
       deny all;
@@ -34,7 +48,11 @@
 
     add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @content_store_api %>;
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_content_store_api;
+    <%- else %>
+    proxy_pass <%= @privateapi_protocol %>://<%= @content_store_api %>;
+    <%- end %>
   }
 
   location ~ ^/api(/|$) {

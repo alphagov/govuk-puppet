@@ -49,15 +49,24 @@ server {
   location / {
     return 404;
   }
-
+  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+  <%- end %>
   location /auth/ {
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_asset_manager;
+    <%- else %>
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    <%- end %>
   }
 
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
+    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_asset_manager;
+    <%- else %>
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    <%- end %>
   }
   <%- end -%>
 }
