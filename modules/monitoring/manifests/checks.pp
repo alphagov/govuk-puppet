@@ -45,6 +45,7 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(whitehall-scheduled-publishing),
     action_url          => "https://${whitehall_hostname}${whitehall_overdue_url}",
+    event_handler       => 'publish_overdue_whitehall',
   }
   # END whitehall
 
