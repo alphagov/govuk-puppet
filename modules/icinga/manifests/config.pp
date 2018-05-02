@@ -40,10 +40,6 @@ class icinga::config (
     source  => 'puppet:///modules/icinga/etc/icinga',
   }
 
-  file { '/etc/icinga/icinga.cfg':
-    content  => template('icinga/etc/icinga/icinga.cfg.erb'),
-  }
-
   file { '/etc/icinga/conf.d':
     ensure  => directory,
     purge   => true,
@@ -55,8 +51,33 @@ class icinga::config (
   }
 
   if $::aws_migration {
+
+    file { '/var/lib/icinga/log':
+      ensure => directory,
+      owner  => 'nagios',
+      group  => 'adm',
+      mode   => '2755',
+    }
+
+    file { '/var/lib/icinga/log/archives':
+      ensure => directory,
+      owner  => 'nagios',
+      group  => 'adm',
+      mode   => '2755',
+    }
+
+    file { '/etc/icinga/icinga.cfg':
+      content  => template('icinga/etc/icinga/icinga-aws.cfg.erb'),
+    }
+
     $graphite_url = "https://${graphite_hostname}"
+
   } else {
+
+    file { '/etc/icinga/icinga.cfg':
+      content  => template('icinga/etc/icinga/icinga.cfg.erb'),
+    }
+
     $graphite_url = "http://${graphite_hostname}"
   }
 
