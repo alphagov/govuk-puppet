@@ -1,0 +1,12 @@
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'monitoring'
+
+mount:
+  /var/lib/icinga:
+    disk: '/dev/mapper/monitoring-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11
