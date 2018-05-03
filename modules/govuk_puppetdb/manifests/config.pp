@@ -7,7 +7,7 @@ class govuk_puppetdb::config (
   # installing puppetdb-2.x on the new Trusty Puppetmasters on AWS
   # Use aws_migration fact
   if $::aws_migration {
-    $java_args = '-Xmx1024m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom'
+    $java_args = '-Xmx192m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom'
     $puppetdb_ssl_setup_creates = '/etc/puppetdb/ssl/ca.pem'
     $configfile = 'config.ini'
   } else {
