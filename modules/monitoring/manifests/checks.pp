@@ -39,12 +39,15 @@ class monitoring::checks (
   }
 
   icinga::check { "check_whitehall_overdue_from_${::hostname}":
-    check_command       => 'check_whitehall_overdue',
-    service_description => 'overdue publications in Whitehall',
-    use                 => 'govuk_urgent_priority',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(whitehall-scheduled-publishing),
-    action_url          => "https://${whitehall_hostname}${whitehall_overdue_url}",
+    check_command              => 'check_whitehall_overdue',
+    service_description        => 'overdue publications in Whitehall',
+    use                        => 'govuk_urgent_priority',
+    host_name                  => $::fqdn,
+    notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
+    action_url                 => "https://${whitehall_hostname}${whitehall_overdue_url}",
+    event_handler              => 'publish_overdue_whitehall',
+    attempts_before_hard_state => 2,
+    retry_interval             => 10,
   }
   # END whitehall
 

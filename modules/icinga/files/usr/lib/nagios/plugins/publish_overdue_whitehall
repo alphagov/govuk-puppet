@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+
+set -eu
+
+cd /var/apps/whitehall
+sudo -u deploy govuk_setenv whitehall bundle exec rake publishing:overdue:publish

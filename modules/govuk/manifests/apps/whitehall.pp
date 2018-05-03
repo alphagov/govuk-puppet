@@ -509,4 +509,6 @@ class govuk::apps::whitehall(
       value   => $co_nss_watchkeeper_email_address,
     }
   }
+
+  include icinga::plugin::publish_overdue_whitehall
 }
