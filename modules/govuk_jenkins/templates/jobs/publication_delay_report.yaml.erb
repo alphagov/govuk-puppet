@@ -1,0 +1,25 @@
+---
+- job:
+    name: publication-delay-report
+    display-name: Publication delay report
+    project-type: freestyle
+    description: Run a publication delay report showing delays in publications over the last week.
+    properties:
+      - build-discarder:
+          artifact-num-to-keep: 30
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          MACHINE=$(govuk_node_list --single-node -c content_store)
+          COMMAND="cd /var/apps/content-store && govuk_setenv content-store bundle exec rake report:publication_delay_report"
+
+          ssh deploy@$MACHINE $COMMAND
+    triggers:
+      - timed: |
+          TZ=Europe/London
+          0 9 * * 0
+    wrappers:
+      - ansicolor:
+          colormap: xterm
