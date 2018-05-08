@@ -334,6 +334,8 @@ govuk::apps::asset_manager::mongodb_nodes:
 govuk::apps::asset_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::asset_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::asset_manager::unicorn_worker_processes: "8"
+govuk::apps::asset_manager::nagios_memory_warning: 1500
+govuk::apps::asset_manager::nagios_memory_critical: 1750
 
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
