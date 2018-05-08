@@ -41,6 +41,10 @@
 #   Default: undef
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
+# [*nagios_memory_warning*]
+#   The threshold that memory must be reached to be triggered as a warning
+# [*nagios_memory_critical*]
+#   The threshold that memory must be reached to be triggered as a critical issue
 #
 class govuk::apps::asset_manager(
   $enabled = true,
@@ -59,6 +63,8 @@ class govuk::apps::asset_manager(
   $redis_host = undef,
   $redis_port = undef,
   $unicorn_worker_processes = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
 
   $app_name = 'asset-manager'
@@ -88,6 +94,8 @@ class govuk::apps::asset_manager(
       depends_on_nfs           => true,
       nginx_extra_config       => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
       unicorn_worker_processes => $unicorn_worker_processes,
+      nagios_memory_warning    => $nagios_memory_warning,
+      nagios_memory_critical   => $nagios_memory_critical,
     }
 
     govuk::app::envvar {
