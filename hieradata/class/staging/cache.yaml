@@ -4,5 +4,5 @@
 #
 # If changed, the old host record must be cleaned up;
 router::gor::replay_targets:
-  'www-origin.integration.publishing.service.gov.uk':
-    ip: '31.210.245.98'
+  'www-origin.staging.govuk.digital': {}
+router::gor::add_hosts: false
