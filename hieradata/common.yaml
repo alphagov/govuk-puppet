@@ -948,10 +948,14 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/sbin/initctl'
   deploy_service_docker:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/docker-*'
+  deploy_service_memcached:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/memcached'
   deploy_service_nginx:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/nginx'
   deploy_service_varnish:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/varnish'
+  deploy_varnishadm:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/varnishadm'
   icinga_init_ctl:
     content: 'nagios ALL=NOPASSWD:/sbin/initctl reload *'
   ubuntu:

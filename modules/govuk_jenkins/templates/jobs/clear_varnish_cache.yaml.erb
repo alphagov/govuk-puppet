@@ -1,0 +1,22 @@
+---
+- job:
+    name: clear-varnish-cache
+    display-name: Clear varnish cache
+    project-type: freestyle
+    description: >
+      Clears varnish caches for GOV.UK.
+    properties:
+      - build-discarder:
+          num-to-keep: 30
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          set -ex
+
+          for node in `govuk_node_list -c cache`; do
+            ssh deploy@$node "sudo varnishadm 'ban req.url ~ .'"
+          done
+    wrappers:
+      - ansicolor:
+          colormap: xterm

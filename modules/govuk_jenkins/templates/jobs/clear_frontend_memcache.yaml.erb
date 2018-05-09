@@ -1,0 +1,22 @@
+---
+- job:
+    name: clear-frontend-memcache
+    display-name: Clear frontend memcache
+    project-type: freestyle
+    description: >
+      Clears memcache for frontend and whitehall on GOV.UK.
+    properties:
+      - build-discarder:
+          num-to-keep: 30
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          set -ex
+
+          for node in `govuk_node_list -c "frontend,whitehall_frontend"`; do
+            ssh deploy@$node "sudo /etc/init.d/memcached restart"
+          done
+    wrappers:
+      - ansicolor:
+          colormap: xterm
