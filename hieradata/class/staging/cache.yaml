@@ -1,1 +1,9 @@
+---
 nscd::config::dns_cache: 'yes'
+
+# NOTE: These values should not be changed lightly once set.
+#
+# If changed, the old host record must be cleaned up;
+router::gor::replay_targets:
+  'www-origin.staging.govuk.digital': {}
+router::gor::add_hosts: false
