@@ -9,19 +9,19 @@
 
 set -eu
 
-if [ "$#" -ne "1" ] || [ "$1" = "-h" ]; then
-  echo "Usage: $(basename "$0") app_name" >&2
+if [ "$#" -gt 0 ] || [ "$1" = "-h" ]; then
+  echo "Usage: $(basename "$0") app_name [--sandbox]" >&2
   exit 1
 fi
 
 cd /var/apps/$1
 
 if [ -f bin/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console
+  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console $2
 elif [ -f script/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails console
+  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails console $2
 elif [ -f console ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./console
+  sudo -u deploy govuk_setenv $1 bundle exec ./console $2
 else
   echo "I don't know how to run a console for $1"
   exit 1
