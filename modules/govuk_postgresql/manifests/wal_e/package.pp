@@ -12,9 +12,9 @@ class govuk_postgresql::wal_e::package {
     require => Class['govuk_postgresql::server'],
   }
 
-  package { 'wal-e':
-    ensure   => '0.9.2',
-    provider => pip,
+  package { 'wal-e[aws]':
+    ensure   => '1.1.0',
+    provider => pip3,
   }
 
   $dependencies = [
@@ -23,18 +23,5 @@ class govuk_postgresql::wal_e::package {
 
   package { $dependencies:
     ensure => present,
-  }
-
-  # pip should take care of version deps but we need to manually upgrade
-  # a couple of things
-
-  package { 'requests':
-    ensure   => '2.10.0',
-    provider => pip,
-  }
-
-  package { 'six':
-    ensure   => '1.10.0',
-    provider => pip,
   }
 }
