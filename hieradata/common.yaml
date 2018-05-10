@@ -254,6 +254,7 @@ base::packages::packages:
   - 'manpages'
   - 'ncdu'
   - 'pv'
+  - 'python3-pip'
   - 'strace'
   - 'tar'
   - 'tcpdump'
