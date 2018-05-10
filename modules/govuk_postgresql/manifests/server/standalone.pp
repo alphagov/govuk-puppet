@@ -8,7 +8,7 @@ class govuk_postgresql::server::standalone {
 
   postgresql::server::config_entry {
     'wal_level':
-      value => 'replica';
+      value => 'hot_standby';
     'max_wal_senders':
       value => 3;
     'wal_keep_segments':
