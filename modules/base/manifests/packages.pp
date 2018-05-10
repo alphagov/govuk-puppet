@@ -57,5 +57,11 @@ class base::packages (
     }
   }
 
+  unless $::lsbdistcodename == 'precise' {
+    package { 'python3-pip':
+      ensure => 'latest',
+    }
+  }
+
   include nodejs
 }
