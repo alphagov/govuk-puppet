@@ -31,6 +31,7 @@ mount:
     govuk_lvm: 's3backups'
     mountoptions: 'defaults'
 
+mongodb::server::oplog_size: 7168
 mongodb::server::replicaset_members:
   'api-mongo-1':
   'api-mongo-2':
