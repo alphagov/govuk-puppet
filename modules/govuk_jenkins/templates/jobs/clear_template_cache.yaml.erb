@@ -1,0 +1,27 @@
+---
+- job:
+    name: clear-template-cache
+    display-name: Clear template caches
+    project-type: freestyle
+    description: >
+      Clear the on-disk template caches for GOV.UK.
+    properties:
+      - build-discarder:
+          num-to-keep: 30
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          set -ex
+
+          for node in `govuk_node_list -c frontend`; do
+            ssh deploy@$node "rm -f /var/apps/static/public/templates/{wrapper,homepage,header_footer_only,core_layout}.html.erb"
+            ssh deploy@$node "rm -rf /var/apps/{,government-}frontend/tmp/cache/*"
+          done
+
+          for node in `govuk_node_list -c calculators_frontend`; do
+            ssh deploy@$node "rm -rf /var/apps/finder-frontend/tmp/cache/*"
+          done
+    wrappers:
+      - ansicolor:
+          colormap: xterm

@@ -1,0 +1,45 @@
+---
+- job:
+    name: clear-cdn-cache
+    display-name: Clear production CDN cache
+    project-type: freestyle
+    description: >
+      Clears the production CDN cache for the 10 most popular pages on GOV.UK.
+    properties:
+      - build-discarder:
+          num-to-keep: 30
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+
+          set -ex
+
+          declare -a hostnames=(
+            "www.gov.uk"
+            "assets.publishing.service.gov.uk"
+          )
+
+          # 10 most popular pages based on GA 1-year stats
+          declare -a paths=(
+            "/"
+            "/calculate-your-child-maintenance"
+            "/check-vehicle-tax"
+            "/get-information-about-a-company"
+            "/government/organisations/companies-house"
+            "/government/organisations/hm-revenue-customs"
+            "/search"
+            "/sold-bought-vehicle"
+            "/state-pension-age"
+            "/vehicle-tax"
+          )
+
+          for node in `govuk_node_list -c cache`; do
+            for hostname in hostnames; do
+              for path in paths; do
+                ssh deploy@$node "curl -s -X PURGE $hostname$path"
+              done
+            done
+          done
+    wrappers:
+      - ansicolor:
+          colormap: xterm
