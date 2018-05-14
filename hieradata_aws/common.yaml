@@ -928,6 +928,7 @@ grafana::dashboards::deployment_applications:
       - calendars
       - collections
       - contacts
+      - email-alert-frontend
       - finder-frontend
       - frontend
       - government-frontend
