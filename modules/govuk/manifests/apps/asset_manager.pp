@@ -8,6 +8,7 @@
 # [*port*]
 #   The port that Asset Manager is served on.
 #   Default: 3037
+#
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
@@ -17,32 +18,45 @@
 #
 # [*oauth_id*]
 #   Sets the OAuth ID
+#
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
+#
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
+#
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
+#
 # [*aws_s3_bucket_name*]
 #   The name of the AWS S3 bucket to use for storing/serving assets
+#
 # [*aws_region*]
 #   AWS region of the S3 bucket
+#
 # [*aws_access_key_id*]
 #   AWS access key for a user with permission to write to the S3 bucket
+#
 # [*aws_secret_access_key*]
 #   AWS secret key for a user with permission to write to the S3 bucket
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
+#
 # [*redis_port*]
 #   Redis port for Sidekiq.
 #   Default: undef
+#
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
+#
 # [*nagios_memory_warning*]
 #   The threshold that memory must be reached to be triggered as a warning
+#
 # [*nagios_memory_critical*]
 #   The threshold that memory must be reached to be triggered as a critical issue
 #
