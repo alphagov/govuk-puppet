@@ -9,6 +9,10 @@
 #   The port that Asset Manager is served on.
 #   Default: 3037
 #
+# [*upload_port*]
+#   The port that Asset Manager uploads are served on.
+#   Default: 3039
+#
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
@@ -63,6 +67,7 @@
 class govuk::apps::asset_manager(
   $enabled = true,
   $port = '3037',
+  $upload_port = '3039',
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $oauth_id = undef,
@@ -109,6 +114,9 @@ class govuk::apps::asset_manager(
     }
 
     govuk::app::envvar {
+      "${title}-UPLOAD_PORT":
+        varname => 'UPLOAD_PORT',
+        value   => $upload_port;
       "${title}-OAUTH_ID":
         varname => 'OAUTH_ID',
         value   => $oauth_id;
