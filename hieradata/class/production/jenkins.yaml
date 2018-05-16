@@ -62,6 +62,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::validate_published_dns
+  - govuk_jenkins::jobs::whitehall_publisher_notifications
   - govuk_jenkins::jobs::whitehall_run_broken_link_checker
 
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
