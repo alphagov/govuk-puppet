@@ -113,6 +113,11 @@ class govuk::apps::asset_manager(
       nagios_memory_critical   => $nagios_memory_critical,
     }
 
+    govuk::procfile::worker { 'asset-manager-upload':
+      setenv_as    => $app_name,
+      process_type => 'web-upload',
+    }
+
     govuk::app::envvar {
       "${title}-UPLOAD_PORT":
         varname => 'UPLOAD_PORT',
