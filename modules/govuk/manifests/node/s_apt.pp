@@ -134,6 +134,7 @@ class govuk::node::s_apt (
   aptly::repo { 'google-cloud-sdk-trusty': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'govuk-python': }
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
