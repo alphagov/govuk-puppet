@@ -1,0 +1,3 @@
+---
+postgresql::globals::version: '9.6'
+postgresql::server::role::rds: true
