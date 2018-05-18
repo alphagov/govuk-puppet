@@ -28,16 +28,16 @@
           LINK_TEXT=$(escapeRakeArg $LINK_TEXT)
 
           ssh deploy@$(govuk_node_list -c frontend --single-node) "cd /var/apps/static && govuk_setenv static bundle exec rake \"emergency_banner:deploy[$CAMPAIGN_CLASS,$HEADING,$SHORT_DESCRIPTION,$LINK,$LINK_TEXT]\""
-    publishers:
-      - trigger:
-          project: clear-template-cache
-      - trigger:
-          project: clear-frontend-memcache
-      - trigger:
-          project: clear-varnish-cache
+      - trigger-builds:
+          - project: clear-template-cache
+            block: true
+          - project: clear-frontend-memcache
+            block: true
+          - project: clear-varnish-cache
+            block: true
       <%- if @clear_cdn_cache -%>
-      - trigger:
-          project: clear-cdn-cache
+          - project: clear-cdn-cache
+            block: true
       <%- end -%>
     wrappers:
       - ansicolor:
