@@ -1,5 +1,15 @@
 client_max_body_size 500m;
 
+# Proxy POST, PUT or DELETE requests to /uploads to the uploads instance of unicorn,
+# otherwise send it to the usual location.
+location ~ /uploads {
+  proxy_pass http://localhost:<%= @upload_port %>;
+
+  limit_except PUT POST DELETE {
+    proxy_pass http://localhost:<%= @port %>;
+  }
+}
+
 # Store values from Rails response headers for use in the
 # cloud-storage-proxy location block below.
 set $etag_from_rails $upstream_http_etag;

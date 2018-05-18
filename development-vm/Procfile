@@ -42,6 +42,7 @@ release:               govuk_setenv release               ./run_in.sh ../../rele
 asset-manager:         govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec rails server -p 3037
 asset-manager-sidekiq:  govuk_setenv asset-manager         ./run_in.sh ../../asset-manager  bundle exec sidekiq -C ./config/sidekiq.yml
 # asset-manager sidekiq monitoring uses 3038
+# asset-manager uploads uses 3039
 # limelight used port 3040
 # transaction_wrappers used port 3041
 # govuk-delivery used port 3042
