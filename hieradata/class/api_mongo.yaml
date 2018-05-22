@@ -11,7 +11,9 @@ lv:
     - '/dev/sdf1'
     vg: 'backup'
   data:
-    pv: '/dev/sdc1'
+    pv:
+    - '/dev/sdc1'
+    - '/dev/sdg1'
     vg: 'mongodb'
   s3backups:
     pv: '/dev/sde1'
