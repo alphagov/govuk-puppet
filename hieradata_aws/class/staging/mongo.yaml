@@ -13,7 +13,7 @@ mongodb::server::replicaset_members:
 
 lv:
   data:
-    pv: '/dev/nvme1n1'
+    pv: '/dev/xvdf'
     vg: 'mongo'
 
 mount:
