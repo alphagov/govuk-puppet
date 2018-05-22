@@ -11,11 +11,16 @@ lv:
     - '/dev/sdf1'
     vg: 'backup'
   data:
-    pv: '/dev/sdc1'
+    pv:
+    - '/dev/sdc1'
+    - '/dev/sdg1'
     vg: 'mongodb'
   s3backups:
     pv: '/dev/sde1'
     vg: 'mongo'
+  datasync:
+    pv: '/dev/sdh1'
+    vg: 'mongosync'
 
 mount:
   /var/lib/mongodb:
@@ -29,6 +34,10 @@ mount:
   /var/lib/s3backup:
     disk: '/dev/mapper/mongo-s3backups'
     govuk_lvm: 's3backups'
+    mountoptions: 'defaults'
+  /var/lib/mongo-sync:
+    disk: '/dev/mapper/mongosync-datasync'
+    govuk_lvm: 'datasync'
     mountoptions: 'defaults'
 
 mongodb::server::replicaset_members:
