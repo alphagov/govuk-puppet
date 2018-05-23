@@ -21,20 +21,34 @@
 #   The RabbitMQ queue to set up for workers of this type to read from
 #   (default: 'content_performance_manager')
 #
+# [*amqp_bulk_importing_queue]
+#   The RabbitMQ queue to set up for workers of this type to read from
+#   for bulk importer of content into the Content Performance Manager
+#   (default: 'content_performance_manager_govuk_importer')
+#
 class govuk::apps::content_performance_manager::rabbitmq (
   $amqp_user  = 'content_performance_manager',
   $amqp_pass = undef,
   $amqp_exchange = 'published_documents',
   $amqp_queue = 'content_performance_manager',
+  $amqp_bulk_importing_queue = 'content_performance_manager_govuk_importer'
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
     ensure        => 'present',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
-    routing_key   => '*.#.#',
+    routing_key   => '*.*',
     durable       => true,
-  } ->
+  }
+
+  govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue:
+    ensure        => 'present',
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $amqp_bulk_importing_queue,
+    routing_key   => '*.bulk.data-warehouse',
+    durable       => true,
+  }
 
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
