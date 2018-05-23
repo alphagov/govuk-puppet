@@ -9,6 +9,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::content_performance_manager
   - govuk_jenkins::jobs::copy_data_from_staging_to_aws
   - govuk_jenkins::jobs::data_sync_complete_staging
+  - govuk_jenkins::jobs::delete_redis_uniquejobs
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_dns

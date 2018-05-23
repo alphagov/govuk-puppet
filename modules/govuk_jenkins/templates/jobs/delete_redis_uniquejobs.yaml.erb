@@ -1,0 +1,28 @@
+---
+- job:
+    name: delete-redis-uniquejobs
+    display-name: Delete redis uniquejobs
+    project-type: freestyle
+    description: >
+      Delete the redis uniquejobs hash.
+    properties:
+      - build-discarder:
+          num-to-keep: 30
+    builders:
+      # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications.
+      # Rake does not handle commas in its arguments very well, so we have to escape them with a backslash. Since we're
+      # running the whole query inside quotes, we also need to escape quote marks.
+      - shell: |
+          #!/usr/bin/env bash
+          set -ex
+
+          for node in `govuk_node_list -c redis`; do
+            ssh deploy@$node "redis-cli DEL uniquejobs"
+          done
+    triggers:
+      - timed: "0 7 * * *"
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+    logrotate:
+        numToKeep: 10
