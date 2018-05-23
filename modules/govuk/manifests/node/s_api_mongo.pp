@@ -10,7 +10,19 @@ class govuk::node::s_api_mongo inherits govuk::node::s_base {
     outgoing => 27017,
   }
 
-  if ! $::aws_migration {
+  if $::aws_migration {
+    file { '/var/lib/mongo-sync':
+      ensure  => directory,
+      owner   => 'deploy',
+      group   => 'deploy',
+      mode    => '0775',
+      purge   => false,
+      require => [
+        Group['deploy'],
+        User['deploy'],
+      ],
+    }
+  } else {
     Govuk_mount['/var/lib/mongodb'] -> Class['mongodb::server']
     Govuk_mount['/var/lib/automongodbbackup'] -> Class['mongodb::backup']
     Govuk_mount['/var/lib/s3backup'] -> Class['mongodb::backup']
