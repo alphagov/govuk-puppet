@@ -32,6 +32,7 @@ node_class: &node_class
       - local-links-manager
       - manuals-publisher
       - maslow
+      - organisations-publisher
       - policy-publisher
       - publisher
       - release
@@ -169,6 +170,7 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
+  organisations-publisher: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -511,6 +513,10 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
+
+govuk::apps::organisations_publisher::enabled: false
+govuk::apps::organisations_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::organisations_publisher::db_hostname: "postgresql-primary-1.backend"
 
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary-1.backend"
@@ -1024,6 +1030,7 @@ grafana::dashboards::deployment_applications:
     show_controller_errors: false
     show_slow_requests: false
   maslow: {}
+  organisations-publisher: {}
   policy-publisher: {}
   publisher:
     show_sidekiq_graphs: true
@@ -1312,6 +1319,7 @@ hosts::production::backend::app_hostnames:
   - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
+  - 'organisations-publisher'
   - 'policy-publisher'
   - 'publisher'
   - 'publishing-api'
