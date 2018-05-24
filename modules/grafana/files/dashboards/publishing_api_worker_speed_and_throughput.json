@@ -139,7 +139,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.gauges.govuk.app.publishing-api.*.workers.queues.*.enqueued, 8, 'sum')"
+              "target": "groupByNode(stats.gauges.govuk.app.publishing-api.*.workers.queues.*.enqueued, 8, 'avg')"
             }
           ],
           "thresholds": [],
