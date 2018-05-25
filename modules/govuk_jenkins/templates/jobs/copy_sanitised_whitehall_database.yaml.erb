@@ -30,9 +30,11 @@
             15 5 * * 1-5
     builders:
         - shell: |
+            set +x
+
             cd "$WORKSPACE/whitehall/"
             echo "Sanitising whitehall database"
-            ./sanitise-and-sync-db.sh "<%= @whitehall_mysql_password %>"
+            ./sanitise-and-sync-db.sh "<%= @whitehall_mysql_password %>" "<%= @mysql_dst_root_pw %>"
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check

@@ -4,6 +4,7 @@
 #
 class govuk_jenkins::jobs::copy_sanitised_whitehall_database (
   $whitehall_mysql_password = undef,
+  $mysql_dst_root_pw = undef,
   $app_domain = hiera('app_domain'),
 ) {
 
