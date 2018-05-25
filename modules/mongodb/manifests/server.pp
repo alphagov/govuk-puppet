@@ -24,12 +24,17 @@
 #   Saves space at the expense of data integrity.
 #   Default: false
 #
+# [*syncpath*]
+#   Path to directory that will be used for storing dumps whilst syncing
+#   between environments.
+#
 class mongodb::server (
   $version,
   $dbpath = '/var/lib/mongodb',
   $oplog_size = undef,
   $replicaset_members = {},
   $development = false,
+  $syncpath = '/var/lib/mongo-sync'
 ) {
 
   if versioncmp($version, '3.0.0') >= 0 {
@@ -89,6 +94,19 @@ class mongodb::server (
     owner => 'mongodb',
     group => 'mongodb',
     mode  => '0755',
+  }
+
+  file { "Ensure existence and correct owner of ${syncpath}":
+    ensure  => directory,
+    path    => $syncpath,
+    owner   => 'deploy',
+    group   => 'deploy',
+    mode    => '0775',
+    purge   => false,
+    require => [
+      Group['deploy'],
+      User['deploy'],
+    ],
   }
 
   class { 'mongodb::config':
