@@ -11,10 +11,23 @@
 #
 class govuk_jenkins::jobs::content_performance_manager (
   $rake_etl_master_process_cron_schedule = undef,
+  $app_domain = hiera('app_domain'),
 ) {
   file { '/etc/jenkins_jobs/jobs/content_performance_manager.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/content_performance_manager.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
+  }
+
+  $check_name = 'etl-data-warehouse'
+  $service_description = 'Data warehouse ETL'
+  $job_url = "https://deploy.${app_domain}/job/content_performance_manager_import_etl_master_process/"
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 104400,
+    action_url          => $job_url,
+    notes_url           => monitoring_docs_url(data-warehouse-etl-failed),
   }
 }
