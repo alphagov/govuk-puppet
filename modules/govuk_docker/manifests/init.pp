@@ -21,22 +21,11 @@ class govuk_docker (
   include ::collectd::plugin::docker
   include govuk_docker::repo
 
-  # We only have logit set up for integration, everywhere else use syslog
-  if $::domain =~ /^.*\.(dev|integration\.publishing\.service)\.gov\.uk/ {
-    class { '::docker':
-      docker_users                => $docker_users,
-      use_upstream_package_source => false,
-      version                     => $version,
-    }
-
-    include ::govuk_docker::logspout
-  } else {
-    class {'::docker':
-      docker_users                => $docker_users,
-      use_upstream_package_source => false,
-      version                     => $version,
-      log_driver                  => 'syslog',
-    }
+  class {'::docker':
+    docker_users                => $docker_users,
+    use_upstream_package_source => false,
+    version                     => $version,
+    log_driver                  => 'syslog',
   }
 
   package { 'ctop':
