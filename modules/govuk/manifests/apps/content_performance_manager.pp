@@ -127,6 +127,12 @@ class govuk::apps::content_performance_manager(
     process_type   => 'publishing-api-consumer',
   }
 
+  govuk::procfile::worker { "${app_name}-bulk-import-publishing-api-consumer":
+    enable_service => $enable_procfile_worker,
+    setenv_as      => $app_name,
+    process_type   => 'publishing-api-consumer',
+  }
+
   govuk::app::envvar {
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
