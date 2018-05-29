@@ -136,6 +136,7 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::email_alert_api::db': } ->
   class { '::govuk::apps::link_checker_api::db': } ->
   class { '::govuk::apps::local_links_manager::db': } ->
+  class { '::govuk::apps::organisations_publisher::db': } ->
   class { '::govuk::apps::policy_publisher::db': } ->
   class { '::govuk::apps::publishing_api::db': } ->
   class { '::govuk::apps::service_manual_publisher::db': } ->

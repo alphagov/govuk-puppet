@@ -30,6 +30,7 @@ node_class: &node_class
       - local-links-manager
       - manuals-publisher
       - maslow
+      - organisations-publisher
       - policy-publisher
       - publisher
       - release
@@ -174,6 +175,7 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
+  organisations-publisher: {}
   policy-publisher: {}
   publisher: {}
   publishing-api: {}
@@ -510,6 +512,9 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2'
   - 'mongo-3'
 
+govuk::apps::organisations_publisher::enabled: false
+govuk::apps::organisations_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::organisations_publisher::db_hostname: "postgresql-primary"
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
@@ -650,6 +655,7 @@ govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
 govuk::apps::local_links_manager::db::rds: true
+govuk::apps::organisations_publisher::db::rds: true
 govuk::apps::policy_publisher::db::rds: true
 govuk::apps::publishing_api::db::rds: true
 govuk::apps::service_manual_publisher::db::rds: true
@@ -887,6 +893,7 @@ grafana::dashboards::deployment_applications:
     show_controller_errors: false
     show_slow_requests: false
   maslow: {}
+  organisations-publisher: {}
   policy-publisher: {}
   publisher:
     show_sidekiq_graphs: true
