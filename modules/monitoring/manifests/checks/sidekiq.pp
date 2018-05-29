@@ -10,7 +10,7 @@ class monitoring::checks::sidekiq (
   $enable_support_check = true,
 ) {
   icinga::check::graphite { 'check_rummager_queue_latency':
-    target              => 'keepLastValue(maxSeries(stats.gauges.govuk.app.rummager.*.workers.queues.default.latency))',
+    target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.rummager.*.workers.queues.default.latency)), 0)',
     warning             => 0.3,
     critical            => 15,
     use                 => 'govuk_normal_priority',
@@ -27,7 +27,7 @@ class monitoring::checks::sidekiq (
 
   icinga::check::graphite { 'check_signon_queue_sizes':
     # Check signon background worker average queue sizes
-    target    => 'keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued)',
+    target    => 'transformNull(keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued), 0)',
     warning   => 30,
     critical  => 50,
     desc      => 'signon background worker queue size unexpectedly large',
@@ -47,7 +47,7 @@ class monitoring::checks::sidekiq (
 
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
-      target    => 'averageSeries(keepLastValue(stats.gauges.govuk.app.support.*.workers.queues.default.enqueued))',
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.support.*.workers.queues.default.enqueued)), 0)',
       from      => '24hours',
       # Take an average over the most recent 36 datapoints, which at 5
       # seconds per datapoint is the last 3 minutes
