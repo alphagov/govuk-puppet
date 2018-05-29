@@ -58,55 +58,51 @@ class govuk::apps::organisations_publisher(
 ) {
   $app_name = 'organisations-publisher'
 
-  $ensure = $enabled ? {
-    true  => 'present',
-    false => 'absent',
-  }
+  if $enabled {
+    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
-  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
-
-  govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-    asset_pipeline     => true,
-    deny_framing       => true,
-  }
-
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
-
-  if $secret_key_base {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
+    govuk::app { $app_name:
+      app_type           => 'rack',
+      port               => $port,
+      sentry_dsn         => $sentry_dsn,
+      vhost_ssl_only     => true,
+      health_check_path  => '/healthcheck',
+      log_format_is_json => true,
+      asset_pipeline     => true,
+      deny_framing       => true,
     }
-  }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-  }
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
+    if $secret_key_base {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      }
+    }
+
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    }
+
+    if $::govuk_node_class !~ /^development$/ {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        database => $db_name,
+      }
     }
   }
 }
