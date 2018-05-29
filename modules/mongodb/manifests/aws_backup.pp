@@ -21,7 +21,7 @@
 #
 class mongodb::aws_backup (
   $ensure     = 'present',
-  $backup_dir = '/var/lib/mongodump',
+  $backup_dir = '/var/lib/mongodb/backup',
   $bucket     = undef,
   $interval   = 30,
   $daily_time = '00:00',
