@@ -2,7 +2,6 @@
 govuk_jenkins::config::executors: '6'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::check_content_consistency
   - govuk_jenkins::jobs::clear_frontend_memcache
   - govuk_jenkins::jobs::clear_template_cache
   - govuk_jenkins::jobs::clear_varnish_cache
