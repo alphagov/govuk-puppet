@@ -29,7 +29,6 @@ class govuk_jenkins::jobs::content_performance_manager (
       host_name           => $::fqdn,
       freshness_threshold => 104400,
       action_url          => $job_url,
-      notes_url           => monitoring_docs_url(data-warehouse-etl-failed),
     }
   }
 }
