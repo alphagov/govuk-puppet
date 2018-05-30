@@ -49,3 +49,6 @@ mongodb::server::replicaset_members:
     priority: 0
 
 icinga::client::checks::disk_time_window_minutes: 10
+
+icinga::client::checks::disk_time_warn: 350 # milliseconds
+icinga::client::checks::disk_time_critical: 450 # milliseconds

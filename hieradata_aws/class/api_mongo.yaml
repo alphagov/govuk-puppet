@@ -6,3 +6,6 @@ mongodb::server::replicaset_members:
   'api-mongo-1':
   'api-mongo-2':
   'api-mongo-3':
+
+icinga::client::checks::disk_time_warn: 350 # milliseconds
+icinga::client::checks::disk_time_critical: 450 # milliseconds
