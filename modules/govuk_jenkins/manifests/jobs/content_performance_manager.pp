@@ -23,11 +23,12 @@ class govuk_jenkins::jobs::content_performance_manager (
   $service_description = 'Data warehouse ETL'
   $job_url = "https://deploy.${app_domain}/job/content_performance_manager_import_etl_master_process/"
 
-  @@icinga::passive_check { "${check_name}_${::hostname}":
-    service_description => $service_description,
-    host_name           => $::fqdn,
-    freshness_threshold => 104400,
-    action_url          => $job_url,
-    notes_url           => monitoring_docs_url(data-warehouse-etl-failed),
+  if $rake_etl_master_process_cron_schedule {
+    @@icinga::passive_check { "${check_name}_${::hostname}":
+      service_description => $service_description,
+      host_name           => $::fqdn,
+      freshness_threshold => 104400,
+      action_url          => $job_url,
+    }
   }
 }
