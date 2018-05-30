@@ -80,6 +80,8 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa
 
 govuk_mysql::server::slow_query_log: true
 
+govuk::apps::organisations_publisher::enabled: true
+
 govuk::node::s_api_lb::api_servers:
   - "api-1.api"
   - "api-2.api"
