@@ -1096,10 +1096,6 @@ router::nginx::check_requests_critical: '@8'
 router::nginx::robotstxt: |
   User-agent: *
   Disallow: /*/print$
-  # We only allow indexing of the licence-finder landing page
-  Disallow: /licence-finder/
-  Allow: /licence-finder
-  Disallow: /apply-for-a-licence/
   # Don't allow indexing of user needs pages
   Disallow: /info/*
   Sitemap: https://www.gov.uk/sitemap.xml
