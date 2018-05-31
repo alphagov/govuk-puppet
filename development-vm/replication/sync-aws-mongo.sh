@@ -69,7 +69,7 @@ else
   NAME_MUNGE_COMMAND="cat"
 fi
 
-for dir in $(find $MONGO_DIR -mindepth 5 -maxdepth 5 -type d | grep -v '*'); do
+for dir in $(find $MONGO_DIR -mindepth 6 -maxdepth 6 -type d | grep -v '*'); do
   if $DRY_RUN; then
     status "MongoDB (not) restoring $(basename $dir)"
   else
