@@ -22,8 +22,8 @@ mount:
     disk: '/dev/mapper/mongodb-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
-    percent_threshold_warning: 60
-    percent_threshold_critical: 85
+    percent_threshold_warning: 40
+    percent_threshold_critical: 15
   /var/lib/automongodbbackup:
     disk: '/dev/mapper/backup-mongodb'
     govuk_lvm: 'mongodb'
