@@ -11,7 +11,7 @@ class monitoring::checks::sidekiq (
 ) {
   icinga::check::graphite { 'check_rummager_queue_latency':
     target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.rummager.*.workers.queues.default.latency)), 0)',
-    warning             => 0.3,
+    warning             => 0.5,
     critical            => 15,
     use                 => 'govuk_normal_priority',
     # Use data from the last 24 hours, to avoid not getting any
