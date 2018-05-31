@@ -2,7 +2,9 @@
 #
 # Install a Nagios plugin that alerts when the free memory on a box falls below a certain percentage
 #
-class icinga::client::check_linux_free_memory {
+class icinga::client::check_linux_free_memory(
+  $urgent = false,
+) {
 
   ensure_packages(['dbus'])
 
@@ -14,11 +16,18 @@ class icinga::client::check_linux_free_memory {
     source  => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_linux_free_memory.cfg',
   }
 
+  if $urgent {
+    $use = 'govuk_urgent_priority'
+    $notification_period = 'inoffice'
+  }
+
   @@icinga::check { "check_linux_free_memory_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_linux_free_memory',
     service_description => 'percentage of memory free',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(free-memory-warning-on-backend),
     linked_metric       => "${::fqdn_metrics}.memory.memory-free",
+    use                 => $use,
+    notification_period => $notification_period,
   }
 }
