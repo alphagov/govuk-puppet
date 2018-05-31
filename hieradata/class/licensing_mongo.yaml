@@ -25,8 +25,8 @@ mount:
     disk: '/dev/mapper/mongodb-databases'
     govuk_lvm: 'databases'
     mountoptions: 'defaults'
-    percent_threshold_warning: 60
-    percent_threshold_critical: 85
+    percent_threshold_warning: 40
+    percent_threshold_critical: 15
   /var/lib/s3backup:
     disk: '/dev/mapper/mongo-s3backups'
     govuk_lvm: 's3backups'
