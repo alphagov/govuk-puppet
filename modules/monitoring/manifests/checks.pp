@@ -89,15 +89,15 @@ class monitoring::checks (
   # END ssl certificate checks
 
   # START DNS checks
-  icinga::check_config { 'check_dig':
-    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_dig.cfg',
+  icinga::check_config { 'check_dig_cloudflare':
+    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_dig_cloudflare.cfg',
   }
 
   icinga::check { 'check_www_gov_uk_dns':
-    check_command       => 'check_dig!www.gov.uk!-a www-cdn.production.govuk.service.gov.uk --timeout 10 -w 2 -c 3 -T CNAME',
+    check_command       => 'check_dig_cloudflare!www.gov.uk!-a www-cdn.production.govuk.service.gov.uk --timeout 10 -w 2 -c 3 -T CNAME',
     host_name           => $::fqdn,
     service_description => 'check www.gov.uk DNS record',
-    require             => Icinga::Check_config['check_dig'],
+    require             => Icinga::Check_config['check_dig_cloudflare'],
   }
   # END DNS checks
 
