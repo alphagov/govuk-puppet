@@ -26,7 +26,7 @@
         - ansicolor:
             colormap: xterm
         - build-name:
-            name: '${ENV,var="PROVIDERS"} ${ENV,var="ACTION"}'
+            name: '${ENV,var="PROVIDERS"} ${ENV,var="ZONE"} ${ENV,var="ACTION"}'
         - credentials-binding:
             - text:
                credential-id: <%= @gce_credential_id %>
