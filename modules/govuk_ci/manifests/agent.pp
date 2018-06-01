@@ -32,6 +32,7 @@ class govuk_ci::agent(
   include ::govuk_ci::limits
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::packages::terraform_docs
+  include ::govuk_jenkins::packages::govuk_python
   include ::govuk_jenkins::packages::vale
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
