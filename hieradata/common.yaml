@@ -1651,6 +1651,7 @@ redis::conf_tcp_keepalive: false
 redis::conf_timeout: 300
 
 resolvconf::nameservers:
+  - 1.1.1.1
   - 8.8.8.8
   - 8.8.4.4
 
