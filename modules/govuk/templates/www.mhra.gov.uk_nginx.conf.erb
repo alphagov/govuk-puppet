@@ -51,8 +51,8 @@ server {
 
   <% proxied_locations.each do |proxied_location| %>
     location <%= proxied_location %> {
-      # Use Google to resolve www.wip.mhra.gov.uk
-      resolver 8.8.8.8;
+      # Use CloudFlare and Google to resolve www.wip.mhra.gov.uk
+      resolver 1.1.1.1 8.8.8.8 8.8.4.4;
       set $backend "http://www.wip.mhra.gov.uk:80";
       proxy_pass $backend;
       # Can't use $http_host as that might be eg aka.mhra.gov.uk

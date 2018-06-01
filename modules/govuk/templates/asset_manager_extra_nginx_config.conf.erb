@@ -70,9 +70,9 @@ location ~ /cloud-storage-proxy/(.*) {
   proxy_hide_header x-amz-replication-status;
   proxy_hide_header x-amz-meta-md5-hexdigest;
 
-  # Add Google DNS server to avoid "no resolver defined to resolve"
-  # errors when trying to connect to S3
-  resolver 8.8.8.8;
+  # Add CloudFlare and Google DNS server to avoid "no resolver defined to resolve"
+  # errors when trying to connect to S3.
+  resolver 1.1.1.1 8.8.8.8 8.8.4.4;
 
   # Download the file and send it to client
   proxy_pass $download_url;
