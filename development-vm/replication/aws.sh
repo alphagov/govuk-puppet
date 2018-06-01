@@ -27,6 +27,7 @@ aws_auth() {
                     --role-session-name $SESSION_NAME \
                     --role-arn $ROLE_ARN \
                     --serial-number $MFA_SERIAL \
+                    --duration-seconds 28800 \
                     --token-code $MFA_TOKEN"
 
     CREDENTIALS=$(${aws_assume_role})
