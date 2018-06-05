@@ -53,6 +53,7 @@ govuk_jenkins::config::executors: '6'
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::deploy_dns::zones:
   - 'dns-test.integration.publishing.service.gov.uk'
+  - 'dnstest.alphagov.co.uk'
 
 govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
 govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_password: "%{hiera('govuk::node::s_jenkins::jenkins_api_token')}"
