@@ -6,7 +6,11 @@
 # You should also read /usr/share/doc/collectd-core/README.Debian.plugins
 # before enabling any more plugins.
 
+<% if scope.lookupvar('::aws_migration') -%>
+Hostname "<%= scope.lookupvar('::govuk_node_class') %>-<%= @fqdn %>"
+<% else -%>
 Hostname "<%= @fqdn_metrics %>"
+<% end -%>
 FQDNLookup false
 #BaseDir "/var/lib/collectd"
 #PluginDir "/usr/lib/collectd"
