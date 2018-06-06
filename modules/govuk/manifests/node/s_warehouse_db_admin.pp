@@ -68,7 +68,10 @@ class govuk::node::s_warehouse_db_admin(
   class { '::govuk_postgresql::client': } ->
 
   # include all PostgreSQL classes that create databases and users
-  class { '::govuk::apps::content_performance_manager::db': }
+  class { '::govuk::apps::content_performance_manager::db': } ->
+
+  # Include the CPM Data Scientist Role class for its database permissions
+  class { '::govuk::apps::content_performance_manager::data_scientist_role': }
 
   $postgres_backup_desc = 'RDS Warehouse PostgreSQL backup to S3'
 

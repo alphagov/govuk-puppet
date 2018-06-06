@@ -15,6 +15,7 @@ class govuk::node::s_warehouse_postgresql (
   include govuk_postgresql::server::standalone
   include govuk_postgresql::tuning
   include govuk::apps::content_performance_manager::db
+  include govuk::apps::content_performance_manager::data_scientist_role
 
   govuk_postgresql::wal_e::backup { $title:
     aws_access_key_id                => $aws_access_key_id,
