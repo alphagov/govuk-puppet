@@ -9,25 +9,19 @@
 
 set -eu
 
-if [[ ($# -ne 1 && $# -ne 2) || "$1" == "-h" ]]; then
-  echo "Usage: $(basename "$0") app_name [--sandbox]" >&2
+if [ "$#" -ne "1" ] || [ "$1" = "-h" ]; then
+  echo "Usage: $(basename "$0") app_name" >&2
   exit 1
 fi
 
 cd /var/apps/$1
 
 if [ -f bin/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console $2
+  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console
 elif [ -f script/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails console $2
+  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails console
 elif [ -f console ]; then
-  if [[ -z $2 ]] ; then
-    sudo -u deploy govuk_setenv $1 bundle exec ./console
-  else
-    echo "You have selected an application that has no support for --sandbox flag"
-    echo "Please remove the --sandbox flag, beware any changes you make will not be rollbacked"
-    exit 1
-  fi
+  sudo -u deploy govuk_setenv $1 bundle exec ./console
 else
   echo "I don't know how to run a console for $1"
   exit 1
