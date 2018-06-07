@@ -7,7 +7,7 @@ Facter.add("fqdn_metrics") do
     if Facter.value("aws_migration").nil?
       fqdn_metrics = Facter.value("fqdn_short").dup
     else
-      fqdn_metrics = "#{Facter.value(:aws_hostname)}.#{Facter.value(:aws_stackname)}.#{Facter.value(:aws_environment)}"
+      fqdn_metrics = "#{Facter.value(:aws_migration)}-#{Facter.value('fqdn')}"
     end
 
     fqdn_metrics.gsub!(/\./, '_')
