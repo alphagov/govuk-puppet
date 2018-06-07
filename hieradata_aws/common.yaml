@@ -364,6 +364,9 @@ govuk::apps::collections_publisher::db_hostname: "mysql-primary"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::organisations_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::organisations_publisher::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
