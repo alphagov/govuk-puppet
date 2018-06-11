@@ -43,6 +43,14 @@
 # [*oauth_secret*]
 #   Sets the OAuth Secret Key
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::organisations_publisher(
   $port = '3218',
   $enabled = false,
@@ -55,6 +63,9 @@ class govuk::apps::organisations_publisher(
   $db_name = 'organisations-publisher_production',
   $oauth_id = '',
   $oauth_secret = '',
+  $enable_procfile_worker = true,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'organisations-publisher'
 
@@ -74,6 +85,11 @@ class govuk::apps::organisations_publisher(
 
     Govuk::App::Envvar {
       app => $app_name,
+    }
+
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
     }
 
     if $secret_key_base {
@@ -103,6 +119,10 @@ class govuk::apps::organisations_publisher(
         host     => $db_hostname,
         database => $db_name,
       }
+    }
+
+    govuk::procfile::worker { $app_name:
+      enable_service => $enable_procfile_worker,
     }
   }
 }
