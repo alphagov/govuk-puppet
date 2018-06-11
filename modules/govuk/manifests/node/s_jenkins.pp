@@ -22,10 +22,13 @@ class govuk::node::s_jenkins (
   $jenkins_api_token = undef,
   $environment_variables = {},
 ) inherits govuk::node::s_base {
+  include google_chrome
   include nginx
   include govuk_postgresql::client
   include govuk_rbenv::all
+  include ::chromedriver
   include ::phantomjs
+  include ::selenium
 
   class { 'govuk_jenkins':
     github_client_id               => $github_client_id,
