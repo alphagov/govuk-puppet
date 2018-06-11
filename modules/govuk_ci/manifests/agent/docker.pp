@@ -23,7 +23,7 @@ class govuk_ci::agent::docker {
 
   cron::crondotdee { 'docker_system_prune_all' :
     hour    => 4,
-    minute  => 0,
+    minute  => 30,
     command => 'docker system prune -a -f --filter="until=48h"',
   }
 
