@@ -170,4 +170,5 @@ content-audit-tool: govuk_setenv content-audit-tool ./run_in.sh ../../content-au
 content-audit-tool-sidekiq-google-analytics:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/google_analytics.yml
 content-audit-tool-sidekiq-publishing-api:  govuk_setenv content-audit-tool ./run_in.sh ../../content-audit-tool bundle exec sidekiq -C ./config/sidekiq/publishing_api.yml
 # sidekiq-monitoring for content-audit-tool uses port 3217
+organisations-publisher-sidekiq:                     govuk_setenv organisations-publisher            ./run_in.sh ../../organisations-publisher bundle exec sidekiq -C ./config/sidekiq.yml
 organisations-publisher: govuk_setenv organisations-publisher ./run_in.sh ../../organisations-publisher bundle exec rails s -p 3218
