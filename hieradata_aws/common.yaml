@@ -584,6 +584,8 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::organisations_publisher_redis_host: "%{hiera('govuk::apps::organisations_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::organisations_publisher_redis_port: "%{hiera('govuk::apps::organisations_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
 govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"

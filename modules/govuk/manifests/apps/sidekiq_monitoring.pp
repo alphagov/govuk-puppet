@@ -102,6 +102,14 @@
 #   Redis port for Publishing API Sidekiq.
 #   Default: undef
 #
+# [*organisations_publisher_redis_host*]
+#   Redis host for Organisations Publishing Sidekiq.
+#   Default: undef
+#
+# [*organisations_publisher_redis_port*]
+#   Redis port for Organisations Publishing Sidekiq.
+#   Default: undef
+#
 # [*rummager_redis_host*]
 #   Redis host for Rummager Sidekiq.
 #   Default: undef
@@ -179,6 +187,8 @@ class govuk::apps::sidekiq_monitoring (
   $link_checker_api_redis_port = undef,
   $manuals_publisher_redis_host = undef,
   $manuals_publisher_redis_port = undef,
+  $organisations_publisher_redis_host = undef,
+  $organisations_publisher_redis_port = undef,
   $publisher_redis_host = undef,
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
@@ -269,6 +279,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'manuals_publisher',
       host   => $manuals_publisher_redis_host,
       port   => $manuals_publisher_redis_port;
+
+    "${app_name}_organisations_publisher":
+      prefix => 'organisations_publisher',
+      host   => $organisations_publisher_redis_host,
+      port   => $organisations_publisher_redis_port;
 
     "${app_name}_publisher":
       prefix => 'publisher',
