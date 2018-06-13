@@ -1,6 +1,7 @@
 # Creates the rossjones user
 class users::rossjones {
   govuk_user { 'rossjones':
+    ensure   => absent,
     fullname => 'Ross Jones',
     email    => 'ross.jones@digital.cabinet-office.gov.uk',
     ssh_key  => [
