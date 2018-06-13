@@ -437,7 +437,7 @@ govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-# Hardcoded to its own redis server to improve performance
+# Hardcoded to redis-2 to improve performance
 # This setting is overridden in `development.yaml`
 govuk::apps::link_checker_api::redis_host: "redis-2.backend"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
@@ -542,7 +542,9 @@ govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq-2.backend
   - rabbitmq-3.backend
 govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
-govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
+# Hardcoded to redis-2 to improve performance
+# This setting is overridden in `development.yaml`
+govuk::apps::publishing_api::redis_host: "redis-2.backend"
 govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
