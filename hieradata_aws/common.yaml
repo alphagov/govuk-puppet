@@ -61,6 +61,9 @@ node_class: &node_class
       - finder-frontend
       - licencefinder
       - smartanswers
+  ckan:
+    apps:
+      - ckan
   draft_cache:
     apps:
       - authenticating-proxy
@@ -356,6 +359,14 @@ govuk::apps::bouncer::postgresql_role::rds: true
 govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::bouncer::unicorn_worker_processes: "8"
+
+govuk::apps::ckan::db_hostname: "postgresql-primary"
+govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::ckan::db::rds: true
+govuk::apps::ckan::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::ckan::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::ckan::ckan_site_url: "http://ckan.dev.gov.uk"
+govuk::apps::ckan::gunicorn_worker_processes: "8"
 
 govuk::apps::collections::nagios_memory_warning: 900
 govuk::apps::collections::nagios_memory_critical: 1000
