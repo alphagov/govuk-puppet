@@ -21,12 +21,16 @@
       - build_fpm_package
     parameters:
         - string:
-            name: RECIPE_NAME
+            name: RECIPE
             description: The name of an fpm-cookery recipe
+        - string:
+            name: DISTRO
+            description: Ubuntu distribution to target (trusty, xenial)
+            default: trusty
     builders:
         - shell: |
             cd fpm/
-            ./build.sh
+            ./container-build.sh
     publishers:
         - archive:
             artifacts: 'build/*.deb'
