@@ -1105,7 +1105,6 @@ router::nginx::robotstxt: |
   # Don't allow indexing of user needs pages
   Disallow: /info/*
   Sitemap: https://www.gov.uk/sitemap.xml
-  Crawl-delay: 0.1
   # https://ahrefs.com/robot/ crawls the site frequently
   User-agent: AhrefsBot
   Crawl-delay: 10
