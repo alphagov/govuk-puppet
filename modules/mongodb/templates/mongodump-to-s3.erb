@@ -14,6 +14,7 @@ exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
 NAGIOS_CODE=2
 NAGIOS_MESSAGE='CRITICAL: MongoDB backup to S3 failed'
 
+AWS=$(command -v aws)
 # Triggered whenever this script exits, successful or otherwise. The values
 # # of CODE/MESSAGE will be taken from that point in time.
 function nagios_passive () {
@@ -77,7 +78,7 @@ if [ "${my_name}" == "${secondary}" ]
   tar -zcvf <%= @backup_dir -%>/mongodump.tgz <%= @backup_dir -%>/mongodump
 
   echo "Uploading mongodump to S3"
-  /usr/bin/aws s3 --quiet --region <%= @aws_region -%> cp --sse <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
+  $AWS s3 --quiet --region <%= @aws_region -%> cp --sse <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
 
   echo "Completed successfully"
   NAGIOS_CODE=0
