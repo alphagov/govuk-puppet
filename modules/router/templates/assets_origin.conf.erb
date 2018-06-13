@@ -41,6 +41,14 @@ server {
   add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
+  <%- if scope.lookupvar('::aws_migration') %>
+    location /government/uploads/system/uploads/consultation_response_form/ {
+      add_header Cache-Control "public";
+      expires 1y;
+      rewrite ^/government/uploads/system/uploads/consultation_response_form/(.*)$ /government/uploads/system/uploads/consultation_response_form_data/$1;
+    }
+  <%- end %>
+
   <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_<%= vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;

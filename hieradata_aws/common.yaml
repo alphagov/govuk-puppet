@@ -1086,7 +1086,7 @@ router::assets_origin::app_specific_static_asset_routes:
 
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
-  - '/government/uploads/system/uploads/attachment_data/file/'
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
   - '/government/uploads/uploaded/hmrc/'
 
 router::assets_origin::asset_manager_uploaded_assets_routes:
