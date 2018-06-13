@@ -1,0 +1,93 @@
+---
+- scm:
+    name: govuk-env-sync_Copy_Data_to_AWS_Integration
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-env-sync.git
+            branches:
+              - master
+
+- job:
+    name: Copy_Data_to_AWS_Integration
+    display-name: Copy_Data_to_AWS_Integration
+    project-type: freestyle
+    description: |
+        This job copies databases from production S3 database backup bucket to integration. It runs periodically
+        to keep the integration environment up to date. The signon database isn't copied.
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-env-sync/
+        - inject:
+            properties-content: |
+              PARALLEL_JOBS=3
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+    scm:
+      - govuk-env-sync_Copy_Data_to_Integration
+    logrotate:
+        numToKeep: 10
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            H 3 * * 1-5
+    builders:
+        - shell: |
+            set -eu
+            cd "${WORKSPACE}"
+            echo "Syncing data"
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+        - project: trigger_data_sync_complete
+          condition: 'ALWAYS'
+          predefined-parameters: |
+            HOSTNAME=deploy.integration.publishing.service.gov.uk
+            API_KEY=<%= @ci_alphagov_api_key %>
+            AUTH_TOKEN=<%= @auth_token %>
+      <% if @enable_slack_notifications %>
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-start: false
+          notify-success: true
+          notify-aborted: true
+          notify-notbuilt: true
+          notify-unstable: false
+          notify-failure: true
+          notify-backtonormal: false
+          notify-repeatedfailure: false
+          include-test-summary: false
+          room: <%= @slack_room %>
+      <% end %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - timestamps
+    parameters:
+        - choice:
+            name: JOBLIST
+            description: 'Choose the thing to sync. All is the default, but some jobs may run but not do anything due to your config for the destination environment.'
+            choices:
+                - all
+                - assets
+                - elasticsearch-rummager
+                - mongo-api
+                - mongo-exceptions
+                - mongo-licensify
+                - mongo-normal
+                - mongo-router
+                - mysql-normal
+                - postgresql-backend
+                - postgresql-transition
+                - postgresql-warehouse
