@@ -70,6 +70,12 @@ location ~ /cloud-storage-proxy/(.*) {
   proxy_hide_header x-amz-replication-status;
   proxy_hide_header x-amz-meta-md5-hexdigest;
 
+  # Strip any Authorization header from the client, as this will cause
+  # S3 to return an error.  We do not use proxy_hide_header here, as
+  # that hides response headers sent FROM S3 to the client; whereas we
+  # want to unset a request header sent TO S3 by nginx.
+  proxy_set_header Authorization "";
+
   # Add CloudFlare and Google DNS server to avoid "no resolver defined to resolve"
   # errors when trying to connect to S3.
   resolver 1.1.1.1 8.8.8.8 8.8.4.4;
