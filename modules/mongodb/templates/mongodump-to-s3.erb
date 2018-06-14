@@ -78,7 +78,7 @@ if [ "${my_name}" == "${secondary}" ]
   tar -zcvf <%= @backup_dir -%>/mongodump.tgz <%= @backup_dir -%>/mongodump
 
   echo "Uploading mongodump to S3"
-  $AWS s3 --quiet --region <%= @aws_region -%> cp --sse <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz
+  $AWS s3 --quiet --region <%= @aws_region -%> cp <%= @backup_dir -%>/mongodump.tgz s3://<%= @bucket -%>/${BUCKET_KEY}/mongodump-$(date +%F_%H%M).tgz --sse
 
   echo "Completed successfully"
   NAGIOS_CODE=0
