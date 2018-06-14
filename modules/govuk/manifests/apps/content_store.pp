@@ -22,6 +22,10 @@
 #   Performance platform spotlight url
 #   Default: undef
 #
+# [*design_system_uri*]
+#   URI to the design system app
+#   Default: https://govuk-design-system-production.cloudapps.digital
+#
 # [*vhost*]
 #   Virtual host for this application.
 #   Default: content-store
@@ -56,6 +60,7 @@ class govuk::apps::content_store(
   $default_ttl = '1800',
   $performance_platform_big_screen_view_url = undef,
   $performance_platform_spotlight_url = undef,
+  $design_system_uri = 'https://govuk-design-system-production.cloudapps.digital',
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
@@ -107,5 +112,8 @@ class govuk::apps::content_store(
     "${title}-PERFORMANCEPLATFORM_SPOTLIGHT":
       varname => 'PLEK_SERVICE_SPOTLIGHT_URI',
       value   => $performance_platform_spotlight_url;
+    "${title}-DESIGN_SYSTEM_URI":
+      varname => 'PLEK_SERVICE_DESIGN_SYSTEM_URI',
+      value   => $design_system_uri;
   }
 }
