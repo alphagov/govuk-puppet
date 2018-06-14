@@ -227,7 +227,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "derivative(integral(groupByNode(stats.timers.*.app.publishing-api.*.workers.*.processing_time.count, 7, 'sum')))"
+              "target": "perSecond(integral(groupByNode(stats.timers.*.app.publishing-api.*.workers.*.processing_time.count, 7, 'sum')))"
             }
           ],
           "thresholds": [],
@@ -250,7 +250,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "ops",
               "label": null,
               "logBase": 1,
               "max": null,
