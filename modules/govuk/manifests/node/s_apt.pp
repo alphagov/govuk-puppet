@@ -150,6 +150,7 @@ class govuk::node::s_apt (
   aptly::repo { 'terraform-docs': }
   aptly::repo { 'vale': }
   aptly::repo { 'whisper-backup': }
+  aptly::repo { 'awscli': }
 
   include nginx
   nginx::config::site { $apt_service:
