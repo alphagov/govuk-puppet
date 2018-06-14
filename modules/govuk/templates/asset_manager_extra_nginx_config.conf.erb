@@ -48,6 +48,7 @@ location ~ /cloud-storage-proxy/(.*) {
   # a race condition or similar in Nginx that allows the S3 headers to
   # overwrite those set here or by Rails, possibly depending on the order
   # in which S3 sends them.
+  proxy_hide_header Authorization;
   proxy_hide_header ETag;
   proxy_hide_header Last-Modified;
   proxy_hide_header Content-Type;
