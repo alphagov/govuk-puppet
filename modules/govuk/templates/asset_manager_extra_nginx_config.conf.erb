@@ -48,7 +48,6 @@ location ~ /cloud-storage-proxy/(.*) {
   # a race condition or similar in Nginx that allows the S3 headers to
   # overwrite those set here or by Rails, possibly depending on the order
   # in which S3 sends them.
-  proxy_hide_header Authorization;
   proxy_hide_header ETag;
   proxy_hide_header Last-Modified;
   proxy_hide_header Content-Type;
@@ -70,6 +69,12 @@ location ~ /cloud-storage-proxy/(.*) {
   proxy_hide_header x-amz-version-id;
   proxy_hide_header x-amz-replication-status;
   proxy_hide_header x-amz-meta-md5-hexdigest;
+
+  # Strip any Authorization header from the client, as this will cause
+  # S3 to return an error.  We do not use proxy_hide_header here, as
+  # that hides response headers sent FROM S3 to the client; whereas we
+  # want to unset a request header sent TO S3 by nginx.
+  proxy_set_header Authorization "";
 
   # Add CloudFlare and Google DNS server to avoid "no resolver defined to resolve"
   # errors when trying to connect to S3.
