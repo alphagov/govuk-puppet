@@ -292,6 +292,9 @@ collectd::plugin::tcp::metrics:
   - 'ActiveOpens'
   - 'PassiveOpens'
 
+collectd::package::collectd_version: '5.6.0-0.1~pl5~trusty1'
+collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
 environment_ip_prefix: '10.1'
