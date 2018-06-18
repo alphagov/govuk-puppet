@@ -1,0 +1,11 @@
+#!/bin/bash
+
+WHISPER_DIR='<%= @graphite_path %>/storage/whisper'
+
+for dir in $(ls $WHISPER_DIR); do
+  if [[ -z "$(find $WHISPER_DIR/$dir -mtime -14 )" && $? -eq 0 ]] ; then
+    if [[ ! -z $WHISPER_DIR && ! -z $dir ]] ; then
+      rm -fr $WHISPER_DIR/$dir;
+    fi
+  fi
+done
