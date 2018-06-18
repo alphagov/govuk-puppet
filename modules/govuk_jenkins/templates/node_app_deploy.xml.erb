@@ -27,6 +27,7 @@
           <configs>
             <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
               <properties>TARGET_APPLICATION=<%= app %>
+TYPE=deploy_node_app
 DEPLOY_TASK=deploy:without_migrations
 TAG=deployed-to-<%= @environment -%></properties>
             </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>

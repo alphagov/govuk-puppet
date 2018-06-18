@@ -32,6 +32,13 @@
               export GIT_ORIGIN_PREFIX="git@gitlab.com:govuk"
             fi
 
+            if [ "$TYPE" == "deploy_node_app" ]; then
+              export BRANCH_TAG=$(git ls-remote ${GIT_ORIGIN_PREFIX="git@github.com:alphagov"}/"${TARGET_APPLICATION}".git deployed-to-"<%= @environment -%>" | awk {'print $1'})
+              export RELEASE_VERSION="$BRANCH_TAG"
+            else
+              export RELEASE_VERSION="$TAG"
+            fi
+
             git clone ${GIT_ORIGIN_PREFIX="git@github.com:alphagov"}/govuk-app-deployment.git --branch master --single-branch --depth 1 ./
             ./jenkins.sh
     publishers:
@@ -50,7 +57,7 @@
         - ansicolor:
             colormap: xterm
         - build-name:
-            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
+            name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="RELEASE_VERSION"}'
         - build-user-vars
         - credentials-binding:
             - username-password-separated:
@@ -84,6 +91,15 @@
             name: TAG
             description: Git tag/committish to deploy.
             default: release
+        - string:
+            name: TYPE
+            description: Define whether this is a Node_App_Deploy job triggered task. 
+        - string:
+            name: BRANCH_TAG
+            description: Define the branch tag (latest).
+        - string:
+            name: RELEASE_VERSION
+            description: Define the build release version..
         - bool:
             name: DEPLOY_FROM_GITLAB
             default: false
