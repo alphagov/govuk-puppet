@@ -23,6 +23,10 @@
 # [*vhost_name*]
 #   Primary vhost that assets should be served on at origin
 #
+# [*use_new_consultation_response_form_redirect*]
+#   Whether to directly redirect consultation forms or not.  Whitehall
+#   currently does this, but will not after we merge all the changes.
+#
 class router::assets_origin(
   $app_specific_static_asset_routes = {},
   $asset_manager_uploaded_assets_routes = [],
@@ -30,6 +34,7 @@ class router::assets_origin(
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',
+  $use_new_consultation_response_form_redirect = false,
 ) {
   validate_array($vhost_aliases)
 

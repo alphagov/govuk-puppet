@@ -522,5 +522,14 @@ router::nginx::robotstxt: |
   User-agent: *
   Disallow: /
 
+router::assets_origin::whitehall_uploaded_assets_routes:
+  - '/government/placeholder'
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
+  - '/government/uploads/uploaded/hmrc/'
+
+# Note: we should remove this (inline it into conditionals) when we
+# apply it to production.
+router::assets_origin::use_new_consultation_response_form_redirect: true
+
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
