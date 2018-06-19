@@ -25,7 +25,6 @@ class govuk_docker (
     docker_users                => $docker_users,
     use_upstream_package_source => false,
     version                     => $version,
-    log_driver                  => 'syslog',
   }
 
   package { 'ctop':
