@@ -1,3 +1,12 @@
+# == Class: govuk_awscli
+#
+# Installs the Apt repo for the AWS CLI, and installs the AWS CLI from the Apt repo
+#
+# === Parameters:
+#
+# [*apt_mirror_hostname*]
+#   The hostname of the Apt mirror containing the awscli repo
+#
 class govuk_awscli (
   $apt_mirror_hostname,
 )
