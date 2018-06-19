@@ -143,6 +143,8 @@ deployable_applications: &deployable_applications
   bouncer: {}
   calculators: {}
   calendars: {}
+  ckan:
+    repository: 'ckanext-datagovuk'
   collections: {}
   collections-publisher: {}
   contacts:
@@ -1004,6 +1006,11 @@ grafana::dashboards::deployment_applications:
   authenticating-proxy: {}
   calculators: {}
   calendars: {}
+  ckan:
+    docs_name: 'ckanext-datagovuk'
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
   collections: {}
   collections-publisher:
     show_sidekiq_graphs: true
