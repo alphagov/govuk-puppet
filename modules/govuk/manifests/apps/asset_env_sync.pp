@@ -21,10 +21,7 @@ class govuk::apps::asset_env_sync(
   $app_name = 'asset-env-sync'
 
   if $enabled {
-    package { 'awscli':
-      ensure   => 'present',
-      provider => 'pip',
-    }
+    require '::govuk_awscli'
 
     # Ensure config dir exists
     file { "/etc/govuk/${app_name}":
