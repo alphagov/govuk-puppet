@@ -28,6 +28,8 @@ govuk_app_enable_services: false
 govuk_cdnlogs::govuk_monitoring_enabled: false
 govuk_cdnlogs::bouncer_monitoring_enabled: false
 
+govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_jenkins::package::apt_mirror_hostname: 'apt.example.com'
 
 govuk_jenkins::config::github_api_uri: foo
