@@ -672,6 +672,8 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
