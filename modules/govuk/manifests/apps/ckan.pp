@@ -31,7 +31,7 @@
 #
 class govuk::apps::ckan (
   $enabled                   = false,
-  $port                      = '3108',
+  $port                      = '3220',
   $db_hostname               = undef,
   $db_username               = 'ckan',
   $db_password               = 'foo',
@@ -41,18 +41,71 @@ class govuk::apps::ckan (
   $secret                    = undef,
   $ckan_site_url             = undef,
   $gunicorn_worker_processes = '1',
+  $priority_worker_processes = '0',
+  $bulk_worker_processes     = '0',
+  $enable_harvester_fetch    = false,
+  $enable_harvester_gather   = false,
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"
 
   if $enabled {
     govuk::app { 'ckan':
-      app_type           => 'bare',
-      command            => "unicornherder --gunicorn-bin ./venv/bin/gunicorn -p /var/run/ckan/unicornherder.pid -- --pythonpath ${ckan_home} wsgi_app:application --bind 127.0.0.1:${port} --workers ${gunicorn_worker_processes}",
+      app_type           => 'procfile',
       port               => $port,
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
       log_format_is_json => false,
+    }
+
+    $toggled_priority_ensure = $priority_worker_processes != '0' ? {
+      true    => present,
+      default => absent,
+    }
+
+    $toggled_bulk_ensure = $bulk_worker_processes != '0' ? {
+      true    => present,
+      default => absent,
+    }
+
+    govuk::procfile::worker { 'celery_priority':
+      ensure         => $toggled_priority_ensure,
+      setenv_as      => 'ckan',
+      enable_service => $priority_worker_processes != '0',
+      process_type   => 'celery_priority',
+      process_count  => $priority_worker_processes,
+    }
+
+    govuk::procfile::worker { 'celery_bulk':
+      ensure         => $toggled_bulk_ensure,
+      setenv_as      => 'ckan',
+      enable_service => $bulk_worker_processes != '0',
+      process_type   => 'celery_bulk',
+      process_count  => $bulk_worker_processes,
+    }
+
+    $toggled_harvester_fetch = $enable_harvester_fetch ? {
+      true    => present,
+      default => absent,
+    }
+
+    $toggled_harvester_gather = $enable_harvester_gather ? {
+      true    => present,
+      default => absent,
+    }
+
+    govuk::procfile::worker { 'harvester_fetch_consumer':
+      ensure         => $toggled_harvester_fetch,
+      setenv_as      => 'ckan',
+      enable_service => $enable_harvester_fetch,
+      process_type   => 'harvester_fetch_consumer',
+    }
+
+    govuk::procfile::worker { 'harvester_gather_consumer':
+      ensure         => $toggled_harvester_gather,
+      setenv_as      => 'ckan',
+      enable_service => $enable_harvester_gather,
+      process_type   => 'harvester_gather_consumer',
     }
 
     Govuk::App::Envvar {
@@ -63,6 +116,18 @@ class govuk::apps::ckan (
       "${title}-CKAN_INI":
         varname => 'CKAN_INI',
         value   => $ckan_ini;
+      "${title}-CKAN_HOME":
+        varname => 'CKAN_HOME',
+        value   => $ckan_home;
+      "${title}-GUNICORN_WORKER_PROCESSES":
+        varname => 'GUNICORN_WORKER_PROCESSES',
+        value   => $gunicorn_worker_processes;
+      "${title}-PRIORITY_WORKER_PROCESSES":
+        varname => 'PRIORITY_WORKER_PROCESSES',
+        value   => $priority_worker_processes;
+      "${title}-BULK_WORKER_PROCESSES":
+        varname => 'BULK_WORKER_PROCESSES',
+        value   => $bulk_worker_processes;
     }
 
     file { $ckan_home:
