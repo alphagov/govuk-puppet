@@ -31,7 +31,7 @@
 #
 class govuk::apps::ckan (
   $enabled                   = false,
-  $port                      = '3108',
+  $port                      = '3220',
   $db_hostname               = undef,
   $db_username               = 'ckan',
   $db_password               = 'foo',
