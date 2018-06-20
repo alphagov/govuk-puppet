@@ -20,7 +20,11 @@ class base {
   include govuk_sshkeys
   include govuk_sudo
   include govuk_unattended_reboot
-  include govuk_awscli
+
+  unless $::lsbdistcodename == 'precise' {
+    include govuk_awscli
+  }
+
   include logrotate
   include ntp
   include puppet
