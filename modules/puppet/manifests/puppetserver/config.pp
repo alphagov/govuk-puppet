@@ -1,6 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class puppet::puppetserver::config {
 
+  $java_args = '-Xms8g -Xmx8g -XX:MaxPermSize=1g'
+
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
   }
@@ -16,6 +18,13 @@ class puppet::puppetserver::config {
     ensure => present,
     source => 'puppet:///modules/puppet/etc/puppet/certsigner.rb',
     mode   => '0755',
+  }
+
+  file_line { 'default_puppetserver':
+    ensure => present,
+    path   => '/etc/default/puppetserver',
+    line   => inline_template("JAVA_ARGS=\"${java_args}\"\n"),
+    match  => '^JAVA_ARGS=',
   }
 
   # Track checksums and reload `puppetmaster` service when they change. This
