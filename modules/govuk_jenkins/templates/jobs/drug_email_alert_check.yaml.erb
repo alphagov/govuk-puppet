@@ -7,7 +7,7 @@
     logrotate:
         numToKeep: 100
     triggers:
-        - timed: '21 * * * *' # every hour on the 21st minute
+        - timed: '21,51 * * * *' # every hour on the 21st and 51st minute
     properties:
         - build-discarder:
             days-to-keep: 30
