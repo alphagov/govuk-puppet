@@ -48,5 +48,21 @@ server {
   include             /etc/nginx/ssl.conf;
   <%- end %>
 
+  # Redirect asset requests to the assets host
+  location ~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/[^/]*$ {
+    if ($host ~* www\.(.*)) {
+      set $host_without_subdomain $1;
+      rewrite ^/(.*) https://assets.$host_without_subdomain/$1 permanent;
+    }
+    if ($host ~* www-origin\.(.*)) {
+      set $host_without_subdomain $1;
+      rewrite ^/(.*) https://assets-origin.$host_without_subdomain/$1 permanent;
+    }
+    if ($host ~* draft-origin\.(.*)) {
+      set $host_without_subdomain $1;
+      rewrite ^/(.*) https://draft-assets.$host_without_subdomain/$1 permanent;
+    }
+  }
+
   include             /etc/nginx/router_include.conf;
 }
