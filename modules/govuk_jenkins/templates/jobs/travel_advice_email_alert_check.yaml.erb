@@ -13,16 +13,18 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
     builders:
-        - shell: |
-            (
-              git clone https://github.com/alphagov/email-alert-monitoring tmp &&
-              rm -rf email-alert-monitoring &&
-              mv tmp email-alert-monitoring
-            ) || echo "Cloning failed. Re-using directory from previous run."
+        - shell:
+            command: |
+              (
+                git clone https://github.com/alphagov/email-alert-monitoring tmp &&
+                rm -rf email-alert-monitoring &&
+                mv tmp email-alert-monitoring
+              ) || echo "Cloning failed. Re-using directory from previous run."
 
-            cd email-alert-monitoring
-            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            bundle exec rake run_travel_alerts
+              cd email-alert-monitoring
+              bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+              bundle exec rake run_travel_alerts
+            unstable-return: 1
     publishers:
       - text-finder:
           regexp: "Cloning failed"
