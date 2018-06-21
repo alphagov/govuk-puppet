@@ -8,8 +8,6 @@
 class govuk_mysql::xtrabackup::packages (
   $apt_mirror_hostname  = '',
 ) {
-  require '::govuk_awscli'
-
   package { 'xtrabackup':
     ensure  => present,
     require => Class[Mysql::Server],
