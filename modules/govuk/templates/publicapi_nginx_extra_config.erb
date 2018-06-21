@@ -7,7 +7,7 @@
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_whitehall_api <%= @privateapi_protocol %>://<%= @whitehallapi %>;
   <%- end %>
-  location ~ ^/api/(governments|organisations|specialist|worldwide-organisations|world-locations)(/|$) {
+  location ~ ^/api/(governments|specialist|worldwide-organisations|world-locations)(/|$) {
     expires 30m;
 
     proxy_set_header Host <%= @whitehallapi %>;
