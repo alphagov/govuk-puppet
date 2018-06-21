@@ -93,16 +93,19 @@ class govuk_cdnlogs::transition_logs (
   }
 
   # The transition logs processing script creates a cache of processed logs
-  file { ["${log_dir}/cache", "${log_dir}/cache/archive"]:
+  file { "${log_dir}/cache":
     ensure => $ensure_dir,
     owner  => $user,
     group  => $user,
   }
 
+  # @TODO remove these once this has been run in production
+  file { "${log_dir}/cache/archive":
+    ensure => absent,
+  }
+
   file { '/etc/logrotate.d/transition_logs_cache':
-    ensure  => $ensure,
-    content => template('govuk_cdnlogs/etc/logrotate.d/transition_logs_cache.erb'),
-    require => File["${log_dir}/cache"],
+    ensure  => absent,
   }
 
   $process_script = '/usr/local/bin/process_transition_logs'
