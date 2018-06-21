@@ -1592,8 +1592,12 @@ monitoring::checks::smokey::features:
     feature: calendars
   check_contacts:
     feature: contacts
+  check_draft_environment:
+    feature: draft_environment
   check_frontend:
     feature: frontend
+  check_government_frontend:
+    feature: government_frontend
   check_licencefinder:
     feature: licencefinder
   check_licensing:
@@ -1610,12 +1614,10 @@ monitoring::checks::smokey::features:
     feature: smartanswers
   check_static_mirrors:
     feature: mirror
-  check_whitehall:
-    feature: whitehall
-  check_draft_environment:
-    feature: draft_environment
   check_travel_advice:
     feature: travel_advice
+  check_whitehall:
+    feature: whitehall
 
 monitoring::vpn_gateways::endpoints:
   vpn_gateway_api_dr:
