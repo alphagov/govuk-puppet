@@ -2,7 +2,18 @@
 #
 # Collectd plugin for docker
 #
-class collectd::plugin::docker {
+# === Parameters
+#
+# [*repo*]
+# This variable is used to define the Github repository used to get the docker-collectd-plugin.
+#
+# [*commit*]
+# This variable is used to set the commit has that we want to use. This will help us from drifting.
+#
+class collectd::plugin::docker(
+  $repo = undef,
+  $commit = undef,
+) {
 
   $dependencies = [
     'py-dateutil',
@@ -24,6 +35,13 @@ class collectd::plugin::docker {
   package { 'docker-py':
     ensure   => 'absent',
     provider => 'pip',
+  }
+
+  vcsrepo { '/usr/share/collectd/docker-collectd-plugin':
+    ensure   => present,
+    provider => git,
+    source   => $repo,
+    revision => $commit,
   }
 
   @collectd::plugin { 'docker':
