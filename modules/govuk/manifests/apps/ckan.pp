@@ -58,14 +58,14 @@ class govuk::apps::ckan (
       log_format_is_json => false,
     }
 
-    $toggled_priority_ensure = $priority_worker_processes != '0' ? {
-      true    => present,
-      default => absent,
+    $toggled_priority_ensure = $priority_worker_processes ? {
+      '0'     => absent,
+      default => present,
     }
 
-    $toggled_bulk_ensure = $bulk_worker_processes != '0' ? {
-      true    => present,
-      default => absent,
+    $toggled_bulk_ensure = $bulk_worker_processes ? {
+      '0'     => absent,
+      default => present,
     }
 
     govuk::procfile::worker { 'celery_priority':
