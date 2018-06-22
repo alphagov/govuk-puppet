@@ -1710,8 +1710,12 @@ router::assets_origin::app_specific_static_asset_routes:
 
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
-  - '/government/uploads/system/uploads/attachment_data/file/'
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
   - '/government/uploads/uploaded/hmrc/'
+
+# Note: we should remove this (inline it into conditionals) when we
+# apply it to production.
+router::assets_origin::use_new_consultation_response_form_redirect: true
 
 router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'
