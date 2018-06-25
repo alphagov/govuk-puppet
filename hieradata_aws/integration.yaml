@@ -123,7 +123,6 @@ govuk_ppa::path: 'preview'
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
 mongodb::backup::mongo_backup_node: 'localhost'
-mongodb::s3backup::cron::daily_hour: 16
 
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::pingdom::enable: false
