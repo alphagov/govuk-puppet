@@ -102,6 +102,7 @@ class govuk_cdnlogs::transition_logs (
   # @TODO remove these once this has been run in production
   file { "${log_dir}/cache/archive":
     ensure => absent,
+    force  => true,
   }
 
   file { '/etc/logrotate.d/transition_logs_cache':
