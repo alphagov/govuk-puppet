@@ -1,0 +1,35 @@
+---
+app_domain_internal: 'dev.gov.uk'
+
+govuk_postgresql::monitoring::password: password
+
+govuk_postgresql::server::snakeoil_ssl_certificate: |
+  -----BEGIN CERTIFICATE-----
+  MIIB7jCCAZgCCQCQITrBr1+9DjANBgkqhkiG9w0BAQUFADB+MQswCQYDVQQGEwJH
+  QjEQMA4GA1UECAwHRW5nbGFuZDEPMA0GA1UEBwwGTG9uZG9uMQwwCgYDVQQKDANH
+  RFMxDzANBgNVBAsMBkdPVi5VSzEtMCsGA1UEAwwkcHVwcGV0bWFzdGVyLTEubWFu
+  YWdlbWVudC5kZXYuZ292LnVrMB4XDTE1MTIwMzExNDYxMFoXDTE2MTIwMjExNDYx
+  MFowfjELMAkGA1UEBhMCR0IxEDAOBgNVBAgMB0VuZ2xhbmQxDzANBgNVBAcMBkxv
+  bmRvbjEMMAoGA1UECgwDR0RTMQ8wDQYDVQQLDAZHT1YuVUsxLTArBgNVBAMMJHB1
+  cHBldG1hc3Rlci0xLm1hbmFnZW1lbnQuZGV2Lmdvdi51azBcMA0GCSqGSIb3DQEB
+  AQUAA0sAMEgCQQDYSfBySdDJWuNCdvfFMWSQ4eIAFwFEje+K+Deb1h/WSnWWaBrF
+  f5AzVJh+pm1DFGDNpZ/yLNxd5N76Ix5w6zKbAgMBAAEwDQYJKoZIhvcNAQEFBQAD
+  QQDGXjnP4BXnhm6wYDUq5eqev0zKLaujJSqE2XTJFL2hM0DHa3hSXyFDIsHgtKl7
+  GHKnbfMYUKo2s/jBYlWBZQx6
+  -----END CERTIFICATE-----
+
+govuk_postgresql::server::snakeoil_ssl_key: |
+  -----BEGIN RSA PRIVATE KEY-----
+  MIIBOwIBAAJBANhJ8HJJ0Mla40J298UxZJDh4gAXAUSN74r4N5vWH9ZKdZZoGsV/
+  kDNUmH6mbUMUYM2ln/Is3F3k3vojHnDrMpsCAwEAAQJAYUxR2HgQbqRuW7X9HD5u
+  CSc0benrbhWTzyZ+jaIzzEf6b3iLlbgvdkt8jiFXJ5ZCGaiEw0pKQ0KUbIGWQiKR
+  QQIhAP3fDAOm5U49wRwGJSI84X9VAjiDbmxX72BzDzkMZ8mrAiEA2ho4BzoUEtb3
+  0pg8DxWSvyfcd3+QG4n9RvZy/RDMqtECIQCJogTXbgHfGye4U7SKDUuLRsD/dnHF
+  Fx9VwMs9+HXEJQIhANlG73Q7ps3R/Jd/c62vVz86LceafG0C/iCY2ptEBjFRAiA2
+  vxBODhF5cvyO/S2jUuvApGU4dU2KULT5Dv3/Lh/Otg==
+  -----END RSA PRIVATE KEY-----
+
+govuk_postgresql::wal_e::backup::enabled: true
+
+
+puppetdb_postgres_password: 'ZWgneDR5LbLphku9'

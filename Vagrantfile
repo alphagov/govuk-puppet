@@ -73,9 +73,16 @@ Vagrant.configure("2") do |config|
         c.vm.synced_folder ".", "/usr/share/puppet/production/current"
       end
 
+      # This feels like a bit of a hack and there's probably a better way to do this...
+      # The hostname should come from the role, not the other way round
+      puppet_role = node_name.split('.')[0].gsub(/[\-0-9]+$/, '')
+
       # run a script to partition extra disks for lvm if they exist.
       c.vm.provision :shell, :inline => "/var/govuk/govuk-puppet/tools/partition-disks"
       c.vm.provision :shell, :inline => '/var/govuk/govuk-puppet/tools/mock-ec2-metadata-service.py'
+      c.vm.provision :shell, :inline => 'mkdir -p /etc/facter/facts.d'
+      c.vm.provision :shell, :inline => "echo 'aws_migration=#{puppet_role}' > /etc/facter/facts.d/aws_migration.txt"
+      c.vm.provision :shell, :inline => "echo 'aws_stackname=blue' > /etc/facter/facts.d/aws_stackname.txt"
       c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant /var/govuk/govuk-puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
