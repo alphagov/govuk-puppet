@@ -45,6 +45,9 @@ class govuk::apps::ckan (
   $bulk_worker_processes     = '0',
   $enable_harvester_fetch    = false,
   $enable_harvester_gather   = false,
+  $smtp_username             = undef,
+  $smtp_password             = undef,
+  $smtp_hostname             = undef,
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"

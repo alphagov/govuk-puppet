@@ -174,11 +174,11 @@ ckan.hide_activity_from_users = %(ckan.site_id)s
 
 #email_to = you@yourdomain.com
 #error_email_from = paste@localhost
-#smtp.server = localhost
-#smtp.starttls = False
-#smtp.user = your_username@gmail.com
-#smtp.password = your_password
-#smtp.mail_from =
+smtp.server = <%= @smtp_hostname %>
+smtp.starttls = True
+smtp.user = <%= @smtp_username %>
+smtp.password = <%= @smtp_password %>
+smtp.mail_from = team@data.gov.uk
 
 
 ## Logging configuration
