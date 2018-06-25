@@ -4,7 +4,7 @@ set -e
 
 TMPFILE=$(mktemp /tmp/hiera-temp-XXXXXX.yml)
 echo "Creating temporary hiera config as $TMPFILE"
-sed -e "s;^  :datadir: .*$;  :datadir: '/var/govuk/govuk-puppet/hieradata';g" /var/govuk/govuk-puppet/hiera.yml > $TMPFILE
+sed -e "s;^  :datadir: .*$;  :datadir: '/var/govuk/govuk-puppet/hieradata_aws';g" /var/govuk/govuk-puppet/hiera_aws.yml > $TMPFILE
 
 # Filter warnings about 'storeconfigs' not being set
 exec sudo \

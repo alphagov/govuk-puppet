@@ -1,0 +1,6 @@
+#!/bin/bash
+set -e
+export DEBIAN_FRONTEND=noninteractive
+apt-get update
+apt-get -y upgrade
+apt-get -y install language-pack-en jq curl git
