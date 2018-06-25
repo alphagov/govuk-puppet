@@ -4,24 +4,16 @@
 #
 # === Parameters
 #
-# [*puppetdb_version*]
-#   Specify the version of puppetdb-terminus to install which should match
-#   the puppetdb installation. Passed in by parent class.
-#
 # [*puppet_sentry_dsn*]
 #   This is the DSN to send puppet reports to.
 #
 class puppet::puppetserver::package(
-  $puppetdb_version = 'present',
   $puppet_sentry_dsn = undef,
 ) {
-  include ::puppet
-
-  ensure_packages(['openjdk-7-jre-headless'])
+  require '::govuk_java::openjdk7::jre'
 
   package { 'puppetserver':
     ensure  => installed,
-    require => Package['openjdk-7-jre-headless'],
   }
 
   package { ['aws-sdk-ec2', 'aws-sdk-core']:
@@ -33,10 +25,6 @@ class puppet::puppetserver::package(
   package { ['hiera-eyaml-gpg', 'gpgme']:
     ensure   => absent,
     provider => system_gem,
-  }
-
-  package { 'puppetdb-terminus':
-    ensure  => $puppetdb_version,
   }
 
   exec { '/usr/bin/puppetserver gem install hiera-eyaml-gpg':

@@ -12,7 +12,7 @@ describe 'puppet::puppetserver', :type => :class do
     is_expected.to contain_service('puppetserver').with_ensure('running')
   end
 
-  it { is_expected.to contain_class('govuk_puppetdb') }
+  it { is_expected.to contain_class('puppet::puppetdb') }
   it { is_expected.to contain_class('puppet::puppetserver::nginx') }
 
   it do

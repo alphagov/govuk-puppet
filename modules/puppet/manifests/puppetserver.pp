@@ -1,55 +1,43 @@
 # == Class: puppet::puppetserver
 #
 # Install and configure a puppetserver.
-# Includes PuppetDB of a fixed version on the same host.
+# Includes PuppetDB on the same host.
 #
 # === Parameters
 #
-# [*puppetdb_version*]
-#   Specify the version of puppetdb to be installed
+class puppet::puppetserver {
+  include '::puppet::repository'
+  include '::puppet'
+  include '::puppet::puppetdb'
 
-class puppet::puppetserver(
-  $puppetdb_version = '1.3.2-1puppetlabs1',
-) {
-  include puppet::repository
+  include '::puppet::puppetserver::package'
+  contain '::puppet::puppetserver::package'
 
-  class { '::govuk_puppetdb':
-    package_ensure => $puppetdb_version,
+  class { '::puppet::puppetserver::config':
+    require => Class['::puppet::puppetserver::package'],
+    notify  => Class['::puppet::puppetserver::service'],
   }
+  contain '::puppet::puppetserver::config'
 
-  anchor {'puppet::puppetserver::begin':
-    notify => Class['puppet::puppetserver::service'],
+  class { '::puppet::puppetserver::generate_cert':
+    require => Class['::puppet::puppetserver::package'],
+    notify  => Class['::puppet::puppetserver::service'],
   }
-  class{'puppet::puppetserver::package':
-    puppetdb_version => $puppetdb_version,
-    notify           => Class['puppet::puppetserver::service'],
-    require          => [
-      Class['puppet::package'],
-      Anchor['puppet::puppetserver::begin'],
-    ],
-  }
-  class{'puppet::puppetserver::config':
-    require => Class['puppet::puppetserver::package'],
-    notify  => Class['puppet::puppetserver::service'],
-  }
-  class { 'puppet::puppetserver::generate_cert':
-    require   => Class['puppet::puppetserver::config'],
-  }
+  contain '::puppet::puppetserver::config'
 
-  class { 'puppet::puppetserver::firewall':
-    require => Class['puppet::puppetserver::config'],
+  class { '::puppet::puppetserver::firewall':
+    require => Class['::puppet::puppetserver::config'],
+    before  => Class['::puppet::puppetserver::service'],
   }
+  contain '::puppet::puppetserver::firewall'
 
-  class{'puppet::puppetserver::service':
-    subscribe => [
-      Class['puppet::package'],
-    ],
-    require   => Class['puppet::puppetserver::generate_cert'],
-  }
+  include '::puppet::puppetserver::service'
+  contain '::puppet::puppetserver::service'
 
-  class { 'puppet::puppetserver::nginx':
-    require      => Class['puppet::puppetserver::generate_cert'],
+  class { '::puppet::puppetserver::nginx':
+    require => Class['::puppet::puppetserver::generate_cert'],
   }
+  contain '::puppet::puppetserver::nginx'
 
   file { '/etc/puppet/gpg':
     ensure  => directory,
@@ -57,15 +45,6 @@ class puppet::puppetserver(
     recurse => true,
     owner   => 'puppet',
     group   => 'puppet',
-  }
-
-  anchor {'puppet::puppetserver::end':
-    subscribe =>  Class['puppet::puppetserver::service'],
-    require   =>  [
-                    Class['puppet::puppetserver::firewall'],
-                    Class['puppet::puppetserver::nginx'],
-                    File['/etc/puppet/gpg'],
-                  ],
   }
 
   cron::crondotdee { 'puppet_report_purge':

@@ -32,4 +32,4 @@ govuk_postgresql::server::snakeoil_ssl_key: |
 govuk_postgresql::wal_e::backup::enabled: true
 
 
-puppetdb_postgres_password: 'ZWgneDR5LbLphku9'
+puppet::puppetdb::database_password: 'ZWgneDR5LbLphku9'
