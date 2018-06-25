@@ -32,6 +32,7 @@ class govuk::node::s_backend_lb (
   $whitehall_backend_servers,
   $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
+  $ckan_backend_servers = [],
   $maintenance_mode = false,
 ){
   include govuk::node::s_base
@@ -110,6 +111,13 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { 'kibana':
     read_timeout => 5,
     servers      => $backend_servers,
+  }
+
+  loadbalancer::balance { [
+      'ckan',
+    ]:
+      deny_crawlers => true,
+      servers       => $ckan_backend_servers,
   }
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
