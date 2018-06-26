@@ -288,6 +288,9 @@ collectd::plugin::tcp::metrics:
   - 'ActiveOpens'
   - 'PassiveOpens'
 
+collectd::plugin::docker::repo: "https://github.com/lebauce/docker-collectd-plugin.git"
+collectd::plugin::docker::commit: "c3edc64555f35d8ffcc9aee23b69c289e8f309fb"
+
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
 environment_ip_prefix: '10.1'
