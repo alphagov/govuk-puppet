@@ -86,13 +86,6 @@ FORGE
     thias-sysctl (0.3.2)
 
 GIT
-  remote: git://github.com/alphagov/puppet-apparmor.git
-  ref: master
-  sha: fd0106ccd688a8af4b62e57d420a26e80b484731
-  specs:
-    alphagov-apparmor (0.0.1)
-
-GIT
   remote: git://github.com/alphagov/puppet-curl.git
   ref: 9e07f56c2e0f59b5a27db7d148cda6d47da4b771
   sha: 9e07f56c2e0f59b5a27db7d148cda6d47da4b771
@@ -188,9 +181,15 @@ GIT
     nextrevision-automysqlbackup (0.2.4)
       puppetlabs-stdlib (>= 3.0.0)
 
+GIT
+  remote: git://github.com/simondeziel/puppet-apparmor.git
+  ref: master
+  sha: 17392f83e4d288bf76e7f5a64967d9272c3ac33b
+  specs:
+    simondeziel-apparmor (0.0.1)
+
 DEPENDENCIES
   adrien-alternatives (>= 0)
-  alphagov-apparmor (>= 0)
   alphagov-curl (>= 0)
   alphagov-duplicity (>= 0)
   alphagov-puppet-rcs (>= 0)
@@ -235,5 +234,6 @@ DEPENDENCIES
   saz-rsyslog (= 3.2.0)
   saz-sudo (= 3.1.0)
   saz-timezone (>= 0)
+  simondeziel-apparmor (>= 0)
   stankevich-python (= 1.9.8)
 
