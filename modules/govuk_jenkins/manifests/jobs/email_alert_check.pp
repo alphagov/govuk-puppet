@@ -52,18 +52,22 @@ class govuk_jenkins::jobs::email_alert_check (
 
   @@icinga::passive_check {
     "${drug_check_name}_${::hostname}":
-      service_description => $drug_service_description,
-      host_name           => $::fqdn,
-      freshness_threshold => 5400, # 90 minutes
-      action_url          => $drug_job_url,
-      notes_url           => monitoring_docs_url(email-alerts);
+      service_description     => $drug_service_description,
+      host_name               => $::fqdn,
+      freshness_threshold     => 5400, # 90 minutes
+      freshness_alert_level   => 'critical',
+      freshness_alert_message => 'Jenkins job has stopped running or is unstable',
+      action_url              => $drug_job_url,
+      notes_url               => monitoring_docs_url(email-alerts);
     "${travel_advice_check_name}_${::hostname}":
-      service_template    => 'govuk_urgent_priority',
-      service_description => $travel_advice_service_description,
-      host_name           => $::fqdn,
-      freshness_threshold => 5400, # 90 minutes
-      action_url          => $travel_advice_job_url,
-      notes_url           => monitoring_docs_url(email-alerts);
+      service_template        => 'govuk_urgent_priority',
+      service_description     => $travel_advice_service_description,
+      host_name               => $::fqdn,
+      freshness_threshold     => 5400, # 90 minutes
+      freshness_alert_level   => 'critical',
+      freshness_alert_message => 'Jenkins job has stopped running or is unstable',
+      action_url              => $travel_advice_job_url,
+      notes_url               => monitoring_docs_url(email-alerts);
 
   }
 }

@@ -40,19 +40,24 @@
 define icinga::passive_check (
   $service_description,
   $host_name,
-  $ensure              = 'present',
-  $freshness_threshold = '',
-  $action_url          = undef,
-  $notes_url           = undef,
-  $service_template = 'govuk_regular_service',
+  $ensure                  = 'present',
+  $freshness_threshold     = '',
+  $freshness_alert_level   = 'warning',
+  $freshness_alert_message = 'Freshness threshold exceeded',
+  $action_url              = undef,
+  $notes_url               = undef,
+  $service_template        = 'govuk_regular_service',
 ){
 
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
+  validate_re($freshness_alert_level, '^(warning|critical)$')
 
   $active_message = $freshness_threshold ? {
     ''      => 'Unexpected active check on passive service',
-    default => 'Freshness threshold exceeded',
+    default => $freshness_alert_message,
   }
+
+  $active_code = $freshness_alert_level ? { 'critical' => '2', default => '1' }
 
   Icinga::Host[$host_name] -> Icinga::Passive_check[$title]
 

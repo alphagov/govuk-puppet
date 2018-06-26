@@ -8,7 +8,7 @@ define service {
   check_freshness           1
   freshness_threshold       <%= @freshness_threshold %>
 <% end -%>
-  check_command             check_dummy!1!"<%= @active_message -%>"
+  check_command             check_dummy!<%= @active_code %>!"<%= @active_message -%>"
   max_check_attempts        1
 <%- if @action_url -%>
   action_url                <%= @action_url %>

@@ -7,22 +7,24 @@
     logrotate:
         numToKeep: 100
     triggers:
-        - timed: '21 * * * *' # every hour on the 21st minute
+        - timed: '21,51 * * * *' # every hour on the 21st and 51st minute
     properties:
         - build-discarder:
             days-to-keep: 30
             artifact-num-to-keep: 5
     builders:
-        - shell: |
-            (
-              git clone https://github.com/alphagov/email-alert-monitoring tmp &&
-              rm -rf email-alert-monitoring &&
-              mv tmp email-alert-monitoring
-            ) || echo "Cloning failed. Re-using directory from previous run."
+        - shell:
+            command: |
+              (
+                git clone https://github.com/alphagov/email-alert-monitoring tmp &&
+                rm -rf email-alert-monitoring &&
+                mv tmp email-alert-monitoring
+              ) || echo "Cloning failed. Re-using directory from previous run."
 
-            cd email-alert-monitoring
-            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            bundle exec rake run
+              cd email-alert-monitoring
+              bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+              bundle exec rake run
+            unstable-return: 1
     publishers:
       - text-finder:
           regexp: "Cloning failed"

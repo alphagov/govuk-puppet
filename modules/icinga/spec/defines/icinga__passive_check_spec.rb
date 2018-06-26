@@ -33,3 +33,22 @@ describe 'icinga::passive_check', :type => :define do
      }
 end
 
+# icinga::passive_check should allow customisable freshness code and message
+describe 'icinga::passive_check', :type => :define do
+  let(:title) { 'heartbeat' }
+  let(:facts) {{
+    'ipaddress' => '10.10.10.10',
+    :fqdn_short => 'fakehost-1.management',
+  }}
+  let(:pre_condition) {  'icinga::host{"bruce-forsyth":}' }
+  let(:params) {{
+    "host_name" => "bruce-forsyth",
+    "service_description" => "to see you nice",
+    "freshness_threshold" => "1000",
+    "freshness_alert_level" => "critical",
+    "freshness_alert_message" => "Critical alert"
+  }}
+  it { is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/heartbeat.cfg').
+       with_content(/check_command\s+check_dummy!2!"Critical\salert/)
+     }
+end
