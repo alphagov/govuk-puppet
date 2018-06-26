@@ -119,8 +119,8 @@ ckan.preview.loadable = html htm rdf+xml owl+xml xml n3 n-triples turtle plain a
 ckan.display_timezone = server
 
 # package_hide_extras = for_search_index_only
-#package_edit_return_url = http://another.frontend/dataset/<NAME>
-#package_new_return_url = http://another.frontend/dataset/<NAME>
+package_edit_return_url = <%= @ckan_site_url%>/dataset/<NAME>?utm_source=ckan
+package_new_return_url = <%= @ckan_site_url%>/dataset/<NAME>?utm_source=ckan
 #ckan.recaptcha.version = 1
 #ckan.recaptcha.publickey =
 #ckan.recaptcha.privatekey =
