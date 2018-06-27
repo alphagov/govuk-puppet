@@ -71,7 +71,7 @@ done
 STOP_UPLOAD=$(date +%s%3N)
 DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
 
-echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -w 1 -u localhost 8125
+echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -q 1 -u localhost 8125
 
 log "user.info" "Finished synchronising to GOV.UK mirrors"
 
