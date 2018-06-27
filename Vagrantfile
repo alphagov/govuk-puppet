@@ -75,6 +75,7 @@ Vagrant.configure("2") do |config|
 
       # run a script to partition extra disks for lvm if they exist.
       c.vm.provision :shell, :inline => "/var/govuk/govuk-puppet/tools/partition-disks"
+      c.vm.provision :shell, :inline => '/var/govuk/govuk-puppet/tools/mock-ec2-metadata-service.py'
       c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant /var/govuk/govuk-puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
