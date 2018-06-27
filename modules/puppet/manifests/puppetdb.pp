@@ -19,6 +19,7 @@ class puppet::puppetdb (
 {
   include '::puppet::repository'
   include '::govuk_postgresql::server::standalone'
+  include '::govuk_postgresql::backup'
 
   if $legacy {
     # Activate legacy options for PuppetDB 1.x
