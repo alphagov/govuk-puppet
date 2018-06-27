@@ -44,6 +44,8 @@ class govuk_postgresql::server::primary (
       value => 3;
     'wal_keep_segments':
       value => 256;
+    'log_min_duration_statement':
+      value => 1000;
   }
 
   if versioncmp($::postgresql::globals::version, '9.5') < 0 {
