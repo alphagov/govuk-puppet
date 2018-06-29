@@ -150,6 +150,14 @@ class govuk::apps::ckan (
       notify  => Service['ckan'],
     } ->
 
+    file { "${ckan_home}/google_analytics_token.json":
+      ensure  => file,
+      content => template('govuk/ckan/google_analytics_token.json.erb'),
+      owner   => 'deploy',
+      group   => 'deploy',
+      notify  => Service['ckan'],
+    } ->
+
     file { "${ckan_home}/wsgi_app.py":
       ensure  => file,
       content => template('govuk/ckan/wsgi_app.py.erb'),
