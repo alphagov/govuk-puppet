@@ -7,13 +7,14 @@
 # [*enable_slack_notifications*]
 #   Whether slack should be notified about this job
 #
-# [*smokey_task*]
-#   The rake task to run for the tests
+# [*environment*]
+#   The environment which is running Smokey. Used to build the rake task.
 #
 class govuk_jenkins::jobs::smokey (
   $enable_slack_notifications = false,
-  $smokey_task = 'test:production',
+  $environment = 'production',
 ) {
+  $smokey_task = "test:${environment}"
   $app_domain = hiera('app_domain')
 
   $slack_team_domain = 'gds'

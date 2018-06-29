@@ -33,6 +33,8 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+          include-custom-message: true
+          custom-message: ':govuk-<%= @environment %>:'
       <% end %>
       - email-ext:
           recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
