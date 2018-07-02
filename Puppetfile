@@ -39,8 +39,8 @@ mod 'goldyfruit/grub2',
 mod 'nextrevision/automysqlbackup',
   :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
 
-mod 'alphagov/apparmor',
-  :git => 'git://github.com/alphagov/puppet-apparmor.git'
+mod 'simondeziel/apparmor',
+  :git => 'git://github.com/simondeziel/puppet-apparmor.git'
 mod 'alphagov/curl',
   :git => 'git://github.com/alphagov/puppet-curl.git',
   :ref => '9e07f56c2e0f59b5a27db7d148cda6d47da4b771'
