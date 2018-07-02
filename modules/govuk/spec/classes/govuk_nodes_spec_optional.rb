@@ -10,8 +10,13 @@ require_relative '../../../../spec_helper'
 
 standard_hiera_config = YAML.load_file(File.expand_path("../../../../../hiera.yml", __FILE__))
 
-standard_hiera_config[:yaml][:datadir] = 'hieradata'
-standard_hiera_config[:eyaml][:datadir] = 'hieradata'
+if ENV['legacy']
+  standard_hiera_config[:yaml][:datadir] = 'hieradata'
+  standard_hiera_config[:eyaml][:datadir] = 'hieradata'
+else
+  standard_hiera_config[:yaml][:datadir] = 'hieradata_aws'
+  standard_hiera_config[:eyaml][:datadir] = 'hieradata_aws'
+end
 standard_hiera_config[:eyaml][:gpg_gnupghome] = 'gpg'
 
 temporary_hiera_file = Tempfile.new('hiera_yml')
@@ -23,14 +28,24 @@ ENV.fetch('classes').split(",").each do |class_name|
 
   describe "govuk::node::s_#{class_name}", :type => :class do
     let(:node) { "#{node_hostname}-1.example.com" }
-    let(:facts) {{
-      :environment => (class_name =~ /^development$/ ? "development" : 'vagrant'),
-      :concat_basedir => '/var/lib/puppet/concat/',
-      :kernel => 'Linux',
-      :memorysize =>  '3.86 GB',
-      :memorysize_mb => 3953.43,
-      :aws_migration => (class_name =~ /db_admin/ ? true : false),
-    }}
+
+    let(:facts) {
+      facts = {
+        :environment    => 'development',
+        :concat_basedir => '/var/lib/puppet/concat/',
+        :kernel         => 'Linux',
+        :memorysize     => '3.86 GB',
+        :memorysize_mb  => 3953.43,
+        :aws_migration  => class_name,
+      }
+
+      if ENV['legacy']
+        facts[:environment] = (class_name =~ /^development$/ ? "development" : 'vagrant') 
+        facts[:aws_migration] = (class_name =~ /db_admin/ ? true : false)
+      end
+
+      facts
+    }
 
     let(:hiera_config) { temporary_hiera_file.path }
 
