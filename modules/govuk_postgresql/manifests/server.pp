@@ -40,9 +40,14 @@ class govuk_postgresql::server (
     fail("Class ${name} cannot be used directly. Please use standalone/primary/standby")
   }
 
-  class {'postgresql::server':
+  include '::govuk_postgresql::mirror'
+
+  class {'::postgresql::server':
     listen_addresses => $listen_addresses,
   }
+
+  class {'::postgresql::server::contrib':}
+
   if ($listen_addresses == '*') {
     @ufw::allow { 'allow-postgresql-from-all':
       port => 5432,
@@ -76,9 +81,6 @@ class govuk_postgresql::server (
     }
   }
 
-  include govuk_postgresql::mirror
-  include postgresql::server::contrib
-
   if $configure_env_sync_user {
     include govuk_postgresql::env_sync_user
   }
@@ -106,12 +108,4 @@ class govuk_postgresql::server (
       host_name => $::fqdn,
     }
   }
-
-  file { "/var/lib/postgresql/${postgresql::globals::version}":
-    ensure => directory,
-    owner  => $postgresql::params::user,
-    group  => $postgresql::params::group,
-    mode   => '0755',
-  }
-
 }
