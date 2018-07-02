@@ -78,6 +78,8 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
+govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
+govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300

@@ -74,6 +74,23 @@
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
+# [*aws_access_key_id*]
+#   An access key that can be use with Amazon Web Services
+#
+# [*aws_secret_access_key*]
+#   The secret key that corresponds with the aws_access_key_id
+#
+# [*aws_region*]
+#   The AWS region which is used for AWS Services
+#   default: eu-west-1
+#
+# [*email_archive_s3_bucket*]
+#   An S3 bucket in the specified AWS region which can be used to write the
+#   archived data too
+#
+# [*email_archive_s3_enabled*]
+#   Whether or not to perform S3 archiving in the current environment
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -105,6 +122,11 @@ class govuk::apps::email_alert_api(
   $db_hostname = undef,
   $db_name = 'email-alert-api_production',
   $unicorn_worker_processes = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $email_archive_s3_bucket = undef,
+  $email_archive_s3_enabled = undef,
 ) {
 
   $ensure = $enabled ? {
@@ -198,6 +220,18 @@ class govuk::apps::email_alert_api(
     "${title}-EMAIL_ADDRESS_OVERRIDE":
         varname => 'EMAIL_ADDRESS_OVERRIDE',
         value   => $email_address_override;
+    "${title}-AWS_ACCESS_KEY_ID":
+        varname => 'AWS_ACCESS_KEY_ID',
+        value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+        varname => 'AWS_SECRET_ACCESS_KEY',
+        value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
+    "${title}-EMAIL_ARCHIVE_S3_BUCKET":
+        varname => 'EMAIL_ARCHIVE_S3_BUCKET',
+        value   => $email_archive_s3_bucket;
   }
 
   if $email_address_override_whitelist {
@@ -218,6 +252,13 @@ class govuk::apps::email_alert_api(
     govuk::app::envvar { "${title}-DELIVERY_REQUEST_THRESHOLD":
       varname => 'DELIVERY_REQUEST_THRESHOLD',
       value   => $delivery_request_threshold;
+    }
+  }
+
+  if $email_archive_s3_enabled {
+    govuk::app::envvar { "${title}-EMAIL_ARCHIVE_S3_ENABLED":
+      varname => 'EMAIL_ARCHIVE_S3_ENABLED',
+      value   => 'yes';
     }
   }
 
