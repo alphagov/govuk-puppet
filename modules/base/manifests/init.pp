@@ -4,7 +4,10 @@
 # both `govuk::node::s_base` and `govuk::node::s_development`.
 #
 class base {
-  include apparmor
+  class { '::apparmor':
+    package_ensure => present,
+  }
+
   include apt
   include base::packages
   include base::screen
