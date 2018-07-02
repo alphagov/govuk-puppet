@@ -83,7 +83,7 @@ Vagrant.configure("2") do |config|
       c.vm.provision :shell, :inline => 'mkdir -p /etc/facter/facts.d'
       c.vm.provision :shell, :inline => "echo 'aws_migration=#{puppet_role}' > /etc/facter/facts.d/aws_migration.txt"
       c.vm.provision :shell, :inline => "echo 'aws_stackname=blue' > /etc/facter/facts.d/aws_stackname.txt"
-      c.vm.provision :shell, :inline => "ENVIRONMENT=vagrant /var/govuk/govuk-puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
+      c.vm.provision :shell, :inline => "ENVIRONMENT=development /var/govuk/govuk-puppet/tools/puppet-apply #{ENV['VAGRANT_GOVUK_PUPPET_OPTIONS']}"
     end
   end
 end
