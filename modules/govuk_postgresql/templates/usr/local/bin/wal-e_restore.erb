@@ -6,7 +6,7 @@
 # backup from an Amazon S3 bucket, and moves the backup into place. It restores
 # the very latest back-up available.
 #
-export RECOVERY_FILE=<%= @datadir -%>/recovery.conf
+export RECOVERY_FILE=<%= @db_dir -%>/recovery.conf
 
 set -e
 
@@ -29,7 +29,7 @@ else
   sudo service postgresql stop
 
   # Start the restore process
-  sudo -iu postgres envdir /etc/wal-e/env.d /usr/local/bin/wal-e backup-fetch --blind-restore <%= @datadir -%> LATEST
+  sudo -iu postgres envdir /etc/wal-e/env.d /usr/local/bin/wal-e backup-fetch --blind-restore <%= @db_dir -%> LATEST
 
   # Add the recovery.conf configuration (this is renamed to recovery.done after PostgreSQL starts)
   sudo -iu postgres sh -c "echo \"restore_command = 'envdir /etc/wal-e/env.d /usr/local/bin/wal-e wal-fetch \"%f\" \"%p\"'\" > $RECOVERY_FILE"
