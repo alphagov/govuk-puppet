@@ -1,6 +1,15 @@
 ---
 app_domain_internal: 'dev.gov.uk'
 
+govuk_elasticsearch::backup_enabled: true
+govuk_elasticsearch::backup::s3_bucket: 'elasticsearch'
+govuk_elasticsearch::backup::es_repo: 'snapshots'
+govuk_elasticsearch::backup::es_indices:
+  - 'foo'
+  - 'bar'
+govuk_elasticsearch::backup::aws_access_key_id: 'foo'
+govuk_elasticsearch::backup::aws_secret_access_key: 'bar'
+
 govuk_postgresql::monitoring::password: password
 
 govuk_postgresql::server::snakeoil_ssl_certificate: |
