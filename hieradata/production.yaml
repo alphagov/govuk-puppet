@@ -39,7 +39,6 @@ backup::offsite::jobs:
     sources:
       - '/data/backups/*/var/lib/automongodbbackup/latest'
       - '/data/backups/*/var/lib/automysqlbackup/latest.tbz2'
-      - '/data/backups/*/var/lib/autopostgresqlbackup/latest.tbz2'
       - '/data/backups/archived'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/govuk-datastores/'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
