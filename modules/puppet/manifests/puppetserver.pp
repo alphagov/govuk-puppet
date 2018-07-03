@@ -8,6 +8,8 @@
 class puppet::puppetserver {
   include '::puppet::repository'
   include '::puppet'
+  require '::puppet'
+
   include '::puppet::puppetdb'
 
   include '::puppet::puppetserver::package'

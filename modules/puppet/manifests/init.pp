@@ -20,10 +20,10 @@ class puppet (
   validate_bool($future_parser)
   validate_bool($use_puppetmaster)
 
-  include puppet::cronjob
-  include puppet::repository
-  include puppet::package
-  include puppet::monitoring
+  contain '::puppet::cronjob'
+  contain '::puppet::repository'
+  contain '::puppet::package'
+  contain '::puppet::monitoring'
 
   user { 'puppet':
     ensure  => present,
