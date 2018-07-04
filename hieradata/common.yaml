@@ -1678,8 +1678,6 @@ postgresql_transition_standby_addresses_dr: "%{hiera('environment_ip_prefix')}.1
 postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
 
-puppet::master::puppetdb_version: '2.0.0-1puppetlabs1'
-
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 rabbitmq::delete_guest_user: true
