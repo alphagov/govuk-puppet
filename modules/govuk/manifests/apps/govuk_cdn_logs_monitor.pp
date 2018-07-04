@@ -24,6 +24,11 @@ class govuk::apps::govuk_cdn_logs_monitor (
   $processed_data_dir,
 ) {
 
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
   if $enabled {
     file { $processed_data_dir:
       ensure => directory,
@@ -31,22 +36,29 @@ class govuk::apps::govuk_cdn_logs_monitor (
       owner  => 'deploy',
       group  => 'deploy',
     }
-
-    Govuk::App::Envvar {
-      app => 'govuk-cdn-logs-monitor',
+  } else {
+    file { $processed_data_dir:
+      ensure => absent,
+      force  => true,
     }
+  }
 
-    govuk::app::envvar {
-      'GOVUK_CDN_LOG_DIR':
-        value => $cdn_log_dir;
-      'GOVUK_PROCESSED_DATA_DIR':
-        value => $processed_data_dir;
-    }
+  Govuk::App::Envvar {
+    ensure => $ensure,
+    app => 'govuk-cdn-logs-monitor',
+  }
 
-    govuk::app { 'govuk-cdn-logs-monitor':
-      app_type           => 'bare',
-      command            => 'bundle exec ruby scripts/monitor_logs.rb',
-      enable_nginx_vhost => false,
-    }
+  govuk::app::envvar {
+    'GOVUK_CDN_LOG_DIR':
+      value => $cdn_log_dir;
+    'GOVUK_PROCESSED_DATA_DIR':
+      value => $processed_data_dir;
+  }
+
+  govuk::app { 'govuk-cdn-logs-monitor':
+    ensure             => $ensure,
+    app_type           => 'bare',
+    command            => 'bundle exec ruby scripts/monitor_logs.rb',
+    enable_nginx_vhost => false,
   }
 }
