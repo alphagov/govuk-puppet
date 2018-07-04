@@ -138,6 +138,8 @@ schema. In this case the version should be set to the next CKAN version number.
     <field name="resources_accessed_total" type="int" indexed="true" stored="false"/>
     <field name="resources_accessed_recent" type="int" indexed="true" stored="false"/>
 
+    <field name="harvest" type="text" indexed="true" stored="true" multiValued="true"/>
+
     <field name="metadata_created" type="date" indexed="true" stored="true" multiValued="false"/>
     <field name="metadata_modified" type="date" indexed="true" stored="true" multiValued="false"/>
 
