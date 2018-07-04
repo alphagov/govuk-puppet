@@ -21,35 +21,35 @@ class govuk_rbenv::all (
   }
 
   rbenv::version { '2.2.8':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.3.1':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.3.5':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.4.0':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.4.2':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.4.4':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.5.0':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
   rbenv::version { '2.5.1':
-    bundler_version  => '1.16.1',
+    bundler_version  => '1.16.2',
     install_gem_docs => false,
   }
 
