@@ -52,7 +52,7 @@ GEM
     parallel (0.5.19)
     parallel_tests (0.8.14)
       parallel
-    puppet (3.8.5)
+    puppet (3.8.7)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
       json_pure
@@ -108,7 +108,7 @@ DEPENDENCIES
   librarian-puppet
   parallel
   parallel_tests
-  puppet (= 3.8.5)
+  puppet (= 3.8.7)
   puppet-lint (= 2.0.0)
   puppet-lint-trailing_comma-check (= 0.3.2)
   puppet-syntax (= 2.1.0)
