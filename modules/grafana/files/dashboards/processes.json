@@ -1222,11 +1222,6 @@
             "selected": false
           },
           {
-            "text": "processes-app-govuk-cdn-logs-monitor",
-            "value": "processes-app-govuk-cdn-logs-monitor",
-            "selected": false
-          },
-          {
             "text": "processes-app-govuk_crawler_worker",
             "value": "processes-app-govuk_crawler_worker",
             "selected": false
