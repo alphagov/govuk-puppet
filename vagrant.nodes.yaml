@@ -1,0 +1,37 @@
+---
+defaults:
+  box: ubuntu/trusty64
+  memory: 3072
+
+nodes:
+  apt:
+  asset-master:
+  backend:
+  bouncer:
+  cache:
+  calculators-frontend:
+  content-store:
+  db-admin:
+  docker-management:
+  draft-cache:
+  draft-content-store:
+  draft-frontend:
+  email-alert-api:
+  frontend:
+  graphite:
+  jenkins:
+  jumpbox:
+  logs-cdn:
+  mapit:
+  mirrorer:
+  mongo:
+  monitoring:
+  publishing-api:
+  puppetmaster:
+  rabbitmq:
+  router-backend:
+  rummager-elasticsearch:
+  search:
+  transition-db-admin:
+  whitehall-backend:
+  whitehall-frontend:
