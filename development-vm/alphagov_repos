@@ -16,8 +16,11 @@ frontend
 gds-api-adapters
 government-frontend
 govuk-aws
+govuk-aws-data
 govuk-content-schema-test-helpers
 govuk-content-schemas
+govuk-dns
+govuk-dns-config
 govuk-puppet
 hmrc-manuals-api
 imminence
