@@ -893,7 +893,20 @@ grafana::dashboards::deployment_applications:
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true
-  content-store: {}
+  content-store:
+    dependent_app_5xx_errors:
+      - calendars
+      - collections
+      - contacts
+      - email-alert-frontend
+      - finder-frontend
+      - frontend
+      - government-frontend
+      - info-frontend
+      - manuals-frontend
+      - publishing-api
+      - smartanswers
+      - whitehall-frontend
   content-tagger:
     show_sidekiq_graphs: true
     has_workers: true
