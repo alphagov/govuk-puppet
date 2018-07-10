@@ -5,6 +5,7 @@ client_max_body_size 500m;
 set $etag_from_rails $upstream_http_etag;
 set $last_modified_from_rails $upstream_http_last_modified;
 set $x_frame_options_from_rails $upstream_http_x_frame_options;
+set $link_from_rails $upstream_http_link;
 
 # For public assets requests, the Rails app will respond with the
 # X-Accel-Redirect header set to a path prefixed with
@@ -42,6 +43,10 @@ location ~ /cloud-storage-proxy/(.*) {
   # default, so we do not have to do that explicitly here.
   add_header ETag $etag_from_rails;
   add_header Last-Modified $last_modified_from_rails;
+  # Respect the optional Link header set by the Rails application,
+  # this optional header refers to the asset's owning document.
+  add_header Link $link_from_rails;
+
 
   # Additionally, we always prohibit passing on these headers from S3 to
   # the client as they are very likely to be wrong. There appears to be
