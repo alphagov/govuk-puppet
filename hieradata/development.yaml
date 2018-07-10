@@ -32,6 +32,7 @@ govuk::node::s_development::apps:
   - 'content_audit_tool'
   - 'content_performance_manager'
   - 'content_performance_manager::rabbitmq'
+  - 'content_publisher'
   - 'content_store'
   - 'content_store::enable_running_in_draft_mode'
   - 'content_tagger'
@@ -107,6 +108,7 @@ govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_performance_manager::rabbitmq_user: 'content_performance_manager'
 govuk::apps::content_performance_manager::rabbitmq_hosts: ['localhost']
 govuk::apps::content_performance_manager::rabbitmq::amqp_pass: 'content_performance_manager'
+govuk::apps::content_publisher::enabled: true
 govuk::apps::content_tagger::enable_procfile_worker: false
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
@@ -259,6 +261,7 @@ hosts::development::apps:
   - 'collections'
   - 'collections-publisher'
   - 'contacts-admin'
+  - 'content-publisher'
   - 'content-store'
   - 'content-tagger'
   - 'draft-assets'

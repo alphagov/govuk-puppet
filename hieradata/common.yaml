@@ -23,6 +23,7 @@ node_class: &node_class
       - contacts
       - content-audit-tool
       - content-performance-manager
+      - content-publisher
       - content-tagger
       - event-store
       - hmrc-manuals-api
@@ -151,6 +152,7 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-performance-manager: {}
+  content-publisher: {}
   content-store: {}
   content-tagger: {}
   email-alert-api: {}
@@ -388,6 +390,8 @@ govuk::apps::content_performance_manager::rabbitmq_hosts:
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
@@ -742,7 +746,6 @@ govuk_ci::master::pipeline_jobs:
   async_experiments: {}
   backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
-  content-publisher: {}
   deprecated_columns: {}
   email-alert-monitoring: {}
   event-store: {}
@@ -1031,6 +1034,7 @@ grafana::dashboards::deployment_applications:
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true
+  content-publisher: {}
   content-store:
     dependent_app_5xx_errors:
       - calendars
@@ -1355,6 +1359,7 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-audit-tool'
   - 'content-performance-manager'
+  - 'content-publisher'
   - 'content-tagger'
   - 'docs'
   - 'draft-whitehall-frontend'

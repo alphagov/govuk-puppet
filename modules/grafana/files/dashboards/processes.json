@@ -1167,6 +1167,11 @@
             "selected": true
           },
           {
+            "text": "processes-app-content-publisher",
+            "value": "processes-app-content-publisher",
+            "selected": false
+          },
+          {
             "text": "processes-app-content-tagger",
             "value": "processes-app-content-tagger",
             "selected": false
