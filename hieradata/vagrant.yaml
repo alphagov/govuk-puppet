@@ -108,7 +108,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
-  - govuk_jenkins::jobs::deploy_terraform_project
   - govuk_jenkins::jobs::govuk_cdn_nightly_2xx_status_collection
   - govuk_jenkins::jobs::launch_vms
   - govuk_jenkins::jobs::network_config_deploy
