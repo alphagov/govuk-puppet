@@ -742,6 +742,7 @@ govuk_ci::master::pipeline_jobs:
   async_experiments: {}
   backdrop-transactions-explorer-collector: {}
   cdn-acceptance-tests: {}
+  content-publisher: {}
   deprecated_columns: {}
   email-alert-monitoring: {}
   event-store: {}
