@@ -18,7 +18,8 @@ describe 'puppet', :type => :class do
     }}
 
     it do
-      is_expected.to contain_file('/etc/puppet/puppet.conf').with_content(/environmentpath = \/usr\/share\/puppet\/production\/current\/environments/)
+      # rp_env is what rspec-puppet sets the special $::environment top-scope variable to.
+      is_expected.to contain_file('/etc/puppet/puppet.conf').with_content(/environmentpath = \/usr\/share\/puppet\/rp_env\/current\/environments/)
       is_expected.to contain_file('/usr/local/bin/govuk_puppet').with_content(/puppet agent --onetime --no-daemonize/)
     end
   end

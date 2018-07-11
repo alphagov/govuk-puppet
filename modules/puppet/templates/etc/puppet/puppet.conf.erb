@@ -25,12 +25,12 @@ report = true
 storeconfigs = true
 storeconfigs_backend = puppetdb
 <%- if scope.lookupvar('::aws_migration') %>
-hiera_config = /usr/share/puppet/production/current/hiera_aws.yml
+hiera_config = /usr/share/puppet/<%= scope.lookupvar('::environment') %>/current/hiera_aws.yml
 <%- else -%>
 hiera_config = /usr/share/puppet/production/current/hiera.yml
 <%- end -%>
 <%- if @use_puppetmaster == true -%>
-environmentpath = /usr/share/puppet/production/current/environments
+environmentpath = /usr/share/puppet/<%= scope.lookupvar('::environment') %>/current/environments
 <%- end -%>
 <%- if scope.lookupvar('::aws_migration') %>
 autosign = /etc/puppet/certsigner.rb
