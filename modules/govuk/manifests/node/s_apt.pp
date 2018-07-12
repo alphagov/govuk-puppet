@@ -132,6 +132,7 @@ class govuk::node::s_apt (
   aptly::repo { 'collectd': }
   aptly::repo { 'elastic-beats': }
   aptly::repo { 'etcdctl': }
+  aptly::repo { 'gdal': }
   aptly::repo { 'gof3r': }
   aptly::repo { 'google-cloud-sdk-trusty': }
   aptly::repo { 'gor': }
