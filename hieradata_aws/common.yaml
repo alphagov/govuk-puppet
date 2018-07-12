@@ -380,6 +380,7 @@ govuk::apps::collections::nagios_memory_warning: 900
 govuk::apps::collections::nagios_memory_critical: 1000
 
 govuk::apps::collections_publisher::db_hostname: "mysql-primary"
+govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 

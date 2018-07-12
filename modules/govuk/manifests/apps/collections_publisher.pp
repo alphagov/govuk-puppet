@@ -42,6 +42,10 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*jwt_auth_secret*]
+#   The secret used to encode JWT authentication tokens. This value needs to be
+#   shared with authenticating-proxy which decodes the tokens.
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -64,6 +68,7 @@ class govuk::apps::collections_publisher(
   $db_name = 'collections_publisher_production',
   $redis_host = undef,
   $redis_port = undef,
+  $jwt_auth_secret = undef,
 ) {
   $app_name = 'collections-publisher'
 
@@ -104,6 +109,9 @@ class govuk::apps::collections_publisher(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-JWT_AUTH_SECRET":
+      varname => 'JWT_AUTH_SECRET',
+      value   => $jwt_auth_secret;
   }
 
   if $::govuk_node_class !~ /^development$/ {
