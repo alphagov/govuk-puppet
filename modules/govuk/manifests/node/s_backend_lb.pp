@@ -54,6 +54,7 @@ class govuk::node::s_backend_lb (
     'contacts-admin',
     'content-audit-tool',
     'content-performance-manager',
+    'content-publisher',
     'content-tagger',
     'imminence',
     'link-checker-api',

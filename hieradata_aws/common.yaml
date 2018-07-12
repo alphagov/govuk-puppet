@@ -21,6 +21,7 @@ node_class: &node_class
       - contacts
       - content-audit-tool
       - content-performance-manager
+      - content-publisher
       - content-tagger
       - event-store
       - hmrc-manuals-api
@@ -154,6 +155,7 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-performance-manager: {}
+  content-publisher: {}
   content-store: {}
   content-tagger: {}
   email-alert-api: {}
@@ -402,6 +404,10 @@ govuk::apps::content_performance_manager::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::content_publisher::db_hostname: "postgresql-primary"
+govuk::apps::content_publisher::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_publisher::rds: true
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
@@ -894,6 +900,7 @@ grafana::dashboards::deployment_applications:
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true
+  content-publisher: {}
   content-store:
     dependent_app_5xx_errors:
       - calendars
