@@ -128,6 +128,7 @@ class govuk::node::s_apt (
       key      => 'D27A72F32D867DF9300A241574490FD6EC51E8C4';
   }
 
+  aptly::repo { 'awscli': }
   aptly::repo { 'collectd': }
   aptly::repo { 'elastic-beats': }
   aptly::repo { 'etcdctl': }
@@ -151,7 +152,6 @@ class govuk::node::s_apt (
   aptly::repo { 'terraform-docs': }
   aptly::repo { 'vale': }
   aptly::repo { 'whisper-backup': }
-  aptly::repo { 'awscli': }
 
   include nginx
   nginx::config::site { $apt_service:
