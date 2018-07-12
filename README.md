@@ -209,7 +209,7 @@ vagrant up frontend backend
 
 Vagrant will run the Puppet provisioner against the node when it boots up.
 Nodes should look almost identical to that of our real
-production/staging/preview environments.
+production/staging/integration environments.
 
 #### Customisation
 
