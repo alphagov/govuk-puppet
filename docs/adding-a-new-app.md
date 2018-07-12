@@ -1,248 +1,178 @@
-# Adding a new app to GOV.UK
+[rds-database-management]: https://github.com/alphagov/govuk-aws/blob/master/doc/guides/rds-database-management.md
+[govuk-secrets]: https://github.com/alphagov/govuk-secrets
 
-This Puppet repository defines all the apps which run on GOV.UK.
+# Adding a new app to GOV.UK (Rails+PostgreSQL)
 
 Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 
 ```
-# Be sure to include documentation of the class at the top of the file, as
-# per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc.
+# == Class: govuk::apps::myapp
 #
-# You may wish to copy an existing app, eg. calculators:
-# https://github.com/alphagov/govuk-puppet/blob/3e926f0d/modules/govuk/manifests/apps/calculators.pp
+# Read more: https://github.com/alphagov/myapp
 #
-class govuk::apps::my_app (
-  $port = 3456,
+# === Parameters
+# [*port*]
+#   What port should the app run on? Find the next free one in development-vm/Procfile
+#
+# [*enabled*]
+#   Whether to install the app. Don't change the default (false) until production-ready
+#
+# [*secret_key_base*]
+#   The key for Rails to use when signing/encrypting sessions (in govuk-secrets)
+#
+# [*sentry_dsn*]
+#   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
+#
+# [*oauth_id*]
+#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*db_hostname*]
+#   The hostname of the database server to use for in DATABASE_URL environment variable
+#
+# [*db_username*]
+#   The username to use for the DATABASE_URL environment variable
+#
+# [*db_password*]
+#   The password to use for the DATABASE_URL environment variable
+#
+# [*db_name*]
+#   The database name to use for the DATABASE_URL environment variable
+#
+class govuk::apps::myapp (
+  $port = 99999999,
+  $enabled = false,
+  $secret_key_base = undef,
+  $sentry_dsn = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
+  $db_hostname = undef,
+  $db_password = undef,
+  $db_name = 'myapp_production',
 ) {
-  govuk::app { 'my-app':
+  $app_name = 'myapp'
+
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
+  # see modules/govuk/manifests/app.pp for more options
+  govuk::app { $app_name:
+    ensure            => $ensure,
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
     vhost_ssl_only    => true,
-    health_check_path => '/',
+    health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
+    deny_framing      => true,
+    asset_pipeline    => true,
+  }
+
+  govuk::app::Envvar {
+    app               => $app_name,
+    ensure            => $ensure,
+    notify_service    => $enabled,
+  }
+
+  govuk::app::envvar {
+    "${title}-SECRET_KEY_BASE":
+      varname        => 'SECRET_KEY_BASE',
+      value          => $secret_key_base;
+    "${title}-OAUTH_ID":
+      varname        => 'OAUTH_ID',
+      value          => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname        => 'OAUTH_SECRET',
+      value          => $oauth_secret;
+  }
+
+  if $::govuk_node_class !~ /^development$/ {
+    govuk::app::envvar::database_url { $app_name:
+      type           => 'postgresql',
+      username       => $app_name,
+      password       => $db_password,
+      host           => $db_hostname,
+      database       => $db_name,
+   }
   }
 }
 ```
 
-The `health_check_path` must be an endpoint on the application returning a
-HTTP 200 status for an unauthenticated request. Monitoring checks for the application are
-configured using this path and fail if the request isn't successful.
-
-If your app uses the default web rails web server (on the the GOV.UK stack, this is [Unicorn](https://rubygems.org/gems/unicorn/versions/5.1.0)), you will need to add an entry for `secret_key_base`.
+Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 
 ```
-if $secret_key_base != undef {
-  govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-  varname => 'SECRET_KEY_BASE',
-  value   => $secret_key_base,
-}
-```
-
-The `secret_key_base` is used to encrypt user sessions. If it's not defined the application will not start. The value of
-`secret_key_base` should be encrypted in the `govuk-secrets` repo.
-
-Additional arguments can be specified to configure basic auth, monitoring checks and logging.
-These are defined and explained in `modules/govuk/manifests/app.pp`.
-
-## Database setup
-
-Create a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
-
-```
-# Be sure to include documentation of the class at the top of the file, as
-# per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc.
+# == Class: govuk::apps::myapp::db
 #
-# You may wish to copy an existing app, eg. calculators:
-# https://github.com/alphagov/govuk-puppet/blob/3e926f0d/modules/govuk/manifests/apps/publishing_api/db.pp
+# === Parameters
 #
-class govuk::apps::my_app::db (
+# [*password*]
+#   The DB instance password.
+#
+# [*backend_ip_range*]
+#   Backend IP addresses to allow access to the database.
+#
+# [*rds*]
+#   Whether to use RDS i.e. when running on AWS
+#
+class govuk::apps::myapp::db (
   $password,
-  $backend_ip_range = undef,
+  $backend_ip_range = '10.3.0.0/16',
+  $rds = false,
 ) {
-  govuk_postgresql::db { 'my_app_production':
-    user                    => 'my_app',
+  govuk_postgresql::db { 'myapp_production':
+    user                    => 'myapp',
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    rds                     => $rds,
   }
 }
 ```
 
-Then add the database config to the main application manifest.
-
-```
-$db_hostname = undef,
-$db_username = 'my_app',
-$db_password = undef,
-$db_name = 'my_app_production',
-.
-.
-.
-.
-if $::govuk_node_class !~ /^development$/ {
- govuk::app::envvar::database_url { $app_name:
-   type     => 'postgresql',
-   username => $db_username,
-   password => $db_password,
-   host     => $db_hostname,
-   database => $db_name,
- }
-}
-```
-
-Add a value for `db_hostname` and `db::backend_ip_range` to the `hieradata/common.yaml` file.
+Start with the following configuration for the app module variables.
 
 ```
 # hieradata/common.yaml
-govuk::apps::content_performance_manager::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-```
+govuk::apps::myapp::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
-Add the application to the database servers. For example, if your application has a
-postgresql database, add an entry to the `govuk::node::s_postgresql_base` class in `modules/govuk/manifests/node/s_postgresql_base.pp`
+# hieradata_aws/common.yaml
+govuk::apps::myapp::db_hostname: "postgresql-primary"
+govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::myapp::db::rds: true
 
-```
-# modules/govuk/manifests/node/s_postgresql_base.pp
-class govuk::node::s_postgresql_base inherits govuk::node::s_base {
-  include govuk::apps::my_app::db
-  .
-  .
-  .
-}
-```
-
-Add a value for `db_password` in each of the credential files in the `govuk-secrets` repo.
-This entry should be encrypted.
-
-Add a values for `db::password` and `db_password` in `hieradata/vagrant_credentials.yaml`.
-This is necessary for puppet specs to pass on CI.
-
-### AWS RDS Database Management with db_admin
-
-`db_admin` needs to know about the database in order to administrate it. See docs in `govuk-aws` on [RDS Database Management](https://github.com/alphagov/govuk-aws/blob/master/doc/guides/rds-database-management.md).
-
-For example when using PostgreSQL, to enable `db_admin` edit [modules/govuk/manifests/node/s_db_admin.pp](https://github.com/alphagov/govuk-puppet/blob/master/modules/govuk/manifests/node/s_db_admin.pp) and add `your_app`:
-
-```
-# include all PostgreSQL classes that create databases and users
-  class { '::govuk::apps::your_app::db': } ->
-  class { '::govuk::apps::another_app::db': } ->
-  class { '::govuk::apps::yet_another_app::db': }
-```
-
-## Environment variables
-
-If your application needs other environment variables, they will need to be added to
-the application manifest too.
-
-```
-govuk::app::envvar {
-  "${title}-ENV_VAR_NAME":
-    varname => 'ENV_VAR_NAME',
-    value   => $env_var_name;
-}
-```
-
-The `title` defaults to the name of the application, e.g. `MY-APP`. It's used like a namespace,
-so multiple apps can set environment variables with the same name.
-
-## Feature flags
-
-If the app is not ready to be deployed to production, you should use a feature
-flag so that it is only enabled in environments where it's expected to be running.
-
-The feature flag tells puppet whether or not the application and reporting frameworks should be created for an app in the environment.
-If you don't add a feature flag, but are not planning to deploy the application to production yet, the alerting framework will still be created and all of the checks (e.g. does the app exist) will constantly fail.
-
-```
-# modules/govuk/manifests/apps/my_app.pp
-class govuk::apps::my_app (
-  $port = 3456,
-  $enabled = false,
-) {
-
-  if $enabled {
-    govuk::app { 'my-app':
-      app_type          => 'rack',
-      port              => $port,
-      sentry_dsn        => $sentry_dsn,
-      vhost_ssl_only    => true,
-      health_check_path => '/',
-    }
-  }
-}
-```
-
-The flag can be enabled on the development VM by adding the flag to the hiera
-development config:
-
-```
 # hieradata/development.yaml
-govuk::apps::my_app::enabled: true
-```
+# use the module default instead when production-ready
+govuk::apps::myapp::enabled: true
 
-The flag can be enabled in integration by setting it to true in the hiera
-config in `hieradata/`:
-
-```
 # hieradata/integration.yaml
-govuk::apps::my_app::enabled: true
+# use the module default instead when production-ready
+govuk::apps::myapp::enabled: true
+
+# hieradata/vagrant_credentials.yaml
+govuk::apps::myapp::db_password: "%{hiera('govuk::apps::myapp::db::password')}"
+govuk::apps::myapp::db::password: '...'
 ```
 
-Remove the feature flag when you're ready to deploy the app to production, by
-setting the default to be `true` and removing all the flags in the hieradata
-files.
+Check if your app appears in these files (use existing apps as examples).
 
-## Including the app on machines
-
-*For AWS hosted environments, where `hieradata` is mentioned below you will need to add configs into `hieradata_aws`*.
-
-Once you have created a class for your app, you need to include it in the appropriate nodes.
-These can be found in `hieradata/common.yaml` under the `node_class` key.
-
-Additionally, all apps should be included in the development environment.
-
-```
-# hieradata/development.yaml
-#   & hieradata/class/[node].yaml
-govuk::node::s_base::apps:
-  - my_app
-```
-
-Most apps will live on the frontend or backend boxes. These boxes use a load balancer, which
-also needs to know about your app in its configuration.
-
-Add the name of your app to the list in `modules/govuk/manifests/node/s_frontend_lb.pp` for
-the frontend or `modules/govuk/manifests/node/s_backend_lb.pp` for the backend.
-
-Be aware that the backend load balancer configuration is split into two lists, based
-on whether the hosts are external or internal.
-
-```
-loadbalancer::balance {
-  [
-    ...
-    'my-app',
-  ]:
-```
-
-Finally, you need to add the host entry for your app to each environment's configuration.
-
-For the development environment:
-
-```
-# hieradata/development.yaml
-hosts::development::apps:
-  - ...
-  - 'my-app'
-```
-
-For production-like environments, you need to add the app to the appropriate
-array in the `hieradata/common.yaml` file.
-
-```
-# hieradata/common.yaml
-hosts::production::backend::app_hostnames:
-  - ...
-  - 'my-app'
-```
+  * hieradata/common.yaml (node_class)
+  * hieradata/common.yaml (deployable_applications)
+  * hieradata/common.yaml (govuk_ci::master::pipeline_jobs)
+  * hieradata/common.yaml (grafana::dashboards::deployment_applications)
+  * hieradata/common.yaml (hosts::production::backend::app_hostnames)
+  * hieradata_aws/common.yaml (node_class)
+  * hieradata_aws/common.yaml (deployable_applications)
+  * hieradata_aws/common.yaml (grafana::dashboards::deployment_applications)
+  * hieradata/development.yaml (hosts::development::apps)
+  * modules/govuk/manifests/node/s_db_admin.pp (see docs for [RDS](rds-database-management))
+  * modules/govuk/manifests/node/s_postgresql_base.pp
+  * modules/grafana/files/dashboards/processes.json
+  * modules/govuk/manifests/node/s_backend_lb.pp (if a backend app)
+  * modules/govuk/manifests/node/s_frontend_lb.pp (if a frontend app)
+  * development-vm/Procfile
+  * development-vm/Pinfile
+  * development-vm/alphagov_repos
