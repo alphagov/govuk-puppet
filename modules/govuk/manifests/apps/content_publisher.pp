@@ -35,7 +35,7 @@
 #
 class govuk::apps::content_publisher (
   $port = '3221',
-  $enabled = false,
+  $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
