@@ -40,6 +40,7 @@ class govuk::apps::content_publisher (
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $db_username = 'content_publisher',
   $db_hostname = undef,
   $db_password = undef,
   $db_name = 'content_publisher_production',
@@ -84,7 +85,7 @@ class govuk::apps::content_publisher (
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
       type     => 'postgresql',
-      username => $app_name,
+      username => $db_username,
       password => $db_password,
       host     => $db_hostname,
       database => $db_name,

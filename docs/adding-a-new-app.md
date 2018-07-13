@@ -15,7 +15,7 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #   What port should the app run on? Find the next free one in development-vm/Procfile
 #
 # [*enabled*]
-#   Whether to install the app. Don't change the default (false) until production-ready
+#   Whether to install or uninstall the app. Defaults to true (install on all enviroments)
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions (in govuk-secrets)
@@ -43,11 +43,12 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #
 class govuk::apps::myapp (
   $port = 99999999,
-  $enabled = false,
+  $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $db_username = 'myapp',
   $db_hostname = undef,
   $db_password = undef,
   $db_name = 'myapp_production',
@@ -92,7 +93,7 @@ class govuk::apps::myapp (
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
       type           => 'postgresql',
-      username       => $app_name,
+      username       => $db_username,
       password       => $db_password,
       host           => $db_hostname,
       database       => $db_name,
@@ -108,9 +109,6 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 #
 # === Parameters
 #
-# [*password*]
-#   The DB instance password.
-#
 # [*backend_ip_range*]
 #   Backend IP addresses to allow access to the database.
 #
@@ -122,9 +120,9 @@ class govuk::apps::myapp::db (
   $backend_ip_range = '10.3.0.0/16',
   $rds = false,
 ) {
-  govuk_postgresql::db { 'myapp_production':
-    user                    => 'myapp',
-    password                => $password,
+  govuk_postgresql::db { $govuk::apps::myapp::db_name:
+    user                    => $govuk::apps::myapp::db_username,
+    password                => $govuk::apps::myapp::db_password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
@@ -144,17 +142,8 @@ govuk::apps::myapp::db_hostname: "postgresql-primary"
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::myapp::db::rds: true
 
-# hieradata/development.yaml
-# use the module default instead when production-ready
-govuk::apps::myapp::enabled: true
-
-# hieradata/integration.yaml
-# use the module default instead when production-ready
-govuk::apps::myapp::enabled: true
-
 # hieradata/vagrant_credentials.yaml
-govuk::apps::myapp::db_password: "%{hiera('govuk::apps::myapp::db::password')}"
-govuk::apps::myapp::db::password: '...'
+govuk::apps::myapp::db_password: '...'
 ```
 
 Check if your app appears in these files (use existing apps as examples).
