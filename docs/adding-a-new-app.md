@@ -1,4 +1,3 @@
-[rds-database-management]: https://github.com/alphagov/govuk-aws/blob/master/doc/guides/rds-database-management.md
 [govuk-secrets]: https://github.com/alphagov/govuk-secrets
 
 # Adding a new app to GOV.UK (Rails+PostgreSQL)
@@ -157,7 +156,7 @@ Check if your app appears in these files (use existing apps as examples).
   * hieradata_aws/common.yaml (deployable_applications)
   * hieradata_aws/common.yaml (grafana::dashboards::deployment_applications)
   * hieradata/development.yaml (hosts::development::apps)
-  * modules/govuk/manifests/node/s_db_admin.pp (see docs for [RDS](rds-database-management))
+  * modules/govuk/manifests/node/s_db_admin.pp
   * modules/govuk/manifests/node/s_postgresql_base.pp
   * modules/grafana/files/dashboards/processes.json
   * modules/govuk/manifests/node/s_backend_lb.pp (if a backend app)
