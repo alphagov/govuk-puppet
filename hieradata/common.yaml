@@ -103,9 +103,6 @@ node_class: &node_class
     apps:
       - publicapi
       - public-event-store
-  logs_cdn:
-    apps:
-      - govuk-cdn-logs-monitor
   mapit:
     apps:
       - mapit
@@ -162,7 +159,6 @@ deployable_applications: &deployable_applications
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
-  govuk-cdn-logs-monitor: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk-puppet: {}
@@ -440,9 +436,6 @@ govuk::apps::frontend::unicorn_worker_processes: "4"
 govuk::apps::government-frontend::nagios_memory_warning: 1800
 govuk::apps::government-frontend::nagios_memory_critical: 2000
 govuk::apps::government-frontend::unicorn_worker_processes: "8"
-
-govuk::apps::govuk_cdn_logs_monitor::enabled: false
-govuk::apps::govuk_cdn_logs_monitor::processed_data_dir: '/mnt/logs_cdn/data'
 
 govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 

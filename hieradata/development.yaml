@@ -116,7 +116,6 @@ govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
-govuk::apps::govuk_cdn_logs_monitor::enabled: false
 govuk::apps::imminence::enable_procfile_worker: false
 govuk::apps::imminence::redis_host: 'localhost'
 govuk::apps::licencefinder::mongodb_nodes: ['localhost']
