@@ -114,14 +114,25 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 # [*rds*]
 #   Whether to use RDS i.e. when running on AWS
 #
+# [*username*]
+#   The DB instance username.
+#
+# [*password*]
+#   The DB instance password.
+#
+# [*db_name*]
+#   The DB instance name.
+#
 class govuk::apps::myapp::db (
-  $password,
   $backend_ip_range = '10.3.0.0/16',
   $rds = false,
+  $username = 'myapp',
+  $password = undef,
+  $name = 'myapp_production',
 ) {
-  govuk_postgresql::db { $govuk::apps::myapp::db_name:
-    user                    => $govuk::apps::myapp::db_username,
-    password                => $govuk::apps::myapp::db_password,
+  govuk_postgresql::db { $db_name:
+    user                    => $username,
+    password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
