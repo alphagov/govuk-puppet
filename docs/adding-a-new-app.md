@@ -29,18 +29,6 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
-# [*db_hostname*]
-#   The hostname of the database server to use for in DATABASE_URL environment variable
-#
-# [*db_username*]
-#   The username to use for the DATABASE_URL environment variable
-#
-# [*db_password*]
-#   The password to use for the DATABASE_URL environment variable
-#
-# [*db_name*]
-#   The database name to use for the DATABASE_URL environment variable
-#
 class govuk::apps::myapp (
   $port = 99999999,
   $enabled = false,
@@ -88,16 +76,6 @@ class govuk::apps::myapp (
       varname        => 'OAUTH_SECRET',
       value          => $oauth_secret;
   }
-
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type           => 'postgresql',
-      username       => $app_name,
-      password       => $db_password,
-      host           => $db_hostname,
-      database       => $db_name,
-   }
-  }
 }
 ```
 
@@ -107,6 +85,12 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 # == Class: govuk::apps::myapp::db
 #
 # === Parameters
+#
+# [*hostname*]
+#   The DB instance hostname.
+#
+# [*user*]
+#   The DB instance user.
 #
 # [*password*]
 #   The DB instance password.
@@ -118,16 +102,28 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 #   Whether to use RDS i.e. when running on AWS
 #
 class govuk::apps::myapp::db (
+  $user = 'myapp',
+  $hostname,
   $password,
   $backend_ip_range = '10.3.0.0/16',
   $rds = false,
 ) {
-  govuk_postgresql::db { 'myapp_production':
-    user                    => 'myapp',
+  govuk_postgresql::db { "${user}_production",
+    user                    => $user,
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
+  }
+
+  if $::govuk_node_class !~ /^development$/ {
+    govuk::app::envvar::database_url { $app_name,
+      type           => 'postgresql',
+      username       => $user,
+      password       => $password,
+      host           => $hostname,
+      database       => "${user}_production"
+   }
   }
 }
 ```
