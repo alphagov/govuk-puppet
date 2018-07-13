@@ -141,7 +141,6 @@ class govuk::node::s_db_admin(
 
   # include all PostgreSQL classes that create databases and users
   class { '::govuk::apps::content_audit_tool::db': } ->
-  class { '::govuk::apps::content_publisher::db': } ->
   class { '::govuk::apps::content_tagger::db': } ->
   class { '::govuk::apps::email_alert_api::db': } ->
   class { '::govuk::apps::link_checker_api::db': } ->
@@ -150,7 +149,8 @@ class govuk::node::s_db_admin(
   class { '::govuk::apps::policy_publisher::db': } ->
   class { '::govuk::apps::publishing_api::db': } ->
   class { '::govuk::apps::service_manual_publisher::db': } ->
-  class { '::govuk::apps::support_api::db': }
+  class { '::govuk::apps::support_api::db': } ->
+  class { '::govuk::apps::content_publisher::db': }
 
   $postgres_backup_desc = 'RDS PostgreSQL backup to S3'
 
