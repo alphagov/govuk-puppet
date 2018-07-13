@@ -21,28 +21,13 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
-# [*db_hostname*]
-#   The hostname of the database server to use for in DATABASE_URL environment variable
-#
-# [*db_username*]
-#   The username to use for the DATABASE_URL environment variable
-#
-# [*db_password*]
-#   The password to use for the DATABASE_URL environment variable
-#
-# [*db_name*]
-#   The database name to use for the DATABASE_URL environment variable
-#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = false,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
-  $oauth_secret = undef,
-  $db_hostname = undef,
-  $db_password = undef,
-  $db_name = 'content_publisher_production',
+  $oauth_secret = undef
 ) {
   $app_name = 'content-publisher'
 
@@ -79,15 +64,5 @@ class govuk::apps::content_publisher (
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-  }
-
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $app_name,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
-    }
   }
 }
