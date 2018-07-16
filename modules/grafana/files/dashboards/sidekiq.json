@@ -518,7 +518,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ps_rss (Resident Set Size)",
+          "title": "Memory usage (ps_rss)",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -595,7 +595,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ps_cputime",
+          "title": "CPU Usage (ps_cputime)",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -634,7 +634,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Machine Metrics",
+      "title": "Process Metrics",
       "titleSize": "h6"
     }
   ],
