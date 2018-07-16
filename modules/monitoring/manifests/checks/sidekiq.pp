@@ -45,6 +45,21 @@ class monitoring::checks::sidekiq (
     args      => '--dropfirst -60',
   }
 
+  @@icinga::check::graphite { 'check_publishing_api_downstream_high_queue_latency':
+    target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_high.latency)), 0)',
+    warning             => 20, # seconds
+    critical            => 60, # seconds
+    # Use data from the last 24 hours, to avoid not getting any
+    # datapoints back.
+    from                => '24hours',
+    # Take an average over the most recent 36 datapoints, which at 5
+    # seconds per datapoint is the last 3 minutes
+    args                => '--dropfirst -36',
+    desc                => 'Check Publishing API downstream_high queue latency',
+    host_name           => $::fqdn,
+    notification_period => 'inoffice',
+  }
+
   if $enable_support_check {
     icinga::check::graphite { 'check_support_default_queue_size':
       target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.support.*.workers.queues.default.enqueued)), 0)',
