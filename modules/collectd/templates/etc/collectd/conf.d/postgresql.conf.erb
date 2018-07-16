@@ -47,13 +47,4 @@ LoadPlugin postgresql
     Query global_backends
     Query global_xlog_position
   </Database>
-
-  <Database postgres>
-    Host "localhost"
-    User "<%= @user %>"
-    Password "<%= @password %>"
-    SSLMode "prefer"
-    # By not specifying a specific query, we pull in the defaults
-    # which are specific to the `postgres` database
-  </Database>
 </Plugin>
