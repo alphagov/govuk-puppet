@@ -27,12 +27,17 @@
 #   This variable is used by the govuk/procfile-worker.conf.erb template.
 #   Default: 1
 #
+# [*alert_when_threads_exceed*]
+#   If set, alert using Icinga if the number of threads exceeds the value specified.
+#   Default: 50
+#
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
   $process_type = 'worker',
   $setenv_as = $title,
   $process_count = 1,
+  $alert_when_threads_exceed = 50,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -72,6 +77,16 @@ define govuk::procfile::worker (
         service_description => "${title} procfile worker upstart up",
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(check-process-running),
+      }
+
+      if $alert_when_threads_exceed {
+        @@icinga::check::graphite { "check_app_${title}_procfile_worker_thread_count_${::hostname}":
+          target    => "${::hostname}.processes-app-worker-${title_underscore}.ps_count.threads",
+          warning   => $alert_when_threads_exceed,
+          critical  => $alert_when_threads_exceed,
+          desc      => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+          host_name => $::fqdn,
+        }
       }
     }
   } else {
