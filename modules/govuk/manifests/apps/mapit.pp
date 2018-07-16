@@ -23,7 +23,6 @@ class govuk::apps::mapit (
   $db_password,
   $django_secret_key = undef,
   $sentry_dsn = undef,
-  $gdal_version,
 ) {
   if $enabled {
     govuk::app { 'mapit':
@@ -46,27 +45,16 @@ class govuk::apps::mapit (
 
     package {
       [
-        # These packages are recommended when installing geospatial
+        # These three packages are recommended when installing geospatial
         # support for Django:
         # https://docs.djangoproject.com/en/1.8/ref/contrib/gis/install/geolibs/
         'binutils',
         'libproj-dev',
-      ]:
-      ensure => present,
-    }
-
-    package {
-      [
         'gdal-bin',
+        # This is also needed to be able to install python GDAL packages:
         'libgdal-dev',
       ]:
-      ensure => absent,
-    }
-
-    include gdal::repo
-    package { 'gdal':
-      ensure  => $gdal_version,
-      require => Class['gdal::repo'],
+      ensure => present,
     }
   }
 

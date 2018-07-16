@@ -333,8 +333,6 @@ filebeat::prospectors:
     fields:
       application: 'apt'
 
-gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -450,8 +448,6 @@ govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::mapit::gdal_version: "1.11.5"
 
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
