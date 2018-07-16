@@ -1,9 +1,9 @@
 <Plugin postgresql>
-    <Database <%= @title %>>
-	Host "localhost"
-	Port "5432"
-	User "collectd"
-	Password "<%= @password %>"
-	SSLMode "prefer"
-    </Database>
+  <Database "<%= @title %>">
+    Host "localhost"
+    Port "5432"
+    User "collectd"
+    Password "<%= @password %>"
+    SSLMode "prefer"
+  </Database>
 </Plugin>
