@@ -59,12 +59,13 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
-    'libgdal-dev', # mapit
+    'gdal', # mapit
     'python3-dev', # govuk-taxonomy-supervised-learning
     'shellcheck',
   ]
 
   ensure_packages($deb_packages, {'ensure' => 'installed'})
+  ensure_packages(['libgdal-dev'], {'ensure' => 'absent'})
 
   package { 's3cmd':
     ensure   => 'present',
