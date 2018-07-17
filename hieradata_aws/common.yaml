@@ -458,6 +458,8 @@ govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::mapit::gdal_version: "1.11.5"
+
 govuk::apps::publisher::alert_hostname: 'alert'
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"

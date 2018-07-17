@@ -7,9 +7,13 @@
 # [*master_ssh_key*]
 #   The public SSH key of the CI master to enable SSH based agent builds
 #
+# [*gdal_version*]
+#   The version of the GDAL library to install for mapit
+#
 class govuk_ci::agent(
   $master_ssh_key = undef,
   $gemstash_server = 'http://gemstash.cluster',
+  $gdal_version,
 ) {
   include ::govuk_java::openjdk8::jre
   include ::govuk_java::openjdk8::jdk
@@ -59,13 +63,18 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
-    'gdal', # mapit
     'python3-dev', # govuk-taxonomy-supervised-learning
     'shellcheck',
   ]
 
   ensure_packages($deb_packages, {'ensure' => 'installed'})
   ensure_packages(['libgdal-dev'], {'ensure' => 'absent'})
+
+  include gdal::repo
+  package { 'gdal':
+    ensure  => $gdal_version,
+    require => Class['gdal::repo'],
+  }
 
   package { 's3cmd':
     ensure   => 'present',
