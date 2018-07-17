@@ -113,6 +113,11 @@ class icinga::config (
     source => 'puppet:///modules/icinga/etc/nagios-plugins/config/check_nrpe.cfg',
   }
 
+  file { '/var/lib/icinga/rw/nagios.cmd':
+    owner => 'nagios',
+    group => 'www-data',
+  }
+
   user { 'www-data':
     groups => ['nagios'],
   }
