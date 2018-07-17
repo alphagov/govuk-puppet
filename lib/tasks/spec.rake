@@ -18,11 +18,10 @@ namespace :spec do
     ParallelTest::CLI.run(cli_args)
   end
 
-  desc "Run govuk::node class specs"
-  task :nodes do
+  def get_node_classes(legacy_classes=false)
     # Don't attempt to instantiate these classes as they aren't concrete
     # machine classes, and therefore aren't intended to be instantiated directly.
-    $nodes_spec_blacklist_classes = %w(
+    abstract_node_classes = %w(
       app_server
       asset_base
       base
@@ -31,38 +30,76 @@ namespace :spec do
       transition_postgresql_base
     )
 
-    # get the list of machine classes
-    def get_node_classes
-      if ENV["classes"]
-        ENV["classes"].split(",")
-      else
-        class_dir = File.expand_path("../../../modules/govuk/manifests/node", __FILE__)
-        all_class_name = Dir.glob("#{class_dir}/s_*.pp").map { |filepath|
-          File.basename(filepath, ".pp")[2..-1] # Strip leading s_
-        }
-        all_class_name.reject {|c| $nodes_spec_blacklist_classes.include?(c) }
-      end
+    # The following node classes have been deprecated in the migration to AWS
+    legacy_node_classes = %w(
+      api_lb
+      api_mongo
+      backend_lb
+      ci_agent
+      ci_master
+      docker_backend
+      frontend_lb
+      licensing_mongo
+      mysql_backup
+      mysql_master
+      mysql_slave
+      performance_mongo
+      postgresql_primary
+      postgresql_standby
+      transition_postgresql_master
+      transition_postgresql_primary
+      transition_postgresql_slave
+      transition_postgresql_standby
+      warehouse_postgresql
+      whitehall_mysql_backup
+      whitehall_mysql_master
+      whitehall_mysql_slave
+      development
+    )
+
+    if ENV["classes"]
+      node_classes = ENV["classes"].split(",")
+    elsif legacy_classes
+      node_classes = legacy_node_classes
+    else
+      class_dir = File.expand_path("../../../modules/govuk/manifests/node", __FILE__)
+      all_node_classes = Dir.glob("#{class_dir}/s_*.pp").map { |filepath|
+        File.basename(filepath, ".pp")[2..-1] # Strip leading s_
+      }
+
+      node_classes = all_node_classes
+      node_classes -= abstract_node_classes
+      node_classes -= legacy_node_classes
     end
 
-    $stderr.puts '---> Running node specs'
+    return node_classes
+  end
 
-    node_classes = get_node_classes
+  def run_node_specs(legacy=false)
+    node_classes = get_node_classes(legacy)
 
-    NUM_PROCESSES = [
+    $stderr.puts "---> Running node specs for #{node_classes.join(', ')}"
+
+    num_processes = [
       Facter.value('processorcount').to_i,
       node_classes.length
     ].min
 
-    node_classes = node_classes.sort.each_slice(NUM_PROCESSES)
+    node_classes = node_classes.sort.each_slice(num_processes)
 
     pids = []
     spec_file = File.expand_path('../../../modules/govuk/spec/classes/govuk_nodes_spec_optional.rb', __FILE__)
 
-    1.upto(NUM_PROCESSES) do |p|
+    1.upto(num_processes) do |p|
       pids << Process.fork do
         tmp_classes = node_classes.map { |group| group[p-1] }.compact
+        rspec_environment = {'classes' => tmp_classes.join(',')}
+        if legacy
+          rspec_environment['legacy'] = 'true'
+        end
 
-        output, status = Open3.capture2e({'classes' => tmp_classes.join(",")}, 'rspec', spec_file)
+        output, status = Open3.capture2e(rspec_environment, 'rspec', spec_file)
+
         $stderr.puts output
         exit status.exitstatus
       end
@@ -77,7 +114,17 @@ namespace :spec do
 
     raise "One or more nodes did not compile" unless exit_status
   end
+
+  desc "Run govuk::node class specs"
+  task :nodes do
+    run_node_specs()
+  end
+
+  desc "Run govuk::node class specs (legacy; pre AWS migration)"
+  task :legacy_nodes do
+    run_node_specs(true)
+  end
 end
 
 desc "Run rspec"
-task :spec => ['spec:normal', 'spec:nodes']
+task :spec => ['spec:normal', 'spec:nodes', 'spec:legacy_nodes']

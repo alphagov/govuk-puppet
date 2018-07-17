@@ -12,18 +12,24 @@
 #   Boolean, whether or not to use Puppet's future parser to
 #   help upgrade to Puppet 4.
 #
+# [*gem_bootstrap*]
+#   Set to true if the initial install of Puppet on the target
+#   system was via RubyGems. This will remove the gem installed
+#   Puppet as well as installing the Debian packages.
+#
 class puppet (
     $future_parser = false,
     $use_puppetmaster = true,
+    $gem_bootstrap = false,
   ) {
 
   validate_bool($future_parser)
   validate_bool($use_puppetmaster)
 
-  include puppet::cronjob
-  include puppet::repository
-  include puppet::package
-  include puppet::monitoring
+  contain '::puppet::cronjob'
+  contain '::puppet::repository'
+  contain '::puppet::package'
+  contain '::puppet::monitoring'
 
   user { 'puppet':
     ensure  => present,

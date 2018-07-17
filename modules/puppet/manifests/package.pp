@@ -2,56 +2,30 @@
 #
 # Install packages for Puppet and various fixups that we require.
 #
-class puppet::package (
-  $facter_version = '2.0.2-1puppetlabs1',
-  $hiera_version = '1.3.4-1puppetlabs1',
-  $puppet_version = '3.8.5-1puppetlabs1',
-) {
-  # Pin the desired Puppet version so that Puppet doesn't update
-  # without us having tested the new version first. If Puppet breaks,
-  # it won't be able to downgrade itself to the correct version.
-  apt::pin { 'prevent_puppet_breakage':
-    packages => 'puppet-common puppet',
-    version  => $puppet_version,
-    priority => 1001, # 1001 will cause a downgrade if necessary
-  }
-  apt::pin { 'prevent_facter_upgrade':
-    packages => 'facter',
-    version  => $facter_version,
-    priority => 1001,
+class puppet::package {
+  # Ensure latest as there will not be another release on the 3.x series.
+  # 4.x and 5.x are only available through a different set of Debian repos,
+  # and the package naming scheme also differs.
+  package { ['puppet-common', 'puppet', 'hiera', 'facter']:
+    ensure => latest,
   }
 
-  package { 'facter':
-    ensure  => $facter_version,
-    require => Apt::Pin['prevent_facter_upgrade'],
-  }
-  package { 'hiera':
-    ensure => $hiera_version,
-  }
-  package { 'puppet':
-    ensure  => $puppet_version,
-    require => [
-      Apt::Pin['prevent_puppet_breakage'],
-      Package['facter', 'hiera'],
-    ],
-  }
-  package { 'puppet-common':
-    ensure  => $puppet_version,
-    require => Package['puppet'],
-  }
+  if $::puppet::gem_bootstrap {
+    # FIXME: Remove when we no longer bootstrap vCloud with gems.
+    warning('Deprecation warning: Removing Gem-installed Puppet due to $::puppet::gem_bootstrap == true.')
 
-  unless $::lsbdistcodename == 'xenial' {
-    # FIXME: Remove when we no longer bootstrap Vagrant and vCloud with gems.
     exec { 'remove_puppet_gem':
       command => '/usr/bin/gem uninstall --all --no-executables puppet',
       onlyif  => '/usr/bin/gem list -i \'^puppet$\'',
       require => Package['puppet-common'],
     }
+
     exec { 'remove_hiera_gem':
       command => '/usr/bin/gem uninstall --all --no-executables hiera',
       onlyif  => '/usr/bin/gem list -i \'^hiera$\'',
       require => Exec['remove_puppet_gem'],
     }
+
     exec { 'remove_facter_gem':
       command => '/usr/bin/gem uninstall --all --no-executables facter',
       onlyif  => '/usr/bin/gem list -i \'^facter$\'',
@@ -65,10 +39,14 @@ class puppet::package (
     mode    => '0755',
     require => Package['puppet-common'],
   }
+
+  # Not sure if these are still needed or not but will definitely go away
+  # with the Puppet 5 upgrade
   file { '/usr/local/bin/puppet':
     ensure  => absent,
     require => File['/usr/bin/puppet'],
   }
+
   file { '/usr/local/bin/facter':
     ensure  => absent,
     require => Package['facter'],

@@ -125,3 +125,7 @@ router::nginx::robotstxt: |
   Disallow: /
 
 nginx::config::stack_network_prefix: '10.2.0'
+
+# FIXME: change and migrate to govuk-secrets
+puppet::puppetdb::database_password: 'WkBuRM4tQ4Pmy66g'
+

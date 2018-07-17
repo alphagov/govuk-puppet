@@ -81,3 +81,5 @@ users::root_password_encrypted: '$6$gwBpG15Z0dCJ$.8BBgOp4zu6vOwxckV1RiQ73hz440NK
 
 www_crt: WWW_CRT
 www_key: WWW_KEY
+
+puppet::puppetdb::database_password: 'password'

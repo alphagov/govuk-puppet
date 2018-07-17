@@ -12,8 +12,4 @@ nginx::package::version: 'present'
 
 nodejs::version: '4.2.6~dfsg-1ubuntu4.1'
 
-puppet::package::facter_version: '2.4.6-1'
-puppet::package::hiera_version: '2.0.0-2'
-puppet::package::puppet_version: '3.8.5-2'
-
 statsd::manage_repo_class: true
