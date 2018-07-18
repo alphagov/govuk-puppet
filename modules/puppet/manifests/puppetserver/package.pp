@@ -10,8 +10,6 @@
 class puppet::puppetserver::package(
   $puppet_sentry_dsn = undef,
 ) {
-  include ::puppet
-
   require '::govuk_java::openjdk7::jre'
 
   package { 'puppetserver':
