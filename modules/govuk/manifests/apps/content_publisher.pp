@@ -33,6 +33,10 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -44,6 +48,7 @@ class govuk::apps::content_publisher (
   $db_hostname = undef,
   $db_password = undef,
   $db_name = 'content_publisher_production',
+  $publishing_api_bearer_token = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -80,6 +85,9 @@ class govuk::apps::content_publisher (
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $::govuk_node_class !~ /^development$/ {
