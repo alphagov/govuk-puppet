@@ -3,25 +3,14 @@
 # Install and configure a puppetserver.
 # Includes PuppetDB of a fixed version on the same host.
 #
-# === Parameters
-#
-# [*puppetdb_version*]
-#   Specify the version of puppetdb to be installed
-
-class puppet::puppetserver(
-  $puppetdb_version = '1.3.2-1puppetlabs1',
-) {
+class puppet::puppetserver {
   include puppet::repository
-
-  class { '::govuk_puppetdb':
-    package_ensure => $puppetdb_version,
-  }
+  include puppet::puppetdb
 
   anchor {'puppet::puppetserver::begin':
     notify => Class['puppet::puppetserver::service'],
   }
   class{'puppet::puppetserver::package':
-    puppetdb_version => $puppetdb_version,
     notify           => Class['puppet::puppetserver::service'],
     require          => [
       Class['puppet::package'],

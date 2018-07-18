@@ -4,15 +4,10 @@
 #
 # === Parameters
 #
-# [*puppetdb_version*]
-#   Specify the version of puppetdb-terminus to install which should match
-#   the puppetdb installation. Passed in by parent class.
-#
 # [*puppet_sentry_dsn*]
 #   This is the DSN to send puppet reports to.
 #
 class puppet::puppetserver::package(
-  $puppetdb_version = 'present',
   $puppet_sentry_dsn = undef,
 ) {
   include ::puppet
@@ -33,10 +28,6 @@ class puppet::puppetserver::package(
   package { ['hiera-eyaml-gpg', 'gpgme']:
     ensure   => absent,
     provider => system_gem,
-  }
-
-  package { 'puppetdb-terminus':
-    ensure  => $puppetdb_version,
   }
 
   exec { '/usr/bin/puppetserver gem install hiera-eyaml-gpg':
