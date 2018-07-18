@@ -12,11 +12,10 @@ class puppet::puppetserver::package(
 ) {
   include ::puppet
 
-  ensure_packages(['openjdk-7-jre-headless'])
+  require '::govuk_java::openjdk7::jre'
 
   package { 'puppetserver':
     ensure  => installed,
-    require => Package['openjdk-7-jre-headless'],
   }
 
   package { ['aws-sdk-ec2', 'aws-sdk-core']:
