@@ -4,8 +4,9 @@
 # Includes PuppetDB on the same host.
 #
 class puppet::puppetserver {
+  require '::puppet'
+
   include '::puppet::repository'
-  include '::puppet'
   include '::puppet::puppetdb'
 
   contain '::puppet::puppetserver::package'
