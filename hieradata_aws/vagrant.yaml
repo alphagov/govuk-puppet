@@ -34,3 +34,6 @@ govuk_postgresql::wal_e::backup::enabled: true
 govuk_sudo::sudo_conf:
   vagrant:
     content: 'vagrant ALL=(ALL) NOPASSWD:ALL'
+
+puppet::puppetdb::database_password: 'password'
+
