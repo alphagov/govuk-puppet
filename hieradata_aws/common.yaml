@@ -348,6 +348,8 @@ filebeat::prospectors:
     fields:
       application: 'apt'
 
+gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
