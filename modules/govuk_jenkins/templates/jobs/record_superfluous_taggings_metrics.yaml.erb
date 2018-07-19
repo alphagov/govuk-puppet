@@ -1,0 +1,27 @@
+---
+- job:
+    name: record_superfluous_taggings_metrics
+    display-name: Record the number of superfluous taggings in the Topic Taxonomy
+    project-type: freestyle
+    description: |
+      This job runs a rake task in Content Tagger to send the number of superfluous taggings
+      in the Topic Taxonomy to statsd. These are content items that are tagged to a particular
+      taxon and to an ancestor taxon.
+    logrotate:
+      daysToKeep: 30
+    triggers:
+      - timed: 'H 3 * * *'
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - shell: |
+          #!/bin/bash
+          set -eu
+
+          cd "${WORKSPACE}"
+
+          CONTENT_TAGGER=$(govuk_node_list --single-node -c backend)
+
+          ssh deploy@$CONTENT_TAGGER "cd /var/apps/content-tagger && govuk_setenv content-tagger bundle exec rake metrics:taxonomy:record_number_of_superfluous_taggings_metrics"
