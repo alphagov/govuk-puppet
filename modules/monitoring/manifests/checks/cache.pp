@@ -10,6 +10,7 @@
 class monitoring::checks::cache (
       $enabled = true,
       $servers = [],
+      $region = undef,
     ) {
 
     icinga::plugin { 'check_aws_cache_cpu':
@@ -33,6 +34,8 @@ class monitoring::checks::cache (
     }
 
     if $enabled {
-      monitoring::checks::cache_config { $servers: }
+      monitoring::checks::rds_config { $servers:
+        region => $region,
+      }
     }
 }

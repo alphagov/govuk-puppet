@@ -13,6 +13,7 @@
 class monitoring::checks::rds (
       $enabled = true,
       $servers = [],
+      $region = undef,
     ) {
 
     icinga::plugin { 'check_aws_rds_cpu':
@@ -46,6 +47,8 @@ class monitoring::checks::rds (
     }
 
     if $enabled {
-      monitoring::checks::rds_config { $servers: }
+      monitoring::checks::rds_config { $servers:
+        region => $region,
+      }
     }
 }
