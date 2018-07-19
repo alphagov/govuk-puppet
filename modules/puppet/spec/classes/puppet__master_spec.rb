@@ -25,7 +25,7 @@ describe 'puppet::master', :type => :class do
     is_expected.to contain_govuk_postgresql__db('puppetdb')
     is_expected.to contain_file('/etc/init/puppetdb.conf').with_content(/-Xmx1024m/)
     is_expected.to contain_file('/etc/puppetdb/conf.d/database.ini')
-    is_expected.to contain_file('/etc/puppetdb/conf.d/config.ini').with_content(/logback.xml/)
+    is_expected.to contain_file('/etc/puppetdb/conf.d/config.ini').with_content(/log4j.properties/)
     is_expected.to contain_file('/etc/puppetdb/conf.d/repl.ini')
   }
 

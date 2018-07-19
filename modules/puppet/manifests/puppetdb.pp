@@ -27,7 +27,7 @@ class puppet::puppetdb (
     $java_args                  = '-Xmx1024m'
     $puppetdb_ssl_setup_command = '/usr/sbin/puppetdb-ssl-setup'
     $puppetdb_ssl_setup_creates = '/etc/puppetdb/ssl/keystore.jks'
-    $configfile                 = 'config.ini'
+    $configfile                 = 'config.ini.legacy'
     $cert_generation_class      = '::puppet::master::generate_cert'
 
     exec { 'disable-default-puppetdb':
@@ -48,7 +48,7 @@ class puppet::puppetdb (
     $java_args                  = '-Xmx2048m -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/puppetdb/puppetdb-oom.hprof -Djava.security.egd=file:/dev/urandom'
     $puppetdb_ssl_setup_command = shellquote(['/usr/sbin/puppetdb', 'ssl-setup'])
     $puppetdb_ssl_setup_creates = '/etc/puppetdb/ssl/ca.pem'
-    $configfile                 = 'puppetdb.ini'
+    $configfile                 = 'config.ini'
     $cert_generation_class      = '::puppet::puppetserver::generate_cert'
   }
 
@@ -88,7 +88,7 @@ class puppet::puppetdb (
     notify  => Service['puppetdb'],
   }
 
-  file { "/etc/puppetdb/conf.d/${configfile}":
+  file { '/etc/puppetdb/conf.d/config.ini':
     ensure  => 'present',
     content => file("puppet/puppetdb/${configfile}"),
     require => Package['puppetdb'],
