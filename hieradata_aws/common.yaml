@@ -1075,6 +1075,10 @@ monitoring::checks::smokey::features:
   check_whitehall:
     feature: whitehall
 
+monitoring::checks::cache::servers:
+  - 'blue-backend-redis-001'
+  - 'blue-backend-redis-002'
+
 monitoring::uptime_collector::aws: true
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
