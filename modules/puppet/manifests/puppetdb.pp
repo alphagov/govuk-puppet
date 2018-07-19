@@ -21,6 +21,8 @@ class puppet::puppetdb (
   include '::govuk_postgresql::server::standalone'
   include '::govuk_postgresql::backup'
 
+  require '::govuk_java::openjdk7::jre'
+
   if $legacy {
     # Activate legacy options for PuppetDB 1.x
     $package_ensure             = '1.3.2-1puppetlabs1'
@@ -66,7 +68,6 @@ class puppet::puppetdb (
 
   package { ['puppetdb', 'puppetdb-terminus']:
     ensure  => $package_ensure,
-    require => Class['::govuk_java::openjdk7::jre'],
   }
 
   exec { 'puppetdb ssl-setup':
