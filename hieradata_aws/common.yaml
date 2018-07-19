@@ -1079,6 +1079,16 @@ monitoring::checks::cache::servers:
   - 'blue-backend-redis-001'
   - 'blue-backend-redis-002'
 
+monitoring::checks::rds::servers:
+   - 'postgresql-primary'
+   - 'postgresql-standby'
+   - 'transition-postgresql-primary'
+   - 'transition-postgresql-standby'
+   - 'warehouse-postgresql-primary'
+   - 'warehouse-postgresql-standby'
+   - 'mysql-primary'
+   - 'mysql-replica'
+
 monitoring::uptime_collector::aws: true
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module

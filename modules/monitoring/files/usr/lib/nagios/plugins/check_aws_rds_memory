@@ -1,0 +1,196 @@
+#!/usr/bin/env python
+
+##################################################
+# This script will capture and report on AWS RDS #
+# FreeableMemory                                 #
+##################################################
+
+###########################################################
+# Objective                                               #
+# ---------                                               #
+# This script performs the following steps.               #
+# 1) Check whether a valid AWS region is specified        #
+# 2) Check whether the RDS instance ID provided exisits.  #
+# 3) If 1 and 2 are correct, check whether the available  #
+#    free memory is in the WARNING or CRITICAL state. 	  #
+#    Else, mark the status as OK.                         #
+###########################################################
+
+##################################################################################################
+# How to use and test this script?                                            			 #
+# --------------------------------                                            			 #
+#                                                                            			 #
+# This script takes input from the following file when it is used by icinga. 			 #
+# /etc/icinga/conf.d/icinga_host_${::fqdn}/                                			 #
+# check_aws_rds_memory.cfg                                                   			 #
+#                                                                            			 #
+# The script takes 4 input variables.                                        			 #
+# 1) AWS Regions. This is called with '-r'                                   			 #
+# 2) Icinga warning value. This is called with '-w'                          			 #
+# 3) Icinga critical vale. This is called with '-c'                          			 #
+# 4) The AWS RDS Instance name. This is called with '-i'                     			 # 
+#                                                                            			 # 
+# Test                                                                       			 #
+# ----                                                                       			 #
+# You can test this script by following the steps below.                     			 #
+#                                                                            			 #
+# 1) Connect to the 'blue-monitoring' instance via ssh.                      			 #
+# 2) Become root. (sudo -i)                                                  			 #
+# 3) Change directory. (cd /usr/lib/nagios/plugins)                          			 #
+# 4) Execute the script with manual input.                                   			 #
+#    -r = eu-west-1  (Example AWS Staging region)                           			 #
+#    -i = blue-postgresql-primary (Example. This should be present in RDS)  			 #
+#                                                                            			 #
+#    python check_aws_rds_memory -r eu-west-1 -i blue-postgresql-primary     			 #
+#                                                                            			 #
+#                                                                            			 #
+# The result should look like the example below.                             			 #
+# OK: Current AWS:RDS FreeableMemory for blue-postgresql-primaryis 10.8497833252 Giga Bytes  	 #
+##################################################################################################
+
+####################
+# Imported modules #
+####################
+import sys
+import argparse
+import pprint
+import boto.rds
+import boto.ec2.cloudwatch
+import datetime
+
+
+#################################
+# Passing acceptable parameters #
+#################################
+parser = argparse.ArgumentParser()
+parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1'], help="AWS region to check")
+parser.add_argument("-w","--warning", type=float, help="Value(GB) at which to raise a warning alert (5.0)", default=5.0)
+parser.add_argument("-c","--critical", type=float, help="Value(GB) at which to raise a critical alert (2.0)", default=2.0)
+parser.add_argument("-i","--instanceid", type=str, help="Instanceid", default=0)
+args = parser.parse_args()
+
+############################################
+# Check whether a region has been provided.#
+############################################
+if args.region is None:
+    print "UNKNOWN: You have not supplied a region to connect to!"
+    sys.exit(3)
+
+#############################################
+# Create a 'List' of RDS instances.         #
+# Note: We don't use these two steps below. #
+# However, this did prove valuable to view  #
+# how the instances are identified.         #
+#############################################
+rds = boto.rds.connect_to_region(args.region)
+instances = rds.get_all_dbinstances()
+
+# You can pretty print to debug visible instances. `pprint.pprint(instances)`
+
+
+##########################################
+# Create a cloud watch connection client.#
+##########################################
+cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
+
+###########################################################
+# Define start and end times      			  #
+# Here we have give 5 minutes because that is the window  #
+# we are using to calculate the average.		  #
+# Note: The time should be in UTC format.		  #
+###########################################################
+start = datetime.datetime.now() - datetime.timedelta(seconds=300)
+end = datetime.datetime.now()
+
+####################################
+# Define the data slice in seconds #
+####################################
+slice = 300
+
+#############################################################################
+# Use the cloudwatch connection and get metrics.           		    #
+# ----------------------------------------------	   		    #
+#							   		    #
+# 'data'   - The results are captured in this variable. Type = object	    #
+# 'slice'  - This is the time slice that we are refering, when we ask for   #
+#            the average value. This implies that "one output from AWS	    #
+#	     will cover x seconds of stats". This will match our 	    #
+#	     start and end times by default [300 seconds]. This also mean   #
+#            that we will get "one" output (very important. Nagios will     #
+#            only take one result)	                                    #
+# 'start'  - This will pass the start time.				    #
+# 'end'    - This will pass the end time.			    	    #
+# 'FreeableMemory' - This is the matric that we are asking for from         #
+#		     CloudWatch.					    #
+# 'AWS/RDS' - This is the CloudWatch space/area where RDS stats reside.     #
+# 'Average' - We are defining that we want the average for the matric.	    #
+# 'DBInstanceIdentifier' - The unique identifier which we use to query.     #
+#############################################################################
+
+data = cw_conn.get_metric_statistics(
+   slice,
+   start,
+   end,
+   'FreeableMemory',
+   'AWS/RDS',
+   'Average',
+   {'DBInstanceIdentifier': [args.instanceid]},
+)
+
+##################################################################################################
+# Metrics											 #
+# -------										 	 #
+# There is a considerable amount of metrics available. You can vew them  		 	 #
+# all by uncommenting the code segment below.				 		 	 #
+#									 		 	 #
+# metrics = cw_conn.list_metrics(dimensions={'DBInstanceIdentifier': [ args.instanceid ] })	 #
+# pprint.pprint(metrics)									 #
+#												 #
+##################################################################################################
+
+#################################################################################
+# Metrics Debugging								#
+# -----------------								#
+# You might have a necessity to debug the output. The following might help.	#
+#										#
+# - If you wan't to view the raw output from the metrics query. Uncomment the	#
+#   line below.									#
+# pprint.pprint(data)								#
+#										#
+#										#
+# - The result is actually an 'object'. This object has some built in metods. 	#
+#   These methods are useful. For example you might have a 'get' metod that	#
+#   saves you some code. You can uncomment the line below and view all the 	#
+#   methods and attributes.							#
+# pprint.pprint(dir(data))							#
+#################################################################################
+
+#########################################
+# Disect the result			#
+# -----------------			#
+# The result that we get is a 'list' of	#
+# 'dictonary' elements. Hence, we will	#
+# iterate over the list and get the 	#
+# value for the key called "Average"	#
+#########################################
+for item in data:
+  memory_bytes = item["Average"]
+
+# The average value is returned in bytes. Here we are converting it to giga bytes.
+memory = memory_bytes / (1024 * 1024 * 1024)
+
+#########################################################
+# Print the output					#
+# This is the final step. We do the following here.	#
+# 1) Change the average vale to 'float' type.		#
+# 2) Convert the defined value to 'float' type.		#
+# 3) Compare the check vs actual.			#
+#########################################################
+if memory < args.critical:
+  print "CRITICAL: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
+  sys.exit(2)
+elif memory < args.warning:
+  print "WARNING: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
+  sys.exit(1)
+else:
+  print "OK: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
