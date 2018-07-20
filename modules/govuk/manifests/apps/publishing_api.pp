@@ -74,6 +74,9 @@
 #   A password to connect to RabbitMQ:
 #   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
 #
+# [*memcache_hosts*]
+#   Hosts to connect to for Memcached
+#
 # [*govuk_content_schemas_path*]
 #   The path for generated govuk-content-schemas
 #
@@ -112,6 +115,7 @@ class govuk::apps::publishing_api(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'publishing_api',
   $rabbitmq_password = undef,
+  $memcache_hosts = undef,
   $govuk_content_schemas_path = '',
   $event_log_aws_bucketname = undef,
   $event_log_aws_username   = undef,
@@ -156,6 +160,10 @@ class govuk::apps::publishing_api(
       hosts    => $rabbitmq_hosts,
       user     => $rabbitmq_user,
       password => $rabbitmq_password,
+    }
+
+    govuk::app::envvar::memcache_servers { $app_name:
+      hosts => $memcache_hosts,
     }
 
     govuk::app::envvar {

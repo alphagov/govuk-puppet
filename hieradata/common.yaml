@@ -549,6 +549,10 @@ govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
   - rabbitmq-3.backend
+govuk::apps::publishing_api::memcache_hosts:
+  - publishing-api-1.backend
+  - publishing-api-2.backend
+  - publishing-api-3.backend
 govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
 # Hardcoded to redis-2 to improve performance
 # This setting is overridden in `development.yaml`

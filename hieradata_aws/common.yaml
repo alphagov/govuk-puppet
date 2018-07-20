@@ -549,6 +549,14 @@ govuk::apps::publishing_api::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq
+# TODO: This probably won't work, but I don't know what will... Maybe
+# one approach here is similar to database clusters, just pay Amazon
+# money and use it's managed service (which I think is called
+# ElastiCache)?
+govuk::apps::publishing_api::memcache_hosts:
+  - publishing-api-1
+  - publishing-api-2
+  - publishing-api-3
 govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
 govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
