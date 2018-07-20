@@ -185,46 +185,55 @@ runs the single test at line 7 of `collectd__package_spec.rb` with colour mode e
 
 ### Vagrant testing
 
+#### Prerequisites
+
+You will need an up-to-date checkout of the private `govuk-provisioning`
+repository for node definitions.
+
 #### Setup
 
-Install the most recent versions of [VirtualBox](https://www.virtualbox.org/)
-and [Vagrant](https://www.vagrantup.com/).
+It is recommended that you use Vagrant > 1.4 from a binary/system install.
+`alphagov/gds-boxen` can set this up for you.
 
-#### Config
-
-The default config should be representative of the environments in AWS.
-
-The permanent set of node classes is defined in `vagrant.nodes.yaml`. If you
-want to override the values in this file locally, you can do so in a file named
-`vagrant.nodes.local.yaml`. This file must have the same structure as
-`vagrant.nodes.yaml`. The two files are loaded then merged, and the resulting
-data structure is used to configure Vagrant.
+#### Usage
 
 You need only bring up the subset of nodes that you're working on. For
 example, to bring up a frontend and backend:
-
 ```sh
-vagrant up frontend backend
+vagrant up frontend-1.frontend backend-1.backend
 ```
 
 Vagrant will run the Puppet provisioner against the node when it boots up.
 Nodes should look almost identical to that of our real
+<<<<<<< HEAD
 production/staging/integration environments.
+=======
+production/staging/preview environments, including network addresses. To
+access a node's services like HTTP/HTTPS you can point your `hosts` file to
+the host-only IP address (eth1).
+
+Physical attributes like `memory` and `num_cores` will be ignored because
+they don't scale appropriately to local VMs, but can still be customised as
+described below.
+>>>>>>> parent of 680283f20... Update Vagrant testing section in README
 
 #### Customisation
 
-You'll be fine to stick with the defaults for most nodes, but if you need to
-override any of the attributes, the supported attributes are:
+Node definitions can be overridden with a `nodes.local.yaml` file in this
+directory. This is merged on top of all other node
+definitions. The following keys are currently available for customisation:
 
-- `box`: the name of the Vagrant Box to build from (default `ubuntu/trusty64`).
-  See [Vagrant Cloud](https://app.vagrantup.com/boxes/search) for a list.
-- `memory`: amount of RAM in MB. The default is 3072 (3GB)
+- `box_dist` Ubuntu distribution. Currently "trusty".
+- `box_version` Internal version number of the GDS basebox.
+- `memory` Amount of RAM. Default is "384".
+- `ip` IP address for hostonly networking. Currently all subnets are /16.
+- `class` Name of the Puppet class/role.
 
-For example to increase the amount of RAM on a Mongo:
+For example to increase the amount of RAM on a PuppetMaster:
 ```yaml
 ---
-mongo:
-  memory: 4096
+puppetmaster-1.management:
+  memory: 768
 ```
 
 #### Errors
