@@ -9,7 +9,6 @@ import re
 import sys
 import time
 import json
-import shutil
 
 REGION = 'eu-west-1'
 IMAGE_IDS = {
@@ -117,18 +116,6 @@ def daemonize():
         sys.exit("Fork #2 failed: {0} ({1})".format(e.errno, e.strerror))
 
 
-def persist():
-    shutil.copy(__file__, '/usr/local/bin/mock-ec2-metadata-service.py')
-    with open('/etc/init/mock-ec2-metadata.conf', 'w') as upstart:
-        upstart.write(str.join("\n", [
-            'description "Mock EC2 Metadata"',
-            'start on runlevel [2345]',
-            'stop on runlevel [!2345]',
-            'exec /usr/local/bin/mock-ec2-metadata-service.py',
-        ]))
-        upstart.write("\n")
-        upstart.close()
-
 def assume_169254_address():
     try:
         loopback_config = subprocess.check_output(['ip', 'addr', 'show', 'dev', 'lo']).decode('utf-8')
@@ -164,7 +151,6 @@ if __name__ == '__main__':
 
     if os.getenv('FG_ONLY') is None:
         daemonize()
-        persist()
 
     print("Mock EC2 metadata service ready", file=sys.stderr)
     httpd.serve_forever()
