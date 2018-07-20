@@ -1360,7 +1360,6 @@ hosts::production::backend::app_hostnames:
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'
-  - 'draft-whitehall-frontend'
   - 'email-alert-api'
   - 'email-alert-api-public'
   - 'event-store'
@@ -1469,6 +1468,7 @@ hosts::production::frontend::app_hostnames:
   - 'smartanswers'
   - 'static'
   - 'whitehall-frontend'
+  - 'draft-whitehall-frontend'
 
 hosts::production::licensify::hosts:
   licensify-lb-1:
