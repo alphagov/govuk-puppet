@@ -126,9 +126,6 @@ class govuk_jenkins::config (
     File {
       owner  => 'jenkins',
       group  => 'jenkins',
-    }
-
-    File {
       notify => Class['Govuk_jenkins::Reload'],
     }
 
