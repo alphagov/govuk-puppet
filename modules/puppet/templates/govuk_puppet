@@ -191,10 +191,12 @@ if [[ " ${puppet_args} " =~ "--enable " ]]; then
   remove_lock
 fi
 
-locked=$(has_locks)
-if [ "$locked" == 1 ];then
-  list_locks
-  exit 1
+if [[ ! " ${puppet_args} " =~ "--noop " ]]; then
+  locked=$(has_locks)
+  if [ "$locked" == 1 ];then
+      list_locks
+      exit 1
+  fi
 fi
 
 set +e
