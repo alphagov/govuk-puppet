@@ -22,7 +22,9 @@ class govuk::node::s_monitoring (
   include monitoring
   include collectd::plugin::icinga
   include govuk_java::openjdk8::jre
+  include govuk_java::openjdk8::jdk
   class { 'govuk_java::set_defaults':
+    jdk => 'openjdk8',
     jre => 'openjdk8',
   }
 
