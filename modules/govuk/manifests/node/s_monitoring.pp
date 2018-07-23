@@ -21,6 +21,10 @@ class govuk::node::s_monitoring (
   include ::phantomjs
   include monitoring
   include collectd::plugin::icinga
+  include govuk_java::openjdk8::jre
+  class { 'govuk_java::set_defaults':
+    jre => 'openjdk8',
+  }
 
   if $enable_fastly_metrics {
     include collectd::plugin::cdn_fastly
