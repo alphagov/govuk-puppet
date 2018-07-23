@@ -89,7 +89,6 @@ class govuk::node::s_backend_lb (
 
   loadbalancer::balance { [
       'whitehall-admin',
-      'draft-whitehall-frontend',
     ]:
       deny_crawlers => true,
       servers       => $whitehall_backend_servers,
