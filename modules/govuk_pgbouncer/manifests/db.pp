@@ -14,6 +14,11 @@
 # [*password_hash*]
 # The password hash for this user.  If not given, the user has no password.
 #
+# [*allow_auth_from_localhost*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate for
+# this database from localhost using its password.
+# Default: true
+#
 # [*allow_auth_from_backend*]
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
@@ -31,14 +36,26 @@
 # Default: 'md5'
 #
 define govuk_pgbouncer::db (
-    $user,
-    $database,
-    $password_hash           = undef,
-    $allow_auth_from_backend = false,
-    $backend_ip_range        = undef,
-    $hba_type                = 'host',
-    $auth_method             = 'md5',
+  $user,
+  $database,
+  $password_hash             = undef,
+  $allow_auth_from_localhost = true,
+  $allow_auth_from_backend   = false,
+  $backend_ip_range          = undef,
+  $hba_type                  = 'host',
+  $auth_method               = 'md5',
 ) {
+  if $allow_auth_from_localhost {
+    postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${database} database from localhost":
+      type        => $hba_type,
+      database    => $database,
+      user        => $user,
+      address     => '127.0.0.1/32',
+      auth_method => $auth_method,
+      target      => '/etc/pgbouncer/pg_hba.conf',
+    }
+  }
+
   if $allow_auth_from_backend {
     postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${database} database from backend network":
       type        => $hba_type,
