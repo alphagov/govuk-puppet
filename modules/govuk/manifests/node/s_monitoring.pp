@@ -17,8 +17,11 @@ class govuk::node::s_monitoring (
 
   validate_bool($enable_fastly_metrics, $offsite_backups)
 
+  include google_chrome
   include govuk_rbenv::all
+  include ::chromedriver
   include ::phantomjs
+  include ::selenium
   include monitoring
   include collectd::plugin::icinga
   include govuk_java::openjdk8::jre
