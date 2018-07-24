@@ -99,7 +99,6 @@ class govuk_cdnlogs::transition_logs (
     group  => $user,
   }
 
-  # @TODO remove these once this has been run in production
   file { "${log_dir}/cache/archive":
     ensure => absent,
     force  => true,
