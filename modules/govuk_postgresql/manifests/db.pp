@@ -143,6 +143,15 @@ define govuk_postgresql::db (
             address     => $api_ip_range,
             auth_method => 'md5',
           }
+
+          postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${db_name} database from API network":
+            type        => $hba_type,
+            database    => $db_name,
+            user        => $user,
+            address     => $api_ip_range,
+            auth_method => 'md5',
+            target      => '/etc/pgbouncer/pg_hba.conf',
+          }
       }
 
       if $allow_auth_from_backend {
@@ -152,6 +161,15 @@ define govuk_postgresql::db (
             user        => $user,
             address     => $backend_ip_range,
             auth_method => 'md5',
+          }
+
+          postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${db_name} database from backend network":
+            type        => $hba_type,
+            database    => $db_name,
+            user        => $user,
+            address     => $backend_ip_range,
+            auth_method => 'md5',
+            target      => '/etc/pgbouncer/pg_hba.conf',
           }
       }
 

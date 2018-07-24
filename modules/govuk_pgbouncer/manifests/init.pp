@@ -4,10 +4,16 @@
 #
 class govuk_pgbouncer() {
 
+  include '::govuk_pgbouncer::config'
+
   class { '::pgbouncer':
-    user      => 'postgres',
-    group     => 'postgres',
-    databases => false,
-    userlist  => false,
+    user          => 'postgres',
+    group         => 'postgres',
+    databases     => false,
+    userlist      => false,
+    config_params => {
+      auth_type     => 'hba',
+      auth_hba_file => '/etc/pgbouncer/pg_hba.conf',
+    },
   }
 }
