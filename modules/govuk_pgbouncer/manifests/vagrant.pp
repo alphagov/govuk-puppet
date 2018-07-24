@@ -5,7 +5,7 @@
 # access on localhost to user-owned databases.
 #
 class govuk_pgbouncer::vagrant() {
-  govuk_pgbouncer::db { 'all':
+  govuk_pgbouncer::db { 'vagrant all':
     user        => 'vagrant',
     database    => 'all',
     auth_method => 'trust',
