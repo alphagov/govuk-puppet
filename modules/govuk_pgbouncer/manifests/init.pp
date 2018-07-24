@@ -2,9 +2,21 @@
 #
 # Installs and configures pgbouncer to connect to our Postgres servers.
 #
-class govuk_pgbouncer() {
+# === Parameters
+#
+# [*include_vagrant_user*]
+#   Enables the 'vagrant' user with trusted access from localhost to all databases
+#   Default: false
+#
+class govuk_pgbouncer(
+  $include_vagrant_user = false,
+) {
 
   include '::govuk_pgbouncer::config'
+
+  if $include_vagrant_user {
+    include '::govuk_pgbouncer::vagrant'
+  }
 
   class { '::pgbouncer':
     user          => 'postgres',
