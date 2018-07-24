@@ -5,10 +5,10 @@
 # access on localhost to user-owned databases.
 #
 class govuk_pgbouncer::vagrant() {
-  concat::fragment { 'vagrant':
-    target  => '/etc/pgbouncer/userlist.txt',
-    content => '"vagrant" ""\n',
-    order   => '000',
+  govuk_pgbouncer::db { 'all':
+    user        => 'vagrant',
+    database    => 'all',
+    auth_method => 'trust',
   }
 
   postgresql::server::pg_hba_rule { 'Allow trusted access to vagrant user on localhost':
@@ -17,16 +17,6 @@ class govuk_pgbouncer::vagrant() {
     user        => 'vagrant',
     address     => '127.0.0.1/32',
     auth_method => 'trust',
-    order       => '000',
-  }
-
-  postgresql::server::pg_hba_rule { '(pgbouncer) Allow trusted access to vagrant user on localhost':
-    type        => 'host',
-    database    => 'all',
-    user        => 'vagrant',
-    address     => '127.0.0.1/32',
-    auth_method => 'trust',
-    target      => '/etc/pgbouncer/pg_hba.conf',
     order       => '000',
   }
 
