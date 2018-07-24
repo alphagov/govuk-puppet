@@ -127,7 +127,7 @@ class govuk::apps::content_performance_manager(
     process_type   => 'publishing-api-consumer',
   }
 
-  govuk::procfile::worker { "${app_name}-bulk-import-publishing-api-consumer":
+  govuk::procfile::worker { 'cpm-bulk-import-publishing-api-consumer':
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'bulk-import-publishing-api-consumer',
