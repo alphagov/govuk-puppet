@@ -18,5 +18,16 @@ describe 'puppet::puppetserver', :type => :class do
   it do
     is_expected.to contain_class('puppet')
     is_expected.to contain_class('puppet::puppetserver::config')
+    is_expected.not_to contain_class('puppet::puppetserver::sentry')
+  end
+
+  context 'with sentry_dsn' do
+    let(:params) do
+      { :sentry_dsn => 'rspec' }
+    end
+
+    it do
+      is_expected.to contain_class('puppet::puppetserver::sentry')
+    end
   end
 end
