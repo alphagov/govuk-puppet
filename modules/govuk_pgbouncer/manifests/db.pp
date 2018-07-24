@@ -35,6 +35,10 @@
 # How to authenticate the user.
 # Default: 'md5'
 #
+# [*host*]
+# The database server.
+# Default: 127.0.0.1
+#
 define govuk_pgbouncer::db (
   $user,
   $database,
@@ -44,6 +48,7 @@ define govuk_pgbouncer::db (
   $backend_ip_range          = undef,
   $hba_type                  = 'host',
   $auth_method               = 'md5',
+  $host                      = '127.0.0.1',
 ) {
   if $allow_auth_from_localhost {
     postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${database} database from localhost":
@@ -64,6 +69,14 @@ define govuk_pgbouncer::db (
       address     => $backend_ip_range,
       auth_method => $auth_method,
       target      => '/etc/pgbouncer/pg_hba.conf',
+    }
+  }
+
+  if $database != 'all' {
+    concat::fragment { "pgbouncer database ${database}":
+      target  => '/etc/pgbouncer/pgbouncer.ini',
+      content => "${database} = host=${host}\n",
+      order   => '02',
     }
   }
 

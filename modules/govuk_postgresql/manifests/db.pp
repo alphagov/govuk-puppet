@@ -148,6 +148,12 @@ define govuk_postgresql::db (
     }
   }
 
+  if $rds {
+    $host = $postgresql::server::default_connect_settings['PGHOST']
+  } else {
+    $host = '127.0.0.1'
+  }
+
   govuk_pgbouncer::db { $title:
     user                    => $user,
     password_hash           => $password_hash,
@@ -155,5 +161,6 @@ define govuk_postgresql::db (
     allow_auth_from_backend => $allow_auth_from_backend,
     backend_ip_range        => $backend_ip_range,
     hba_type                => $hba_type,
+    host                    => $host,
   }
 }
