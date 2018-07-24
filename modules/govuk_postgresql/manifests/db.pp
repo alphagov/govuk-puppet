@@ -72,6 +72,12 @@ define govuk_postgresql::db (
     }
     $password_hash = postgresql_password($user, $password)
 
+    if $ssl_only {
+      $hba_type = 'hostssl'
+    } else {
+      $hba_type = 'host'
+    }
+
     if ! defined(Postgresql::Server::Role[$user]) {
         @postgresql::server::role { $user:
             password_hash => $password_hash,
@@ -119,12 +125,6 @@ define govuk_postgresql::db (
           }
       }
 
-      if $ssl_only {
-        $hba_type = 'hostssl'
-      } else {
-        $hba_type = 'host'
-      }
-
       if $allow_auth_from_backend {
           postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
             type        => $hba_type,
@@ -132,15 +132,6 @@ define govuk_postgresql::db (
             user        => $user,
             address     => $backend_ip_range,
             auth_method => 'md5',
-          }
-
-          postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${db_name} database from backend network":
-            type        => $hba_type,
-            database    => $db_name,
-            user        => $user,
-            address     => $backend_ip_range,
-            auth_method => 'md5',
-            target      => '/etc/pgbouncer/pg_hba.conf',
           }
       }
 
@@ -155,5 +146,13 @@ define govuk_postgresql::db (
         database => $db_name,
       }
     }
+  }
+
+  govuk_pgbouncer::db { $title:
+    user                    => $user,
+    database                => $db_name,
+    allow_auth_from_backend => $allow_auth_from_backend,
+    backend_ip_range        => $backend_ip_range,
+    hba_type                => $hba_type,
   }
 }
