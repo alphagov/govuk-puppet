@@ -11,7 +11,7 @@ describe 'puppet::puppetserver::sentry', :type => :class do
 
   it do
     is_expected.to contain_exec('/usr/bin/puppetserver gem install sentry-raven')
-    is_expected.to contain_file_line('puppetserver_sentry_dsn').with_line('PUPPET_SENTRY_DSN="rspec dsn"')
+    is_expected.to contain_file_line('puppetserver_sentry_dsn').with_line('export SENTRY_DSN="rspec dsn"')
   end
 end
 
