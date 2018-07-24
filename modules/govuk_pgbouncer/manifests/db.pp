@@ -11,6 +11,9 @@
 # [*database*]
 # The name for this database.
 #
+# [*password_hash*]
+# The password hash for this user.  If not given, the user has no password.
+#
 # [*allow_auth_from_backend*]
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
@@ -30,6 +33,7 @@
 define govuk_pgbouncer::db (
     $user,
     $database,
+    $password_hash           = undef,
     $allow_auth_from_backend = false,
     $backend_ip_range        = undef,
     $hba_type                = 'host',
@@ -44,5 +48,16 @@ define govuk_pgbouncer::db (
       auth_method => $auth_method,
       target      => '/etc/pgbouncer/pg_hba.conf',
     }
+  }
+
+  if $password_hash == undef {
+    $password = ''
+  } else {
+    $password = $password_hash
+  }
+
+  concat::fragment { "${database} ${user}":
+    target  => '/etc/pgbouncer/userlist.txt',
+    content => "\"${user}\" \"${password}\"\n",
   }
 }

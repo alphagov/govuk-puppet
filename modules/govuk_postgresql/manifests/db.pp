@@ -150,6 +150,7 @@ define govuk_postgresql::db (
 
   govuk_pgbouncer::db { $title:
     user                    => $user,
+    password_hash           => $password_hash,
     database                => $db_name,
     allow_auth_from_backend => $allow_auth_from_backend,
     backend_ip_range        => $backend_ip_range,
