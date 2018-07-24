@@ -33,18 +33,10 @@
 # An optional array of Postgresql Extensions to load for this database.
 # Default: []
 #
-# [*allow_auth_from_api*]
-# Whether to create a pg_hba.conf rule to allow this user to authenticate
-# for this database from the API network using its password.
-# Default: false
-#
 # [*allow_auth_from_backend*]
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
 # Default: false
-#
-# [*api_ip_range*]
-# Network range for API.
 #
 # [*backend_ip_range*]
 # Network range for Backend.
@@ -61,9 +53,7 @@ define govuk_postgresql::db (
     $owner                   = undef,
     $encoding                = 'UTF8',
     $extensions              = [],
-    $allow_auth_from_api     = false,
     $allow_auth_from_backend = false,
-    $api_ip_range            = undef,
     $backend_ip_range        = undef,
     $ssl_only                = false,
     $rds                     = false,
@@ -133,25 +123,6 @@ define govuk_postgresql::db (
         $hba_type = 'hostssl'
       } else {
         $hba_type = 'host'
-      }
-
-      if $allow_auth_from_api {
-          postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
-            type        => $hba_type,
-            database    => $db_name,
-            user        => $user,
-            address     => $api_ip_range,
-            auth_method => 'md5',
-          }
-
-          postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${db_name} database from API network":
-            type        => $hba_type,
-            database    => $db_name,
-            user        => $user,
-            address     => $api_ip_range,
-            auth_method => 'md5',
-            target      => '/etc/pgbouncer/pg_hba.conf',
-          }
       }
 
       if $allow_auth_from_backend {
