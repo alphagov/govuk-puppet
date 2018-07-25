@@ -11,7 +11,7 @@ class puppet::puppetserver::sentry {
   file_line { 'puppetserver_sentry_dsn':
     ensure => present,
     path   => '/etc/default/puppetserver',
-    line   => sprintf('export SENTRY_DSN="%s"', $::puppet::puppetserver::sentry_dsn),
-    match  => '^export SENTRY_DSN=',
+    line   => sprintf('export PUPPET_SENTRY_DSN="%s"', $::puppet::puppetserver::sentry_dsn),
+    match  => '^export PUPPET_SENTRY_DSN=',
   }
 }
