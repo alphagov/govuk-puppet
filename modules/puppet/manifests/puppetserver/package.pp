@@ -6,7 +6,7 @@ class puppet::puppetserver::package {
   require '::govuk_java::openjdk7::jre'
 
   package { 'puppetserver':
-    ensure  => installed,
+    ensure => 'latest',
   }
 
   package { ['aws-sdk-ec2', 'aws-sdk-core']:
