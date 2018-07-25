@@ -53,6 +53,8 @@ RSpec.configure do |c|
     :aws_migration           => false,
   }
 
+  c.confdir = '/etc/puppet'
+
   c.after(:suite) do
     if ENV.fetch('FULL_COVERAGE_REPORT', false)
       RSpec::Puppet::Coverage.report!
