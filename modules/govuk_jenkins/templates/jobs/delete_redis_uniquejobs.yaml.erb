@@ -20,7 +20,9 @@
             ssh deploy@$node "redis-cli DEL uniquejobs"
           done
     triggers:
-      - timed: "0 7 * * *"
+      - timed: |
+        TZ=Europe/London
+        H 7 * * *
     wrappers:
       - ansicolor:
           colormap: xterm

@@ -10,7 +10,9 @@
     logrotate:
       daysToKeep: 30
     triggers:
-      - timed: 'H 3 * * *'
+      - timed: |
+        TZ=Europe/London
+        H 3 * * *
     properties:
       - build-discarder:
           days-to-keep: 30
