@@ -440,6 +440,7 @@ govuk::apps::email_alert_api::unicorn_worker_processes: '4'
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
+  - complaint@simulator.amazonses.com
   - kevin.dew@digital.cabinet-office.gov.uk
   - ruben.arakelyan@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
