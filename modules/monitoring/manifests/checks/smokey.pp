@@ -23,7 +23,7 @@ class monitoring::checks::smokey (
 
   user { 'smokey':
     ensure => present,
-    name   => 'Smokey',
+    name   => 'smokey',
     shell  => '/bin/false',
     system => true,
   }
