@@ -136,8 +136,14 @@ class govuk::node::s_db_admin(
   # govuk_postgresql::server::db defined type
   include ::govuk_postgresql::server::not_slave
 
+  @ufw::allow { 'pgbouncer-allow-6432-from-any':
+    port => 6432,
+  }
+
   # Ensure the client class is installed
   class { '::govuk_postgresql::client': } ->
+
+  class { '::govuk_pgbouncer': } ->
 
   # include all PostgreSQL classes that create databases and users
   class { '::govuk::apps::content_audit_tool::db': } ->

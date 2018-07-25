@@ -33,21 +33,21 @@
 # An optional array of Postgresql Extensions to load for this database.
 # Default: []
 #
-# [*allow_auth_from_api*]
-# Whether to create a pg_hba.conf rule to allow this user to authenticate
-# for this database from the API network using its password.
-# Default: false
-#
 # [*allow_auth_from_backend*]
 # Whether to create a pg_hba.conf rule to allow this user to authenticate for
 # this database from the backend network using its password.
 # Default: false
 #
-# [*api_ip_range*]
-# Network range for API.
-#
 # [*backend_ip_range*]
 # Network range for Backend.
+#
+# [*allow_auth_from_lb*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate for
+# this database from the load balancer using its password.
+# Default: false
+#
+# [*lb_ip_range*]
+# Network range for the load balancer.
 #
 # [*ssl_only*]
 # Whether to configure the pg_hba.conf rules to only respond to clients who
@@ -61,10 +61,10 @@ define govuk_postgresql::db (
     $owner                   = undef,
     $encoding                = 'UTF8',
     $extensions              = [],
-    $allow_auth_from_api     = false,
     $allow_auth_from_backend = false,
-    $api_ip_range            = undef,
     $backend_ip_range        = undef,
+    $allow_auth_from_lb      = false,
+    $lb_ip_range             = undef,
     $ssl_only                = false,
     $rds                     = false,
     $rds_root_user           = 'aws_db_admin',
@@ -81,6 +81,12 @@ define govuk_postgresql::db (
         $db_owner = $owner
     }
     $password_hash = postgresql_password($user, $password)
+
+    if $ssl_only {
+      $hba_type = 'hostssl'
+    } else {
+      $hba_type = 'host'
+    }
 
     if ! defined(Postgresql::Server::Role[$user]) {
         @postgresql::server::role { $user:
@@ -129,22 +135,6 @@ define govuk_postgresql::db (
           }
       }
 
-      if $ssl_only {
-        $hba_type = 'hostssl'
-      } else {
-        $hba_type = 'host'
-      }
-
-      if $allow_auth_from_api {
-          postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from API network":
-            type        => $hba_type,
-            database    => $db_name,
-            user        => $user,
-            address     => $api_ip_range,
-            auth_method => 'md5',
-          }
-      }
-
       if $allow_auth_from_backend {
           postgresql::server::pg_hba_rule { "Allow access for ${user} role to ${db_name} database from backend network":
             type        => $hba_type,
@@ -166,5 +156,23 @@ define govuk_postgresql::db (
         database => $db_name,
       }
     }
+  }
+
+  if $rds {
+    $host = $postgresql::server::default_connect_settings['PGHOST']
+  } else {
+    $host = '127.0.0.1'
+  }
+
+  govuk_pgbouncer::db { $title:
+    user                    => $user,
+    password_hash           => $password_hash,
+    database                => $db_name,
+    allow_auth_from_backend => $allow_auth_from_backend,
+    backend_ip_range        => $backend_ip_range,
+    allow_auth_from_lb      => $allow_auth_from_lb,
+    lb_ip_range             => $lb_ip_range,
+    hba_type                => $hba_type,
+    host                    => $host,
   }
 }
