@@ -89,6 +89,11 @@ for file in $(find $MYSQL_DIR -name '*production*.gz'); do
     mysql $MYSQL_ARGUMENTS -e "CREATE DATABASE $TARGET_DB_NAME"
     $PV_COMMAND $file | zcat | ${DB_MUNGE_COMMAND} | mysql $MYSQL_ARGUMENTS $TARGET_DB_NAME
     rm ${TEMP_SED_SCRIPT}
+
+    if ! $KEEP_BACKUPS; then
+      status "Deleting $(basename $file)"
+      rm ${file}
+    fi
   fi
 done
 

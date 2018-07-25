@@ -57,7 +57,9 @@ if [ -e $MONGO_DIR/.extracted ]; then
   status "Mongo dump has already been extracted."
 else
   status "Extracting compressed files..."
-  pv $MONGO_DIR/*.tgz | tar -zxf - -C $MONGO_DIR
+  exclude=""
+  for i in $IGNORE; do exclude="${exclude}--exclude var/lib/mongodump/mongodump/${i}_production --exclude var/lib/mongodump/mongodump/${i} "; done
+  pv $MONGO_DIR/*.tgz | tar -zx ${exclude} -f - -C $MONGO_DIR
   touch $MONGO_DIR/.extracted
 fi
 
@@ -86,5 +88,10 @@ for dir in $(find $MONGO_DIR -mindepth 6 -maxdepth 6 -type d | grep -v '*'); do
     mongorestore --drop -d $TARGET_DB_NAME $dir
   fi
 done
+
+if ! ($KEEP_BACKUPS || $DRY_RUN); then
+  status "Deleting ${MONGO_DIR} backups"
+  rm -rf $MONGO_DIR
+fi
 
 ok "Mongo replication from S3 (${SRC_HOSTNAME}) complete."
