@@ -47,7 +47,7 @@ describe 'mongodb::config', :type => :class do
           :development => true,
           :replicaset_name  => 'development',
           :config_filename => '/etc/mongod.conf',
-          :oplog_size => '7168 # 7 * 1024',
+          :oplog_size => '14392 # 14 * 1024',
           :template_name => 'mongod.conf.erb'
       }}
 
