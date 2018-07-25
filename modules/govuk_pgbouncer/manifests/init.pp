@@ -35,6 +35,7 @@ class govuk_pgbouncer(
     config_params => {
       auth_type     => 'hba',
       auth_hba_file => '/etc/pgbouncer/pg_hba.conf',
+      pool_mode     => 'transaction',
     },
   }
 }
