@@ -99,16 +99,6 @@ class govuk_cdnlogs::transition_logs (
     group  => $user,
   }
 
-  # @TODO remove these once this has been run in production
-  file { "${log_dir}/cache/archive":
-    ensure => absent,
-    force  => true,
-  }
-
-  file { '/etc/logrotate.d/transition_logs_cache':
-    ensure  => absent,
-  }
-
   $process_script = '/usr/local/bin/process_transition_logs'
 
   $service_desc = 'Transition logs processing script'
