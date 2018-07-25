@@ -1,17 +1,18 @@
 # == Class: puppet::puppetserver::sentry
 #
 # Installs the sentry-raven Ruby Gem into the PuppetServer and sets the
-# PUPPET_SENTRY_DSN environment variable.
+# Sentry DSN in /etc/puppet/sentry.conf.
 #
 class puppet::puppetserver::sentry {
   exec { '/usr/bin/puppetserver gem install sentry-raven':
     unless  => '/usr/bin/puppetserver gem list | /bin/grep sentry-raven',
   }
 
-  file_line { 'puppetserver_sentry_dsn':
-    ensure => present,
-    path   => '/etc/default/puppetserver',
-    line   => sprintf('export PUPPET_SENTRY_DSN="%s"', $::puppet::puppetserver::sentry_dsn),
-    match  => '^export PUPPET_SENTRY_DSN=',
+  file { "${settings::confdir}/sentry.conf":
+    ensure  => present,
+    owner   => 'puppet',
+    group   => 'puppet',
+    mode    => '0400',
+    content => sprintf('dsn=%s', $::puppet::puppetserver::sentry_dsn),
   }
 }
