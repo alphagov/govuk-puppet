@@ -5,5 +5,6 @@
 class govuk_pgbouncer::config() {
   concat { '/etc/pgbouncer/pg_hba.conf':
     ensure => present,
+    notify => Service['pgbouncer'],
   }
 }
