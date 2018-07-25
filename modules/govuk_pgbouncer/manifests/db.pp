@@ -27,6 +27,14 @@
 # [*backend_ip_range*]
 # Network range for Backend.
 #
+# [*allow_auth_from_lb*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate for
+# this database from the load balancer using its password.
+# Default: false
+#
+# [*lb_ip_range*]
+# Network range for the load balancer.
+#
 # [*hba_type*]
 # The access allowed to the database.
 # Default: 'host'
@@ -46,6 +54,8 @@ define govuk_pgbouncer::db (
   $allow_auth_from_localhost = true,
   $allow_auth_from_backend   = false,
   $backend_ip_range          = undef,
+  $allow_auth_from_lb        = false,
+  $lb_ip_range               = undef,
   $hba_type                  = 'host',
   $auth_method               = 'md5',
   $host                      = '127.0.0.1',
@@ -67,6 +77,17 @@ define govuk_pgbouncer::db (
       database    => $database,
       user        => $user,
       address     => $backend_ip_range,
+      auth_method => $auth_method,
+      target      => '/etc/pgbouncer/pg_hba.conf',
+    }
+  }
+
+  if $allow_auth_from_lb {
+    postgresql::server::pg_hba_rule { "(pgbouncer) Allow access for ${user} role to ${database} database from load balancer":
+      type        => $hba_type,
+      database    => $database,
+      user        => $user,
+      address     => $lb_ip_range,
       auth_method => $auth_method,
       target      => '/etc/pgbouncer/pg_hba.conf',
     }

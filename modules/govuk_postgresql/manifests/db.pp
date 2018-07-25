@@ -41,6 +41,14 @@
 # [*backend_ip_range*]
 # Network range for Backend.
 #
+# [*allow_auth_from_lb*]
+# Whether to create a pg_hba.conf rule to allow this user to authenticate for
+# this database from the load balancer using its password.
+# Default: false
+#
+# [*lb_ip_range*]
+# Network range for the load balancer.
+#
 # [*ssl_only*]
 # Whether to configure the pg_hba.conf rules to only respond to clients who
 # connect over SSL. If it is false it will allow either.
@@ -55,6 +63,8 @@ define govuk_postgresql::db (
     $extensions              = [],
     $allow_auth_from_backend = false,
     $backend_ip_range        = undef,
+    $allow_auth_from_lb      = false,
+    $lb_ip_range             = undef,
     $ssl_only                = false,
     $rds                     = false,
     $rds_root_user           = 'aws_db_admin',
@@ -160,6 +170,8 @@ define govuk_postgresql::db (
     database                => $db_name,
     allow_auth_from_backend => $allow_auth_from_backend,
     backend_ip_range        => $backend_ip_range,
+    allow_auth_from_lb      => $allow_auth_from_lb,
+    lb_ip_range             => $lb_ip_range,
     hba_type                => $hba_type,
     host                    => $host,
   }

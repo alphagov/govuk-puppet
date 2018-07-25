@@ -370,6 +370,8 @@ govuk::apps::bouncer::unicorn_worker_processes: "8"
 
 govuk::apps::ckan::db_hostname: "postgresql-primary"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::ckan::db::allow_auth_from_lb: true
+govuk::apps::ckan::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::ckan::db::rds: true
 govuk::apps::ckan::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::ckan::redis_port: "%{hiera('sidekiq_port')}"
@@ -392,6 +394,8 @@ govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_audit_tool::db_hostname: "postgresql-primary"
 govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_audit_tool::db::allow_auth_from_lb: true
+govuk::apps::content_audit_tool::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -399,6 +403,8 @@ govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_ma
 govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
 govuk::apps::content_performance_manager::db_hostname: "warehouse-postgresql-primary"
 govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_performance_manager::db::allow_auth_from_lb: true
+govuk::apps::content_performance_manager::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::content_performance_manager::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
@@ -406,6 +412,8 @@ govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary"
 govuk::apps::content_publisher::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_publisher::db::allow_auth_from_lb: true
+govuk::apps::content_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::content_publisher::db::rds: true
 
 govuk::apps::content_store::nagios_memory_warning: 2300
@@ -413,12 +421,16 @@ govuk::apps::content_store::nagios_memory_critical: 2500
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_tagger::db::allow_auth_from_lb: true
+govuk::apps::content_tagger::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::email_alert_api::db::allow_auth_from_lb: true
+govuk::apps::email_alert_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: 'postgresql-primary'
@@ -454,6 +466,8 @@ govuk::apps::government-frontend::unicorn_worker_processes: "8"
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::link_checker_api::db::allow_auth_from_lb: true
+govuk::apps::link_checker_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -525,6 +539,8 @@ govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 
 govuk::apps::local_links_manager::db_hostname: "postgresql-primary"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::local_links_manager::db::allow_auth_from_lb: true
+govuk::apps::local_links_manager::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::local_links_manager::unicorn_worker_processes: "4"
@@ -541,8 +557,12 @@ govuk::apps::licencefinder::mongodb_nodes:
 
 govuk::apps::organisations_publisher::enabled: false
 govuk::apps::organisations_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::organisations_publisher::db::allow_auth_from_lb: true
+govuk::apps::organisations_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::organisations_publisher::db_hostname: "postgresql-primary"
 govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::policy_publisher::db::allow_auth_from_lb: true
+govuk::apps::policy_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary"
@@ -553,6 +573,8 @@ govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishin
 govuk::apps::publishing_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::publishing_api::db::allow_auth_from_lb: true
+govuk::apps::publishing_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
 govuk::apps::publishing_api::nagios_memory_warning: 2500
 govuk::apps::publishing_api::nagios_memory_critical: 3000
@@ -585,6 +607,8 @@ govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}
 govuk::apps::service_manual_publisher::db_hostname: 'postgresql-primary'
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::service_manual_publisher::db::allow_auth_from_lb: true
+govuk::apps::service_manual_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
@@ -668,10 +692,14 @@ govuk::apps::support_api::db_username: 'support_contacts'
 govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::support_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::support_api::db::allow_auth_from_lb: true
+govuk::apps::support_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 
 govuk::apps::transition::db_password: "%{hiera('govuk::apps::transition::postgresql_db::password')}"
 govuk::apps::transition::db_hostname: "transition-postgresql-primary"
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::transition::db::allow_auth_from_lb: true
+govuk::apps::transition::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::transition::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -694,6 +722,7 @@ govuk::apps::support_api::db::rds: true
 govuk::apps::transition::postgresql_db::rds: true
 
 govuk_pgbouncer::admin::rds: true
+govuk_pgbouncer::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

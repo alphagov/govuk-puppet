@@ -111,6 +111,14 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 # [*backend_ip_range*]
 #   Backend IP addresses to allow access to the database.
 #
+# [*allow_auth_from_lb*]
+#   Whether to allow this user to authenticate for this database from
+#   the load balancer using its password.
+#   Default: false
+#
+# [*lb_ip_range*]
+#   Network range for the load balancer.
+#
 # [*rds*]
 #   Whether to use RDS i.e. when running on AWS
 #
@@ -125,6 +133,8 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 #
 class govuk::apps::myapp::db (
   $backend_ip_range = '10.3.0.0/16',
+  $allow_auth_from_lb = false,
+  $lb_ip_range = undef,
   $rds = false,
   $username = 'myapp',
   $password = undef,
@@ -135,6 +145,8 @@ class govuk::apps::myapp::db (
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
+    allow_auth_from_lb      => $allow_auth_from_lb,
+    lb_ip_range             => $lb_ip_range,
     rds                     => $rds,
   }
 }
@@ -150,6 +162,8 @@ govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0
 # hieradata_aws/common.yaml
 govuk::apps::myapp::db_hostname: "postgresql-primary"
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::myapp::db::allow_auth_from_lb: true
+govuk::apps::myapp::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
 govuk::apps::myapp::db::rds: true
 
 # hieradata/vagrant_credentials.yaml
