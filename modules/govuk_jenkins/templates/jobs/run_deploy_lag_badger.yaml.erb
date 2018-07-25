@@ -19,8 +19,7 @@
     triggers:
         - timed: |
             TZ=Europe/London
-            # 1PM every day
-            0 13 * * *
+            0 13 * * 1-5
     properties:
         - build-discarder:
             days-to-keep: 30
