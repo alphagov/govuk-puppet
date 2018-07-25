@@ -21,7 +21,10 @@ class monitoring::checks::smokey (
 
   include govuk::apps::smokey
 
-  # TODO: Should this really run as root?
+  govuk_user { 'smokey':
+    fullname    => 'Smokey',
+  }
+
   file { $service_file:
     ensure  => present,
     content => template('monitoring/smokey-loop.conf'),
@@ -36,5 +39,4 @@ class monitoring::checks::smokey (
 
   $defaults = { 'notes_url' => monitoring_docs_url(high-priority-tests) }
   create_resources(icinga::check_feature, $features, $defaults)
-
 }
