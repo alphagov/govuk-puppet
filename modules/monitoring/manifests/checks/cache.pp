@@ -4,8 +4,14 @@
 #
 # === Parameters
 #
+# [*enabled*]
+#   This variable enables to define whether to perform Icinga Elastic-Cache checks. [This is set to 'true' by default.]
+#
 # [*servers*]
 #   List of RDS instances.
+#
+# [*region*]
+#   Which AWS region should be checked ['us-east-1','eu-west-1']
 #
 class monitoring::checks::cache (
       $enabled = true,

@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*region*]
+#   Which AWS region should be checked ['us-east-1','eu-west-1']
+#
 # [*servers*]
 #   List of RDS instances.
 #
