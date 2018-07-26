@@ -54,6 +54,7 @@
 import sys
 import argparse
 import pprint
+import boto3
 import boto.rds
 import boto.ec2.cloudwatch
 import datetime
@@ -92,6 +93,18 @@ instances = rds.get_all_dbinstances()
 # Create a cloud watch connection client.#
 ##########################################
 cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
+
+####################################################
+# Create a boto3 client to get the instance details#
+####################################################
+client = boto3.client('rds')
+# Collect DB instance attributes
+response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
+db_instance_data = response.get('DBInstances')
+# Get the allocated storage
+for attributes in db_instance_data:
+  allocated_storage = attributes["AllocatedStorage"]
+
 
 ###########################################################
 # Define start and end times      			  #
@@ -166,7 +179,7 @@ data = cw_conn.get_metric_statistics(
 #################################################################################
 
 #########################################
-# Disect the result			#
+# Dissect the result			#
 # -----------------			#
 # The result that we get is a 'list' of	#
 # 'dictonary' elements. Hence, we will	#
@@ -179,6 +192,9 @@ for item in data:
 # Converting bytes to giga bytes.
 average = average_bytes / (1024 * 1024 * 1024)
 
+# Calculate the percentage of free storage in comparison to the allocated storage.
+available_storage = 100 / float(allocated_storage) * float(average)
+
 #########################################################
 # Print the output					#
 # This is the final step. We do the following here.	#
@@ -186,11 +202,11 @@ average = average_bytes / (1024 * 1024 * 1024)
 # 2) Convert the defined value to 'float' type.		#
 # 3) Compare the check vs actual.			#
 #########################################################
-if float(average) < args.critical:
-  print "CRITICAL: Current AWS:RDS FreeStorageSpace for {} is {} Gigabytes".format(args.instanceid, average)
+if float(available_storage) < args.critical:
+  print "CRITICAL: Current AWS:RDS FreeStorageSpace for {} is {}GB.[{}% of {}GB] ".format(args.instanceid, average, available_storage, allocated_storage)
   sys.exit(2)
-elif float(average) < args.warning:
-  print "WARNING: Current AWS:RDS FreeStorageSpace for {} is {} Gigabytes".format(args.instanceid, average)
+elif float(available_storage) < args.warning:
+  print "WARNING: Current AWS:RDS FreeStorageSpace for {} is {}GB.[{}% of {}GB]".format(args.instanceid, average, available_storage, allocated_storage)
   sys.exit(1)
 else:
-  print "OK: Current AWS:RDS FreeStorageSpace for {} is {} Gigabytes".format(args.instanceid, average)
+  print "OK: Current AWS:RDS FreeStorageSpace for {} is {}GB.[{}% of {}GB]".format(args.instanceid, average, available_storage, allocated_storage)

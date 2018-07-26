@@ -128,7 +128,7 @@ end = datetime.datetime.now()
 
 
 #########################################################################################
-# Use the cloutwatch connection and get metrics.                        		#
+# Use the cloudwatch connection and get metrics.                        		#
 # ----------------------------------------------                        		#
 #                                                                       		#
 # 'data' - The results are captured in this variable. Type = object     		#
@@ -184,7 +184,7 @@ data = cw_conn.get_metric_statistics(
 #################################################################################
 
 #########################################################################################################
-# Disect the result                                                                                     #
+# Dissect the result                                                                                     #
 # -----------------                                                                                     #
 # The result that we get is a 'list' of 'dictonary' elements. Hence, we will                            #
 # iterate over the list and get the first element. Then we will get the first value for "Average"       #

@@ -166,7 +166,7 @@ data = cw_conn.get_metric_statistics(
 #################################################################################
 
 #########################################
-# Disect the result			#
+# Dissect the result			#
 # -----------------			#
 # The result that we get is a 'list' of	#
 # 'dictonary' elements. Hence, we will	#

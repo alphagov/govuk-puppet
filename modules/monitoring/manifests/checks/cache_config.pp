@@ -26,8 +26,8 @@ define monitoring::checks::cache_config (
   $region = undef,
   $cpu_warning = 80,
   $cpu_critical = 90,
-  $memory_warning = 5,
-  $memory_critical = 2,
+  $memory_warning = 20,
+  $memory_critical = 10,
   ){
   icinga::check { "check_aws_cache_cpu-${title}":
     check_command       => "check_aws_cache_cpu!${region}!${cpu_warning}!${cpu_critical}!${::aws_stackname}-${title}",
