@@ -9,9 +9,11 @@ describe 'puppet::puppetserver::sentry', :type => :class do
     EOF
   end
 
+  Puppet.settings[:confdir] = '/etc/puppet'
+
   it do
     is_expected.to contain_exec('/usr/bin/puppetserver gem install sentry-raven')
-    is_expected.to contain_file_line('puppetserver_sentry_dsn').with_line('export PUPPET_SENTRY_DSN="rspec dsn"')
+    is_expected.to contain_file('/etc/puppet/sentry.conf').with_content('dsn=rspec dsn')
   end
 end
 
