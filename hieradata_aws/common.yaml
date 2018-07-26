@@ -1110,8 +1110,8 @@ monitoring::checks::smokey::features:
     feature: whitehall
 
 monitoring::checks::cache::servers:
-  - 'blue-backend-redis-001'
-  - 'blue-backend-redis-002'
+  - 'backend-redis-001'
+  - 'backend-redis-002'
 
 monitoring::checks::rds::servers:
    - 'postgresql-primary'

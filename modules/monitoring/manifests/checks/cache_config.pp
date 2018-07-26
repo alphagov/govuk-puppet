@@ -33,7 +33,7 @@ define monitoring::checks::cache_config (
     check_command       => "check_aws_cache_cpu!${region}!${cpu_warning}!${cpu_critical}!${::aws_stackname}-${title}",
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    service_description => 'AWS ElasticCache CPU Utilization',
+    service_description => "${title} - AWS ElasticCache CPU Utilization",
     notes_url           => monitoring_docs_url(aws-cache-cpu),
     require             => Icinga::Check_config['check_aws_cache_cpu'],
   }
@@ -42,7 +42,7 @@ define monitoring::checks::cache_config (
     check_command       => "check_aws_cache_memory!${region}!${memory_warning}!${memory_critical}!${::aws_stackname}-${title}",
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    service_description => 'AWS ElasticCache Memory Utilization',
+    service_description => "${title} - AWS ElasticCache Memory Utilization",
     notes_url           => monitoring_docs_url(aws-cache-memory),
     require             => Icinga::Check_config['check_aws_cache_memory'],
   }
