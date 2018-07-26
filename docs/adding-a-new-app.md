@@ -37,6 +37,14 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 # [*db_password*]
 #   The password to use for the DATABASE_URL environment variable
 #
+# [*db_port*]
+#   The port of the database server to use in the DATABASE_URL.
+#   Default: undef
+#
+# [*db_allow_prepared_statements*]
+#   The ?prepared_statements= parameter to use in the DATABASE_URL.
+#   Default: undef
+#
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
@@ -49,6 +57,8 @@ class govuk::apps::myapp (
   $oauth_secret = undef,
   $db_username = 'myapp',
   $db_hostname = undef,
+  $db_port = undef,
+  $db_allow_prepared_statements = undef,
   $db_password = undef,
   $db_name = 'myapp_production',
 ) {
@@ -91,11 +101,13 @@ class govuk::apps::myapp (
 
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
-      type           => 'postgresql',
-      username       => $db_username,
-      password       => $db_password,
-      host           => $db_hostname,
-      database       => $db_name,
+      type                      => 'postgresql',
+      username                  => $db_username,
+      password                  => $db_password,
+      host                      => $db_hostname,
+      port                      => $db_port,
+      allow_prepared_statements => $db_allow_prepared_statements,
+      database                  => $db_name,
    }
   }
 }
@@ -160,7 +172,9 @@ govuk::apps::myapp::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 # hieradata_aws/common.yaml
-govuk::apps::myapp::db_hostname: "postgresql-primary"
+govuk::apps::myapp::db_hostname: "db-admin"
+govuk::apps::myapp::db_port: 6432
+govuk::apps::myapp::db_allow_prepared_statements: false
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::myapp::db::allow_auth_from_lb: true
 govuk::apps::myapp::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.5.0/24"
