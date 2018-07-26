@@ -205,10 +205,10 @@ average = average_bytes / (1024 * 1024 * 1024)
 # 3) Compare the check vs actual.                       #
 #########################################################
 if float(average) > args.critical:
-  print "CRITICAL: Current AWS:ElasticCache FreeableMemory for {} is {} %".format(args.instanceid, average)
+  print "CRITICAL: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)
   sys.exit(2)
 elif float(average) > args.warning:
-  print "WARNING: Current AWS:ElasticCache FreeableMemory for {} is {} %".format(args.instanceid, average)
+  print "WARNING: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)
   sys.exit(1)
 else:
-  print "OK: Current AWS:ElasticCache FreeableMemory for {} is {} %".format(args.instanceid, average)
+  print "OK: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)

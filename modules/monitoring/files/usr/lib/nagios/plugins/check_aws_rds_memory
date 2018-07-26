@@ -187,10 +187,10 @@ memory = memory_bytes / (1024 * 1024 * 1024)
 # 3) Compare the check vs actual.			#
 #########################################################
 if memory < args.critical:
-  print "CRITICAL: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
+  print "CRITICAL: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
   sys.exit(2)
 elif memory < args.warning:
-  print "WARNING: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
+  print "WARNING: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
   sys.exit(1)
 else:
-  print "OK: Current AWS:RDS FreeableMemory for {} is {} Giga Bytes".format(args.instanceid, memory)
+  print "OK: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
