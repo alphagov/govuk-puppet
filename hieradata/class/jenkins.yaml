@@ -47,13 +47,13 @@ govuk_jenkins::plugins:
   antisamy-markup-formatter:
     version: '1.5'
   apache-httpcomponents-client-4-api:
-    version: '4.5.5-3.0'
+    version: '4.5.3-2.1'
   badge:
-    version: '1.5'
+    version: '1.4'
   bouncycastle-api:
-    version: '2.16.3'
+    version: '2.16.2'
   branch-api:
-    version: '2.0.20'
+    version: '2.0.19'
   build-name-setter:
     version: '1.6.9'
   build-pipeline-plugin:
@@ -65,7 +65,7 @@ govuk_jenkins::plugins:
   build-with-parameters:
     version: '1.4'
   cloudbees-folder:
-    version: '6.5.1'
+    version: '6.4'
   command-launcher:
     version: '1.2'
   conditional-buildstep:
@@ -76,8 +76,6 @@ govuk_jenkins::plugins:
     version: '1.16'
   cvs:
     version: '2.14'
-  description-setter:
-    version: '1.10'
   display-url-api:
     version: '2.2.0'
   downstream-buildview:
@@ -89,29 +87,29 @@ govuk_jenkins::plugins:
   envinject-api:
     version: '1.5'
   envinject:
-    version: '2.1.6'
+    version: '2.1.5'
   external-monitor-job:
     version: '1.7'
   git-client:
-    version: '2.7.3'
+    version: '2.7.1'
   git:
-    version: '3.9.1'
+    version: '3.8.0'
   github-api:
-    version: '1.92'
+    version: '1.90'
   github-branch-source:
-    version: '2.3.6'
+    version: '2.3.3'
   github:
-    version: '1.29.2'
+    version: '1.29.0'
   github-oauth:
     version: '0.29'
   google-oauth-plugin:
-    version: '0.6'
+    version: '0.5'
   gradle:
-    version: '1.29'
+    version: '1.28'
   greenballs:
     version: '1.15'
   groovy-postbuild:
-    version: '2.4.1'
+    version: '2.4'
   icon-shim:
     version: '2.0.3'
   instant-messaging:
@@ -119,7 +117,7 @@ govuk_jenkins::plugins:
   ircbot:
     version: '2.30'
   jackson2-api:
-    version: '2.8.11.3'
+    version: '2.8.11.1'
   javadoc:
     version: '1.4'
   jquery-detached:
@@ -137,7 +135,7 @@ govuk_jenkins::plugins:
   mapdb-api:
     version: '1.0.9.0'
   matrix-auth:
-    version: '2.3'
+    version: '2.2'
   matrix-project:
     version: '1.13'
   maven-plugin:
@@ -149,7 +147,7 @@ govuk_jenkins::plugins:
   pam-auth:
     version: '1.3'
   parameterized-scheduler:
-    version: '0.6.2'
+    version: '0.5'
   parameterized-trigger:
     version: '2.35.2'
   plain-credentials:
@@ -159,17 +157,17 @@ govuk_jenkins::plugins:
   rebuild:
     version: '1.28'
   resource-disposer:
-    version: '0.11'
+    version: '0.8'
   role-strategy:
-    version: '2.8.1'
+    version: '2.7.0'
   run-condition:
     version: '1.0'
   scm-api:
-    version: '2.2.7'
+    version: '2.2.6'
   scm-sync-configuration:
     version: '0.0.10'
   script-security:
-    version: '1.44'
+    version: '1.43'
   show-build-parameters:
     version: '1.0'
   simple-theme-plugin:
@@ -177,17 +175,17 @@ govuk_jenkins::plugins:
   slack:
     version: '2.3'
   ssh-credentials:
-    version: '1.14'
+    version: '1.13'
   ssh-slaves:
     version: '1.26'
   structs:
     version: '1.14'
   subversion:
-    version: '2.11.1'
+    version: '2.10.5'
   text-finder:
     version: '1.10'
   timestamper:
-    version: '1.8.10'
+    version: '1.8.9'
   token-macro:
     version: '2.5'
   translation:
@@ -199,18 +197,18 @@ govuk_jenkins::plugins:
   workflow-api:
     version: '2.27'
   workflow-cps:
-    version: '2.54'
+    version: '2.48'
   workflow-durable-task-step:
     version: '2.19'
   workflow-job:
-    version: '2.23'
+    version: '2.19'
   workflow-multibranch:
-    version: '2.20'
+    version: '2.17'
   workflow-scm-step:
     version: '2.6'
   workflow-step-api:
-    version: '2.16'
+    version: '2.14'
   workflow-support:
-    version: '2.19'
+    version: '2.18'
   ws-cleanup:
     version: '0.34'
