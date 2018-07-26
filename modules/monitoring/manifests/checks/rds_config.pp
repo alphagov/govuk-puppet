@@ -32,7 +32,7 @@ define monitoring::checks::rds_config (
     check_command       => "check_aws_rds_cpu!${region}!${cpu_warning}!${cpu_critical}!${::aws_stackname}-${title}",
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    service_description => 'AWS RDS CPU Utilization',
+    service_description => "${title} - AWS RDS CPU Utilization",
     notes_url           => monitoring_docs_url(aws-rds-cpu),
     require             => Icinga::Check_config['check_aws_rds_cpu'],
   }
@@ -41,7 +41,7 @@ define monitoring::checks::rds_config (
     check_command       => "check_aws_rds_memory!${region}!${memory_warning}!${memory_critical}!${::aws_stackname}-${title}",
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    service_description => 'AWS RDS Memory Utilization',
+    service_description => "${title} - AWS RDS Memory Utilization",
     notes_url           => monitoring_docs_url(aws-rds-memory),
     require             => Icinga::Check_config['check_aws_rds_memory'],
   }
@@ -50,7 +50,7 @@ define monitoring::checks::rds_config (
     check_command       => "check_aws_rds_storage!${region}!${storage_warning}!${storage_critical}!${::aws_stackname}-${title}",
     use                 => 'govuk_urgent_priority',
     host_name           => $::fqdn,
-    service_description => 'AWS RDS Storage Utilization',
+    service_description => "${title} - AWS RDS Storage Utilization",
     notes_url           => monitoring_docs_url(aws-rds-storage),
     require             => Icinga::Check_config['check_aws_rds_storage'],
   }

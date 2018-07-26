@@ -40,7 +40,7 @@ class monitoring::checks::cache (
     }
 
     if $enabled {
-      monitoring::checks::rds_config { $servers:
+      monitoring::checks::cache_config { $servers:
         region => $region,
       }
     }
