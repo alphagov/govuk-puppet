@@ -192,7 +192,7 @@ data = cw_conn.get_metric_statistics(
 #########################################################################################################
 item = []
 item = data[0]
-average = item["Average"]
+average_bytes = item["Average"]
 
 # Convert bytes to gigabytes.
 average = average_bytes / (1024 * 1024 * 1024)
