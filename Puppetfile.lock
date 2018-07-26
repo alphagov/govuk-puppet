@@ -137,9 +137,9 @@ GIT
 GIT
   remote: git://github.com/alphagov/puppet-reporter-sentry.git
   ref: master
-  sha: 3bc1bb147c1e8822eaa90caad637034258b5b258
+  sha: bb4ef6f5407cbff17ee734ea54e2b2ecdc7e84e7
   specs:
-    alphagov-puppet-reporter-sentry (0.0.1)
+    alphagov-puppet-reporter-sentry (0.1.0)
 
 GIT
   remote: git://github.com/alphagov/puppetlabs-postgresql.git
