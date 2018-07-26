@@ -23,3 +23,15 @@ mount:
     mountoptions: 'defaults'
     percent_threshold_warning: 40
     percent_threshold_critical: 15
+
+govuk_env_sync::tasks:
+  "pull_api_mongo_daily":
+    hour: "1"
+    minute: "*"
+    action: "pull"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "content_store_production"
+    temppath: "/var/lib/mongodb/.dumps"
+    url: "govuk-staging-database-backups"
+    path: "api-mongo-test"
