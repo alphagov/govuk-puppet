@@ -1167,6 +1167,11 @@
             "selected": true
           },
           {
+            "text": "processes-app-content-data-admin",
+            "value": "processes-app-content-data-admin",
+            "selected": false
+          },
+          {
             "text": "processes-app-content-publisher",
             "value": "processes-app-content-publisher",
             "selected": false
