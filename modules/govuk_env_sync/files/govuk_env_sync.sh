@@ -63,7 +63,7 @@ function is_writable_elasticsearch {
 # We arbitrary pick node one, but we cannot get this info from the cluster itself as it assigns random id to nodes
 # So we use the metadata from the AWS instance to get this
   NODE_ID=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/ | awk -F "-" '{print $NF}')
-  if [ $NODE_ID == "1" ]
+  if [ "$NODE_ID" == "1" ]
   then
     echo "true"
   else
@@ -100,13 +100,13 @@ function restore_mongo {
 }
 
 function dump_elasticsearch {
-  es_dump_restore dump http://localhost:9200/ ${database} ${tempdir}/${filename}
+  es_dump_restore dump http://localhost:9200/ "$database" "${tempdir}/${filename}"
 }
 
 function restore_elasticsearch {
-  iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr [:upper:] [:lower:])z"
+  iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr "[:upper:]" "[:lower:]" )z"
   real_name="$database-$iso_date-00000000-0000-0000-0000-000000000000"
-  es_dump_restore restore_alias http://localhost:9200/ ${database} $real_name ${tempdir}/${filename}
+  es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
 }
 
 function push_s3 {
@@ -119,7 +119,7 @@ function pull_s3 {
 
 function get_timestamp_s3 {
   timestamp="$(aws s3 ls "s3://${url}/${path}/" \
-  | grep "\-${database}" | tail -1 \
+  | grep "\\-${database}" | tail -1 \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
@@ -160,19 +160,17 @@ case ${action} in
     create_timestamp
     set_filename
     "dump_${dbms}"
-    compress_data
     "push_${storagebackend}"
     remove_tempdir
     exit
     ;;
   pull)
-    if [ $(is_writable_${dbms}) == 'true' ]
+    if [ "$("is_writable_${dbms}")" == 'true' ]
     then
       create_tempdir
       "get_timestamp_${storagebackend}"
       set_filename
       "pull_${storagebackend}"
-      decompress_data
       "restore_${dbms}"
       remove_tempdir
     fi
