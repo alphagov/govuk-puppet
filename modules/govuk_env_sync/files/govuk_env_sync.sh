@@ -53,16 +53,6 @@ function set_filename {
   filename="${timestamp}-${database}.gz"
 }
 
-function compress_data {
-  cd "${tempdir}"
-  tar --create --gzip --force-local --file "${filename}" "${database}"
-}
-
-function decompress_data {
-  cd "${tempdir}"
-  tar --extract --gzip --file "${filename}"
-}
-
 function is_writable_mongo {
   mongo --quiet --eval "print(db.isMaster()[\"ismaster\"]);" "localhost/$database"
 }
@@ -80,14 +70,18 @@ function dump_mongo {
       --out "${tempdir}"
 
   done
+
+  cd "${tempdir}"
+  tar --create --gzip --force-local --file "${filename}" "${database}"
 }
 
 function restore_mongo {
+  cd "${tempdir}"
+  tar --extract --gzip --file "${filename}"
 
-    mongorestore --drop \
-      --db "${database}" \
-      "${tempdir}/${database}"
-
+  mongorestore --drop \
+    --db "${database}" \
+    "${tempdir}/${database}"
 }
 
 function push_s3 {
