@@ -20,8 +20,8 @@ set -eu
 #     This is used to construct script names called, e.g. push_s3
 #
 #   T) temppath
-#     Path to create temporary directory in. Will be ensured to exist by Puppet
-#     Parent must exist
+#     Path to create temporary directory in. Directory will be created if 
+#     sufficient rights are granted to the govuk-backup user.
 #
 #   d) database
 #     Name of the database to be copied/sync'd
@@ -41,6 +41,7 @@ function create_timestamp {
 }
 
 function create_tempdir {
+  mkdir -p "${temppath}" || echo "Could not access ${temppath}"; exit 1
   tempdir="$(mktemp --directory -p "${temppath}")"
 }
 
