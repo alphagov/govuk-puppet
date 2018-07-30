@@ -35,7 +35,7 @@ who.log_level = warning
 who.log_file = %(cache_dir)s/who_log.ini
 
 ## Database Settings
-sqlalchemy.url = <%= "postgresql://#{@db_username}:#{@db_password}@#{@db_hostname}/#{@db_name}"%>
+sqlalchemy.url = <%= "postgresql://#{@db_username}:#{@db_password}@#{@db_hostname}:#{@db_port}/#{@db_name}?prepared_statements=#{@db_allow_prepared_statements}"%>
 
 #ckan.datastore.write_url = postgresql://ckan_default:pass@localhost/datastore_default
 #ckan.datastore.read_url = postgresql://datastore_default:pass@localhost/datastore_default
