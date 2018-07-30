@@ -23,6 +23,10 @@ class govuk::node::s_postgresql_primary (
 
   include govuk_pgbouncer
 
+  @ufw::allow { 'pgbouncer-allow-6432-from-any':
+    port => 6432,
+  }
+
   limits::limits { 'postgres_nproc':
     ensure     => present,
     user       => 'postgres',
