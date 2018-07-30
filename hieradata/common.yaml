@@ -444,6 +444,8 @@ govuk::apps::government-frontend::unicorn_worker_processes: "8"
 govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::link_checker_api::db_port: 6432
+govuk::apps::link_checker_api::db_allow_prepared_statements: false
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 # Hardcoded to redis-2 to improve performance
 # This setting is overridden in `development.yaml`
