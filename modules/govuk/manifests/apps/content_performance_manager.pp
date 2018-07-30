@@ -109,16 +109,10 @@ class govuk::apps::content_performance_manager(
     app    => $app_name,
   }
 
-  govuk::procfile::worker { "${app_name}-google-analytics-worker":
+  govuk::procfile::worker { "${app_name}-default-worker":
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
-    process_type   => 'google-analytics-worker',
-  }
-
-  govuk::procfile::worker { "${app_name}-publishing-api-worker":
-    enable_service => $enable_procfile_worker,
-    setenv_as      => $app_name,
-    process_type   => 'publishing-api-worker',
+    process_type   => 'default-worker',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
