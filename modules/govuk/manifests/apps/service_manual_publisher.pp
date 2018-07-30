@@ -13,6 +13,14 @@
 # [*db_password*]
 #   The password for the database.
 #
+# [*db_port*]
+#   The port of the database server to use in the DATABASE_URL.
+#   Default: undef
+#
+# [*db_allow_prepared_statements*]
+#   The ?prepared_statements= parameter to use in the DATABASE_URL.
+#   Default: undef
+#
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
@@ -49,6 +57,8 @@
 #
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
+  $db_port = undef,
+  $db_allow_prepared_statements = undef,
   $db_name = 'service-manual-publisher_production',
   $db_password = undef,
   $db_username = 'service_manual_publisher',
@@ -110,11 +120,13 @@ class govuk::apps::service_manual_publisher(
 
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
+      type                      => 'postgresql',
+      username                  => $db_username,
+      password                  => $db_password,
+      host                      => $db_hostname,
+      port                      => $db_port,
+      allow_prepared_statements => $db_allow_prepared_statements,
+      database                  => $db_name,
     }
   }
 }

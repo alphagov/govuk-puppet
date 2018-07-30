@@ -614,7 +614,9 @@ govuk::apps::search_admin::db_username: 'search_admin'
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
-govuk::apps::service_manual_publisher::db_hostname: 'postgresql-primary'
+govuk::apps::service_manual_publisher::db_hostname: 'db-admin'
+govuk::apps::service_manual_publisher::db_port: 6432
+govuk::apps::service_manual_publisher::db_allow_prepared_statements: false
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::service_manual_publisher::db::allow_auth_from_lb: true
