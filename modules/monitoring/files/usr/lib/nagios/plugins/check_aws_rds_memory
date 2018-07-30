@@ -57,6 +57,7 @@ import pprint
 import boto.rds
 import boto.ec2.cloudwatch
 import datetime
+import boto3
 
 
 #################################
@@ -92,6 +93,54 @@ instances = rds.get_all_dbinstances()
 # Create a cloud watch connection client.#
 ##########################################
 cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
+
+######################################
+# DB instances and Memory Dictionary #
+######################################
+# http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
+db_classes = {
+   'db.t1.micro': 0.615,
+   'db.m1.small': 1.7,
+   'db.m1.medium': 3.75,
+   'db.m1.large': 7.5,
+   'db.m1.xlarge': 15,
+   'db.m4.large': 8,
+   'db.m4.xlarge': 16,
+   'db.m4.2xlarge': 32,
+   'db.m4.4xlarge': 64,
+   'db.m4.10xlarge': 160,
+   'db.r3.large': 15,
+   'db.r3.xlarge': 30.5,
+   'db.r3.2xlarge': 61,
+   'db.r3.4xlarge': 122,
+   'db.r3.8xlarge': 244,
+   'db.t2.micro': 1,
+   'db.t2.small': 2,
+   'db.t2.medium': 4,
+   'db.t2.large': 8,
+   'db.m3.medium': 3.75,
+   'db.m3.large': 7.5,
+   'db.m3.xlarge': 15,
+   'db.m3.2xlarge': 30,
+   'db.m2.xlarge': 17.1,
+   'db.m2.2xlarge': 34.2,
+   'db.m2.4xlarge': 68.4,
+   'db.cr1.8xlarge': 244,
+}
+
+####################################################
+# Create a boto3 client to get the instance details#
+####################################################
+client = boto3.client('rds')
+# Collect DB instance attributes
+response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
+db_instance_data = response.get('DBInstances')
+# Get the allocated storage
+for attributes in db_instance_data:
+  allocated_instance_type = attributes["DBInstanceClass"]
+
+# Memory assigned to the instance type
+allocated_memory = db_classes.get(allocated_instance_type)
 
 ###########################################################
 # Define start and end times      			  #
@@ -166,7 +215,7 @@ data = cw_conn.get_metric_statistics(
 #################################################################################
 
 #########################################
-# Disect the result			#
+# Dissect the result			#
 # -----------------			#
 # The result that we get is a 'list' of	#
 # 'dictonary' elements. Hence, we will	#
@@ -179,6 +228,9 @@ for item in data:
 # The average value is returned in bytes. Here we are converting it to giga bytes.
 memory = memory_bytes / (1024 * 1024 * 1024)
 
+# Calculate the percentage of available memory in comparison to the available amount.
+memory_percentage = 100 / float(allocated_memory) * float(memory)
+
 #########################################################
 # Print the output					#
 # This is the final step. We do the following here.	#
@@ -186,11 +238,11 @@ memory = memory_bytes / (1024 * 1024 * 1024)
 # 2) Convert the defined value to 'float' type.		#
 # 3) Compare the check vs actual.			#
 #########################################################
-if memory < args.critical:
-  print "CRITICAL: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
+if memory_percentage < args.critical:
+  print "CRITICAL: Current AWS:RDS FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, memory, memory_percentage, allocated_memory)
   sys.exit(2)
-elif memory < args.warning:
-  print "WARNING: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
+elif memory_percentage < args.warning:
+  print "WARNING: Current AWS:RDS FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, memory, memory_percentage, allocated_memory)
   sys.exit(1)
 else:
-  print "OK: Current AWS:RDS FreeableMemory for {} is {} Gigabytes".format(args.instanceid, memory)
+  print "OK: Current AWS:RDS FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, memory, memory_percentage, allocated_memory)

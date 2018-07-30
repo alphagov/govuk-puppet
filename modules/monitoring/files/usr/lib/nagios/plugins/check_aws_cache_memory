@@ -57,6 +57,7 @@ import pprint
 import boto.rds
 import boto.elasticache
 import boto.ec2.cloudwatch
+import boto3
 import datetime
 
 #################################
@@ -117,6 +118,52 @@ except boto.exception.BotoServerError as err:
 ##########################################
 cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 
+################################################
+# Elasticcache instances and Memory Dictionary #
+################################################
+# https://aws.amazon.com/elasticache/details/
+cache_classes = {
+   'cache.t2.small':    1.55,
+   'cache.t2.micro':    0.555,
+   'cache.t2.medium': 3.22,
+   'cache.r4.xlarge': 25.05,
+   'cache.r4.large': 12.3,
+   'cache.r4.8xlarge': 203.26,
+   'cache.r4.4xlarge': 101.38,
+   'cache.r4.2xlarge': 50.47,
+   'cache.r4.16xlarge': 407,
+   'cache.r3.xlarge':   28.4,
+   'cache.r3.large': 13.5,
+   'cache.r3.8xlarge': 237,
+   'cache.r3.4xlarge': 118,
+   'cache.r3.2xlarge': 58.2,
+   'cache.m4.xlarge':   14.28,
+   'cache.m4.large': 6.42,
+   'cache.m4.4xlarge': 60.78,
+   'cache.m4.2xlarge': 29.7,
+   'cache.m4.10xlarge': 154.64,
+   'cache.m3.xlarge':   13.3,
+   'cache.m3.medium': 2.78,
+   'cache.m3.large': 6.05,
+   'cache.m3.2xlarge': 27.9,
+}
+
+############################################
+# Create an ElasticCache client connection.#
+############################################
+client = boto3.client('elasticache')
+
+# Get instance type
+response = client.describe_cache_clusters(CacheClusterId=args.instanceid)
+# The 'response' is a dictionary of lists of dictionaries.
+cache_instance_data = response.get('CacheClusters')
+
+for attributes in cache_instance_data:
+  cache_instance_type = attributes['CacheNodeType']
+
+# Memory assigned to the instance type
+allocated_memory = cache_classes.get(cache_instance_type)
+
 ###########################################################
 # Define start and end times                              #
 # Here we have give 5 minutes because that is the window  #
@@ -128,7 +175,7 @@ end = datetime.datetime.now()
 
 
 #########################################################################################
-# Use the cloutwatch connection and get metrics.                        		#
+# Use the cloudwatch connection and get metrics.                        		#
 # ----------------------------------------------                        		#
 #                                                                       		#
 # 'data' - The results are captured in this variable. Type = object     		#
@@ -184,7 +231,7 @@ data = cw_conn.get_metric_statistics(
 #################################################################################
 
 #########################################################################################################
-# Disect the result                                                                                     #
+# Dissect the result                                                                                     #
 # -----------------                                                                                     #
 # The result that we get is a 'list' of 'dictonary' elements. Hence, we will                            #
 # iterate over the list and get the first element. Then we will get the first value for "Average"       #
@@ -197,6 +244,9 @@ average_bytes = item["Average"]
 # Convert bytes to gigabytes.
 average = average_bytes / (1024 * 1024 * 1024)
 
+# Calculate the percentage of available memory in comparison to the available amount.
+memory_percentage = 100 / float(allocated_memory) * float(average)
+
 #########################################################
 # Print the output                                     #
 # This is the final step. We do the following here.     #
@@ -204,11 +254,11 @@ average = average_bytes / (1024 * 1024 * 1024)
 # 2) Convert the defined value to 'float' type.         #
 # 3) Compare the check vs actual.                       #
 #########################################################
-if float(average) > args.critical:
-  print "CRITICAL: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)
+if float(memory_percentage) < args.critical:
+  print "CRITICAL: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)
   sys.exit(2)
-elif float(average) > args.warning:
-  print "WARNING: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)
+elif float(memory_percentage) < args.warning:
+  print "WARNING: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average,memory_percentage, allocated_memory)
   sys.exit(1)
 else:
-  print "OK: Current AWS:ElasticCache FreeableMemory for {} is {} Gigabytes".format(args.instanceid, average)
+  print "OK: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)

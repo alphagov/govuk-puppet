@@ -14,17 +14,17 @@
 #  Defines the percentage of cpu usage for which a critical alert will be triggered. 
 #
 # [*memory_warning*]
-#  Defines the amount of free usable memory in gigabytes that will trigger a warning.
+#  Defines the percentage of free usable memory that will trigger a warning.
 #
 # [*memory_critical*]
-#  Defines the amount of free usable memory in gigabytes that will trigger a critical alert.
+#  Defines the percentage of free usable memory that will trigger a critical alert.
 #
 define monitoring::checks::rds_config (
   $region = undef,
   $cpu_warning = 80,
   $cpu_critical = 90,
-  $memory_warning = 5,
-  $memory_critical = 2,
+  $memory_warning = 20,
+  $memory_critical = 10,
   $storage_warning = 20,
   $storage_critical = 10,
 ){
