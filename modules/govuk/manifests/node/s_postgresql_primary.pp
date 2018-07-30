@@ -21,6 +21,8 @@ class govuk::node::s_postgresql_primary (
     slave_password => $standby_password,
   }
 
+  include govuk_pgbouncer
+
   limits::limits { 'postgres_nproc':
     ensure     => present,
     user       => 'postgres',
