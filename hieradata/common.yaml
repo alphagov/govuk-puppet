@@ -538,6 +538,8 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-3.backend'
 
 govuk::apps::organisations_publisher::enabled: false
+govuk::apps::organisations_publisher::db_port: 6432
+govuk::apps::organisations_publisher::db_allow_prepared_statements: false
 govuk::apps::organisations_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::organisations_publisher::db_hostname: "postgresql-primary-1.backend"
 
