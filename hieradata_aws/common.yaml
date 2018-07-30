@@ -472,7 +472,9 @@ govuk::apps::government-frontend::nagios_memory_warning: 1800
 govuk::apps::government-frontend::nagios_memory_critical: 2000
 govuk::apps::government-frontend::unicorn_worker_processes: "8"
 
-govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
+govuk::apps::link_checker_api::db_hostname: "db-admin"
+govuk::apps::link_checker_api::db_port: 6432
+govuk::apps::link_checker_api::db_allow_prepared_statements: false
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::db::allow_auth_from_lb: true
 govuk::apps::link_checker_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
