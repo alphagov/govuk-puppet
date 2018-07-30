@@ -12,7 +12,7 @@ set -eu
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-#     Database management system / data source (One of: mongo)
+#     Database management system / data source (One of: mongo,elasticsearch)
 #     This is used to construct script names called, e.g. dump_mongo
 #
 #   S) storagebackend
@@ -57,6 +57,21 @@ function is_writable_mongo {
   mongo --quiet --eval "print(db.isMaster()[\"ismaster\"]);" "localhost/$database"
 }
 
+function is_writable_elasticsearch {
+# We need a bit of black magic here unfortunately
+# We're not looking for a writable node, but rather a unique one to avoid restoring to every nodes
+# We arbitrary pick node one, but we cannot get this info from the cluster itself as it assigns random id to nodes
+# So we use the metadata from the AWS instance to get this
+  NODE_ID=$(curl -s http://169.254.169.254/latest/meta-data/iam/security-credentials/ | awk -F "-" '{print $NF}')
+  if [ $NODE_ID == "1" ]
+  then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+
 function dump_mongo {
   IFS=',' read -r -a collections <<< \
           "$(mongo --quiet --eval 'rs.slaveOk(); db.getCollectionNames();' "localhost/$database")"
@@ -82,6 +97,16 @@ function restore_mongo {
   mongorestore --drop \
     --db "${database}" \
     "${tempdir}/${database}"
+}
+
+function dump_elasticsearch {
+  es_dump_restore dump http://localhost:9200/ ${database} ${tempdir}/${filename}
+}
+
+function restore_elasticsearch {
+  iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr [:upper:] [:lower:])z"
+  real_name="$database-$iso_date-00000000-0000-0000-0000-000000000000"
+  es_dump_restore restore_alias http://localhost:9200/ ${database} $real_name ${tempdir}/${filename}
 }
 
 function push_s3 {

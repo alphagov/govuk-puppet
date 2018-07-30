@@ -4,6 +4,7 @@
 #
 class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
   include govuk_java::openjdk7::jre
+  include govuk_env_sync
 
   $es_heap_size = floor($::memorysize_mb / 2)
 

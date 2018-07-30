@@ -1,78 +1,58 @@
----
-
-govuk_safe_to_reboot::can_reboot: 'careful'
-govuk_safe_to_reboot::reason: 'Reboot a single node at time and check that the cluster goes green between reboots'
-
-govuk_elasticsearch::version: '2.4.6'
-
-lv:
-  data:
-    pv: '/dev/nvme1n1'
-    vg: 'elasticsearch'
-
-mount:
-  /mnt/elasticsearch:
-    disk: '/dev/mapper/elasticsearch-data'
-    govuk_lvm: 'data'
-    mountoptions: 'defaults'
-    percent_threshold_warning: 16
-    percent_threshold_critical: 11
-
 govuk_env_sync::tasks:
-  "pull_es_metasearch_daily":
+  "push_es_metasearch_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "metasearch"
-    temppath: "/tmp/es_dmp"
+    temppath: "/tmp/metasearch"
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
-  "pull_es_page_traffic_daily":
+  "push_es_page_traffic_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "page-traffic"
     temppath: "/tmp/page_traffic"
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
-  "pull_es_detailed_daily":
+  "push_es_detailed_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "detailed"
     temppath: "/tmp/detailed"
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
-  "pull_es_government_daily":
+  "push_es_government_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "government"
     temppath: "/tmp/government"
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
-  "pull_es_govuk_daily":
+  "push_es_govuk_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "govuk"
     temppath: "/tmp/govuk"
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
-  "pull_es_licence_finder_daily":
+  "push_es_licence_finder_daily":
     hour: "0"
     minute: "*"
-    action: "pull"
+    action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
     database: "licence-finder"
