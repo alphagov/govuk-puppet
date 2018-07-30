@@ -666,6 +666,8 @@ govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-offi
 
 govuk::apps::support_api::db_name: 'support_contacts_production'
 govuk::apps::support_api::db_hostname: 'postgresql-primary-1.backend'
+govuk::apps::support_api::db_port: 6432
+govuk::apps::support_api::db_allow_prepared_statements: false
 govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
 govuk::apps::support_api::db_username: 'support_contacts'
 govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
