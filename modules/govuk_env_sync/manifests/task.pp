@@ -50,13 +50,6 @@ define govuk_env_sync::task(
   require govuk_env_sync::aws_auth
   require govuk_env_sync::sync_script
 
-  file { $temppath:
-    ensure => directory,
-    mode   => '0755',
-    owner  => $govuk_env_sync::user,
-    group  => $govuk_env_sync::user,
-  }
-
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
     ensure  => present,
     mode    => '0755',
