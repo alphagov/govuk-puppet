@@ -19,5 +19,6 @@ class govuk::apps::content_performance_manager::db (
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
+    enable_in_pgbouncer     => false,
   }
 }

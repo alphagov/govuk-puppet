@@ -31,5 +31,6 @@ class govuk::apps::transition::postgresql_db (
     allow_auth_from_lb      => $allow_auth_from_lb,
     lb_ip_range             => $lb_ip_range,
     rds                     => $rds,
+    enable_in_pgbouncer     => false,
   }
 }
