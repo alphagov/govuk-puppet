@@ -12,6 +12,7 @@ class grafana (
 ) {
   include grafana::repo
   include grafana::dashboards
+  include grafana::datasources
 
   package { 'grafana':
     ensure  => $version,
