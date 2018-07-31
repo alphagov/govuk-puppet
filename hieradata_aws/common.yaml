@@ -568,7 +568,9 @@ govuk::apps::policy_publisher::db::allow_auth_from_lb: true
 govuk::apps::policy_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::policy_publisher::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::db_hostname: "postgresql-primary"
+govuk::apps::publishing_api::db_hostname: "db-admin"
+govuk::apps::publishing_api::db_port: 6432
+govuk::apps::publishing_api::db_allow_prepared_statements: false
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq
