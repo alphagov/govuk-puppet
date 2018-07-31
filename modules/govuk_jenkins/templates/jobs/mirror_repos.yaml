@@ -1,0 +1,38 @@
+---
+- job:
+    name: Check_Mirror_Repositories
+    display-name: Check_Mirror_Repositories
+    project-type: freestyle
+    description: "This job checks if the GOV.UK Github repositories have been mirrored to AWS CodeCommit."
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+    builders:
+        - conditional-step:
+            condition-kind: strings-match
+            condition-string-1: 'SUCCESS'
+            condition-string-2: ${{ENV,var="STATUS"}}
+            steps:
+                - shell: |
+                    echo "Upstream Mirror_Repositories job succeeded."
+        - conditional-step:
+            condition-kind: strings-match
+            condition-string-1: 'FAILED'
+            condition-string-2: ${{ENV,var="STATUS"}}
+            steps:
+                - shell: |
+                    echo "Upstream Mirror_Repositories job failed."; exit 1;
+
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
