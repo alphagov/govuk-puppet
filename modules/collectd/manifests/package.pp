@@ -16,8 +16,7 @@
 class collectd::package (
   $collectd_version = '5.4.0-3ubuntu2',
   $yajl_package = 'libyajl2',
-  $apt_mirror_hostname = 'apt.production.alphagov.co.uk',
-
+  $apt_mirror_hostname = undef,
 ) {
   include govuk_ppa
 
