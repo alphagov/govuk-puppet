@@ -728,6 +728,8 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
+govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend-1.licensify'
   - 'licensing-backend-2.licensify'
