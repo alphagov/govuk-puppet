@@ -116,8 +116,10 @@ class govuk_jenkins (
     provider => 'pip',
   }
 
-  # Runtime dependency of: https://github.com/alphagov/search-analytics
-  ensure_packages(['libffi-dev'])
+  ensure_packages([
+    'libffi-dev', # Runtime dependency of: https://github.com/alphagov/search-analytics
+    'shellcheck',
+  ])
 
   include govuk_mysql::libdev
   include mysql::client
