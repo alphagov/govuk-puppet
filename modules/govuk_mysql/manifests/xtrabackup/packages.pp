@@ -6,7 +6,7 @@
 #   The hostname of an APT mirror
 #
 class govuk_mysql::xtrabackup::packages (
-  $apt_mirror_hostname  = '',
+  $apt_mirror_hostname,
 ) {
   package { 'xtrabackup':
     ensure  => present,
