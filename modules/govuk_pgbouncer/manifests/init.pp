@@ -27,6 +27,11 @@ class govuk_pgbouncer(
     include '::govuk_pgbouncer::vagrant'
   }
 
+  # pgbouncer listens on port 6432
+  @ufw::allow { 'pgbouncer-allow-6432-from-any':
+    port => 6432,
+  }
+
   class { '::pgbouncer':
     user          => 'postgres',
     group         => 'postgres',
