@@ -41,7 +41,7 @@ function create_timestamp {
 }
 
 function create_tempdir {
-  mkdir -p "${temppath}" || echo "Could not access ${temppath}"; exit 1
+  mkdir -p "${temppath}" || { echo "Could not access ${temppath}"; exit 1; }
   tempdir="$(mktemp --directory -p "${temppath}")"
 }
 
