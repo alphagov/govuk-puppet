@@ -28,11 +28,17 @@
             export S3_ARTEFACT_BUCKET="govuk-<%= @environment -%>-artefact"
             <% end -%>
 
-            if [ "$DEPLOY_FROM_GITLAB" == "true" ]; then
-              export GIT_ORIGIN_PREFIX="git@gitlab.com:govuk"
+            if [ "$DEPLOY_FROM_AWS_CODECOMMIT" == "true" ]; then
+              export AWS_REGION=eu-west-1
+              export GIT_ORIGIN_PREFIX="https://git-codecommit.${AWS_REGION}.amazonaws.com/v1/repos"
+              export APP_DEPLOYMENT_GIT_URL="${GIT_ORIGIN_PREFIX}/govuk-app-deployment"
+              git config --global credential.helper '!aws codecommit credential-helper $@'
+              git config --global credential.UseHttpPath true
+            else
+              export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
             fi
 
-            git clone ${GIT_ORIGIN_PREFIX="git@github.com:alphagov"}/govuk-app-deployment.git --branch master --single-branch --depth 1 ./
+            git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
             ./jenkins.sh
     publishers:
         - trigger:
@@ -85,9 +91,9 @@
             description: Git tag/committish to deploy.
             default: release
         - bool:
-            name: DEPLOY_FROM_GITLAB
+            name: DEPLOY_FROM_AWS_CODECOMMIT
             default: false
-            description: Whether to deploy from GitLab.com in case GitHub is unavailable
+            description: Whether to deploy from AWS CodeCommit repo in case GitHub is unavailable
         - bool:
             name: NOTIFY_RELEASE_APP
             default: <%= @notify_release_app.to_s %>
