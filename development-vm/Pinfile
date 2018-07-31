@@ -12,7 +12,7 @@ process :bouncer
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]
-process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker']
+process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker', :'link-checker-api']
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:'publishing-api', :whitehall]
 process :'content-audit-tool' => [:'publishing-api-read', :'content-audit-tool-sidekiq-google-analytics', :'content-audit-tool-sidekiq-publishing-api']

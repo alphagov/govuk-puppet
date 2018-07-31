@@ -283,6 +283,7 @@ hosts::development::apps:
   - 'imminence'
   - 'info-frontend'
   - 'licencefinder'
+  - 'link-checker-api'
   - 'local-links-manager'
   - 'manuals-frontend'
   - 'manuals-publisher'
