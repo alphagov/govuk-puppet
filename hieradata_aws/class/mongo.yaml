@@ -27,7 +27,7 @@ mount:
 govuk_env_sync::tasks:
   "pull_api_mongo_daily":
     hour: "1"
-    minute: "*"
+    minute: "16"
     action: "pull"
     dbms: "mongo"
     storagebackend: "s3"

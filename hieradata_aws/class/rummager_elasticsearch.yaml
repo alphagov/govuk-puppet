@@ -20,8 +20,8 @@ mount:
 
 govuk_env_sync::tasks:
   "pull_es_metasearch_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -30,8 +30,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_page_traffic_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -40,8 +40,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_detailed_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -50,8 +50,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_government_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -60,8 +60,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_govuk_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -70,8 +70,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_licence_finder_daily":
-    hour: "0"
-    minute: "*"
+    hour: "2"
+    minute: "24"
     action: "pull"
     dbms: "elasticsearch"
     storagebackend: "s3"
