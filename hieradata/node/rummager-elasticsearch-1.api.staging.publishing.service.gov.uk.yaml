@@ -1,7 +1,7 @@
 govuk_env_sync::tasks:
   "push_es_metasearch_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     path: "elasticsearch"
   "push_es_page_traffic_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -21,7 +21,7 @@ govuk_env_sync::tasks:
     path: "elasticsearch"
   "push_es_detailed_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -31,7 +31,7 @@ govuk_env_sync::tasks:
     path: "elasticsearch"
   "push_es_government_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -41,7 +41,7 @@ govuk_env_sync::tasks:
     path: "elasticsearch"
   "push_es_govuk_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
@@ -51,7 +51,7 @@ govuk_env_sync::tasks:
     path: "elasticsearch"
   "push_es_licence_finder_daily":
     hour: "0"
-    minute: "*"
+    minute: "20"
     action: "push"
     dbms: "elasticsearch"
     storagebackend: "s3"
