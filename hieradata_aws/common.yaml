@@ -369,7 +369,9 @@ govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::bouncer::unicorn_worker_processes: "8"
 
-govuk::apps::ckan::db_hostname: "postgresql-primary"
+govuk::apps::ckan::db_hostname: "db-admin"
+govuk::apps::ckan::db_port: 6432
+govuk::apps::ckan::db_allow_prepared_statements: false
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::ckan::db::allow_auth_from_lb: true
 govuk::apps::ckan::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
