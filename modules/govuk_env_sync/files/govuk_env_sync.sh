@@ -123,6 +123,19 @@ function get_timestamp_s3 {
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
+function push_rsync {
+  rsync -acq "${tempdir}/${filename}" "${url}:/${path}/${filename}"
+}
+
+function pull_rsync {
+  rsync -acq "${url}:${path}/${filename}" "${tempdir}/${filename}"
+}
+
+function get_timestamp_rsync {
+  timestamp = "$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
+  | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+}
+
 usage() {
   echo "help text"
   exit 0
