@@ -4,3 +4,6 @@ govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::theme_colour: '#005EA5'
 govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Integration'
+
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::mirror_repos
