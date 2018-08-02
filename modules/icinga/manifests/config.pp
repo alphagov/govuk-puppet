@@ -50,6 +50,12 @@ class icinga::config (
     source  => 'puppet:///modules/icinga/etc/icinga/conf.d',
   }
 
+  file { '/var/lib/icinga/retention.dat':
+    ensure => present,
+    owner  => 'nagios',
+    group  => 'www-data',
+  }
+
   if $::aws_migration {
 
     file { '/var/lib/icinga/log':
