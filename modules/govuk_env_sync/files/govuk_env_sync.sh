@@ -71,6 +71,13 @@ function is_writable_elasticsearch {
   fi
 }
 
+function dump_mysql {
+  mysqldump "${database}" --add-drop-database | gzip > "${tempdir}/${filename}"
+}
+
+function restore_mysql {
+  zcat "${tempdir}/${filename}" | mysql "$database"
+}
 
 function dump_mongo {
   IFS=',' read -r -a collections <<< \
