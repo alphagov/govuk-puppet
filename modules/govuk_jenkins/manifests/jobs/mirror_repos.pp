@@ -15,10 +15,10 @@ class govuk_jenkins::jobs::mirror_repos (
   }
 
   @@icinga::passive_check {
-    "user_monitor_${::hostname}":
+    "mirror_repos_${::hostname}":
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 5400, # 90 minutes
+      freshness_threshold => 7200, # 2 hours
       action_url          => "https://deploy.${app_domain}/job/mirror-repos/",
       notes_url           => 'https://github.com/alphagov/govuk-repo-mirror';
   }
