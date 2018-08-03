@@ -24,7 +24,8 @@ set -eu
 #     sufficient rights are granted to the govuk-backup user.
 #
 #   d) database
-#     Name of the database to be copied/sync'd
+#     Name of the database to be copied/sync'd, if dbms is "files", this is the path
+#     to the directory to copy/sync.
 #
 #   u) url
 #     URL of storage backend, bucket name in case of S3
@@ -92,11 +93,21 @@ function dump_mongo {
 
 function restore_mongo {
   cd "${tempdir}"
-  tar --extract --gzip --file "${filename}"
+  tar --extract --gzip --force-local --file "${filename}"
 
   mongorestore --drop \
     --db "${database}" \
     "${tempdir}/${database}"
+}
+
+function dump_files {
+  tar --create --gzip --force-local --file "${tempdir}/$filename" "${database}"
+}
+
+function restore_files {
+  mkdir -p "${database}"
+  cd "${database}"
+  tar --extract --gzip --force-local --file "${tempdir}/${filename}"
 }
 
 function dump_elasticsearch {
