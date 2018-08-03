@@ -101,13 +101,13 @@ function restore_mongo {
 }
 
 function dump_files {
-  tar --create --gzip --file "${tempdir}/$filename" "${database}"
+  tar --create --gzip --force-local --file "${tempdir}/$filename" "${database}"
 }
 
 function restore_files {
   mkdir -p "${database}"
   cd "${database}"
-  tar --extract --gzip --file "${tempdir}/${filename}"
+  tar --extract --gzip --force-local --file "${tempdir}/${filename}"
 }
 
 function dump_elasticsearch {
