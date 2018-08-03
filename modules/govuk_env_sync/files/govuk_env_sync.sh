@@ -115,13 +115,13 @@ function restore_files {
 }
 
 function dump_elasticsearch {
-  es_dump_restore dump http://localhost:9200/ "$database" "${tempdir}/${filename}"
+  /usr/local/bin/es_dump_restore dump http://localhost:9200/ "$database" "${tempdir}/${filename}"
 }
 
 function restore_elasticsearch {
   iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr "[:upper:]" "[:lower:]" )z"
   real_name="$database-$iso_date-00000000-0000-0000-0000-000000000000"
-  es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
+  /usr/local/bin/es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
 }
 
 function  dump_postgresql {
