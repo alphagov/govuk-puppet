@@ -1,0 +1,11 @@
+govuk_env_sync::tasks:
+  "pull_pg_content_publisher_production_daily":
+    hour: "0"
+    minute: "12"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_publisher_production"
+    temppath: "/tmp/content_publisher_production"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
