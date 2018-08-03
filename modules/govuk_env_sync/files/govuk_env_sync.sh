@@ -12,7 +12,7 @@ set -eu
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-#     Database management system / data source (One of: mongo,elasticsearch)
+#     Database management system / data source (One of: mongo,elasticsearch,postgresql)
 #     This is used to construct script names called, e.g. dump_mongo
 #
 #   S) storagebackend
@@ -72,6 +72,10 @@ function is_writable_elasticsearch {
   fi
 }
 
+function is_writable_postgresql {
+# db-admin is always writable
+  echo "true"
+}
 
 function dump_mongo {
   IFS=',' read -r -a collections <<< \
@@ -118,6 +122,28 @@ function restore_elasticsearch {
   iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr "[:upper:]" "[:lower:]" )z"
   real_name="$database-$iso_date-00000000-0000-0000-0000-000000000000"
   es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
+}
+
+function  dump_postgresql {
+  pg_dump -F c "${database}" > "${tempdir}/${filename}"
+}
+
+function restore_postgresql {
+# Checking if the database already exist
+# If it does we will drop the database as well as its owner
+  if sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
+     echo "Database ${database} exists, we will drop it before continuing"
+     DB_OWNER=$(sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
+# Making sure we don't do something too stupid
+     if [ "$DB_OWNER" != '' ] && [ "$DB_OWNER" != 'aws_db_admin' ] && [ "$DB_OWNER" != 'postgres' ]; then
+       echo "Dropping database ${database}"
+       sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
+       echo "Dropping user $DB_OWNER"
+       echo "DROP OWNED BY $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password postgres
+       sudo dropuser -U aws_db_admin -h postgresql-primary --no-password $DB_OWNER
+     fi
+  fi
+  sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}"
 }
 
 function push_s3 {

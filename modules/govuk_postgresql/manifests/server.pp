@@ -81,6 +81,8 @@ class govuk_postgresql::server (
     }
   }
 
+  include govuk_postgresql::govuk_backup_user
+
   if $configure_env_sync_user {
     include govuk_postgresql::env_sync_user
   }

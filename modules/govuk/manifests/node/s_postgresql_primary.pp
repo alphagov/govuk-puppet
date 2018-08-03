@@ -17,6 +17,7 @@ class govuk::node::s_postgresql_primary (
   $wale_private_gpg_key_fingerprint,
   $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_postgresql_base {
+  include govuk_env_sync
   class { 'govuk_postgresql::server::primary':
     slave_password => $standby_password,
   }
