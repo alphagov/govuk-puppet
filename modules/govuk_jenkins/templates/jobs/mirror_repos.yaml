@@ -9,21 +9,12 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
     builders:
-        - conditional-step:
-            condition-kind: strings-match
-            condition-string-1: 'SUCCESS'
-            condition-string-2: ${{ENV,var="STATUS"}}
-            steps:
-                - shell: |
-                    echo "Upstream Mirror_Repositories job succeeded."
-        - conditional-step:
-            condition-kind: strings-match
-            condition-string-1: 'FAILED'
-            condition-string-2: ${{ENV,var="STATUS"}}
-            steps:
-                - shell: |
-                    echo "Upstream Mirror_Repositories job failed."; exit 1;
+        - shell: |
+            echo "Check that GOV.UK Github repos are mirrored to AWS CodeCommit - ${STATUS}"
 
+            if [ ${STATUS:-''} = "FAILED" ]; then
+              exit 1;
+            fi
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
@@ -36,3 +27,9 @@
           predefined-parameters: |
             NSCA_CHECK_DESCRIPTION=<%= @service_description %>
             NSCA_OUTPUT=<%= @service_description %> failed
+    parameters:
+        - string:
+            name: STATUS
+            description: Status of the CI Mirror_Repositories build.
+            default: FAILED
+
