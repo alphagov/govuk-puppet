@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -u
 #
 # Script to synchronise databases via a storage backend
 #
