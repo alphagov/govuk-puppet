@@ -398,6 +398,8 @@ govuk::apps::content_store::nagios_memory_critical: 2500
 govuk::apps::content_store::unicorn_worker_processes: "6"
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_tagger::db_port: 6432
+govuk::apps::content_tagger::db_allow_prepared_statements: false
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
