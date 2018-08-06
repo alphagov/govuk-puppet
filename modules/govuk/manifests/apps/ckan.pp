@@ -124,6 +124,8 @@ class govuk::apps::ckan (
       process_type   => 'harvester_gather_consumer',
     }
 
+    include govuk::apps::ckan::cronjobs
+
     Govuk::App::Envvar {
       app => 'ckan',
     }
