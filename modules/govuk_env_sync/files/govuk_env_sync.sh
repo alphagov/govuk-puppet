@@ -1,5 +1,5 @@
 #!/bin/bash
-set -eu
+set -u
 #
 # Script to synchronise databases via a storage backend
 #
@@ -130,20 +130,18 @@ function  dump_postgresql {
 
 function restore_postgresql {
 # Checking if the database already exist
-# If it does we will drop the database as well as its owner
+# If it does we will drop the database
+  DB_OWNER=''
   if sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      echo "Database ${database} exists, we will drop it before continuing"
      DB_OWNER=$(sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
-# Making sure we don't do something too stupid
-     if [ "$DB_OWNER" != '' ] && [ "$DB_OWNER" != 'aws_db_admin' ] && [ "$DB_OWNER" != 'postgres' ]; then
-       echo "Dropping database ${database}"
-       sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
-       echo "Dropping user $DB_OWNER"
-       echo "DROP OWNED BY $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password postgres
-       sudo dropuser -U aws_db_admin -h postgresql-primary --no-password $DB_OWNER
-     fi
+    sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
   fi
   sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}"
+  if [ "$DB_OWNER" != '' ] ; then
+     echo "GRANT ALL ON DATABASE $database TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
+     echo "ALTER DATABASE $database OWNER TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
+  fi
 }
 
 function push_s3 {
