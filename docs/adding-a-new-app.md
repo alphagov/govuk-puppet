@@ -169,6 +169,8 @@ Start with the following configuration for the app module variables.
 ```
 # hieradata/common.yaml
 govuk::apps::myapp::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::myapp::db_port: 6432
+govuk::apps::myapp::db_allow_prepared_statements: false
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 # hieradata_aws/common.yaml
