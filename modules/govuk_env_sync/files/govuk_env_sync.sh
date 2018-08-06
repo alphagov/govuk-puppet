@@ -12,7 +12,7 @@ set -u
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-#     Database management system / data source (One of: mongo,elasticsearch,postgresql)
+#     Database management system / data source (One of: mongo,elasticsearch,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
 #
 #   S) storagebackend
@@ -95,6 +95,11 @@ function is_writable_postgresql {
   echo "true"
 }
 
+function is_writable_mysql {
+# db-admin is always writable
+  echo "true"
+}
+
 function dump_mongo {
   IFS=',' read -r -a collections <<< \
           "$(mongo --quiet --eval 'rs.slaveOk(); db.getCollectionNames();' "localhost/$database")"
@@ -160,6 +165,14 @@ function restore_postgresql {
      echo "GRANT ALL ON DATABASE $database TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
      echo "ALTER DATABASE $database OWNER TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
   fi
+}
+
+function  dump_mysql {
+  sudo -H mysqldump -u root --add-drop-database "${database}" | gzip > "${tempdir}/${filename}"
+}
+
+function  restore_mysql {
+  gunzip < "${tempdir}/${filename}" | sudo -H mysql -h mysql-primary "${database}"
 }
 
 function push_s3 {
