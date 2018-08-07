@@ -1,0 +1,10 @@
+# Creates the alangabbianelli user
+class users::alangabbianelli { govuk_user { 'alangabbianelli':
+    fullname => 'Alan Gabbianelli',
+    email    => 'alan.gabbianelli@digital.cabinet-office.gov.uk',
+    ssh_key  => [
+        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDsQ8h8Iuk8Z4KwhCvdb+9hvEXdnz9O+E7aAt1rm0rcWy6wOSjsO1/GyupqSO9j/vdBwgfYbXQ1id93Emivup3n48C2GgnemRcsG3sNK4RoU0JTXIDUfo6CizZRYWqNWXOIklxf60PO6n07K3fKATOTdoPsB+ZXKxxkXFWo45guZfGG9jRgjapLJbSB1PiaamuJhLJQUM7V/vbtX2fGaMsw7WPEA/A2JSYGdqprzRUXUxkPJlRSbOPlMi0Nd6QB6VFBzovtybitbC7O6BQoMYLhpVz0VeBnxxzJ6YD0sMRHj1lf6Vps+7i7WHzBw2zZj+8DeAWSuBVIe0XQML1mh5Sm287H5+vdniNEfY5ZQ9TjIggTaxQlZETZrDM287Rhhe7Z92ImHcg24pgRYXPAO+JqHB9c9qHCOJFjKTwZI/5Ix714la9U79dKY90s1/SPTob9/gQZQK/3SdV/2ujZMVCwf+0I4cjrCpxWTAnROsaexWDH8ivU5/uybUJ6skL8Z5SkmGnhwxHYBPHDFpAyrhwOPxEoDgH36L1E1EtozJim51gJTWmkdV9Q1+hSMYIb7PfnVRiripxLOBWJOwKdrxf0UrodGqbY3EaN8+Rtd4BcCyZ4cs/3AMAML15qVKvLcS4vKWuN9mKblq94qcUL0RYGpfRK+wXPQE8I0CMXxwoKzw== alan.gabbianelli@gmail.com',
+        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDASx1VYHY/NZ4L0kSaB4tl6ghMhmO+c9qMlrvaN71tjX8UAET5ohrrzGbS+h1PiANPjjCffECMlXs1QgzaduNBqEx8RXMeWp2+gHH2t+n8h8mde81UE1gPBv161AN8/d8ljkE60T0j5aIosVMt6knKsjNDRT/P97aVLX83SLY5pm/2dKohprmWYhtYweljYtF4oL4SdTsGdhOOeNRoScgVYCNP1g7drScUeJ0ITc/TnPAc2lk3ec8dCHG7PDbl87vwWuIw8jgbcAyJbMYH+HzsRFJtpa1pKtUFuEL7wISSjntMpcya9kTDdF6wsHPjyHVzDgM6qAMeAOXVhmIW4IwO/P6axiKxIsQa8oILuv63sbn8NIV3BQ03JYkxy1q5bTzJFIKEqjv+RfcTRHFw0gdHQo7EZfWHNZ1HWwBzZbBVtTn9WrhL3btrC19XCm9gxB0CIZRU65Ql7COqLvgg1z9/SbCHa17jjtaSBkvbARBzM/n3V1oGHFLh/rwHEQEubqHF5OPYtf0iQbSL7KmZf9nn+O3TkvnshqaBCNo7wAk4Pfy7YE5qmti7SSWG1tr4jcTZlxAWdx4H7DUhVqDBKTSCuyH3XfKIHNTHUwXVIT7G94NFtmS1/WqSUEE/qxG+Yvi9bkbsCDmDsVf/x0dkr/5VRX9DGmmU0VGfTeH1IepAVQ== alan.gabbianelli@gmail.com',
+    ],
+  }
+}
