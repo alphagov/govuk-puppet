@@ -37,6 +37,24 @@ set -u
 #     Optional provide specific timestamp to restore.
 #
 
+#
+# Store provided arguments for debugging (error log) output.
+#
+args=("$@")
+
+function log {
+  echo -ne $(basename "$0")": $1\\n"
+  logger --priority "${2:-'user.info'}" --tag $(basename "$0") "$1"
+}
+
+function report_error {
+  log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" user.err
+}
+
+# Trap all errors and log them
+#
+trap 'report_error $LINENO' ERR
+
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
 }
