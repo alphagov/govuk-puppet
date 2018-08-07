@@ -18,6 +18,10 @@ node {
       govuk.bundleApp()
     }
 
+    if (env.BRANCH_NAME != 'master') {
+      govuk.runRakeTask('shell:shellcheck[origin/master,HEAD]')
+    }
+
     stage("puppet-librarian install") {
       govuk.runRakeTask('librarian:install')
     }
