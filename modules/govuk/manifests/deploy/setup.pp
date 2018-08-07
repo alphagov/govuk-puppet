@@ -41,7 +41,7 @@ class govuk::deploy::setup (
   } else {
     include assets::group
 
-    $deploy_groups = ['assets']
+    $deploy_groups = ['assets','govuk-backup']
     Group['assets'] -> User['deploy']
   }
 
