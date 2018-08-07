@@ -220,6 +220,7 @@ done
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
 
+log "Starting \"$0 ${args[*]:-''}\""
 case ${action} in
   push) 
     create_tempdir
@@ -243,3 +244,4 @@ case ${action} in
     exit
     ;;
 esac
+log "Ended \"$0 ${args[*]:-''}\""
