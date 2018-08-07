@@ -39,7 +39,7 @@
 #
 class govuk::apps::content_data_admin (
   $port = '3230',
-  $enabled = true,
+  $enabled = false,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
@@ -59,43 +59,45 @@ class govuk::apps::content_data_admin (
   }
 
   # see modules/govuk/manifests/app.pp for more options
-  govuk::app { $app_name:
-    ensure            => $ensure,
-    app_type          => 'rack',
-    port              => $port,
-    sentry_dsn        => $sentry_dsn,
-    vhost_ssl_only    => true,
-    health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing      => true,
-    asset_pipeline    => true,
-  }
+  if $enabled {
+    govuk::app { $app_name:
+      ensure            => $ensure,
+      app_type          => 'rack',
+      port              => $port,
+      sentry_dsn        => $sentry_dsn,
+      vhost_ssl_only    => true,
+      health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
+      deny_framing      => true,
+      asset_pipeline    => true,
+    }
 
-  Govuk::App::Envvar {
-    app               => $app_name,
-    ensure            => $ensure,
-    notify_service    => $enabled,
-  }
+    Govuk::App::Envvar {
+      app            => $app_name,
+      ensure         => $ensure,
+      notify_service => $enabled,
+    }
 
-  govuk::app::envvar {
-    "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-  }
+    govuk::app::envvar {
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+    }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      port     => $db_port,
-      database => $db_name,
+    if $::govuk_node_class !~ /^development$/ {
+      govuk::app::envvar::database_url { $app_name:
+        type     => 'postgresql',
+        username => $db_username,
+        password => $db_password,
+        host     => $db_hostname,
+        port     => $db_port,
+        database => $db_name,
+      }
     }
   }
 }
