@@ -37,6 +37,24 @@ set -u
 #     Optional provide specific timestamp to restore.
 #
 
+#
+# Store provided arguments for debugging (error log) output.
+#
+args=("$@")
+
+function log {
+  echo -ne "$(basename "$0"): $1\\n"
+  logger --priority "${2:-'user.info'}" --tag "$(basename "$0")" "$1"
+}
+
+function report_error {
+  log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" user.err
+}
+
+# Trap all errors and log them
+#
+trap 'report_error $LINENO' ERR
+
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
 }
@@ -91,12 +109,12 @@ function dump_mongo {
 
   done
 
-  cd "${tempdir}"
+  cd "${tempdir}" || exit 1
   tar --create --gzip --force-local --file "${filename}" "${database}"
 }
 
 function restore_mongo {
-  cd "${tempdir}"
+  cd "${tempdir}" || exit 1
   tar --extract --gzip --force-local --file "${filename}"
 
   mongorestore --drop \
@@ -110,7 +128,7 @@ function dump_files {
 
 function restore_files {
   mkdir -p "${database}"
-  cd "${database}"
+  cd "${database}" || exit 1
   tar --extract --gzip --force-local --file "${tempdir}/${filename}"
 }
 
@@ -167,12 +185,14 @@ function pull_rsync {
 }
 
 function get_timestamp_rsync {
-  timestamp = "$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
+  # We actually want to insert the information this side of SSH:
+  # shellcheck disable=SC2029
+  timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
 usage() {
-  echo "help text"
+  printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
   exit 0
 }
 
@@ -194,14 +214,15 @@ do
   esac
 done
 
-: "${action?"Not specified (pass -a option)"}"
-: "${dbms?"Not specified (pass -D option)"}"
-: "${storagebackend?"Not specified (pass -S option)"}"
-: "${temppath?"Not specified (pass -T option)"}"
-: "${database?"Not specified (pass -d option)"}"
-: "${url?"Not specified (pass -u option)"}"
-: "${path?"Not specified (pass -p option)"}"
+: "${action?"No action specified (pass -a option)"}"
+: "${dbms?"No DBMS specified (pass -D option)"}"
+: "${storagebackend?"No storagebackend specified (pass -S option)"}"
+: "${temppath?"No temppath specified (pass -T option)"}"
+: "${database?"No database name specified (pass -d option)"}"
+: "${url?"No storage url specified (pass -u option)"}"
+: "${path?"No storage path specified (pass -p option)"}"
 
+log "Starting \"$0 ${args[*]:-''}\""
 case ${action} in
   push) 
     create_tempdir
@@ -225,3 +246,4 @@ case ${action} in
     exit
     ;;
 esac
+log "Ended \"$0 ${args[*]:-''}\""
