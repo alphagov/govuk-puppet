@@ -43,8 +43,8 @@ set -u
 args=("$@")
 
 function log {
-  echo -ne $(basename "$0")": $1\\n"
-  logger --priority "${2:-'user.info'}" --tag $(basename "$0") "$1"
+  echo -ne "$(basename "$0"): $1\\n"
+  logger --priority "${2:-'user.info'}" --tag "$(basename "$0")" "$1"
 }
 
 function report_error {
@@ -109,12 +109,12 @@ function dump_mongo {
 
   done
 
-  cd "${tempdir}"
+  cd "${tempdir}" || exit 1
   tar --create --gzip --force-local --file "${filename}" "${database}"
 }
 
 function restore_mongo {
-  cd "${tempdir}"
+  cd "${tempdir}" || exit 1
   tar --extract --gzip --force-local --file "${filename}"
 
   mongorestore --drop \
@@ -128,7 +128,7 @@ function dump_files {
 
 function restore_files {
   mkdir -p "${database}"
-  cd "${database}"
+  cd "${database}" || exit 1
   tar --extract --gzip --force-local --file "${tempdir}/${filename}"
 }
 
@@ -185,7 +185,9 @@ function pull_rsync {
 }
 
 function get_timestamp_rsync {
-  timestamp = "$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
+  # We actually want to insert the information this side of SSH:
+  # shellcheck disable=SC2029
+  timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
