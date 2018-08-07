@@ -190,7 +190,7 @@ function get_timestamp_rsync {
 }
 
 usage() {
-  echo "help text"
+  printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
   exit 0
 }
 
@@ -212,13 +212,13 @@ do
   esac
 done
 
-: "${action?"Not specified (pass -a option)"}"
-: "${dbms?"Not specified (pass -D option)"}"
-: "${storagebackend?"Not specified (pass -S option)"}"
-: "${temppath?"Not specified (pass -T option)"}"
-: "${database?"Not specified (pass -d option)"}"
-: "${url?"Not specified (pass -u option)"}"
-: "${path?"Not specified (pass -p option)"}"
+: "${action?"No action specified (pass -a option)"}"
+: "${dbms?"No DBMS specified (pass -D option)"}"
+: "${storagebackend?"No storagebackend specified (pass -S option)"}"
+: "${temppath?"No temppath specified (pass -T option)"}"
+: "${database?"No database name specified (pass -d option)"}"
+: "${url?"No storage url specified (pass -u option)"}"
+: "${path?"No storage path specified (pass -p option)"}"
 
 case ${action} in
   push) 
