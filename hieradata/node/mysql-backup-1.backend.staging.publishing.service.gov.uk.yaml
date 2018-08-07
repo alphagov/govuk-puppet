@@ -1,3 +1,58 @@
 govuk_sudo::sudo_conf:
   govuk-backup:
     content: 'govuk-backup ALL=NOPASSWD:/usr/bin/mysqldump'
+govuk_env_sync::tasks:
+  "push_collections_publisher_production_daily":
+    hour: "0"
+    minute: "12"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "collections_publisher_production"
+    temppath: "/home/govuk-backup/tmp_dumps/collections_publisher_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
+govuk_env_sync::tasks:
+  "push_contacts_production_daily":
+    hour: "0"
+    minute: "12"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "contacts_production"
+    temppath: "/home/govuk-backup/tmp_dumps/contacts_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
+govuk_env_sync::tasks:
+  "push_release_production_daily":
+    hour: "0"
+    minute: "12"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "release_production"
+    temppath: "/home/govuk-backup/tmp_dumps/release_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
+govuk_env_sync::tasks:
+  "push_search_admin_production_daily":
+    hour: "0"
+    minute: "12"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "search_admin_production"
+    temppath: "/home/govuk-backup/tmp_dumps/search_admin_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
+govuk_env_sync::tasks:
+  "push_signon_production_daily":
+    hour: "1"
+    minute: "22"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "signon_production"
+    temppath: "/home/govuk-backup/tmp_dumps/signon_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
