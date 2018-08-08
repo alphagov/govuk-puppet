@@ -9,3 +9,14 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_publisher_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
+govuk_env_sync::tasks:
+  "pull_contacts_production_daily":
+    hour: "1"
+    minute: "12"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "contacts_production"
+    temppath: "/tmp/contacts_production"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
