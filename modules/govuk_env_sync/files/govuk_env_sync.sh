@@ -44,11 +44,11 @@ args=("$@")
 
 function log {
   echo -ne "$(basename "$0"): $1\\n"
-  logger --priority "${2:-'user.info'}" --tag "$(basename "$0")" "$1"
+  logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
 function report_error {
-  log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" user.err
+  log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
 }
 
 # Trap all errors and log them
