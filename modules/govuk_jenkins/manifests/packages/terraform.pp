@@ -9,7 +9,7 @@
 #
 class govuk_jenkins::packages::terraform (
   $apt_mirror_hostname = undef,
-  $version = '0.9.10',
+  $version = '0.11.7',
 ){
 
   apt::source { 'terraform':
