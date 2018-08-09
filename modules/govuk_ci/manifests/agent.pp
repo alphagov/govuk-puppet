@@ -44,6 +44,7 @@ class govuk_ci::agent(
   include ::govuk_rbenv::all
   include ::govuk_sysdig
   include ::govuk_testing_tools
+  include ::yarn
 
   include ::govuk_ci::agent::elasticsearch
 

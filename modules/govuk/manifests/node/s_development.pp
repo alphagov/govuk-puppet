@@ -27,6 +27,7 @@ class govuk::node::s_development (
   include nodejs
   include redis
   include tmpreaper
+  include yarn
 
   include govuk_python
   include govuk_testing_tools

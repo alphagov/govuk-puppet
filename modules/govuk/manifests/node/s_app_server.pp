@@ -13,4 +13,6 @@ class govuk::node::s_app_server {
   # sprockets-rails, the library which compiles assets, depends on Uglifier,
   # which depends on ExecJS, depends on Node.js
   include nodejs
+  # Allows installing assets yarn based assets on app machines
+  include yarn
 }
