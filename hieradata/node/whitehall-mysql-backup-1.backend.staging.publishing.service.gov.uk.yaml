@@ -1,0 +1,14 @@
+govuk_sudo::sudo_conf:
+  govuk-backup:
+    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/mysqldump'
+govuk_env_sync::tasks:
+  "push_mysql_whitehall_production_daily":
+    hour: "1"
+    minute: "13"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "whitehall_production"
+    temppath: "/var/lib/automysqlbackup/s3backup/"
+    url: "govuk-staging-database-backups"
+    path: "mysql"

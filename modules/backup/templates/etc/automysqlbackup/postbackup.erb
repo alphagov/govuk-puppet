@@ -20,3 +20,8 @@ logger -t automysqlbackup "MySQL backed up in T:$TOTALTIME seconds"
 
 # Remove the temporary file added by the prebackup
 rm /var/lock/mysql-backup.lock
+
+# If it exists, reset ownership of s3 dir after ownership set by automysqlbackup.
+if [ -d  /var/lib/automysqlbackup/s3backup ]; then
+  chown -R govuk-backup:govuk-backup /var/lib/automysqlbackup/s3backup
+fi

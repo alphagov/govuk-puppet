@@ -22,6 +22,7 @@ class govuk::node::s_whitehall_mysql_backup (
   $s3_bucket_name = undef,
   $encryption_key = undef,
 ) inherits govuk::node::s_whitehall_mysql_slave {
+  include govuk_env_sync
   class { 'backup::mysql':
     mysql_dump_password => hiera('mysql_root',''),
     require             => Govuk_mount['/var/lib/automysqlbackup'],
