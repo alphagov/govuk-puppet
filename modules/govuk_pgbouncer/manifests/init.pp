@@ -41,7 +41,7 @@ class govuk_pgbouncer(
       auth_type         => 'hba',
       auth_hba_file     => '/etc/pgbouncer/pg_hba.conf',
       pool_mode         => 'session',
-      default_pool_size => 30,
+      default_pool_size => 150,
     },
   }
 }
