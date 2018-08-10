@@ -10,6 +10,7 @@ class govuk::node::s_warehouse_postgresql (
   $wale_private_gpg_key_fingerprint,
   $alert_hostname = 'alert.cluster',
 ) inherits govuk::node::s_base  {
+  include govuk_env_sync
   Govuk_mount['/var/lib/postgresql'] -> Class['govuk_postgresql::server::standalone']
 
   include govuk_postgresql::server::standalone
