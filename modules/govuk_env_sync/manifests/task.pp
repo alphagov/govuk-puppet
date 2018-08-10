@@ -79,4 +79,14 @@ define govuk_env_sync::task(
     require => File["${govuk_env_sync::conf_dir}/${title}.cfg"],
   }
 
+  # monitoring
+  $threshold_secs = 28 * 3600
+  $service_desc = "GOV.UK environment sync ${title}"
+
+  @@icinga::passive_check { "govuk_env_sync.sh-${title}-${::hostname}":
+    service_description => $service_desc,
+    freshness_threshold => $threshold_secs,
+    host_name           => $::fqdn,
+  }
+
 }
