@@ -17,7 +17,7 @@
 #   The Version series to add the repo for (1.4 etc...)
 #
 class govuk_elasticsearch::repo(
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
   $repo_version,
 ) {
   apt::source { "elasticsearch-${repo_version}":

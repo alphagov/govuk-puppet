@@ -8,7 +8,7 @@
 #   The hostname of an APT mirror
 #
 class govuk_ci::agent::gcloud (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ){
   apt::source { 'google-cloud-sdk-trusty':
     location     => "http://${apt_mirror_hostname}/google-cloud-sdk-trusty",

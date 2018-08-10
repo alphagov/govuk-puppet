@@ -13,8 +13,8 @@
 #   Default: true
 #
 class mongodb::repository(
-  $apt_mirror_hostname = undef,
   $use_mirror = true,
+  $apt_mirror_hostname,
 ) {
   validate_bool($use_mirror)
   if $use_mirror {

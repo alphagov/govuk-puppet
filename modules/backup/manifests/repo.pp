@@ -8,7 +8,7 @@
 #    The hostname of the local aptly mirror.
 #
 class backup::repo (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'duplicity':
     location     => "http://${apt_mirror_hostname}/duplicity",

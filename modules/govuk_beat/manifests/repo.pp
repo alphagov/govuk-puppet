@@ -10,7 +10,7 @@
 #   Hostname to use for the APT mirror.
 #
 class govuk_beat::repo(
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'elastic-beats':
     location     => "http://${apt_mirror_hostname}/elastic-beats",

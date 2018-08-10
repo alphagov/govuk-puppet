@@ -5,7 +5,6 @@
 # === Parameters
 #
 class govuk::node::s_transition_db_admin(
-  $apt_mirror_hostname  = undef,
   $backup_s3_bucket     = undef,
   $postgres_host        = undef,
   $postgres_user        = undef,
@@ -13,6 +12,7 @@ class govuk::node::s_transition_db_admin(
   $postgres_port        = '5432',
   $postgres_backup_hour = 7,
   $postgres_backup_min  = 30,
+  $apt_mirror_hostname,
 ) {
   include ::govuk::node::s_base
 

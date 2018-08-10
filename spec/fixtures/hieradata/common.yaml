@@ -3,11 +3,16 @@ app_domain_internal: 'dev.govuk-internal.digital'
 
 apt_mirror_hostname: 'apt.production.alphagov.co.uk'
 
+backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 collectd::plugin::postgresql::password: 'password'
 
 deployable_applications: &deployable_applications
   authenticating-proxy: {}
   content-store: {}
+
+gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
@@ -21,12 +26,27 @@ govuk::deploy::config::app_domain: 'foo.example.com'
 govuk::deploy::sync::jenkins_domain: "jenkins.example.com"
 govuk::deploy::sync::auth_token: "example-auth-token"
 
+govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_mount::no_op: false
 
 govuk_app_enable_services: false
 
+govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_cdnlogs::govuk_monitoring_enabled: false
-govuk_cdnlogs::bouncer_monitoring_enabled: false
+govuk_cdnlogs::bouncer_monitoring_enabled: falseA
+
+govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -42,6 +62,16 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::integration_deploy::applications: *deployable_applications
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 
+govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::terraform_docs::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::vale::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate
 govuk_postgresql::server::snakeoil_ssl_key: key
 
@@ -52,6 +82,11 @@ govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rabbitmq::monitoring_password: 'rabbit_monitor'
 govuk_rabbitmq::root_password: 'rabbit_root'
 govuk_rabbitmq::repo::apt_mirror_hostname: 'rabbit_repo'
+
+govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 hosts::production::backend::hosts:
   whitehall-backend-1:
@@ -64,15 +99,22 @@ hosts::production::management::hosts:
   jumpbox-1:
     ip: '10.1.0.100'
 
+mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 
+nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 # if this is true then it conflicts with govuk_rabbit apt management
 rabbitmq::manage_repos: false
 
 router::assets_origin::vhost_name: "assets-origin.%{hiera('app_domain')}"
+
+statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 users::pentest_machines: ['foo']
 users::pentest_usernames: ['andre_the_giant']

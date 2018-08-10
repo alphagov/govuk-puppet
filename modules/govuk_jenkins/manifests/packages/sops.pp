@@ -8,8 +8,8 @@
 #   The hostname of an APT mirror
 #
 class govuk_jenkins::packages::sops (
-  $apt_mirror_hostname = undef,
   $version = '3.0.2',
+  $apt_mirror_hostname,
 ){
 
   apt::source { 'sops':

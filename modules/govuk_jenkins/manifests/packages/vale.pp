@@ -8,8 +8,8 @@
 #   The hostname of an APT mirror
 #
 class govuk_jenkins::packages::vale (
-  $apt_mirror_hostname = undef,
   $version = '0.10.0',
+  $apt_mirror_hostname,
 ){
 
   apt::source { 'vale':

@@ -23,12 +23,12 @@
 #   Set any environment variables that will be loaded into the Gor service.
 #
 class govuk_gor(
-  $apt_mirror_hostname = '',
   $args = {},
   $enable = false,
   $version = '0.14.1',
   $binary_path = '/usr/local/bin/gor',
   $envvars = {},
+  $apt_mirror_hostname,
 ) {
 
   apt::source { 'gor':

@@ -6,7 +6,7 @@
 #   Hostname to use for the APT mirror.
 #
 class govuk_docker::repo (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'docker':
     location     => "http://${apt_mirror_hostname}/docker",

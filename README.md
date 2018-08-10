@@ -205,9 +205,6 @@ vagrant up frontend-1.frontend backend-1.backend
 
 Vagrant will run the Puppet provisioner against the node when it boots up.
 Nodes should look almost identical to that of our real
-<<<<<<< HEAD
-production/staging/integration environments.
-=======
 production/staging/preview environments, including network addresses. To
 access a node's services like HTTP/HTTPS you can point your `hosts` file to
 the host-only IP address (eth1).
@@ -215,7 +212,6 @@ the host-only IP address (eth1).
 Physical attributes like `memory` and `num_cores` will be ignored because
 they don't scale appropriately to local VMs, but can still be customised as
 described below.
->>>>>>> parent of 680283f20... Update Vagrant testing section in README
 
 #### Customisation
 

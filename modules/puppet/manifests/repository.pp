@@ -15,8 +15,8 @@
 #   Default: true
 #
 class puppet::repository(
-  $apt_mirror_hostname = undef,
   $use_mirror = true,
+  $apt_mirror_hostname,
 ) {
   # This is installed by bootstrapping. `apt::source` takes its place.
   package { 'puppetlabs-release':

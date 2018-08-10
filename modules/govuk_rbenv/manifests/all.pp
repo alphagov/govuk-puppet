@@ -9,7 +9,7 @@
 #   Hostname of the APT mirror to install packages from
 #
 class govuk_rbenv::all (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   include govuk_rbenv
 

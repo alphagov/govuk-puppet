@@ -3,7 +3,7 @@
 # Add the apt source for the PostgreSQL aptly mirror
 #
 class govuk_postgresql::mirror (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   if $::lsbdistcodename == 'trusty' {
     apt::source { 'postgresql':
