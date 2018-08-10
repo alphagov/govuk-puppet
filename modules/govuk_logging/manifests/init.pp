@@ -1,4 +1,4 @@
-# == Class: govuk::logging
+# == Class: govuk_logging
 #
 # Install tagalog, which provides logship, used by govuk::logstream
 #
