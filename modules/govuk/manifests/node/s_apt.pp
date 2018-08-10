@@ -126,6 +126,11 @@ class govuk::node::s_apt (
       location => 'http://download.draios.com/stable/deb',
       release  => 'stable-amd64/',
       key      => 'D27A72F32D867DF9300A241574490FD6EC51E8C4';
+    'yarn':
+      location => 'https://dl.yarnpkg.com/debian/',
+      release  => 'main',
+      repos    => ['stable'],
+      key      => '72ECF46A56B4AD39C907BBB71646B01B86E50310';
   }
 
   aptly::repo { 'awscli': }

@@ -1256,3 +1256,5 @@ unattended_upgrades::origins:
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
 unicornherder::version: '0.0.8'
+
+yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
