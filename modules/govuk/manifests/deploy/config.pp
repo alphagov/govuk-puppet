@@ -45,7 +45,7 @@ class govuk::deploy::config(
     ensure     => present,
     user       => 'deploy',
     limit_type => 'nproc',
-    both       => 1024,
+    both       => 2048,
   }
 
   file { '/etc/govuk/unicorn.rb':
