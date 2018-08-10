@@ -1,5 +1,5 @@
 #!/bin/bash
-set -ux
+set -uo pipefail
 #
 # Script to synchronise databases via a storage backend
 #
@@ -42,6 +42,8 @@ set -ux
 #
 args=("$@")
 
+ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+
 function log {
   echo -ne "$(basename "$0"): $1\\n"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
@@ -51,9 +53,23 @@ function report_error {
   log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
 }
 
+function nagios_passive {
+  # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
+  if [ -n "${configfile:-""}" ]
+  then
+    nagios_service_description="GOV.UK environment sync $(basename ${configfile%.cfg})"
+    printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert >/dev/null
+  fi
+  # If arguments are provided manually, do not report to nagios/icinga
+}
+
 # Trap all errors and log them
 #
 trap 'report_error $LINENO' ERR
+
+# Trap exit signal to push state to icinga
+#
+trap nagios_passive EXIT
 
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
@@ -235,7 +251,13 @@ done
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
 
+# Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
+
+# Setting default nagios response to failed
+nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+nagios_code=2
+
 case ${action} in
   push) 
     create_tempdir
@@ -244,7 +266,6 @@ case ${action} in
     "dump_${dbms}"
     "push_${storagebackend}"
     remove_tempdir
-    exit
     ;;
   pull)
     if [ "$("is_writable_${dbms}")" == 'true' ]
@@ -255,8 +276,12 @@ case ${action} in
       "pull_${storagebackend}"
       "restore_${dbms}"
       remove_tempdir
+      nagios_code=0
     fi
-    exit
     ;;
 esac
+
+# The script arrived here without detour to throw_error/exit
+nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+nagios_code=0
 log "Ended \"$0 ${args[*]:-''}\""
