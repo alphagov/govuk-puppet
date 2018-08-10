@@ -8,4 +8,4 @@ govuk_env_sync::tasks:
     database: "transition_production"
     temppath: "/tmp/transition_production"
     url: "govuk-staging-database-backups"
-    path: "transition-postgresql-backend"
+    path: "transition-postgresql"
