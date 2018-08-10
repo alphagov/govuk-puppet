@@ -2,9 +2,8 @@
 #
 # Set permissions on the lock file
 #
-class govuk_env_sync::lock_file
-{
-
+class govuk_env_sync::lock_file {
+  #
   # Lock file
   #
   file { '/etc/unattended-reboot/no-reboot/govuk_env_sync':
