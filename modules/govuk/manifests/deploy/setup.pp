@@ -37,11 +37,11 @@ class govuk::deploy::setup (
   if $::aws_migration {
     include govuk::deploy::sync
 
-    $deploy_groups = []
+    $deploy_groups = ['govuk-backup']
   } else {
     include assets::group
 
-    $deploy_groups = ['assets']
+    $deploy_groups = ['assets','govuk-backup']
     Group['assets'] -> User['deploy']
   }
 
