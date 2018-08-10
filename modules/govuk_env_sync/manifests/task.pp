@@ -59,14 +59,7 @@ define govuk_env_sync::task(
   }
 
   file { $temppath:
-    ensure => present,
-    mode   => '0775',
-    owner  => $govuk_env_sync::user,
-    group  => $govuk_env_sync::user,
-  }
-
-  file { '/etc/unattended-reboot/no-reboot/govuk_env_sync':
-    mode  => '0660',
+    mode  => '0775',
     owner => $govuk_env_sync::user,
     group => $govuk_env_sync::user,
   }
