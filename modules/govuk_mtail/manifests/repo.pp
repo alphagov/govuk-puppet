@@ -8,7 +8,7 @@
 #   Hostname to use for the APT mirror.
 #
 class govuk_mtail::repo(
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'mtail':
     location     => "http://${apt_mirror_hostname}/mtail",

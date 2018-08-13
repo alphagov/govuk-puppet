@@ -14,7 +14,6 @@
 #  The database user to connect to the remote database as
 #
 class govuk::node::s_db_admin(
-  $apt_mirror_hostname  = undef,
   $backup_s3_bucket     = undef,
   $mysql_db_host        = undef,
   $mysql_db_password    = undef,
@@ -27,6 +26,7 @@ class govuk::node::s_db_admin(
   $postgres_port        = '5432',
   $postgres_backup_hour = 7,
   $postgres_backup_min  = 10,
+  $apt_mirror_hostname,
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync

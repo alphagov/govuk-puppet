@@ -8,7 +8,7 @@
 #   The hostname of an APT mirror
 #
 class govuk_jenkins::packages::gcloud (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ){
 
   apt::source { 'google-cloud-sdk-trusty':

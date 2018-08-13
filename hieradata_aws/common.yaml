@@ -795,6 +795,8 @@ govuk::node::s_base::log_remote: false
 
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
   - 'licensing-backend'
@@ -899,6 +901,8 @@ govuk_jenkins::jobs::integration_deploy::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
+
+govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_postgresql::backup::alert_hostname: 'alert'
 govuk_postgresql::server::configure_env_sync_user: true

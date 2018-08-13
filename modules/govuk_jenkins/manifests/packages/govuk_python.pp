@@ -8,10 +8,10 @@
 #   The hostname of an APT mirror
 #
 class govuk_jenkins::packages::govuk_python (
-  $apt_mirror_hostname = undef,
   $govuk_python_version = '2.7.14',
   $govuk_python_setuptools_version = '39.0.1',
   $govuk_python_pip_version = '10.0.1',
+  $apt_mirror_hostname,
 ){
 
   apt::source { 'govuk-python':

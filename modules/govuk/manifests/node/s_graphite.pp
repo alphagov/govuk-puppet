@@ -17,7 +17,7 @@
 class govuk::node::s_graphite (
   $graphite_path = '/opt/graphite',
   $graphite_backup_hour = 23,
-  $apt_mirror_hostname = 'apt.production.alphagov.co.uk',
+  $apt_mirror_hostname,
 ) inherits govuk::node::s_base {
   class { 'graphite':
     version                    => '0.9.13',

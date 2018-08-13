@@ -8,8 +8,8 @@
 #   The hostname of an APT mirror
 #
 class govuk_jenkins::packages::terraform (
-  $apt_mirror_hostname = undef,
   $version = '0.11.7',
+  $apt_mirror_hostname,
 ){
 
   apt::source { 'terraform':

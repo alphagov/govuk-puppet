@@ -6,7 +6,7 @@
 #   Hostname to use for the APT mirror.
 #
 class govuk_java::repo (
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'openjdk':
     location     => "http://${apt_mirror_hostname}/openjdk",

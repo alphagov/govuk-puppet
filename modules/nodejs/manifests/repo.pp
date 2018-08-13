@@ -9,7 +9,7 @@
 #   Hostname to use for the APT mirror.
 #
 class nodejs::repo(
-  $apt_mirror_hostname = undef,
+  $apt_mirror_hostname,
 ) {
   apt::source { 'nodejs':
     location     => "http://${apt_mirror_hostname}/nodejs",
