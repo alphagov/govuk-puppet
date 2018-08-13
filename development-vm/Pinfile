@@ -28,6 +28,7 @@ process :'draft-government-frontend' => [:'government-frontend', :'draft-content
 process :'draft-manuals-frontend' => [:'manuals-frontend', :'draft-content-store', :'draft-static']
 process :'draft-router'
 process :'draft-router-api'
+process :'draft-smartanswers' => [:smartanswers, :'draft-content-store', :'draft-static', :imminence]
 process :'draft-static'
 process :'email-alert-api' => [:'email-alert-api-worker']
 process :'email-alert-api-worker'

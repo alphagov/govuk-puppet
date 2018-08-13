@@ -81,6 +81,7 @@ govuk::node::s_development::apps:
   - 'sidekiq_monitoring'
   - 'signon'
   - 'smartanswers'
+  - 'smartanswers::enable_running_in_draft_mode'
   - 'specialist_publisher'
   - 'static'
   - 'static::enable_running_in_draft_mode'
