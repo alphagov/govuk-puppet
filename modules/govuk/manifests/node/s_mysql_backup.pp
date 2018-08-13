@@ -22,6 +22,7 @@ class govuk::node::s_mysql_backup (
   $s3_bucket_name = undef,
   $encryption_key = undef,
 ) inherits govuk::node::s_base {
+  include govuk_env_sync
   $root_password = hiera('mysql_root', '')
 
   class { 'backup::mysql':
