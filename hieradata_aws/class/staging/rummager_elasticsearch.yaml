@@ -48,3 +48,4 @@ govuk_env_sync::tasks:
     database: "govuk"
     temppath: "/tmp/govuk"
     url: "govuk-staging-database-backups"
+    path: "elasticsearch"
