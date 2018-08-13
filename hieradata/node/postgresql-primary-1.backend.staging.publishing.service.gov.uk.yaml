@@ -1,4 +1,14 @@
 govuk_env_sync::tasks:
+  "push_ckan_production_daily":
+    hour: "0"
+    minute: "15"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "ckan_production"
+    temppath: "/var/lib/autopostgresqlbackup/ckan_production"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
   "push_content_audit_tool_production_daily":
     hour: "0"
     minute: "12"
@@ -7,6 +17,16 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "content_audit_tool_production"
     temppath: "/var/lib/autopostgresqlbackup/content_audit_tool_production"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
+  "push_content-register_production":
+    hour: "0"
+    minute: "13"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content-register_production"
+    temppath: "/var/lib/autopostgresqlbackup/content-register_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_publisher_production_daily":
@@ -37,6 +57,16 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "email-alert-api_production"
     temppath: "/var/lib/autopostgresqlbackup/email-alert-api_production"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
+  "push_email-alert-monitor_production_daily":
+    hour: "0"
+    minute: "45"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "email-alert-monitor_production"
+    temppath: "/var/lib/autopostgresqlbackup/email-alert-monitor_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_link_checker_api_production_daily":
