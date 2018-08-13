@@ -23,6 +23,7 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
     'PLEK_SERVICE_MAPIT_URI': value     => "https://mapit.${app_domain_internal}";
     'PLEK_SERVICE_SEARCH_URI': value    => "https://search.${app_domain_internal}";
     'PLEK_SERVICE_RUMMAGER_URI': value  => "https://rummager.${app_domain_internal}";
+    'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain_internal}";
   }
 
   unless $::aws_migration {
