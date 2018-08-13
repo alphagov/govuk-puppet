@@ -17,7 +17,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     ensure     => present,
     user       => 'root',
     limit_type => 'nproc',
-    both       => 1024,
+    both       => 2048,
   }
 
   package { 'graphviz':
