@@ -6,6 +6,7 @@ govuk::apps::frontend::vhost: 'draft-frontend'
 govuk::apps::government_frontend::vhost: 'draft-government-frontend'
 govuk::apps::manuals_frontend::vhost: 'draft-manuals-frontend'
 govuk::apps::service_manual_frontend::vhost: 'draft-service-manual-frontend'
+govuk::apps::smartanswers::vhost: 'draft-smartanswers'
 
 govuk::apps::static::draft_environment: true
 govuk::apps::static::vhost: 'draft-static'

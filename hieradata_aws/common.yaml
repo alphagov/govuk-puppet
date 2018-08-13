@@ -82,6 +82,7 @@ node_class: &node_class
       - government-frontend
       - manuals-frontend
       - service-manual-frontend
+      - smartanswers
       - static
   email_alert_api:
     apps:

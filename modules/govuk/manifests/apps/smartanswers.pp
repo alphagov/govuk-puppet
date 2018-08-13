@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*vhost*]
+#   Virtual host used by the application.
+#   Default: 'smartanswers'
+#
 # [*port*]
 #   The port that Smart Answers is served on.
 #   Default: 3010
@@ -39,6 +43,7 @@
 #   The number of unicorn workers to run for an instance of this app
 #
 class govuk::apps::smartanswers(
+  $vhost = 'smartanswers',
   $port = '3010',
   $expose_govspeak = false,
   $show_draft_flows = false,
@@ -86,6 +91,7 @@ class govuk::apps::smartanswers(
     log_format_is_json       => true,
     asset_pipeline           => true,
     asset_pipeline_prefix    => 'smartanswers',
+    vhost                    => $vhost,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
     alert_5xx_warning_rate   => 0.001,
