@@ -12,7 +12,6 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/collections_publisher_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-govuk_env_sync::tasks:
   "push_contacts_production_daily":
     hour: "0"
     minute: "12"
@@ -23,7 +22,6 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/contacts_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-govuk_env_sync::tasks:
   "push_release_production_daily":
     hour: "0"
     minute: "12"
@@ -34,7 +32,6 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/release_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-govuk_env_sync::tasks:
   "push_search_admin_production_daily":
     hour: "0"
     minute: "12"
@@ -45,7 +42,6 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/search_admin_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-govuk_env_sync::tasks:
   "push_signon_production_daily":
     hour: "1"
     minute: "22"
