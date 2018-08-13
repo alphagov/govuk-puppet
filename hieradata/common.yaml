@@ -22,6 +22,7 @@ node_class: &node_class
       - collections-publisher
       - contacts
       - content-audit-tool
+      - content-data-admin
       - content-performance-manager
       - content-publisher
       - content-tagger
@@ -148,6 +149,7 @@ deployable_applications: &deployable_applications
   contacts:
     repository: 'contacts-admin'
   content-audit-tool: {}
+  content-data-admin: {}
   content-performance-manager: {}
   content-publisher: {}
   content-store: {}
@@ -382,6 +384,9 @@ govuk::apps::content_audit_tool::db_allow_prepared_statements: false
 govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::content_data_admin::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
 govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
@@ -1053,6 +1058,7 @@ grafana::dashboards::deployment_applications:
   content-audit-tool:
     show_sidekiq_graphs: true
     has_workers: true
+  content-data-admin: {}
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1380,6 +1386,7 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
+  - 'content-data-admin'
   - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
