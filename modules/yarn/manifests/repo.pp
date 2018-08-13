@@ -12,9 +12,9 @@ class yarn::repo(
 ) {
   apt::source { 'yarn':
     location     => "http://${apt_mirror_hostname}/yarn",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
-    repos        => 'stable',
+    repos        => 'main',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 }
