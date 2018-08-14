@@ -32,6 +32,10 @@ class govuk_docker (
     provider => pip,
   }
 
+  govuk_harden::sysctl::conf { 'docker-ip-forward':
+    content => "net.ipv4.ip_forward = 1\n",
+  }
+
   # Docker machines should run with the latest Xenial kernel to fix
   # stability issues
   $kernel_packages = [
