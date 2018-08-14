@@ -1,11 +1,21 @@
 govuk_env_sync::tasks:
-  "pull_api_mongo_daily":
+  "pull_content_store_daily":
     hour: "1" 
     minute: "16"
     action: "pull"
     dbms: "mongo"
     storagebackend: "s3"
     database: "content_store_production"
+    temppath: "/var/lib/mongodb/.dumps"
+    url: "govuk-staging-database-backups"
+    path: "mongo-api"
+  "pull_draft_content_store_daily":
+    hour: "2" 
+    minute: "16"
+    action: "pull"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "draft_content_store_production"
     temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-staging-database-backups"
     path: "mongo-api"
