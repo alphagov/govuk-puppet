@@ -1699,7 +1699,7 @@ mysql::client::package_ensure: 'present'
 nginx::package::version: '1.4.6-1ubuntu3.8'
 
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-nodejs::version: '6.11.2-1nodesource1~%{::lsbdistcodename}1'
+nodejs::version: '8.11.3-1nodesource1'
 
 ntp::server_list:
   - 'ntp.ubuntu.com'
