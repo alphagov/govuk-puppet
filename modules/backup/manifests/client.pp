@@ -17,8 +17,12 @@ class backup::client (
     fullname    => 'Backup User',
     email       => 'webops@digital.cabinet-office.gov.uk',
     ssh_key     => "ssh-rsa ${backup_public_key}",
-    groups      => [],
+    groups      => ['govuk-backup'],
     purgegroups => true,
+  }
+
+  group { 'govuk-backup':
+    ensure => 'present',
   }
 
 }

@@ -33,6 +33,7 @@ class govuk::deploy::setup (
     $deploy_gid = undef,
 ){
   validate_hash($ssh_keys)
+  require  backup::client
 
   if $::aws_migration {
     include govuk::deploy::sync
@@ -42,7 +43,7 @@ class govuk::deploy::setup (
     include assets::group
 
     $deploy_groups = ['assets','govuk-backup']
-    Group['assets'] -> User['deploy']
+    Group['assets','govuk-backup'] -> User['deploy']
   }
 
   group { 'deploy':
