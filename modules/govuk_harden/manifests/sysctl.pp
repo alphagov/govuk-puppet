@@ -17,6 +17,10 @@ class govuk_harden::sysctl {
     group  => 'root',
   }
 
+  # Realise the virtual resources for this configuration. This allows there
+  # not to be a hard dependency between configuration files and this class
+  File <| tag == 'govuk_harden::sysctl::conf' |>
+
   exec { 'update sysctl':
     command     => '/sbin/sysctl --system',
     refreshonly => true,
