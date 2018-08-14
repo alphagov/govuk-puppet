@@ -176,3 +176,4 @@ organisations-publisher: govuk_setenv organisations-publisher ./run_in.sh ../../
 content-publisher: govuk_setenv content-publisher ./run_in.sh ../../content-publisher bundle exec rails s -p 3221
 # Smokey BrowserMob Proxy uses ports 3222-3229
 content-data-admin: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec rails s -p 3230
+draft-smartanswers: govuk_setenv draft-smartanswers ./run_in.sh ../../smart-answers bundle exec rails server -p 3231 -P tmp/pids/draft-smartanswers.pid

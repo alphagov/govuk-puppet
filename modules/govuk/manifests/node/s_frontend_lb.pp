@@ -20,6 +20,7 @@ class govuk::node::s_frontend_lb (
       'draft-government-frontend',
       'draft-manuals-frontend',
       'draft-service-manual-frontend',
+      'draft-smartanswers',
       'draft-static',
     ]:
       servers       => $draft_frontend_servers;
