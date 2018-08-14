@@ -4,19 +4,21 @@
 #
 class govuk_harden::sysctl {
 
-  # Adjusting kernel networking parameters
+  # TODO: remove this once ran on all environments or after 2018-09-01
   file { '/etc/sysctl.conf':
+    ensure => absent,
+  }
+  # Adjusting kernel networking parameters
+  file { '/etc/sysctl.d/60-govuk-base.conf':
     ensure => present,
-    source => 'puppet:///modules/govuk_harden/sysctl/sysctl.conf',
-    notify => Exec['read sysctl.conf'],
+    source => 'puppet:///modules/govuk_harden/sysctl.d/60-govuk-base.conf',
+    notify => Exec['update sysctl'],
     owner  => 'root',
     group  => 'root',
   }
 
-  exec { 'read sysctl.conf':
-    command     => '/sbin/sysctl -p',
+  exec { 'update sysctl':
+    command     => '/sbin/sysctl --system',
     refreshonly => true,
   }
-
-
 }
