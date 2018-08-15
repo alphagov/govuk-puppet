@@ -41,6 +41,10 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*jwt_auth_secret*]
+#   The secret used to encode JWT authentication tokens. This value needs to be
+#   shared with authenticating-proxy which decodes the tokens.
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -59,6 +63,7 @@ class govuk::apps::content_publisher (
   $db_allow_prepared_statements = undef,
   $db_name = 'content_publisher_production',
   $publishing_api_bearer_token = undef,
+  $jwt_auth_secret = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -98,6 +103,9 @@ class govuk::apps::content_publisher (
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-JWT_AUTH_SECRET":
+      varname => 'JWT_AUTH_SECRET',
+      value   => $jwt_auth_secret;
   }
 
   if $::govuk_node_class !~ /^development$/ {
