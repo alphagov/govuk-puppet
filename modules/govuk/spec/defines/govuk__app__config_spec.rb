@@ -110,7 +110,7 @@ describe 'govuk::app::config', :type => :define do
 
       it do
         is_expected.to contain_collectd__plugin__process('app-giraffe').with(
-          :regex => '^\\./launch_zoo$'
+          :regex => '\\./launch_zoo$'
         )
       end
     end
