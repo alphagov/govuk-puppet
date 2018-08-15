@@ -87,7 +87,7 @@ class govuk::node::s_apt (
       release  => 'trusty/mongodb-org/3.2',
       key      => 'EA312927';
     'nodejs':
-      location => 'https://deb.nodesource.com/node_8.x',
+      location => 'https://deb.nodesource.com/node_6.x',
       release  => 'trusty',
       repos    => ['main'],
       key      => '68576280';
