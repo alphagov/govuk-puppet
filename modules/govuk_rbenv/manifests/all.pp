@@ -10,6 +10,7 @@
 #
 class govuk_rbenv::all (
   $apt_mirror_hostname,
+  $with_foreman = false,
 ) {
   include govuk_rbenv
 
@@ -20,37 +21,19 @@ class govuk_rbenv::all (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  rbenv::version { '2.2.8':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.3.1':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.3.5':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.4.0':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.4.2':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.4.4':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.5.0':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
-  }
-  rbenv::version { '2.5.1':
-    bundler_version  => '1.16.2',
-    install_gem_docs => false,
+  $ruby_versions = [
+    '2.2.8',
+    '2.3.1',
+    '2.3.5',
+    '2.4.0',
+    '2.4.2',
+    '2.4.4',
+    '2.5.0',
+    '2.5.1',
+  ]
+
+  govuk_rbenv::install_ruby_version { $ruby_versions:
+    with_foreman => $with_foreman,
   }
 
   # These aliases re solve .ruby-version 2.x to an installed Ruby version.

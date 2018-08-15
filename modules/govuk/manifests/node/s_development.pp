@@ -32,7 +32,9 @@ class govuk::node::s_development (
   include govuk_python
   include govuk_testing_tools
 
-  include govuk_rbenv::all
+  class { 'govuk_rbenv::all':
+    with_foreman => true,
+  }
 
   include router::assets_origin
   include router::draft_assets
