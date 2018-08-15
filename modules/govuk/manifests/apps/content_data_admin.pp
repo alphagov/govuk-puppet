@@ -90,12 +90,13 @@ class govuk::apps::content_data_admin (
 
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { $app_name:
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      port     => $db_port,
-      database => $db_name,
+      type                      => 'postgresql',
+      username                  => $db_username,
+      password                  => $db_password,
+      host                      => $db_hostname,
+      port                      => $db_port,
+      database                  => $db_name,
+      allow_prepared_statements => $db_allow_prepared_statements,
     }
   }
 }
