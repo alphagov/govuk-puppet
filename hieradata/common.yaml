@@ -406,6 +406,7 @@ govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
 govuk::apps::content_publisher::db_allow_prepared_statements: false
 govuk::apps::content_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
 govuk::apps::content_store::nagios_memory_warning: 2300
 govuk::apps::content_store::nagios_memory_critical: 2500
