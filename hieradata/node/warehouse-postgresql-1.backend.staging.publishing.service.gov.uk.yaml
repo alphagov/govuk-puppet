@@ -6,6 +6,6 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "content_performance_manager_production"
-    temppath: "/var/lib/autopostgresqlbackup/content_performance_manager_production"
+    temppath: "/tmp/content_performance_manager_production"
     url: "govuk-staging-database-backups"
     path: "warehouse-postgresql"
