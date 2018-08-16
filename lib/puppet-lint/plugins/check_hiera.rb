@@ -34,6 +34,9 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'govuk_mount::no_op',
     'govuk_lvm::no_op',
 
+    # This is temporary to allow us to set this across all apps in different environments
+    'govuk_app_cache_api_calls',
+
     # govuk::app::nginx_vhost defined type needs a global disable flag for
     # asset pipeline on dev vm
     'govuk::app::nginx_vhost::asset_pipeline_enabled',
