@@ -57,7 +57,7 @@ function nagios_passive {
   # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
   if [ -n "${configfile:-""}" ]
   then
-    nagios_service_description="GOV.UK environment sync $(basename ${configfile%.cfg})"
+    nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
     printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert >/dev/null
   fi
   # If arguments are provided manually, do not report to nagios/icinga
