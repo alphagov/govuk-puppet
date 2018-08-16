@@ -14,6 +14,7 @@ class govuk::node::s_transition_db_admin(
   $postgres_backup_min  = 30,
   $apt_mirror_hostname,
 ) {
+  include govuk_env_sync
   include ::govuk::node::s_base
 
   if $backup_s3_bucket {

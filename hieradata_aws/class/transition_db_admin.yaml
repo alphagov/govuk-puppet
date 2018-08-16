@@ -1,0 +1,4 @@
+---
+govuk_sudo::sudo_conf:
+  govuk-backup:
+    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore'
