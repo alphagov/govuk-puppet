@@ -1,0 +1,11 @@
+govuk_env_sync::tasks:
+  "push_content_performance_manager_production_daily":
+    hour: "3"
+    minute: "3"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_performance_manager_production"
+    temppath: "/var/lib/autopostgresqlbackup/content_performance_manager_production"
+    url: "govuk-staging-database-backups"
+    path: "warehouse-postgresql"
