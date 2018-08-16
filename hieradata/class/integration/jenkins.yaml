@@ -10,5 +10,3 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::network_config_deploy
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::run_rake_task
-
-govuk_jenkins::packages::terraform::version: '0.11.2'
