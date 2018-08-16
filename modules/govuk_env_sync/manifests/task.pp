@@ -58,12 +58,6 @@ define govuk_env_sync::task(
     content => template('govuk_env_sync/govuk_env_sync_job.conf.erb'),
   }
 
-  file { $temppath:
-    mode  => '0775',
-    owner => $govuk_env_sync::user,
-    group => $govuk_env_sync::user,
-  }
-
   $synccommand = shellquote([
     '/usr/bin/ionice','-c','2','-n','6',
     '/usr/bin/setlock','/etc/unattended-reboot/no-reboot/govuk_env_sync',
@@ -77,6 +71,16 @@ define govuk_env_sync::task(
     hour    => $hour,
     minute  => $minute,
     require => File["${govuk_env_sync::conf_dir}/${title}.cfg"],
+  }
+
+  # monitoring
+  $threshold_secs = 28 * 3600
+  $service_desc = "GOV.UK environment sync ${title}"
+
+  @@icinga::passive_check { "govuk_env_sync.sh-${title}-${::hostname}":
+    service_description => $service_desc,
+    freshness_threshold => $threshold_secs,
+    host_name           => $::fqdn,
   }
 
 }

@@ -1,5 +1,7 @@
 #!/bin/bash
-set -ux
+set -u
+set -o pipefail
+set -o errtrace
 #
 # Script to synchronise databases via a storage backend
 #
@@ -42,18 +44,70 @@ set -ux
 #
 args=("$@")
 
+ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+
 function log {
   echo -ne "$(basename "$0"): $1\\n"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
+function filter_pg_stderr {
+  # We have spurious warnings in pg_restore, relating to plugins and the postgres user not accessible on RDS instances
+  # This function filters out the known errors and triggers exit 1 if encountering a different error.
+  #
+  # This reads the postgres stderr errors identified by the "Command was:" string into an array
+  IFS="--" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" )"
+  for pg_error in "${pg_errors[@]}"
+  do
+    # The removal of the newlines in grep output above causes unset array elements, filter those
+    if [ "${pg_error}" != "" ]
+    then
+      # Calculate the checksum rather than rely on exact replication of the error string in this script
+      # If you require to add more error messages to be igored, do run sth like the below and add to cases.
+      # pg_restore ... | grep -B 1 "Command was: <COMMAND CAUSING SPURIOUS ERROR>" | tr -d "\n" | sha256sum | awk '{ print $1 }'
+      case $(echo "${pg_error}" | sha256sum | awk '{ print $1 }') in
+        af8c669d7ef33e679059a2bdad6107592d6c2ef6ed4515c7597c2a2e0266858a);;
+        6c40784a06b0a05b8dc83eb25a328abcfad66233d0890a8b242017ec4367fdfe);;
+        2b2f4f5d31f3ecf8df0e2a0a693ca16b7974334a6573f074ce85289a868d2c60);;
+        b81b5cb0a5112af9df28b9614e40859d2d72fd13ef4e4b242fef213bd12ee048);;
+        *)
+          echo "${pg_error}"
+          exit 1
+          ;;
+      esac
+    fi
+  done
+}
+
 function report_error {
   log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+
+  if [ -n "${pg_stderr:-""}" ]
+  then
+    # Ignore spurious warnings of PG (see above for more detail)
+    filter_pg_stderr
+  else
+    exit 1
+  fi
+}
+
+function nagios_passive {
+  # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
+  if [ -n "${configfile:-""}" ]
+  then
+    nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
+    printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert >/dev/null
+  fi
+  # If arguments are provided manually, do not report to nagios/icinga
 }
 
 # Trap all errors and log them
 #
 trap 'report_error $LINENO' ERR
+
+# Trap exit signal to push state to icinga
+#
+trap nagios_passive EXIT
 
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
@@ -160,7 +214,7 @@ function restore_postgresql {
      DB_OWNER=$(sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
     sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
   fi
-  sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}"
+  pg_stderr=$(sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE $database TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
      echo "ALTER DATABASE $database OWNER TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
@@ -235,7 +289,13 @@ done
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
 
+# Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
+
+# Setting default nagios response to failed
+nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+nagios_code=2
+
 case ${action} in
   push) 
     create_tempdir
@@ -244,7 +304,6 @@ case ${action} in
     "dump_${dbms}"
     "push_${storagebackend}"
     remove_tempdir
-    exit
     ;;
   pull)
     if [ "$("is_writable_${dbms}")" == 'true' ]
@@ -255,8 +314,12 @@ case ${action} in
       "pull_${storagebackend}"
       "restore_${dbms}"
       remove_tempdir
+      nagios_code=0
     fi
-    exit
     ;;
 esac
+
+# The script arrived here without detour to throw_error/exit
+nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+nagios_code=0
 log "Ended \"$0 ${args[*]:-''}\""
