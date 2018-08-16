@@ -8,7 +8,9 @@ icinga::client::contact_groups: 'urgent-priority'
 
 lv:
   data:
-    pv: '/dev/sdb1'
+    pv:
+      - '/dev/sdb1'
+      - '/dev/sdc1'
     vg: 'postgresql'
 
 mount:
