@@ -37,6 +37,9 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*content_performance_manager_bearer_token*]
+#   The bearer token to use when communicating with Content Performance Manager.
+#   Default: undef
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -50,6 +53,7 @@ class govuk::apps::content_data_admin (
   $db_allow_prepared_statements = undef,
   $db_password                  = undef,
   $db_name                      = 'content_data_admin_production',
+  $content_performance_manager_bearer_token = undef,
 ) {
   $app_name = 'content-data-admin'
 
@@ -86,6 +90,9 @@ class govuk::apps::content_data_admin (
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN":
+      varname => 'CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN',
+      value   => $content_performance_manager_bearer_token;
   }
 
   if $::govuk_node_class !~ /^development$/ {
