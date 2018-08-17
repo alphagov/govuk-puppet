@@ -227,6 +227,11 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
+# [*cache_api_calls*]
+#   Control whether the app uses the in-memory cache that comes with
+#   GDS API adapters.
+#   Default: undef
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -260,6 +265,7 @@ define govuk::app (
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
+  $cache_api_calls = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -332,6 +338,7 @@ define govuk::app (
     unicorn_worker_processes       => $unicorn_worker_processes,
     cpu_warning                    => $cpu_warning,
     cpu_critical                   => $cpu_critical,
+    cache_api_calls                => $cache_api_calls,
   }
 
   govuk::app::service { $title:
