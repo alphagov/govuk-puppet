@@ -36,21 +36,21 @@
         - string:
             name: SYNC_CONFIGFILE
             description: "Enter the full path to a sync configuration file. \
-                          The default location is \'/etc/govuk_env_sync/\'. \
+                          The default location is '/etc/govuk_env_sync/'. \
                           Please note that configuration in this file are superseeded \
                           by manual additions to the parameter list below."
         - string:
             name: SYNC_ACTION
-            description: "Action to perform: \'push\' to storage or \'pull\' from storage."
+            description: "Action to perform: 'push' to storage or 'pull' from storage."
         - string:
             name: SYNC_DBMS
-            description: "Database management system to sync to/from \'mongo\',\'elasticsearch\',\'mysql\',\'postgresql\',\'files\'."
+            description: "Database management system to sync to/from 'mongo','elasticsearch','mysql','postgresql','files'."
         - string:
             name: SYNC_STORAGEBACKEND
-            description: "Storage backend to sync to/from \'s3\',\'rsync\'."
+            description: "Storage backend to sync to/from 's3','rsync'."
         - string:
             name: SYNC_TEMPPATH
-            description: "Path to use for temporary storage on the database management host, e.g. \'/tmp/\'."
+            description: "Path to use for temporary storage on the database management host, e.g. '/tmp/'."
         - string:
             name: SYNC_DBNAME
             description: "Name of the database to push/pull."
@@ -62,4 +62,4 @@
             description: "Path on the storage backend, prefix in case of S3."
         - string:
             name: SYNC_TIMESTAMP
-            description: "Optional argument in context of \'pull\': Timestamp of file to be pulled and restored in ISO format, e.g. 1970-01-01T00:00:00"
+            description: "Optional argument in context of 'pull': Timestamp of file to be pulled and restored in ISO format, e.g. 1970-01-01T00:00:00"
