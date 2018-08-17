@@ -50,13 +50,13 @@ define govuk_env_sync::task(
   require govuk_env_sync::aws_auth
   require govuk_env_sync::sync_script
 
-  file { "${govuk_env_sync::conf_dir}/${title}.cfg":
+  ensure_resource('file',"${govuk_env_sync::conf_dir}/${title}.cfg", {
     ensure  => present,
     mode    => '0755',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
     content => template('govuk_env_sync/govuk_env_sync_job.conf.erb'),
-  }
+  })
 
   $synccommand = shellquote([
     '/usr/bin/ionice','-c','2','-n','6',
