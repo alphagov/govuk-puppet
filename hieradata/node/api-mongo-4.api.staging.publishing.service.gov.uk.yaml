@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     dbms: "mongo"
     storagebackend: "s3"
     database: "content_store_production"
-    temppath: "/var/lib/mongodb/.dumps_content"
+    temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-staging-database-backups"
     path: "mongo-api"
   "push_draft_content_store_daily":
@@ -20,6 +20,6 @@ govuk_env_sync::tasks:
     dbms: "mongo"
     storagebackend: "s3"
     database: "draft_content_store_production"
-    temppath: "/var/lib/mongodb/.dumps_draft_content"
+    temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-staging-database-backups"
     path: "mongo-api"
