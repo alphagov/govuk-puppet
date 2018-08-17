@@ -18,7 +18,7 @@ process :'contacts-admin' => [:'publishing-api', :whitehall]
 process :'content-audit-tool' => [:'publishing-api-read', :'content-audit-tool-sidekiq-google-analytics', :'content-audit-tool-sidekiq-publishing-api']
 process :'content-data-admin'
 process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq-default', :'content-performance-manager-publishing-api-consumer', 'content-store']
-process :'content-publisher'
+process :'content-publisher' => [:'publishing-api']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
 process :'dummy-content-store'
