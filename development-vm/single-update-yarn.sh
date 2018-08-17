@@ -20,7 +20,7 @@ if [ -f lock ]; then
 else
   echo "Updating $REPO..."
   outputfile=$(mktemp -t update-yarn.XXXXXX)
-  trap "rm -f '$outputfile'" EXIT
+  trap 'rm -f $outputfile' EXIT
 
   if yarn install >"$outputfile" 2>&1; then
     ok "ok"

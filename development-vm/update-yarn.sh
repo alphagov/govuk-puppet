@@ -5,7 +5,7 @@ set -e
 cd "$(dirname "$0")"
 
 find_repos () {
-  ls -d ../../*/yarn.lock | cut -d/ -f3
+  find ../../*/yarn.lock | cut -d/ -f3
 }
 
 find_repos | xargs -n1 ./single-update-yarn.sh
