@@ -1,5 +1,7 @@
 #!/bin/bash
-set -uo pipefail
+set -u
+set -o pipefail
+set -o errtrace
 #
 # Script to synchronise databases via a storage backend
 #
@@ -49,8 +51,44 @@ function log {
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
+function filter_pg_stderr {
+  # We have spurious warnings in pg_restore, relating to plugins and the postgres user not accessible on RDS instances
+  # This function filters out the known errors and triggers exit 1 if encountering a different error.
+  #
+  # This reads the postgres stderr errors identified by the "Command was:" string into an array
+  IFS="--" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" )"
+  for pg_error in "${pg_errors[@]}"
+  do
+    # The removal of the newlines in grep output above causes unset array elements, filter those
+    if [ "${pg_error}" != "" ]
+    then
+      # Calculate the checksum rather than rely on exact replication of the error string in this script
+      # If you require to add more error messages to be igored, do run sth like the below and add to cases.
+      # pg_restore ... | grep -B 1 "Command was: <COMMAND CAUSING SPURIOUS ERROR>" | tr -d "\n" | sha256sum | awk '{ print $1 }'
+      case $(echo "${pg_error}" | sha256sum | awk '{ print $1 }') in
+        a1d79e0711e23f137373425d704b68116005439c59502dac4d68a616bec9ef46);;
+        b863dfa39e930334d9163a9a3e4269b18bfd363cf25e894e0b35d512d98581c4);;
+        a5b0047fcfeb0e0a57fd8750ebc28808f4ed407bae59c4644e8c8614b5d3a079);;
+        a6028cd4e6e01ccda0bb415e2a66b7a2ca5cef8c469ca0ef4b3de0bdb954dde1);;
+        *)
+          echo "${pg_error}"
+          log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+          exit 1
+          ;;
+      esac
+    fi
+  done
+}
+
 function report_error {
-  log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+  if [ -n "${pg_stderr:-""}" ]
+  then
+    # Ignore spurious warnings of PG (see above for more detail)
+    filter_pg_stderr "$@"
+  else
+    log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+    exit 1
+  fi
 }
 
 function nagios_passive {
@@ -176,7 +214,7 @@ function restore_postgresql {
      DB_OWNER=$(sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
     sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
   fi
-  sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}"
+  pg_stderr=$(sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE $database TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
      echo "ALTER DATABASE $database OWNER TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
