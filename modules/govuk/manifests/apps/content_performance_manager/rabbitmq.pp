@@ -38,8 +38,48 @@ class govuk::apps::content_performance_manager::rabbitmq (
     ensure        => 'present',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
-    routing_key   => '*.*',
+    routing_key   => '*.major',
     durable       => true,
+  }
+
+  rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
+    ensure           => 'present',
+    name             => "${amqp_exchange}@${amqp_queue}@minor@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => '*.minor',
+    arguments        => {},
+  }
+
+  rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue}@/":
+    ensure           => 'present',
+    name             => "${amqp_exchange}@${amqp_queue}@links@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => '*.links',
+    arguments        => {},
+  }
+
+  rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
+    ensure           => 'present',
+    name             => "${amqp_exchange}@${amqp_queue}@republish@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => '*.republish',
+    arguments        => {},
+  }
+
+  rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue}@/":
+    ensure           => 'present',
+    name             => "${amqp_exchange}@${amqp_queue}@unpublish@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => '*.unpublish',
+    arguments        => {},
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue:
