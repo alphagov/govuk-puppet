@@ -178,3 +178,4 @@ content-publisher: govuk_setenv content-publisher ./run_in.sh ../../content-publ
 content-data-admin: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec rails s -p 3230
 draft-smartanswers: govuk_setenv draft-smartanswers ./run_in.sh ../../smart-answers bundle exec rails server -p 3231 -P tmp/pids/draft-smartanswers.pid
 # content-publisher has reserved 3232 for webpack-dev-server
+cache-clearing-service: govuk_setenv cache-clearing-service ./run_in.sh ../../cache-clearing-service bundle exec bin/cache_clearing_service
