@@ -1841,11 +1841,4 @@ unattended_upgrades::origins:
 
 unicornherder::version: '0.0.8'
 
-# Pete Leaman needs access to the licensing machines for his work
-users::pentest_machines:
-  - 'licensing-backend-1'
-  - 'licensing-backend-2'
-users::pentest_usernames:
-  - 'peteleaman'
-
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
