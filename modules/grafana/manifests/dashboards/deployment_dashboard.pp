@@ -107,8 +107,8 @@ define grafana::dashboards::deployment_dashboard (
 
   $panel_partials = concat(
     [
-      ['processor_count', '5xx_rate'],
-      ['error_counts_table', 'links']
+      ['processor_count', 'thread_count'],
+      ['error_counts_table', '5xx_rate']
     ],
     $worker_row,
     $errors_by_controller_row,
@@ -116,7 +116,8 @@ define grafana::dashboards::deployment_dashboard (
     $duration_by_controller_row,
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
-    $elasticsearch_stats
+    $elasticsearch_stats,
+    [['links']]
   )
 
   file {
