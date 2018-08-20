@@ -1,0 +1,11 @@
+govuk_env_sync::tasks:
+  "pull_router_daily":
+    hour: "1"
+    minute: "24"
+    action: "pull"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "router"
+    temppath: "/tmp/.dumps"
+    url: "govuk-staging-database-backups"
+    path: "mongo-router"
