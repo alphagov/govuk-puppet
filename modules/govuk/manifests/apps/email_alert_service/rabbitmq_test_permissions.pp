@@ -47,7 +47,7 @@ class govuk::apps::email_alert_service::rabbitmq_test_permissions (
   govuk_rabbitmq::queue_with_binding { $amqp_unpublishing_queue:
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_unpublishing_queue,
-    routing_key   => 'redirect.unpublishing.#',
+    routing_key   => 'redirect.unpublish.#',
     durable       => true,
   } ->
 
