@@ -206,18 +206,28 @@ function  dump_postgresql {
 }
 
 function restore_postgresql {
+  # Check which postgres instance the database needs to restore into
+  # (warehouse, transition, or postgresql-primary).
+  if [ "${database}" == 'transition_production' ]; then
+    db_hostname='transition-postgresql-primary'
+  elif [ "${database}" == 'content_performance_manager_production' ]; then
+    db_hostname='warehouse-postgresql-primary'
+  else
+    db_hostname='postgresql-primary'
+  fi
+
 # Checking if the database already exist
 # If it does we will drop the database
   DB_OWNER=''
-  if sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
+  if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      echo "Database ${database} exists, we will drop it before continuing"
-     DB_OWNER=$(sudo psql -U aws_db_admin -h postgresql-primary --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
-    sudo dropdb -U aws_db_admin -h postgresql-primary --no-password "${database}"
+     DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
+     sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
-  pg_stderr=$(sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
+  pg_stderr=$(sudo pg_restore -U aws_db_admin -h "${db_hostname}" --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
   if [ "$DB_OWNER" != '' ] ; then
-     echo "GRANT ALL ON DATABASE '$database' TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
-     echo "ALTER DATABASE '$database' OWNER TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
+     echo "GRANT ALL ON DATABASE '$database' TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+     echo "ALTER DATABASE '$database' OWNER TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
 }
 
