@@ -9,6 +9,7 @@ process :backdrop => [:backdrop_read, :backdrop_write]
 process :backdrop_read
 process :backdrop_write
 process :bouncer
+process :'cache-clearing-service'
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :rummager]

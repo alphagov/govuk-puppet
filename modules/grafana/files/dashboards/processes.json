@@ -1132,6 +1132,11 @@
             "selected": false
           },
           {
+            "text": "processes-app-cache-clearing-service",
+            "value": "processes-app-cache-clearing-service",
+            "selected": false
+          },
+          {
             "text": "processes-app-calculators",
             "value": "processes-app-calculators",
             "selected": false

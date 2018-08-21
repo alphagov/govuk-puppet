@@ -16,6 +16,7 @@ node_class: &node_class
   backend:
     apps:
       - asset-manager
+      - cache-clearing-service
       - canary-backend
       - collections-publisher
       - contacts
@@ -144,6 +145,7 @@ deployable_applications: &deployable_applications
   backdrop-write:
     repository: 'backdrop'
   bouncer: {}
+  cache-clearing-service: {}
   calculators: {}
   calendars: {}
   ckan:
