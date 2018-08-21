@@ -1162,6 +1162,8 @@ monitoring::checks::rds::servers:
    - 'transition-postgresql-standby'
    - 'warehouse-postgresql-primary'
    - 'warehouse-postgresql-standby'
+   - 'publishing-api-postgresql-primary'
+   - 'publishing-api-postgresql-standby'
    - 'mysql-primary'
    - 'mysql-replica'
 
