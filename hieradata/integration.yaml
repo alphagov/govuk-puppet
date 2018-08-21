@@ -210,7 +210,6 @@ icinga::client::check_cputype::cputype: 'amd'
 licensify::apps::licensify_admin::environment: 'integration'
 licensify::apps::licensify::environment: 'integration'
 licensify::apps::licensify_feed::environment: 'integration'
-licensify::apps::licensing_web_forms::enabled: true
 
 monitoring::ci_environment: true
 monitoring::checks::sidekiq::enable_support_check: false
