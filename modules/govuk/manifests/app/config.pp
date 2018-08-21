@@ -68,6 +68,7 @@ define govuk::app::config (
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
+  $alert_when_threads_exceed = 100,
   $cache_api_calls = undef,
 ) {
   $ensure_directory = $ensure ? {
@@ -278,6 +279,15 @@ define govuk::app::config (
       host_name     => $::fqdn,
       event_handler => "govuk_app_high_memory!${title}",
       notes_url     => monitoring_docs_url(high-memory-for-application),
+    }
+    if $alert_when_threads_exceed {
+      @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
+        target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
+        warning   => $alert_when_threads_exceed,
+        critical  => $alert_when_threads_exceed,
+        desc      => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+        host_name => $::fqdn,
+      }
     }
   }
 
