@@ -1167,6 +1167,8 @@ monitoring::checks::rds::servers:
    - 'transition-postgresql-standby'
    - 'warehouse-postgresql-primary'
    - 'warehouse-postgresql-standby'
+   - 'email-alert-api-postgresql-primary'
+   - 'email-alert-api-postgresql-standby'
    - 'mysql-primary'
    - 'mysql-replica'
 
