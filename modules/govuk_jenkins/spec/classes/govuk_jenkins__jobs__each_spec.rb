@@ -11,6 +11,7 @@ BROKEN_SPECS = %w[
   copy_attachments_to_integration.pp
   copy_attachments_to_staging.pp
   copy_data_to_integration.pp
+  copy_data_to_aws_integration.pp
   copy_data_to_staging.pp
   deploy_cdn.pp
   deploy_puppet.pp
