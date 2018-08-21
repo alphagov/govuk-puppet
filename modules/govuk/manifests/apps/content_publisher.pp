@@ -48,7 +48,20 @@
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
-
+#
+# [*aws_access_key_id*]
+#   An access key that can be use with Amazon Web Services
+#
+# [*aws_secret_access_key*]
+#   The secret key that corresponds with the aws_access_key_id
+#
+# [*aws_region*]
+#   The AWS region which is used for AWS Services
+#   default: eu-west-1
+#
+# [*aws_s3_activestorage_bucket*]
+#   An S3 bucket in the specified AWS region
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -64,6 +77,10 @@ class govuk::apps::content_publisher (
   $db_name = 'content_publisher_production',
   $publishing_api_bearer_token = undef,
   $jwt_auth_secret = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -106,6 +123,18 @@ class govuk::apps::content_publisher (
     "${title}-JWT_AUTH_SECRET":
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret;
+    "${title}-AWS_ACCESS_KEY_ID":
+        varname => 'AWS_ACCESS_KEY_ID',
+        value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+        varname => 'AWS_SECRET_ACCESS_KEY',
+        value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
+    "${title}-AWS_S3_BUCKET":
+        varname => 'AWS_S3_BUCKET',
+        value   => $aws_s3_bucket;
   }
 
   if $::govuk_node_class !~ /^development$/ {
