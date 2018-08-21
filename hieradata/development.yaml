@@ -22,6 +22,7 @@ govuk::node::s_development::apps:
   - 'backdrop_write'
   - 'backdrop_write::rabbitmq'
   - 'bouncer'
+  - 'cache_clearing_service'
   - 'calculators'
   - 'calendars'
   - 'canary_backend'
