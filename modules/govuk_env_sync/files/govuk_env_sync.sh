@@ -216,8 +216,8 @@ function restore_postgresql {
   fi
   pg_stderr=$(sudo pg_restore -U aws_db_admin -h postgresql-primary --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
   if [ "$DB_OWNER" != '' ] ; then
-     echo "GRANT ALL ON DATABASE $database TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
-     echo "ALTER DATABASE $database OWNER TO $DB_OWNER" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
+     echo "GRANT ALL ON DATABASE '$database' TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
+     echo "ALTER DATABASE '$database' OWNER TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h postgresql-primary --no-password "${database}"
   fi
 }
 
