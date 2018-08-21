@@ -282,6 +282,7 @@ define govuk::app::config (
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
+        ensure    => $ensure,
         target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
         warning   => $alert_when_threads_exceed,
         critical  => $alert_when_threads_exceed,
