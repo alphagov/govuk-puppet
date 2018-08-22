@@ -576,8 +576,6 @@ hosts::production::router::hosts:
 licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
-#Do not enable this without speaking to Tim Blair first
-licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::mirror::enabled: true
 monitoring::checks::ses::region: us-east-1

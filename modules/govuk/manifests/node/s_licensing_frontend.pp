@@ -12,7 +12,6 @@ class govuk::node::s_licensing_frontend inherits govuk::node::s_base {
   include govuk_java::openjdk8::jdk
   include govuk_java::openjdk8::jre
   include licensify::apps::licensify
-  include licensify::apps::licensing_web_forms
 
   class { 'govuk_java::set_defaults':
     jdk     => 'openjdk8',
@@ -23,7 +22,6 @@ class govuk::node::s_licensing_frontend inherits govuk::node::s_base {
               ],
     notify  => [
                 Class['licensify::apps::licensify'],
-                Class['licensify::apps::licensing_web_forms'],
               ],
   }
 

@@ -103,8 +103,6 @@ grafana::dashboards::machine_suffix_metrics: '_production'
 licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
-#Do not enable this without speaking to Tim Blair first
-licensify::apps::licensing_web_forms::enabled: false
 
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
