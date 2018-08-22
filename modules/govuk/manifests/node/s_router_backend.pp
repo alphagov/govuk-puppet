@@ -4,7 +4,7 @@
 #
 class govuk::node::s_router_backend inherits govuk::node::s_base {
   include mongodb::server
-
+  include govuk_env_sync
   include govuk::node::s_app_server
 
   include nginx
