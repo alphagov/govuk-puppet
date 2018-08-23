@@ -19,7 +19,7 @@
       numToKeep: 10
       artifactDaysToKeep: 3
     triggers:
-      - timed: 'H * * * *'
+      - timed: 'H H * * *'
     properties:
       - build-discarder:
           days-to-keep: 30
@@ -27,7 +27,7 @@
     builders:
       - shell: |
           #!/bin/bash
-          set -eu
+          set -eux
 
           cd "${WORKSPACE}"
 
@@ -38,6 +38,8 @@
           cd govuk-content-api-docs
 
           export BUNDLE_PATH="${HOME}/bundles/${JOB_NAME}"
+          mkdir -p $BUNDLE_PATH
+
           make publish API_SPEC=../content-store/openapi.yaml
 
           cd ..
