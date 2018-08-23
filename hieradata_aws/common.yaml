@@ -377,6 +377,7 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::bouncer::unicorn_worker_processes: "8"
 
 govuk::apps::cache_clearing_service::enabled: true
+govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 
 govuk::apps::ckan::db_hostname: "db-admin"
 govuk::apps::ckan::db_port: 6432

@@ -12,16 +12,33 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*rabbitmq_hosts*]
+#   RabbitMQ hosts to connect to.
+#   Default: localhost
+#
+# [*rabbitmq_user*]
+#   RabbitMQ username.
+#   Default: cache_clearing_service
+#
+# [*rabbitmq_password*]
+#   RabbitMQ password.
+#   Default: cache_clearing_service
+#
 class govuk::apps::cache_clearing_service (
   $enabled = false,
   $sentry_dsn = undef,
+  $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_user = 'cache_clearing_service',
+  $rabbitmq_password = 'cache_clearing_service',
 ) {
   $ensure = $enabled ? {
     true  => 'present',
     false => 'absent',
   }
 
-  govuk::app { 'cache-clearing-service':
+  $app_name = 'cache-clearing-service'
+
+  govuk::app { $app_name:
     ensure             => $ensure,
     app_type           => 'bare',
     enable_nginx_vhost => false,
@@ -31,7 +48,13 @@ class govuk::apps::cache_clearing_service (
 
   Govuk::App::Envvar {
     ensure          => $ensure,
-    app             => 'cache-clearing-service',
+    app             => $app_name,
     notify_service  => $enabled,
+  }
+
+  govuk::app::envvar::rabbitmq { $app_name:
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
   }
 }
