@@ -17,6 +17,12 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 # [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run
 #   Default: undef
@@ -33,6 +39,8 @@ class govuk::apps::government_frontend(
   $port = '3090',
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
@@ -59,5 +67,7 @@ class govuk::apps::government_frontend(
     unicorn_worker_processes => $unicorn_worker_processes,
     cpu_warning              => $cpu_warning,
     cpu_critical             => $cpu_critical,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
   }
 }
