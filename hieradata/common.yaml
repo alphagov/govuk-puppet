@@ -463,9 +463,9 @@ govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::frontend::unicorn_worker_processes: "4"
 
-govuk::apps::government-frontend::nagios_memory_warning: 1800
-govuk::apps::government-frontend::nagios_memory_critical: 2000
-govuk::apps::government-frontend::unicorn_worker_processes: "8"
+govuk::apps::government_frontend::nagios_memory_warning: 1800
+govuk::apps::government_frontend::nagios_memory_critical: 2000
+govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
 govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 
