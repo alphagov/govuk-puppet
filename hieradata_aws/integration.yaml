@@ -11,6 +11,7 @@ cron::daily_hour: 6
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publisher-activestorage"
+govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-6"
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-integration-email-alert-api-archive'

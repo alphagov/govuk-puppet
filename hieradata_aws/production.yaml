@@ -14,6 +14,7 @@ govuk_app_cache_api_calls: true
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
+govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
