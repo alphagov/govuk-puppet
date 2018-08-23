@@ -82,9 +82,13 @@ process :static
 process :support => [:'support-api']
 process :'support-api'
 process :transition
-process :travel_advice_publisher => [:static, 'asset-manager', :'travel_advice_publisher_worker', :'email-alert-api', :'link-checker-api']
-process :travel_advice_publisher_worker
+process :'travel-advice-publisher' => [:static, 'asset-manager', :'travel-advice-publisher-worker', :'email-alert-api', :'link-checker-api']
+process :'travel-advice-publisher-worker'
 process :whitehall => [:'asset-manager', :static, :'publishing-api', :rummager, :'whitehall-worker', :'link-checker-api']
+
+# These are aliases for travel-advice-publisher for compatibility with people who still use them
+process :travel_advice_publisher => :'travel-advice-publisher'
+process :travel_advice_publisher_worker => :'travel-advice-publisher-worker'
 
 # pseudo processes to reflect what's needed for www.dev.gov.uk to work at all
 # www.dev.gov.uk will still depend on the relevant other frontend applications being
