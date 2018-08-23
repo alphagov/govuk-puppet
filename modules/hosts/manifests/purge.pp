@@ -16,6 +16,7 @@ class hosts::purge {
   # eg hosts that are only present in AWS
   $whitelist = [
     'db-admin-1',
+    'email-alert-api-postgresql',
   ]
 
   if ! ($::hostname in $whitelist) {
