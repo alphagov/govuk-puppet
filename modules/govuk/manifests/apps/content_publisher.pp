@@ -62,6 +62,9 @@
 # [*aws_s3_activestorage_bucket*]
 #   An S3 bucket in the specified AWS region
 #
+# [*google_tag_manager_id*]
+#   The ID for the Google Tag Manager account
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -81,6 +84,7 @@ class govuk::apps::content_publisher (
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $aws_s3_bucket = undef,
+  $google_tag_manager_id = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -135,6 +139,9 @@ class govuk::apps::content_publisher (
     "${title}-AWS_S3_BUCKET":
         varname => 'AWS_S3_BUCKET',
         value   => $aws_s3_bucket;
+    "${title}-GOOGLE_TAG_MANAGER_ID":
+        varname => 'GOOGLE_TAG_MANAGER_ID',
+        value   => $google_tag_manager_id;
   }
 
   if $::govuk_node_class !~ /^development$/ {
