@@ -71,13 +71,15 @@ function filter_pg_stderr {
         a5b0047fcfeb0e0a57fd8750ebc28808f4ed407bae59c4644e8c8614b5d3a079);;
         a6028cd4e6e01ccda0bb415e2a66b7a2ca5cef8c469ca0ef4b3de0bdb954dde1);;
         *)
-          echo "${pg_error}"
           log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+          log "${pg_error}" "user.err"
           exit 1
           ;;
       esac
     fi
   done
+  # Empty pg_output to route following errors through the standard error handler
+  unset "${pg_stderr}"
 }
 
 function report_error {
@@ -96,7 +98,7 @@ function nagios_passive {
   if [ -n "${configfile:-""}" ]
   then
     nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
-    printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert >/dev/null
+    printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
   fi
   # If arguments are provided manually, do not report to nagios/icinga
 }
