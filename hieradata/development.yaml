@@ -265,6 +265,7 @@ hosts::development::apps:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-data-admin'
+  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-store'
   - 'content-tagger'
