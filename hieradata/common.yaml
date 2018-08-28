@@ -341,8 +341,6 @@ filebeat::prospectors:
 
 gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_app_cache_api_calls: false
-
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
