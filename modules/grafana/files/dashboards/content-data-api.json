@@ -319,7 +319,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "integral(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.satisfaction_score.select metric)",
+              "target": "integral(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.satisfaction_score)",
               "textEditor": true
             }
           ],
@@ -479,7 +479,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "integral(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.number_of_pdfs)",
+              "target": "integral(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.edition.number_of_pdfs)",
               "textEditor": true
             }
           ],
@@ -639,7 +639,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "feedex_comments",
+              "target": "integral(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.feedex_comments)",
               "textEditor": true
             }
           ],
