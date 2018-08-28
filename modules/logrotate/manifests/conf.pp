@@ -40,6 +40,9 @@
 # [*sharedscripts*]
 #   Boolean, sets the sharedscripts option in logrotate
 #
+# [*maxsize*]
+#   Specify the maximum size of a log file before it must get rotated.
+#
 define logrotate::conf (
   $matches,
   $days_to_keep = '31',
@@ -53,6 +56,7 @@ define logrotate::conf (
   $postrotate = undef,
   $rotate_if_empty = false,
   $sharedscripts = false,
+  $maxsize = undef,
 ) {
 
   file { "/etc/logrotate.d/${title}":
