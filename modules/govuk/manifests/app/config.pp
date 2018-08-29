@@ -35,7 +35,7 @@
 # [*cache_api_calls*]
 #   Control whether the app uses the in-memory cache that comes with
 #   GDS API adapters.
-#   Default: false
+#   Default: undef
 #
 define govuk::app::config (
   $app_type,
@@ -69,7 +69,7 @@ define govuk::app::config (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $alert_when_threads_exceed = 100,
-  $cache_api_calls = false,
+  $cache_api_calls = undef,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -148,7 +148,9 @@ define govuk::app::config (
         value   => $sentry_dsn;
     }
 
-    if $cache_api_calls {
+    $cache_api_calls_final = pick($cache_api_calls, hiera('govuk_app_cache_api_calls', true))
+
+    if $cache_api_calls_final {
       $ensure_disable_cache_var = 'absent'
     } else {
       $ensure_disable_cache_var = 'present'

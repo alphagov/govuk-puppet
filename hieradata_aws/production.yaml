@@ -9,6 +9,8 @@ base::supported_kernel::enabled: false
 
 cron::daily_hour: 6
 
+govuk_app_cache_api_calls: true
+
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"

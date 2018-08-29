@@ -230,7 +230,7 @@
 # [*cache_api_calls*]
 #   Control whether the app uses the in-memory cache that comes with
 #   GDS API adapters.
-#   Default: false
+#   Default: undef
 #
 define govuk::app (
   $app_type,
@@ -265,7 +265,7 @@ define govuk::app (
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
-  $cache_api_calls = false,
+  $cache_api_calls = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
