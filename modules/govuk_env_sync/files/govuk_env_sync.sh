@@ -44,7 +44,13 @@ set -o errtrace
 #
 args=("$@")
 
+# Get local ip addr, avoiding using puppet templating of this script.
 ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*')
+
+# LOCAL_DOMAIN as defined in /etc/govuk_env_sync/env.d
+# No, it is not a typo
+# shellcheck disable=SC2153
+local_domain="${LOCAL_DOMAIN}"
 
 function log {
   echo -ne "$(basename "$0"): $1\\n"
@@ -72,6 +78,7 @@ function filter_pg_stderr {
         a6028cd4e6e01ccda0bb415e2a66b7a2ca5cef8c469ca0ef4b3de0bdb954dde1);;
         a24d3736ce830147868c0cea77f0935dc5d7b8137ac16396a63ad96b44b16520);;
         54df370bdbba3aa3badc2b0841b106267ec38c69d89eb600aeee6aa391369571);;
+        178ca929da5a769f1d9d7af5466866db23fd6f9b632cf907594824cb022a943b);;
         *)
           log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
           log "${pg_error}" "user.err"
@@ -230,8 +237,8 @@ function restore_postgresql {
   fi
   pg_stderr=$(sudo pg_restore -U aws_db_admin -h "${db_hostname}" --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
   if [ "$DB_OWNER" != '' ] ; then
-     echo "GRANT ALL ON DATABASE '$database' TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
-     echo "ALTER DATABASE '$database' OWNER TO '$DB_OWNER'" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+     echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+     echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
 }
 
@@ -270,6 +277,57 @@ function get_timestamp_rsync {
   # shellcheck disable=SC2029
   timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+}
+
+function postprocess_signon_production {
+  source_domain_query="SELECT home_uri FROM oauth_applications WHERE name='Publisher';"
+  source_domain=$(echo "${source_domain_query}" |\
+                  sudo -H mysql -h mysql-primary --database=signon_production | grep publisher | sed s#https://publisher.##g)
+  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
+
+  update_home_uri_query="UPDATE oauth_applications\
+     SET home_uri = REPLACE(home_uri, '${source_domain}', '${local_domain}')\
+     WHERE home_uri LIKE '%${source_domain}%'"
+
+  echo "${update_home_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+
+  update_redirect_uri_query="UPDATE oauth_applications\
+     SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${local_domain}')\
+     WHERE redirect_uri LIKE '%${source_domain}%'"
+
+  echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+}
+
+function postprocess_router {
+  static_domain=$(mongo --quiet --eval \
+    "db = db.getSiblingDB(\"${database}\"); \
+    db.backends.distinct( \"backend_url\", { \"backend_id\": \"static\" });" \
+    | sed s#https://##g | tr -d '/')
+  # router and draft-router hostnames differ - snip off up to first dot.
+  source_domain="${static_domain#*.}"
+
+  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
+
+  licensify_domain="${local_domain//govuk.digital/publishing.service.gov.uk}"
+
+  mongo --quiet --eval \
+    "db = db.getSiblingDB(\"${database}\"); \
+    db.backends.find( { \"backend_id\": { \$ne: \"licensify\" } } ).forEach( \
+      function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
+    db.backends.save(b); } ); \
+    db.backends.find( { \"backend_id\": \"licensify\" } ).forEach( \
+      function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${licensify_domain}\"); \
+    db.backends.save(b); } );"
+}
+
+function postprocess_database {
+  case "${database}" in
+    router) postprocess_router;;
+    # re-using postprocess_router below is not a typo - the script checks $database to determine where to apply changes.
+    draft_router) postprocess_router;;
+    signon_production) postprocess_signon_production;;
+    *) log "No post processing needed for ${database}" ;;
+  esac
 }
 
 usage() {
@@ -328,7 +386,7 @@ case ${action} in
       "pull_${storagebackend}"
       "restore_${dbms}"
       remove_tempdir
-      nagios_code=0
+      postprocess_database
     fi
     ;;
 esac
