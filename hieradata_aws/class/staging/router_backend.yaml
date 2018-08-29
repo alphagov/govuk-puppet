@@ -19,3 +19,13 @@ govuk_env_sync::tasks:
     temppath: "/tmp/.dumps"
     url: "govuk-staging-database-backups"
     path: "mongo-router"
+  "pull_authenticating_proxy_production_daily":
+    hour: "1"
+    minute: "55"
+    action: "pull"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "authenticating_proxy_production"
+    temppath: "/tmp/.dumps"
+    url: "govuk-staging-database-backups"
+    path: "mongo-router"
