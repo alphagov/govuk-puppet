@@ -53,7 +53,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(bouncer-*_redirector*.nginx.nginx_requests, 0)"
+              "target": "aliasByNode(bouncer-*.nginx.nginx_requests, 0)"
             }
           ],
           "timeFrom": null,
@@ -134,22 +134,22 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.bouncer-*_redirector*.nginx_logs.*.http_2xx, 4, 'sum')",
+              "target": "groupByNode(stats.bouncer-*.nginx_logs.*.http_2xx, 4, 'sum')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "groupByNode(stats.bouncer-*_redirector*.nginx_logs.*.http_3xx, 4, 'sum')",
+              "target": "groupByNode(stats.bouncer-*.nginx_logs.*.http_3xx, 4, 'sum')",
               "textEditor": true
             },
             {
               "refId": "C",
-              "target": "groupByNode(stats.bouncer-*_redirector*.nginx_logs.*.http_4xx, 4, 'sum')",
+              "target": "groupByNode(stats.bouncer-*.nginx_logs.*.http_4xx, 4, 'sum')",
               "textEditor": true
             },
             {
               "refId": "D",
-              "target": "groupByNode(stats.bouncer-*_redirector*.nginx_logs.*.http_5xx, 4, 'sum')",
+              "target": "groupByNode(stats.bouncer-*.nginx_logs.*.http_5xx, 4, 'sum')",
               "textEditor": true
             }
           ],
@@ -231,7 +231,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.bouncer-*_redirector*.nginx_logs.*.http_5xx, 1, 'sum')",
+              "target": "groupByNode(stats.bouncer-*.nginx_logs.*.http_5xx, 1, 'sum')",
               "textEditor": true
             }
           ],
@@ -313,7 +313,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "bouncer-*_redirector*.processes-app-bouncer.ps_count.processes",
+              "target": "bouncer-*.processes-app-bouncer.ps_count.processes",
               "textEditor": true
             }
           ],
