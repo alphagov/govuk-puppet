@@ -105,9 +105,6 @@ govuk::node::s_asset_slave::notification_period: 'inoffice_afternoon'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
-govuk::node::s_backend_lb::performance_backend_servers:
-  - 'performance-backend-1.backend'
-  - 'performance-backend-2.backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'

@@ -10,9 +10,6 @@
 # [*backend_servers*]
 #   An array of backend app servers
 #
-# [*performance_backend_servers*]
-#   An array of Performance Platform backend app servers
-#
 # [*whitehall_backend_servers*]
 #   An array of whitehall backend app servers
 #
@@ -28,7 +25,6 @@
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
-  $performance_backend_servers = [],
   $whitehall_backend_servers,
   $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
