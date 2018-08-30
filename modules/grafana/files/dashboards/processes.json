@@ -841,16 +841,6 @@
             "selected": false
           },
           {
-            "text": "performance-backend-1_backend",
-            "value": "performance-backend-1_backend",
-            "selected": false
-          },
-          {
-            "text": "performance-backend-2_backend",
-            "value": "performance-backend-2_backend",
-            "selected": false
-          },
-          {
             "text": "performance-mongo-1_api",
             "value": "performance-mongo-1_api",
             "selected": false
