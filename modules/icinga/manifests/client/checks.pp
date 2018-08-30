@@ -97,10 +97,12 @@ class icinga::client::checks (
     host_name           => $::fqdn,
   }
 
+  $underscored_host = regsubst($::hostname, '.', '_', 'G')
   @@icinga::check { "check_load_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_load',
     service_description => 'high load on',
     host_name           => $::fqdn,
+    action_url          => "https://grafana.${::app_domain}/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=${underscored_host}",
   }
 
   if $::aws_migration {
