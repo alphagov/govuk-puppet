@@ -18,35 +18,42 @@ temporary_hiera_file = Tempfile.new('hiera_yml')
 temporary_hiera_file.write(standard_hiera_config.to_yaml)
 temporary_hiera_file.close
 
+excluded_classes = [
+  "email_alert_api_postgresql",
+]
+
 ENV.fetch('classes').split(",").each do |class_name|
   node_hostname = class_name.tr("_", "-")
 
-  describe "govuk::node::s_#{class_name}", :type => :class do
-    let(:node) { "#{node_hostname}-1.example.com" }
-    let(:facts) {{
-      :environment => (class_name =~ /^development$/ ? "development" : 'vagrant'),
-      :concat_basedir => '/var/lib/puppet/concat/',
-      :kernel => 'Linux',
-      :memorysize =>  '3.86 GB',
-      :memorysize_mb => 3953.43,
-      :aws_migration => (class_name =~ /db_admin/ ? true : false),
-    }}
+  unless (excluded_classes.include?(class_name))
 
-    let(:hiera_config) { temporary_hiera_file.path }
+    describe "govuk::node::s_#{class_name}", :type => :class do
+      let(:node) { "#{node_hostname}-1.example.com" }
+      let(:facts) {{
+        :environment => (class_name =~ /^development$/ ? "development" : 'vagrant'),
+        :concat_basedir => '/var/lib/puppet/concat/',
+        :kernel => 'Linux',
+        :memorysize =>  '3.86 GB',
+        :memorysize_mb => 3953.43,
+        :aws_migration => (class_name =~ /db_admin/ ? true : false),
+      }}
 
-    # Pull in some required bits from top-level site.pp
-    let(:pre_condition) { <<-EOT
-      $govuk_node_class = "#{class_name}"
+      let(:hiera_config) { temporary_hiera_file.path }
 
-      $lv = hiera('lv',{})
-      create_resources('govuk_lvm', $lv)
-      $mount = hiera('mount',{})
-      create_resources('govuk_mount', $mount)
-      EOT
-    }
+      # Pull in some required bits from top-level site.pp
+      let(:pre_condition) { <<-EOT
+        $govuk_node_class = "#{class_name}"
 
-    it "should compile" do
-      expect { subject.call }.not_to raise_error
+        $lv = hiera('lv',{})
+        create_resources('govuk_lvm', $lv)
+        $mount = hiera('mount',{})
+        create_resources('govuk_mount', $mount)
+        EOT
+      }
+
+      it "should compile" do
+        expect { subject.call }.not_to raise_error
+      end
     end
   end
 end
