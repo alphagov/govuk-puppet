@@ -11,20 +11,23 @@
         - shell: |
             #!/usr/bin/env bash
             set -x
-
+            ARG_CONFIGFILE=""
+            ARG_TIMESTAMP=""
+            if [ ! -z $SYNC_CONFIGFILE]; then ARG_CONFIGFILE="-f ${SYNC_CONFIGFILE}";fi
+            if [ ! -z $SYNC_TIMESTAMP]; then ARG_TIMESTAMP="-t ${SYNC_TIMESTAMP}";fi
             ssh deploy@${SYNC_HOST} \
             "/usr/bin/setlock /etc/unattended-reboot/no-reboot/govuk_env_sync \
              /usr/bin/envdir /etc/govuk_env_sync/env.d \
              /usr/local/bin/govuk_env_sync.sh \
-             -f ${SYNC_CONFIGFILE} \
+             ${ARG_CONFIGFILE} \
              -a ${SYNC_ACTION} \
-             -D ${SYNC_DMBS} \
+             -D ${SYNC_DBMS} \
              -S ${SYNC_STORAGEBACKEND} \
-             -t ${SYNC_TEMPPATH} \
+             -T ${SYNC_TEMPPATH} \
              -d ${SYNC_DBNAME} \
              -u ${SYNC_STORE_URL} \
              -p ${SYNC_STORE_PATH} \
-             -T ${SYNC_TIMESTAMP}"
+             ${ARG_TIMESTAMP}"
 
             EXITCODE=$?
             # Exit once completed.
