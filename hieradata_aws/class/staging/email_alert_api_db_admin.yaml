@@ -1,5 +1,5 @@
 govuk_env_sync::tasks:
-  "pull_content_performance_manager_production_daily":
+  "pull_email-alert-api_production_daily":
     hour: "3"
     minute: "45"
     action: "pull"
