@@ -251,8 +251,14 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "aliasByNode(summarize(perSecond(integral(groupByNode(stats.timers.*.app.$Application.*.workers.$Queues.processing_time.count, 7, 'sum'))), '1h', 'sum', false), 0)",
+              "hide": false,
+              "refId": "B",
+              "target": "aliasByNode(summarize(perSecond(integral(sumSeriesWithWildcards(stats.timers.*.app.$Application.*.workers.*.processing_time.count, 9))), '1h', 'sum', false), 5, 7)",
+              "textEditor": true
+            },
+            {
+              "refId": "D",
+              "target": "aliasByNode(summarize(perSecond(integral(sumSeriesWithWildcards(stats.timers.*.app.$Application.*.workers.*.*.processing_time.count, 9, 10))), '1h', 'sum', false), 5, 7, 8)",
               "textEditor": false
             }
           ],
@@ -337,8 +343,13 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(perSecond(integral(stats.timers.*.app.$Application.*.workers.$Queues.processing_time.count)), 5, 7)",
-              "textEditor": false
+              "target": "aliasByNode(perSecond(integral(stats.timers.*.app.$Application.*.workers.*.processing_time.count)), 5, 7)",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "aliasByNode(perSecond(integral(stats.timers.*.app.$Application.*.workers.*.*.processing_time.count)), 5, 7, 8)",
+              "textEditor": true
             }
           ],
           "thresholds": [],
