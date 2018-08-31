@@ -68,6 +68,7 @@ define govuk::app::config (
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
+  $collectd_process_regex = undef,
   $alert_when_threads_exceed = 100,
   $cache_api_calls = false,
 ) {
@@ -251,14 +252,15 @@ define govuk::app::config (
 
   # Set up monitoring
   if $app_type in ['rack', 'bare', 'procfile'] {
-    $collectd_process_regex = $app_type ? {
+    $default_collectd_process_regex = $app_type ? {
       'rack' => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
       'bare' => inline_template('<%= Regexp.escape(@command) + "$" -%>'),
       'procfile' => "gunicorn .* ${govuk_app_run}/app\\.pid",
     }
+
     collectd::plugin::process { "app-${title_underscore}":
       ensure => $ensure,
-      regex  => $collectd_process_regex,
+      regex  => pick($collectd_process_regex, $default_collectd_process_regex),
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure    => $ensure,
