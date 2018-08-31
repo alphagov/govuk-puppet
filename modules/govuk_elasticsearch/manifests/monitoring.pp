@@ -21,6 +21,10 @@ class govuk_elasticsearch::monitoring (
     log_index_type_count => $log_index_type_count,
   }
 
+  collectd::plugin::process { "elasticsearch-${cluster_name}":
+    regex  => '.*/bin/java .*/usr/share/elasticsearch .*',
+  }
+
   unless $disable_gc_alerts {
     @@icinga::check::graphite { "check_elasticsearch_jvm_gc_old_collection_time_in_millis-${::hostname}":
       target    => "summarize(${::fqdn_metrics}.curl_json-elasticsearch.counter-jvm_gc_collectors_old_collection_time_in_millis,\"5minutes\",\"max\",true)",
