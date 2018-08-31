@@ -23,7 +23,7 @@
 #
 class govuk::apps::cache_clearing_service::rabbitmq (
   $amqp_user  = 'cache_clearing_service',
-  $amqp_pass = undef,
+  $amqp_pass = 'cache_clearing_service',
   $amqp_exchange = 'published_documents',
   $amqp_queue = 'cache_clearing_service',
 ) {
