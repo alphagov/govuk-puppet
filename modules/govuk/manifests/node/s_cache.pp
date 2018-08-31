@@ -43,6 +43,7 @@ class govuk::node::s_cache (
 
   include govuk_htpasswd
   include router::gor
+  include nscd
 
   if $router_as_container {
     include ::govuk_containers::apps::router
