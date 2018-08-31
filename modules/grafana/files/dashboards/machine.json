@@ -133,7 +133,7 @@
           "datasource": "Graphite",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {},
           "id": 1,
           "legend": {
@@ -153,7 +153,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "/user/",
+              "linewidth": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 12,
           "stack": false,
@@ -543,7 +548,13 @@
       },
       {
         "allValue": "*",
-        "current": {},
+        "current": {
+          "text": "cpu-system + cpu-user",
+          "value": [
+            "cpu-system",
+            "cpu-user"
+          ]
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": true,
