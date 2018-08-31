@@ -21,8 +21,9 @@ class monitoring::checks::sidekiq (
     # seconds per datapoint is the last 3 minutes
     args                => '--dropfirst -36',
     host_name           => $::fqdn,
-    desc                => 'check rummager queue latency [in office hours]',
+    desc                => 'Rummager Sidekiq queue latency',
     notification_period => 'inoffice',
+    notes_url           => monitoring_docs_url(rummager-queue-latency),
   }
 
   icinga::check::graphite { 'check_signon_queue_sizes':
