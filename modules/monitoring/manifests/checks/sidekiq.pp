@@ -23,6 +23,7 @@ class monitoring::checks::sidekiq (
     host_name           => $::fqdn,
     desc                => 'check rummager queue latency [in office hours]',
     notification_period => 'inoffice',
+    notes_url           => monitoring_docs_url(rummager-queue-latency),
   }
 
   icinga::check::graphite { 'check_signon_queue_sizes':
