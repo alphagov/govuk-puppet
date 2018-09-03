@@ -306,8 +306,6 @@ collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
-environment_ip_prefix: '10.1'
-
 filebeat::prospectors:
   apt-history:
     paths:
