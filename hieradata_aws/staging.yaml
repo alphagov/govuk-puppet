@@ -9,6 +9,8 @@ base::supported_kernel::enabled: false
 
 cron::daily_hour: 6
 
+environment_ip_prefix: '10.2'
+
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
