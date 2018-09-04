@@ -17,14 +17,6 @@
 # [*db_password*]
 #   The password for the postgresql role
 #
-# [*db_port*]
-#   The port of the database server to use in the DATABASE_URL.
-#   Default: 5432
-#
-# [*db_allow_prepared_statements*]
-#   The ?prepared_statements= parameter to use in the DATABASE_URL.
-#   Default: true
-#
 # [*db_name*]
 #   The database that CKAN should use
 #
@@ -41,8 +33,6 @@ class govuk::apps::ckan (
   $enabled                        = false,
   $port                           = '3220',
   $db_hostname                    = undef,
-  $db_port                        = 5432,
-  $db_allow_prepared_statements   = true,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
   $db_name                        = 'ckan_production',
