@@ -22,9 +22,9 @@ class assets (
   # Ownership and permissions come from the mount.
   file { '/data/uploads':
     ensure => directory,
-    owner  => undef,
-    group  => undef,
-    mode   => undef,
+    owner  => 'assets',
+    group  => 'assets',
+    mode   => '0777',
   }
 
   # ensure the mounts are gone: todo, remove this after it's been

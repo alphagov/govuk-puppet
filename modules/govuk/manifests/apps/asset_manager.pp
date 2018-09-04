@@ -70,8 +70,14 @@ class govuk::apps::asset_manager(
   $app_name = 'asset-manager'
 
   if $enabled {
-    include assets
     include clamav
+
+    file { '/data/uploads/asset-manager':
+      ensure => directory,
+      mode   => '0775',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
 
     $app_domain = hiera('app_domain')
 
