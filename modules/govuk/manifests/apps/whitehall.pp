@@ -205,24 +205,11 @@ class govuk::apps::whitehall(
     }
 
     if $::aws_migration {
-      $whitehall_frontend_vhost_    = 'whitehall-frontend'
-      $whitehall_frontend_aliases   = ['draft-whitehall-frontend']
-      $whitehall_nginx_extra_config = "
-      set \$upstream_whitehall_admin ${app_protocol}://whitehall-admin.${app_domain};
-      location /government/uploads {
-        proxy_set_header Host 'whitehall-admin.${app_domain}';
-        proxy_pass \$upstream_whitehall_admin;
-      }
-      "
+      $whitehall_frontend_vhost_  = 'whitehall-frontend'
+      $whitehall_frontend_aliases = ['draft-whitehall-frontend']
     } else {
-      $whitehall_frontend_vhost_    = "whitehall-frontend.${app_domain}"
-      $whitehall_frontend_aliases   = ["draft-whitehall-frontend.${app_domain}"]
-      $whitehall_nginx_extra_config = "
-      location /government/uploads {
-        proxy_set_header Host 'whitehall-admin.${app_domain}';
-        proxy_pass ${app_protocol}://whitehall-admin.${app_domain};
-      }
-      "
+      $whitehall_frontend_vhost_  = "whitehall-frontend.${app_domain}"
+      $whitehall_frontend_aliases = ["draft-whitehall-frontend.${app_domain}"]
     }
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
@@ -232,7 +219,6 @@ class govuk::apps::whitehall(
       app_port              => $port,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
-      nginx_extra_config    => $whitehall_nginx_extra_config,
     }
 
     if $::govuk_node_class !~ /^development$/ {
