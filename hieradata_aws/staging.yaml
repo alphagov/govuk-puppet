@@ -131,3 +131,5 @@ router::nginx::robotstxt: |
   Disallow: /
 
 nginx::config::stack_network_prefix: '10.2.0'
+
+govuk_datascrubber::ensure: 'present'
