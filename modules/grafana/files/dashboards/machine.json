@@ -68,7 +68,7 @@
             {
               "hide": false,
               "refId": "B",
-              "target": "alias(countSeries($hostname.cpu-*.cpu-user), 'CPU Count')",
+              "target": "alias(scale(sumSeries(offset($hostname.cpu-*.cpu-user, 100000)), 0.00001), 'CPU Count')",
               "textEditor": false
             },
             {
