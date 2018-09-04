@@ -14,9 +14,9 @@ class assets (
   # Ownership and permissions come from the mount.
   file { '/data/uploads':
     ensure => directory,
-    owner  => undef,
-    group  => undef,
-    mode   => undef,
+    owner  => 'deploy',
+    group  => 'deploy',
+    mode   => '0777',
   }
 
   # ensure the mount is gone: todo, remove this after it's been

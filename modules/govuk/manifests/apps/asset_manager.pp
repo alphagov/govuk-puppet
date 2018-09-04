@@ -73,6 +73,13 @@ class govuk::apps::asset_manager(
     include assets
     include clamav
 
+    file { '/data/uploads/asset-manager':
+      ensure => directory,
+      mode   => '0775',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
+
     $app_domain = hiera('app_domain')
 
     Govuk::App::Envvar {
