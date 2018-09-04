@@ -91,7 +91,6 @@ class govuk::apps::asset_manager(
       health_check_path        => '/healthcheck',
       log_format_is_json       => true,
       deny_framing             => $deny_framing,
-      depends_on_nfs           => true,
       nginx_extra_config       => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
       unicorn_worker_processes => $unicorn_worker_processes,
       nagios_memory_warning    => $nagios_memory_warning,
