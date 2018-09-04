@@ -32,11 +32,6 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
-# [*cache_api_calls*]
-#   Control whether the app uses the in-memory cache that comes with
-#   GDS API adapters.
-#   Default: false
-#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -70,7 +65,6 @@ define govuk::app::config (
   $cpu_critical = 200,
   $collectd_process_regex = undef,
   $alert_when_threads_exceed = 100,
-  $cache_api_calls = false,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -147,18 +141,6 @@ define govuk::app::config (
       "${title}-SENTRY_DSN":
         varname => 'SENTRY_DSN',
         value   => $sentry_dsn;
-    }
-
-    if $cache_api_calls {
-      $ensure_disable_cache_var = 'absent'
-    } else {
-      $ensure_disable_cache_var = 'present'
-    }
-
-    govuk::app::envvar { "${title}-GDS_API_DISABLE_CACHE":
-      ensure  => $ensure_disable_cache_var,
-      varname => 'GDS_API_DISABLE_CACHE',
-      value   => "${!cache_api_calls_final}",
     }
 
     if $::govuk_node_class !~ /^development$/ {
