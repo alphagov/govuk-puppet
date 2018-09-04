@@ -253,55 +253,8 @@ class govuk::apps::whitehall(
       hidden_paths          => [$health_check_path],
       nginx_extra_config    => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping /data/uploads/whitehall/clean/=/clean/;
 
       client_max_body_size 500m;
-
-      location ~ /clean/(.*) {
-        internal;
-
-        # Whitehall sets a `Link:` header to let upstream clients know how
-        # to find the cover page for the attachment:
-        # https://github.com/alphagov/whitehall/blob/6c72de9390adcf9b23e90bd37686ce6fb940a41d/app/controllers/attachments_controller.rb#L45
-        # but Nginx strips those headers because X-Accel-Redirect is an
-        # internal redirect: http://stackoverflow.com/a/24509358/61435
-        #
-        # In order for the functionality to work correctly, we should restore
-        # that header.
-        add_header Link $upstream_http_link;
-
-        # Respect X-Frame-Options from Rails application
-        add_header X-Frame-Options $upstream_http_x_frame_options;
-
-        alias /data/uploads/whitehall/clean/$1;
-      }
-
-      location /government/uploads {
-        expires 12h;
-        add_header Cache-Control public;
-        # Explicitly reinclude Strict-Transport-Security header, as calling
-        # add_header above will have reset the set of headers sent by nginx.
-        include /etc/nginx/add-sts.conf;
-        try_files $uri @app;
-      }
-
-      # These are for files we have to upload manually on behalf of
-      # departments - see HMRC PAYE tools and Number10 virtual tour
-      location /government/uploads/uploaded {
-        expires 12h;
-        add_header Cache-Control public;
-        # Explicitly reinclude Strict-Transport-Security header, as calling
-        # add_header above will have reset the set of headers sent by nginx.
-        include /etc/nginx/add-sts.conf;
-        # Needs to be an alias otherwise it appends the path wrongly.
-        alias /data/uploads/whitehall/clean/uploaded;
-
-        # This type of file can change to accomodate new PAYE versions,
-        # so it needs a smaller expiry.
-        location ~ realtimepayetools-update\.xml {
-          expires 30m;
-        }
-      }
 
       # Don\'t ask for basic auth on API pages so internal apps can hit them
       # more easily.
