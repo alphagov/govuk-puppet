@@ -1,11 +1,7 @@
 description "GOV.UK application: <%= @title %>"
 
 
-<%- if @depends_on_nfs -%>
-start on stopped mountall-net
-<%- else -%>
 start on runlevel [2345]
-<%- end -%>
 stop on runlevel [!2345]
 <%- if !@enable_service -%>
 

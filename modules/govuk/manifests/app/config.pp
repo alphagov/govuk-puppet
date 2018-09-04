@@ -56,7 +56,6 @@ define govuk::app::config (
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
-  $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
   $sentry_dsn = undef,
