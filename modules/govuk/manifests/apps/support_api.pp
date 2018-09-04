@@ -121,17 +121,11 @@ class govuk::apps::support_api(
     port => $redis_port,
   }
 
-  if $::aws_migration {
-    $data_dir_user = 'deploy'
-  } else {
-    $data_dir_user = 'assets'
-  }
-
   file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
     ensure => directory,
     mode   => '0775',
-    owner  => $data_dir_user,
-    group  => $data_dir_user,
+    owner  => 'deploy',
+    group  => 'deploy',
   }
 
   govuk::procfile::worker { $app_name:
