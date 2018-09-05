@@ -181,7 +181,6 @@ class govuk::apps::whitehall(
     health_check_path        => $health_check_path,
     expose_health_check      => false,
     json_health_check        => true,
-    depends_on_nfs           => true,
     enable_nginx_vhost       => false,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
@@ -394,30 +393,30 @@ class govuk::apps::whitehall(
       }
     }
 
+    # Create the directory structure for whitehall assets
+    $asset_directories = [
+      '/data/uploads/whitehall',
+      '/data/uploads/whitehall/asset-manager-tmp',
+      '/data/uploads/whitehall/attachment-cache',
+      '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
+      '/data/uploads/whitehall/carrierwave-tmp',
+      '/data/uploads/whitehall/clean',
+      '/data/uploads/whitehall/draft-clean',
+      '/data/uploads/whitehall/draft-incoming',
+      '/data/uploads/whitehall/draft-infected',
+      '/data/uploads/whitehall/fatality_notices',
+      '/data/uploads/whitehall/incoming',
+      '/data/uploads/whitehall/infected',
+    ]
+
+    file { $asset_directories:
+      ensure => directory,
+      mode   => '0775',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
+
     if $::govuk_node_class =~ /^development$/ {
-      # Create the directory structure for whitehall assets in development
-      $asset_directories = [
-        '/data/uploads/whitehall',
-        '/data/uploads/whitehall/asset-manager-tmp',
-        '/data/uploads/whitehall/attachment-cache',
-        '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
-        '/data/uploads/whitehall/carrierwave-tmp',
-        '/data/uploads/whitehall/clean',
-        '/data/uploads/whitehall/draft-clean',
-        '/data/uploads/whitehall/draft-incoming',
-        '/data/uploads/whitehall/draft-infected',
-        '/data/uploads/whitehall/fatality_notices',
-        '/data/uploads/whitehall/incoming',
-        '/data/uploads/whitehall/infected',
-      ]
-
-      file { $asset_directories:
-        ensure => directory,
-        mode   => '0775',
-        owner  => 'assets',
-        group  => 'assets',
-      }
-
       # Symlink directories in the whitehall app root to the assets directories
       # Use `force` since some of these are created on git checkout.
       file { '/var/govuk/whitehall/asset-manager-tmp':

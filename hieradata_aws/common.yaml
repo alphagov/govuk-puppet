@@ -10,9 +10,6 @@ app_domain: "%{::aws_stackname}.govuk.internal"
 backup::mysql::alert_hostname: 'alert'
 
 node_class: &node_class
-  asset_master:
-    apps:
-      - asset_env_sync
   backend:
     apps:
       - asset-manager
@@ -791,9 +788,6 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_apt::apt_service: 'apt'
 govuk::node::s_apt::gemstash_service: 'gemstash'
-
-govuk::node::s_asset_base::alert_hostname: 'alert'
-govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::node::s_base::log_remote: false
 

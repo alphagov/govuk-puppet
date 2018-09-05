@@ -70,8 +70,14 @@ class govuk::apps::asset_manager(
   $app_name = 'asset-manager'
 
   if $enabled {
-    include assets
     include clamav
+
+    file { '/data/uploads/asset-manager':
+      ensure => directory,
+      mode   => '0775',
+      owner  => 'deploy',
+      group  => 'deploy',
+    }
 
     $app_domain = hiera('app_domain')
 
@@ -91,7 +97,6 @@ class govuk::apps::asset_manager(
       health_check_path        => '/healthcheck',
       log_format_is_json       => true,
       deny_framing             => $deny_framing,
-      depends_on_nfs           => true,
       nginx_extra_config       => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
       unicorn_worker_processes => $unicorn_worker_processes,
       nagios_memory_warning    => $nagios_memory_warning,
