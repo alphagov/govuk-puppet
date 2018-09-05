@@ -184,4 +184,6 @@ class govuk::node::s_db_admin(
     command => '/usr/local/bin/rds-postgres-to-s3',
     require => File['/usr/local/bin/rds-postgres-to-s3'],
   }
+
+  class { '::govuk_datascrubber': }
 }
