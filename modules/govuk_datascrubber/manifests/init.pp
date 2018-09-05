@@ -35,14 +35,25 @@
 #   Defaults to empty list.
 #
 class govuk_datascrubber (
-  $ensure           = 'latest',
-  $mysql_hosts      = ['mysql-primary'],
-  $postgresql_hosts = ['postgresql-primary'],
-  $cron_user        = 'deploy',
-  $cron_hour        = 20,
-  $cron_minute      = 0,
-  $share_with       = [],
+  $ensure              = 'latest',
+  $apt_mirror_hostname = undef,
+  $mysql_hosts         = ['mysql-primary'],
+  $postgresql_hosts    = ['postgresql-primary'],
+  $cron_user           = 'deploy',
+  $cron_hour           = 20,
+  $cron_minute         = 0,
+  $share_with          = [],
 ) {
+
+  if $apt_mirror_hostname {
+    apt::source { 'govuk-datascrubber':
+      location     => "http://${apt_mirror_hostname}/govuk-datascrubber",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      before       => Package['govuk-datascrubber'],
+    }
+  }
 
   package { 'govuk-datascrubber':
     ensure => $ensure,
