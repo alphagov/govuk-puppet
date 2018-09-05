@@ -1283,3 +1283,4 @@ unicornherder::version: '0.0.8'
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_datascrubber::ensure: 'absent'
+govuk_datascrubber::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
