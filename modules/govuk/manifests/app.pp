@@ -189,12 +189,6 @@
 # specify if the app init script has a restart command
 # Default: false
 #
-# [*depends_on_nfs*]
-# Start the application after mounted filesystems. Some applications
-# depend on NFS shares for functionality. They should not start until the mounted
-# filesystem has been connected. The default for this is false.
-#
-#
 # [*read_timeout*]
 # Configure the amount of time the nginx proxy vhost will wait for the
 # backing app before it sends the client a 504. It defaults to 15 seconds.
@@ -252,7 +246,6 @@ define govuk::app (
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
   $hasrestart = false,
-  $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
   $repo_name = undef,
@@ -325,7 +318,6 @@ define govuk::app (
     unicorn_herder_timeout         => $unicorn_herder_timeout,
     asset_pipeline                 => $asset_pipeline,
     asset_pipeline_prefix          => $asset_pipeline_prefix,
-    depends_on_nfs                 => $depends_on_nfs,
     read_timeout                   => $read_timeout,
     sentry_dsn                     => $sentry_dsn,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,

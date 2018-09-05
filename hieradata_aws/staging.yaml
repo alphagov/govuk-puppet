@@ -96,8 +96,6 @@ govuk_mysql::server::expire_log_days: 1
 govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk_mysql::server::slow_query_log: true
 
-govuk::node::s_asset_master::copy_attachments_hour: 7
-
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 # The option below can be changed to enable router to run as a container
 govuk::node::s_cache::router_as_container: false
