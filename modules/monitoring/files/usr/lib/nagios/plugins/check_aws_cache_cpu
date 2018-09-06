@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ##########################################################
-# This script will cpture and report on AWS ElasticCache #
+# This script will cpture and report on AWS ElastiCache #
 # CPUUtilization         	                         #
 ##########################################################
 
@@ -45,7 +45,7 @@
 #                                                                             			#
 #                                                                             			#
 # The result should look like the example below.                              			#
-# OK: Current AWS:ElasticCache CPU Utilization for blue-backend-redis-002 is 0.666759284986 %	#
+# OK: Current AWS:ElastiCache CPU Utilization for blue-backend-redis-002 is 0.666759284986 %	#
 #################################################################################################
 
 ####################
@@ -77,12 +77,12 @@ if args.region is None:
     sys.exit(3)
 
 #########################################################
-# Initiate a connection to the AWS ElasticCache Cluster.#
+# Initiate a connection to the AWS ElastiCache Cluster.#
 #########################################################
 elasticache = boto.elasticache.connect_to_region(args.region)
 
 #########################################################
-# Initiate a connection to the AWS ElasticCache Cluster.#
+# Initiate a connection to the AWS ElastiCache Cluster.#
 #########################################################
 try:
  cluster_info = elasticache.describe_cache_clusters(args.instanceid)
@@ -91,7 +91,7 @@ except boto.exception.BotoServerError as err:
  sys.exit(3)
 
 #################################################################################
-# Debug AWS ElasticCache Cluster Details.					#
+# Debug AWS ElastiCache Cluster Details.					#
 #################################################################################
 # To view the cluster and member details, uncomment the two lines below		#
 #										#
@@ -202,10 +202,10 @@ average = item["Average"]
 # 3) Compare the check vs actual.                       #
 #########################################################
 if float(average) > args.critical:
-  print "CRITICAL: Current AWS:ElasticCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "CRITICAL: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)
   sys.exit(2)
 elif float(average) > args.warning:
-  print "WARNING: Current AWS:ElasticCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "WARNING: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)
   sys.exit(1)
 else:
-  print "OK: Current AWS:ElasticCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "OK: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)

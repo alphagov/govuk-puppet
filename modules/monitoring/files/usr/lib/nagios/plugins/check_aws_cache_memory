@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 ##########################################################
-# This script will cpture and report on AWS ElasticCache #
+# This script will cpture and report on AWS ElastiCache #
 # FreeableMemory         	                         #
 ##########################################################
 
@@ -78,12 +78,12 @@ if args.region is None:
     sys.exit(3)
 
 #########################################################
-# Initiate a connection to the AWS ElasticCache Cluster.#
+# Initiate a connection to the AWS ElastiCache Cluster.#
 #########################################################
 elasticache = boto.elasticache.connect_to_region(args.region)
 
 #########################################################
-# Initiate a connection to the AWS ElasticCache Cluster.#
+# Initiate a connection to the AWS ElastiCache Cluster.#
 #########################################################
 try:
  cluster_info = elasticache.describe_cache_clusters(args.instanceid)
@@ -92,7 +92,7 @@ except boto.exception.BotoServerError as err:
  sys.exit(3)
 
 #################################################################################
-# Debug AWS ElasticCache Cluster Details.					#
+# Debug AWS ElastiCache Cluster Details.					#
 #################################################################################
 # To view the cluster and member details, uncomment the two lines below		#
 #										#
@@ -119,7 +119,7 @@ except boto.exception.BotoServerError as err:
 cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 
 ################################################
-# Elasticcache instances and Memory Dictionary #
+# ElastiCache instances and Memory Dictionary #
 ################################################
 # https://aws.amazon.com/elasticache/details/
 cache_classes = {
@@ -149,7 +149,7 @@ cache_classes = {
 }
 
 ############################################
-# Create an ElasticCache client connection.#
+# Create an ElastiCache client connection.#
 ############################################
 client = boto3.client('elasticache')
 
@@ -255,10 +255,10 @@ memory_percentage = 100 / float(allocated_memory) * float(average)
 # 3) Compare the check vs actual.                       #
 #########################################################
 if float(memory_percentage) < args.critical:
-  print "CRITICAL: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)
+  print "CRITICAL: Current AWS:ElastiCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)
   sys.exit(2)
 elif float(memory_percentage) < args.warning:
-  print "WARNING: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average,memory_percentage, allocated_memory)
+  print "WARNING: Current AWS:ElastiCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average,memory_percentage, allocated_memory)
   sys.exit(1)
 else:
-  print "OK: Current AWS:ElasticCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)
+  print "OK: Current AWS:ElastiCache FreeableMemory for {} is {}GB. [{}% of {}GB]".format(args.instanceid, average, memory_percentage, allocated_memory)
