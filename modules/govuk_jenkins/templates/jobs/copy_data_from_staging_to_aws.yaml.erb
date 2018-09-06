@@ -68,8 +68,8 @@
           condition: 'ALWAYS'
           predefined-parameters: |
             HOSTNAME=deploy.blue.staging.govuk.digital
-            API_KEY=<%= @ci_alphagov_api_key %>
-            AUTH_TOKEN=<%= @auth_token %>
+            API_USER=jenkins_api_user
+            API_USER_PASSWORD=<%= @jenkins_api_user_password %>
     wrappers:
         - ansicolor:
             colormap: xterm
