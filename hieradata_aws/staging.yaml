@@ -133,3 +133,5 @@ router::nginx::robotstxt: |
 nginx::config::stack_network_prefix: '10.2.0'
 
 govuk_datascrubber::ensure: 'present'
+govuk_datascrubber::share_with:
+  - '210287912431'     # AWS integration
