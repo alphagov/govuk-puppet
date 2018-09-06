@@ -27,6 +27,10 @@
 # [*puppetdb_node_url*]
 #   The `nodes` endpoint URL for Puppet DB
 #
+# [*aws_region*]
+#   The region in AWS the app is running in.
+#   Default: eu-west-1
+#
 class govuk::apps::cache_clearing_service (
   $enabled = false,
   $sentry_dsn = undef,
@@ -34,6 +38,7 @@ class govuk::apps::cache_clearing_service (
   $rabbitmq_user = 'cache_clearing_service',
   $rabbitmq_password = 'cache_clearing_service',
   $puppetdb_node_url = undef,
+  $aws_region = 'eu-west-1',
 ) {
   $ensure = $enabled ? {
     true  => 'present',
@@ -63,9 +68,13 @@ class govuk::apps::cache_clearing_service (
   }
 
   if $::aws_migration {
-    govuk::app::envvar { "${title}-AWS_STACKNAME":
-      varname => 'AWS_STACKNAME',
-      value   => $::aws_stackname;
+    govuk::app::envvar {
+      "${title}-AWS_STACKNAME":
+        varname => 'AWS_STACKNAME',
+        value   => $::aws_stackname;
+      "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
     }
   } else {
     govuk::app::envvar { "${title}-PUPPETDB_NODE_URL":
