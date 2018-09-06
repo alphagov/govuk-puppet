@@ -41,5 +41,6 @@
                 MACHINE_CLASS=whitehall_backend
                 RAKE_TASK=publishing:scheduled:requeue_all_jobs
             - project: content-publisher-whitehall-import
+              trigger-with-no-params: true
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
