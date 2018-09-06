@@ -16,20 +16,20 @@
             CRUMB=$(curl https://ci_alphagov:$API_KEY@$HOSTNAME/crumbIssuer/api/json | jq --raw-output '. | .crumb')
 
             echo "Triggering post-sync job on $HOSTNAME"
-            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://ci_alphagov:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build -d token=$AUTH_TOKEN --data-urlencode json="{}"
+            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://$API_USER:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build --data-urlencode json="{}"
     wrappers:
         - ansicolor:
             colormap: xterm
     parameters:
         - string:
-            name: HOSTNAME
-            description: 'The hostname of the Jenkins instance to trigger the Data_Sync_Complete job on'
+            name: API_USER
+            description: 'The remote API user'
             default: false
         - password:
             name: API_KEY
-            description: 'The ci_alphagov API key'
+            description: 'The remote API key'
             default: false
-        - password:
-            name: AUTH_TOKEN
-            description: 'The authentication token defined in the job to be triggered'
+        - string:
+            name: HOSTNAME
+            description: 'The hostname of the Jenkins instance to trigger the Data_Sync_Complete job on'
             default: false

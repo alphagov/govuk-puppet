@@ -8,9 +8,8 @@ class govuk_jenkins::jobs::copy_data_to_staging (
   $pg_src_env_sync_pw = undef,
   $pg_dst_env_sync_pw = undef,
   $pg_wh_dst_env_sync_pw = undef,
-  $ci_alphagov_api_key = undef,
+  $jenkins_api_user_password = undef,
   $enable_slack_notifications = true,
-  $auth_token = undef,
   $app_domain = hiera('app_domain'),
 ) {
 
