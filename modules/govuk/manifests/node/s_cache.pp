@@ -92,6 +92,11 @@ class govuk::node::s_cache (
     strip_cookies => $strip_cookies,
   }
 
+  @ufw::allow {
+    'allow-cache-clearing-from-all':
+      port => 7999;
+  }
+
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target    => "${::fqdn_metrics}.nginx.nginx_connections-writing",
     warning   => 150,
