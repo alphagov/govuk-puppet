@@ -3,8 +3,6 @@ lv:
   data:
     pv:
       - '/dev/sdc1'
-      - '/dev/sdd1'
-      - '/dev/sde1'
     vg: 'uploads'
   cache:
     pv:
