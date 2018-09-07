@@ -9,3 +9,5 @@ govuk::apps::router::mongodb_nodes:
   - 'router-backend-1'
   - 'router-backend-2'
   - 'router-backend-3'
+
+varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"

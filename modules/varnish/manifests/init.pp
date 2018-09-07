@@ -30,11 +30,15 @@
 #
 #   Default: 3054 (the router)
 #
+# [*environment_ip_prefix*]
+#   The first two octets of the IP range we're on.
+#
 class varnish (
     $default_ttl  = 900,
     $strip_cookies = true,
     $storage_size = '512M',
     $upstream_port = 3054,
+    $environment_ip_prefix = undef,
 ) {
   anchor { 'varnish::begin':
     notify => Class['varnish::service'];
@@ -45,10 +49,11 @@ class varnish (
   }
 
   class { 'varnish::config':
-    strip_cookies => $strip_cookies,
-    upstream_port => $upstream_port,
-    require       => Class['varnish::package'],
-    notify        => Class['varnish::service'];
+    strip_cookies         => $strip_cookies,
+    upstream_port         => $upstream_port,
+    environment_ip_prefix => $environment_ip_prefix,
+    require               => Class['varnish::package'],
+    notify                => Class['varnish::service'];
   }
   class { 'collectd::plugin::varnish':
     require => Class['varnish::config'],
