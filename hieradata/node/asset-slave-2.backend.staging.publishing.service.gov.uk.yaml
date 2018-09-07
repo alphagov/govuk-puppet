@@ -1,3 +1,13 @@
+---
+
 icinga::client::check_cputype::cputype: 'amd'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
+
+# note: remove this and update 'class/asset_slave.yaml' when the
+# change has also been applied to production.
+lv:
+  data:
+    pv:
+      - '/dev/sdb1'
+    vg: 'uploads'
