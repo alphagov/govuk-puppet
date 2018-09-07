@@ -13,10 +13,10 @@
     builders:
         - shell: |
             echo "Getting crumb..."
-            CRUMB=$(curl https://ci_alphagov:$API_KEY@$HOSTNAME/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+            CRUMB=$(curl https://$API_USER:$API_USER_PASSWORD@$HOSTNAME/crumbIssuer/api/json | jq --raw-output '. | .crumb')
 
             echo "Triggering post-sync job on $HOSTNAME"
-            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://$API_USER:$API_KEY@$HOSTNAME/job/Data_Sync_Complete/build --data-urlencode json="{}"
+            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://$API_USER:$API_USER_PASSWORD@$HOSTNAME/job/Data_Sync_Complete/build --data-urlencode json="{}"
     wrappers:
         - ansicolor:
             colormap: xterm
@@ -26,7 +26,7 @@
             description: 'The remote API user'
             default: false
         - password:
-            name: API_KEY
+            name: API_USER_PASSWORD
             description: 'The remote API key'
             default: false
         - string:
