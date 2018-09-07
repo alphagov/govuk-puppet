@@ -12,3 +12,5 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-3.router'
 
 nginx::package::nginx_package: 'nginx-extras'
+
+varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"

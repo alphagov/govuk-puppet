@@ -10,7 +10,14 @@
 # [*strip_cookies*]
 #   See varnish/manifests/init.pp.
 #
-class varnish::config($upstream_port, $strip_cookies) {
+# [*environment_ip_prefix*]
+#   The first two octets of the IP range we're on.
+#
+class varnish::config(
+  $upstream_port,
+  $strip_cookies,
+  $environment_ip_prefix,
+) {
   include varnish::restart
 
   $app_domain  = hiera('app_domain')

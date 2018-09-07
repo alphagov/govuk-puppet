@@ -13,7 +13,7 @@
 
 acl purge_acl {
   "localhost";
-  "10.1.0.0"/16;
+  "<%= @environment_ip_prefix %>.0.0"/16;
 }
 
 sub vcl_recv {
