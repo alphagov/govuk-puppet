@@ -1363,7 +1363,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.major))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.major,'1d','sum',false))",
               "textEditor": true
             }
           ],
@@ -1436,7 +1436,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.minor))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.minor,'1d','sum',false))",
               "textEditor": true
             }
           ],
@@ -1509,7 +1509,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.unpublish))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.unpublish,'1d','sum',false))",
               "textEditor": true
             }
           ],
@@ -1582,7 +1582,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.republish))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.republish,'1d','sum',false))",
               "textEditor": true
             }
           ],
@@ -1655,7 +1655,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.links))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.links,'1d','sum',false))",
               "textEditor": true
             }
           ],
@@ -1728,7 +1728,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(integral(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.discarded))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.messages.discarded,'1d','sum',false))",
               "textEditor": true
             }
           ],
