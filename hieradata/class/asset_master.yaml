@@ -21,8 +21,6 @@ lv:
   data:
     pv:
         - '/dev/sdb1'
-        - '/dev/sdc1'
-        - '/dev/sdd1'
     vg: 'uploads'
 
 mount:
