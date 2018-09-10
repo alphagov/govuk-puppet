@@ -19,11 +19,7 @@ class govuk::node::s_asset_slave (
     include backup::assets
   }
 
-  # Ownership and permissions come from the mount.
   file { '/data/master-uploads':
-    ensure => directory,
-    owner  => undef,
-    group  => undef,
-    mode   => undef,
+    ensure => absent,
   }
 }
