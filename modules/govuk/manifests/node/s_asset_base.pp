@@ -46,8 +46,6 @@ class govuk::node::s_asset_base (
     include assets::user
   }
 
-  include clamav
-
   if $::aws_migration {
     $app_domain_internal = hiera('app_domain_internal')
     $mount_point = "assets.${app_domain_internal}:/"
@@ -173,16 +171,6 @@ class govuk::node::s_asset_base (
     collectd::plugin { 'nfs':
       require   => Package['nfs-kernel-server'],
     }
-  }
-
-  file { '/usr/local/bin/virus_scan.sh':
-    source => 'puppet:///modules/govuk/node/s_asset_base/virus_scan.sh',
-    mode   => '0755',
-  }
-
-  file { '/usr/local/bin/virus-scan-file.sh':
-    source => 'puppet:///modules/govuk/node/s_asset_base/virus-scan-file.sh',
-    mode   => '0755',
   }
 
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':
