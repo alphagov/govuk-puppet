@@ -30,8 +30,6 @@ class govuk::node::s_asset_master (
   $cron_requires = [
     File['/usr/local/bin/copy-attachments.sh'],
     File['/usr/local/bin/process-uploaded-attachments.sh'],
-    File['/usr/local/bin/virus_scan.sh'],
-    File['/usr/local/bin/virus-scan-file.sh'],
     File['/var/run/virus_scan'],
     Package['daemontools'],
   ]
@@ -89,28 +87,4 @@ class govuk::node::s_asset_master (
     notes_url           => monitoring_docs_url(asset-master-attachment-processing),
   }
 
-  @@icinga::check::graphite { "check_uploads_scan_waiting_time_${::hostname}":
-    target    => 'transformNull(stats.timers.govuk.app.asset-master.scan-queue.upper_90, 0)',
-    warning   => 1200,
-    critical  => 2400,
-    desc      => 'Waiting time to pass virus scan',
-    host_name => $::fqdn,
-    notes_url => monitoring_docs_url(virus-scanning),
-  }
-
-  cron { 'virus-scan-clean':
-    user    => $cron_user,
-    hour    => '*',
-    minute  => '18',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/clean.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/clean /mnt/uploads/whitehall/infected',
-    require => $cron_requires,
-  }
-
-  cron { 'virus-scan-clean-draft':
-    user    => $cron_user,
-    hour    => '*',
-    minute  => '48',
-    command => '/usr/bin/setlock -n /var/run/virus_scan/clean-draft.lock /usr/local/bin/virus_scan.sh /mnt/uploads/whitehall/draft-clean /mnt/uploads/whitehall/draft-infected',
-    require => $cron_requires,
-  }
 }

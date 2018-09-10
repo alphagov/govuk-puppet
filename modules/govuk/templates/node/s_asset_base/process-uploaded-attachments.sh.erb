@@ -10,11 +10,6 @@ TMP_DIR=$4
 usage() {
   echo "USAGE: $0 <incoming_directory> <clean_directory> <infected_directory> <tmp_dir>"
   echo
-  echo "Processes attachments in <incoming_directory> by:"
-  echo "  - Running a virus scan on each attachment"
-  echo "  - If the file is clean, moving it to a directory of clean files"
-  echo "  - Create a file list of outstanding files in <tmp_dir> to sync to asset slaves"
-  echo
   exit 1
 }
 
@@ -36,13 +31,9 @@ while IFS= read -r -d '' FILE
     echo "govuk.app.asset-master.scan-queue:${WAITING_TIME}|ms" | nc -q 1 -u localhost 8125
     # This parameter substition strips "$INCOMING_DIR/" from the beginning of $FILE.
     FILE_PATH=${FILE#$INCOMING_DIR/}
-    if /usr/local/bin/virus-scan-file.sh "$FILE"; then
-      rsync --relative "$FILE_PATH" "$CLEAN_DIR"
-      echo "${CLEAN_DIR}/${FILE_PATH}" >> $TMP_FILE
-      rm "$FILE"
-    else
-      rsync --remove-source-files --relative "$FILE_PATH" "$INFECTED_DIR"
-    fi
+    rsync --relative "$FILE_PATH" "$CLEAN_DIR"
+    echo "${CLEAN_DIR}/${FILE_PATH}" >> $TMP_FILE
+    rm "$FILE"
 done < <(find "$INCOMING_DIR" -type f -print0)
 
 mv $TMP_FILE $TMP_DIR/
