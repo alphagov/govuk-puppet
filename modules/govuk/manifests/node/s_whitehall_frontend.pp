@@ -4,6 +4,9 @@
 #
 class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
   include govuk::node::s_app_server
+
+  include govuk_aws_xray_daemon
+
   include nginx
 
   $app_domain = hiera('app_domain')
