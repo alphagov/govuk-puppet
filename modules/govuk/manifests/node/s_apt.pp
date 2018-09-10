@@ -134,6 +134,7 @@ class govuk::node::s_apt (
   }
 
   aptly::repo { 'awscli': }
+  aptly::repo { 'aws-xray-daemon': }
   aptly::repo { 'collectd': }
   aptly::repo { 'elastic-beats': }
   aptly::repo { 'etcdctl': }
