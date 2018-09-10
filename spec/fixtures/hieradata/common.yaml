@@ -50,6 +50,8 @@ govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_jenkins::package::apt_mirror_hostname: 'apt.example.com'
 
 govuk_jenkins::config::github_api_uri: foo
