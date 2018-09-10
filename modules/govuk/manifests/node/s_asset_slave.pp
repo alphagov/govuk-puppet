@@ -26,17 +26,4 @@ class govuk::node::s_asset_slave (
     group  => undef,
     mode   => undef,
   }
-
-  $app_domain = hiera('app_domain')
-
-  # FIXME: Remove the NFS mount once asset-manager is no longer using it.
-  mount { '/data/master-uploads':
-    ensure   => 'absent',
-    device   => "asset-master.${app_domain}:/mnt/uploads",
-    fstype   => 'nfs',
-    options  => 'rw,soft',
-    remounts => false,
-    atboot   => true,
-    require  => File['/data/master-uploads'],
-  }
 }
