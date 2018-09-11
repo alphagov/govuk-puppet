@@ -19,6 +19,13 @@ class govuk_aws_xray_daemon (
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
+  user { 'xray':
+    ensure => present,
+    name   => 'xray',
+    shell  => '/bin/false',
+    system => true,
+  }
+
   package { 'xray':
     ensure  => latest,
     require => Apt::Source['aws-xray-daemon'],
