@@ -10,6 +10,7 @@ app_domain_internal: 'publishing.service.gov.uk'
 backup::assets::backup_private_gpg_key_fingerprint: *offsite_gpg_key
 backup::assets::jobs:
   'assets-whitehall-s3':
+    ensure: 'absent'
     sources: '/mnt/uploads/whitehall'
     destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/assets-whitehall/'
     aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
