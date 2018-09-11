@@ -34,6 +34,9 @@
 #   List of AWS accounts to share the scrubbed snapshots with.
 #   Defaults to empty list.
 #
+# [*aws_region*]
+#   The AWS region to operate in
+#
 class govuk_datascrubber (
   $ensure              = 'latest',
   $apt_mirror_hostname = undef,
@@ -43,6 +46,7 @@ class govuk_datascrubber (
   $cron_hour           = 20,
   $cron_minute         = 0,
   $share_with          = [],
+  $aws_region          = undef,
 ) {
 
   if $apt_mirror_hostname {
@@ -69,8 +73,12 @@ class govuk_datascrubber (
       size($share_with) ? {
         0       => [],
         default => ['--share-with', $share_with],
-      }
+      },
 
+      $aws_region ? {
+        undef   => [],
+        default => ['--region', $aws_region],
+      },
     ])
   )
 
