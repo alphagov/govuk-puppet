@@ -73,6 +73,7 @@ environment_ip_prefix: '10.3'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::cache_clearing_service::clear_fastly: true
 govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
