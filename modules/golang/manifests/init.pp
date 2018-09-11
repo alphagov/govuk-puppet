@@ -13,17 +13,9 @@ class golang {
 
   goenv::version { ['1.7.1', '1.9.1']: }
 
-  goenv::version { ['1.6.3', '1.7']:
-    ensure => absent,
-  }
-
   package { ['godep']:
     ensure  => latest,
     require => Class['govuk_ppa'],
-  }
-
-  package { ['golang-gom']:
-    ensure => absent,
   }
 
   # Ensure that scm tools used by `go get` are present.
