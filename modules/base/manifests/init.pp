@@ -53,9 +53,4 @@ class base {
 
     include hosts::migration
   }
-
-  # TODO: remove this once it's run on all machines - or by 2018/09/01
-  file { '/usr/lib/sysctl.d/elasticsearch.conf':
-    ensure => 'absent',
-  }
 }
