@@ -56,14 +56,6 @@ class govuk::apps::mapit (
       ensure => present,
     }
 
-    package {
-      [
-        'gdal-bin',
-        'libgdal-dev',
-      ]:
-      ensure => absent,
-    }
-
     include gdal::repo
     package { 'gdal':
       ensure  => $gdal_version,
