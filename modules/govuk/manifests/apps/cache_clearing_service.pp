@@ -31,6 +31,11 @@
 #   The region in AWS the app is running in.
 #   Default: eu-west-1
 #
+# [*clear_fastly*]
+#   Whether to clear Fastly or not. We need this because Fastly is currently
+#   not configured in all environments.
+#   Default: false
+#
 class govuk::apps::cache_clearing_service (
   $enabled = false,
   $sentry_dsn = undef,
@@ -39,6 +44,7 @@ class govuk::apps::cache_clearing_service (
   $rabbitmq_password = 'cache_clearing_service',
   $puppetdb_node_url = undef,
   $aws_region = 'eu-west-1',
+  $clear_fastly = false,
 ) {
   $ensure = $enabled ? {
     true  => 'present',
@@ -65,6 +71,13 @@ class govuk::apps::cache_clearing_service (
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+  }
+
+  if $clear_fastly {
+    govuk::app::envvar { "${title}-CLEAR_FASTLY":
+      varname => 'CLEAR_FASTLY',
+      value   => 'yes';
+    }
   }
 
   if $::aws_migration {
