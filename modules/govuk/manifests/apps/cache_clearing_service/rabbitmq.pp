@@ -56,7 +56,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => absent,
     name             => "${amqp_exchange}@${amqp_queue}@republish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
