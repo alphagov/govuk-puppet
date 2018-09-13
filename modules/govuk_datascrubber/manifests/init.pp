@@ -95,4 +95,18 @@ class govuk_datascrubber (
     command => $cron_command,
   }
 
+  # The canonical Puppet way to do this would be something like:
+  #
+  #   $mysql_hosts.each do |host| {
+  #     @@icinga::passive_check { "datascrubber-${host}":
+  #       ... other parameters ...
+  #     }
+  #   }
+  #
+  # The following is a hack to work around the unavailability of iterators in
+  # Puppet 3.8 w/o future parser.
+  #
+  $icinga_checks = parsejson(template('govuk_datascrubber/generate_icinga_checks.erb'))
+  create_resources('::govuk_datascrubber::icinga_check', $icinga_checks)
+
 }
