@@ -63,32 +63,34 @@ function filter_pg_stderr {
   #
   # This reads the postgres stderr errors identified by the "Command was:" string into an array
   IFS="#" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" | sed s/--/#/g)"
-  for pg_error in "${pg_errors[@]}"
-  do
-    # The removal of the newlines in grep output above causes unset array elements, filter those
-    if [ "${pg_error}" != "" ]
-    then
-      # Calculate the checksum rather than rely on exact replication of the error string in this script
-      # If you require to add more error messages to be igored, do run sth like the below and add to cases.
-      # pg_restore ... | grep -B 1 "Command was: <COMMAND CAUSING SPURIOUS ERROR>" | tr -d "\n" | sha256sum | awk '{ print $1 }'
-      case $(echo "${pg_error}" | sha256sum | awk '{ print $1 }') in
-        a1d79e0711e23f137373425d704b68116005439c59502dac4d68a616bec9ef46);;
-        b863dfa39e930334d9163a9a3e4269b18bfd363cf25e894e0b35d512d98581c4);;
-        a5b0047fcfeb0e0a57fd8750ebc28808f4ed407bae59c4644e8c8614b5d3a079);;
-        a6028cd4e6e01ccda0bb415e2a66b7a2ca5cef8c469ca0ef4b3de0bdb954dde1);;
-        a24d3736ce830147868c0cea77f0935dc5d7b8137ac16396a63ad96b44b16520);;
-        54df370bdbba3aa3badc2b0841b106267ec38c69d89eb600aeee6aa391369571);;
-        178ca929da5a769f1d9d7af5466866db23fd6f9b632cf907594824cb022a943b);;
-        *)
-          log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
-          log "${pg_error}" "user.err"
-          exit 1
-          ;;
-      esac
-    fi
-  done
-  # Empty pg_output to route following errors through the standard error handler
-  unset "${pg_stderr}"
+  if ! [ -z "${pg_errors[@]:-}" ]; then
+    for pg_error in "${pg_errors[@]}"
+    do
+      # The removal of the newlines in grep output above causes unset array elements, filter those
+      if [ "${pg_error}" != "" ]
+      then
+        # Calculate the checksum rather than rely on exact replication of the error string in this script
+        # If you require to add more error messages to be igored, do run sth like the below and add to cases.
+        # pg_restore ... | grep -B 1 "Command was: <COMMAND CAUSING SPURIOUS ERROR>" | tr -d "\n" | sha256sum | awk '{ print $1 }'
+        case $(echo "${pg_error}" | sha256sum | awk '{ print $1 }') in
+          a1d79e0711e23f137373425d704b68116005439c59502dac4d68a616bec9ef46);;
+          b863dfa39e930334d9163a9a3e4269b18bfd363cf25e894e0b35d512d98581c4);;
+          a5b0047fcfeb0e0a57fd8750ebc28808f4ed407bae59c4644e8c8614b5d3a079);;
+          a6028cd4e6e01ccda0bb415e2a66b7a2ca5cef8c469ca0ef4b3de0bdb954dde1);;
+          a24d3736ce830147868c0cea77f0935dc5d7b8137ac16396a63ad96b44b16520);;
+          54df370bdbba3aa3badc2b0841b106267ec38c69d89eb600aeee6aa391369571);;
+          178ca929da5a769f1d9d7af5466866db23fd6f9b632cf907594824cb022a943b);;
+          *)
+            log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+            log "${pg_error}" "user.err"
+            exit 1
+            ;;
+        esac
+      fi
+    done
+    # Empty pg_output to route following errors through the standard error handler
+    unset "${pg_stderr}"
+  fi
 }
 
 function report_error {
