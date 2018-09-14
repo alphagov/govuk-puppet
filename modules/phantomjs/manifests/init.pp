@@ -6,7 +6,7 @@ class phantomjs {
   include govuk_ppa
 
   package { 'phantomjs':
-    ensure  => '1.9.7-0~ppa1',
+    ensure  => absent,
     require => Class['govuk_ppa'],
   }
 }
