@@ -210,10 +210,6 @@ class govuk::apps::email_alert_api(
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
-    "${title}-GOVUK_NOTIFY_BASE_URL":
-        ensure  => 'absent',
-        varname => 'GOVUK_NOTIFY_BASE_URL',
-        value   => $govuk_notify_base_url;
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;

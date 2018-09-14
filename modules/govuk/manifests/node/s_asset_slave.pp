@@ -18,8 +18,4 @@ class govuk::node::s_asset_slave (
   if $offsite_backups {
     include backup::assets
   }
-
-  file { '/data/master-uploads':
-    ensure => absent,
-  }
 }
