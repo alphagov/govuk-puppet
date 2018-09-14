@@ -2,6 +2,8 @@
 #
 # Install PhantomJS <http://phantomjs.org/> from the GOV.UK package archive.
 #
+# This is used by Jasmine and Teaspoon to run tests.
+#
 class phantomjs {
   include govuk_ppa
 
