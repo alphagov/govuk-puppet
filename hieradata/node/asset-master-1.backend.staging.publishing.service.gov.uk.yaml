@@ -1,11 +1,1 @@
----
-
 govuk::node::s_asset_base::s3_env_sync_enabled: true
-
-# note: remove this and update 'class/asset_master.yaml' when the
-# change has also been applied to production.
-lv:
-  data:
-    pv:
-        - '/dev/sdb1'
-    vg: 'uploads'
