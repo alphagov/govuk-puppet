@@ -76,6 +76,10 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*ga_universal_id*]
+#   The Google Analytics ID.
+#   Default: undef
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -99,6 +103,7 @@ class govuk::apps::publisher(
     $email_group_business = undef,
     $email_group_citizen = undef,
     $link_checker_api_secret_token = undef,
+    $ga_universal_id = undef,
   ) {
 
   $app_name = 'publisher'
@@ -214,5 +219,12 @@ class govuk::apps::publisher(
     "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+  }
+
+  if $ga_universal_id != undef {
+    govuk::app::envvar { "${title}-GA_UNIVERSAL_ID":
+      varname => 'GA_UNIVERSAL_ID',
+      value   => $ga_universal_id,
+    }
   }
 }
