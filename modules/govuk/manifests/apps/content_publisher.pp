@@ -71,6 +71,10 @@
 # [*google_tag_manager_auth*]
 #   The identifier of an environment for Google Tag Manager
 #
+# [*asset_manager_bearer_token*]
+#   The bearer token to use when communicating with Asset Manager.
+#   Default: undef
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -93,6 +97,7 @@ class govuk::apps::content_publisher (
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
+  $asset_manager_bearer_token = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -156,6 +161,9 @@ class govuk::apps::content_publisher (
     "${title}-GOOGLE_TAG_MANAGER_AUTH":
         varname => 'GOOGLE_TAG_MANAGER_AUTH',
         value   => $google_tag_manager_auth;
+    "${title}-ASSET_MANAGER_BEARER_TOKEN":
+        varname => 'ASSET_MANAGER_BEARER_TOKEN',
+        value   => $asset_manager_bearer_token;
   }
 
   if $::govuk_node_class !~ /^development$/ {
