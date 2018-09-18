@@ -949,6 +949,7 @@ govuk_containers::frontend::haproxy::wildcard_publishing_key: "%{hiera('wildcard
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
+govuk_docker::version: "17.09.0-ce"
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
