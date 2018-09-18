@@ -877,7 +877,7 @@ govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: 'https://www.gov.uk'
 
-govuk_docker::version: "17.09.0-ce"
+govuk_docker::version: "17.09.0~ce-0~ubuntu"
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_elasticsearch::backup::alert_hostname: 'alert'
