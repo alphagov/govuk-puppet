@@ -1006,6 +1006,8 @@ grafana::dashboards::deployment_applications:
   government-frontend: {}
   hmrc-manuals-api: {}
   imminence:
+    dependent_app_5xx_errors:
+      - frontend
     show_sidekiq_graphs: true
     has_workers: true
   info-frontend: {}
@@ -1014,12 +1016,17 @@ grafana::dashboards::deployment_applications:
   link-checker-api:
     show_sidekiq_graphs: true
     has_workers: true
-  local-links-manager: {}
+  local-links-manager:
+    dependent_app_5xx_errors:
+      - frontend
   manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
     has_workers: true
   mapit:
+    dependent_app_5xx_errors:
+      - frontend
+      - imminence
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
@@ -1046,6 +1053,7 @@ grafana::dashboards::deployment_applications:
       - collections
       - finder-frontend
       - frontend
+      - government-frontend
       - whitehall-frontend
   search-admin: {}
   service-manual-frontend: {}
