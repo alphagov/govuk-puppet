@@ -202,6 +202,7 @@ Check if your app appears in these files (use existing apps as examples).
   * modules/grafana/files/dashboards/processes.json
   * modules/govuk/manifests/node/s_backend_lb.pp (if a backend app)
   * modules/govuk/manifests/node/s_frontend_lb.pp (if a frontend app)
+  * modules/govuk_jenkins/templates/jobs/data_sync_complete_integration.yaml.erb
   * development-vm/Procfile
   * development-vm/Pinfile
   * development-vm/alphagov_repos
