@@ -23,7 +23,7 @@ class govuk_cdnlogs::transition_logs (
   $transition_stats_private_ssh_key = undef,
   $pre_transition_stats_private_ssh_key = undef,
   $user = 'logs_processor',
-  $enabled = true,
+  $enabled = false,
   $enable_cron = false,
   $alert_hostname = 'alert.cluster',
 ) {
