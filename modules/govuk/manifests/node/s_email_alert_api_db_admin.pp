@@ -49,6 +49,16 @@ class govuk::node::s_email_alert_api_db_admin(
 
   # To manage remote databases using the puppetlabs-postgresql module we require
   # a local PostgreSQL server instance to be installed
+  apt::source { 'postgresql':
+    ensure       => present,
+    location     => "http://${apt_mirror_hostname}/postgresql",
+    release      => "${::lsbdistcodename}-pgdg",
+    architecture => $::architecture,
+    key          => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8',
+  } ->
+
+  # To manage remote databases using the puppetlabs-postgresql module we require
+  # a local PostgreSQL server instance to be installed
   class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
   } ->
@@ -67,6 +77,8 @@ class govuk::node::s_email_alert_api_db_admin(
 
   # Ensure the client class is installed
   class { '::govuk_postgresql::client': } ->
+
+  class { '::govuk_pgbouncer': } ->
 
   # include all PostgreSQL classes that create databases and users
   class { '::govuk::apps::email_alert_api::db': }
