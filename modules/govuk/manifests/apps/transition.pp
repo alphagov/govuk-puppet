@@ -51,6 +51,15 @@
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
 class govuk::apps::transition(
   $port = '3044',
   $enable_procfile_worker = true,
@@ -66,6 +75,9 @@ class govuk::apps::transition(
   $db_username = 'transition',
   $db_password = undef,
   $db_name = 'transition_production',
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
 ) {
   $app_name = 'transition'
 
@@ -121,6 +133,15 @@ class govuk::apps::transition(
       "${title}-BASIC_AUTH_PASSWORD":
         varname => 'BASIC_AUTH_PASSWORD',
         value   => $basic_auth_password;
+      "${title}-AWS_ACCESS_KEY_ID":
+        varname => 'AWS_ACCESS_KEY_ID',
+        value   => $aws_access_key_id;
+      "${title}-AWS_SECRET_ACCESS_KEY":
+        varname => 'AWS_SECRET_ACCESS_KEY',
+        value   => $aws_secret_access_key;
+      "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
     }
   }
 }
