@@ -9,7 +9,7 @@ base::supported_kernel::enabled: false
 
 cron::daily_hour: 6
 
-environment_ip_prefix: '10.3'
+environment_ip_prefix: '10.13'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
@@ -19,7 +19,7 @@ govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
-govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
+govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
@@ -125,7 +125,7 @@ router::nginx::robotstxt: |
   User-agent: *
   Disallow: /
 
-nginx::config::stack_network_prefix: '10.3.0'
+nginx::config::stack_network_prefix: '10.13.0'
 
 govuk_datascrubber::ensure: 'present'
 govuk_datascrubber::share_with:
