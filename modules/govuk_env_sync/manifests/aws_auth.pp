@@ -10,7 +10,7 @@ class govuk_env_sync::aws_auth(
   $user = $govuk_env_sync::user
   $conf_dir = $govuk_env_sync::conf_dir
   $aws_region = $govuk_env_sync::aws_region
-  $app_domain = hiera('app_domain')
+  $app_domain_internal = hiera('app_domain_internal')
 
   file { [$conf_dir,"${conf_dir}/env.d"]:
     ensure => directory,
@@ -41,7 +41,7 @@ class govuk_env_sync::aws_auth(
   }
 
   file { "${conf_dir}/env.d/LOCAL_DOMAIN":
-    content => $app_domain,
+    content => $app_domain_internal,
     owner   => $user,
     group   => $user,
     mode    => '0770',
