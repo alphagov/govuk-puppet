@@ -4,7 +4,7 @@
 #
 define govuk_datascrubber::icinga_check {
   $check_title = "datascrubber-${title}"
-  $service_desc = "GOV.UK data scrubber: ${title})"
+  $service_desc = "GOV.UK data scrubber ${title}"
   $threshold_secs = 28 * 3600
 
   @@icinga::passive_check { $check_title :
