@@ -22,7 +22,7 @@ LocalMode: true
 # Amazon Resource Name (ARN) of the AWS resource running the daemon.
 ResourceARN: ""
 # Assume an IAM role to upload segments to a different account.
-RoleARN: ""
+RoleARN: "<%= @aws_xray_daemon_traces_role_arn %>"
 # Disable TLS certificate verification.
 NoVerifySSL: false
 # Upload segments to AWS X-Ray through a proxy.

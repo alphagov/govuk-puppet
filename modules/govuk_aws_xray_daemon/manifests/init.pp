@@ -8,15 +8,19 @@
 #   The hostname of the Apt mirror containing the aws-xray-daemon repo
 #
 # [*aws_access_key_id*]
-#   The AWS access key for the IAM role that has permissions to upload traces to AWS X-Ray
+#   The AWS access key for the IAM user that has permissions to assume the X-Ray daemon traces role
 #
 # [*aws_secret_access_key*]
-#   The AWS secret access key for the IAM role that has permissions to upload traces to AWS X-Ray
+#   The AWS secret access key for the IAM user that has permissions to assume the X-Ray daemon traces role
+#
+# [*aws_xray_daemon_traces_role_arn*]
+#   The ARN of the role to be assumed by the AWS X-Ray daemon
 #
 class govuk_aws_xray_daemon (
   $apt_mirror_hostname = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
+  $aws_xray_daemon_traces_role_arn = undef,
 )
 {
   apt::source { 'aws-xray-daemon':
@@ -69,7 +73,7 @@ class govuk_aws_xray_daemon (
     owner   => 'xray',
     group   => 'xray',
     mode    => '0644',
-    source  => 'puppet:///modules/govuk_aws_xray_daemon/etc/amazon/xray/cfg.yaml',
+    content => template('govuk_aws_xray_daemon/etc/amazon/xray/cfg.yaml.erb'),
     require => Package['xray'],
   }
 }
