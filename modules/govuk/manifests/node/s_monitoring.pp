@@ -18,6 +18,8 @@ class govuk::node::s_monitoring (
   validate_bool($enable_fastly_metrics, $offsite_backups)
 
   include google_chrome
+  include ::govuk_docker
+  include ::govuk_containers::terraboard
   include govuk_rbenv::all
   include ::chromedriver
   include ::phantomjs
@@ -44,6 +46,22 @@ class govuk::node::s_monitoring (
       protected    => false,
       root         => '/dev/null',
     }
+  }
+
+  # On AWS, the wildcard alias is already added
+  if $::aws_migration {
+    $terraboard_aliases = []
+  } else {
+    $terraboard_aliases = ['terraboard.*']
+  }
+
+  nginx::config::vhost::proxy { 'terraboard':
+    to           => ['localhost:7920'],
+    aliases      => $terraboard_aliases,
+    ssl_only     => true,
+    ssl_certtype => 'wildcard_publishing',
+    protected    => false,
+    root         => '/dev/null',
   }
 
   limits::limits { 'nagios_nofile':
