@@ -37,6 +37,9 @@
 # [*aws_region*]
 #   The AWS region to operate in
 #
+# [*alert_hostname*]
+#   The hostname to submit Icinga passive check notifications to
+#
 class govuk_datascrubber (
   $ensure              = 'latest',
   $apt_mirror_hostname = undef,
@@ -48,6 +51,7 @@ class govuk_datascrubber (
   $cron_minute         = 0,
   $share_with          = [],
   $aws_region          = undef,
+  $alert_hostname      = 'alert.cluster',
 ) {
 
   if $apt_mirror_hostname {
@@ -80,6 +84,11 @@ class govuk_datascrubber (
         undef   => [],
         default => ['--region', $aws_region],
       },
+
+      $alert_hostname ? {
+        undef   => [],
+        default => ['--icinga-host', $alert_hostname],
+      }
     ])
   )
 
