@@ -1,6 +1,6 @@
 <%
 checks = {}
-[scope['mysql_hosts'], scope['postgresql_hosts']].flatten.each do |h|
-  checks.merge!( { h => {} } )
+scope['databases'].each do |d|
+  checks.merge!( { d => {} } )
 end
 %><%= checks.to_json %>

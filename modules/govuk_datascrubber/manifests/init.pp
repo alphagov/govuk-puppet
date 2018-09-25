@@ -42,6 +42,7 @@ class govuk_datascrubber (
   $apt_mirror_hostname = undef,
   $mysql_hosts         = ['mysql-primary'],
   $postgresql_hosts    = ['postgresql-primary'],
+  $databases           = ['whitehall', 'email-alert-api', 'publishing-api'],
   $cron_user           = 'deploy',
   $cron_hour           = 20,
   $cron_minute         = 0,
@@ -97,8 +98,8 @@ class govuk_datascrubber (
 
   # The canonical Puppet way to do this would be something like:
   #
-  #   $mysql_hosts.each do |host| {
-  #     @@icinga::passive_check { "datascrubber-${host}":
+  #   $database.each do |db| {
+  #     @@icinga::passive_check { "datascrubber-${db}":
   #       ... other parameters ...
   #     }
   #   }
