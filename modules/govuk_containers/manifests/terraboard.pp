@@ -122,6 +122,7 @@ class govuk_containers::terraboard(
   }
 
   @@icinga::check { "check_terraboard_running_${::hostname}":
+    ensure              => absent,
     check_command       => 'check_nrpe!check_proc_running!terraboard',
     service_description => 'terraboard running',
     host_name           => $::fqdn,
