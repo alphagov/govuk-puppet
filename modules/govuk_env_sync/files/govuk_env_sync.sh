@@ -63,7 +63,7 @@ function filter_pg_stderr {
   #
   # This reads the postgres stderr errors identified by the "Command was:" string into an array
   IFS="#" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" | sed s/--/#/g)"
-  if ! [ -z "${pg_errors[@]:-}" ]; then
+  if ! [ -z "${pg_errors[*]:-}" ]; then
     for pg_error in "${pg_errors[@]}"
     do
       # The removal of the newlines in grep output above causes unset array elements, filter those
