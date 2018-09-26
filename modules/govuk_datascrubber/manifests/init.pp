@@ -40,6 +40,12 @@
 # [*alert_hostname*]
 #   The hostname to submit Icinga passive check notifications to
 #
+# [*s3_export_prefix*]
+#   The S3 URL prefix to export database dumps to, e.g.:
+#   s3://bucketname/prefix
+#   will result in dumps being pushed to
+#   s3://bucketname/prefix/dbname.sql.gz
+#
 class govuk_datascrubber (
   $ensure              = 'latest',
   $apt_mirror_hostname = undef,
@@ -52,6 +58,7 @@ class govuk_datascrubber (
   $share_with          = [],
   $aws_region          = undef,
   $alert_hostname      = 'alert.cluster',
+  $s3_export_prefix    = undef,
 ) {
 
   if $apt_mirror_hostname {
@@ -88,7 +95,12 @@ class govuk_datascrubber (
       $alert_hostname ? {
         undef   => [],
         default => ['--icinga-host', $alert_hostname],
-      }
+      },
+
+      $s3_export_prefix ? {
+        undef   => [],
+        default => ['--s3-export', $s3_export_prefix],
+      },
     ])
   )
 
