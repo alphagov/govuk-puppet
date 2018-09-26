@@ -63,7 +63,7 @@ function filter_pg_stderr {
   #
   # This reads the postgres stderr errors identified by the "Command was:" string into an array
   IFS="#" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" | sed s/--/#/g)"
-  if ! [ -z "${pg_errors[@]:-}" ]; then
+  if ! [ -z "${pg_errors[*]:-}" ]; then
     for pg_error in "${pg_errors[@]}"
     do
       # The removal of the newlines in grep output above causes unset array elements, filter those
@@ -234,8 +234,8 @@ function restore_postgresql {
   DB_OWNER=''
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      echo "Database ${database} exists, we will drop it before continuing"
-     # Disconnect existing connection to database
-     sudo -i psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = \'${database}\';" postgres
+     echo "Disconnect existing connections to database"
+     sudo psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
      DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
