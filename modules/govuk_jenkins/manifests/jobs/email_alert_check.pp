@@ -31,7 +31,7 @@ class govuk_jenkins::jobs::email_alert_check (
   $google_client_secret = undef,
   $emails_that_should_receive_drug_alerts = undef,
   $emails_that_should_receive_travel_advice_alerts = undef,
-  $emails_that_should_send_alerts = undef,
+  $email_addresses_to_check = undef,
   $app_domain = hiera('app_domain'),
   $sentry_dsn = undef,
 ) {

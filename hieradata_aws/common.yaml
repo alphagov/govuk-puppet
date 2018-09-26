@@ -891,8 +891,6 @@ govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
-govuk_jenkins::jobs::email_alert_check::emails_that_should_send_alerts: "govuk-email-courtesy-copies@digital.cabinet-office.gov.uk,gov.uk.email@notifications.service.gov.uk"
-
 govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
 govuk_jenkins::jobs::search_benchmark::auth_username: "%{hiera('http_username')}"
