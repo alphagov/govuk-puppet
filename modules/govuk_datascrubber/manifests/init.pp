@@ -102,7 +102,7 @@ class govuk_datascrubber (
     user    => $cron_user,
     hour    => $cron_hour,
     minute  => $cron_minute,
-    command => $cron_command,
+    command => "PATH=/usr/sbin:/usr/bin:/bin ${cron_command}",
   }
 
   # The canonical Puppet way to do this would be something like:
