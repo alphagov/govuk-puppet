@@ -5,6 +5,7 @@
 class govuk_jenkins::jobs::content_publisher_whitehall_import (
   $enable_slack_notifications = false,
   $app_domain = hiera('app_domain'),
+  $cron_schedule = '0 9 * * 1-5'
 ) {
   $slack_team_domain = 'gds'
   $slack_room = 'govuk-pubworkflow-dev'
