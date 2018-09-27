@@ -67,6 +67,7 @@ class govuk::apps::policy_publisher(
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::app { $app_name:
+    ensure             => 'absent',
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -78,11 +79,13 @@ class govuk::apps::policy_publisher(
   }
 
   Govuk::App::Envvar {
-    app => $app_name,
+    app    => $app_name,
+    ensure => 'absent',
   }
 
   if $secret_key_base {
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+      ensure  => 'absent',
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
     }
@@ -90,12 +93,15 @@ class govuk::apps::policy_publisher(
 
   govuk::app::envvar {
     "${title}-OAUTH_ID":
+      ensure  => 'absent',
       varname => 'OAUTH_ID',
       value   => $oauth_id;
     "${title}-OAUTH_SECRET":
+      ensure  => 'absent',
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
+      ensure  => 'absent',
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
   }
