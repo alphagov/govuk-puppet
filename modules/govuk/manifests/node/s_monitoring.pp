@@ -48,16 +48,16 @@ class govuk::node::s_monitoring (
     }
   }
 
-  # On AWS, the wildcard alias is already added
+  # Only install Terraboard in AWS
   if $::aws_migration {
-    $terraboard_aliases = []
+    $terraboard_ensure = present
   } else {
-    $terraboard_aliases = ['terraboard.*']
+    $terraboard_ensure = absent
   }
 
   nginx::config::vhost::proxy { 'terraboard':
+    ensure       => $terraboard_ensure,
     to           => ['localhost:7920'],
-    aliases      => $terraboard_aliases,
     ssl_only     => true,
     ssl_certtype => 'wildcard_publishing',
     protected    => false,
