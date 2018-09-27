@@ -53,31 +53,45 @@ class govuk_containers::terraboard(
   $db_username = 'gorm'
   $db_name = 'gorm'
 
+  # Only install Terraboard in AWS
+  if $::aws_migration {
+    $terraboard_ensure = present
+    $terraboard_directory = directory
+  } else {
+    $terraboard_ensure = absent
+    $terraboard_directory = absent
+  }
+
   file { ['/opt/terraboard', '/opt/terraboard/conf']:
-    ensure => directory,
+    ensure => $terraboard_directory,
     mode   => '0700',
   }
 
   file { '/opt/terraboard/conf/oauth2_proxy.cfg':
-    ensure  => present,
+    ensure  => $terraboard_ensure,
     mode    => '0600',
     content => template('govuk_containers/terraboard/conf/oauth2_proxy.cfg.erb'),
+    require => File['/opt/terraboard/conf'],
   }
 
   docker_network { 'terranet':
-    ensure => present,
+    ensure => $terraboard_ensure,
   }
 
   ::docker::image { 'postgres':
-    ensure    => present,
+    ensure    => $terraboard_ensure,
     require   => Class['govuk_docker'],
     image_tag => '10.5',
   }
 
   ::docker::run { 'terraboard-db':
+    ensure  => $terraboard_ensure,
     net     => 'terranet',
     image   => 'postgres',
-    require => Docker::Image['postgres'],
+    require => [
+      Docker::Image['postgres'],
+      Docker_Network['terranet'],
+    ],
     env     => [
       "POSTGRES_USER=${db_username}",
       "POSTGRES_DB=${db_name}",
@@ -86,15 +100,19 @@ class govuk_containers::terraboard(
   }
 
   ::docker::image { 'camptocamp/terraboard':
-    ensure    => present,
+    ensure    => $terraboard_ensure,
     require   => Class['govuk_docker'],
     image_tag => 'latest',
   }
 
   ::docker::run { 'terraboard':
+    ensure  => $terraboard_ensure,
     net     => 'terranet',
     image   => 'camptocamp/terraboard',
-    require => Docker::Image['camptocamp/terraboard'],
+    require => [
+      Docker::Image['camptocamp/terraboard'],
+      Docker_Network['terranet'],
+    ],
     depends => 'terraboard-db',
     env     => [
       "AWS_REGION=${aws_region}",
@@ -107,25 +125,21 @@ class govuk_containers::terraboard(
   }
 
   ::docker::image { 'govuk/govuk-oauth2-proxy-docker':
-    ensure    => present,
+    ensure    => $terraboard_ensure,
     require   => Class['govuk_docker'],
     image_tag => 'latest',
   }
 
   ::docker::run { 'terraboard-oauth2-proxy':
+    ensure  => $terraboard_ensure,
     net     => 'terranet',
     image   => 'govuk/govuk-oauth2-proxy-docker',
-    require => Docker::Image['govuk/govuk-oauth2-proxy-docker'],
+    require => [
+      Docker::Image['govuk/govuk-oauth2-proxy-docker'],
+      Docker_Network['terranet'],
+    ],
     ports   => ['7920:4180'],
     volumes => ['/opt/terraboard/conf:/conf'],
     depends => 'terraboard',
-  }
-
-  @@icinga::check { "check_terraboard_running_${::hostname}":
-    ensure              => absent,
-    check_command       => 'check_nrpe!check_proc_running!terraboard',
-    service_description => 'terraboard running',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(check-process-running),
   }
 }

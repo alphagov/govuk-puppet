@@ -109,9 +109,6 @@ govuk_bouncer::gor::target: '195.225.216.149'
 
 govuk_cdnlogs::transition_logs::enable_cron: true
 
-govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-production'
-govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.publishing.service.gov.uk'
-
 govuk_jenkins::config::banner_colour_background: '#df3034'
 govuk_jenkins::config::banner_colour_text: 'white'
 govuk_jenkins::config::banner_string: 'Carrenza PRODUCTION'
