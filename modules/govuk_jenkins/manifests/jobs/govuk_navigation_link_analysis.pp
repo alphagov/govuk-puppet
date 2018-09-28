@@ -30,6 +30,7 @@
 #
 class govuk_jenkins::jobs::govuk_navigation_link_analysis (
   $rate_limit_token = undef,
+  $project_id = 'govuk-tagging-monitor',
   $private_key_id = undef,
   $private_key = undef,
   $client_email = undef,

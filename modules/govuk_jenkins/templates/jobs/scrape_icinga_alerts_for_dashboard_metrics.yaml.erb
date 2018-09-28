@@ -1,0 +1,49 @@
+---
+- scm:
+    name: scrape_icinga_alerts_for_dashboard_metrics
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-alert-tracker.git
+            branches:
+              - master
+
+---
+- job:
+    name: scrape_icinga_alerts_for_dashboard_metrics
+    display-name: Scrape Icinga alerts for dashboard metrics
+    project-type: freestyle
+    scm:
+      - scrape_icinga_alerts_for_dashboard_metrics
+    description: "Extracts information about alerts into a Google sheet which the dashboard extracts data from"
+    logrotate:
+        numToKeep: 10
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            0 7 1 * *
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+       - shell: |
+          cd govuk-alert-tracker
+          bundle install
+          bundle exec rake run_monthly_report
+    publishers:
+      <% if @enable_slack_notifications %>
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token: <%= @slack_auth_token %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-start: false
+          notify-success: true
+          notify-aborted: false
+          notify-notbuilt: false
+          notify-unstable: false
+          notify-failure: true
+          notify-backtonormal: true
+          notify-repeatedfailure: true
+          include-test-summary: false
+          room: <%= @slack_room %>
+      <% end %>
