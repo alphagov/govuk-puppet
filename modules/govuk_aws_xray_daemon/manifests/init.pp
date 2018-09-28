@@ -76,4 +76,10 @@ class govuk_aws_xray_daemon (
     content => template('govuk_aws_xray_daemon/etc/amazon/xray/cfg.yaml.erb'),
     require => Package['xray'],
   }
+
+  @logrotate::conf { 'govuk-aws-xray-daemon':
+    ensure  => present,
+    matches => '/var/log/xray/xray.log',
+    maxsize => '100M',
+  }
 }
