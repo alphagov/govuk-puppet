@@ -131,7 +131,7 @@ db_classes = {
 ####################################################
 # Create a boto3 client to get the instance details#
 ####################################################
-client = boto3.client('rds')
+client = boto3.client('rds', region_name=args.region)
 # Collect DB instance attributes
 response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
 db_instance_data = response.get('DBInstances')

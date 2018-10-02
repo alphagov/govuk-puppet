@@ -151,7 +151,7 @@ cache_classes = {
 ############################################
 # Create an ElastiCache client connection.#
 ############################################
-client = boto3.client('elasticache')
+client = boto3.client('elasticache', region_name=args.region)
 
 # Get instance type
 response = client.describe_cache_clusters(CacheClusterId=args.instanceid)
