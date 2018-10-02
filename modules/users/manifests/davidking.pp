@@ -1,6 +1,7 @@
 # Create the davidking user
 class users::davidking {
   govuk_user { 'davidking':
+    ensure   => absent,
     fullname => 'David King',
     email    => 'david.king@digital.cabinet-office.gov.uk',
     ssh_key  => [
