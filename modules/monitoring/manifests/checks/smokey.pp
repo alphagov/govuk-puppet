@@ -22,10 +22,11 @@ class monitoring::checks::smokey (
   include govuk::apps::smokey
 
   user { 'smokey':
-    ensure => present,
-    name   => 'smokey',
-    shell  => '/bin/false',
-    system => true,
+    ensure     => present,
+    name       => 'smokey',
+    managehome => true,
+    shell      => '/bin/false',
+    system     => true,
   }
 
   file { $service_file:
