@@ -23,10 +23,14 @@
               ssh deploy@${host} 'redis-cli flushall'
            done
            <%- end %>
+           # Fix signon application hostnames
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=publishing.service.gov.uk NEW_DOMAIN=integration.publishing.service.gov.uk govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=performance.service.gov.uk NEW_DOMAIN=integration.performance.service.gov.uk govuk_setenv signon bundle exec rake applications:migrate_domain'
+           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=-production.cloudapps.digital NEW_DOMAIN=-integration.cloudapps.digital govuk_setenv signon bundle exec rake applications:migrate_domain'
+           # Queue up any whitehall scheduled editions that have been transferred across.
+           ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
-           # Publish any pre-production finders from Specialist Publisher.
-           ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/specialist-publisher ; govuk_setenv specialist-publisher bundle exec rake publishing_api:publish_finders'
     publishers:
         - trigger-parameterized-builds:
             <%- %w{ publishing-api collections-publisher service-manual-publisher local-links-manager email-alert-api transition link-checker-api content-performance-manager content-tagger content-publisher }.each do |app| -%>
