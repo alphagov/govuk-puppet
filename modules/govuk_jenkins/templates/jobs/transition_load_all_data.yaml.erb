@@ -20,12 +20,8 @@
               HOSTNAME="backend-1.backend"
             <%- end -%>
             git clone --branch release --depth 1 git@github.com:alphagov/transition-config.git data/transition-config
-            git clone --depth 1 git@github.com:alphagov/transition-stats.git data/transition-stats
-            git clone --depth 1 git@github.com:alphagov/pre-transition-stats.git data/pre-transition-stats
             rsync --delete -avz -e ssh data/transition-config deploy@$HOSTNAME:/var/apps/transition/data
-            rsync --delete -avz -e ssh data/transition-stats deploy@$HOSTNAME:/var/apps/transition/data
-            rsync --delete -avz -e ssh data/pre-transition-stats deploy@$HOSTNAME:/var/apps/transition/data
-            ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all"
+            ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all[$BUCKET]"
     publishers:
         - trigger-parameterized-builds:
             - project: Bouncer_CDN
@@ -39,5 +35,11 @@
             name: artefact_number
             description: 'Passed on down a chain to the Redirector Smokey job'
             default: false
+        - string:
+            name: bucket
+            description: 'S3 bucket to fetch bouncer logs from'
+            default: 'govuk-production-transition-fastly-logs'
     triggers:
-        - timed: '@midnight'
+        - timed: |
+            TZ=Europe/London
+            H 3 * * *
