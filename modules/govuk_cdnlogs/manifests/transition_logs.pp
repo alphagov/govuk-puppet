@@ -23,7 +23,7 @@ class govuk_cdnlogs::transition_logs (
   $transition_stats_private_ssh_key = undef,
   $pre_transition_stats_private_ssh_key = undef,
   $user = 'logs_processor',
-  $enabled = true,
+  $enabled = false,
   $enable_cron = false,
   $alert_hostname = 'alert.cluster',
 ) {
@@ -43,7 +43,6 @@ class govuk_cdnlogs::transition_logs (
     ensure   => $ensure,
     fullname => 'Logs Processor',
   }
-
 
   if $transition_stats_private_ssh_key and $pre_transition_stats_private_ssh_key {
     $ssh_dir = "/home/${user}/.ssh"
@@ -111,27 +110,36 @@ class govuk_cdnlogs::transition_logs (
     content => template('govuk_cdnlogs/process_transition_logs.erb'),
   }
 
-  if $enable_cron {
-    cron::crondotdee { 'process_transition_logs':
-      ensure  => $ensure,
-      command => $process_script,
-      hour    => '*',
-      minute  => '30',
-      user    => $user,
-      path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
-      require => File[$process_script],
-    }
+  $ensure_cron = $enable_cron ? {
+    true => 'present',
+    false => 'absent',
+  }
 
-    @@icinga::passive_check { "transition-logs-processing-script-${::hostname}":
-      service_description => $service_desc,
-      host_name           => $::fqdn,
-      freshness_threshold => 3600,
-      notes_url           => monitoring_docs_url(data-sources-for-transition),
-    }
+  cron::crondotdee { 'process_transition_logs':
+    ensure  => $ensure_cron,
+    command => $process_script,
+    hour    => '*',
+    minute  => '30',
+    user    => $user,
+    path    => '/usr/lib/rbenv/shims:/usr/sbin:/usr/bin:/sbin:/bin',
+    require => File[$process_script],
+  }
+
+  @@icinga::passive_check { "transition-logs-processing-script-${::hostname}":
+    ensure              => $ensure_cron,
+    service_description => $service_desc,
+    host_name           => $::fqdn,
+    freshness_threshold => 3600,
+    notes_url           => monitoring_docs_url(data-sources-for-transition),
   }
 
   # Provides /opt/mawk required by pre-transition-stats
+  $ensure_mawk = $enabled ? {
+    true => 'installed',
+    false => 'absent',
+  }
+
   package { 'mawk-1.3.4':
-    ensure => installed,
+    ensure => $ensure_mawk,
   }
 }
