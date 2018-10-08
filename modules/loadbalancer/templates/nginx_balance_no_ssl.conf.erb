@@ -35,6 +35,12 @@ server {
   # Try next upstream if one returns an error
   proxy_next_upstream error http_500;
 
+  # Disable trying next upstream for non-idempotent requests
+  # See https://trac.nginx.org/nginx/ticket/488
+  if ($request_method ~ ^(POST|LOCK|DELETE)$) {
+    proxy_next_upstream off;
+  }
+
   proxy_set_header Host $http_host;
   proxy_set_header X-Real-IP $remote_addr;
   proxy_set_header X-Forwarded-Server $host;
