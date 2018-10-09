@@ -44,7 +44,7 @@ class govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics (
 
   file { '/var/lib/jenkins/workspace/scrape_icinga_alerts_for_dashboard_metrics/credentials.json':
     ensure  => present,
-    content => template('govuk_jenkins/google_api/credentials.json.erb'),
+    content => template('govuk_jenkins/templates/google_api/credentials.json.erb'),
     owner   => 'jenkins',
     group   => 'jenkins',
   }
