@@ -48,6 +48,10 @@ class govuk::apps::ckan (
   $smtp_username                  = undef,
   $smtp_password                  = undef,
   $smtp_hostname                  = undef,
+  $s3_aws_access_key_id           = undef,
+  $s3_aws_secret_access_key       = undef,
+  $s3_bucket_name                 = undef,
+  $s3_aws_region_name             = undef,
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"

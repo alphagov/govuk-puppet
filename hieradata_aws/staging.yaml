@@ -13,6 +13,8 @@ environment_ip_prefix: '10.12'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
+govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'

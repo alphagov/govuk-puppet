@@ -12,6 +12,9 @@ environment_ip_prefix: '10.1'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::ckan::ckan_site_url: 'https://ckan.integration.publishing.service.gov.uk'
+govuk::apps::ckan::s3_bucket_name: "datagovuk-integration-ckan-organogram"
+govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
@@ -26,7 +29,6 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
-govuk::apps::ckan::ckan_site_url: 'https://ckan.integration.publishing.service.gov.uk'
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::kibana::logit_environment: 2694f14b-6519-4607-81f2-8a2130e5aaec
