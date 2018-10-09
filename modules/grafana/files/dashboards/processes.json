@@ -731,11 +731,6 @@
             "selected": false
           },
           {
-            "text": "logs-cdn-1_management",
-            "value": "logs-cdn-1_management",
-            "selected": false
-          },
-          {
             "text": "logs-elasticsearch-1_management",
             "value": "logs-elasticsearch-1_management",
             "selected": false

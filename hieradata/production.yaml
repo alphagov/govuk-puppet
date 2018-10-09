@@ -47,14 +47,6 @@ backup::offsite::jobs:
     s3_use_multiprocessing: true
     s3_multipart_max_procs: 4
     # No encryption because of size and sensitivity
-  'govuk-cdn-logs-s3':
-    sources: "/data/backups/logs-cdn-1.management.%{hiera('app_domain')}/*"
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/backup-cdn-logs/'
-    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
-    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
-    hour: 6,
-    minute: 12,
-    # CDN logs are backed up unencrypted because they don't contain any sensitive information
 
 base::shell::shell_prompt_string: 'production'
 base::supported_kernel::enabled: false
@@ -484,8 +476,6 @@ hosts::production::management::hosts:
       - "graphite.%{hiera('app_domain')}"
     service_aliases:
       - 'graphite'
-  logs-cdn-1:
-    ip: '10.3.0.27'
   backup-1:
     ip: '10.3.0.50'
   apt-1:
