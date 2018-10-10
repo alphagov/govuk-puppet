@@ -67,6 +67,16 @@ define govuk_postgresql::wal_e::backup (
 ) {
     include govuk_postgresql::wal_e::package
 
+    govuk_postgresql::wal_e::restore { $title:
+      aws_access_key_id                => $aws_access_key_id,
+      aws_secret_access_key            => $aws_secret_access_key,
+      s3_bucket_url                    => $s3_bucket_url,
+      aws_region                       => $aws_region,
+      wale_private_gpg_key             => $wale_private_gpg_key,
+      wale_private_gpg_key_fingerprint => $wale_private_gpg_key_fingerprint,
+      db_dir                           => $db_dir,
+    }
+
     validate_re($wale_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
 
     # Continuous archiving to S3
@@ -77,85 +87,6 @@ define govuk_postgresql::wal_e::backup (
         value => '/usr/local/bin/wal-e_postgres_archiving_wrapper %p';
       'archive_timeout':
         value => $archive_timeout;
-    }
-
-    file { '/etc/wal-e/env.d':
-      ensure => directory,
-      owner  => 'postgres',
-      group  => 'postgres',
-      mode   => '0775',
-    }
-
-    file { '/etc/wal-e/env.d/AWS_SECRET_ACCESS_KEY':
-      content => $aws_secret_access_key,
-      owner   => 'postgres',
-      group   => 'postgres',
-      mode    => '0660',
-    }
-
-    file { '/etc/wal-e/env.d/AWS_ACCESS_KEY_ID':
-      content => $aws_access_key_id,
-      owner   => 'postgres',
-      group   => 'postgres',
-      mode    => '0640',
-    }
-
-    file { '/etc/wal-e/env.d/WALE_S3_PREFIX':
-      content => $s3_bucket_url,
-      owner   => 'postgres',
-      group   => 'postgres',
-      mode    => '0640',
-    }
-
-    file { '/etc/wal-e/env.d/AWS_REGION':
-      content => $aws_region,
-      owner   => 'postgres',
-      group   => 'postgres',
-      mode    => '0640',
-    }
-
-    if $wale_private_gpg_key and $wale_private_gpg_key_fingerprint {
-      validate_re($wale_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
-
-      file { '/etc/wal-e/env.d/WALE_GPG_KEY_ID':
-        content => $wale_private_gpg_key_fingerprint,
-        owner   => 'postgres',
-        group   => 'postgres',
-        mode    => '0640',
-      }
-
-      file { '/var/lib/postgresql/.gnupg':
-        ensure  => directory,
-        mode    => '0700',
-        owner   => 'postgres',
-        group   => 'postgres',
-        require => Class['govuk_postgresql::server'],
-      }
-
-      # This ensures that stuff can be encrypted without prompt
-      file { '/var/lib/postgresql/.gnupg/gpg.conf':
-        ensure  => present,
-        content => 'trust-model always',
-        mode    => '0600',
-        owner   => 'postgres',
-        group   => 'postgres',
-      }
-
-      file { "/var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc":
-        ensure  => present,
-        mode    => '0600',
-        content => $wale_private_gpg_key,
-        owner   => 'postgres',
-        group   => 'postgres',
-      }
-
-      exec { "import_gpg_secret_key_${::hostname}":
-        command     => "gpg --batch --delete-secret-and-public-key ${wale_private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc",
-        user        => 'postgres',
-        group       => 'postgres',
-        subscribe   => File["/var/lib/postgresql/.gnupg/${wale_private_gpg_key_fingerprint}_secret_key.asc"],
-        refreshonly => true,
-      }
     }
 
     # Daily base backup
@@ -198,11 +129,4 @@ define govuk_postgresql::wal_e::backup (
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(postgresql-s3-backups),
       }
-
-    file { '/usr/local/bin/wal-e_restore':
-      ensure  => present,
-      content => template('govuk_postgresql/usr/local/bin/wal-e_restore.erb'),
-      mode    => '0755',
-      require => Class['govuk_postgresql::wal_e::package'],
-    }
 }
