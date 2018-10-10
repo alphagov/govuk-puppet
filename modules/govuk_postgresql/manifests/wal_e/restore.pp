@@ -45,8 +45,6 @@ define govuk_postgresql::wal_e::restore (
 ) {
     include govuk_postgresql::wal_e::package
 
-    validate_re($wale_private_gpg_key_fingerprint, '^[[:alnum:]]{40}$', 'Must supply full GPG fingerprint')
-
     file { '/etc/wal-e/env.d':
       ensure => directory,
       owner  => 'postgres',
