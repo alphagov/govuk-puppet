@@ -40,6 +40,16 @@
 # [*content_performance_manager_bearer_token*]
 #   The bearer token to use when communicating with Content Performance Manager.
 #   Default: undef
+#
+# [*google_tag_manager_id*]
+#   The ID for the Google Tag Manager account
+#
+# [*google_tag_manager_preview*]
+#   Allows a tag to be previewed in the Google Tag Manager interface
+#
+# [*google_tag_manager_auth*]
+#   The identifier of an environment for Google Tag Manager
+#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -54,6 +64,9 @@ class govuk::apps::content_data_admin (
   $db_password                  = undef,
   $db_name                      = 'content_data_admin_production',
   $content_performance_manager_bearer_token = undef,
+  $google_tag_manager_id = undef,
+  $google_tag_manager_preview = undef,
+  $google_tag_manager_auth = undef,
 ) {
   $app_name = 'content-data-admin'
 
@@ -93,6 +106,15 @@ class govuk::apps::content_data_admin (
     "${title}-CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN":
       varname => 'CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN',
       value   => $content_performance_manager_bearer_token;
+    "${title}-GOOGLE_TAG_MANAGER_ID":
+        varname => 'GOOGLE_TAG_MANAGER_ID',
+        value   => $google_tag_manager_id;
+    "${title}-GOOGLE_TAG_MANAGER_PREVIEW":
+        varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
+        value   => $google_tag_manager_preview;
+    "${title}-GOOGLE_TAG_MANAGER_AUTH":
+        varname => 'GOOGLE_TAG_MANAGER_AUTH',
+        value   => $google_tag_manager_auth;
   }
 
   if $::govuk_node_class !~ /^development$/ {
