@@ -4,6 +4,7 @@
     scm:
         - git:
             url: git@github.com:alphagov/govuk-alert-tracker.git
+            basedir: govuk-alert-tracker
             branches:
               - master
 
@@ -26,6 +27,8 @@
           artifact-num-to-keep: 5
     builders:
        - shell: |
+          cd govuk-alert-tracker
+          cp ../credentials.json .
           bundle install --path "${HOME}/bundles/${JOB_NAME}";
           bundle exec rake run_monthly_report
     publishers:
