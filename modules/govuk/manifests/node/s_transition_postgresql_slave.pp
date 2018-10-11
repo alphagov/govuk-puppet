@@ -14,6 +14,11 @@
 class govuk::node::s_transition_postgresql_slave (
   $master_password,
   $redirector_ip_range,
+  $aws_access_key_id,
+  $aws_secret_access_key,
+  $s3_bucket_url,
+  $wale_private_gpg_key,
+  $wale_private_gpg_key_fingerprint,
 ) inherits govuk::node::s_transition_postgresql_base {
   validate_string($redirector_ip_range)
 
@@ -27,5 +32,13 @@ class govuk::node::s_transition_postgresql_slave (
     user        => 'bouncer',
     address     => $redirector_ip_range,
     auth_method => 'md5',
+  }
+
+  govuk_postgresql::wal_e::restore { $title:
+    aws_access_key_id                => $aws_access_key_id,
+    aws_secret_access_key            => $aws_secret_access_key,
+    s3_bucket_url                    => $s3_bucket_url,
+    wale_private_gpg_key             => $wale_private_gpg_key,
+    wale_private_gpg_key_fingerprint => $wale_private_gpg_key_fingerprint,
   }
 }
