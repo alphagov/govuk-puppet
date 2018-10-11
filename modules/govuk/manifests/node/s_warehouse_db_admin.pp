@@ -49,6 +49,14 @@ class govuk::node::s_warehouse_db_admin(
 
   # To manage remote databases using the puppetlabs-postgresql module we require
   # a local PostgreSQL server instance to be installed
+  apt::source { 'postgresql':
+    ensure       => present,
+    location     => "http://${apt_mirror_hostname}/postgresql",
+    release      => "${::lsbdistcodename}-pgdg",
+    architecture => $::architecture,
+    key          => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8',
+  } ->
+
   class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
   } ->
