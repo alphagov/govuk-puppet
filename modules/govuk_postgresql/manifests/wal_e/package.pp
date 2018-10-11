@@ -12,6 +12,12 @@ class govuk_postgresql::wal_e::package {
     require => Class['govuk_postgresql::server'],
   }
 
+  # our version of setuptools is too old to use a newer gevent
+  package { 'gevent':
+    ensure   => '1.2.2',
+    provider => pip3,
+  } ->
+
   package { 'wal-e[aws]':
     ensure   => '1.1.0',
     provider => pip3,
