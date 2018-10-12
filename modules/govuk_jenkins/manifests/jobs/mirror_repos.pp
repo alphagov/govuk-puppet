@@ -19,7 +19,7 @@ class govuk_jenkins::jobs::mirror_repos (
       service_description => $service_description,
       host_name           => $::fqdn,
       freshness_threshold => 7200, # 2 hours
-      action_url          => "https://deploy.${app_domain}/job/mirror-repos/",
-      notes_url           => 'https://github.com/alphagov/govuk-repo-mirror';
+      action_url          => 'https://ci.integration.publishing.service.gov.uk/job/Mirror_Repositories/',
+      notes_url           => 'https://docs.publishing.service.gov.uk/manual/check-mirror-repos.html';
   }
 }
