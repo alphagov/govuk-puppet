@@ -24,7 +24,6 @@ class govuk::node::s_monitoring (
   include ::chromedriver
   include ::phantomjs
   include ::selenium
-  include ::govuk_cdnlogs
   include monitoring
   include collectd::plugin::icinga
   include govuk_java::openjdk8::jre

@@ -1,7 +1,3 @@
----
-
-govuk_cdnlogs::log_dir: '/var/log/cdn'
-
 lv:
   data:
     pv: '/dev/nvme1n1'
