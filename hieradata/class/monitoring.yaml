@@ -1,4 +1,6 @@
 ---
 
+govuk_cdnlogs::log_dir: '/var/log/cdn'
+
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'We lose alerting while this is down'

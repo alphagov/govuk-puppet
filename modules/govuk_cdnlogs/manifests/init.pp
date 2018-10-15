@@ -10,10 +10,6 @@
 # [*monitoring_enabled*]
 #   Whether checks should be set up to ensure that CDN logs are being received.
 #
-# [*rotate_logs_hourly*]
-#   Array of service names for which logs should be rotated hourly. Other
-#   services will have their logs rotated daily.
-#
 # [*server_key*]
 #   Private key string for rsyslog to use.
 #
@@ -33,7 +29,6 @@ class govuk_cdnlogs (
   $log_dir,
   $govuk_monitoring_enabled = true,
   $bouncer_monitoring_enabled = true,
-  $rotate_logs_hourly = [],
   $warning_cdn_freshness = 1800,
   $critical_cdn_freshness = 3600,
   $server_key,
@@ -71,11 +66,6 @@ class govuk_cdnlogs (
   rsyslog::snippet { 'ccc-cdnlogs':
     content => template('govuk_cdnlogs/etc/rsyslog.d/ccc-cdnlogs.conf.erb'),
     require => File[$key_file, $crt_file],
-  }
-
-  file { '/etc/logrotate.d/cdnlogs':
-    ensure  => file,
-    content => template('govuk_cdnlogs/etc/logrotate.d/cdnlogs.erb'),
   }
 
   file { '/etc/logrotate.cdn_logs_hourly.conf':
@@ -129,15 +119,10 @@ class govuk_cdnlogs (
     }
   }
 
-  # The scripts used by transition logs need to be able to write to the directory.
   file { $log_dir:
     ensure => directory,
     owner  => 'root',
     group  => 'deploy',
     mode   => '0775',
-  }
-
-  class { '::govuk_cdnlogs::transition_logs':
-    log_dir => $log_dir,
   }
 }
