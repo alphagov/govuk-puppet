@@ -13,8 +13,8 @@ environment_ip_prefix: '10.1'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
-govuk::apps::content_data_admin::google_tag_manager_preview: 'GTM-NZG8SF2'
-govuk::apps::content_data_admin::google_tag_manager_id: 'env-7'
+govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
+govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
