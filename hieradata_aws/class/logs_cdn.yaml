@@ -1,0 +1,14 @@
+---
+
+govuk_cdnlogs::log_dir: '/mnt/logs_cdn'
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'logs_cdn'
+
+mount:
+  /mnt/logs_cdn:
+    disk: '/dev/mapper/logs_cdn-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'

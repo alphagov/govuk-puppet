@@ -27,7 +27,7 @@ describe 'govuk_cdnlogs', :type => :class do
     end
 
     describe 'log_dir' do
-      it { is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+      it { is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
             .with_content(%r{^/tmp/logs/cdn-elephant\.log$}) }
     end
   end
@@ -45,7 +45,7 @@ describe 'govuk_cdnlogs', :type => :class do
 
       it { is_expected.not_to contain_ufw__allow('rsyslog-cdn-logs') }
       it { is_expected.to contain_rsyslog__snippet('ccc-cdnlogs').without_content(/InputTCPServerRun/) }
-      it { is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf').without_content(/rotate/) }
+      it { is_expected.to contain_file('/etc/logrotate.d/cdnlogs').without_content(/rotate/) }
     end
 
     context 'two entries in service_port_map and log_dir' do
@@ -100,15 +100,32 @@ ruleset\(name="cdn-giraffe"\) \{
 })
       end
 
-      it 'should rotate the giraffe logs hourly' do
-        is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
-          .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
-          .with_content(/rotate 3/)
-      end
-
-      it 'should rotate the elephant logs hourly' do
-        is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+      it 'should rotate both logs in the daily conf file' do
+        is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
           .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
+          .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
+      end
+      it 'should rotate daily' do
+        is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
+          .with_content(/rotate 30$/)
+      end
+      it { is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+            .without_content(/rotate/) }
+
+      context 'the elephant logs should be rotated hourly' do
+        before { params[:rotate_logs_hourly] = ['elephant'] }
+
+        it 'should rotate only giraffe logs in the daily conf file' do
+          is_expected.to contain_file('/etc/logrotate.d/cdnlogs')
+            .with_content(%r{^/tmp/logs/cdn-giraffe\.log$})
+            .without_content(/elephant/)
+        end
+
+        it 'should rotate the elephant logs hourly' do
+          is_expected.to contain_file('/etc/logrotate.cdn_logs_hourly.conf')
+            .with_content(%r{^/tmp/logs/cdn-elephant\.log$})
+            .with_content(/rotate 720/)
+        end
       end
     end
   end
