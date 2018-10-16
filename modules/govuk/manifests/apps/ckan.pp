@@ -36,9 +36,6 @@ class govuk::apps::ckan (
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
   $db_name                        = 'ckan_production',
-  $google_analytics_access_token  = undef,
-  $google_analytics_client_id     = undef,
-  $google_analytics_client_secret = undef,
   $redis_host                     = undef,
   $redis_port                     = '6379',
   $secret                         = undef,
@@ -148,14 +145,6 @@ class govuk::apps::ckan (
     file { $ckan_ini:
       ensure  => file,
       content => template('govuk/ckan/ckan.ini.erb'),
-      owner   => 'deploy',
-      group   => 'deploy',
-      notify  => Service['ckan'],
-    } ->
-
-    file { "${ckan_home}/google_analytics_token.json":
-      ensure  => file,
-      content => template('govuk/ckan/google_analytics_token.json.erb'),
       owner   => 'deploy',
       group   => 'deploy',
       notify  => Service['ckan'],

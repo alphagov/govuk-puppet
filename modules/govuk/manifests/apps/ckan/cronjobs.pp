@@ -14,10 +14,4 @@ class govuk::apps::ckan::cronjobs {
     hour           => '2',
   }
 
-  govuk::apps::ckan::paster_cronjob { 'analytics import':
-    paster_command => 'loadanalytics latest',
-    plugin         => 'ckanext-ga-report',
-    hour           => '1',
-  }
-
 }
