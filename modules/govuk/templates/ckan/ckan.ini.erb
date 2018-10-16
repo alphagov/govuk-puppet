@@ -85,7 +85,7 @@ ckan.cors.origin_allow_all = true
 #       Add ``datapusher`` to enable DataPusher
 #       Add ``resource_proxy`` to enable resorce proxying and get around the
 #       same origin policy
-ckan.plugins = ga-report datagovuk_publisher_form datagovuk dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api csw_harvester waf_harvester doc_harvester inventory_harvester
+ckan.plugins = datagovuk_publisher_form datagovuk dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api csw_harvester waf_harvester doc_harvester inventory_harvester
 
 # These are marked as legacy harvesters
 # gemini_csw_harvester gemini_doc_harvester gemini_waf_harvester
@@ -147,13 +147,6 @@ ckan.feeds.author_link =
 ckan.storage_path = /var/ckan/default
 ckan.max_resource_size = 50
 #ckan.max_image_size = 2
-
-## GA Settings
-googleanalytics.account = data.gov.uk
-googleanalytics.id = UA-10855508-1
-googleanalytics.token.filepath = /var/ckan/google_analytics_token.json
-ga-report.bounce_url = /
-ga-report.period = monthly
 
 ## Datapusher settings
 
