@@ -154,14 +154,6 @@ class govuk::apps::ckan (
       notify  => Service['ckan'],
     } ->
 
-    file { "${ckan_home}/wsgi_app.py":
-      ensure  => file,
-      content => template('govuk/ckan/wsgi_app.py.erb'),
-      owner   => 'deploy',
-      group   => 'deploy',
-      notify  => Service['ckan'],
-    } ->
-
     file { "${ckan_home}/who.ini":
       ensure  => file,
       content => template('govuk/ckan/who.ini.erb'),

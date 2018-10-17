@@ -17,9 +17,10 @@
 debug = false
 
 [server:main]
-use = egg:Paste#http
-host = 0.0.0.0
-port = 5000
+use = egg:gunicorn#main
+bind = 127.0.0.1:3220
+preload = true
+errorlog = /var/log/ckan/app.err.log
 
 [app:main]
 use = egg:ckan
