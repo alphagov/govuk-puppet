@@ -119,6 +119,24 @@ class icinga::config (
     source => 'puppet:///modules/icinga/etc/nagios-plugins/config/check_nrpe.cfg',
   }
 
+  file { '/var/lib/icinga/spool':
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'nagios',
+  }
+
+  file { '/var/lib/icinga/spool/checkresults':
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'nagios',
+  }
+
+  file { '/var/lib/icinga/rw':
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'www-data',
+  }
+
   file { '/var/lib/icinga/rw/nagios.cmd':
     owner => 'nagios',
     group => 'www-data',
