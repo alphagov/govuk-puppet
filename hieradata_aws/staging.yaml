@@ -1,5 +1,5 @@
 ---
-app_domain: 'staging.govuk.digital'
+app_domain: 'staging.publishing.service.gov.uk'
 app_domain_internal: "staging.govuk-internal.digital"
 
 backup::server::backup_hour: 9
