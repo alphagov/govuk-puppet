@@ -1,0 +1,11 @@
+govuk_env_sync::tasks:
+  "push_transition_production_daily":
+    hour: "0"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "transition_production"
+    temppath: "/tmp/transition_production"
+    url: "govuk-production-database-backups"
+    path: "transition-postgresql"
