@@ -44,10 +44,12 @@
         - trigger:
             project: Smokey
             threshold: UNSTABLE
+        <% if @environment == 'integration' %>
         - text-finder:
             regexp: "DOCKER TAG FAILED"
             also-check-console-output: true
             unstable-if-found: true
+        <% end %>
         - email:
             recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
             send-to-individuals: true
@@ -58,11 +60,13 @@
         - build-name:
             name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
         - build-user-vars
+        <% if @environment == 'integration' %>
         - credentials-binding:
             - username-password-separated:
                 credential-id: govukci-docker-hub
                 username: DOCKER_HUB_USERNAME
                 password: DOCKER_HUB_PASSWORD
+        <% end %>
         - timestamps
     parameters:
         - choice:
@@ -80,9 +84,11 @@
                 - deploy:with_hard_restart
                 - deploy:with_migrations
                 - deploy:without_migrations
+                <% if @environment == 'integration' %>
                 - docker
                 - docker:pull
                 - docker:tag_to_current
+                <% end %>
                 - app:migrate
                 - app:hard_restart
                 - app:migrate_and_hard_restart
