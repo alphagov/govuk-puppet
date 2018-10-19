@@ -63,7 +63,7 @@ function filter_pg_stderr {
   #
   # This reads the postgres stderr errors identified by the "Command was:" string into an array
   IFS="#" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" | sed s/--/#/g)"
-  if ! [ -z "${pg_errors[*]:-}" ]; then
+  if ! [ -z "${pg_stderr:-}" ]; then
     for pg_error in "${pg_errors[@]}"
     do
       # The removal of the newlines in grep output above causes unset array elements, filter those
@@ -81,7 +81,7 @@ function filter_pg_stderr {
           54df370bdbba3aa3badc2b0841b106267ec38c69d89eb600aeee6aa391369571);;
           178ca929da5a769f1d9d7af5466866db23fd6f9b632cf907594824cb022a943b);;
           *)
-            log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\"" "user.err"
+            log "Error running \"$0 ${args[*]:-''}\" in function ${FUNCNAME[1]} on line $1 executing \"${BASH_COMMAND}\", error hash: $(echo "${pg_error}" | sha256sum | awk '{ print $1 }')" "user.err"
             log "${pg_error}" "user.err"
             exit 1
             ;;
