@@ -50,7 +50,7 @@ define govuk::app::envvar::database_url (
     $query_string = "?prepared_statements=${allow_prepared_statements}"
   }
 
-  $escaped_password = inline_template('<%= CGI.escape(@password) %>')
+  $escaped_password = inline_template('<%= CGI.escape(@password.to_s) %>')
   govuk::app::envvar { "${title}-DATABASE_URL":
     app     => $title,
     varname => 'DATABASE_URL',
