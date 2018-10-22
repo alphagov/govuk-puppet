@@ -135,12 +135,7 @@ class icinga::config (
     ensure => directory,
     owner  => 'nagios',
     group  => 'www-data',
-  }
-
-  file { '/var/lib/icinga/rw/nagios.cmd':
-    owner => 'nagios',
-    group => 'www-data',
-    mode  => '0660',
+    mode   => '2755',
   }
 
   user { 'www-data':
