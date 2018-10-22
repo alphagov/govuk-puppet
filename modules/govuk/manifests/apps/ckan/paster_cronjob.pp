@@ -30,7 +30,7 @@ define govuk::apps::ckan::paster_cronjob (
   validate_string($plugin, $paster_command)
 
   cron { $title:
-    command  => "cd /var/apps/ckan; govuk_setenv ckan venv/bin/paster --plugin=${plugin} ${paster_command} --config=/var/ckan/ckan.ini",
+    command  => "cd /var/apps/ckan; ./venv/bin/paster --plugin=${plugin} ${paster_command} --config=/var/ckan/ckan.ini",
     user     => 'deploy',
     hour     => $hour,
     minute   => $minute,
