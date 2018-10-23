@@ -16,7 +16,9 @@
            grep created_at |
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /data/apps/content-publisher/current; govuk_setenv content-publisher bundle exec rake import:whitehall_news'
     triggers:
-        - timed: '<%= @cron_schedule %>'
+      - timed: |
+          TZ=Europe/London
+          <%= @cron_schedule %>
     publishers:
       <% if @enable_slack_notifications %>
       - slack:
