@@ -125,7 +125,11 @@ monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::cache::region: 'eu-west-1'
-monitoring::checks::smokey::environment: 'staging'
+
+# START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
+# monitoring::checks::smokey::environment: 'staging'
+# END OF TEMPORARY DEFECT FIX
+
 monitoring::uptime_collector::environment: 'staging'
 
 postfix::smarthost:
