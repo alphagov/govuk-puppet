@@ -185,7 +185,6 @@ hosts::production::backend::app_hostnames:
   - 'maslow'
   - 'manuals-publisher'
   - 'organisations-publisher'
-  - 'policy-publisher'
   - 'publisher'
   - 'publishing-api'
   - 'search-admin'

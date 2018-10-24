@@ -34,7 +34,6 @@ node_class: &node_class
       - manuals-publisher
       - maslow
       - organisations-publisher
-      - policy-publisher
       - publisher
       - release
       - search-admin
@@ -184,7 +183,6 @@ deployable_applications: &deployable_applications
   mapit: {}
   maslow: {}
   organisations-publisher: {}
-  policy-publisher: {}
   publisher: {}
   publishing-api: {}
   release: {}
@@ -594,12 +592,6 @@ govuk::apps::organisations_publisher::db::lb_ip_range: "%{hiera('environment_ip_
 govuk::apps::organisations_publisher::db_hostname: "db-admin"
 govuk::apps::organisations_publisher::db_port: 6432
 govuk::apps::organisations_publisher::db_allow_prepared_statements: false
-govuk::apps::policy_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::policy_publisher::db::allow_auth_from_lb: true
-govuk::apps::policy_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::policy_publisher::db_hostname: "db-admin"
-govuk::apps::policy_publisher::db_port: 6432
-govuk::apps::policy_publisher::db_allow_prepared_statements: false
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "db-admin"
 govuk::apps::publishing_api::db_port: 6432
@@ -757,7 +749,6 @@ govuk::apps::email_alert_api::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
 govuk::apps::local_links_manager::db::rds: true
 govuk::apps::organisations_publisher::db::rds: true
-govuk::apps::policy_publisher::db::rds: true
 govuk::apps::publishing_api::db::rds: true
 govuk::apps::service_manual_publisher::db::rds: true
 govuk::apps::support_api::db::rds: true
@@ -1053,7 +1044,6 @@ grafana::dashboards::deployment_applications:
     show_slow_requests: false
   maslow: {}
   organisations-publisher: {}
-  policy-publisher: {}
   publisher:
     show_sidekiq_graphs: true
     has_workers: true
