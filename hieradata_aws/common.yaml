@@ -770,7 +770,7 @@ govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::deploy::config::asset_root: "https://assets-origin.%{hiera('app_domain')}"
+govuk::deploy::config::asset_root: "https://assets.%{hiera('app_domain')}"
 govuk::deploy::config::website_root: "https://www-origin.%{hiera('app_domain')}"
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::setup::gemstash_server: 'http://gemstash'
