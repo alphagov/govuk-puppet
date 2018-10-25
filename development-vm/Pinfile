@@ -54,7 +54,6 @@ process :mapit
 process :maslow
 process :'organisations-publisher-sidekiq'
 process :'organisations-publisher' => [:'publishing-api', :'organisations-publisher-sidekiq']
-process :'policy-publisher' => [:'publishing-api']
 process :publisher => [:'publishing-api', 'publisher-worker', :calendars, :'link-checker-api'] # for some requests also uses: mapit
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
