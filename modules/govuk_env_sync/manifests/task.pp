@@ -45,13 +45,14 @@ define govuk_env_sync::task(
   $database,
   $url,
   $path,
+  $ensure = 'absent',
 ) {
 
   require govuk_env_sync::aws_auth
   require govuk_env_sync::sync_script
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
-    ensure  => present,
+    ensure  => $ensure,
     mode    => '0755',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
@@ -73,6 +74,7 @@ define govuk_env_sync::task(
     ])
 
   cron { $name:
+    ensure  => $ensure,
     command => $synccommand,
     user    => $govuk_env_sync::user,
     hour    => $hour,
