@@ -1,5 +1,6 @@
 govuk_env_sync::tasks:
   "push_ckan_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "15"
     action: "push"
@@ -10,6 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_audit_tool_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "12"
     action: "push"
@@ -20,6 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content-register_production":
+    ensure: "present"
     hour: "0"
     minute: "13"
     action: "push"
@@ -30,6 +33,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_publisher_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "10"
     action: "push"
@@ -40,6 +44,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_tagger_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "7"
     action: "push"
@@ -50,6 +55,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_email-alert-api_production_daily":
+    ensure: "present"
     hour: "1"
     minute: "12"
     action: "push"
@@ -60,6 +66,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_email-alert-monitor_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "45"
     action: "push"
@@ -70,6 +77,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_link_checker_api_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "2"
     action: "push"
@@ -80,6 +88,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_local-links-manager_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "0"
     action: "push"
@@ -90,6 +99,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_organisations-publisher_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "1"
     action: "push"
@@ -100,6 +110,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_publishing_api_production_daily":
+    ensure: "present"
     hour: "2"
     minute: "20"
     action: "push"
@@ -110,6 +121,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_service-manual-publisher_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "4"
     action: "push"
@@ -120,6 +132,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_support_contacts_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "3"
     action: "push"
@@ -130,6 +143,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_data_admin_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "14"
     action: "push"

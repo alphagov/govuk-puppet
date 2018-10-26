@@ -1,5 +1,6 @@
 govuk_env_sync::tasks:
   "push_router_daily":
+    ensure: "present"
     hour: "0"
     minute: "24"
     action: "push"
@@ -10,6 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-router"
   "push_draft_router_daily":
+    ensure: "present"
     hour: "0"
     minute: "45"
     action: "push"
@@ -20,6 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-router"
   "push_authenticating_proxy_production_daily":
+    ensure: "present"
     hour: "0"
     minute: "55"
     action: "push"

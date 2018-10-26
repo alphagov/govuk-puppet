@@ -1,5 +1,6 @@
 govuk_env_sync::tasks:
   "pull_publishing-api_production_daily":
+    ensure: "present"
     hour: "3"
     minute: "45"
     action: "pull"
