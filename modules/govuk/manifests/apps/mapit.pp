@@ -56,6 +56,9 @@ class govuk::apps::mapit (
       ensure => present,
     }
 
+    # Install postgrest developments dependencies
+    include postgresql::lib::devel
+
     include gdal::repo
     package { 'gdal':
       ensure  => $gdal_version,
