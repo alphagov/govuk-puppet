@@ -214,6 +214,9 @@ govuk_logging::logstream::disabled: true
 
 govuk_mysql::server::slow_query_log: true
 
+postgresql::globals::version: '9.6'
+postgresql::globals::postgis_version: '2.4'
+
 govuk_postgresql::monitoring::password: password
 govuk_postgresql::server::configure_env_sync_user: false
 govuk_postgresql::server::snakeoil_ssl_certificate: certificate
