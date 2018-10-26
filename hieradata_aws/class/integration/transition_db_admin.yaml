@@ -1,5 +1,6 @@
 govuk_env_sync::tasks:
   "pull_transition_production_daily":
+    ensure: "present"
     hour: "5"
     minute: "30"
     action: "pull"

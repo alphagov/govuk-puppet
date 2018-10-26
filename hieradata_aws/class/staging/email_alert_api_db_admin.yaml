@@ -1,5 +1,6 @@
 govuk_env_sync::tasks:
   "pull_email-alert-api_production_daily":
+    ensure: "present"
     hour: "3"
     minute: "45"
     action: "pull"
