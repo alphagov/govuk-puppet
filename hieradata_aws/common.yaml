@@ -71,6 +71,7 @@ node_class: &node_class
       - authenticating-proxy
       - router
       - router-api
+      - publicapi
   draft_content_store:
     apps:
       - content-store
