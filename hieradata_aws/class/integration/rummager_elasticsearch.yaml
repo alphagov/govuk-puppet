@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_es_metasearch_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "24"
     action: "pull"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_page_traffic_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "24"
     action: "pull"
@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_detailed_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "24"
     action: "pull"
@@ -33,7 +33,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_government_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "24"
     action: "pull"
@@ -44,7 +44,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "elasticsearch"
   "pull_es_govuk_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "24"
     action: "pull"
