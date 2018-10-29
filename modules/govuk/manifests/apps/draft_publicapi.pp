@@ -1,12 +1,12 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::apps::publicapi (
+class govuk::apps::draft_publicapi (
   $backdrop_protocol = 'https',
   $backdrop_host = 'www.performance.service.gov.uk',
   $privateapi_ssl = true,
 ) {
 
   $app_domain = hiera('app_domain')
-  $app_name = 'publicapi'
+  $app_name = 'draft-publicapi'
 
   if $::aws_migration {
     # In AWS the upstream should use the internal domain. The nginx server_name
@@ -16,13 +16,13 @@ class govuk::apps::publicapi (
 
     $whitehallapi = "whitehall-frontend.${app_domain_internal}"
     $rummager_api = "search.${app_domain_internal}"
-    $content_store_api = "content-store.${app_domain_internal}"
+    $content_store_api = "draft-content-store.${app_domain_internal}"
 
     $full_domain = $app_name
   } else {
     $whitehallapi = "whitehall-frontend.${app_domain}"
     $rummager_api = "search.${app_domain}"
-    $content_store_api = "content-store.${app_domain}"
+    $content_store_api = "draft-content-store.${app_domain}"
 
     $full_domain = "${app_name}.${app_domain}"
   }
