@@ -1,0 +1,2 @@
+---
+nscd::config::dns_cache: 'yes'
