@@ -19,6 +19,7 @@ node_class: &node_class
     apps:
       - transition
       - imminence
+      - signon
   bouncer:
     apps:
       - bouncer
