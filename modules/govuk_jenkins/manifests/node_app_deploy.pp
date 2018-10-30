@@ -33,6 +33,7 @@ define govuk_jenkins::node_app_deploy (
     'canary-backend',
     'canary-frontend',
     'publicapi',
+    'draft-publicapi',
   ]
 
   unless empty($apps) {

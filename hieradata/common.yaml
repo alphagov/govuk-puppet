@@ -70,6 +70,7 @@ node_class: &node_class
   draft_cache:
     apps:
       - authenticating-proxy
+      - draft-publicapi
       - router
       - router-api
   draft_content_store:
@@ -1529,6 +1530,7 @@ hosts::production::frontend::app_hostnames:
   - 'draft-frontend'
   - 'draft-government-frontend'
   - 'draft-manuals-frontend'
+  - 'draft-publicapi'
   - 'draft-service-manual-frontend'
   - 'draft-smartanswers'
   - 'draft-static'
