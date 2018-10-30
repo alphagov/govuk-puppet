@@ -18,6 +18,7 @@ node_class: &node_class
   backend:
     apps:
       - transition
+      - imminence
   bouncer:
     apps:
       - bouncer
