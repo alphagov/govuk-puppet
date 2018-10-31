@@ -421,6 +421,18 @@
               "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency compared to the month before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency compared to the month before')",
               "textEditor": true
+            },
+            {
+              "hide": true,
+              "refId": "E",
+              "target": "summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max')",
+              "textEditor": true
+            },
+            {
+              "refId": "F",
+              "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency compared to the quarter before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max'), '4M'), #E), -100), 'Latency compared to the quarter before')",
+              "textEditor": true
             }
           ],
           "thresholds": [],
