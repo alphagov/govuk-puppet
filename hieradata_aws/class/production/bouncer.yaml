@@ -1,2 +1,5 @@
 ---
 nscd::config::dns_cache: 'yes'
+
+govuk_bouncer::gor::enabled: true
+govuk_bouncer::gor::target: bouncer.blue.staging.govuk.digital
