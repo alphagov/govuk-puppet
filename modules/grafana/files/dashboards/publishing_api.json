@@ -122,12 +122,12 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '30d', 'max'), 'Monthly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1month', 'max'), 'Monthly')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '7d', 'max'), 'Weekly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly')",
               "textEditor": true
             },
             {
@@ -398,5 +398,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 6
+  "version": 7
 }
