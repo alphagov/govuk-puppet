@@ -8,6 +8,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
+  "refresh": "10s",
   "rows": [
     {
       "collapse": false,
