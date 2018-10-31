@@ -123,7 +123,7 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1month', 'max'), 'Monthly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly')",
               "textEditor": true
             },
             {
@@ -138,7 +138,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": "180d",
+          "timeFrom": "6M",
           "timeShift": null,
           "title": "Historical Maximum Downstream Low Latency",
           "tooltip": {
@@ -360,6 +360,112 @@
       "showTitle": false,
       "title": "Responses",
       "titleSize": "h5"
+    },
+    {
+      "collapse": false,
+      "height": "240",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": true,
+              "refId": "A",
+              "target": "summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max')",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency compared to the week before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), '1w'), #A), -100), 'Latency compared to the week before')",
+              "textEditor": true
+            },
+            {
+              "hide": true,
+              "refId": "D",
+              "target": "summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max')",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency compared to the month before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency compared to the month before')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "6M",
+          "timeShift": null,
+          "title": "Performance",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
@@ -399,5 +505,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 7
+  "version": 9
 }
