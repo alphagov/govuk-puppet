@@ -76,7 +76,7 @@
             }
           ],
           "thresholds": "1800,3600",
-          "title": "",
+          "title": "Downstream Low Latency",
           "transparent": false,
           "type": "singlestat",
           "valueFontSize": "50%",
@@ -139,7 +139,7 @@
           "thresholds": [],
           "timeFrom": "180d",
           "timeShift": null,
-          "title": "Historical Maximum Latency",
+          "title": "Historical Maximum Downstream Low Latency",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -176,7 +176,7 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": true,
+      "showTitle": false,
       "title": "Downstream Low Activity",
       "titleSize": "h5"
     },
@@ -266,8 +266,98 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": true,
+      "showTitle": false,
       "title": "Machine",
+      "titleSize": "h5"
+    },
+    {
+      "collapse": false,
+      "height": "240",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 4,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Errors",
+              "color": "#BF1B00"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_5*), 'Errors')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "HTTP Responses",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Responses",
       "titleSize": "h5"
     }
   ],
@@ -308,5 +398,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 4
+  "version": 6
 }
