@@ -11,7 +11,7 @@
   "rows": [
     {
       "collapse": false,
-      "height": "300",
+      "height": "280",
       "panels": [
         {
           "cacheTimeout": null,
@@ -179,6 +179,96 @@
       "showTitle": true,
       "title": "Downstream Low Activity",
       "titleSize": "h5"
+    },
+    {
+      "collapse": false,
+      "height": "240",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 3,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(averageSeries(publishing-api-*.load.load.shortterm), 'Publishing API')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(averageSeries(postgresql-*.load.load.shortterm), 'PostgreSQL')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Machine Load",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Machine",
+      "titleSize": "h5"
     }
   ],
   "schemaVersion": 14,
@@ -218,5 +308,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 3
+  "version": 4
 }
