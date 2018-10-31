@@ -536,3 +536,56 @@ router::nginx::robotstxt: |
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
+
+node_class: &node_class
+  api:
+    apps:
+      - backdrop-read
+      - backdrop-write
+  asset_master:
+    apps:
+      - asset_env_sync
+  backend:
+    apps:
+      - asset-manager
+      - cache-clearing-service
+      - canary-backend
+      - collections-publisher
+      - contacts
+      - content-audit-tool
+      - content-data-admin
+      - content-performance-manager
+      - content-publisher
+      - content-tagger
+      - event-store
+      - hmrc-manuals-api
+      - imminence
+      - kibana
+      - link-checker-api
+      - local-links-manager
+      - manuals-publisher
+      - maslow
+      - organisations-publisher
+      - publisher
+      - release
+      - search-admin
+      - service-manual-publisher
+      - short-url-manager
+      - sidekiq-monitoring
+      - signon
+      - specialist-publisher
+      - support
+      - support-api
+      - travel-advice-publisher
+  bouncer:
+    apps:
+      - bouncer
+  cache:
+    apps:
+      - router
+  content_store:
+    apps:
+      - content-store
+
+govuk::node::s_base::node_apps:
+  <<: *node_class
