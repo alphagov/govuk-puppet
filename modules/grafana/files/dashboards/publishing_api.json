@@ -406,7 +406,7 @@
               "hide": false,
               "refId": "C",
               "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency compared to the week before')",
-              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), '1w'), #A), -100), 'Latency compared to the week before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), '1w'), #A), -100), 'Latency decrease compared to the week before')",
               "textEditor": true
             },
             {
@@ -419,7 +419,7 @@
               "hide": false,
               "refId": "B",
               "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency compared to the month before')",
-              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency compared to the month before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency decrease compared to the month before')",
               "textEditor": true
             },
             {
@@ -431,7 +431,7 @@
             {
               "refId": "F",
               "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency compared to the quarter before')",
-              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max'), '4M'), #E), -100), 'Latency compared to the quarter before')",
+              "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max'), '4M'), #E), -100), 'Latency decrease compared to the quarter before')",
               "textEditor": true
             }
           ],
