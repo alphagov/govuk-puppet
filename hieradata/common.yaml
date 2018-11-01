@@ -806,24 +806,18 @@ govuk_cdnlogs::service_port_map:
 govuk_ci::master::pipeline_jobs:
   <<: *deployable_applications
   asset_bom_removal-rails: {}
-  async_experiments: {}
   backdrop-transactions-explorer-collector: {}
   bulk-merger: {}
-  cdn-acceptance-tests: {}
   deprecated_columns: {}
   email-alert-monitoring: {}
-  event-store: {}
   gapy: {}
   gds-api-adapters: {}
   gds-scala-common: {}
   gds-sso: {}
   gds_zendesk: {}
-  gem_publisher: {}
-  google-auth-bridge: {}
   govspeak: {}
   govuk-app-deployment: {}
   govuk-aws: {}
-  govuk-diff-pages: {}
   govuk_admin_template: {}
   govuk_ab_testing: {}
   govuk_app_config: {}
@@ -836,16 +830,12 @@ govuk_ci::master::pipeline_jobs:
   govuk-jenkinslib: {}
   govuk-lint: {}
   govuk_message_queue_consumer: {}
-  govuk_mirrorer: {}
-  govuk_navigation_helpers: {}
   govuk-provisioning: {}
   govuk_publishing_components: {}
   govuk-secrets: {}
   govuk_seed_crawler: {}
   govuk_schemas: {}
-  govuk_security_audit: {}
   govuk_sidekiq: {}
-  govuk-tagging-monitor: {}
   govuk-taxonomy-supervised-learning: {}
   govuk_taxonomy_helpers: {}
   govuk_test: {}
@@ -853,18 +843,14 @@ govuk_ci::master::pipeline_jobs:
   licensify: {}
   omniauth-gds: {}
   optic14n: {}
-  performance-datastore: {}
   performanceplatform-client.py: {}
   performanceplatform-collector: {}
   performanceplatform-documentation: {}
-  performanceplatform-govuk-stats: {}
   plek: {}
-  pre-transition-stats: {}
   publishing-e2e-tests: {}
   rack-logstasher: {}
   rails_translation_manager: {}
   router-data: {}
-  screenshot-as-a-service: {}
   seal: {}
   shared_mustache: {}
   slimmer: {}
@@ -872,7 +858,6 @@ govuk_ci::master::pipeline_jobs:
   transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
-  vcloud-converter: {}
   vcloud-core:
     repo_owner: 'gds-operations'
   vcloud-edge_gateway:
