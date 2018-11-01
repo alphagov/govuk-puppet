@@ -1,8 +1,8 @@
 govuk_env_sync::tasks:
   "pull_transition_production_daily":
     ensure: "present"
-    hour: "4"
-    minute: "30"
+    hour: "3"
+    minute: "0"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
