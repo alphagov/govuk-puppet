@@ -1,11 +1,14 @@
-<% unless @rotate_logs_hourly.empty? %>
+<%
+to_rotate_hourly = @service_port_map.keys
+unless to_rotate_hourly.empty?
+%>
 <%=
-@rotate_logs_hourly.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
+to_rotate_hourly.map { |name| "#{ @log_dir }/cdn-#{ name }.log" }.join("\n")
 -%>
 
 {
   su root deploy
-  rotate 720
+  rotate 3
   dateext
   dateformat -%Y%m%d-%s
   compress

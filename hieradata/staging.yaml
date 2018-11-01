@@ -443,8 +443,6 @@ hosts::production::management::hosts:
       - "graphite.%{hiera('app_domain')}"
     service_aliases:
       - 'graphite'
-  logs-cdn-1:
-    ip: '10.2.0.27'
   backup-1:
     ip: '10.2.0.50'
   apt-1:
