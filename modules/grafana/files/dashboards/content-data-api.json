@@ -207,8 +207,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.unique_pageviews,'1d','sum',false))",
-              "textEditor": false
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.upviews, '1d', 'sum', false))",
+              "textEditor": true
             }
           ],
           "thresholds": [],
@@ -281,8 +281,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.edition.number_of_pdfs,'1d','sum',false))",
-              "textEditor": false
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.edition.pdf_count, '1d', 'sum', false))",
+              "textEditor": true
             }
           ],
           "thresholds": [],
@@ -367,7 +367,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.number_of_internal_searches,'1d','sum',false))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.searches, '1d', 'sum', false))",
               "textEditor": false
             }
           ],
@@ -441,7 +441,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.feedex_comments,'1d','sum',false))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.feedex, '1d', 'sum', false))",
               "textEditor": false
             }
           ],
@@ -526,7 +526,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.satisfaction_score,'1d','sum',false))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.etl.daily.satisfaction, '1d', 'sum', false))",
               "textEditor": false
             }
           ],
@@ -1152,6 +1152,152 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "Daily editions",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 38,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.aggregations.all,'1d','sum',false))",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "All Aggregations",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 39,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.content-performance-manager.*.monitor.aggregations.current,'1d','sum',false))",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Current Aggregations",
           "tooltip": {
             "shared": true,
             "sort": 0,
