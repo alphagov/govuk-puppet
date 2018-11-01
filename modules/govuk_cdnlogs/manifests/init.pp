@@ -81,9 +81,9 @@ class govuk_cdnlogs (
   }
 
   file { '/usr/local/bin/check_rsyslog_status_bouncer':
-    ensure => present,
-    mode   => '0755',
-    source => 'puppet:///modules/govuk_cdnlogs/usr/local/bin/check_rsyslog_status_bouncer.sh',
+    ensure  => present,
+    mode    => '0755',
+    content => template('govuk_cdnlogs/usr/local/bin/check_rsyslog_status_bouncer.sh.erb'),
   }
 
   cron { 'check_rsyslog_status_bouncer':

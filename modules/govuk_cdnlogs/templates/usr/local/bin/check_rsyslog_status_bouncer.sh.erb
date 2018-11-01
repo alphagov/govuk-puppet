@@ -1,0 +1,7 @@
+#!/bin/sh
+
+if ! /usr/lib/nagios/plugins/check_file_age -f <%= @log_dir %>/cdn-bouncer.log -c600 -w300 > /dev/null
+then
+    logger "ERROR: <%= @log_dir %>/cdn-bouncer.log is older than 5mins. Restarting rsyslog..."
+    sudo service rsyslog restart
+fi
