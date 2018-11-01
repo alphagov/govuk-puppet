@@ -1025,6 +1025,9 @@ govuk_jenkins::config::user_permissions:
     user: 'alphagov*GOV.UK Production'
     permissions: *jenkins_admin_permission_list
   -
+    user: 'alphagov*GOV.UK DNS Administrators'
+    permissions: *jenkins_admin_permission_list
+  -
     user: 'anonymous'
     permissions:
       - 'hudson.model.Hudson.Read'
