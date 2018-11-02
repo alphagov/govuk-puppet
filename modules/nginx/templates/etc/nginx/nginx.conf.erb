@@ -2,6 +2,8 @@ user www-data;
 worker_processes  4;
 worker_rlimit_nofile 4096;
 
+load_module /usr/lib/nginx/modules/ngx_http_perl_module.so;
+
 error_log  /var/log/nginx/error.log;
 pid        /run/nginx.pid;
 
