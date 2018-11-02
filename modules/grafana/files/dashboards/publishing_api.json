@@ -12,7 +12,7 @@
   "rows": [
     {
       "collapse": false,
-      "height": "280",
+      "height": "240",
       "panels": [
         {
           "aliasColors": {},
@@ -47,24 +47,24 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly Maximum')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly Maximum')",
               "textEditor": true
             },
             {
               "refId": "A",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1d', 'max'), 'Daily')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1d', 'max'), 'Daily Maximum')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Historical Maximum Downstream Low Latency",
+          "title": "Downstream Low Latency",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -329,7 +329,7 @@
             {
               "hide": false,
               "refId": "C",
-              "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency compared to the week before')",
+              "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency decrease compared to the week before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), '1w'), #A), -100), 'Latency decrease compared to the week before')",
               "textEditor": true
             },
@@ -342,7 +342,7 @@
             {
               "hide": false,
               "refId": "B",
-              "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency compared to the month before')",
+              "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency decrease compared to the month before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency decrease compared to the month before')",
               "textEditor": true
             },
@@ -354,7 +354,7 @@
             },
             {
               "refId": "F",
-              "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency compared to the quarter before')",
+              "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency decrease compared to the quarter before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max'), '4M'), #E), -100), 'Latency decrease compared to the quarter before')",
               "textEditor": true
             }
