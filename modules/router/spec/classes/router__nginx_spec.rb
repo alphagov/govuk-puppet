@@ -83,7 +83,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { is_expected.to contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=30";/) }
+      it { is_expected.to contain_file(router_config).with_content(/add_header Cache-Control "public, max-age=30" always;/) }
     end
 
     context 'a different number' do
@@ -92,7 +92,7 @@ describe 'router::nginx', :type => :class do
         :vhost_protected => false,
       }}
 
-      it { is_expected.to contain_file(router_config).with_content(/^more_set_headers -s 404 "Cache-Control: public, max-age=668";/) }
+      it { is_expected.to contain_file(router_config).with_content(/add_header Cache-Control "public, max-age=668" always;/) }
     end
   end
 end
