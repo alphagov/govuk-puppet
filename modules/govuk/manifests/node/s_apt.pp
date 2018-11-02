@@ -86,6 +86,10 @@ class govuk::node::s_apt (
       location => 'https://repo.mongodb.org/apt/ubuntu',
       release  => 'trusty/mongodb-org/3.2',
       key      => 'EA312927';
+    'nginx':
+      location => 'https://nginx.org/packages/ubuntu/',
+      release  => 'trusty',
+      key      => 'ABF5BD827BD9BF62';
     'nodejs':
       location => 'https://deb.nodesource.com/node_6.x',
       release  => 'trusty',
