@@ -68,7 +68,6 @@ class govuk::node::s_backend_lb (
     'short-url-manager',
     'support',
     'travel-advice-publisher',
-    'transition',
     ]:
       servers => $backend_servers,
   }
