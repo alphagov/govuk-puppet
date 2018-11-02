@@ -2,3 +2,5 @@
 
 govuk_bouncer::gor::enabled: true
 govuk_bouncer::gor::target: bouncer.blue.staging.govuk.digital
+
+icinga::client::contact_groups: 'urgent-priority'
