@@ -17,7 +17,6 @@ class govuk::node::s_bouncer (
   include govuk_bouncer::gor
   include govuk::node::s_app_server
   include nginx
-  include nscd
 
   @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
     target    => "${::fqdn_metrics}.nginx.nginx_connections-writing",
