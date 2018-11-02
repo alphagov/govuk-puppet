@@ -229,7 +229,12 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "PostgreSQL CPU Count",
+              "color": "#890F02"
+            }
+          ],
           "spaceLength": 10,
           "span": 12,
           "stack": false,
@@ -237,12 +242,17 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(averageSeries(publishing-api-*.load.load.shortterm), 'Publishing API')",
+              "target": "alias(maxSeries(publishing-api-*.load.load.shortterm), 'Publishing API Load')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(averageSeries(postgresql-*.load.load.shortterm), 'PostgreSQL')",
+              "target": "alias(maxSeries(postgresql-*.load.load.shortterm), 'PostgreSQL Load')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(scale(sumSeries(offset(postgresql-primary-1_backend.cpu-*.cpu-user, 100000)), 0.00001), 'PostgreSQL CPU Count')",
               "textEditor": true
             }
           ],
