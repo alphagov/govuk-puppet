@@ -322,7 +322,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -337,19 +337,29 @@
           ],
           "spaceLength": 10,
           "span": 12,
-          "stack": false,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_5*), 'Errors')",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_500), 'Internal Server Error')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_502), 'Bad Gateway')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_504), 'Gateway Timeout')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "HTTP Responses",
+          "title": "HTTP Error Responses",
           "tooltip": {
             "shared": true,
             "sort": 0,
