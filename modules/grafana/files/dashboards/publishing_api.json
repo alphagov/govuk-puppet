@@ -8,7 +8,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "10s",
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
@@ -62,7 +62,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": "6M",
+          "timeFrom": null,
           "timeShift": null,
           "title": "Historical Maximum Downstream Low Latency",
           "tooltip": {
@@ -360,7 +360,7 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": "6M",
+          "timeFrom": null,
           "timeShift": null,
           "title": "Performance",
           "tooltip": {
@@ -411,7 +411,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {
@@ -441,5 +441,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 10
+  "version": 11
 }
