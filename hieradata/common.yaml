@@ -1280,7 +1280,6 @@ hosts::production::api::app_hostnames:
   - 'backdrop-read'
   - 'backdrop-write'
   - 'content-store'
-  - 'mapit'
   - 'rummager'
   - 'search'
 
