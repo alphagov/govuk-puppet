@@ -21,7 +21,5 @@ govuk::apps::router_api::router_nodes:
   - 'draft-cache-2.router:3055'
 govuk::apps::router_api::vhost: 'draft-router-api'
 
-nginx::package::nginx_package: 'nginx-extras'
-
 router::nginx::check_requests_warning: '@0'
 router::nginx::check_requests_critical: '@0'

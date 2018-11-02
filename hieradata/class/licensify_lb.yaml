@@ -8,5 +8,3 @@ hosts::production::licensify::app_hostnames:
   - 'uploadlicence'
   - 'licensify-admin'
   - 'licensing-web-forms'
-
-nginx::package::nginx_package: 'nginx-extras'
