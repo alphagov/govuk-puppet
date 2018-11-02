@@ -8,88 +8,12 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "10s",
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "height": "280",
+      "height": "240",
       "panels": [
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "decimals": 1,
-          "format": "s",
-          "gauge": {
-            "maxValue": 7200,
-            "minValue": 0,
-            "show": true,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 1,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "span": 3,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "refId": "A",
-              "target": "maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency)",
-              "textEditor": true
-            }
-          ],
-          "thresholds": "1800,3600",
-          "title": "Downstream Low Latency",
-          "transparent": false,
-          "type": "singlestat",
-          "valueFontSize": "50%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
         {
           "aliasColors": {},
           "bars": false,
@@ -117,30 +41,30 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 9,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly Maximum')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly Maximum')",
               "textEditor": true
             },
             {
               "refId": "A",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1d', 'max'), 'Daily')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1d', 'max'), 'Daily Maximum')",
               "textEditor": true
             }
           ],
           "thresholds": [],
-          "timeFrom": "6M",
+          "timeFrom": null,
           "timeShift": null,
-          "title": "Historical Maximum Downstream Low Latency",
+          "title": "Downstream Low Latency",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -192,7 +116,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
-          "id": 3,
+          "id": 6,
           "legend": {
             "avg": false,
             "current": false,
@@ -218,12 +142,117 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(averageSeries(publishing-api-*.load.load.shortterm), 'Publishing API')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1M', 'max'), 'Monthly Maximum')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(averageSeries(postgresql-*.load.load.shortterm), 'PostgreSQL')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1w', 'max'), 'Weekly Maximum')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1d', 'max'), 'Daily Maximum')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Downstream Low Size",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "240",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 3,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "PostgreSQL CPU Count",
+              "color": "#890F02"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(maxSeries(publishing-api-*.load.load.shortterm), 'Publishing API Load')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(maxSeries(postgresql-*.load.load.shortterm), 'PostgreSQL Load')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(scale(sumSeries(offset(postgresql-primary-1_backend.cpu-*.cpu-user, 100000)), 0.00001), 'PostgreSQL CPU Count')",
               "textEditor": true
             }
           ],
@@ -293,7 +322,7 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null",
           "percentage": false,
@@ -308,19 +337,29 @@
           ],
           "spaceLength": 10,
           "span": 12,
-          "stack": false,
+          "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_5*), 'Errors')",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_500), 'Internal Server Error')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_502), 'Bad Gateway')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries(stats.publishing-api*.nginx_logs.*.http_504), 'Gateway Timeout')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "HTTP Responses",
+          "title": "HTTP Error Responses",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -405,7 +444,7 @@
             {
               "hide": false,
               "refId": "C",
-              "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency compared to the week before')",
+              "target": "alias(offset(asPercent(timeShift(#A, '1w'), #A), -100), 'Latency decrease compared to the week before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), '1w'), #A), -100), 'Latency decrease compared to the week before')",
               "textEditor": true
             },
@@ -418,7 +457,7 @@
             {
               "hide": false,
               "refId": "B",
-              "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency compared to the month before')",
+              "target": "alias(offset(asPercent(timeShift(#D, '1M'), #D), -100), 'Latency decrease compared to the month before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), '1M'), #D), -100), 'Latency decrease compared to the month before')",
               "textEditor": true
             },
@@ -430,13 +469,13 @@
             },
             {
               "refId": "F",
-              "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency compared to the quarter before')",
+              "target": "alias(offset(asPercent(timeShift(#E, '4M'), #E), -100), 'Latency decrease compared to the quarter before')",
               "targetFull": "alias(offset(asPercent(timeShift(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '4M', 'max'), '4M'), #E), -100), 'Latency decrease compared to the quarter before')",
               "textEditor": true
             }
           ],
           "thresholds": [],
-          "timeFrom": "6M",
+          "timeFrom": null,
           "timeShift": null,
           "title": "Performance",
           "tooltip": {
@@ -487,7 +526,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-6M",
     "to": "now"
   },
   "timepicker": {
@@ -517,5 +556,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 9
+  "version": 11
 }
