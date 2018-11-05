@@ -404,7 +404,6 @@ hosts::production::backend::app_hostnames:
   - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
-  - 'organisations-publisher'
   - 'publisher'
   - 'publishing-api'
   - 'search-admin'

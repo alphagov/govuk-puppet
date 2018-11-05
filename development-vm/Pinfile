@@ -52,8 +52,6 @@ process :'manuals-publisher' => [:'asset-manager', :'publishing-api', :'link-che
 process :'manuals-publisher-worker' => [:'publishing-api']
 process :mapit
 process :maslow
-process :'organisations-publisher-sidekiq'
-process :'organisations-publisher' => [:'publishing-api', :'organisations-publisher-sidekiq']
 process :publisher => [:'publishing-api', 'publisher-worker', :calendars, :'link-checker-api'] # for some requests also uses: mapit
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']

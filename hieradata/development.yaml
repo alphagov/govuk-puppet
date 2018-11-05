@@ -294,7 +294,6 @@ hosts::development::apps:
   - 'manuals-publisher'
   - 'mapit'
   - 'maslow'
-  - 'organisations-publisher'
   - 'publicapi'
   - 'public-event-store'
   - 'publisher'

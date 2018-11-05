@@ -98,17 +98,6 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/autopostgresqlbackup/local-links-manager_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
-  "push_organisations-publisher_production_daily":
-    ensure: "present"
-    hour: "0"
-    minute: "1"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "organisations-publisher_production"
-    temppath: "/var/lib/autopostgresqlbackup/organisations-publisher_production"
-    url: "govuk-staging-database-backups"
-    path: "postgresql-backend"
   "push_publishing_api_production_daily":
     ensure: "present"
     hour: "2"
