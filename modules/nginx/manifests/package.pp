@@ -27,6 +27,16 @@ class nginx::package(
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
+  if $::lsbdistcodename == 'precise' {
+    apt::source { 'nginx-precise':
+      location     => "http://${apt_mirror_hostname}/nginx-precise",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      repos        => 'nginx',
+      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    }
+  }
+
   package { 'nginx':
     ensure => $nginx_version,
     notify => Class['nginx::restart'],
