@@ -240,3 +240,4 @@ nginx::config::stack_network_prefix: '10.13.0'
 govuk_datascrubber::ensure: 'latest'
 govuk_datascrubber::share_with:
   - '210287912431'     # AWS integration
+govuk_datascrubber::s3_export_prefix: 's3://govuk-staging-database-backups/scrubbed'
