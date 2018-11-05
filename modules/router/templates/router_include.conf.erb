@@ -97,10 +97,6 @@ error_page 504 /504.html;
 # compat because these previously emitted 503.
 error_page 429 /503.html;
 
-# Set Cache-Control headers on 404 pages since we overide those set by apps.
-# So that we dont fall through to the default provided by the CDN.
-more_set_headers -s 404 "Cache-Control: public, max-age=<%= @page_ttl_404 -%>";
-
 # Set the Content-Type to UTF-8 on the static pages, since they contain UTF-8
 # characters like the copyright symbol
 charset utf-8;
@@ -110,6 +106,9 @@ location /400.html {
   internal;
 }
 location /404.html {
+  # Set Cache-Control headers on 404 pages since we overide those set by apps.
+  # So that we dont fall through to the default provided by the CDN.
+  add_header Cache-Control "public, max-age=<%= @page_ttl_404 -%>" always;
   root /usr/share/nginx/www;
   internal;
 }

@@ -5,7 +5,7 @@ collectd::package::yajl_package: 'libyajl1'
 
 duplicity::packages::version: '0.6.18-0ubuntu3.5'
 
-nginx::package::version: '1.4.4-1~precise0'
+nginx::package::nginx_version: "1.12.0-1~precise"
 
 nodejs::version: '0.10.37-1chl1~precise1'
 

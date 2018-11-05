@@ -4,34 +4,37 @@
 #
 # === Parameters
 #
-# [*nginx_package*]
-#   Which nginx package variant to install. Ubuntu provides 7 variants of nginx
-#   with different sets of compile options. Default: 'nginx-full'
+#  [*apt_mirror_hostname*]
+#    The hostname of the local aptly mirror.
 #
-# [*version*]
+# [*nginx_version*]
+#   Which version of the nginx package to install. Default: 'present'
 #
-#   Which version of the nginx packages to install. Default: 'present'
+# [*nginx_module_perl_version*]
+#   Which version of the nginx perl module package to install. Default: 'present'
 #
 class nginx::package(
-  $nginx_package = 'nginx-full',
-  $version       = 'present',
+  $apt_mirror_hostname,
+  $nginx_version             = 'present',
+  $nginx_module_perl_version = 'present',
 ) {
 
-  include govuk_ppa
-
-  # nginx package actually has nothing useful in it; we normally need nginx-full
-  package { 'nginx':
-    ensure => purged,
+  apt::source { 'nginx':
+    location     => "http://${apt_mirror_hostname}/nginx",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    repos        => 'nginx',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  package { 'nginx-common':
-    ensure => $version,
+  package { 'nginx':
+    ensure => $nginx_version,
     notify => Class['nginx::restart'],
   }
 
-  package { $nginx_package:
-    ensure  => $version,
+  package { 'nginx-module-perl':
+    ensure  => $nginx_module_perl_version,
     notify  => Class['nginx::restart'],
-    require => Package['nginx-common'],
+    require => Package['nginx'],
   }
 }

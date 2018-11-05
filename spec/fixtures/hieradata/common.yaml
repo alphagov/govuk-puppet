@@ -109,6 +109,9 @@ mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 
+nginx::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+nginx::package::nginx_version: "1.14.0-1~trusty"
+
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
