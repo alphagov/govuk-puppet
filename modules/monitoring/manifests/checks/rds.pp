@@ -21,7 +21,7 @@ class monitoring::checks::rds (
 
     icinga::plugin { 'check_aws_rds_cpu':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_rds_cpu',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_rds_cpu':
@@ -31,7 +31,7 @@ class monitoring::checks::rds (
 
     icinga::plugin { 'check_aws_rds_memory':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_rds_memory',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_rds_memory':
@@ -41,7 +41,7 @@ class monitoring::checks::rds (
 
     icinga::plugin { 'check_aws_rds_storage':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_rds_storage',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_rds_storage':

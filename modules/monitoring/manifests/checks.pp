@@ -14,6 +14,17 @@ class monitoring::checks (
   $http_username = 'UNSET',
   $http_password = 'UNSET',
 ) {
+
+    exec { 'install_boto':
+          path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
+          command => ['/opt/python2.7/bin/pip install boto'],
+    }
+
+    exec { 'install_boto3':
+          path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
+          command => ['/opt/python2.7/bin/pip install boto3'],
+    }
+
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
   include monitoring::checks::ses

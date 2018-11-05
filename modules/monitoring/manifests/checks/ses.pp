@@ -31,14 +31,14 @@ class monitoring::checks::ses (
         $critical = 50,
     ) {
 
-    package {'boto':
-        ensure   => '2.24.0',
-        provider => pip,
-    }
+    #package {'boto':
+    #    ensure   => '2.24.0',
+    #    provider => pip,
+    #}
 
     icinga::plugin { 'check_aws_quota':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_quota':
