@@ -63,6 +63,7 @@ class govuk::apps::imminence(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,
+  $app_domain = undef,
 ) {
 
   $app_name = 'imminence'
@@ -103,6 +104,14 @@ class govuk::apps::imminence(
       "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    }
+  }
+
+  if $app_domain {
+    govuk::app::envvar {
+      "${title}-GOVUK_APP_DOMAIN":
+      varname => 'GOVUK_APP_DOMAIN',
+      value   => $app_domain;
     }
   }
 
