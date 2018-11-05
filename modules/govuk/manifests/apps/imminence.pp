@@ -112,6 +112,9 @@ class govuk::apps::imminence(
       "${title}-GOVUK_APP_DOMAIN":
       varname => 'GOVUK_APP_DOMAIN',
       value   => $app_domain;
+      "${title}-GOVUK_APP_DOMAIN_EXTERNAL":
+      varname => 'GOVUK_APP_DOMAIN_EXTERNAL',
+      value   => $app_domain;
     }
   }
 
