@@ -5,7 +5,13 @@
     project-type: freestyle
     description: "<p>Run the etl:master rake task.</p>"
     builders:
-      - shell: ssh deploy@$(govuk_node_list -c backend --single-node) "cd /var/apps/content-performance-manager && govuk_setenv content-performance-manager bundle exec rake etl:master"
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=content-performance-manager
+              MACHINE_CLASS=backend
+              RAKE_TASK=etl:master
     wrappers:
       - ansicolor:
           colormap: xterm
