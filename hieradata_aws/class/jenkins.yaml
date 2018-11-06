@@ -97,8 +97,6 @@ govuk_jenkins::plugins:
     version: '1.9'
   durable-task:
     version: '1.22'
-  email-ext:
-    version: '2.62'
   envinject-api:
     version: '1.5'
   envinject:
