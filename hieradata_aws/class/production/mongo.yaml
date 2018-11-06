@@ -1,0 +1,23 @@
+govuk_env_sync::tasks:
+  "push_imminence_production":
+    ensure: "present"
+    hour: "3"
+    minute: "0"
+    action: "push"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "imminence_production"
+    temppath: "/var/lib/mongodb/.dumps"
+    url: "govuk-production-database-backups"
+    path: "mongo-normal"
+  "pull_imminence_production":
+    ensure: "absent"
+    hour: "3"
+    minute: "0"
+    action: "pull"
+    dbms: "mongo"
+    storagebackend: "s3"
+    database: "imminence_production"
+    temppath: "/var/lib/mongodb/.dumps"
+    url: "govuk-production-database-backups"
+    path: "mongo-normal"
