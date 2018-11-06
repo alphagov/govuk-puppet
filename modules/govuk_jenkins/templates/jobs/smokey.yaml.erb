@@ -36,34 +36,6 @@
           include-custom-message: true
           custom-message: ':govuk-<%= @environment %>:'
       <% end %>
-      - email-ext:
-          recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
-          attach-build-log: true
-          failure: true
-          fixed: true
-          presend-script: |
-            import hudson.tasks.Mailer
-
-            def upstreamCause = build.getCause(Cause.UpstreamCause)
-
-            if (upstreamCause != null) {
-              def upstreamCauses = upstreamCause.getUpstreamCauses()
-              upstreamCauses.each() { cause ->
-                if (cause instanceof Cause.UserIdCause) {
-                  def user = User.get(cause.getUserId())
-                  def userEmail = user.getProperty(Mailer.UserProperty.class).getAddress()
-
-                  if (userEmail != null && userEmail.endsWith("@digital.cabinet-office.gov.uk")) {
-                    logger.println("Upstream user being emailed: " + userEmail)
-                    msg.addRecipient(javax.mail.Message.RecipientType.TO, new javax.mail.internet.InternetAddress(userEmail))
-                  }
-                }
-              }
-            }
-          send-to:
-            - recipients
-            - developers
-            - culprits
 
     builders:
         - shell: |
