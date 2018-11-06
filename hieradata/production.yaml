@@ -298,6 +298,7 @@ hosts::production::backend::app_hostnames:
   - 'email-alert-api-public'
   - 'event-store'
   - 'hmrc-manuals-api'
+  - 'imminence'
   - 'kibana'
   - 'link-checker-api'
   - 'local-links-manager'
