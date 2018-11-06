@@ -126,7 +126,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::imminence::app_domain: staging.govuk.digital
 govuk::apps::kibana::logit_environment: d414187a-2796-4ea7-9b9a-d40c341646d6
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
@@ -240,4 +239,3 @@ nginx::config::stack_network_prefix: '10.12.0'
 govuk_datascrubber::ensure: 'latest'
 govuk_datascrubber::share_with:
   - '210287912431'     # AWS integration
-govuk_datascrubber::s3_export_prefix: 's3://govuk-production-database-backups/scrubbed'
