@@ -60,13 +60,6 @@ location ~ ^/contact/govuk/(|service-feedback|problem_reports|foi|page_improveme
   proxy_pass http://varnish;
 }
 
-# Allow serving CSS and JS assets from the main domain rather than assets domain
-# This helps performance with HTTP/2
-location ~ ^/assets/(.+)\.(css|js)$ {
-  proxy_set_header Host assets-origin.<%= @app_domain %>;
-  proxy_pass https://assets-origin.<%= @app_domain %>/$1.$2;
-}
-
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
