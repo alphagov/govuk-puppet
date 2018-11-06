@@ -63,11 +63,7 @@ location ~ ^/contact/govuk/(|service-feedback|problem_reports|foi|page_improveme
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
-  # Enable asset domain preconnect for HTTP/2-capable clients
   add_header Link "<https://assets.<%= @app_domain %>>; rel=preconnect; crossorigin";
-
-  # Enable server push for HTTP/2-capable clients
-  http2_push_preload on;
 
   # HTML verification for DWP YouTube channel
   location = /dla-ending/google6db9c061ce178960.html {
