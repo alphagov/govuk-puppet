@@ -45,14 +45,14 @@ define govuk_env_sync::task(
   $database,
   $url,
   $path,
-  $ensure = 'absent',
+  $ensure = 'present',
 ) {
 
   require govuk_env_sync::aws_auth
   require govuk_env_sync::sync_script
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
-    ensure  => $ensure,
+    ensure  => 'present',
     mode    => '0755',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
