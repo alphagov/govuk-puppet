@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/python2.7/bin/python
 
 ##################################################
 # This script will capture and report on AWS RDS #
@@ -185,6 +185,11 @@ data = cw_conn.get_metric_statistics(
    'Average',
    {'DBInstanceIdentifier': [args.instanceid]},
 )
+
+
+if data == []:
+  print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+  sys.exit()
 
 ##################################################################################################
 # Metrics											 #

@@ -21,7 +21,7 @@ class monitoring::checks::cache (
 
     icinga::plugin { 'check_aws_cache_cpu':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_cache_cpu',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_cache_cpu':
@@ -31,7 +31,7 @@ class monitoring::checks::cache (
 
     icinga::plugin { 'check_aws_cache_memory':
         source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_cache_memory',
-        require => Package['boto'],
+        require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_cache_memory':
