@@ -9,9 +9,13 @@
       - build-discarder:
           num-to-keep: 30
     builders:
-      # The argument to `-c` is in this case `frontend` but the value is used by both `static` and `frontend` applications
-      - shell: ssh deploy@$(govuk_node_list -c frontend --single-node) "cd /var/apps/static && govuk_setenv static bundle exec rake emergency_banner:remove"
       - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=static
+              MACHINE_CLASS=frontend
+              RAKE_TASK=emergency_banner:remove
           - project: clear-template-cache
             block: true
           - project: clear-frontend-memcache
