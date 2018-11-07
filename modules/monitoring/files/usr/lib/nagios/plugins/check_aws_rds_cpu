@@ -139,6 +139,7 @@ try:
     )
 except boto.exception.BotoServerError as err:
     print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 ##################################################################################################
 # Metrics											 #

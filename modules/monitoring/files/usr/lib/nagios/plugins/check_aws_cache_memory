@@ -89,7 +89,7 @@ try:
  cluster_info = elasticache.describe_cache_clusters(args.instanceid)
 except boto.exception.BotoServerError as err:
  print "There was an error while initiating a connection to the Elastic Cache Cluster. Please check the error message below. [cluster_info = elasticache.describe_cache_clusters(args.instanceid)]",err
- sys.exit(3)
+ sys.exit(1)
 
 #################################################################################
 # Debug AWS ElastiCache Cluster Details.					#
@@ -206,6 +206,7 @@ try:
   )
 except boto.exception.BotoServerError as err:
     print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 ##################################################################################################
 # Metrics                                                                                        #

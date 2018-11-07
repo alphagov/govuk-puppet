@@ -105,6 +105,7 @@ try:
     response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
 except boto.exception.BotoServerError as err:
     print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 
 db_instance_data = response.get('DBInstances')
@@ -161,6 +162,7 @@ try:
     )
 except boto.exception.BotoServerError as err:
     print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 ##################################################################################################
 # Metrics											 #
@@ -192,7 +194,7 @@ except boto.exception.BotoServerError as err:
 
 if data == []:
   print "WARNING: The instance specified {} was not found!".format(args.instanceid)
-  sys.exit()
+  sys.exit(1)
 
 #########################################
 # Dissect the result			#

@@ -138,6 +138,7 @@ try:
     response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
 except boto.exception.BotoServerError as err:
     print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 db_instance_data = response.get('DBInstances')
 # Get the allocated storage
@@ -194,7 +195,7 @@ data = cw_conn.get_metric_statistics(
 
 if data == []:
   print "WARNING: The instance specified {} was not found!".format(args.instanceid)
-  sys.exit()
+  sys.exit(1)
 
 ##################################################################################################
 # Metrics											 #
