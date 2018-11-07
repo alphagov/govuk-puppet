@@ -99,7 +99,14 @@ cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 ####################################################
 client = boto3.client('rds', region_name=args.region)
 # Collect DB instance attributes
-response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
+
+
+try:
+    response = client.describe_db_instances(DBInstanceIdentifier=args.instanceid)
+except boto.exception.BotoServerError as err:
+    print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+
+
 db_instance_data = response.get('DBInstances')
 # Get the allocated storage
 for attributes in db_instance_data:
@@ -140,15 +147,20 @@ slice = 300
 # 'DBInstanceIdentifier' - The unique identifier which we use to query.     #
 #############################################################################
 
-data = cw_conn.get_metric_statistics(
-   slice,
-   start,
-   end,
-   'FreeStorageSpace',
-   'AWS/RDS',
-   'Average',
-   {'DBInstanceIdentifier': [args.instanceid]},
-)
+
+
+try:
+    data = cw_conn.get_metric_statistics(
+      slice,
+      start,
+      end,
+      'FreeStorageSpace',
+      'AWS/RDS',
+      'Average',
+      {'DBInstanceIdentifier': [args.instanceid]},
+    )
+except boto.exception.BotoServerError as err:
+    print "WARNING: The instance specified {} was not found!".format(args.instanceid)
 
 ##################################################################################################
 # Metrics											 #

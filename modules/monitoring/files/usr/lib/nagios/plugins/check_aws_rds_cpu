@@ -127,15 +127,18 @@ slice = 300
 # 'DBInstanceIdentifier' - The unique identifier which we use to query.     #
 #############################################################################
 
-data = cw_conn.get_metric_statistics(
-   slice,
-   start,
-   end,
-   'CPUUtilization',
-   'AWS/RDS',
-   'Average',
-   {'DBInstanceIdentifier': [args.instanceid]},
-)
+try:
+    data = cw_conn.get_metric_statistics(
+      slice,
+      start,
+      end,
+      'CPUUtilization',
+      'AWS/RDS',
+      'Average',
+      {'DBInstanceIdentifier': [args.instanceid]},
+    )
+except boto.exception.BotoServerError as err:
+    print "WARNING: The instance specified {} was not found!".format(args.instanceid)
 
 ##################################################################################################
 # Metrics											 #
@@ -164,11 +167,6 @@ data = cw_conn.get_metric_statistics(
 #   methods and attributes.							#
 # pprint.pprint(dir(data))							#
 #################################################################################
-
-
-if data == []:
-  print "WARNING: The instance specified {} was not found!".format(args.instanceid)
-  sys.exit()
 
 #########################################
 # Dissect the result			#

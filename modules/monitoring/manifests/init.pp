@@ -24,7 +24,7 @@ class monitoring (
 
   unless $ci_environment {
     # Monitoring server only.
-    include ::govuk_jenkins::packages::govuk_python
+    include govuk_jenkins::packages::govuk_python
     include monitoring::checks
     include monitoring::edge
     include monitoring::pagerduty_drill
