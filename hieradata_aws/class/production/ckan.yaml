@@ -1,3 +1,3 @@
 ---
 
-govuk::apps::ckan::enabled: false
+govuk::apps::ckan::enabled: true
