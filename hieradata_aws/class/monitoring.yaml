@@ -2,6 +2,8 @@
 
 govuk_cdnlogs::log_dir: '/var/log/cdn'
 
+icinga::client::checks::disk_space_warn: 15
+
 lv:
   data:
     pv: '/dev/nvme1n1'
