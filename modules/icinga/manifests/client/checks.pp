@@ -13,10 +13,21 @@
 #   The duration in minutes to include in the moving average window
 #   for disk time checks.
 #
+# [*disk_space_warn*]
+#   A warning is triggered when free disk space falls below this
+#   percentage.
+#
+# [*disk_space_critical*]
+#   A critical is triggered when free disk space falls below this
+#   percentage.
+#
+#
 class icinga::client::checks (
   $disk_time_warn = 100,
   $disk_time_critical = 200,
   $disk_time_window_minutes = 5,
+  $disk_space_warn = 20,
+  $disk_space_critical = 10,
 ) {
 
   if ! $::aws_migration {
@@ -54,7 +65,7 @@ class icinga::client::checks (
   }
 
   @@icinga::check { "check_root_disk_space_${::hostname}":
-    check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /',
+    check_command       => "check_nrpe!check_disk_space_arg!${disk_space_warn}% ${disk_space_critical}% /",
     service_description => 'low available disk space on root',
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
