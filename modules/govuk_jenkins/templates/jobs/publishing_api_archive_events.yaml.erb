@@ -9,7 +9,13 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
-      - shell: ssh deploy@$(govuk_node_list -c publishing_api --single-node) "cd /var/apps/publishing-api && govuk_setenv publishing-api bundle exec rake events:export_to_s3"
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=publishing-api
+              MACHINE_CLASS=publishing_api
+              RAKE_TASK=events:export_to_s3
     logrotate:
       numToKeep: 10
     triggers:
