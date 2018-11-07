@@ -89,7 +89,7 @@ try:
  cluster_info = elasticache.describe_cache_clusters(args.instanceid)
 except boto.exception.BotoServerError as err:
  print "There was an error while initiating a connection to the Elastic Cache Cluster. Please check the error message below. [cluster_info = elasticache.describe_cache_clusters(args.instanceid)]",err
- sys.exit(3)
+ sys.exit(1)
 
 #################################################################################
 # Debug AWS ElastiCache Cluster Details.					#
@@ -192,15 +192,21 @@ end = datetime.datetime.now()
 # 'Average' - We are defining that we won't the average for the matric. 		#
 # 'CacheClusterId' - The unique identifier which we use to query. 			#
 #########################################################################################
-data = cw_conn.get_metric_statistics(
-   300,
-   start,
-   end,
-   'FreeableMemory',
-   'AWS/ElastiCache',
-   'Average',
-   {'CacheClusterId': [args.instanceid]},
-)
+
+
+try:
+    data = cw_conn.get_metric_statistics(
+    300,
+    start,
+    end,
+    'FreeableMemory',
+    'AWS/ElastiCache',
+    'Average',
+    {'CacheClusterId': [args.instanceid]},
+  )
+except boto.exception.BotoServerError as err:
+    print "WARNING: The instance specified {} was not found!".format(args.instanceid)
+    sys.exit(1)
 
 ##################################################################################################
 # Metrics                                                                                        #

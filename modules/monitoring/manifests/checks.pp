@@ -15,15 +15,17 @@ class monitoring::checks (
   $http_password = 'UNSET',
 ) {
 
-    exec { 'install_boto':
-          path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
-          command => ['/opt/python2.7/bin/pip install boto'],
-    }
+  exec { 'install_boto':
+        path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
+        command => ['/opt/python2.7/bin/pip install boto'],
+        require => Class['::govuk_jenkins::packages::govuk_python'],
+  }
 
-    exec { 'install_boto3':
-          path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
-          command => ['/opt/python2.7/bin/pip install boto3'],
-    }
+  exec { 'install_boto3':
+        path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
+        command => ['/opt/python2.7/bin/pip install boto3'],
+        require => Class['::govuk_jenkins::packages::govuk_python'],
+  }
 
   include monitoring::checks::mirror
   include monitoring::checks::pingdom
