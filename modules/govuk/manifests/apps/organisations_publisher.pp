@@ -65,12 +65,6 @@ class govuk::apps::organisations_publisher(
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
-  $db_hostname = undef,
-  $db_username = 'organisations_publisher',
-  $db_password = undef,
-  $db_port = undef,
-  $db_allow_prepared_statements = undef,
-  $db_name = 'organisations-publisher_production',
   $oauth_id = '',
   $oauth_secret = '',
   $enable_procfile_worker = true,
@@ -80,9 +74,8 @@ class govuk::apps::organisations_publisher(
   $app_name = 'organisations-publisher'
 
   if $enabled {
-    include govuk_postgresql::client #installs libpq-dev package needed for pg gem
-
     govuk::app { $app_name:
+      ensure             => 'absent',
       app_type           => 'rack',
       port               => $port,
       sentry_dsn         => $sentry_dsn,
@@ -91,46 +84,6 @@ class govuk::apps::organisations_publisher(
       log_format_is_json => true,
       asset_pipeline     => true,
       deny_framing       => true,
-    }
-
-    Govuk::App::Envvar {
-      app => $app_name,
-    }
-
-    govuk::app::envvar::redis { $app_name:
-      host => $redis_host,
-      port => $redis_port,
-    }
-
-    if $secret_key_base {
-      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base;
-      }
-    }
-
-    govuk::app::envvar {
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-PUBLISHING_API_BEARER_TOKEN":
-        varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token;
-    }
-
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type                      => 'postgresql',
-        username                  => $db_username,
-        password                  => $db_password,
-        host                      => $db_hostname,
-        port                      => $db_port,
-        allow_prepared_statements => $db_allow_prepared_statements,
-        database                  => $db_name,
-      }
     }
 
     govuk::procfile::worker { $app_name:

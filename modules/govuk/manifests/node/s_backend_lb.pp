@@ -60,7 +60,6 @@ class govuk::node::s_backend_lb (
     'local-links-manager',
     'manuals-publisher',
     'maslow',
-    'organisations-publisher',
     'publisher',
     'release',
     'search-admin',

@@ -178,7 +178,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   mapit: {}
   maslow: {}
-  organisations-publisher: {}
   publisher: {}
   publishing-api: {}
   release: {}
@@ -381,9 +380,6 @@ govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::organisations_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::organisations_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -569,12 +565,6 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::organisations_publisher::enabled: false
-govuk::apps::organisations_publisher::db_port: 6432
-govuk::apps::organisations_publisher::db_allow_prepared_statements: false
-govuk::apps::organisations_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::organisations_publisher::db_hostname: "postgresql-primary-1.backend"
-
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::publishing_api::db_port: 6432
@@ -646,8 +636,6 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
-govuk::apps::sidekiq_monitoring::organisations_publisher_redis_host: "%{hiera('govuk::apps::organisations_publisher::redis_host')}"
-govuk::apps::sidekiq_monitoring::organisations_publisher_redis_port: "%{hiera('govuk::apps::organisations_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
 govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
@@ -1149,7 +1137,6 @@ grafana::dashboards::deployment_applications:
     show_controller_errors: false
     show_slow_requests: false
   maslow: {}
-  organisations-publisher: {}
   publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1437,7 +1424,6 @@ hosts::production::backend::app_hostnames:
   - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
-  - 'organisations-publisher'
   - 'publisher'
   - 'publishing-api'
   - 'search-admin'
