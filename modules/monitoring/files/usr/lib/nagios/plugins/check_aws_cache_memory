@@ -192,15 +192,20 @@ end = datetime.datetime.now()
 # 'Average' - We are defining that we won't the average for the matric. 		#
 # 'CacheClusterId' - The unique identifier which we use to query. 			#
 #########################################################################################
-data = cw_conn.get_metric_statistics(
-   300,
-   start,
-   end,
-   'FreeableMemory',
-   'AWS/ElastiCache',
-   'Average',
-   {'CacheClusterId': [args.instanceid]},
-)
+
+
+try:
+    data = cw_conn.get_metric_statistics(
+    300,
+    start,
+    end,
+    'FreeableMemory',
+    'AWS/ElastiCache',
+    'Average',
+    {'CacheClusterId': [args.instanceid]},
+  )
+except boto.exception.BotoServerError as err:
+    print "WARNING: The instance specified {} was not found!".format(args.instanceid)
 
 ##################################################################################################
 # Metrics                                                                                        #

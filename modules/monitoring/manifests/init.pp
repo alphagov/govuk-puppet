@@ -15,6 +15,7 @@ class monitoring (
     ensure => 'installed',
   }
 
+  include ::govuk_jenkins::packages::govuk_python
   include icinga
   include nsca::server
 
@@ -24,7 +25,6 @@ class monitoring (
 
   unless $ci_environment {
     # Monitoring server only.
-    include ::govuk_jenkins::packages::govuk_python
     include monitoring::checks
     include monitoring::edge
     include monitoring::pagerduty_drill
