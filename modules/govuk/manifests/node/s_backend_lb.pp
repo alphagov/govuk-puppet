@@ -19,6 +19,9 @@
 # [*publishing_api_backend_servers*]
 #   An array of publishing-api backend app servers
 #
+# [*ckan_backend_servers*]
+#   An array of CKAN backend app servers
+#
 # [*maintenance_mode*]
 #   Whether the backend should be taken offline in nginx
 #
