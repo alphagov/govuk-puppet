@@ -91,6 +91,10 @@
 #   The number of unicorn worker processes to run
 #   Default: undef
 #
+# [*app_domain]
+#   The external subdomain used by the app
+#   Default: undef
+#
 class govuk::apps::local_links_manager(
   $port = 3121,
   $enabled = true,
@@ -117,6 +121,7 @@ class govuk::apps::local_links_manager(
   $google_export_tracker_id = undef,
   $run_links_ga_export = false,
   $unicorn_worker_processes = undef,
+  $app_domain = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -177,6 +182,17 @@ class govuk::apps::local_links_manager(
       "${title}-RUN_LINK_GA_EXPORT":
         varname => 'RUN_LINK_GA_EXPORT',
         value   => bool2str($run_links_ga_export);
+    }
+
+    if $app_domain {
+       govuk::app::envvar {
+        "${title}-GOVUK_APP_DOMAIN":
+        varname => 'GOVUK_APP_DOMAIN',
+        value   => $app_domain;
+        "${title}-GOVUK_APP_DOMAIN_EXTERNAL":
+        varname => 'GOVUK_APP_DOMAIN_EXTERNAL',
+        value   => $app_domain;
+      }
     }
 
     if $local_links_manager_passive_checks {
