@@ -1,0 +1,7 @@
+---
+
+nscd::config::dns_cache: 'yes'
+
+router::gor::add_hosts: false
+router::gor::replay_targets:
+  'content-store.blue.staging.govuk.digital': {}
