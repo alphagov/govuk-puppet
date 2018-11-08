@@ -4,4 +4,4 @@ postgresql::globals::manage_package_repo: true
 postgresql::server::role::rds: true
 govuk_sudo::sudo_conf:
   govuk-backup:
-    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore'
+    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/pg_dump'
