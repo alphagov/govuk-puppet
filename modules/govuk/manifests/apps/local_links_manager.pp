@@ -185,7 +185,7 @@ class govuk::apps::local_links_manager(
     }
 
     if $app_domain {
-       govuk::app::envvar {
+        govuk::app::envvar {
         "${title}-GOVUK_APP_DOMAIN":
         varname => 'GOVUK_APP_DOMAIN',
         value   => $app_domain;
