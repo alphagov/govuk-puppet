@@ -219,6 +219,16 @@ monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 
+
+monitoring::checks::rds::servers:
+   - 'postgresql-primary'
+   - 'postgresql-standby'
+   - 'transition-postgresql-primary'
+   - 'transition-postgresql-standby'
+   - 'mysql-primary'
+   - 'mysql-replica'
+
+
 # START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
 # monitoring::checks::smokey::environment: 'production'
 # END OF TEMPORARY DEFECT FIX
