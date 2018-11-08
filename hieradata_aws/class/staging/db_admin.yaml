@@ -88,7 +88,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_local-links-manager_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "0"
     action: "pull"
