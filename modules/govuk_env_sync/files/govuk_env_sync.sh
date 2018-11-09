@@ -225,6 +225,8 @@ function  dump_postgresql {
     db_hostname='postgresql-primary'
   fi
 
+# We do not need sudo rights to write the output file
+# shellcheck disable=SC2024
   sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
 }
 
