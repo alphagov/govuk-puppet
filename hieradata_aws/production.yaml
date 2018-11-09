@@ -121,7 +121,7 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-a
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
 govuk::apps::email_alert_api::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::kibana::logit_environment: 0ea55710-075b-4eab-bfc3-475f28cdd0c3
+govuk::apps::kibana::logit_environment: 283f08f6-d117-48df-9667-c4aa492b81f9
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publicapi::backdrop_host: 'www.performance.service.gov.uk'
 govuk::apps::publisher::run_fact_check_fetcher: false
@@ -216,6 +216,16 @@ monitoring::contacts::slack_username: 'Production Icinga'
 monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
+
+
+monitoring::checks::rds::servers:
+   - 'postgresql-primary'
+   - 'postgresql-standby'
+   - 'transition-postgresql-primary'
+   - 'transition-postgresql-standby'
+   - 'mysql-primary'
+   - 'mysql-replica'
+
 
 # START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
 # monitoring::checks::smokey::environment: 'production'
