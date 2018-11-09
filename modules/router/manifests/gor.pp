@@ -13,7 +13,8 @@
 #
 class router::gor (
   $replay_targets = {},
-  $add_hosts = true
+  $add_hosts = true,
+  $input_raw = '127.0.0.1:7999'
 ) {
   validate_hash($replay_targets)
 
@@ -39,7 +40,7 @@ class router::gor (
 
   class { 'govuk_gor':
     args    => {
-      '-input-raw'          => '127.0.0.1:7999',
+      '-input-raw'          => $input_raw,
       '-output-http'        => prefix(keys($replay_targets), 'https://'),
       '-http-allow-method'  => [
         'GET', 'HEAD', 'OPTIONS',
