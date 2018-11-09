@@ -61,7 +61,6 @@ govuk::node::s_development::apps:
   - 'manuals_publisher'
   - 'mapit'
   - 'maslow'
-  - 'organisations_publisher'
   - 'public_event_store'
   - 'publicapi'
   - 'publisher'
@@ -131,7 +130,6 @@ govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::maslow::mongodb_nodes: ['localhost']
 govuk::apps::maslow::mongodb_name: 'maslow_development'
-govuk::apps::organisations_publisher::enabled: true
 govuk::apps::publicapi::backdrop_host: 'read.backdrop.dev.gov.uk'
 govuk::apps::publicapi::backdrop_protocol: 'http'
 govuk::apps::publicapi::privateapi_ssl: false

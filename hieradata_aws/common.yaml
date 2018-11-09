@@ -33,7 +33,6 @@ node_class: &node_class
       - local-links-manager
       - manuals-publisher
       - maslow
-      - organisations-publisher
       - publisher
       - release
       - search-admin
