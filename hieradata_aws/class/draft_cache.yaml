@@ -23,3 +23,5 @@ govuk::apps::router_api::vhost: 'draft-router-api'
 
 router::nginx::check_requests_warning: '@0'
 router::nginx::check_requests_critical: '@0'
+
+varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
