@@ -13,7 +13,9 @@
 
 acl purge_acl {
   "localhost";
+  <% if @environment_ip_prefix %>
   "<%= @environment_ip_prefix %>.0.0"/16;
+  <% end %>
 }
 
 sub vcl_recv {
