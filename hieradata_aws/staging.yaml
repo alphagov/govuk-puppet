@@ -129,7 +129,6 @@ govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::kibana::logit_environment: b13bfb70-e07a-473b-9903-02e806ebd045
-govuk::apps::local_links_manager::app_domain: staging.govuk.digital
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publicapi::backdrop_host: 'www.staging.performance.service.gov.uk'
 govuk::apps::publisher::run_fact_check_fetcher: false
