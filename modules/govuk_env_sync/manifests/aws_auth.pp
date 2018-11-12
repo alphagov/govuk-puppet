@@ -19,6 +19,8 @@ class govuk_env_sync::aws_auth(
     mode   => '0770',
   }
 
+# Only load credentials in Carrenza
+if ! $::aws_migration {
   file { "${conf_dir}/env.d/AWS_SECRET_ACCESS_KEY":
     content => $aws_secret_access_key,
     owner   => $user,
@@ -32,6 +34,7 @@ class govuk_env_sync::aws_auth(
     group   => $user,
     mode    => '0640',
   }
+}
 
   file { "${conf_dir}/env.d/AWS_REGION":
     content => $aws_region,
