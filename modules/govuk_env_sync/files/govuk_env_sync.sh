@@ -215,7 +215,19 @@ function restore_elasticsearch {
 }
 
 function  dump_postgresql {
-  pg_dump -F c "${database}" > "${tempdir}/${filename}"
+  # Check which postgres instance the database needs to restore into
+  # (warehouse, transition, or postgresql-primary).
+  if [ "${database}" == 'transition_production' ]; then
+    db_hostname='transition-postgresql-primary'
+  elif [ "${database}" == 'content_performance_manager_production' ]; then
+    db_hostname='warehouse-postgresql-primary'
+  else
+    db_hostname='postgresql-primary'
+  fi
+
+# We do not need sudo rights to write the output file
+# shellcheck disable=SC2024
+  sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
 }
 
 function restore_postgresql {
