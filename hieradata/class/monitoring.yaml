@@ -5,4 +5,4 @@ govuk_cdnlogs::log_dir: '/var/log/cdn'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'We lose alerting while this is down'
 
-icinga::client::checks::disk_space_warn: 15
+icinga::client::checks::disk_space_warn: 12

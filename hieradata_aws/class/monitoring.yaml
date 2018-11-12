@@ -2,7 +2,7 @@
 
 govuk_cdnlogs::log_dir: '/var/log/cdn'
 
-icinga::client::checks::disk_space_warn: 15
+icinga::client::checks::disk_space_warn: 12
 
 lv:
   data:
