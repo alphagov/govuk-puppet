@@ -106,6 +106,7 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
@@ -229,7 +230,7 @@ monitoring::checks::rds::servers:
 
 # START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
 # monitoring::checks::smokey::environment: 'staging'
-# END OF TEMPORARY DEFECT FIX  
+# END OF TEMPORARY DEFECT FIX
 
 monitoring::uptime_collector::environment: 'staging'
 
