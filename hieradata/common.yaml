@@ -1420,6 +1420,7 @@ hosts::production::backend::app_hostnames:
   - 'imminence'
   - 'kibana'
   - 'link-checker-api'
+  - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
