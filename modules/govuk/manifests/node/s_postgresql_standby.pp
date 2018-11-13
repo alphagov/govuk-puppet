@@ -16,6 +16,7 @@ class govuk::node::s_postgresql_standby (
   $wale_private_gpg_key,
   $wale_private_gpg_key_fingerprint,
 ) inherits govuk::node::s_postgresql_base {
+  include govuk_env_sync
   class { 'govuk_postgresql::server::standby':
     master_password => $primary_password,
   }
