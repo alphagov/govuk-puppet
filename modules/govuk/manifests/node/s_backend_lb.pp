@@ -57,7 +57,6 @@ class govuk::node::s_backend_lb (
     'content-publisher',
     'content-tagger',
     'link-checker-api',
-    'local-links-manager',
     'manuals-publisher',
     'maslow',
     'publisher',
