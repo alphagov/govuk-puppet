@@ -34,6 +34,14 @@ Host jumpbox-2.management.staging
 Host *.staging
   ProxyCommand ssh -e none %r@jumpbox-1.management.staging -W $(echo %h | sed 's/\.staging$//'):%p
 
+## Staging AWS
+## -------
+Host staging-aws
+  Hostname jumpbox.blue.staging.govuk.digital
+
+Host *.staging-aws
+  ProxyCommand ssh -e none %r@staging-aws -W $(echo %h | sed 's/\.staging-aws$//'):%p
+
 ## Production
 ## ----------
 Host jumpbox.publishing.service.gov.uk
@@ -53,3 +61,11 @@ Host jumpbox-2.management.production
 
 Host *.production
   ProxyCommand ssh -e none %r@jumpbox-1.management.production -W $(echo %h | sed 's/\.production$//'):%p
+
+## Production AWS
+## -------
+Host production-aws
+  Hostname jumpbox.blue.production.govuk.digital
+
+Host *.production-aws
+  ProxyCommand ssh -e none %r@production-aws -W $(echo %h | sed 's/\.production-aws$//'):%p
