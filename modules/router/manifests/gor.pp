@@ -40,12 +40,12 @@ class router::gor (
 
   class { 'govuk_gor':
     args    => {
-      '-input-raw'          => $input_raw,
-      '-output-http'        => prefix(keys($replay_targets), 'https://'),
-      '-http-allow-method'  => [
+      '-input-raw'         => $input_raw,
+      '-output-http'       => prefix(keys($replay_targets), 'https://'),
+      '-http-allow-method' => [
         'GET', 'HEAD', 'OPTIONS',
       ],
-      '-http-original-host' => '',
+      '-http-set-header'   => 'X-Forwarded-Host:',
     },
     envvars => {
       'GODEBUG' => 'netdns=go',
