@@ -300,6 +300,7 @@ hosts::production::backend::app_hostnames:
   - 'hmrc-manuals-api'
   - 'kibana'
   - 'link-checker-api'
+  - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
