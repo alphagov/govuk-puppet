@@ -9,8 +9,8 @@ describe 'router::gor', :type => :class do
   }}
   let(:args_default) {{
     '-input-raw'          => '127.0.0.1:7999',
-    '-http-allow-method' => %w{GET HEAD OPTIONS},
-    '-http-original-host' => '',
+    '-http-allow-method'  => %w{GET HEAD OPTIONS},
+    '-http-set-header'    => 'X-Forwarded-Host:',
   }}
 
   context 'no targets defined (disabled)' do
