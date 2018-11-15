@@ -163,7 +163,6 @@ hosts::production::licensify_hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'ckan'
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
