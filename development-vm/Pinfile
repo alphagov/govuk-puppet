@@ -60,7 +60,7 @@ process :'publishing-components'
 process :release
 process :router
 process :'router-api'
-process :rummager => [:'publishing-api-read', :'rummager-sidekiq', :'rummager-publishing-listener', :'rummager-govuk-index-listener', :'whitehall']
+process :rummager => [:'publishing-api-read', :'rummager-sidekiq', :'rummager-publishing-listener', :'rummager-govuk-index-listener']
 process :'rummager-sidekiq'
 process :'rummager-publishing-listener'
 process :'rummager-govuk-index-listener'
