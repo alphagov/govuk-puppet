@@ -42,6 +42,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     include govuk_elasticsearch::local_proxy
   }
 
+  if $::aws_migration {
+    include hosts::migration
+  }
+
   # Ensure memcached is available to backend nodes
   include collectd::plugin::memcached
   class { 'memcached':

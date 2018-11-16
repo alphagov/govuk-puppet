@@ -1,0 +1,7 @@
+---
+
+hosts::migration::hosts:
+  publishing-api-1:
+    ip: '10.2.3.45'
+  publishing-api-2:
+    ip: '10.2.3.46'
