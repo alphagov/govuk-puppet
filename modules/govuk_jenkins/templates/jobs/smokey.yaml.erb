@@ -17,8 +17,8 @@
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
+    <% if @enable_slack_notifications %>
     publishers:
-      <% if @enable_slack_notifications %>
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
@@ -35,7 +35,7 @@
           room: <%= @slack_room %>
           include-custom-message: true
           custom-message: ':govuk-<%= @environment %>:'
-      <% end %>
+    <% end %>
 
     builders:
         - shell: |
