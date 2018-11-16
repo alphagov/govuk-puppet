@@ -19,6 +19,7 @@ class hosts::purge {
     'email-alert-api-postgresql',
     'publishing-api-db-admin-1',
     'publishing-api-postgresql-1',
+    'mongo-api-1',
   ]
 
   if ! ($::hostname in $whitelist) {

@@ -1,0 +1,26 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+icinga::client::checks::disk_time_window_minutes: 10
+
+mongodb::server::oplog_size: 14392 # 14 * 1024
+mongodb::server::replicaset_members:
+  'mongo-api-1':
+  'mongo-api-2':
+  'mongo-api-3':
+  'mongo-api-4':
+
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'mongo'
+
+mount:
+  /var/lib/mongodb:
+    disk: '/dev/mapper/mongo-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 40
+    percent_threshold_critical: 15
