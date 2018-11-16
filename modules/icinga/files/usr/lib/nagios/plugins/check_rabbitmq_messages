@@ -51,7 +51,7 @@ class RabbitMQCheck:
             raise Exception(self.error_message(response))
         return json.loads(response.content)
 
-    def check(self, warning_threshold, critical_threshold):
+    def check(self, critical_threshold, warning_threshold):
         """Check the number of messages in the queue."""
 
         queue_details = self.rabbit_request("queues/%2F/" + self._queue)
@@ -81,9 +81,9 @@ if __name__ == "__main__":
     queue = sys.argv[3]
     username = sys.argv[4]
     password = sys.argv[5]
-    warning_threshold = int(sys.argv[6])
-    critical_threshold = int(sys.argv[7])
+    critical_threshold = int(sys.argv[6])
+    warning_threshold = int(sys.argv[7])
 
     rabbitmq_check = RabbitMQCheck(host, port, queue, username, password)
 
-    report(*rabbitmq_check.check(warning_threshold, critical_threshold))
+    report(*rabbitmq_check.check(critical_threshold, warning_threshold))

@@ -4,8 +4,6 @@
 # contains more than a given number of messages.
 #
 class icinga::plugin::check_rabbitmq_messages (
-  $warning_threshold   = undef,
-  $critical_threshold  = undef,
   $monitoring_password = '',
 ){
 
