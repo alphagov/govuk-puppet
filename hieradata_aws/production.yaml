@@ -151,8 +151,14 @@ govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.product
 
 govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
+govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::targets:
   - 's3://govuk-mirror-production/'
+
+govuk::apps::govuk_crawler_worker::root_urls:
+  - 'https://assets.digital.cabinet-office.gov.uk/'
+  - "https://assets.%{hiera('app_domain')}/"
+  - 'https://www.gov.uk/'
 
 govuk_jenkins::config::banner_colour_background: '#df3034'
 govuk_jenkins::config::banner_colour_text: 'white'
