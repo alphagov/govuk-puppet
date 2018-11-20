@@ -21,6 +21,8 @@
 #   Sets the OAuth Secret Key
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
+# [*jwt_auth_secret*]
+#   The secret used to decode JWT authentication tokens.
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
 # [*mongodb_name*]
@@ -54,6 +56,7 @@ class govuk::apps::asset_manager(
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
+  $jwt_auth_secret = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_assets_production',
   $aws_s3_bucket_name = undef,
@@ -115,11 +118,18 @@ class govuk::apps::asset_manager(
     if $secret_key_base {
       govuk::app::envvar {
         "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base;
+          varname => 'SECRET_KEY_BASE',
+          value   => $secret_key_base;
       }
     }
 
+    if $jwt_auth_secret {
+      govuk::app::envvar {
+        "${title}-JWT_AUTH_SECRET":
+          varname => 'JWT_AUTH_SECRET',
+          value   => $jwt_auth_secret,
+      }
+    }
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
