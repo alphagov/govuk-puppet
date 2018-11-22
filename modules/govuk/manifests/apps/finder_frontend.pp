@@ -58,4 +58,13 @@ class govuk::apps::finder_frontend(
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
   }
+
+  # Enable the new Q&A feature in integration only
+  if $::govuk_node_class == 'integration' {
+    govuk::app::envvar {
+      "${title}-FINDER_FRONTEND_ENABLE_QA":
+          varname => 'FINDER_FRONTEND_ENABLE_QA',
+          value   => 'yes';
+    }
+  }
 }
