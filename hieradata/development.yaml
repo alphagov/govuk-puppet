@@ -114,6 +114,8 @@ govuk::apps::content_publisher::enabled: true
 govuk::apps::content_tagger::enable_procfile_worker: false
 govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
+govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
+govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 govuk::apps::event_store::enabled: true
 govuk::apps::event_store::mongodb_servers: ['localhost']
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true

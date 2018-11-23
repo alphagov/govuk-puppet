@@ -1,0 +1,89 @@
+#!/usr/bin/env python
+"""
+Checks the size of the rabbitmq queue.
+"""
+
+import json
+import requests
+import sys
+
+OK, WARNING, CRITICAL, UNKNOWN = 0, 1, 2, 3
+STATUSES = ["ok", "warning", "critical", "unknown"]
+
+
+def report(exit_code, message):
+    """Report the check's result to STDOUT, then exit."""
+    prefix = STATUSES[exit_code].upper()
+    print('%s: %s' % (prefix, message))
+    exit(exit_code)
+
+
+def handle_exception(exc_type, exception, traceback):
+    """Report uncaught exceptions to Nagios as UNKNOWN (exit code 3)."""
+    report(UNKNOWN, "unhandled exception: %s" % (exception,))
+
+
+class RabbitMQCheck:
+    def __init__(self, host, port, queue, username, password):
+        self._queue = queue
+        self._base_uri = "http://%s:%s/api/" % (host, port)
+        self._auth = (username, password)
+        self.allowed_max_idle_time = datetime.timedelta(seconds = 5 * 60)
+
+    def error_message(self, response):
+        msg = "HTTP %s error" % (response.status_code)
+        try:
+            json_body = json.loads(response.content)
+        except ValueError:
+            return msg
+        return "%s: %s: %s" % (
+            msg,
+            json_body.get("error", ""),
+            json_body.get("reason", ""),
+        )
+
+    def rabbit_request(self, path):
+        """Make a request to the rabbit API at the given path."""
+        uri = self._base_uri + path
+        response = requests.get(uri, auth=self._auth)
+
+        if response.status_code != 200:
+            raise Exception(self.error_message(response))
+        return json.loads(response.content)
+
+    def check(self, critical_threshold, warning_threshold):
+        """Check the number of messages in the queue."""
+
+        queue_details = self.rabbit_request("queues/%2F/" + self._queue)
+        messages = queue_details[u"messages"]
+
+        if messages > critical_threshold:
+            return CRITICAL, "Number of unprocessed messages above critical threshold (%s > %s)" % (
+                messages,
+                critical_threshold
+            )
+        elif messages > warning_threshold:
+            return WARNING, "Number of unprocessed messages above warning threshold (%s > %s)" % (
+                messages,
+                warning_threshold
+            )
+        return OK, "Number of unprocessed messages below warning threshold (%s <= %s)" % (
+            messages,
+            warning_threshold
+        )
+
+
+if __name__ == "__main__":
+    sys.excepthook = handle_exception
+
+    host = sys.argv[1]
+    port = sys.argv[2]
+    queue = sys.argv[3]
+    username = sys.argv[4]
+    password = sys.argv[5]
+    critical_threshold = int(sys.argv[6])
+    warning_threshold = int(sys.argv[7])
+
+    rabbitmq_check = RabbitMQCheck(host, port, queue, username, password)
+
+    report(*rabbitmq_check.check(critical_threshold, warning_threshold))
