@@ -8,7 +8,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   if $::aws_environment == 'staging' {
     include ::hosts::default
-    include ::hosts::migration
+    include ::hosts::backend_migration
   }
 
   limits::limits { 'root_nofile':

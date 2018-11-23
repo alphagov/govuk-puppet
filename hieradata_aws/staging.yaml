@@ -251,8 +251,7 @@ govuk_datascrubber::share_with:
   - '210287912431'     # AWS integration
 govuk_datascrubber::s3_export_prefix: 's3://govuk-production-database-backups/scrubbed'
 
-hosts::migration::ensure: 'absent'
-hosts::migration::hosts:
+hosts::backend_migration::hosts:
   cache-1.router.staging.publishing.service.gov.uk:
     ip: 10.2.1.2
   draft-frontend-2.frontend.staging.publishing.service.gov.uk:
