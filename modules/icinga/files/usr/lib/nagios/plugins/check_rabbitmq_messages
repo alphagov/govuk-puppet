@@ -28,7 +28,6 @@ class RabbitMQCheck:
         self._queue = queue
         self._base_uri = "http://%s:%s/api/" % (host, port)
         self._auth = (username, password)
-        self.allowed_max_idle_time = datetime.timedelta(seconds = 5 * 60)
 
     def error_message(self, response):
         msg = "HTTP %s error" % (response.status_code)
