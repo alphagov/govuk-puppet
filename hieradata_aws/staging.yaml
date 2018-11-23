@@ -278,7 +278,8 @@ hosts::migration::hosts:
     ip: 10.2.2.254
     host_aliases:
       - frontend-internal-lb.frontend
-      - frontend-internal-lb calculators.staging.publishing.service.gov.uk
+      - frontend-internal-lb
+      - calculators.staging.publishing.service.gov.uk
       - calendars.staging.publishing.service.gov.uk
       - canary-frontend.staging.publishing.service.gov.uk
       - collections.staging.publishing.service.gov.uk
@@ -310,15 +311,18 @@ hosts::migration::hosts:
     ip: 10.2.2.101
     host_aliases:
       - frontend-lb-1.frontend.staging.publishing.service.gov.uk
-      - frontend-lb-1.frontend frontend-lb-1
+      - frontend-lb-1.frontend
+      - frontend-lb-1
   frontend-2.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.3
     host_aliases:
-      - frontend-2.frontend frontend-2
+      - frontend-2.frontend
+      - frontend-2
   frontend-1.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.2
     host_aliases:
-      - frontend-1.frontend frontend-1
+      - frontend-1.frontend
+      - frontend-1
   #jenkins-1.management.staging.publishing.service.gov.uk:
   #   ip: 10.2.0.3
   #   host_aliases:
@@ -378,7 +382,8 @@ hosts::migration::hosts:
   backend-lb-1.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.101
     host_aliases:
-      - backend-lb-1.backend backend-lb-1
+      - backend-lb-1.backend
+      - backend-lb-1
   # - mysql-slave-2.backend.staging.publishing.service.gov.uk
   #   ip: 10.2.3.92
   #   host_aliases:
@@ -386,7 +391,8 @@ hosts::migration::hosts:
   backend-internal-lb.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.254
     host_aliases:
-      - backend-internal-lb.backend backend-internal-lb
+      - backend-internal-lb.backend
+      - backend-internal-lb
       - asset-manager.staging.publishing.service.gov.uk
       - canary-backend.staging.publishing.service.gov.uk
       - ckan.staging.publishing.service.gov.uk
@@ -1051,7 +1057,8 @@ hosts::migration::hosts:
   email-alert-api-2.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.41
     host_aliases:
-      - email-alert-api-2.backend email-alert-api-2
+      - email-alert-api-2.backend
+      - email-alert-api-2
   email-alert-api-3.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.42
     host_aliases:
