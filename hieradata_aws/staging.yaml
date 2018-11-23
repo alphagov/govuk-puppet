@@ -326,11 +326,14 @@ hosts::migration::hosts:
   #jenkins-1.management.staging.publishing.service.gov.uk:
   #   ip: 10.2.0.3
   #   host_aliases:
-  #     - jenkins-1.management jenkins-1 deploy.staging.publishing.service.gov.uk:
+  #     - jenkins-1.management
+  #     - jenkins-1
+  #     - deploy.staging.publishing.service.gov.uk:
   #redis-1.backend.staging.publishing.service.gov.uk
   #   ip: 10.2.3.50
   #   host_aliases:
-  #     - redis-1.backend redis-1
+  #     - redis-1.backend
+  #     - redis-1
   backend-lb-2.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.50
   backend-lb-2.backend:
@@ -389,7 +392,8 @@ hosts::migration::hosts:
   # - mysql-slave-2.backend.staging.publishing.service.gov.uk
   #   ip: 10.2.3.92
   #   host_aliases:
-  #     - mysql-slave-2.backend mysql-slave-2
+  #     - mysql-slave-2.backend
+  #     - mysql-slave-2
   backend-internal-lb.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.254
     host_aliases:
@@ -430,11 +434,13 @@ hosts::migration::hosts:
   #backend-2.backend.staging.publishing.service.gov.uk:
   #   ip: 10.2.3.3
   #   host_aliases:
-  #     - backend-2.backend backend-2
+  #     - backend-2.backend
+  #     - backend-2
   #backend-1.backend.staging.publishing.service.gov.uk:
   #   ip: 10.2.3.2
   #   host_aliases:
-  #     - backend-1.backend backend-1
+  #     - backend-1.backend
+  #     - backend-1
   #transition-postgresql-slave-1.backend.staging.publishing.service.gov.uk:
   #   ip: 10.2.3.61
   #   host_aliases:
@@ -444,7 +450,9 @@ hosts::migration::hosts:
   #mysql-backup-1.backend.staging.publishing.service.gov.uk:
   #   ip: 10.2.3.93
   #   host_aliases:
-  #     - mysql-backup-1.backend mysql-backup-1 backup.mysql
+  #     - mysql-backup-1.backend
+  #     - mysql-backup-1
+  #     - backup.mysql
   whitehall-backend-4.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.28
     host_aliases:
@@ -488,12 +496,13 @@ hosts::migration::hosts:
       - cache-2.router
       - cache-2
   #puppetmaster-1.management.staging.publishing.service.gov.uk:
-  #   ip:  10.2.0.5
+  #   ip: 10.2.0.5
   #   host_aliases:
   #     - puppetmaster-1.management
   #     - puppet.cluster
   #     - puppetdb.cluster
-  #     - puppetmaster-1 puppet
+  #     - puppetmaster-1
+  #     - puppet
   elasticsearch-3.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.17
     host_aliases:
@@ -554,7 +563,8 @@ hosts::migration::hosts:
   #   ip: 10.2.3.90
   #   host_aliases:
   #     - mysql-master-1.backend
-  #     - mysql-master-1 master.mysql
+  #     - mysql-master-1
+  #     - master.mysql
   #     - mysql.backend.staging.publishing.service.gov.uk
   asset-slave-1.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.21
@@ -679,7 +689,8 @@ hosts::migration::hosts:
   search-3.api.staging.publishing.service.gov.uk:
     ip: 10.2.4.6
     host_aliases:
-      - search-3.api search-3
+      - search-3.api
+      - search-3
   search-1.api.staging.publishing.service.gov.uk:
     ip: 10.2.4.4
     host_aliases:
@@ -749,7 +760,8 @@ hosts::migration::hosts:
   # - mongo-3.backend.staging.publishing.service.gov.uk
   #   ip: 10.2.3.8
   #   host_aliases:
-  #     - mongo-3.backend mongo-3
+  #     - mongo-3.backend
+  #     - mongo-3
   api-lb-1.api.staging.publishing.service.gov.uk:
     ip: 10.2.4.101
     host_aliases:
@@ -1010,7 +1022,8 @@ hosts::migration::hosts:
   publishing-api-1.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.45
     host_aliases:
-      - publishing-api-1.backend publishing-api-1
+      - publishing-api-1.backend
+      - publishing-api-1
   docker-backend-2.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.112
     host_aliases:
