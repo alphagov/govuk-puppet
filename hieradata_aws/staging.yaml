@@ -333,8 +333,10 @@ hosts::migration::hosts:
   #     - redis-1.backend redis-1
   backend-lb-2.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.50
-  backend-lb-2.backend backend-lb-2:
+  backend-lb-2.backend:
     ip: 10.2.3.102
+    host_aliases:
+      - backend-lb-2
   #postgresql-standby-1.backend.staging.publishing.service.gov.uk:
   #   ip: 10.2.3.13
   #   host_aliases:
