@@ -15,12 +15,14 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
+#
+# [*qa_enabled*]
+#   Whether the Q&A feature is enabled
 #
 class govuk::apps::finder_frontend(
   $port = '3062',
@@ -30,6 +32,7 @@ class govuk::apps::finder_frontend(
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $email_alert_api_bearer_token = undef,
+  $qa_enabled = false,
 ) {
 
   if $enabled {
@@ -59,8 +62,7 @@ class govuk::apps::finder_frontend(
         value   => $secret_key_base;
   }
 
-  # Enable the new Q&A feature in integration only
-  if $::govuk_node_class == 'integration' {
+  if $qa_enabled {
     govuk::app::envvar {
       "${title}-FINDER_FRONTEND_ENABLE_QA":
           varname => 'FINDER_FRONTEND_ENABLE_QA',
