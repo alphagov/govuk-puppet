@@ -20,6 +20,9 @@
 # [*client_x509_cert_url*]
 #   Specific to access the Google API.
 #
+# [*run_monthly*]
+#   Set to true if the job should run by itself every month.
+#
 class govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics (
   $project_id = 'gam-project-v3f-sr7-n9p',
   $private_key_id = undef,
@@ -29,6 +32,7 @@ class govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics (
   $client_x509_cert_url = undef,
   $enable_slack_notifications = true,
   $slack_auth_token = undef,
+  $run_monthly = false,
   $app_domain = hiera('app_domain'),
 ) {
 
