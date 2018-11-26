@@ -10,7 +10,6 @@ mongodb::server::replicaset_members:
   'mongo-api-1':
   'mongo-api-2':
   'mongo-api-3':
-  'mongo-api-4':
 
 lv:
   data:
