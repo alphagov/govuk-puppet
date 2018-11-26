@@ -18,9 +18,11 @@
     logrotate:
         numToKeep: 10
     triggers:
-        - timed: |
-            TZ=Europe/London
-            0 7 1 * *
+      <% if @run_monthly %>
+      - timed: |
+          TZ=Europe/London
+          0 7 1 * *
+      <% end %>
     properties:
       - build-discarder:
           days-to-keep: 30
