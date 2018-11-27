@@ -1,0 +1,10 @@
+---
+
+# Temporarily placed to in carrenza hieradata to satisfy the spec tests
+# The monog-api-* VMs do not exist in Carrenza.
+# This will be collapsed down once the migrations to AWS are complete.
+
+mongodb::server::replicaset_members:
+  'mongo-api-1':
+  'mongo-api-2':
+  'mongo-api-3':
