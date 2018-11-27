@@ -461,6 +461,7 @@ hosts::production::management::hosts:
     legacy_aliases:
       - 'monitoring'
       - "grafana.%{hiera('app_domain')}"
+      - "alert.%{hiera('app_domain')}"
     service_aliases:
       - 'alert'
       - 'monitoring'
