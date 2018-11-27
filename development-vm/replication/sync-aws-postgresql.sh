@@ -89,13 +89,13 @@ for file in $(find $POSTGRESQL_DIR -name '*_production.dump.gz'); do
     # Change view ownership
     for tbl in $(${PSQL_COMMAND} -c "SELECT table_name FROM information_schema.views WHERE table_schema = 'public';" ${TARGET_DB_NAME})
     do
-      ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
+      ${PSQL_COMMAND} -c "ALTER VIEW \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
     done
 
     # Change sequence ownership
     for tbl in $(${PSQL_COMMAND} -c "SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = 'public';" ${TARGET_DB_NAME})
     do
-      ${PSQL_COMMAND} -c "ALTER TABLE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
+      ${PSQL_COMMAND} -c "ALTER SEQUENCE \"$tbl\" OWNER TO vagrant" ${TARGET_DB_NAME}
     done
 
     if ! $KEEP_BACKUPS; then
