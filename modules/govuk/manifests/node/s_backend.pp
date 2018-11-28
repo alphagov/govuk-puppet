@@ -6,7 +6,7 @@
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_app_server
 
-  if $::aws_environment == 'staging' {
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
     include ::hosts::default
     include ::hosts::backend_migration
   }
