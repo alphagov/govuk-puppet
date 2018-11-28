@@ -94,6 +94,12 @@ while IFS= read -r -d '' file; do
       ${PSQL_COMMAND} -c "ALTER VIEW \"$tbl\" OWNER TO vagrant" "${TARGET_DB_NAME}"
     done
 
+    # Change materialized view ownership
+    for matview in $(${PSQL_COMMAND} -c "SELECT matviewname FROM pg_matviews WHERE schemaname = 'public';" "${TARGET_DB_NAME}")
+    do
+      ${PSQL_COMMAND} -c "ALTER MATERIALIZED VIEW \"$matview\" OWNER TO vagrant" "${TARGET_DB_NAME}"
+    done
+
     # Change sequence ownership
     for tbl in $(${PSQL_COMMAND} -c "SELECT sequence_name FROM information_schema.sequences WHERE sequence_schema = 'public';" "${TARGET_DB_NAME}")
     do
