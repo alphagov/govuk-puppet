@@ -65,8 +65,8 @@ import boto3
 #################################
 parser = argparse.ArgumentParser()
 parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1'], help="AWS region to check")
-parser.add_argument("-w","--warning", type=float, help="Value(GB) at which to raise a warning alert (5.0)", default=5.0)
-parser.add_argument("-c","--critical", type=float, help="Value(GB) at which to raise a critical alert (2.0)", default=2.0)
+parser.add_argument("-w","--warning", type=float, help="Value(GB) at which to raise a warning alert (2.0)", default=2.0)
+parser.add_argument("-c","--critical", type=float, help="Value(GB) at which to raise a critical alert (1.0)", default=1.0)
 parser.add_argument("-i","--instanceid", type=str, help="Instanceid", default=0)
 args = parser.parse_args()
 
