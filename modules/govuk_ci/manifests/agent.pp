@@ -29,6 +29,7 @@ class govuk_ci::agent(
   include ::golang
   include ::govuk_ci::agent::gcloud
   include ::govuk_ci::agent::mongodb
+  include ::govuk_python
   include ::govuk_ci::agent::mysql
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::rabbitmq
@@ -37,7 +38,7 @@ class govuk_ci::agent(
   include ::govuk_ci::limits
   include ::govuk_jenkins::packages::terraform
   include ::govuk_jenkins::packages::terraform_docs
-  include ::govuk_jenkins::packages::govuk_python
+  include ::govuk_python
   include ::govuk_jenkins::packages::vale
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
