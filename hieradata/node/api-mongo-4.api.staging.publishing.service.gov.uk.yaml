@@ -1,27 +1,3 @@
 icinga::client::check_cputype::cputype: 'amd'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
-
-govuk_env_sync::tasks:
-  "push_content_store_daily":
-    ensure: "present"
-    hour: "0"
-    minute: "12"
-    action: "push"
-    dbms: "mongo"
-    storagebackend: "s3"
-    database: "content_store_production"
-    temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
-    path: "mongo-api"
-  "push_draft_content_store_daily":
-    ensure: "present"
-    hour: "1"
-    minute: "12"
-    action: "push"
-    dbms: "mongo"
-    storagebackend: "s3"
-    database: "draft_content_store_production"
-    temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
-    path: "mongo-api"
