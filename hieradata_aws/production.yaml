@@ -636,7 +636,7 @@ hosts::backend_migration::hosts:
       - backend-internal-lb
       - asset-manager.publishing.service.gov.uk
       - canary-backend.publishing.service.gov.uk
-      - ckan.publishing.service.gov.uk
+      #- ckan.publishing.service.gov.uk
       - collections-publisher.publishing.service.gov.uk
       - contacts-admin.publishing.service.gov.uk
       - content-audit-tool.publishing.service.gov.uk
@@ -1093,8 +1093,8 @@ hosts::backend_migration::hosts:
   #   host_aliases:
   #     - warehouse-postgresql-1.backend
   #     - warehouse-postgresql-1
-  ckan-1.backend.publishing.service.gov.uk:
-    ip: 10.3.3.120
-    host_aliases:
-      - ckan-1.backend
-      - ckan-1
+  # ckan-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.120
+  #   host_aliases:
+  #     - ckan-1.backend
+  #     - ckan-1
