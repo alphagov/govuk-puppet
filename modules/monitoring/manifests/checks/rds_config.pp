@@ -23,8 +23,8 @@ define monitoring::checks::rds_config (
   $region = undef,
   $cpu_warning = 80,
   $cpu_critical = 90,
-  $memory_warning = 20,
-  $memory_critical = 10,
+  $memory_warning = 2,
+  $memory_critical = 1,
   $storage_warning = 20,
   $storage_critical = 10,
 ){
