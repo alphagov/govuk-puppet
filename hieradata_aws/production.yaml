@@ -258,3 +258,843 @@ govuk_datascrubber::ensure: 'latest'
 govuk_datascrubber::share_with:
   - '210287912431'     # AWS integration
 govuk_datascrubber::s3_export_prefix: 's3://govuk-staging-database-backups/scrubbed'
+
+hosts::backend_migration::hosts:
+  calculators-frontend-3.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.13
+    host_aliases:
+      - calculators-frontend-3.frontend
+      - calculators-frontend-3
+  # graphite-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.22
+  #   host_aliases:
+  #     - graphite-1.management
+  #     - graphite.cluster
+  #     - graphite-1
+  #     - graphite.publishing.service.gov.uk
+  # backup-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.50
+  #   host_aliases:
+  #     - backup-1.management
+  #     - backup-1
+  frontend-lb-1.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.101
+    host_aliases:
+      - frontend-lb-1.frontend
+      - frontend-lb-1
+  frontend-internal-lb.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.254
+    host_aliases:
+      - frontend-internal-lb.frontend
+      - frontend-internal-lb
+      - calculators.publishing.service.gov.uk
+      - calendars.publishing.service.gov.uk
+      - canary-frontend.publishing.service.gov.uk
+      - collections.publishing.service.gov.uk
+      - draft-collections.publishing.service.gov.uk
+      - draft-email-alert-frontend.publishing.service.gov.uk
+      - draft-frontend.publishing.service.gov.uk
+      - draft-government-frontend.publishing.service.gov.uk
+      - draft-manuals-frontend.publishing.service.gov.uk
+      - draft-service-manual-frontend.publishing.service.gov.uk
+      - draft-smartanswers.publishing.service.gov.uk
+      - draft-static.publishing.service.gov.uk
+      - email-alert-frontend.publishing.service.gov.uk
+      - feedback.publishing.service.gov.uk
+      - finder-frontend.publishing.service.gov.uk
+      - frontend.publishing.service.gov.uk
+      - government-frontend.publishing.service.gov.uk
+      - info-frontend.publishing.service.gov.uk
+      - manuals-frontend.publishing.service.gov.uk
+      - licencefinder.publishing.service.gov.uk
+      - publicapi.publishing.service.gov.uk
+      - public-event-store.publishing.service.gov.uk
+      - service-manual.publishing.service.gov.uk
+      - service-manual-frontend.publishing.service.gov.uk
+      - smartanswers.publishing.service.gov.uk
+      - static.publishing.service.gov.uk
+      - whitehall-frontend.publishing.service.gov.uk
+      - draft-whitehall-frontend.publishing.service.gov.uk
+  frontend-2.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.3
+    host_aliases:
+      - frontend-2.frontend
+      - frontend-2
+  frontend-1.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.2
+    host_aliases:
+      - frontend-1.frontend
+      - frontend-1
+  whitehall-frontend-1.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.5
+    host_aliases:
+      - whitehall-frontend-1.frontend
+      - whitehall-frontend-1
+  # jenkins-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.3
+  #   host_aliases:
+  #     - jenkins-1.management
+  #     - jenkins-1
+  #     - deploy.publishing.service.gov.uk
+  # mysql-slave-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.92
+  #   host_aliases:
+  #     - mysql-slave-2.backend
+  #     - mysql-slave-2
+  # whitehall-mysql-slave-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.31
+  #   host_aliases:
+  #     - whitehall-mysql-slave-1.backend
+  #     - whitehall-mysql-slave-1
+  #     - whitehall-slave.mysql
+  whitehall-backend-2.backend.publishing.service.gov.uk:
+    ip: 10.3.3.26
+    host_aliases:
+      - whitehall-backend-2.backend
+      - whitehall-backend-2
+  # release.publishing.service.gov.uk:
+  #   ip: 10.3.3.254
+  # rabbitmq-3.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.72
+  #   host_aliases:
+  #     - rabbitmq-3.backend
+  #     - rabbitmq-3
+  # postgresql-primary-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.12
+  #   host_aliases:
+  #     - postgresql-primary-1.backend
+  #     - postgresql-primary-1
+  # rabbitmq-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.71
+  #   host_aliases:
+  #     - rabbitmq-2.backend
+  #     - rabbitmq-2
+  # whitehall-mysql-master-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.30
+  #   host_aliases:
+  #     - whitehall-mysql-master-1.backend
+  #     - whitehall-mysql-master-1
+  #     - whitehall-master.mysql
+  #     - whitehall-mysql.backend.publishing.service.gov.uk
+  # backend-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.3
+  #   host_aliases:
+  #     - backend-2.backend
+  #     - backend-2
+  # postgresql-standby-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.13
+  #   host_aliases:
+  #     - postgresql-standby-1.backend
+  #     - postgresql-standby-1
+  # backend-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.2
+  #   host_aliases:
+  #     - backend-1.backend
+  #     - backend-1
+  # mysql-slave-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.91
+  #   host_aliases:
+  #     - mysql-slave-1.backend
+  #     - mysql-slave-1
+  #     - slave.mysql
+  # redis-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.50
+  #   host_aliases:
+  #     - redis-1.backend
+  #     - redis-1
+  # transition-postgresql-slave-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.61
+  #   host_aliases:
+  #     - transition-postgresql-slave-1.backend
+  #     - transition-postgresql-slave-1
+  #     - transition-slave.postgresql
+  whitehall-backend-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.25
+    host_aliases:
+      - whitehall-backend-1.backend
+      - whitehall-backend-1
+  # rabbitmq-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.70
+  #   host_aliases:
+  #     - rabbitmq-1.backend
+  #     - rabbitmq-1
+  whitehall-backend-4.backend.publishing.service.gov.uk:
+    ip: 10.3.3.28
+    host_aliases:
+      - whitehall-backend-4.backend
+      - whitehall-backend-4
+  asset-slave-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.21
+    host_aliases:
+      - asset-slave-1.backend
+      - asset-slave-1
+      - asset-slave-1.publishing.service.gov.uk
+      - asset-slave
+      - asset-slave.publishing.service.gov.uk
+  asset-master-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.20
+    host_aliases:
+      - asset-master-1.backend
+      - asset-master-1
+      - asset-master-1.publishing.service.gov.uk
+      - asset-master
+      - asset-master.publishing.service.gov.uk
+  # mysql-backup-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.93
+  #   host_aliases:
+  #     - mysql-backup-1.backend
+  #     - mysql-backup-1
+  #     - backup.mysql
+  # mysql-master-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.90
+  #   host_aliases:
+  #     - mysql-master-1.backend
+  #     - mysql-master-1
+  #     - master.mysql
+  #     - mysql.backend.publishing.service.gov.uk
+  draft-frontend-2.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.201
+    host_aliases:
+      - draft-frontend-2.frontend
+      - draft-frontend-2
+  elasticsearch-3.backend.publishing.service.gov.uk:
+    ip: 10.3.3.17
+    host_aliases:
+      - elasticsearch-3.backend
+      - elasticsearch-3
+  vcloud-no-vpn.carrenza.com:
+    ip: 31.210.240.69
+  router-backend-1.router.publishing.service.gov.uk:
+    ip: 10.3.1.10
+    host_aliases:
+      - router-backend-1.router
+      - router-backend-1
+  draft-cache-1.router.publishing.service.gov.uk:
+    ip: 10.3.1.200
+    host_aliases:
+      - draft-cache-1.router
+      - draft-cache-1
+  cache-3.router.publishing.service.gov.uk:
+    ip: 10.3.1.4
+    host_aliases:
+      - cache-3.router
+      - cache-3
+  cache-2.router.publishing.service.gov.uk:
+    ip: 10.3.1.3
+    host_aliases:
+      - cache-2.router
+      - cache-2
+  # puppetmaster-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.5
+  #   host_aliases:
+  #     - puppetmaster-1.management
+  #     - puppet.cluster
+  #     - puppetdb.cluster
+  #     - puppetmaster-1
+  #     - puppet
+  gds01prod.aptosolutions.co.uk:
+    ip: 185.40.10.139
+  draft-cache-internal-lb.router.publishing.service.gov.uk:
+    ip: 10.3.1.252
+    host_aliases:
+      - draft-cache-internal-lb.router
+      - draft-cache-internal-lb
+      - draft-router-api.publishing.service.gov.uk
+      - draft-publicapi.publishing.service.gov.uk
+  mirrorer-1.management.publishing.service.gov.uk:
+    ip: 10.3.0.128
+    host_aliases:
+      - mirrorer-1.management
+      - mirrorer-1
+  # transition-postgresql-master-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.60
+  #   host_aliases:
+  #     - transition-postgresql-master-1.backend
+  #     - transition-postgresql-master-1
+  #     - transition-master.postgresql
+  #     - transition-postgresql.backend.publishing.service.gov.uk
+  draft-frontend-1.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.200
+    host_aliases:
+      - draft-frontend-1.frontend
+      - draft-frontend-1
+  cache.router.publishing.service.gov.uk:
+    ip: 10.3.1.254
+    host_aliases:
+      - cache.router
+      - cache.cluster
+      - router.cluster
+      - cache
+      - www.publishing.service.gov.uk
+      - www-origin.publishing.service.gov.uk
+      - assets-origin.publishing.service.gov.uk
+  # monitoring-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.20
+  #   host_aliases:
+  #     - monitoring-1.management
+  #     - alert.cluster
+  #     - monitoring.cluster
+  #     - monitoring-1
+  #     - monitoring
+  #     - grafana.publishing.service.gov.uk
+  #     - alert.publishing.service.gov.uk
+  whitehall-frontend-3.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.10
+    host_aliases:
+      - whitehall-frontend-3.frontend
+      - whitehall-frontend-3
+  licensify-lb-1.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.101
+    host_aliases:
+      - licensify-lb-1.licensify
+      - licensify-lb-1
+  licensify-internal-lb.licensify.publishing.service.gov.uk:
+    ip: 10.5.1.2
+    host_aliases:
+      - licensify-internal-lb.licensify
+      - licensify-internal-lb
+  licensify-lb-2.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.102
+    host_aliases:
+      - licensify-lb-2.licensify
+      - licensify-lb-2
+  # bouncer-2.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.5.5
+  #   host_aliases:
+  #     - bouncer-2.redirector
+  #     - bouncer-2
+  # bouncer-1.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.5.4
+  #   host_aliases:
+  #     - bouncer-1.redirector
+  #     - bouncer-1
+  # bouncer-3.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.5.6
+  #   host_aliases:
+  #     - bouncer-3.redirector
+  #     - bouncer-3
+  cache-1.router.publishing.service.gov.uk:
+    ip: 10.3.1.2
+    host_aliases:
+      - cache-1.router
+      - cache-1
+  router-backend-2.router.publishing.service.gov.uk:
+    ip: 10.3.1.11
+    host_aliases:
+      - router-backend-2.router
+      - router-backend-2
+  # jumpbox-1.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.100
+  #   host_aliases:
+  #     - jumpbox-1.management
+  #     - jumpbox-1
+  # elasticsearch-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.16
+  #   host_aliases:
+  #     - elasticsearch-2.backend
+  #     - elasticsearch-2
+  whitehall-frontend-2.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.6
+    host_aliases:
+      - whitehall-frontend-2.frontend
+      - whitehall-frontend-2
+  # bouncer-vse-lb.redirector.publishing.service.gov.uk:
+  #   ip: 37.26.90.219
+  #   host_aliases:
+  #     - bouncer-vse-lb.redirector
+  #     - bouncer-vse-lb
+  # elasticsearch-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.15
+  #   host_aliases:
+  #     - elasticsearch-1.backend
+  #     - elasticsearch-1
+  calculators-frontend-2.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.12
+    host_aliases:
+      - calculators-frontend-2.frontend
+      - calculators-frontend-2
+  draft-cache-2.router.publishing.service.gov.uk:
+    ip: 10.3.1.201
+    host_aliases:
+      - draft-cache-2.router
+      - draft-cache-2
+  # mongo-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.7
+  #   host_aliases:
+  #     - mongo-2.backend
+  #     - mongo-2
+  # mongo-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.6
+  #   host_aliases:
+  #     - mongo-1.backend
+  #     - mongodb.cluster
+  #     - mongo-1
+  backend-internal-lb.backend.publishing.service.gov.uk:
+    ip: 10.3.3.254
+    host_aliases:
+      - backend-internal-lb.backend
+      - backend-internal-lb
+      - asset-manager.publishing.service.gov.uk
+      - canary-backend.publishing.service.gov.uk
+      #- ckan.publishing.service.gov.uk
+      - collections-publisher.publishing.service.gov.uk
+      - contacts-admin.publishing.service.gov.uk
+      - content-audit-tool.publishing.service.gov.uk
+      - content-data-admin.publishing.service.gov.uk
+      - content-performance-manager.publishing.service.gov.uk
+      - content-publisher.publishing.service.gov.uk
+      - content-tagger.publishing.service.gov.uk
+      - docs.publishing.service.gov.uk
+      - email-alert-api.publishing.service.gov.uk
+      - email-alert-api-public.publishing.service.gov.uk
+      - event-store.publishing.service.gov.uk
+      - hmrc-manuals-api.publishing.service.gov.uk
+      - kibana.publishing.service.gov.uk
+      # - link-checker-api.publishing.service.gov.uk
+      - maslow.publishing.service.gov.uk
+      - manuals-publisher.publishing.service.gov.uk
+      - publisher.publishing.service.gov.uk
+      - publishing-api.publishing.service.gov.uk
+      - search-admin.publishing.service.gov.uk
+      - service-manual-publisher.publishing.service.gov.uk
+      - short-url-manager.publishing.service.gov.uk
+      - signon.publishing.service.gov.uk
+      - specialist-publisher.publishing.service.gov.uk
+      - specialist-publisher-rebuild.publishing.service.gov.uk
+      - specialist-publisher-rebuild-standalone.publishing.service.gov.uk
+      - support.publishing.service.gov.uk
+      - support-api.publishing.service.gov.uk
+      - travel-advice-publisher.publishing.service.gov.uk
+      - whitehall-admin.publishing.service.gov.uk
+  router-backend-internal-lb.router.publishing.service.gov.uk:
+    ip: 10.3.1.253
+    host_aliases:
+      - router-backend-internal-lb.router
+      - router-backend-internal-lb
+      - router-api.publishing.service.gov.uk
+  api-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.16
+    host_aliases:
+      - api-1.api
+      - api-1
+  api-internal-lb.api.publishing.service.gov.uk:
+    ip: 10.3.4.254
+    host_aliases:
+      - api-internal-lb.api
+      - api-internal-lb
+      - backdrop-read.publishing.service.gov.uk
+      - backdrop-write.publishing.service.gov.uk
+      - content-store.publishing.service.gov.uk
+      - rummager.publishing.service.gov.uk
+      - search.publishing.service.gov.uk
+  content-store-3.api.publishing.service.gov.uk:
+    ip: 10.3.4.13
+    host_aliases:
+      - content-store-3.api
+      - content-store-3
+  # api-mongo-2.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.22
+  #   host_aliases:
+  #     - api-mongo-2.api
+  #     - api-mongo-2
+  content-store-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.11
+    host_aliases:
+      - content-store-1.api
+      - content-store-1
+  content-store-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.12
+    host_aliases:
+      - content-store-2.api
+      - content-store-2
+  search-3.api.publishing.service.gov.uk:
+    ip: 10.3.4.6
+    host_aliases:
+      - search-3.api
+      - search-3
+  search-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.4
+    host_aliases:
+      - search-1.api
+      - search-1
+  # performance-mongo-1.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.31
+  #   host_aliases:
+  #     - performance-mongo-1.api
+  #     - performance-mongo-1
+  # performance-mongo-2.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.32
+  #   host_aliases:
+  #     - performance-mongo-2.api
+  #     - performance-mongo-2
+  draft-content-store-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.200
+    host_aliases:
+      - draft-content-store-1.api
+      - draft-content-store-1
+  api-lb-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.102
+    host_aliases:
+      - api-lb-2.api
+      - api-lb-2
+  draft-api-internal-lb.api.publishing.service.gov.uk:
+    ip: 10.3.4.253
+    host_aliases:
+      - draft-api-internal-lb.api
+      - draft-api-internal-lb
+      - draft-content-store.publishing.service.gov.uk
+  draft-content-store-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.201
+    host_aliases:
+      - draft-content-store-2.api
+      - draft-content-store-2
+  # performance-mongo-3.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.33
+  #   host_aliases:
+  #     - performance-mongo-3.api
+  #     - performance-mongo-3
+  # api-mongo-1.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.21
+  #   host_aliases:
+  #     - api-mongo-1.api
+  #     - api-mongo-1
+  # whitehall-mysql-backup-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.34
+  #   host_aliases:
+  #     - whitehall-mysql-backup-1.backend
+  #     - whitehall-mysql-backup-1
+  #     - whitehall-backup.mysql
+  frontend-3.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.4
+    host_aliases:
+      - frontend-3.frontend
+      - frontend-3
+  # jumpbox-2.management.publishing.service.gov.uk:
+  #   ip: 10.3.0.200
+  #   host_aliases:
+  #     - jumpbox-2.management
+  #     - jumpbox-2
+  router-backend-3.router.publishing.service.gov.uk:
+    ip: 10.3.1.12
+    host_aliases:
+      - router-backend-3.router
+      - router-backend-3
+  # mongo-3.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.8
+  #   host_aliases:
+  #     - mongo-3.backend
+  #     - mongo-3
+  frontend-lb-2.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.102
+    host_aliases:
+      - frontend-lb-2.frontend
+      - frontend-lb-2
+  calculators-frontend-1.frontend.publishing.service.gov.uk:
+    ip: 10.3.2.11
+    host_aliases:
+      - calculators-frontend-1.frontend
+      - calculators-frontend-1
+  api-lb-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.101
+    host_aliases:
+      - api-lb-1.api
+      - api-lb-1
+  backend-lb-2.backend.publishing.service.gov.uk:
+    ip: 10.3.3.102
+    host_aliases:
+      - backend-lb-2.backend
+      - backend-lb-2
+  apt-1.management.publishing.service.gov.uk:
+    ip: 10.3.0.75
+    host_aliases:
+      - apt-1.management
+      - apt.cluster
+      - gemstash.cluster
+      - apt-1
+      - apt.production.alphagov.co.uk
+  search-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.5
+    host_aliases:
+      - search-2.api
+      - search-2
+  backend-lb-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.101
+    host_aliases:
+      - backend-lb-1.backend
+      - backend-lb-1
+  # whitehall-mysql-slave-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.32
+  #   host_aliases:
+  #     - whitehall-mysql-slave-2.backend
+  #     - whitehall-mysql-slave-2
+  # backend-3.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.4
+  #   host_aliases:
+  #     - backend-3.backend
+  #     - backend-3
+  # redis-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.51
+  #   host_aliases:
+  #     - redis-2.backend
+  #     - redis-2
+  api-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.17
+    host_aliases:
+      - api-2.api
+      - api-2
+  # api-mongo-3.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.23
+  #   host_aliases:
+  #     - api-mongo-3.api
+  #     - api-mongo-3
+  # api-redis-1.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.29
+  #   host_aliases:
+  #     - api-redis-1.api
+  #     - api-redis-1
+  whitehall-backend-3.backend.publishing.service.gov.uk:
+    ip: 10.3.3.27
+    host_aliases:
+      - whitehall-backend-3.backend
+      - whitehall-backend-3
+  licensify-admin.publishing.service.gov.uk:
+    ip: 37.26.90.233
+  licensify.publishing.service.gov.uk:
+    ip: 37.26.90.230
+  # api-mongo-4.api.publishing.service.gov.uk:
+  #   ip: 10.3.12.21
+  #   host_aliases:
+  #     - api-mongo-4.api
+  #     - api-mongo-4
+  # postgresql-standby-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.13
+  #   host_aliases:
+  #     - postgresql-standby-2.backend
+  #     - postgresql-standby-2
+  # mongo-4.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.6
+  #   host_aliases:
+  #     - mongo-4.backend
+  #     - mongo-4
+  # whitehall-mysql-slave-3.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.31
+  #   host_aliases:
+  #     - whitehall-mysql-slave-3.backend
+  #     - whitehall-mysql-slave-3
+  # bouncer-6.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.13.6
+  #   host_aliases:
+  #     - bouncer-6.redirector
+  #     - bouncer-6
+  # mysql-slave-3.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.91
+  #   host_aliases:
+  #     - mysql-slave-3.backend
+  #     - mysql-slave-3
+  # bouncer-5.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.13.5
+  #   host_aliases:
+  #     - bouncer-5.redirector
+  #     - bouncer-5
+  # bouncer-4.redirector.publishing.service.gov.uk:
+  #   ip: 10.3.13.4
+  #   host_aliases:
+  #     - bouncer-4.redirector
+  #     - bouncer-4
+  router-backend-4.router.publishing.service.gov.uk:
+    ip: 10.3.9.10
+    host_aliases:
+      - router-backend-4.router
+      - router-backend-4
+  # transition-postgresql-slave-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.61
+  #   host_aliases:
+  #     - transition-postgresql-slave-2.backend
+  #     - transition-postgresql-slave-2
+  # performance-mongo-4.api.publishing.service.gov.uk:
+  #   ip: 10.3.12.31
+  #   host_aliases:
+  #     - performance-mongo-4.api
+  #     - performance-mongo-4
+  asset-slave-2.backend.publishing.service.gov.uk:
+    ip: 10.3.11.21
+    host_aliases:
+      - asset-slave-2.backend
+      - asset-slave-2
+  # mapit-1.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.60
+  #   host_aliases:
+  #     - mapit-1.api
+  #     - mapit-1
+  # mapit-2.api.publishing.service.gov.uk:
+  #   ip: 10.3.4.61
+  #   host_aliases:
+  #     - mapit-2.api
+  #     - mapit-2
+  licensing-mongo-3.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.18
+    host_aliases:
+      - licensing-mongo-3.licensify
+      - licensing-mongo-3
+  licensing-mongo-1.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.16
+    host_aliases:
+      - licensing-mongo-1.licensify
+      - licensing-mongo-1
+  licensing-backend-1.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.14
+    host_aliases:
+      - licensing-backend-1.licensify
+      - licensing-backend-1
+  licensing-backend-2.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.15
+    host_aliases:
+      - licensing-backend-2.licensify
+      - licensing-backend-2
+  licensing-mongo-2.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.17
+    host_aliases:
+      - licensing-mongo-2.licensify
+      - licensing-mongo-2
+  licensing-frontend-2.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.13
+    host_aliases:
+      - licensing-frontend-2.licensify
+      - licensing-frontend-2
+  licensing-frontend-1.licensify.publishing.service.gov.uk:
+    ip: 10.5.0.12
+    host_aliases:
+      - licensing-frontend-1.licensify
+      - licensing-frontend-1
+  # transition-postgresql-primary-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.160
+  #   host_aliases:
+  #     - transition-postgresql-primary-1.backend
+  #     - transition-postgresql-primary-1
+  # transition-postgresql-standby-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.161
+  #   host_aliases:
+  #     - transition-postgresql-standby-1.backend
+  #     - transition-postgresql-standby-1
+  # transition-postgresql-standby-2.backend.publishing.service.gov.uk:
+  #   ip: 10.3.11.161
+  #   host_aliases:
+  #     - transition-postgresql-standby-2.backend
+  #     - transition-postgresql-standby-2
+  ci-master-1.ci.publishing.service.gov.uk:
+    ip: 10.1.6.10
+    host_aliases:
+      - ci-master-1.ci
+      - ci-master-1
+      - ci.publishing.service.gov.uk
+  ci-agent-1.ci.publishing.service.gov.uk:
+    ip: 10.1.6.21
+    host_aliases:
+      - ci-agent-1.ci
+      - ci-agent-1
+  ci-agent-5.ci.publishing.service.gov.uk:
+    ip: 10.1.6.25
+    host_aliases:
+      - ci-agent-5.ci
+      - ci-agent-5
+  ci-agent-4.ci.publishing.service.gov.uk:
+    ip: 10.1.6.24
+    host_aliases:
+      - ci-agent-4.ci
+      - ci-agent-4
+  ci-agent-3.ci.publishing.service.gov.uk:
+    ip: 10.1.6.23
+    host_aliases:
+      - ci-agent-3.ci
+      - ci-agent-3
+  ci-agent-2.ci.publishing.service.gov.uk:
+    ip: 10.1.6.22
+    host_aliases:
+      - ci-agent-2.ci
+      - ci-agent-2
+  docker-management-1.management.publishing.service.gov.uk:
+    ip: 10.3.0.80
+    host_aliases:
+      - docker-management-1.management
+      - etcd.cluster
+      - docker-management-1
+  publishing-api-3.backend.publishing.service.gov.uk:
+    ip: 10.3.3.47
+    host_aliases:
+      - publishing-api-3.backend
+      - publishing-api-3
+  publishing-api-2.backend.publishing.service.gov.uk:
+    ip: 10.3.3.46
+    host_aliases:
+      - publishing-api-2.backend
+      - publishing-api-2
+  publishing-api-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.45
+    host_aliases:
+      - publishing-api-1.backend
+      - publishing-api-1
+  docker-backend-2.backend.publishing.service.gov.uk:
+    ip: 10.3.3.112
+    host_aliases:
+      - docker-backend-2.backend
+      - docker-backend-2
+  docker-backend-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.111
+    host_aliases:
+      - docker-backend-1.backend
+      - docker-backend-1
+  rummager-elasticsearch-2.api.publishing.service.gov.uk:
+    ip: 10.3.4.56
+    host_aliases:
+      - rummager-elasticsearch-2.api
+      - rummager-elasticsearch-2
+  rummager-elasticsearch-1.api.publishing.service.gov.uk:
+    ip: 10.3.4.55
+    host_aliases:
+      - rummager-elasticsearch-1.api
+      - rummager-elasticsearch-1
+  rummager-elasticsearch-3.api.publishing.service.gov.uk:
+    ip: 10.3.4.57
+    host_aliases:
+      - rummager-elasticsearch-3.api
+      - rummager-elasticsearch-3
+  ci-agent-6.ci.publishing.service.gov.uk:
+    ip: 10.1.6.26
+    host_aliases:
+      - ci-agent-6.ci
+      - ci-agent-6
+  ci-agent-7.ci.publishing.service.gov.uk:
+    ip: 10.1.6.27
+    host_aliases:
+      - ci-agent-7.ci
+      - ci-agent-7
+  ci-agent-8.ci.publishing.service.gov.uk:
+    ip: 10.1.6.28
+    host_aliases:
+      - ci-agent-8.ci
+      - ci-agent-8
+  email-alert-api-1.backend.publishing.service.gov.uk:
+    ip: 10.3.3.40
+    host_aliases:
+      - email-alert-api-1.backend
+      - email-alert-api-1
+  email-alert-api-3.backend.publishing.service.gov.uk:
+    ip: 10.3.3.42
+    host_aliases:
+      - email-alert-api-3.backend
+      - email-alert-api-3
+  email-alert-api-2.backend.publishing.service.gov.uk:
+    ip: 10.3.3.41
+    host_aliases:
+      - email-alert-api-2.backend
+      - email-alert-api-2
+  # warehouse-postgresql-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.110
+  #   host_aliases:
+  #     - warehouse-postgresql-1.backend
+  #     - warehouse-postgresql-1
+  # ckan-1.backend.publishing.service.gov.uk:
+  #   ip: 10.3.3.120
+  #   host_aliases:
+  #     - ckan-1.backend
+  #     - ckan-1
