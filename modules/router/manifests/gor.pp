@@ -14,7 +14,8 @@
 class router::gor (
   $replay_targets = {},
   $add_hosts = true,
-  $input_raw = '127.0.0.1:7999'
+  $input_raw = '127.0.0.1:7999',
+  $http_set_header = 'X-Forwarded-Host:'
 ) {
   validate_hash($replay_targets)
 
@@ -45,7 +46,7 @@ class router::gor (
       '-http-allow-method' => [
         'GET', 'HEAD', 'OPTIONS',
       ],
-      '-http-set-header'   => 'X-Forwarded-Host:',
+      '-http-set-header'   => $http_set_header,
     },
     envvars => {
       'GODEBUG' => 'netdns=go',

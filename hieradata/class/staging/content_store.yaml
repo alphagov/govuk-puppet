@@ -5,5 +5,6 @@ nscd::config::dns_cache: 'yes'
 router::gor::add_hosts: false
 router::gor::replay_targets:
   'content-store.staging.govuk.digital': {}
+router::gor::http_set_header: 'Forwarded:'
 
 router::gor::input_raw: ':3068'
