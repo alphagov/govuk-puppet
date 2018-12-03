@@ -288,6 +288,14 @@ hosts::production::api::hosts:
   search-3:
     ip: '10.3.4.6'
 
+hosts::production::api::app_hostnames:
+  - 'backdrop-read'
+  - 'backdrop-write'
+  - 'rummager'
+  - 'search'
+
+hosts::production::api::draft_app_hostnames:
+
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
