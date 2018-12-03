@@ -87,6 +87,7 @@ define govuk_env_sync::task(
   $service_desc = "GOV.UK environment sync ${title}"
 
   @@icinga::passive_check { "govuk_env_sync.sh-${title}-${::hostname}":
+    ensure              => $ensure,
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
