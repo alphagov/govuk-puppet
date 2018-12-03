@@ -56,7 +56,6 @@ class govuk::node::s_backend_lb (
     'content-performance-manager',
     'content-publisher',
     'content-tagger',
-    'link-checker-api',
     'manuals-publisher',
     'maslow',
     'publisher',
