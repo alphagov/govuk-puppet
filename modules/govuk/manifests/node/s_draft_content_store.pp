@@ -16,4 +16,9 @@ class govuk::node::s_draft_content_store() inherits govuk::node::s_base {
   govuk_envvar {
     'PLEK_HOSTNAME_PREFIX': value => 'draft-';
   }
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    include ::hosts::default
+    include ::hosts::backend_migration
+  }
 }
