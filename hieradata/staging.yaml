@@ -382,6 +382,14 @@ hosts::production::backend::hosts:
   whitehall-mysql-slave-3:
     ip: '10.2.11.31'
 
+hosts::production::api::app_hostnames:
+  - 'backdrop-read'
+  - 'backdrop-write'
+  - 'rummager'
+  - 'search'
+
+hosts::production::api::draft_app_hostnames:
+
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
