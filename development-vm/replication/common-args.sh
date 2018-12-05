@@ -43,7 +43,7 @@ RENAME_DATABASES=true
 DRY_RUN=false
 KEEP_BACKUPS=false
 # By default, ignore large databases which are not useful when replicated.
-IGNORE="event_store transition backdrop support_contacts draft_content_store imminence draft_router"
+IGNORE="event_store transition backdrop support_contacts draft_content_store imminence draft_router content_performance_manager"
 
 # Test whether the given value is in the ignore list.
 function ignored() {
