@@ -763,7 +763,6 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
@@ -944,6 +943,7 @@ govuk_sudo::sudo_conf:
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
+govuk_python: "%{hiera('apt_mirror_hostname')}"
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
