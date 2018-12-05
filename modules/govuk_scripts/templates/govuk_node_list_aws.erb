@@ -1,6 +1,7 @@
-#!/usr/bin/env python
-
+#!/opt/python2.7/bin/python
 from __future__ import print_function
+
+
 
 # NB: This script uses optparse, not argparse, for Python 2.6 compatibility and
 # to avoid the need to depend on any other packages.
@@ -9,12 +10,36 @@ import json
 import random
 import string
 import sys
-import urllib
-import urllib2
+import urllib3
 import boto3
+from urllib.parse import urlencode
+from string import Template
 
+### Variables
 stackname = '<%= @aws_stackname -%>'
 region = '<%= @aws_region -%>'
+metadat_path = 'http://169.254.169.254/latest/meta-data/iam/security-credentials/'
+http = urllib3.PoolManager()
+node_profile = http.request('GET', metadat_path)
+credential_template = Template('[default]\naws_access_key_id=$accessId\naws_secret_access_key=$secretKey\naws_session_token=$token')
+aws_config = Template('[default]\nregion=$region\noutput=json')
+aws_config_path = os.environ['HOME'] + '/.aws/'
+
+
+
+## This funcation creates a credentials file based on the metadata profile credentials
+## It uses the blue-jumpbox IAM profile in order to identify the node and credentials.
+## These credentials are avalible to everyone in the metadata server. The main issue for
+## The main reason funcation was a bug boto3 that was causing problems when authenticating. 
+def create_creds():
+    os.makedirs(aws_config_path)
+    request = http.request('GET', metadat_path + 'blue-jumpbox')
+    credentials  = json.loads(request.data)
+    with open(aws_config_path + 'config', 'w') as f:
+        f.write(aws_config.substitute(region=region))
+    with open(aws_config_path + 'credentials', 'w') as f:
+        f.write(credential_template.substitute(accessId=credentials['AccessKeyId'], secretKey=credentials['SecretAccessKey'],token=credentials['Token']))
+
 
 def commasep_callback(option, opt, value, parser):
     setattr(parser.values, option.dest, value.split(','))
@@ -158,5 +183,7 @@ parser.add_option(
 )
 
 if __name__ == '__main__':
+    if not os.path.exists(aws_config_path) and node_profile equal 'blue-jumpbox':
+        create_creds()
     main()
 
