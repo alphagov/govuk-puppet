@@ -66,14 +66,6 @@
                 credential-id: govukci-docker-hub
                 username: DOCKER_HUB_USERNAME
                 password: DOCKER_HUB_PASSWORD
-        - inject-passwords:
-            global: false
-            mask-password-params: true
-            job-passwords:
-                - name: AWS_ACCESS_KEY_ID
-                  password: '<%= @aws_access_key_id %>'
-                - name: AWS_SECRET_ACCESS_KEY
-                  password: '<%= @aws_secret_access_key %>'
         - timestamps
     parameters:
         - choice:
