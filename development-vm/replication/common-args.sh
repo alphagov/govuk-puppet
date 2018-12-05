@@ -50,7 +50,7 @@ IGNORE="event_store transition backdrop support_contacts draft_content_store imm
 function ignored() {
   local value=$1
   for ignore_match in $IGNORE; do
-    if [ $ignore_match == $value ]; then
+    if [ "$ignore_match" == "$value" ]; then
       return 0
     fi
   done
