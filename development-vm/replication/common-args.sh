@@ -107,5 +107,8 @@ do
     k )
       KEEP_BACKUPS=true
       ;;
+    * )
+      usage
+      exit 1
   esac
 done
