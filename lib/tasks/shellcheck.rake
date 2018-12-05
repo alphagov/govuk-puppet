@@ -21,7 +21,7 @@ namespace :shell do
     end
 
     if files.length > 0 then
-      shellcheck_cmd = ['shellcheck', files].flatten
+      shellcheck_cmd = ['shellcheck', '-e', 'SC2034', files].flatten
       fail if not system(*shellcheck_cmd)
     end
   end
