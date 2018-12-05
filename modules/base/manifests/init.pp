@@ -19,6 +19,7 @@ class base {
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
   include govuk_envsys
+  include govuk_python
   include govuk_scripts
   include govuk_sshkeys
   include govuk_sudo

@@ -763,7 +763,7 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
