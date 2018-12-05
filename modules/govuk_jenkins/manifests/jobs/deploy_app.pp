@@ -20,6 +20,12 @@
 # [*enable_slack_notifications*]
 #   Set to true to post details of a deployment into a Slack channel.
 #
+# [*aws_access_key_id*]
+#   AWS credential used when deploying from AWS CodeCommit.
+#
+# [*aws_secret_access_key*]
+#   AWS credential used when deploying from AWS CodeCommit.
+#
 class govuk_jenkins::jobs::deploy_app (
   $app_domain = undef,
   $auth_token = undef,
@@ -29,6 +35,8 @@ class govuk_jenkins::jobs::deploy_app (
   $graphite_port = '80',
   $notify_release_app = true,
   $enable_slack_notifications = true,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
 ) {
   if $::aws_migration {
     $aws_deploy = true
