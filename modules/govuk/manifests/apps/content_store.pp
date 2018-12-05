@@ -62,6 +62,7 @@ class govuk::apps::content_store(
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $unicorn_worker_processes = undef,
+  $app_domain = undef,
 ) {
   $app_name = 'content-store'
 
@@ -91,6 +92,14 @@ class govuk::apps::content_store(
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    }
+  }
+
+  if $app_domain {
+    govuk::app::envvar {
+      "${title}-GOVUK_APP_DOMAIN":
+      varname => 'GOVUK_APP_DOMAIN',
+      value   => $app_domain;
     }
   }
 
