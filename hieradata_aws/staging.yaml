@@ -113,11 +113,11 @@ govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
-govuk::apps::content_store::app_domain: staging.publishing.service.gov.uk
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
+govuk::apps::content_store::app_domain: staging.publishing.service.gov.uk
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
