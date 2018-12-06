@@ -1267,12 +1267,8 @@ hosts::production::api::hosts:
 hosts::production::api::app_hostnames:
   - 'backdrop-read'
   - 'backdrop-write'
-  - 'content-store'
   - 'rummager'
   - 'search'
-
-hosts::production::api::draft_app_hostnames:
-  - 'draft-content-store'
 
 hosts::production::backend::hosts:
   asset-master-1:
