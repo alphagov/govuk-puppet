@@ -21,6 +21,8 @@ node_class: &node_class
       - imminence
       - link-checker-api
       - local-links-manager
+      - support
+      - support-api
   bouncer:
     apps:
       - bouncer
