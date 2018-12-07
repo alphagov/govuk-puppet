@@ -44,7 +44,7 @@ define govuk::app::publicapi (
   } else {
     $whitehallapi = "whitehall-frontend.${app_domain}"
     $rummager_api = "search.${app_domain}"
-    $content_store_api = "${prefix}content-store.${app_domain}"
+    $content_store_api = "${prefix}content-store.${::environment}.govuk-internal.digital"
 
     $full_domain = "${app_name}.${app_domain}"
   }
