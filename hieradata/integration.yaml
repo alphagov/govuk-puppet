@@ -217,6 +217,7 @@ postfix::smarthost:
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
 users::usernames:
+  - adityapahuja
   - alangabbianelli
   - alexandrujurubita
   - alextorrance
