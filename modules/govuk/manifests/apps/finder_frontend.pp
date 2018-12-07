@@ -24,6 +24,9 @@
 # [*qa_enabled*]
 #   Whether the Q&A feature is enabled
 #
+# [*qa_to_content_enabled*]
+#   Whether the Q&A to content feature is enabled
+#
 class govuk::apps::finder_frontend(
   $port = '3062',
   $enabled = false,
@@ -33,6 +36,7 @@ class govuk::apps::finder_frontend(
   $secret_key_base = undef,
   $email_alert_api_bearer_token = undef,
   $qa_enabled = false,
+  $qa_to_content_enabled = false,
 ) {
 
   if $enabled {
@@ -66,6 +70,14 @@ class govuk::apps::finder_frontend(
     govuk::app::envvar {
       "${title}-FINDER_FRONTEND_ENABLE_QA":
           varname => 'FINDER_FRONTEND_ENABLE_QA',
+          value   => 'yes';
+    }
+  }
+
+  if $qa_to_content_enabled {
+    govuk::app::envvar {
+      "${title}-FINDER_FRONTEND_ENABLE_QA_TO_CONTENT":
+          varname => 'FINDER_FRONTEND_ENABLE_QA_TO_CONTENT',
           value   => 'yes';
     }
   }
