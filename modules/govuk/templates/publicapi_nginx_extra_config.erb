@@ -21,10 +21,10 @@
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_rummager_api <%= @privateapi_protocol %>://<%= @rummager_api %>;
   <%- end %>
-  location ~ ^/api/search.json {
+  location ~ ^/api/(search|batch_search).json {
     expires 30m;
 
-    rewrite ^/api/search.json(.*) /search.json$1 break;
+    rewrite ^/api/([a-z_]+).json(.*) /$1.json$2 break;
 
     add_header Access-Control-Allow-Origin *;
     proxy_set_header Host <%= @rummager_api %>;
