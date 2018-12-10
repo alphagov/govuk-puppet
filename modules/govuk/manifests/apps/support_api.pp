@@ -127,7 +127,7 @@ class govuk::apps::support_api(
     $data_dir_user = 'assets'
   }
 
-  file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
+  file { ['/data/uploads', '/data/uploads/support-api', '/data/uploads/support-api/csvs']:
     ensure => directory,
     mode   => '0775',
     owner  => $data_dir_user,
