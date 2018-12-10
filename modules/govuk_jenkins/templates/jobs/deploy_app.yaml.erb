@@ -30,11 +30,9 @@
 
             if [ "$DEPLOY_FROM_AWS_CODECOMMIT" == "true" ]; then
               export AWS_REGION=eu-west-1
-              export GIT_ORIGIN_PREFIX="https://git-codecommit.${AWS_REGION}.amazonaws.com/v1/repos"
+              export GIT_ORIGIN_PREFIX="ssh://git-codecommit.${AWS_REGION}.amazonaws.com/v1/repos"
               export APP_DEPLOYMENT_GIT_URL="${GIT_ORIGIN_PREFIX}/govuk-app-deployment"
               export APP_DEPLOYMENT_SECRET_GIT_URL="${GIT_ORIGIN_PREFIX}/govuk-app-deployment-secrets"
-              git config --global credential.helper '!aws codecommit credential-helper $@'
-              git config --global credential.UseHttpPath true
             else
               export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
               export APP_DEPLOYMENT_SECRET_GIT_URL="git@github.com:alphagov/govuk-app-deployment-secrets.git"
