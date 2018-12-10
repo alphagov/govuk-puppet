@@ -1,0 +1,6 @@
+Host *
+  StrictHostKeyChecking no
+
+Host git-codecommit.*.amazonaws.com
+  User <%= @aws_ssh_key_id %>
+  IdentityFile <%= @private_key_filename %>

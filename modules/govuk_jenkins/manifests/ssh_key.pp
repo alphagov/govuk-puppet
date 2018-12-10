@@ -16,11 +16,15 @@
 # [*home_dir*]
 #   Home directory of the Jenkins user
 #
+# [*aws_ssh_key_id*]
+#   AWS SSH key config ID (visible in AWS console).
+#
 class govuk_jenkins::ssh_key (
-  $private_key  = undef,
-  $public_key   = undef,
-  $jenkins_user = 'jenkins',
-  $home_dir     = '/var/lib/jenkins',
+  $private_key    = undef,
+  $public_key     = undef,
+  $jenkins_user   = 'jenkins',
+  $home_dir       = '/var/lib/jenkins',
+  $aws_ssh_key_id = undef,
 ) {
   $ssh_dir = "${home_dir}/.ssh"
   $private_key_filename = "${ssh_dir}/id_rsa"
@@ -34,7 +38,7 @@ class govuk_jenkins::ssh_key (
   }
 
   file { "${ssh_dir}/config":
-    source  => 'puppet:///modules/govuk_jenkins/ssh-config',
+    content => template('govuk_jenkins/ssh-config.erb'),
     owner   => $jenkins_user,
     group   => $jenkins_user,
     mode    => '0600',
