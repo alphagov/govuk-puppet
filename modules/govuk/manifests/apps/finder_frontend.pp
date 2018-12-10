@@ -37,19 +37,21 @@ class govuk::apps::finder_frontend(
   $email_alert_api_bearer_token = undef,
   $qa_enabled = false,
   $qa_to_content_enabled = false,
+  $unicorn_worker_processes = undef,
 ) {
 
   if $enabled {
     govuk::app { 'finder-frontend':
-      app_type               => 'rack',
-      port                   => $port,
-      sentry_dsn             => $sentry_dsn,
-      health_check_path      => '/cma-cases',
-      log_format_is_json     => true,
-      asset_pipeline         => true,
-      asset_pipeline_prefix  => 'finder-frontend',
-      nagios_memory_warning  => $nagios_memory_warning,
-      nagios_memory_critical => $nagios_memory_critical,
+      app_type                 => 'rack',
+      port                     => $port,
+      sentry_dsn               => $sentry_dsn,
+      health_check_path        => '/cma-cases',
+      log_format_is_json       => true,
+      asset_pipeline           => true,
+      asset_pipeline_prefix    => 'finder-frontend',
+      nagios_memory_warning    => $nagios_memory_warning,
+      nagios_memory_critical   => $nagios_memory_critical,
+      unicorn_worker_processes => $unicorn_worker_processes,
     }
   }
 
