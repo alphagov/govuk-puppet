@@ -48,6 +48,12 @@
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
+# [*oauth_id*]
+#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
@@ -63,6 +69,8 @@ class govuk::apps::content_store(
   $sentry_dsn = undef,
   $unicorn_worker_processes = undef,
   $app_domain = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
 ) {
   $app_name = 'content-store'
 
@@ -107,6 +115,12 @@ class govuk::apps::content_store(
     "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',
       value   => $default_ttl;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
