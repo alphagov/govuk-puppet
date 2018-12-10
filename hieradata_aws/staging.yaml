@@ -22,6 +22,8 @@ node_class: &node_class
       - link-checker-api
       - local-links-manager
       - signon
+      - support
+      - support-api
   bouncer:
     apps:
       - bouncer
