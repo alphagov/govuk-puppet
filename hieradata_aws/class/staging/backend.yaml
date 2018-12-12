@@ -1,5 +1,5 @@
 ---
 
- monitoring::vpn_gateways::endpoints:
+icinga::client::check_pings:
    whitehall-admin:
-     address: 10.2.3.254
+     ip: 10.2.3.254

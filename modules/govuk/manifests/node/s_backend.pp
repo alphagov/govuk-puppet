@@ -48,7 +48,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   }
 
   if $::aws_migration {
-    include monitoring::vpn_gateways
+    include icinga::client::check_pings
   }
 
   # Ensure memcached is available to backend nodes
