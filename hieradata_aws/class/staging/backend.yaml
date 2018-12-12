@@ -1,0 +1,4 @@
+---
+
+ monitoring::vpn_gateways::endpoints:
+   - 10.2.3.254

@@ -45,6 +45,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
   # Local proxy for Rummager to access ES cluster.
   if ! $::aws_migration {
     include govuk_elasticsearch::local_proxy
+    include monitoring::vpn_gateways
   }
 
   # Ensure memcached is available to backend nodes
