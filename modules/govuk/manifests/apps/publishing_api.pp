@@ -16,9 +16,16 @@
 #   Is a URL that tells publishing API which content store to save
 #   published content in.
 #
+# [*content_store_bearer_token*]
+#   The bearer token that will be used to authenticate with the content store
+#
 # [*draft_content_store*]
 #   Is a URL that tells publishing API which content store to save
 #   draft content in.
+#
+# [*draft_content_store_bearer_token*]
+#   The bearer token that will be used to authenticate with the draft content
+#   store
 #
 # [*suppress_draft_store_502_error*]
 #   Suppresses "502 Bad Gateway" returned by nginx when publishing API
@@ -110,7 +117,9 @@ class govuk::apps::publishing_api(
   $ensure = 'present',
   $port = '3093',
   $content_store = '',
+  $content_store_bearer_token = undef,
   $draft_content_store = '',
+  $draft_content_store_bearer_token = undef,
   $suppress_draft_store_502_error = '',
   $sentry_dsn = undef,
   $secret_key_base = undef,
@@ -182,9 +191,15 @@ class govuk::apps::publishing_api(
       "${title}-CONTENT_STORE":
         varname => 'CONTENT_STORE',
         value   => $content_store;
+      "${title}-CONTENT_STORE_BEARER_TOKEN":
+        varname => 'CONTENT_STORE_BEARER_TOKEN',
+        value   => $content_store_bearer_token;
       "${title}-DRAFT_CONTENT_STORE":
         varname => 'DRAFT_CONTENT_STORE',
         value   => $draft_content_store;
+      "${title}-DRAFT_CONTENT_STORE_BEARER_TOKEN":
+        varname => 'DRAFT_CONTENT_STORE_BEARER_TOKEN',
+        value   => $draft_content_store_bearer_token;
       "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
         varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
         value   => $suppress_draft_store_502_error;

@@ -6,4 +6,6 @@ govuk::apps::content_store::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
   - 'mongo-3'
+govuk::apps::content_store::oauth_id: "%{hiera('govuk::apps::content_store::draft_oauth_id')}"
+govuk::apps::content_store::oauth_secret: "%{hiera('govuk::apps::content_store::draft_oauth_secret')}"
 govuk::apps::content_store::vhost: 'draft-content-store'
