@@ -47,7 +47,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(sum(stats.cache-*_router_staging.nginx_logs.www-origin.http_5xx),\"www-origin\")",
+              "target": "alias(sum(stats.cache-*_router*.nginx_logs.www-origin.http_5xx),\"www-origin\")",
               "textEditor": true
             }
           ],
@@ -120,7 +120,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(sum(stats.cache-*_router_staging.nginx_logs.www-origin.http_4xx),\"www-origin\")",
+              "target": "alias(sum(stats.cache-*_router*.nginx_logs.www-origin.http_4xx),\"www-origin\")",
               "textEditor": true
             }
           ],
@@ -205,7 +205,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(cache-*_router_staging.nginx.nginx_connections-active,0)",
+              "target": "aliasByNode(cache-*_router*.nginx.nginx_connections-active,0)",
               "textEditor": true
             }
           ],
@@ -278,7 +278,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(cache-*_router_staging.load.load.shortterm,0)",
+              "target": "aliasByNode(cache-*_router*.load.load.shortterm,0)",
               "textEditor": true
             }
           ],
@@ -363,12 +363,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(cache-*_router_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(cache-*_router*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(cache-*_router_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(cache-*_router*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -441,7 +441,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(cache-*_router_staging.memory.memory-used,0)",
+              "target": "aliasByNode(cache-*_router*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -526,7 +526,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(cache-*_router_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(cache-*_router*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -611,12 +611,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(content-store-*_api_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(content-store-*_api*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(content-store-*_api_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(content-store-*_api*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -689,7 +689,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(content-store-*_api_staging.memory.memory-used,0)",
+              "target": "aliasByNode(content-store-*_api*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -774,7 +774,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(content-store-*_api_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(content-store-*_api*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -859,12 +859,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(calculators-frontend-*_frontend_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(calculators-frontend-*_frontend*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(calculators-frontend-*_frontend_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(calculators-frontend-*_frontend*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -937,7 +937,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(calculators-frontend-*_frontend_staging.memory.memory-used,0)",
+              "target": "aliasByNode(calculators-frontend-*_frontend*.memory.memory-used,0)",
               "textEditor": true
             },
             {
@@ -1026,7 +1026,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(calculators-frontend-*_frontend_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(calculators-frontend-*_frontend*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -1111,12 +1111,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(frontend-*_frontend_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(frontend-*_frontend*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(frontend-*_frontend_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(frontend-*_frontend*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -1189,7 +1189,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(frontend-[123]_frontend_staging.memory.memory-used,0)",
+              "target": "aliasByNode(frontend-[123]_frontend*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -1274,7 +1274,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(frontend-*_frontend_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(frontend-*_frontend*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -1359,12 +1359,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(mongo-*_backend_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(mongo-*_backend*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(mongo-*_backend_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(mongo-*_backend*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -1437,7 +1437,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(mongo-*_backend_staging.memory.memory-used,0)",
+              "target": "aliasByNode(mongo-*_backend*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -1522,7 +1522,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(mongo-*_backend_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(mongo-*_backend*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -1607,12 +1607,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(search-*_api_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(search-*_api*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(search-*_api_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(search-*_api*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -1685,7 +1685,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(search-*_api_staging.memory.memory-used,0)",
+              "target": "aliasByNode(search-*_api*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -1770,7 +1770,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(search-*_api_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(search-*_api*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -1855,12 +1855,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(whitehall-frontend-*_frontend_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(whitehall-frontend-*_frontend*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(whitehall-frontend-*_frontend_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(whitehall-frontend-*_frontend*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -1933,7 +1933,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(whitehall-frontend-*_frontend_staging.memory.memory-used,0)",
+              "target": "aliasByNode(whitehall-frontend-*_frontend*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -2018,7 +2018,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(whitehall-frontend-*_frontend_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(whitehall-frontend-*_frontend*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
@@ -2103,12 +2103,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(sum(whitehall-mysql-slave-*_backend_staging.cpu-*.cpu-system),2)",
+              "target": "aliasByNode(sum(whitehall-mysql-slave-*_backend*.cpu-*.cpu-system),2)",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "aliasByNode(sum(whitehall-mysql-slave-*_backend_staging.cpu-*.cpu-user),2)",
+              "target": "aliasByNode(sum(whitehall-mysql-slave-*_backend*.cpu-*.cpu-user),2)",
               "textEditor": true
             }
           ],
@@ -2181,7 +2181,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(whitehall-mysql-slave-*_backend_staging.memory.memory-used,0)",
+              "target": "aliasByNode(whitehall-mysql-slave-*_backend*.memory.memory-used,0)",
               "textEditor": true
             }
           ],
@@ -2266,7 +2266,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(whitehall-mysql-slave-*_backend_staging.disk-sd[a-z].disk_time.*,0,1,3)",
+              "target": "aliasByNode(whitehall-mysql-slave-*_backend*.disk-sd[a-z].disk_time.*,0,1,3)",
               "textEditor": true
             }
           ],
