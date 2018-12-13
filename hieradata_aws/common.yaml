@@ -242,6 +242,7 @@ base::packages::packages:
   - 'ack-grep'
   - 'bzip2'
   - 'daemontools'
+  - 'python3'
   - 'dnsutils'
   - 'dstat'
   - 'gettext'
@@ -764,10 +765,8 @@ govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-<<<<<<< HEAD
 govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-=======
->>>>>>> be7f8c891... Add GovUK python to nodes for govuk-node-list
+
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
