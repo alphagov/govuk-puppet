@@ -4,4 +4,4 @@ icinga::client::check_pings::endpoints:
    whitehall-admin:
      ip: 10.2.3.254
    content-performance-manager:
-     ip: 10.3.3.254
+     ip: 10.2.3.254
