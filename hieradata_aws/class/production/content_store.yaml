@@ -1,5 +1,5 @@
 ---
 
 icinga::client::check_pings::endpoints:
-   whitehall-admin:
-     ip: 10.2.3.254
+   router-api:
+     ip: 10.3.1.253
