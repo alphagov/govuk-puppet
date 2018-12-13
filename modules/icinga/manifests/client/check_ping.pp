@@ -13,7 +13,7 @@ define icinga::client::check_ping (
 
   @@icinga::check { "check_ping_from_${::hostname}_to_${title}":
     check_command       => "check_nrpe!check_ping!${ip}",
-    service_description => 'cannot ping',
+    service_description => "cannot ping via VPN to ${title} with IP ${ip}",
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(defined-cannot-ping),
   }
