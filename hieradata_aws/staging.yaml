@@ -109,6 +109,8 @@ govuk::node::s_base::node_apps:
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
 
+govuk_pgbouncer::db::backend_ip_range: "10.2.0.0/16"
+
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
