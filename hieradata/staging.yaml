@@ -411,7 +411,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
   - 'support'
-  - 'support-api'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
 
