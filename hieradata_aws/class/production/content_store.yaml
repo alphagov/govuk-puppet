@@ -1,0 +1,5 @@
+---
+
+icinga::client::check_pings::endpoints:
+   router-api:
+     ip: 10.3.1.253

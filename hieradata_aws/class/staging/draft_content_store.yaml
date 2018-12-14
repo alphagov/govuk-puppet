@@ -1,0 +1,5 @@
+---
+
+icinga::client::check_pings::endpoints:
+   draft-router-api:
+     ip: 10.2.1.252
