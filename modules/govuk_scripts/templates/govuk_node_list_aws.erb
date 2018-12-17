@@ -1,4 +1,5 @@
-#!/usr/bin/python3
+#!/usr/bin/env python
+
 from __future__ import print_function
 
 # NB: This script uses optparse, not argparse, for Python 2.6 compatibility and
@@ -9,6 +10,7 @@ import random
 import string
 import sys
 import urllib
+import urllib2
 import boto3
 
 stackname = '<%= @aws_stackname -%>'
@@ -48,17 +50,17 @@ def ec2_classes(stackname):
     client = boto3.client('ec2', region_name=region)
 
     response = client.describe_instances(
-            Filters=[
-                {'Name': 'tag:aws_stackname', 'Values': [stackname]},
-                {'Name': 'instance-state-name','Values': ['running']}
-            ]
-        )
+           Filters=[
+              {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+              {'Name': 'instance-state-name','Values': ['running']}
+           ]
+       )
 
     nodes = response['Reservations']
 
     classes = []
     for instance in nodes:
-            classes.append(list(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags']))[0]['Value'])
+        classes.append(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags'])[0]['Value'])
 
     return(sorted(set(classes)))
 
@@ -100,13 +102,12 @@ def main():
             '["=", "title", "{0}"]'.format(c)
             for c in classes
         ]
-
         class_query = '["or", {0}]'.format(', '.join(classes))
         query = '["and", ["=", "type", "Class"], {0}]'.format(class_query)
 
-        qs = urllib.parse.urlencode({'query': query})
-        res = urllib.request.urlopen('https://puppetdb.<%= @app_domain_internal %>/v2/{0}?{1}'.format(endpoint, qs))
-        instance_ids = json.loads(res.read().decode('utf-8'))
+        qs = urllib.urlencode({'query': query})
+        res = urllib2.urlopen('https://puppetdb.<%= @app_domain_internal %>/v2/{0}?{1}'.format(endpoint, qs))
+        instance_ids = json.load(res)
 
         hosts = []
 
@@ -121,7 +122,6 @@ def main():
 
     for host in hosts:
         print(host)
-
 
 parser = OptionParser(description='List nodes in this environment')
 
