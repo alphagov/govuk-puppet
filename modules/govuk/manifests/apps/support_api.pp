@@ -64,6 +64,18 @@
 # [*zendesk_client_username*]
 #   Username for connection to GDS zendesk client.
 #
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
+#
 class govuk::apps::support_api(
   $db_hostname = undef,
   $db_port = undef,
@@ -82,6 +94,10 @@ class govuk::apps::support_api(
   $zendesk_anonymous_ticket_email = undef,
   $zendesk_client_password = undef,
   $zendesk_client_username = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket_name = undef,
 ) {
   $app_name = 'support-api'
 
@@ -114,6 +130,18 @@ class govuk::apps::support_api(
     "${title}-ZENDESK_CLIENT_USERNAME":
       varname => 'ZENDESK_CLIENT_USERNAME',
       value   => $zendesk_client_username;
+    "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
+      value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
+      value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
+    "${title}-AWS_S3_BUCKET_NAME":
+      varname => 'AWS_S3_BUCKET_NAME',
+      value   => $aws_s3_bucket_name;
   }
 
   govuk::app::envvar::redis { $app_name:
@@ -127,6 +155,7 @@ class govuk::apps::support_api(
     $data_dir_user = 'assets'
   }
 
+  # TODO: Remove once CSVs have been moved to S3
   file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
     ensure => directory,
     mode   => '0775',
