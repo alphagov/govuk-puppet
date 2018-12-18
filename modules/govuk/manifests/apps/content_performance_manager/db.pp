@@ -19,7 +19,7 @@ class govuk::apps::content_performance_manager::db (
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     rds                     => $rds,
-    extensions              => ['plpgsql', 'pg_trgm', 'fuzzystrmatch'],
+    extensions              => ['plpgsql'],
     enable_in_pgbouncer     => false,
   }
 }
