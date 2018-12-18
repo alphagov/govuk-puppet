@@ -18,7 +18,7 @@
             ssh deploy@${SYNC_HOST} \
             "/usr/bin/setlock /etc/unattended-reboot/no-reboot/govuk_env_sync \
              /usr/bin/envdir /etc/govuk_env_sync/env.d \
-             /usr/local/bin/govuk_env_sync.sh \
+             sudo -u govuk-backup /usr/local/bin/govuk_env_sync.sh \
              ${ARG_CONFIGFILE} \
              -a ${SYNC_ACTION} \
              -D ${SYNC_DBMS} \
