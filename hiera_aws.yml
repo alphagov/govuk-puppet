@@ -8,6 +8,7 @@
   - '%{::environment}_credentials'
   - '%{::environment}'
   - 'common.%{::lsbdistcodename}'
+  - 'common_credentials'
   - 'common'
 :backends:
   - eyaml
