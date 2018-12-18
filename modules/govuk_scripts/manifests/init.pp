@@ -1,6 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_scripts {
-
   # govuk_app_console: opens a console for a specified application
   file { '/usr/local/bin/govuk_app_console':
     ensure => present,
@@ -31,6 +30,14 @@ class govuk_scripts {
     package { 'boto3':
       ensure   => 'present',
       provider => 'pip',
+    }
+
+
+    # Verify the boto installation and all script dependencies are installed
+    exec { 'check_boto':
+          path    => ['/usr/bin', '/usr/sbin'],
+          command => ['/usr/bin/pip3 install boto3'],
+          require => Class['base::packages'],
     }
 
     $app_domain_internal = hiera('app_domain_internal')
