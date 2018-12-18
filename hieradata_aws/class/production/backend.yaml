@@ -7,3 +7,5 @@ icinga::client::check_pings::endpoints:
      ip: 10.3.3.254
    backdrop-lb:
      ip: 10.3.4.254
+
+icinga::client::contact_groups: 'urgent-priority'
