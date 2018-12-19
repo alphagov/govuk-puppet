@@ -33,6 +33,14 @@ class govuk_scripts {
       provider => 'pip',
     }
 
+    # Verify the boto installation and all script dependencies are installed
+    exec { 'check_boto':
+          path    => ['/usr/bin', '/usr/sbin'],
+          command => ['/usr/bin/pip3 install boto3'],
+          require => Class['base::packages'],
+    }
+
+
     $app_domain_internal = hiera('app_domain_internal')
 
     file { '/usr/local/bin/govuk_node_list':
