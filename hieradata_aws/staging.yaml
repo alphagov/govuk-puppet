@@ -26,6 +26,7 @@ node_class: &node_class
       - signon
       - support
       - support-api
+      - support_api_csv_env_sync
   bouncer:
     apps:
       - bouncer
