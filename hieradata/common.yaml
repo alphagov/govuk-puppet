@@ -45,7 +45,6 @@ node_class: &node_class
       - specialist-publisher
       - support
       - support-api
-      - transition
       - travel-advice-publisher
   bouncer:
     apps:
