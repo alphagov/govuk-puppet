@@ -78,7 +78,6 @@ class govuk::apps::support(
 
   $app_name = 'support'
 
-  # TODO: Remove the `/csvs/` location once CSVs have been moved to S3
   govuk::app { $app_name:
     app_type           => 'rack',
     port               => $port,
@@ -90,14 +89,6 @@ class govuk::apps::support(
       location /_status {
         allow   127.0.0.0/8;
         deny    all;
-      }
-
-      proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping /data/uploads/support-api/csvs/=/csvs/;
-
-      location /csvs/ {
-        internal;
-        root /data/uploads/support-api;
       }',
     asset_pipeline     => true,
   }

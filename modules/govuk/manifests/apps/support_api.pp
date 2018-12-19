@@ -149,18 +149,9 @@ class govuk::apps::support_api(
     port => $redis_port,
   }
 
-  if $::aws_migration {
-    $data_dir_user = 'deploy'
-  } else {
-    $data_dir_user = 'assets'
-  }
-
-  # TODO: Remove once CSVs have been moved to S3
+  # TODO: Remove once directories have been deleted
   file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
-    ensure => directory,
-    mode   => '0775',
-    owner  => $data_dir_user,
-    group  => $data_dir_user,
+    ensure => absent,
   }
 
   govuk::procfile::worker { $app_name:
