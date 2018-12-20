@@ -68,10 +68,7 @@ class govuk_postgresql::backup (
         source => 'puppet:///modules/govuk_postgresql/etc/default/autopostgresqlbackup',
     }
 
-    if $ensure != 'absent' {
-      include backup::client
-    }
-
+    include backup::client
     file {'/etc/postgresql-backup-post':
         ensure  => $ensure,
         mode    => '0755',

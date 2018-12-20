@@ -1,4 +1,5 @@
 ---
+backup::client: 'absent'
 postgresql::globals::version: '9.5'
 
 govuk_safe_to_reboot::can_reboot: 'no'

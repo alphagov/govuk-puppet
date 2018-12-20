@@ -1,5 +1,5 @@
 ---
-
+backup::client: 'absent'
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single point of failure for Transition application'
 
