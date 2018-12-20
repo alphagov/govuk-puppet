@@ -28,7 +28,7 @@ class grafana::datasources(
   $graphitesourcejson = '{ "name":"Graphite","type":"graphite","url":"https://graphite","access":"proxy", }'
 
   $graphitesourceadd = shellquote([
-    'curl',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
+    'curl','-f',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
     '-X','POST','-H','Content-Type: application/json;charset=UTF-8',
     '--data-binary',$graphitesourcejson,
   ])
@@ -50,7 +50,7 @@ class grafana::datasources(
   }"
 
   $elasticsearchsourceadd = shellquote([
-    'curl',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
+    'curl','-f',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
     '-X','POST','-H','Content-Type: application/json;charset=UTF-8',
     '--data-binary',$elasticsearchsourcejson,
   ])
