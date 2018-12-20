@@ -149,11 +149,6 @@ class govuk::apps::support_api(
     port => $redis_port,
   }
 
-  # TODO: Remove once directories have been deleted
-  file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
-    ensure => absent,
-  }
-
   govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
