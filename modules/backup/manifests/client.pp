@@ -16,7 +16,7 @@
 #
 class backup::client (
   $backup_public_key = '',
-  $ensure = 'present'
+  $ensure = 'present',
 ) {
 
   govuk_user { 'govuk-backup':
