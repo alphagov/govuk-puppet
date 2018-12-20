@@ -1,5 +1,5 @@
 ---
-
+backup::client::ensure: 'absent'
 govuk_safe_to_reboot::can_reboot: 'no'
 govuk_safe_to_reboot::reason: 'Single point of failure for Transition application'
 
@@ -13,6 +13,8 @@ mount:
     disk: '/dev/mapper/postgresql-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
+
+govuk_postgresql::backup::ensure: 'absent'
 
 govuk_postgresql::server::primary::slave_addresses:
   live:
