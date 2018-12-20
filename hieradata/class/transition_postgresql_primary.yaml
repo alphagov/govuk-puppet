@@ -15,7 +15,7 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
-govuk_postgresql::server::primary::backup_enable: false
+govuk_postgresql::backup::ensure: 'absent'
 
 govuk_postgresql::server::primary::slave_addresses:
   live:
