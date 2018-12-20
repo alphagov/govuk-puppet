@@ -25,7 +25,7 @@ class grafana::datasources(
   $elasticsearch_password = undef,
 ) {
 
-  $graphitesourcejson = '{ "name":"Graphite","type":"graphite","url":"https://graphite","access":"proxy", }'
+  $graphitesourcejson = '{ "name":"Graphite","type":"graphite","url":"https://graphite","access":"proxy" }'
 
   $graphitesourceadd = shellquote([
     'curl','-f',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
@@ -46,7 +46,7 @@ class grafana::datasources(
     \"basicAuthUser\":\"${elasticsearch_user}\",\
     \"basicAuthPassword\":\"${elasticsearch_password}\",\
     \"database\":\"*-*\",\
-    \"jsonData\":{\"interval\":\"Daily\"},\
+    \"jsonData\":{\"interval\":\"Daily\"}\
   }"
 
   $elasticsearchsourceadd = shellquote([
