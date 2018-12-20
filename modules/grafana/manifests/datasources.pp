@@ -46,6 +46,7 @@ class grafana::datasources(
     \"basicAuthUser\":\"${elasticsearch_user}\",\
     \"basicAuthPassword\":\"${elasticsearch_password}\",\
     \"database\":\"*-*\",\
+    \"access\":\"proxy\",
     \"jsonData\":{\"interval\":\"Daily\"}\
   }"
 
