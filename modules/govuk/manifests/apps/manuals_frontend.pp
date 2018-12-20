@@ -37,6 +37,7 @@ class govuk::apps::manuals_frontend(
     asset_pipeline_prefix => 'manuals-frontend',
     vhost                 => $vhost,
     health_check_path     => '/healthcheck',
+    json_health_check     => true,
   }
 
   Govuk::App::Envvar {
