@@ -30,8 +30,13 @@ class govuk_postgresql::server::primary (
   $slave_password,
   $type = 'host',
   $user = 'replication',
+  $backup_enable = true,
 ) {
-  include govuk_postgresql::backup
+
+  if $backup_enable {
+    include govuk_postgresql::backup
+  }
+
   include govuk_postgresql::server
   include govuk_postgresql::server::not_slave
 

@@ -14,6 +14,8 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
+govuk_postgresql::server::primary::backup_enable: false
+
 govuk_postgresql::server::primary::slave_addresses:
   live:
     address: "%{hiera('postgresql_transition_slave_addresses_live')}"
