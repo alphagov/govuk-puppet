@@ -33,10 +33,10 @@ class grafana::datasources(
     '--data-binary',$graphitesourcejson,
   ])
 
-  $graphitesourcemisses = shellquote([
-    'curl',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/Graphite",
-    '2>/dev/null','|','grep','{"message":"Data source not found"}',';','echo $?',
-  ])
+  $graphitesourcemisses = join([
+    'curl',shellquote("http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/Graphite"),
+    '2>/dev/null','|','grep',shellquote('{"message":"Data source not found"}'),
+  ], ' ')
 
   $elasticsearchsourcejson = "{\
     \"name\":\"Elasticsearch\",\
@@ -55,10 +55,10 @@ class grafana::datasources(
     '--data-binary',$elasticsearchsourcejson,
   ])
 
-  $elasticsearchsourcemisses = shellquote([
-    'curl',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/Elasticsearch",
-    '2>/dev/null','|','grep','{"message":"Data source not found"}',';','echo $?',
-  ])
+  $elasticsearchsourcemisses = join([
+    'curl',shellquote("http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/Elasticsearch"),
+    '2>/dev/null','|','grep',shellquote('{"message":"Data source not found"}'),
+  ], ' ')
 
   exec{'ensure-graphite-source':
     require => [Package['curl']],
