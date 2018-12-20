@@ -45,6 +45,7 @@ node_class: &node_class
       - specialist-publisher
       - support
       - support-api
+      - support_api_csv_env_sync
       - travel-advice-publisher
   bouncer:
     apps:

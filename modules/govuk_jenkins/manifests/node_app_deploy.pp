@@ -34,6 +34,7 @@ define govuk_jenkins::node_app_deploy (
     'canary-frontend',
     'publicapi',
     'draft-publicapi',
+    'support_api_csv_env_sync',
   ]
 
   unless empty($apps) {
