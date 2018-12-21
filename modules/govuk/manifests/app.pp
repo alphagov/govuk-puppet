@@ -80,6 +80,13 @@
 # Setting this to true will add a monitoring check that the healthcheck
 # reports the app's status as OK.
 #
+# [*health_check_service_template*]
+#   The title of a `Icinga::Service_template` from which the
+#   healthcheck check should inherit.
+#
+# [*health_check_notification_period*]
+#   The title of a `Icinga::Timeperiod` resource to be used by the
+#   healthcheck.
 #
 # [*deny_framing*]
 # should we allow this app to be framed
@@ -236,6 +243,8 @@ define govuk::app (
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
   $json_health_check = false,
+  $health_check_service_template = 'govuk_regular_service',
+  $health_check_notification_period = undef,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $vhost = undef,
