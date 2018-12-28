@@ -1,6 +1,7 @@
 # Creates the kylemacpherson user
 class users::kylemacpherson {
   govuk_user { 'kylemacpherson':
+    ensure   => absent,
     fullname => 'Kyle MacPherson',
     email    => 'kyle.macpherson@digital.cabinet-office.gov.uk',
     ssh_key  => [
