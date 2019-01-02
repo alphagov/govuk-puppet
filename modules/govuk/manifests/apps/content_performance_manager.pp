@@ -72,6 +72,9 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*support_api_bearer_token*]
+#   The bearer token that will be used to authenticate with support-api
+#
 class govuk::apps::content_performance_manager(
   $db_hostname = undef,
   $db_name = 'content_performance_manager_production',
@@ -93,6 +96,7 @@ class govuk::apps::content_performance_manager(
   $redis_port = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
+  $support_api_bearer_token = undef,
 ) {
   $app_name = 'content-performance-manager'
 
@@ -158,6 +162,9 @@ class govuk::apps::content_performance_manager(
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
       value   => $rabbitmq_password;
+    "${title}-SUPPORT_API_BEARER_TOKEN":
+      varname => 'SUPPORT_API_BEARER_TOKEN',
+      value   => $support_api_bearer_token;
   }
 
   govuk::app::envvar::redis { $app_name:
