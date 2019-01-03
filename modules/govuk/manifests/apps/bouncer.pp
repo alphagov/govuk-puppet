@@ -173,6 +173,15 @@ class govuk::apps::bouncer(
     document_root => '/var/apps/bouncer/assets-directgov/directgov_campaigns',
   }
 
+  # disable X-Ray entirely, as bouncer gets a lot of traffic but
+  # doesn't really do anything interesting (from a tracing
+  # point-of-view).
+  govuk::app::envvar { 'bouncer-GOVUK_APP_CONFIG_DISABLE_XRAY':
+    app     => 'bouncer',
+    varname => 'GOVUK_APP_CONFIG_DISABLE_XRAY',
+    value   => 'this just needs to be set',
+  }
+
   nginx::config::site { 'www.mhra.gov.uk':
     content => template('govuk/www.mhra.gov.uk_nginx.conf.erb'),
   }
