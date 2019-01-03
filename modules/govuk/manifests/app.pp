@@ -234,6 +234,9 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
+# [*collectd_process_regex*]
+#   Regex to use to identify the process.
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -269,6 +272,7 @@ define govuk::app (
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
+  $collectd_process_regex = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -341,6 +345,7 @@ define govuk::app (
     unicorn_worker_processes       => $unicorn_worker_processes,
     cpu_warning                    => $cpu_warning,
     cpu_critical                   => $cpu_critical,
+    collectd_process_regex         => $collectd_process_regex,
   }
 
   govuk::app::service { $title:

@@ -40,6 +40,9 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
+# [*collectd_process_regex*]
+#   Regex to use to identify the process.
+#
 define govuk::app::config (
   $app_type,
   $domain,
