@@ -34,6 +34,12 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*oauth_id*]
+# The Oauth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+# The Oauth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
 # [*port*]
 #   The port where the Rails app is running.
 #   Default: 3075
@@ -85,6 +91,8 @@ class govuk::apps::support_api(
   $db_username = undef,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $port = '3075',
   $pp_data_url = undef,
   $pp_data_bearer_token = undef,
@@ -115,6 +123,12 @@ class govuk::apps::support_api(
   }
 
   govuk::app::envvar {
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PP_DATA_BEARER_TOKEN":
       varname => 'PP_DATA_BEARER_TOKEN',
       value   => $pp_data_bearer_token;

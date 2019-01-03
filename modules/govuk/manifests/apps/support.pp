@@ -36,6 +36,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*support_api_bearer_token*]
+#   The bearer token that will be used to authenticate with support-api
+#
 # [*zendesk_anonymous_ticket_email*]
 #   Email address used for anonymous zendesk tickets.
 #
@@ -67,6 +70,7 @@ class govuk::apps::support(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $support_api_bearer_token = undef,
   $zendesk_anonymous_ticket_email = undef,
   $zendesk_client_password = undef,
   $zendesk_client_username = undef,
@@ -119,6 +123,9 @@ class govuk::apps::support(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-SUPPORT_API_BEARER_TOKEN":
+      varname => 'SUPPORT_API_BEARER_TOKEN',
+      value   => $support_api_bearer_token;
     "${title}-ZENDESK_ANONYMOUS_TICKET_EMAIL":
       varname => 'ZENDESK_ANONYMOUS_TICKET_EMAIL',
       value   => $zendesk_anonymous_ticket_email;
