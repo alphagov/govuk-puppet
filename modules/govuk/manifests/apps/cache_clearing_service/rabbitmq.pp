@@ -26,6 +26,8 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   $amqp_pass = 'cache_clearing_service',
   $amqp_exchange = 'published_documents',
   $amqp_queue = 'cache_clearing_service',
+  $queue_size_critical_threshold,
+  $queue_size_warning_threshold,
 ) {
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
     ensure        => 'present',
@@ -33,6 +35,14 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     amqp_queue    => $amqp_queue,
     routing_key   => '*.major',
     durable       => true,
+  }
+
+  govuk_rabbitmq::monitor_messages {"${amqp_queue}_message_monitoring":
+    ensure             => present,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $amqp_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
