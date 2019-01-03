@@ -48,11 +48,12 @@ class govuk::apps::cache_clearing_service (
   $app_name = 'cache-clearing-service'
 
   govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'bare',
-    enable_nginx_vhost => false,
-    sentry_dsn         => $sentry_dsn,
-    command            => './bin/cache_clearing_service',
+    ensure                 => $ensure,
+    app_type               => 'bare',
+    enable_nginx_vhost     => false,
+    sentry_dsn             => $sentry_dsn,
+    command                => './bin/cache_clearing_service',
+    collectd_process_regex => 'cache-clearing-service/.*rake message_queue:consumer',
   }
 
   Govuk::App::Envvar {
