@@ -29,7 +29,6 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
-govuk::apps::finder_frontend::qa_to_content_enabled: true
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::kibana::logit_environment: 2694f14b-6519-4607-81f2-8a2130e5aaec
