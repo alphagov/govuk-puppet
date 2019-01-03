@@ -153,17 +153,19 @@ class govuk::apps::publishing_api(
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::app { $app_name:
-    ensure                 => $ensure,
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    vhost_ssl_only         => true,
-    health_check_path      => '/healthcheck',
-    json_health_check      => true,
-    log_format_is_json     => true,
-    deny_framing           => true,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    ensure                           => $ensure,
+    app_type                         => 'rack',
+    port                             => $port,
+    sentry_dsn                       => $sentry_dsn,
+    vhost_ssl_only                   => true,
+    health_check_path                => '/healthcheck',
+    health_check_service_template    => 'govuk_urgent_priority',
+    health_check_notification_period => 'inoffice',
+    json_health_check                => true,
+    log_format_is_json               => true,
+    deny_framing                     => true,
+    nagios_memory_warning            => $nagios_memory_warning,
+    nagios_memory_critical           => $nagios_memory_critical,
   }
 
   govuk::procfile::worker {'publishing-api':
