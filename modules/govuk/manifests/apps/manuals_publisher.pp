@@ -57,6 +57,10 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 class govuk::apps::manuals_publisher(
   $port = 3205,
   $asset_manager_bearer_token = undef,
@@ -72,6 +76,7 @@ class govuk::apps::manuals_publisher(
   $redis_port = undef,
   $secret_key_base = undef,
   $link_checker_api_secret_token = undef,
+  $link_checker_api_bearer_token = undef,
 ) {
   $app_name = 'manuals-publisher'
 
@@ -121,6 +126,9 @@ class govuk::apps::manuals_publisher(
     "${title}-LINK_CHECKER_API_SECRET_TOKEN":
       varname => 'LINK_CHECKER_API_SECRET_TOKEN',
       value   => $link_checker_api_secret_token;
+    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
   }
 
   if $secret_key_base != undef {
