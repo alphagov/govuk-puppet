@@ -105,6 +105,10 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
@@ -149,6 +153,7 @@ class govuk::apps::whitehall(
   $jwt_auth_secret = undef,
   $co_nss_watchkeeper_email_address = undef,
   $link_checker_api_secret_token = undef,
+  $link_checker_api_bearer_token = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
 ) {
@@ -321,6 +326,9 @@ class govuk::apps::whitehall(
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+      "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+          value   => $link_checker_api_bearer_token;
     }
 
     if $::govuk_node_class !~ /^development$/ {
