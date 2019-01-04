@@ -24,7 +24,7 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "link_checker_api_production"
-    temppath: "/tmp/"
+    temppath: "/tmp/govuk_env_sync/"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_support-contacts_production_daily":
@@ -35,6 +35,6 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "support_contacts_production"
-    temppath: "/tmp/"
+    temppath: "/tmp/govuk_env_sync/"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
