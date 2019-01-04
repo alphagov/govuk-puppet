@@ -40,6 +40,13 @@
 #   uset these checks won't be performed
 #   Default: undef
 #
+# [*oauth_id*]
+# The Oauth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+# The Oauth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
+#
 # [*port*]
 #   The port that it is served on.
 #   Default: 3208
@@ -76,6 +83,8 @@ class govuk::apps::link_checker_api (
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $google_api_key = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $port = 3208,
   $redis_host = undef,
   $redis_port = undef,
@@ -98,6 +107,15 @@ class govuk::apps::link_checker_api (
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar {
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
   }
 
   govuk::procfile::worker { $app_name:
