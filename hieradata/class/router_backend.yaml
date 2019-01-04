@@ -1,5 +1,8 @@
 ---
 
+govuk::apps::router_api::oauth_id: "%{hiera('govuk::apps::router_api::oauth_id')}"
+govuk::apps::router_api::oauth_secret: "%{hiera('govuk::apps::router_api::oauth_secret')}"
+
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1.router'

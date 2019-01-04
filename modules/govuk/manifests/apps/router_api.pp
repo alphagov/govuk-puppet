@@ -32,6 +32,13 @@
 # [*router_nodes_class*]
 #   The class or classes of machine that run router that require reloading
 #   after app deployment. Acceptable formats are "cache" or "cache,draft_cache"
+#
+# [*oauth_id*]
+#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
 
 class govuk::apps::router_api(
   $port = '3056',
@@ -42,6 +49,8 @@ class govuk::apps::router_api(
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $router_nodes_class = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
 ) {
   $app_name = 'router-api'
 
@@ -65,6 +74,12 @@ class govuk::apps::router_api(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
