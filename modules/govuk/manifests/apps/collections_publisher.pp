@@ -26,6 +26,10 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -61,6 +65,7 @@ class govuk::apps::collections_publisher(
   $oauth_id = undef,
   $oauth_secret = undef,
   $enable_procfile_worker = true,
+  $link_checker_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $db_hostname = undef,
   $db_username = 'collections_pub',
@@ -106,6 +111,9 @@ class govuk::apps::collections_publisher(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
