@@ -60,6 +60,10 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 class govuk::apps::travel_advice_publisher(
   $asset_manager_bearer_token = undef,
   $enable_email_alerts = false,
@@ -77,6 +81,7 @@ class govuk::apps::travel_advice_publisher(
   $show_historical_edition_link = false,
   $email_alert_api_bearer_token = undef,
   $link_checker_api_secret_token = undef,
+  $link_checker_api_bearer_token = undef,
 ) {
   $app_name = 'travel-advice-publisher'
 
@@ -130,6 +135,9 @@ class govuk::apps::travel_advice_publisher(
     "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
   }
 
   validate_bool($show_historical_edition_link)
