@@ -17,9 +17,7 @@ RSpec.configure do |c|
 
   c.strict_variables = ENV['PUPPET_RSPEC_STRICT_VARIABLES'] == '1'
 
-  if ENV['PUPPET_RSPEC_FUTURE_PARSER'] == '1'
-    c.parser = 'future'
-  end
+  c.parser = 'future'
 
   c.profile_examples = ENV['PUPPET_RSPEC_PROFILE_EXAMPLES'] == '1'
 
