@@ -1,9 +1,11 @@
 var expectedReplicaSetMembers = [
-  <%- @members.each do |host, properties| -%>
+  <%-
+    @members.each do |host, properties|
+      properties ||= {} -%>
     {
       host: '<%= host %>:27017',
-      priority: <%= properties ? properties.fetch('priority', 1) : 1 %>,
-      hidden: <%= properties ? properties.fetch('hidden', false) : false %>,
+      priority: <%= properties['priority'] || 1 %>,
+      hidden: <%= properties['hidden'] || false %>,
     },
   <%- end -%>
 ]
