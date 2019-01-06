@@ -1,6 +1,5 @@
 require 'open3'
 require 'parallel_tests'
-require 'parallel_tests/cli'
 require 'rspec/core/rake_task'
 
 desc "Use the basic rspec rake task with no options WARNING: slow"
@@ -15,7 +14,7 @@ namespace :spec do
     cli_args.concat(matched_files)
 
     $stderr.puts '---> Running puppet specs'
-    ParallelTest::CLI.run(cli_args)
+    ParallelTests::CLI.new.run(cli_args)
   end
 
   desc "Run govuk::node class specs"
