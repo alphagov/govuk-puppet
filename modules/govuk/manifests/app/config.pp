@@ -156,7 +156,7 @@ define govuk::app::config (
         value   => $sentry_dsn;
     }
 
-    if $::govuk_node_class !~ /^development$/ {
+    if 'development' != $::govuk_node_class {
       govuk::app::envvar { "${title}-GOVUK_APP_LOGROOT":
         varname => 'GOVUK_APP_LOGROOT',
         value   => "/var/log/${title}",
