@@ -38,14 +38,14 @@ class govuk::node::s_base (
     $_node_class = $::aws_migration
   } else {
     $_hostname = regsubst($::fqdn_short, '-\d\..*$', '')
-    $_node_class = regsubst($_hostname, '-', '_', G)
+    $_node_class = regsubst($_hostname, '-', '_', 'G')
   }
 
   $node_class = $node_apps[$_node_class]
 
   unless empty($node_class) {
     $_apps = $node_class['apps']
-    $apps = regsubst($_apps, '-', '_', G)
+    $apps = regsubst($_apps, '-', '_', 'G')
 
     $app_classes = regsubst($apps, '^', 'govuk::apps::')
 
