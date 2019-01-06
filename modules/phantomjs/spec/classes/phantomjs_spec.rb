@@ -1,6 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'phantomjs', :type => :class do
+  let(:facts) do
+    {
+      :operatingsystem => 'Linux',
+    }
+  end
 
   it { is_expected.to compile }
 
