@@ -6,6 +6,7 @@ class govuk_jenkins::jobs::update_cdn_dictionaries(
   $app_domain = hiera('app_domain'),
 ) {
 
+  $environment_variables = $govuk_jenkins::environment_variables
   $slack_team_domain = 'gds'
   $slack_room = 'govuk-deploy'
   $slack_build_server_url = "https://deploy.${app_domain}/"
