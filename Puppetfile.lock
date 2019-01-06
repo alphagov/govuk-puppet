@@ -32,6 +32,8 @@ FORGE
       puppetlabs-apt (< 5.0.0, >= 2.0.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.0.0)
     maestrodev-wget (1.5.0)
+    nextrevision-automysqlbackup (0.2.4)
+      puppetlabs-stdlib (>= 3.0.0)
     puppet-archive (1.1.2)
       puppetlabs-stdlib (< 5.0.0, >= 4.2.0)
     puppet-staging (1.0.7)
@@ -175,14 +177,6 @@ GIT
   specs:
     goldyfruit-grub2 (0.0.6)
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
-
-GIT
-  remote: git://github.com/nextrevision/puppet-automysqlbackup.git
-  ref: master
-  sha: f7083566f6b76674f50a986cae96568a1b44283b
-  specs:
-    nextrevision-automysqlbackup (0.2.4)
-      puppetlabs-stdlib (>= 3.0.0)
 
 GIT
   remote: git://github.com/simondeziel/puppet-apparmor.git
