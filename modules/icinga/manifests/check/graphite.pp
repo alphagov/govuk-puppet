@@ -91,11 +91,11 @@ define icinga::check::graphite(
   # Only display lines when threshold is an integer or float.
   # The '@' symbol indicates to icinga that the threshold is a minimum so we
   # allow that and capture the numbers for display in graphite.
-  $warn_line = $warning ? {
+  $warn_line = "${warning}" ? { # lint:ignore:only_variable_string
     /^@?([0-9.]+)$/ => "&target=alias(dashed(constantLine(${1})),%22warning%22)",
     default    => '',
   }
-  $crit_line = $critical ? {
+  $crit_line = "${critical}" ? { # lint:ignore:only_variable_string
     /^@?([0-9.]+)$/ => "&target=alias(dashed(constantLine(${1})),%22critical%22)",
     default    => '',
   }
