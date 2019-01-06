@@ -105,8 +105,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-elasticsearch.git
-  ref: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
-  sha: a0d8d3eae04a13408ec325fba5ffd36e3084f90a
+  ref: d88a116200f3169e08a1a3d55ce4a840fc3bb7e5
+  sha: d88a116200f3169e08a1a3d55ce4a840fc3bb7e5
   specs:
     elasticsearch-elasticsearch (0.4.0)
       puppetlabs-stdlib (>= 3.2.0)

@@ -50,7 +50,7 @@ mod 'alphagov/duplicity',
   :ref => '388b8343188673dc966db8840ed5c4cf7ae00470'
 mod 'elasticsearch/elasticsearch',
   :git => 'git://github.com/alphagov/puppet-elasticsearch.git',
-  :ref => 'a0d8d3eae04a13408ec325fba5ffd36e3084f90a'
+  :ref => 'd88a116200f3169e08a1a3d55ce4a840fc3bb7e5'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
