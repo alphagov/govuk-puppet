@@ -138,7 +138,7 @@ define govuk::app::config (
         value   => $app_type;
       "${title}-PORT":
         varname => 'PORT',
-        value   => $port;
+        value   => "${port}"; # lint:ignore:only_variable_string
       "${title}-GOVUK_APP_NAME":
         varname => 'GOVUK_APP_NAME',
         value   => $title;
@@ -166,7 +166,7 @@ define govuk::app::config (
     if $app_type == 'rack' and $unicorn_herder_timeout != 'NOTSET' {
       govuk::app::envvar { "${title}-UNICORN_HERDER_TIMEOUT":
         varname => 'UNICORN_HERDER_TIMEOUT',
-        value   => $unicorn_herder_timeout;
+        value   => "${unicorn_herder_timeout}"; # lint:ignore:only_variable_string
       }
     }
 
@@ -187,7 +187,7 @@ define govuk::app::config (
     if $unicorn_worker_processes {
       govuk::app::envvar { "${title}-UNICORN_WORKER_PROCESSES":
         varname => 'UNICORN_WORKER_PROCESSES',
-        value   => $unicorn_worker_processes;
+        value   => "${unicorn_worker_processes}"; # lint:ignore:only_variable_string
       }
     }
   }

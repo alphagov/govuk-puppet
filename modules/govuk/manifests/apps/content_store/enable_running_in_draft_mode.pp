@@ -73,7 +73,7 @@ class govuk::apps::content_store::enable_running_in_draft_mode(
       value   => 'draft-';
     "${title}-PORT":
       varname => 'PORT',
-      value   => $draft_content_store_port;
+      value   => "${draft_content_store_port}"; # lint:ignore:only_variable_string
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:

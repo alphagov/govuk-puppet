@@ -68,6 +68,6 @@ class govuk::apps::government_frontend::enable_running_in_draft_mode(
       value   => $content_store;
     "${title}-PORT":
       varname => 'PORT',
-      value   => $draft_government_frontend_port;
+      value   => "${draft_government_frontend_port}"; # lint:ignore:only_variable_string
   }
 }
