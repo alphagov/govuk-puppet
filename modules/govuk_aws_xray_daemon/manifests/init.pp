@@ -61,6 +61,7 @@ class govuk_aws_xray_daemon (
     group   => 'xray',
     mode    => '0600',
     content => template('govuk_aws_xray_daemon/credentials.erb'),
+    notify  => Service['govuk-aws-xray-daemon'],
   }
 
   package { 'xray':
@@ -75,11 +76,17 @@ class govuk_aws_xray_daemon (
     mode    => '0644',
     content => template('govuk_aws_xray_daemon/etc/amazon/xray/cfg.yaml.erb'),
     require => Package['xray'],
+    notify  => Service['govuk-aws-xray-daemon'],
   }
 
   @logrotate::conf { 'govuk-aws-xray-daemon':
     ensure  => present,
     matches => '/var/log/xray/xray.log',
     maxsize => '100M',
+  }
+
+  service { 'govuk-aws-xray-daemon':
+    ensure => running,
+    name   => 'xray',
   }
 }
