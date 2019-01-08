@@ -31,6 +31,7 @@ class govuk::apps::event_store (
     }
 
     govuk::app { 'event-store':
+      ensure             => 'absent',
       app_type           => 'bare',
       command            => './event-store',
       health_check_path  => '/healthcheck',

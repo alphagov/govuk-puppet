@@ -8,11 +8,6 @@ govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_c
 govuk::apps::email_alert_api::enabled: false
 govuk::apps::email_alert_service::enabled: false
 
-govuk::apps::event_store::mongodb_servers:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
 govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::manuals_publisher::mongodb_nodes:
   - 'mongo-1.backend'
