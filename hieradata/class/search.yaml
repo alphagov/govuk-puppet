@@ -5,6 +5,9 @@ govuk_elasticsearch::local_proxy::servers:
   - 'rummager-elasticsearch-2.api'
   - 'rummager-elasticsearch-3.api'
 
+govuk::apps::rummager::oauth_id: "%{hiera('govuk::apps::rummager::oauth_id')}"
+govuk::apps::rummager::oauth_secret: "%{hiera('govuk::apps::rummager::oauth_secret')}"
+
 govuk::node::s_base::apps:
   - rummager
 

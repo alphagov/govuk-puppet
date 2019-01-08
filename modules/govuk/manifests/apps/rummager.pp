@@ -70,6 +70,12 @@
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
+# [*oauth_id*]
+#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
 class govuk::apps::rummager(
   $rabbitmq_user,
   $port = '3009',
@@ -89,6 +95,8 @@ class govuk::apps::rummager(
   $elasticsearch_hosts = undef,
   $sitemap_generation_time = '1.10am',
   $unicorn_worker_processes = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
 ) {
 
   package { ['aspell', 'aspell-en', 'libaspell-dev']:
@@ -198,4 +206,14 @@ class govuk::apps::rummager(
     varname => 'SITEMAP_GENERATION_TIME',
     value   => $sitemap_generation_time,
   }
+
+  govuk::app::envvar {
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
+  }
+
 }
