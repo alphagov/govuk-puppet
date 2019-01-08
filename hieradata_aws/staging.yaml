@@ -236,9 +236,7 @@ monitoring::checks::rds::servers:
    - 'mysql-replica'
 
 
-# START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
-# monitoring::checks::smokey::environment: 'staging'
-# END OF TEMPORARY DEFECT FIX
+monitoring::checks::smokey::environment: 'staging'
 
 monitoring::uptime_collector::environment: 'staging'
 
