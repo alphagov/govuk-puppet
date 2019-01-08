@@ -6,8 +6,6 @@ class govuk_ci::agent::rabbitmq {
   contain ::govuk_rabbitmq
 
   rabbitmq_user {
-    'content_register_test':
-      password => 'content_register';
     'email_alert_service_test':
       password => 'email_alert_service_test';
     'govuk_seed_crawler':
@@ -20,10 +18,6 @@ class govuk_ci::agent::rabbitmq {
   }
 
   rabbitmq_user_permissions {
-    'content_register_test@/':
-      configure_permission => '^(amq\.gen.*|content_register_test)$',
-      read_permission      => '^(amq\.gen.*|content_register_test|content_register_published_documents_test_exchange)$',
-      write_permission     => '^(amq\.gen.*|content_register_test|content_register_published_documents_test_exchange)$';
     'email_alert_service_test@/':
       configure_permission => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue)$',
       read_permission      => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue)$',
@@ -44,7 +38,6 @@ class govuk_ci::agent::rabbitmq {
 
   govuk_rabbitmq::exchange {
     [
-      'content_register_published_documents_test_exchange@/',
       'email_alert_service_published_documents_test_exchange@/',
       'published_documents_test@/',
     ]:
