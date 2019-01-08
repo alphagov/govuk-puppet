@@ -163,6 +163,7 @@ class govuk::node::s_apt (
     distribution => 'xenial',
   }
   aptly::repo { 'sops': }
+  aptly::repo { 'splunk': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
   aptly::repo { 'terraform-docs': }
