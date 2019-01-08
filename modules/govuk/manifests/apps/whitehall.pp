@@ -119,6 +119,9 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
+# [*rummager_bearer_token*]
+#   The bearer token to use when communicating with Rummager.
+#   Default: undef
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -156,6 +159,7 @@ class govuk::apps::whitehall(
   $link_checker_api_bearer_token = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
+  $rummager_bearer_token = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -423,6 +427,9 @@ class govuk::apps::whitehall(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-RUMMAGER_BEARER_TOKEN":
+      varname => 'RUMMAGER_BEARER_TOKEN',
+      value   => $rummager_bearer_token;
   }
 
   if $basic_auth_credentials != undef {
