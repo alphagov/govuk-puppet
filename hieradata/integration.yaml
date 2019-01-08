@@ -177,7 +177,6 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'email-alert-api'
   - 'email-alert-api-public'
-  - 'event-store'
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'

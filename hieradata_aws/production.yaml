@@ -313,7 +313,6 @@ hosts::backend_migration::hosts:
       - manuals-frontend.publishing.service.gov.uk
       - licencefinder.publishing.service.gov.uk
       - publicapi.publishing.service.gov.uk
-      - public-event-store.publishing.service.gov.uk
       - service-manual.publishing.service.gov.uk
       - service-manual-frontend.publishing.service.gov.uk
       - smartanswers.publishing.service.gov.uk
@@ -652,7 +651,6 @@ hosts::backend_migration::hosts:
       - docs.publishing.service.gov.uk
       - email-alert-api.publishing.service.gov.uk
       - email-alert-api-public.publishing.service.gov.uk
-      - event-store.publishing.service.gov.uk
       - hmrc-manuals-api.publishing.service.gov.uk
       - kibana.publishing.service.gov.uk
       # - link-checker-api.publishing.service.gov.uk
