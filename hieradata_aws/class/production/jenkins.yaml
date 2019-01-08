@@ -11,9 +11,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::run_rake_task
-# START OF TEMPORARY DEFECT FIX: # Smokey tests are not running correctly due to defects reported in: https://trello.com/c/XzGHhe3l/1629-investigate-cause-of-jenkins-oom-crashes-in-aws-staging-and-production
-#  - govuk_jenkins::jobs::smokey
-# END OF TEMPORARY DEFECT FIX
+  - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_load_all_data
   - govuk_jenkins::jobs::transition_load_site_config
