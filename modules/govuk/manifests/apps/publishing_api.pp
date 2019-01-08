@@ -160,7 +160,7 @@ class govuk::apps::publishing_api(
     vhost_ssl_only                   => true,
     health_check_path                => '/healthcheck',
     health_check_service_template    => 'govuk_urgent_priority',
-    health_check_notification_period => 'inoffice',
+    health_check_notification_period => '24x7',
     json_health_check                => true,
     log_format_is_json               => true,
     deny_framing                     => true,
