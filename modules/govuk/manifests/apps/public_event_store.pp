@@ -11,6 +11,7 @@ class govuk::apps::public_event_store {
   $public_domain = "public-event-store.${app_domain}"
 
   nginx::config::vhost::proxy { $public_domain:
+    ensure    => 'absent',
     to        => [$internal_domain],
     to_ssl    => true,
     protected => false,

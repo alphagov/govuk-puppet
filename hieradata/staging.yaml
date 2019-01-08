@@ -398,7 +398,6 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'email-alert-api'
   - 'email-alert-api-public'
-  - 'event-store'
   - 'hmrc-manuals-api'
   - 'kibana'
   - 'maslow'
@@ -416,7 +415,6 @@ hosts::production::backend::app_hostnames:
   - 'support-api'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
-
 
 hosts::production::frontend::hosts:
   calculators-frontend-1:

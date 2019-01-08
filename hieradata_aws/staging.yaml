@@ -306,7 +306,6 @@ hosts::backend_migration::hosts:
       - manuals-frontend.staging.publishing.service.gov.uk
       - licencefinder.staging.publishing.service.gov.uk
       - publicapi.staging.publishing.service.gov.uk
-      - public-event-store.staging.publishing.service.gov.uk
       - service-manual.staging.publishing.service.gov.uk
       - service-manual-frontend.staging.publishing.service.gov.uk
       - smartanswers.staging.publishing.service.gov.uk
@@ -418,7 +417,6 @@ hosts::backend_migration::hosts:
       - docs.staging.publishing.service.gov.uk
       - email-alert-api.staging.publishing.service.gov.uk
       - email-alert-api-public.staging.publishing.service.gov.uk
-      - event-store.staging.publishing.service.gov.uk
       - hmrc-manuals-api.staging.publishing.service.gov.uk
       - kibana.staging.publishing.service.gov.uk
       # - link-checker-api.staging.publishing.service.gov.uk
