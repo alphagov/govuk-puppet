@@ -596,11 +596,6 @@ monitoring::checks::ses::region: us-east-1
 monitoring::checks::smokey::environment: 'production'
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
-monitoring::contacts::notify_slack: true
-monitoring::contacts::slack_subdomain: 'govuk'
-monitoring::contacts::slack_channel: '#webops-monitoring'
-monitoring::contacts::slack_username: 'Production Icinga'
-monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::edge::enabled: true
 monitoring::uptime_collector::environment: 'production'
 
