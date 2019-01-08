@@ -39,6 +39,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*rummager_bearer_token*]
+#   The bearer token to use when communicating with Rummager.
+#   Default: undef
 class govuk::apps::search_admin(
   $db_hostname = undef,
   $db_name = undef,
@@ -50,6 +53,7 @@ class govuk::apps::search_admin(
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
+  $rummager_bearer_token = undef,
 ) {
   $app_name = 'search-admin'
 
@@ -78,6 +82,9 @@ class govuk::apps::search_admin(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-RUMMAGER_BEARER_TOKEN":
+      varname => 'RUMMAGER_BEARER_TOKEN',
+      value   => $rummager_bearer_token;
   }
 
   if $secret_key_base != undef {
