@@ -5,6 +5,9 @@ govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-2'
   - 'router-backend-3'
 
+govuk::apps::router_api::oauth_id: "%{hiera('govuk::apps::router_api::draft_oauth_id')}"
+govuk::apps::router_api::oauth_secret: "%{hiera('govuk::apps::router_api::draft_oauth_secret')}"
+
 govuk::apps::router_api::mongodb_name: 'draft_router'
 govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1'
