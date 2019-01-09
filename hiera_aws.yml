@@ -5,9 +5,11 @@
   - 'class/%{::environment}/%{::govuk_node_class}'
   - 'class/%{::govuk_node_class}'
   - '%{::aws_stackname}/%{::environment}_credentials'
+  - 'apps/%{::environment}_credentials'
   - '%{::environment}_credentials'
   - '%{::environment}'
   - 'common.%{::lsbdistcodename}'
+  - 'common_credentials'
   - 'common'
 :backends:
   - eyaml

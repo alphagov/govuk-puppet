@@ -6,7 +6,7 @@ describe 'govuk::node::s_apt' do
     :vdc            => 'fake_vdc',
   }}
   let(:node) { 'apt-1.management.somethingsomething' }
-  let(:pre_condition) { 'govuk_mount { "/root/dir": }' }
+  let(:pre_condition) { 'govuk_mount { "/root/dir": disk => \'/dev/null\', }' }
 
   describe 'real_ip_header' do
     context 'when not specified' do

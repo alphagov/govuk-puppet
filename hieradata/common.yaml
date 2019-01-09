@@ -45,7 +45,7 @@ node_class: &node_class
       - specialist-publisher
       - support
       - support-api
-      - transition
+      - support_api_csv_env_sync
       - travel-advice-publisher
   bouncer:
     apps:
@@ -362,6 +362,8 @@ govuk::apps::cache_clearing_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
   - rabbitmq-3.backend
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 10000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 1000
 
 govuk::apps::ckan::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::ckan::db_port: 6432
@@ -452,6 +454,8 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
+
+govuk::apps::event_store::enabled: false
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::nagios_memory_warning: 2000
@@ -1414,7 +1418,6 @@ hosts::production::backend::app_hostnames:
   - 'docs'
   - 'email-alert-api'
   - 'email-alert-api-public'
-  - 'event-store'
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'
@@ -1513,7 +1516,6 @@ hosts::production::frontend::app_hostnames:
   - 'manuals-frontend'
   - 'licencefinder'
   - 'publicapi'
-  - 'public-event-store'
   - 'service-manual'
   - 'service-manual-frontend'
   - 'smartanswers'

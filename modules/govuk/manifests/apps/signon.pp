@@ -88,6 +88,7 @@ class govuk::apps::signon(
     sentry_dsn               => $sentry_dsn,
     vhost_ssl_only           => true,
     health_check_path        => '/healthcheck',
+    json_health_check        => true,
     asset_pipeline           => true,
     deny_framing             => true,
     log_format_is_json       => true,

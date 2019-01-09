@@ -82,6 +82,10 @@
 #   The secret token used when verifying web hook responses from the Link
 #   Checker API.
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 # [*run_links_ga_export]
 #   Feature flag to allow a daily rake task to upload a list of bad links
 #   to GA.
@@ -114,6 +118,7 @@ class govuk::apps::local_links_manager(
   $google_analytics_govuk_view_id = undef,
   $publishing_api_bearer_token = undef,
   $link_checker_api_secret_token = undef,
+  $link_checker_api_bearer_token = undef,
   $google_client_email = undef,
   $google_private_key = undef,
   $google_export_account_id = undef,
@@ -179,6 +184,9 @@ class govuk::apps::local_links_manager(
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+      "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+          value   => $link_checker_api_bearer_token;
       "${title}-RUN_LINK_GA_EXPORT":
         varname => 'RUN_LINK_GA_EXPORT',
         value   => bool2str($run_links_ga_export);

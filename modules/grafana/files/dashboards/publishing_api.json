@@ -47,24 +47,24 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1M', 'max'), 'Monthly Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.latency), '1M', '[[aggregation]]'), 'Monthly')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1w', 'max'), 'Weekly Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.latency), '1w', '[[aggregation]]'), 'Weekly')",
               "textEditor": true
             },
             {
               "refId": "A",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.latency), '1d', 'max'), 'Daily Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.latency), '1d', '[[aggregation]]'), 'Daily')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Downstream Low Latency",
+          "title": "Queue Latency",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -142,24 +142,24 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1M', 'max'), 'Monthly Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.enqueued), '1M', '[[aggregation]]'), 'Monthly')",
               "textEditor": true
             },
             {
               "refId": "B",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1w', 'max'), 'Weekly Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.enqueued), '1w', '[[aggregation]]'), 'Weekly')",
               "textEditor": true
             },
             {
               "refId": "C",
-              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_low.enqueued), '1d', 'max'), 'Daily Maximum')",
+              "target": "alias(summarize(maxSeries(stats.gauges.govuk.app.publishing-api.*.workers.queues.$queue.enqueued), '1d', '[[aggregation]]'), 'Daily')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Downstream Low Size",
+          "title": "Queue Size",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -523,7 +523,59 @@
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "downstream_low",
+          "value": "downstream_low"
+        },
+        "datasource": "Graphite",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Queue",
+        "multi": false,
+        "name": "queue",
+        "options": [],
+        "query": "stats.gauges.govuk.app.publishing-api.*.workers.queues.*",
+        "refresh": 1,
+        "regex": "",
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "max",
+          "value": "max"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": "Aggregation",
+        "multi": false,
+        "name": "aggregation",
+        "options": [
+          {
+            "selected": true,
+            "text": "max",
+            "value": "max"
+          },
+          {
+            "selected": false,
+            "text": "avg",
+            "value": "avg"
+          }
+        ],
+        "query": "max, avg",
+        "type": "custom"
+      }
+    ]
   },
   "time": {
     "from": "now-6M",
@@ -556,5 +608,5 @@
   },
   "timezone": "",
   "title": "Publishing API Metrics",
-  "version": 11
+  "version": 13
 }

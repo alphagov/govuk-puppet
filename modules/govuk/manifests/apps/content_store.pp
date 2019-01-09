@@ -54,6 +54,10 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
+# [*router_api_bearer_token*]
+#   The bearer token that will be used to authenticate with the router api
+#
+
 class govuk::apps::content_store(
   $port = '3068',
   $mongodb_nodes,
@@ -71,6 +75,7 @@ class govuk::apps::content_store(
   $app_domain = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $router_api_bearer_token = undef,
 ) {
   $app_name = 'content-store'
 
@@ -124,6 +129,9 @@ class govuk::apps::content_store(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-ROUTER_API_BEARER_TOKEN":
+        varname => 'ROUTER_API_BEARER_TOKEN',
+        value   => $router_api_bearer_token;
     "${title}-PERFORMANCEPLATFORM_BIG_SCREEN_VIEW":
       varname => 'PLEK_SERVICE_PERFORMANCEPLATFORM_BIG_SCREEN_VIEW_URI',
       value   => $performance_platform_big_screen_view_url;

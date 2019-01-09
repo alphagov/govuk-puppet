@@ -152,8 +152,10 @@ class govuk::node::s_apt (
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-datascrubber': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'govuk-prometheus-node-exporter': }
   aptly::repo { 'govuk-python': }
   aptly::repo { 'govuk-rubygems': }
+  aptly::repo { 'govuk-splunk-configurator': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
   aptly::repo { 'logstash': }
@@ -163,6 +165,7 @@ class govuk::node::s_apt (
     distribution => 'xenial',
   }
   aptly::repo { 'sops': }
+  aptly::repo { 'splunk': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
   aptly::repo { 'terraform-docs': }

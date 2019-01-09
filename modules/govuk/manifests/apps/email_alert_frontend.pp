@@ -53,6 +53,7 @@ class govuk::apps::email_alert_frontend(
     asset_pipeline_prefix => 'email-alert-frontend',
     vhost                 => $vhost,
     health_check_path     => '/healthcheck',
+    json_health_check     => true,
   }
 
   Govuk::App::Envvar {

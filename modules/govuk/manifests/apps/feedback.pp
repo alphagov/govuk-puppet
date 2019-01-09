@@ -14,6 +14,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*support_bearer_token*]
+#   The bearer token to allow this app to submit anonymous feedback to the Support App.
+#
 # [*support_api_bearer_token*]
 #   The bearer token to allow this app to submit anonymous feedback to the Support API.
 #
@@ -25,6 +28,7 @@ class govuk::apps::feedback(
   $port = '3028',
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $support_bearer_token = undef,
   $support_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $assisted_digital_google_spreadsheet_key = undef,
@@ -52,6 +56,13 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $support_bearer_token != undef {
+    govuk::app::envvar { "${title}-SUPPORT_BEARER_TOKEN":
+      varname => 'SUPPORT_BEARER_TOKEN',
+      value   => $support_bearer_token,
     }
   }
 

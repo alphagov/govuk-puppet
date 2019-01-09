@@ -76,6 +76,10 @@
 #   The Link Checker API secret token.
 #   Default: undef
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token that will be used to authenticate with link-checker-api
+#   Default: undef
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -99,6 +103,7 @@ class govuk::apps::publisher(
     $email_group_business = undef,
     $email_group_citizen = undef,
     $link_checker_api_secret_token = undef,
+    $link_checker_api_bearer_token = undef,
   ) {
 
   $app_name = 'publisher'
@@ -214,5 +219,8 @@ class govuk::apps::publisher(
     "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
+    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
   }
 }

@@ -39,6 +39,11 @@
 
             export ZONEFILE=$ZONE.yaml
             ./jenkins.sh ${ACTION}
+    publishers:
+        - text-finder:
+            regexp: "Plan.*\\d* to add, \\d* to change, \\d* to destroy."
+            also-check-console-output: true
+            unstable-if-found: true
     parameters:
         - choice:
             name: PROVIDERS

@@ -6,6 +6,14 @@
 #
 # FIXME: Document all parameters
 #
+# [*health_check_service_template*]
+#   The title of a `Icinga::Service_template` from which the
+#   healthcheck check should inherit.
+#
+# [*health_check_notification_period*]
+#   The title of a `Icinga::Timeperiod` resource to be used by the
+#   healthcheck.
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -32,6 +40,9 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
+# [*collectd_process_regex*]
+#   Regex to use to identify the process.
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -46,6 +57,8 @@ define govuk::app::config (
   $health_check_path = 'NOTSET',
   $expose_health_check = true,
   $json_health_check = false,
+  $health_check_service_template = 'govuk_regular_service',
+  $health_check_notification_period = undef,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $unicorn_herder_timeout = 'NOTSET',
@@ -312,6 +325,8 @@ define govuk::app::config (
         ensure              => $ensure,
         check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
         service_description => $healthcheck_desc,
+        use                 => $health_check_service_template,
+        notification_period => $health_check_notification_period,
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url($healthcheck_opsmanual),
       }

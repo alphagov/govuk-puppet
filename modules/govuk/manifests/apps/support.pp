@@ -36,6 +36,9 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*support_api_bearer_token*]
+#   The bearer token that will be used to authenticate with support-api
+#
 # [*zendesk_anonymous_ticket_email*]
 #   Email address used for anonymous zendesk tickets.
 #
@@ -44,6 +47,18 @@
 #
 # [*zendesk_client_username*]
 #   Username for connection to GDS zendesk client.
+#
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
 #
 class govuk::apps::support(
   $emergency_contact_details = undef,
@@ -55,9 +70,14 @@ class govuk::apps::support(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $support_api_bearer_token = undef,
   $zendesk_anonymous_ticket_email = undef,
   $zendesk_client_password = undef,
   $zendesk_client_username = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket_name = undef,
 ) {
 
   $app_name = 'support'
@@ -73,14 +93,6 @@ class govuk::apps::support(
       location /_status {
         allow   127.0.0.0/8;
         deny    all;
-      }
-
-      proxy_set_header X-Sendfile-Type X-Accel-Redirect;
-      proxy_set_header X-Accel-Mapping /data/uploads/support-api/csvs/=/csvs/;
-
-      location /csvs/ {
-        internal;
-        root /data/uploads/support-api;
       }',
     asset_pipeline     => true,
   }
@@ -111,6 +123,9 @@ class govuk::apps::support(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-SUPPORT_API_BEARER_TOKEN":
+      varname => 'SUPPORT_API_BEARER_TOKEN',
+      value   => $support_api_bearer_token;
     "${title}-ZENDESK_ANONYMOUS_TICKET_EMAIL":
       varname => 'ZENDESK_ANONYMOUS_TICKET_EMAIL',
       value   => $zendesk_anonymous_ticket_email;
@@ -120,6 +135,18 @@ class govuk::apps::support(
     "${title}-ZENDESK_CLIENT_USERNAME":
       varname => 'ZENDESK_CLIENT_USERNAME',
       value   => $zendesk_client_username;
+    "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
+      value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
+      value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
+    "${title}-AWS_S3_BUCKET_NAME":
+      varname => 'AWS_S3_BUCKET_NAME',
+      value   => $aws_s3_bucket_name;
   }
 
   if $secret_key_base != undef {

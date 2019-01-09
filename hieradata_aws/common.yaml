@@ -43,6 +43,7 @@ node_class: &node_class
       - specialist-publisher
       - support
       - support-api
+      - support_api_csv_env_sync
       - transition
       - travel-advice-publisher
   bouncer:
@@ -372,6 +373,8 @@ govuk::apps::bouncer::unicorn_worker_processes: "8"
 
 govuk::apps::cache_clearing_service::enabled: true
 govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 10000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 1000
 
 govuk::apps::ckan::db_hostname: "postgresql-primary"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -434,8 +437,9 @@ govuk::apps::content_publisher::db::rds: true
 govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::content_publisher::aws_region: "eu-west-1"
 
-govuk::apps::content_store::nagios_memory_warning: 2300
-govuk::apps::content_store::nagios_memory_critical: 2500
+govuk::apps::content_store::nagios_memory_warning: 2600
+govuk::apps::content_store::nagios_memory_critical: 2800
+govuk::apps::content_store::unicorn_worker_processes: "8"
 
 govuk::apps::content_tagger::db_hostname: "db-admin"
 govuk::apps::content_tagger::db_port: 6432
@@ -474,6 +478,8 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
+
+govuk::apps::event_store::enabled: false
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::nagios_memory_warning: 2000
@@ -619,6 +625,7 @@ govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
 govuk::apps::rummager::redis_host: 'backend-redis'
 govuk::apps::rummager::redis_port: '6379'
 govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch:9200'
+govuk::apps::rummager::unicorn_worker_processes: "6"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'mysql-primary'

@@ -99,6 +99,8 @@ class govuk::apps::asset_manager(
       unicorn_worker_processes => $unicorn_worker_processes,
       nagios_memory_warning    => $nagios_memory_warning,
       nagios_memory_critical   => $nagios_memory_critical,
+      cpu_warning              => 300,
+      cpu_critical             => 400,
     }
 
     govuk::app::envvar {

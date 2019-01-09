@@ -7,10 +7,6 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automongodbbackup/
     fq_dn: mongo-1.backend.%{hiera('app_domain')}
     priority: '001'
-  backup_mongodb_backups_api_mongo:
-    directory: /var/lib/automongodbbackup/
-    fq_dn: api-mongo-1.api.%{hiera('app_domain')}
-    priority: '001'
   backup_mongodb_backups_performance_mongo:
     directory: /var/lib/automongodbbackup/
     fq_dn: performance-mongo-1.api.%{hiera('app_domain')}
@@ -35,10 +31,6 @@ govuk::node::s_backup::directories:
     directory: /var/lib/autopostgresqlbackup/
     fq_dn: puppetmaster-1.management.%{hiera('app_domain')}
     priority: '003'
-  backup_postgresql_backups_transition_postgresql_master_1:
-    directory: /var/lib/autopostgresqlbackup/
-    fq_dn: transition-postgresql-master-1.backend.%{hiera('app_domain')}
-    priority: '001'
   backup_graphite_storage_whisper_graphite-1:
     directory: /opt/graphite/storage/backups
     fq_dn: graphite-1.management.%{hiera('app_domain')}

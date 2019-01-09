@@ -29,11 +29,11 @@ define govuk_jenkins::node_app_deploy (
   # to avoid confusion.
   $blacklist = [
     'asset_env_sync',
-    'event-store',
     'canary-backend',
     'canary-frontend',
     'publicapi',
     'draft-publicapi',
+    'support_api_csv_env_sync',
   ]
 
   unless empty($apps) {

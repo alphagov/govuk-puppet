@@ -35,27 +35,6 @@ describe 'monitoring::contacts', :type => :class do
       []
   end
 
-  context 'notify_pager => true, notify_slack => true, slack creds' do
-    let(:params) {{
-      :notify_pager       => true,
-      :notify_slack       => true,
-      :slack_token        => 'peach',
-      :slack_channel      => 'pear',
-      :slack_subdomain    => 'plum',
-    }}
-
-    it { is_expected.to contain_icinga__slack_contact('slack_notification').with(
-      :slack_token     => 'peach',
-      :slack_channel   => 'pear',
-      :slack_subdomain => 'plum'
-    )}
-
-    it_should_behave_like 'configured contact groups',
-      ['slack_notification', 'pagerduty_24x7'],
-      ['slack_notification'],
-      ['slack_notification']
-  end
-
   context 'notify_graphite => true' do
     let(:params) {{
       :notify_graphite => true,

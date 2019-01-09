@@ -34,6 +34,12 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*oauth_id*]
+# The Oauth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#
+# [*oauth_secret*]
+# The Oauth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#
 # [*port*]
 #   The port where the Rails app is running.
 #   Default: 3075
@@ -64,6 +70,18 @@
 # [*zendesk_client_username*]
 #   Username for connection to GDS zendesk client.
 #
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
+#
 class govuk::apps::support_api(
   $db_hostname = undef,
   $db_port = undef,
@@ -73,6 +91,8 @@ class govuk::apps::support_api(
   $db_username = undef,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
   $port = '3075',
   $pp_data_url = undef,
   $pp_data_bearer_token = undef,
@@ -82,6 +102,10 @@ class govuk::apps::support_api(
   $zendesk_anonymous_ticket_email = undef,
   $zendesk_client_password = undef,
   $zendesk_client_username = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket_name = undef,
 ) {
   $app_name = 'support-api'
 
@@ -99,6 +123,12 @@ class govuk::apps::support_api(
   }
 
   govuk::app::envvar {
+    "${title}-OAUTH_ID":
+      varname => 'OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
+      varname => 'OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-PP_DATA_BEARER_TOKEN":
       varname => 'PP_DATA_BEARER_TOKEN',
       value   => $pp_data_bearer_token;
@@ -114,24 +144,23 @@ class govuk::apps::support_api(
     "${title}-ZENDESK_CLIENT_USERNAME":
       varname => 'ZENDESK_CLIENT_USERNAME',
       value   => $zendesk_client_username;
+    "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
+      value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
+      value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
+    "${title}-AWS_S3_BUCKET_NAME":
+      varname => 'AWS_S3_BUCKET_NAME',
+      value   => $aws_s3_bucket_name;
   }
 
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
-  }
-
-  if $::aws_migration {
-    $data_dir_user = 'deploy'
-  } else {
-    $data_dir_user = 'assets'
-  }
-
-  file { ['/data/uploads/support-api', '/data/uploads/support-api/csvs']:
-    ensure => directory,
-    mode   => '0775',
-    owner  => $data_dir_user,
-    group  => $data_dir_user,
   }
 
   govuk::procfile::worker { $app_name:
