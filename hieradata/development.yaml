@@ -116,7 +116,6 @@ govuk::apps::email_alert_api::enable_procfile_worker: false
 govuk::apps::email_alert_service::rabbitmq_hosts: ['localhost']
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
-govuk::apps::event_store::enabled: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::government_frontend::enable_running_in_draft_mode::content_store: 'http://draft-content-store.dev.gov.uk'
 govuk::apps::imminence::enable_procfile_worker: false
