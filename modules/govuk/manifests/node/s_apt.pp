@@ -154,6 +154,7 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'govuk-python': }
   aptly::repo { 'govuk-rubygems': }
+  aptly::repo { 'govuk-splunk-configurator': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
   aptly::repo { 'logstash': }
