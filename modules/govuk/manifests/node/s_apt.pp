@@ -152,6 +152,7 @@ class govuk::node::s_apt (
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-datascrubber': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'govuk-prometheus-node-exporter': }
   aptly::repo { 'govuk-python': }
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'govuk-splunk-configurator': }
