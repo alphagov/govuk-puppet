@@ -36,6 +36,7 @@ ENV.fetch('classes').split(",").each do |class_name|
         :memorysize =>  '3.86 GB',
         :memorysize_mb => 3953.43,
         :aws_migration => (class_name =~ /db_admin/ ? true : false),
+        :vdc => 'example',
       }}
 
       let(:hiera_config) { temporary_hiera_file.path }

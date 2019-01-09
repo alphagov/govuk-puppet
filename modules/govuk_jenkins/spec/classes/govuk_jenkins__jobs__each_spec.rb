@@ -20,9 +20,7 @@ BROKEN_SPECS = %w[
 ]
 
 # test everything apart from known broken exceptions
-FILES = FILES - BROKEN_SPECS
-
-FILES.each do |filename|
+(FILES - BROKEN_SPECS).each do |filename|
   classname = filename.split(".")[0]
 
   describe "govuk_jenkins::jobs::#{classname}", :type => :class do
