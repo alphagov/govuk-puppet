@@ -58,7 +58,9 @@ class govuk_splunk(
 
   package { 'govuk-splunk-configurator':
     ensure  => latest,
-    require => Package['splunk', 'acl'], Apt::Source['govuk-splunk-configurator'],
+    require => [ Package['splunk', 'acl'],
+                Apt::Source['govuk-splunk-configurator'],
+                ],
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem':
