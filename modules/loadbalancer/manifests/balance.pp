@@ -89,7 +89,5 @@ define loadbalancer::balance(
     }
   }
 
-  if $maintenance_mode {
-    include loadbalancer::maintenance
-  }
+  include loadbalancer::maintenance
 }
