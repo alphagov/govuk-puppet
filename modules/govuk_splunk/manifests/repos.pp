@@ -19,7 +19,7 @@ class govuk_splunk::repos (
     release      => $::lsbdistcodename,
     architecture => $::architecture,
     repos        => 'stable',
-    key          => '',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   apt::source { 'govuk-splunk-configurator':
@@ -27,6 +27,6 @@ class govuk_splunk::repos (
     release      => $::lsbdistcodename,
     architecture => $::architecture,
     repos        => 'stable',
-    key          => '',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 }
