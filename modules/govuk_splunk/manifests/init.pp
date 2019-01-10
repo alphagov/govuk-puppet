@@ -45,7 +45,7 @@ class govuk_splunk(
   $cyber_cname,
 ) {
 
-  include govuk_splunk::repo
+  include govuk_splunk::repos
 
   package { 'splunk':
     ensure  => latest,
