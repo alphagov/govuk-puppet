@@ -15,9 +15,9 @@ class govuk_prometheus_node_exporter::repo (
 ) {
   apt::source { 'govuk-prometheus-node-exporter':
     location     => "http://${apt_mirror_hostname}/govuk-prometheus-node-exporter",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
-    repos        => 'stable',
+    repos        => 'main',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 }
