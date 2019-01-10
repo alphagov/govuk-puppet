@@ -20,24 +20,27 @@ class govuk::apps::event_store (
   $mongodb_servers = [],
   $port = '3097',
 ) {
-  if $enabled {
-    Govuk::App::Envvar {
-      app => 'event-store',
-    }
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
 
-    govuk::app::envvar {
-      'EVENT_STORE_MONGO_NODES':
-        value => join($mongodb_servers, ',');
-    }
+  Govuk::App::Envvar {
+    ensure => $ensure,
+    app    => 'event-store',
+  }
 
-    govuk::app { 'event-store':
-      ensure             => 'absent',
-      app_type           => 'bare',
-      command            => './event-store',
-      health_check_path  => '/healthcheck',
-      port               => $port,
-      enable_nginx_vhost => true,
-    }
+  govuk::app::envvar {
+    'EVENT_STORE_MONGO_NODES':
+      value => join($mongodb_servers, ',');
+  }
 
+  govuk::app { 'event-store':
+    ensure             => $ensure,
+    app_type           => 'bare',
+    command            => './event-store',
+    health_check_path  => '/healthcheck',
+    port               => $port,
+    enable_nginx_vhost => true,
   }
 }

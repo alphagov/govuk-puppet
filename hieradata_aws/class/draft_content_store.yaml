@@ -9,3 +9,4 @@ govuk::apps::content_store::mongodb_nodes:
 govuk::apps::content_store::oauth_id: "%{hiera('govuk::apps::content_store::draft_oauth_id')}"
 govuk::apps::content_store::oauth_secret: "%{hiera('govuk::apps::content_store::draft_oauth_secret')}"
 govuk::apps::content_store::vhost: 'draft-content-store'
+govuk::apps::content_store::router_api_bearer_token: "%{hiera('govuk::apps::content_store::draft_router_api_bearer_token')}"

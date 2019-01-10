@@ -34,7 +34,7 @@ describe 'mongodb::server', :type => :class do
     } }
 
     it do
-      is_expected.to raise_error(Puppet::Error, /^Replica set can't have no members/)
+      is_expected.to raise_error(Puppet::Error, /Replica set can't have no members/)
     end
   end
 
