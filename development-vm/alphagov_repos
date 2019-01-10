@@ -24,6 +24,7 @@ govuk-content-schema-test-helpers
 govuk-content-schemas
 govuk-dns
 govuk-dns-config
+govuk-guix
 govuk-puppet
 hmrc-manuals-api
 imminence
