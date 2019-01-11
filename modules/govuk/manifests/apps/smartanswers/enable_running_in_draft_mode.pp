@@ -68,6 +68,6 @@ class govuk::apps::smartanswers::enable_running_in_draft_mode(
       value   => $content_store;
     "${title}-PORT":
       varname => 'PORT',
-      value   => $draft_smartanswers_port;
+      value   => "${draft_smartanswers_port}"; # lint:ignore:only_variable_string
   }
 }

@@ -57,7 +57,7 @@ define govuk_containers::app (
   include ::govuk_containers::app::config
 
   validate_array($envvars)
-  validate_re($restart_attempts, [ 'never', 'always', '^\d$' ])
+  validate_re("${restart_attempts}", [ 'never', 'always', '^\d$' ]) # lint:ignore:only_variable_string
 
   $exposed_port = "${port}:${port}"
 

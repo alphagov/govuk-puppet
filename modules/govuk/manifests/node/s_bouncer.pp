@@ -27,9 +27,11 @@ class govuk::node::s_bouncer (
     notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
   }
 
+  $warning_threshold = 1.2 * $minimum_request_rate
+
   @@icinga::check::graphite { "check_nginx_requests_${::hostname}":
     target              => "${::fqdn_metrics}.nginx.nginx_requests",
-    warning             => "@${minimum_request_rate * 1.2}",
+    warning             => "@${warning_threshold}",
     critical            => "@${minimum_request_rate}",
     desc                => 'Minimum HTTP request rate for bouncer',
     host_name           => $::fqdn,
