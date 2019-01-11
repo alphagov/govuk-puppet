@@ -6,10 +6,11 @@ mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'fsalum/redis'
 mod 'jamesnetherton/google_chrome', '0.4.0'
-mod 'puppetlabs/docker', '1.0.2'
 mod 'maestrodev/wget', '>= 1.1.0'
+mod 'nextrevision-automysqlbackup'
 mod 'puppetlabs/apt', '2.3.0'
 mod 'puppetlabs/concat', '2.2.0'
+mod 'puppetlabs/docker', '1.0.2'
 mod 'puppetlabs/haproxy', '1.5.0'
 mod 'puppetlabs/java_ks'
 mod 'puppetlabs/lvm'
@@ -35,11 +36,6 @@ mod 'goldyfruit/grub2',
   :git => 'git://github.com/goldyfruit/puppet-grub2.git',
   :ref => 'a55113eeb2cfe8ff92307eddd10c4f8b3a78bb73'
 
-# using git version because we need 93a1765bc09
-# which isn't in 0.2.2 (current latest, 2013-11-13)
-mod 'nextrevision/automysqlbackup',
-  :git => 'git://github.com/nextrevision/puppet-automysqlbackup.git'
-
 mod 'simondeziel/apparmor',
   :git => 'git://github.com/simondeziel/puppet-apparmor.git'
 mod 'alphagov/curl',
@@ -50,7 +46,7 @@ mod 'alphagov/duplicity',
   :ref => '388b8343188673dc966db8840ed5c4cf7ae00470'
 mod 'elasticsearch/elasticsearch',
   :git => 'git://github.com/alphagov/puppet-elasticsearch.git',
-  :ref => 'a0d8d3eae04a13408ec325fba5ffd36e3084f90a'
+  :ref => 'd88a116200f3169e08a1a3d55ce4a840fc3bb7e5'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
 mod 'gdsoperations/gor',
