@@ -58,7 +58,7 @@ class govuk_splunk(
 
   package { 'govuk-splunk-configurator':
     ensure  => latest,
-    require => [ Package['splunk', 'acl'],
+    require => [ Package['splunkforwarder', 'acl'],
                 Apt::Source['govuk-splunk-configurator'],
                 ],
   }
