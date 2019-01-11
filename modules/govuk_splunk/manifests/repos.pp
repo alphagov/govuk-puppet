@@ -16,17 +16,15 @@ class govuk_splunk::repos (
 ) {
   apt::source { 'splunk':
     location     => "http://${apt_mirror_hostname}/splunk",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
-    repos        => 'stable',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
   apt::source { 'govuk-splunk-configurator':
     location     => "http://${apt_mirror_hostname}/govuk-splunk-configurator",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
-    repos        => 'stable',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 }
