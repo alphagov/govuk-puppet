@@ -47,7 +47,7 @@ class govuk_splunk(
 
   include govuk_splunk::repos
 
-  package { 'splunk':
+  package { 'splunkforwarder':
     ensure  => latest,
     require => Apt::Source['splunk'],
   }
@@ -118,7 +118,7 @@ class govuk_splunk(
   }
 
   service { 'splunk':
-    ensure    => running,
+    ensure  => running,
     subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf',
