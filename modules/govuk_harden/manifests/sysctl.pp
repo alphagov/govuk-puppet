@@ -4,10 +4,6 @@
 #
 class govuk_harden::sysctl {
 
-  # TODO: remove this once ran on all environments or after 2018-09-01
-  file { '/etc/sysctl.conf':
-    ensure => absent,
-  }
   # Adjusting kernel networking parameters
   file { '/etc/sysctl.d/60-govuk-base.conf':
     ensure => present,

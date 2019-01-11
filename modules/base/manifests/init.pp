@@ -36,6 +36,11 @@ class base {
     include resolvconf
   }
 
+  # Only for testing
+  if $::aws_environment == 'integration' {
+    include govuk_prometheus_node_exporter
+  }
+
   include ssh
   include timezone
   include tmpreaper
