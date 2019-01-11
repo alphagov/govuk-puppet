@@ -45,7 +45,7 @@ class govuk_splunk(
   $cyber_cname,
 ) {
 
-  include govuk_splunk::repos
+  include govuk_splunk::repo
 
   package { 'splunk':
     ensure  => latest,
@@ -68,6 +68,7 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => $gds_server_cert,
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
@@ -76,6 +77,7 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => $gds_root_ca_cert,
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
@@ -84,6 +86,7 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf'),
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
@@ -92,6 +95,7 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => $cyber_server_cert,
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
@@ -100,6 +104,7 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => $cyber_root_ca_cert,
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
@@ -108,11 +113,19 @@ class govuk_splunk(
     owner   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf'),
+    require => Package['govuk-splunk-configurator'],
     notify  => Service['splunk'],
   }
 
   service { 'splunk':
-    ensure  => running,
+    ensure    => running,
+    subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
+                      '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem',
+                      '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf',
+                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkUFCombinedCertificate.pem',
+                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkCACertificate.pem',
+                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf'
+                      ],
   }
 
   @@icinga::check { "check_splunk_running_${::hostname}":
