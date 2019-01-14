@@ -76,6 +76,7 @@ class govuk_splunk(
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem':
     ensure  => file,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => $gds_server_cert,
     require => Package['govuk-splunk-configurator'],
@@ -85,6 +86,7 @@ class govuk_splunk(
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem':
     ensure  => file,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => $gds_root_ca_cert,
     require => Package['govuk-splunk-configurator'],
@@ -94,6 +96,7 @@ class govuk_splunk(
   file { '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf':
     ensure  => present,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf'),
     require => Package['govuk-splunk-configurator'],
@@ -103,6 +106,7 @@ class govuk_splunk(
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkUFCombinedCertificate.pem':
     ensure  => file,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => $cyber_server_cert,
     require => Package['govuk-splunk-configurator'],
@@ -112,6 +116,7 @@ class govuk_splunk(
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkCACertificate.pem':
     ensure  => file,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => $cyber_root_ca_cert,
     require => Package['govuk-splunk-configurator'],
@@ -121,6 +126,7 @@ class govuk_splunk(
   file { '/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf':
     ensure  => present,
     owner   => 'splunk',
+    group   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf'),
     require => Package['govuk-splunk-configurator'],
