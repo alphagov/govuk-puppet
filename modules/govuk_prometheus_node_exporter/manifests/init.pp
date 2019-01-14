@@ -5,6 +5,7 @@
 class govuk_prometheus_node_exporter {
 
   include govuk_prometheus_node_exporter::repo
+  include govuk_prometheus_node_exporter::firewall
 
   package { 'node-exporter':
     ensure  => latest,
