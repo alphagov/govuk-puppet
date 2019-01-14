@@ -139,7 +139,7 @@ class govuk_splunk(
   }
 
   @@icinga::check { "check_splunk_running_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!splunk',
+    check_command       => 'check_nrpe!check_proc_running!splunkd',
     service_description => 'splunk universal forwarder running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
