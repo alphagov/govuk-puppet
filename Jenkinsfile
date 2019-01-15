@@ -17,6 +17,10 @@ node {
     stage("Bundle install") {
       govuk.bundleApp()
     }
+    
+    stage("Check consistency between AWS and Carrenza") {
+      govuk.runRakeTask('check_consistency_between_aws_and_carrenza')
+    }
 
     if (env.BRANCH_NAME != 'master') {
       govuk.runRakeTask('shell:shellcheck[origin/master,HEAD]')
