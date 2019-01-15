@@ -8,7 +8,6 @@ RSpec.configure do |c|
   c.mock_framework = :rspec
   c.hiera_config = 'spec/fixtures/hiera/hiera.yaml'
 
-  c.manifest    = File.join(HERE, 'manifests')
   c.module_path = [
     File.join(HERE, 'modules'),
     File.join(HERE, 'vendor', 'modules')
