@@ -58,11 +58,6 @@ class nginx (
     ],
   }
 
-  # Include ability to do a full restart of nginx. This does not explicitly
-  # trigger a restart, but simply makes the class available to any manifest
-  # that `include`s nginx.
-  include nginx::restart
-
   class { 'collectd::plugin::nginx':
     status_url => 'http://127.0.0.234/nginx_status',
     require    => Class['nginx::config'],

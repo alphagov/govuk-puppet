@@ -37,14 +37,13 @@ class nginx::package(
     }
   }
 
-  package { 'nginx':
-    ensure => $nginx_version,
-    notify => Class['nginx::restart'],
+  package {
+    'nginx':
+      ensure => $nginx_version,
+    ;
+    'nginx-module-perl':
+      ensure  => $nginx_module_perl_version,
+      require => Package['nginx'],
   }
-
-  package { 'nginx-module-perl':
-    ensure  => $nginx_module_perl_version,
-    notify  => Class['nginx::restart'],
-    require => Package['nginx'],
-  }
+  ~> Service <| title == 'nginx' |>
 }
