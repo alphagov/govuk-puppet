@@ -1,4 +1,4 @@
-# == Define: grafana::dashboards::deployment_dashboard
+# == Define: grafana::dashboards::application_dashboard
 #
 # Automate the creation of app specific deployment Grafana dashboards
 #
@@ -30,7 +30,7 @@
 #   with the option to override with a blank field for apps that use a different
 #   configuration of the logstasher gem.
 #
-define grafana::dashboards::deployment_dashboard (
+define grafana::dashboards::application_dashboard (
   $app_name = $title,
   $docs_name = $title,
   $dashboard_directory = undef,
@@ -120,8 +120,8 @@ define grafana::dashboards::deployment_dashboard (
   )
 
   file {
-    "${dashboard_directory}/deployment_${app_name}.json":
+    "${dashboard_directory}/${app_name}_dashboard.json":
     notify  => Service['grafana-server'],
-    content => template('grafana/dashboards/deployment_dashboard_template.json.erb');
+    content => template('grafana/dashboards/application_dashboard_template.json.erb');
   }
 }

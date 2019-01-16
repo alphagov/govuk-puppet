@@ -10,13 +10,13 @@
 # [*machine_suffix_metrics*]
 #   The machine hostname suffix for Graphite metrics.
 #
-# [*deployment_applications*]
-#   Hash of application that require a deployment dashboard
+# [*application_dashboards*]
+#   Hash of applications to create dashboards for.
 #
 class grafana::dashboards (
   $app_domain = undef,
   $machine_suffix_metrics = undef,
-  $deployment_applications = undef,
+  $application_dashboards = undef,
 ) {
   validate_string($app_domain, $machine_suffix_metrics)
 
@@ -37,7 +37,7 @@ class grafana::dashboards (
     "${dashboard_directory}/rummager_index_size.json": content => template('grafana/dashboards/rummager_index_size.json.erb');
   }
 
-  create_resources('grafana::dashboards::deployment_dashboard', $deployment_applications, {
+  create_resources('grafana::dashboards::application_dashboard', $application_dashboards, {
     'dashboard_directory' => $dashboard_directory,
     'app_domain'          => $app_domain,
   })

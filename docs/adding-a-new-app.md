@@ -191,11 +191,11 @@ Check if your app appears in these files (use existing apps as examples).
   * hieradata/common.yaml (node_class)
   * hieradata/common.yaml (deployable_applications)
   * hieradata/common.yaml (govuk_ci::master::pipeline_jobs)
-  * hieradata/common.yaml (grafana::dashboards::deployment_applications)
+  * hieradata/common.yaml (grafana::dashboards::application_dashboards)
   * hieradata/common.yaml (hosts::production::backend::app_hostnames)
   * hieradata_aws/common.yaml (node_class)
   * hieradata_aws/common.yaml (deployable_applications)
-  * hieradata_aws/common.yaml (grafana::dashboards::deployment_applications)
+  * hieradata_aws/common.yaml (grafana::dashboards::application_dashboards)
   * hieradata/development.yaml (hosts::development::apps)
   * modules/govuk/manifests/node/s_db_admin.pp
   * modules/govuk/manifests/node/s_postgresql_base.pp
