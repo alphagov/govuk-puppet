@@ -4,7 +4,7 @@ class nginx::service {
   service { 'nginx':
     ensure    => running,
     hasstatus => true,
-    restart   => '/etc/init.d/nginx reload',
+    restart   => '/etc/init.d/nginx configtest && /etc/init.d/nginx reload',
   }
 
 }
