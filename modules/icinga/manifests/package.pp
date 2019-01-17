@@ -17,7 +17,8 @@ class icinga::package {
     ensure => 'purged',
   }
 
-  include nginx::fcgi
+  include ::nginx
+  include ::nginx::fcgi
 
   package { [
     'icinga',
@@ -71,5 +72,5 @@ class icinga::package {
     command => 'dpkg-statoverride --update --add nagios nagios 751 /var/lib/icinga',
     unless  => 'dpkg-statoverride --list /var/lib/icinga',
     require => Package['icinga'],
-    }
+  }
 }
