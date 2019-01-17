@@ -43,9 +43,9 @@ class govuk_scripts {
     # Make sure boto3 is installed for Python3 as required by govuk_node_list_aws
     exec { 'check_boto':
       path    => ['/usr/bin', '/usr/sbin'],
-      command => ['/usr/bin/pip3 install boto3'],
+      command => '/usr/bin/pip3 install boto3',
       require => Class['base::packages'],
-      unless  => ['test -d /usr/local/lib/python3.4/dist-packages/boto3'],
+      unless  => 'test -d /usr/local/lib/python3.4/dist-packages/boto3',
     }
 
     $app_domain_internal = hiera('app_domain_internal')
