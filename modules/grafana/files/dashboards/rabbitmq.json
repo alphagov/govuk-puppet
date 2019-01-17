@@ -198,11 +198,6 @@
             {
               "hide": false,
               "refId": "F",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.ack_details-rate, 'ack')"
-            },
-            {
-              "hide": false,
-              "refId": "G",
               "target": "alias(rabbitmq_%2F.queues-$Queues.redeliver_details-rate, 'redeliver')"
             }
           ],
