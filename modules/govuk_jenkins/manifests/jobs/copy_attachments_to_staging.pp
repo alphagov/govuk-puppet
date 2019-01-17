@@ -8,6 +8,7 @@ class govuk_jenkins::jobs::copy_attachments_to_staging (
 ) {
 
   $check_name = 'copy_attachments_to_staging'
+  $environment_variables = $govuk_jenkins::environment_variables
   $service_description = 'Copy Attachments to staging'
   $job_url = "https://deploy.${app_domain}/job/copy_attachments_to_staging"
 

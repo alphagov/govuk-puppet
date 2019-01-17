@@ -8,6 +8,7 @@ class govuk_jenkins::jobs::copy_attachments_to_integration (
 ) {
 
   $check_name = 'copy_attachments_to_integration'
+  $environment_variables = $govuk_jenkins::environment_variables
   $service_description = 'Copy Attachments to Integration'
   $job_url = "https://deploy.${app_domain}/job/copy_attachments_to_integration"
 
