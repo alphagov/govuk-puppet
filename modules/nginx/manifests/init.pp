@@ -14,10 +14,6 @@ class nginx (
   $variables_hash_max_size = 1024,
   $denied_ip_addresses = []) {
 
-  anchor { 'nginx::begin':
-    notify => Class['nginx::service'];
-  }
-
   limits::limits { 'www-data_nofile':
     ensure     => present,
     user       => 'www-data',
@@ -25,38 +21,22 @@ class nginx (
     both       => 16384,
   }
 
-  class { 'nginx::package':
-    require => Anchor['nginx::begin'],
-    notify  => Class['nginx::service'];
-  }
+  contain nginx::package
+  contain nginx::logging
+  contain nginx::firewall
+  contain nginx::service
 
   class { 'nginx::config':
     server_names_hash_max_size => $server_names_hash_max_size,
     variables_hash_max_size    => $variables_hash_max_size,
     denied_ip_addresses        => $denied_ip_addresses,
-    require                    => Class['nginx::package'],
-    notify                     => Class['nginx::service'];
   }
 
-  class { 'nginx::logging':
-    require => Class['nginx::package'];
-  }
-
-  class { 'nginx::firewall':
-    require => Class['nginx::config'],
-  }
-
-  class { 'nginx::service':
-    notify => Anchor['nginx::end'],
-  }
-
-  anchor { 'nginx::end':
-    require => Class[
-      'nginx::logging',
-      'nginx::firewall',
-      'nginx::service'
-    ],
-  }
+  Class['nginx::package'] -> Class['nginx::config']
+  Class['nginx::package'] -> Class['nginx::logging']
+  Class['nginx::config'] -> Class['nginx::firewall']
+  Class['nginx::config'] ~> Class['nginx::service']
+  Class['nginx::package'] ~> Class['nginx::service']
 
   # Include ability to do a full restart of nginx. This does not explicitly
   # trigger a restart, but simply makes the class available to any manifest

@@ -6,6 +6,9 @@ define nginx::config::site(
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
+  include nginx::package
+  include nginx::service
+
   if $content != 'UNSET' {
     file { "/etc/nginx/sites-available/${title}":
       ensure  => $ensure,
