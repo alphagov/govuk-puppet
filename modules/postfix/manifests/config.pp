@@ -41,11 +41,17 @@ class postfix::config(
 
   if $smarthost {
 
-    postfix::postmapfile { 'outbound_rewrites': }
-    postfix::postmapfile { 'local_remote_rewrites': }
+    postfix::postmapfile { 'outbound_rewrites':
+      content => template('postfix/etc/postfix/outbound_rewrites.erb'),
+    }
+    postfix::postmapfile { 'local_remote_rewrites':
+      content => template('postfix/etc/postfix/local_remote_rewrites.erb'),
+    }
 
     if ($smarthost_user and $smarthost_pass) {
-      postfix::postmapfile { 'sasl_passwd': }
+      postfix::postmapfile { 'sasl_passwd':
+        content => template('postfix/etc/postfix/sasl_passwd.erb'),
+      }
     }
   }
 
