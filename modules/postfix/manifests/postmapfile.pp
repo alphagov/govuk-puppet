@@ -4,7 +4,8 @@ define postfix::postmapfile(
 ) {
   $filename = "/etc/postfix/${title}"
 
-  file { $filename:
+  Package['postfix']
+  -> file { $filename:
     ensure  => present,
     mode    => '0644',
     content => $content,
@@ -12,7 +13,6 @@ define postfix::postmapfile(
   ~> exec { "postmap_${title}":
     command     => "/usr/sbin/postmap ${filename}",
     refreshonly => true,
-    require     => Package['postfix'],
   }
 }
 
