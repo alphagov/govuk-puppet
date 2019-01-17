@@ -1,6 +1,6 @@
 <%
-[scope.lookupvar('postfix::config::smarthost')].flatten.each do |smarthost_entry|
+[@smarthost].flatten.each do |smarthost_entry|
   unless smarthost_entry.empty?
 -%>
-<%= smarthost_entry -%> <%= scope.lookupvar('postfix::config::smarthost_user') -%>:<%= scope.lookupvar('postfix::config::smarthost_pass') %>
+<%= smarthost_entry -%> <%= @smarthost_user -%>:<%= @smarthost_pass %>
 <% end end -%>
