@@ -2,7 +2,9 @@
 #
 # Install and run Prometheus Server
 #
-class govuk_prometheus {
+class govuk_prometheus (
+  $apt_mirror_hostname,
+) {
 
   include ::nginx
 
@@ -20,7 +22,7 @@ class govuk_prometheus {
   }
 
   apt::source { 'govuk-prometheus':
-    location     => "http://${govuk_prometheus::apt_mirror_hostname}/govuk-prometheus",
+    location     => "http://${apt_mirror_hostname}/govuk-prometheus",
     release      => 'stable',
     architecture => $::architecture,
     repos        => 'main',
