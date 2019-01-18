@@ -83,6 +83,9 @@ govuk_postgresql::monitoring::password: password
 
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_prometheus::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_prometheus_node_exporter::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk_rabbitmq::monitoring_password: 'rabbit_monitor'
 govuk_rabbitmq::root_password: 'rabbit_root'
 govuk_rabbitmq::repo::apt_mirror_hostname: 'rabbit_repo'

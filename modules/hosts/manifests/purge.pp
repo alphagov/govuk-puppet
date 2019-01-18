@@ -20,6 +20,7 @@ class hosts::purge {
     'publishing-api-db-admin-1',
     'publishing-api-postgresql-1',
     'mongo-api-1',
+    'prometheus-1',
   ]
 
   if ! ($::hostname in $whitelist) {
