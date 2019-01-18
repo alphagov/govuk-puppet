@@ -1,6 +1,7 @@
 # Creates the philippotter user
 class users::philippotter {
   govuk_user { 'philippotter':
+    ensure   => absent,
     fullname => 'Philip Potter',
     email    => 'philip.potter@digital.cabinet-office.gov.uk',
     ssh_key  => [
