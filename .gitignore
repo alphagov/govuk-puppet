@@ -18,3 +18,4 @@ REVISION
 /gpg/random_seed
 nodes.local.yaml
 gpg_recipients/.*last_updated
+*.swp
