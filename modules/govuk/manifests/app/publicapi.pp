@@ -57,16 +57,31 @@ define govuk::app::publicapi (
     $privateapi_protocol = 'http'
   }
 
-  nginx::config::vhost::proxy { $full_domain:
-    to               => [$whitehallapi, $rummager_api, $content_store_api],
-    to_ssl           => $privateapi_ssl,
-    protected        => false,
-    ssl_only         => false,
-    extra_app_config => "
-      # Don't proxy_pass / anywhere, just return 404. All real requests will
-      # be handled by the location blocks below.
-      return 404;
-    ",
-    extra_config     => template('govuk/publicapi_nginx_extra_config.erb'),
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    nginx::config::vhost::proxy { $full_domain:
+     to               => [$whitehallapi, $content_store_api],
+     to_ssl           => $privateapi_ssl,
+     protected        => false,
+     ssl_only         => false,
+     extra_app_config => "
+       # Don't proxy_pass / anywhere, just return 404. All real requests will
+       # be handled by the location blocks below.
+       return 404;
+     ",
+     extra_config     => template('govuk/publicapi_nginx_extra_config.erb'),
+    }
+  } else {
+    nginx::config::vhost::proxy { $full_domain:
+     to               => [$whitehallapi, $rummager_api, $content_store_api],
+     to_ssl           => $privateapi_ssl,
+     protected        => false,
+     ssl_only         => false,
+     extra_app_config => "
+       # Don't proxy_pass / anywhere, just return 404. All real requests will
+       # be handled by the location blocks below.
+       return 404;
+     ",
+     extra_config     => template('govuk/publicapi_nginx_extra_config.erb'),
+    }
   }
 }
