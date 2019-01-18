@@ -14,6 +14,7 @@ class govuk_prometheus_node_exporter {
 
   service { 'node-exporter':
     ensure  => running,
+    require => Package['node-exporter'],
   }
 
   @@icinga::check { "check_prometheus_node_exporter_running_${::hostname}":
