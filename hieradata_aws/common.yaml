@@ -709,6 +709,7 @@ govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::static::unicorn_worker_processes: "8"
 
 govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"

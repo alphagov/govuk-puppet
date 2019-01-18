@@ -41,6 +41,10 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run.
+#   Default: undef
+#
 class govuk::apps::static(
   $vhost = 'static',
   $port = '3013',
@@ -51,20 +55,22 @@ class govuk::apps::static(
   $ga_universal_id = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $unicorn_worker_processes = undef
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
 
   govuk::app { $app_name:
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    health_check_path     => '/templates/wrapper.html.erb',
-    log_format_is_json    => true,
-    nginx_extra_config    => template('govuk/static_extra_nginx_config.conf.erb'),
-    asset_pipeline        => true,
-    asset_pipeline_prefix => $app_name,
-    vhost                 => $vhost,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    health_check_path        => '/templates/wrapper.html.erb',
+    log_format_is_json       => true,
+    nginx_extra_config       => template('govuk/static_extra_nginx_config.conf.erb'),
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => $app_name,
+    vhost                    => $vhost,
+    unicorn_worker_processes => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {
