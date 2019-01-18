@@ -29,67 +29,88 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   $queue_size_critical_threshold,
   $queue_size_warning_threshold,
 ) {
-  govuk_rabbitmq::queue_with_binding { $amqp_queue:
+  $high_queue = "${amqp_queue}-high" # major, unpublish
+  $medium_queue = "${amqp_queue}-medium" # minor, republish
+  $low_queue = "${amqp_queue}-low" # links
+
+  govuk_rabbitmq::queue_with_binding { $high_queue:
     ensure        => 'present',
     amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_queue,
+    amqp_queue    => $high_queue,
     routing_key   => '*.major',
     durable       => true,
   }
 
-  govuk_rabbitmq::monitor_messages {"${amqp_queue}_message_monitoring":
-    ensure             => present,
-    rabbitmq_hostname  => 'localhost',
-    rabbitmq_queue     => $amqp_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
-  }
-
-  rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
+  rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${high_queue}@/":
     ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue}@minor@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.minor',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue}@links@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.links',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue}@republish@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.republish',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue}@unpublish@/",
+    name             => "${amqp_exchange}@${high_queue}@unpublish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
     destination_type => 'queue',
     routing_key      => '*.unpublish',
     arguments        => {},
+    require          => Govuk_rabbitmq::Queue_with_binding[$high_queue],
+  }
+
+  govuk_rabbitmq::queue_with_binding { $medium_queue:
+    ensure        => 'present',
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $medium_queue,
+    routing_key   => '*.minor',
+    durable       => true,
+  }
+
+  rabbitmq_binding { "binding_republish_${amqp_exchange}@${medium_queue}@/":
+    ensure           => 'present',
+    name             => "${amqp_exchange}@${medium_queue}@republish@/",
+    user             => 'root',
+    password         => $::govuk_rabbitmq::root_password,
+    destination_type => 'queue',
+    routing_key      => '*.republish',
+    arguments        => {},
+    require          => Govuk_rabbitmq::Queue_with_binding[$medium_queue],
+  }
+
+  govuk_rabbitmq::queue_with_binding { $low_queue:
+    ensure        => 'present',
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $low_queue,
+    routing_key   => '*.links',
+    durable       => true,
   }
 
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
     amqp_pass            => $amqp_pass,
-    read_permission      => "^${amqp_queue}\$",
+    read_permission      => "^${amqp_queue}(-\\w+)?\$",
     write_permission     => "^\$",
     configure_permission => "^\$",
+  }
+
+  govuk_rabbitmq::monitor_messages {"${high_queue}_message_monitoring":
+    ensure             => present,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $high_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
+    require            => Govuk_rabbitmq::Queue_with_binding[$high_queue],
+  }
+
+  govuk_rabbitmq::monitor_messages {"${medium_queue}_message_monitoring":
+    ensure             => present,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $medium_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
+    require            => Govuk_rabbitmq::Queue_with_binding[$medium_queue],
+  }
+
+  govuk_rabbitmq::monitor_messages {"${low_queue}_message_monitoring":
+    ensure             => present,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $low_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
+    require            => Govuk_rabbitmq::Queue_with_binding[$low_queue],
   }
 }
