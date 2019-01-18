@@ -94,7 +94,7 @@ sub vcl_recv {
     if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-      ban("req.url == " + req.url);
+      ban("obj.http.url == " + req.url);
       error 200 "Purged";
     }
   }
@@ -178,6 +178,8 @@ sub vcl_fetch {
   if (beresp.http.Set-Cookie) {
     return(deliver);
   }
+
+  set beresp.http.x-url = req.url;
 }
 
 sub vcl_hash {
@@ -192,6 +194,8 @@ sub vcl_deliver {
   } else {
     set resp.http.X-Cache = "MISS";
   }
+
+  unset resp.http.x-url;
 }
 
 sub vcl_error {
