@@ -1,6 +1,7 @@
 # Creates the isabelllong user
 class users::isabelllong {
   govuk_user { 'isabelllong':
+    ensure   => absent,
     fullname => 'Isabell Long',
     email    => 'isabell.long@digital.cabinet-office.gov.uk',
     ssh_key  => [
