@@ -1,1 +1,8 @@
 nscd::config::dns_cache: 'yes'
+
+router::gor::add_hosts: false
+router::gor::replay_targets:
+  'www-origin.blue.staging.govuk.digital': {}
+router::gor::http_set_header: 'X-Forwarded-Host:'
+
+router::gor::input_raw: '127.0.0.1:7999'
