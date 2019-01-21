@@ -39,7 +39,7 @@
             fi
 
             git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
-            git clone ${APP_DEPLOYMENT_SECRET_GIT_URL} --branch master --single-branch --depth 1 ./secrets
+            git clone ${APP_DEPLOYMENT_SECRET_GIT_URL} --branch "show-facet-tags-on-business-readiness-finder" --single-branch --depth 1 ./secrets
             ./jenkins.sh
     publishers:
         - trigger:
