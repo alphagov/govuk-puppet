@@ -372,6 +372,8 @@ govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::bouncer::unicorn_worker_processes: "8"
 
 govuk::apps::cache_clearing_service::enabled: true
+govuk::apps::cache_clearing_service::nagios_memory_warning: 2750
+govuk::apps::cache_clearing_service::nagios_memory_critical: 3000
 govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 10000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 1000
