@@ -47,6 +47,7 @@ class govuk::apps::cache_clearing_service (
   $aws_region = 'eu-west-1',
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $alert_when_threads_exceed = undef,
 ) {
   $ensure = $enabled ? {
     true  => 'present',
@@ -56,14 +57,15 @@ class govuk::apps::cache_clearing_service (
   $app_name = 'cache-clearing-service'
 
   govuk::app { $app_name:
-    ensure                 => $ensure,
-    app_type               => 'bare',
-    enable_nginx_vhost     => false,
-    sentry_dsn             => $sentry_dsn,
-    command                => './bin/cache_clearing_service',
-    collectd_process_regex => 'cache-clearing-service/.*rake message_queue:consumer',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    ensure                    => $ensure,
+    app_type                  => 'bare',
+    enable_nginx_vhost        => false,
+    sentry_dsn                => $sentry_dsn,
+    command                   => './bin/cache_clearing_service',
+    collectd_process_regex    => 'cache-clearing-service/.*rake message_queue:consumer',
+    nagios_memory_warning     => $nagios_memory_warning,
+    nagios_memory_critical    => $nagios_memory_critical,
+    alert_when_threads_exceed => $alert_when_threads_exceed,
   }
 
   Govuk::App::Envvar {
