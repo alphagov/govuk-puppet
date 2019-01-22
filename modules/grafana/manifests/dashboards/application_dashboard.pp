@@ -120,7 +120,7 @@ define grafana::dashboards::application_dashboard (
   )
 
   file {
-    "${dashboard_directory}/${app_name}_dashboard.json":
+    "${dashboard_directory}/${app_name}.json":
     notify  => Service['grafana-server'],
     content => template('grafana/dashboards/application_dashboard_template.json.erb');
   }
