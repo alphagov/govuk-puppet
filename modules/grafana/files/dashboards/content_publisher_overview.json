@@ -79,7 +79,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND _exists_: status AND NOT status: [400 TO 599]",
+              "query": "application: content-publisher*json.event.access AND _exists_: status AND NOT status: [400 TO 599]",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -175,7 +175,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [500 TO 599]",
+              "query": "application: content-publisher*json.event.access AND status: [500 TO 599]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -213,7 +213,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [500 TO 599]",
+              "query": "application: content-publisher*json.event.access AND status: [500 TO 599]",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -309,7 +309,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [400 TO 499]",
+              "query": "application: content-publisher*json.event.access AND status: [400 TO 499]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -347,7 +347,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [400 TO 499]",
+              "query": "application: content-publisher*json.event.access AND status: [400 TO 499]",
               "refId": "F",
               "timeField": "@timestamp"
             }
