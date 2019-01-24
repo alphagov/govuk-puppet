@@ -6,6 +6,7 @@
             url: https://github.com/alphagov/packager
             branches:
               - master
+            wipe-workspace: true
 
 - job:
     name: build_fpm_package
@@ -33,4 +34,4 @@
             ./container-build.sh
     publishers:
         - archive:
-            artifacts: 'build/*.deb'
+            artifacts: 'fpm/recipes/*/pkg/*.deb'
