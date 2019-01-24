@@ -79,6 +79,17 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     durable       => true,
   }
 
+  rabbitmq_policy { "${low_queue}-ttl@/":
+    pattern    => "${low_queue}.*",
+    priority   => 0,
+    applyto    => 'queues',
+    definition => {
+      'ha-mode'      => 'all',
+      'ha-sync-mode' => 'automatic',
+      'message-ttl'  => 3600000, # one hour
+    },
+  }
+
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
     amqp_pass            => $amqp_pass,
@@ -112,62 +123,5 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     critical_threshold => $queue_size_critical_threshold,
     warning_threshold  => $queue_size_warning_threshold,
     require            => Govuk_rabbitmq::Queue_with_binding[$low_queue],
-  }
-
-  # Removing old queues and bindings
-  govuk_rabbitmq::queue_with_binding { $amqp_queue:
-    ensure        => 'absent',
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_queue,
-    routing_key   => '*.major',
-    durable       => true,
-  }
-
-  govuk_rabbitmq::monitor_messages {"${amqp_queue}_message_monitoring":
-    ensure             => absent,
-    rabbitmq_hostname  => 'localhost',
-    rabbitmq_queue     => $amqp_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
-  }
-
-  rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'absent',
-    name             => "${amqp_exchange}@${amqp_queue}@minor@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.minor',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'absent',
-    name             => "${amqp_exchange}@${amqp_queue}@links@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.links',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'absent',
-    name             => "${amqp_exchange}@${amqp_queue}@republish@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.republish',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'absent',
-    name             => "${amqp_exchange}@${amqp_queue}@unpublish@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.unpublish',
-    arguments        => {},
   }
 }
