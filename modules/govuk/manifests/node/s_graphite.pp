@@ -22,6 +22,7 @@ class govuk::node::s_graphite (
   class { 'graphite':
     version                    => '0.9.13',
     port                       => '33333',
+    worker_processes           => 4,
     carbon_aggregator          => true,
     aggregation_rules_source   => 'puppet:///modules/govuk/node/s_graphite/aggregation-rules.conf',
     storage_aggregation_source => 'puppet:///modules/govuk/node/s_graphite/storage-aggregation.conf',
