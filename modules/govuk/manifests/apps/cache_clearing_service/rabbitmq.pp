@@ -79,6 +79,17 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     durable       => true,
   }
 
+  rabbitmq_policy { "${low_queue}-ttl@/":
+    pattern    => "${low_queue}.*",
+    priority   => 0,
+    applyto    => 'queues',
+    definition => {
+      'ha-mode'      => 'all',
+      'ha-sync-mode' => 'automatic',
+      'message-ttl'  => 3600000, # one hour
+    },
+  }
+
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
     amqp_pass            => $amqp_pass,
