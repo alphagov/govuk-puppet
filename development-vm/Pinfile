@@ -64,6 +64,11 @@ process :'rummager-sidekiq'
 process :'rummager-publishing-listener'
 process :'rummager-govuk-index-listener'
 process :'rummager-bulk-reindex-listener'
+process :'search-api' => [:'publishing-api-read', :'search-api-sidekiq', :'search-api-publishing-listener', :'search-api-govuk-index-listener']
+process :'search-api-sidekiq'
+process :'search-api-publishing-listener'
+process :'search-api-govuk-index-listener'
+process :'search-api-bulk-reindex-listener'
 process :screenshot_as_a_service
 process :'search-admin' => [:rummager, :'publishing-api']
 process :'service-manual-frontend' => [:'content-store', :static]

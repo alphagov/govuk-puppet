@@ -41,6 +41,7 @@ publishing-api
 router
 router-api
 rummager
+search-api
 service-manual-frontend
 service-manual-publisher
 signon
