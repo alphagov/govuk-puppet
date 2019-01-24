@@ -19,7 +19,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
-          "description": "Status codes returned by Content Publisher Nginx",
+          "description": "Responses with status codes not in the 400 - 599 region from Kibana for Content Publisher Nginx.",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -79,7 +79,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND _exists_: status AND NOT status: [400 TO 599]",
+              "query": "application: content-publisher*json.event.access AND _exists_: status AND NOT status: [400 TO 599]",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -127,7 +127,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
-          "description": "500 to 599 status codes returned by Content Publisher Nginx",
+          "description": "Responses with status codes in the 500 - 599 region from Kibana for Content Publisher Nginx.",
           "fill": 1,
           "id": 9,
           "legend": {
@@ -175,7 +175,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [500 TO 599]",
+              "query": "application: content-publisher*json.event.access AND status: [500 TO 599]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -213,7 +213,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [500 TO 599]",
+              "query": "application: content-publisher*json.event.access AND status: [500 TO 599]",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -221,7 +221,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "5XX's served",
+          "title": "5XX requests served",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -261,7 +261,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
-          "description": "400 to 499 status codes returned by Content Publisher Nginx",
+          "description": "Responses with status codes in the 400 - 499 region for Content Publisher Nginx.",
           "fill": 1,
           "id": 8,
           "legend": {
@@ -309,7 +309,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [400 TO 499]",
+              "query": "application: content-publisher*json.event.access AND status: [400 TO 499]",
               "refId": "A",
               "timeField": "@timestamp"
             },
@@ -347,7 +347,7 @@
                   "type": "count"
                 }
               ],
-              "query": "application: content-publisher-json.event.access AND status: [400 TO 499]",
+              "query": "application: content-publisher*json.event.access AND status: [400 TO 499]",
               "refId": "F",
               "timeField": "@timestamp"
             }
@@ -355,7 +355,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "4XX's served",
+          "title": "4XX requests served",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -407,6 +407,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
+          "description": "Average duration of requests grouped by HTTP method from Content Publisher Rails log",
           "fill": 1,
           "id": 3,
           "legend": {
@@ -481,7 +482,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Average Response times",
+          "title": "Average response times",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -520,6 +521,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
+          "description": "Maximum duration of requests grouped by HTTP method from Content Publisher Rails log",
           "fill": 1,
           "id": 4,
           "legend": {
@@ -593,7 +595,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Max Response times",
+          "title": "Slowest response times",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -644,6 +646,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
+          "description": "Shows the max time per hour for controller#action endpoints where the request took longer than 2 seconds",
           "fill": 1,
           "id": 5,
           "legend": {
@@ -712,7 +715,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Max endpoints response times (min 2 seconds)",
+          "title": "Slowest response times for endpoints",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -763,7 +766,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "description": "These are errors sent to GovukError. These include those that are filtered from being sent to Sentry",
+          "description": "This tracks events that are recorded by GovukError in Statsd. This includes those that are filtered from being sent to Sentry and those which don't arrive at Sentry.",
           "fill": 1,
           "id": 6,
           "legend": {
@@ -804,7 +807,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Errors occurred",
+          "title": "Errors recorded by GovukError",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -843,7 +846,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "description": "This doesn't include timeout errors we catch in the app",
+          "description": "These are common HTTP intermittent errors produced in GDS API Adapters which are not tracked by Sentry due to their quantity.",
           "fill": 1,
           "id": 7,
           "legend": {
@@ -884,7 +887,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Sentry ignored GDS API Intermittents",
+          "title": "GDS API intermittent errors (ignored by Sentry)",
           "tooltip": {
             "shared": true,
             "sort": 0,
