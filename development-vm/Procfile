@@ -183,3 +183,4 @@ search-api-sidekiq:               govuk_setenv search-api ./run_in.sh ../../sear
 search-api-publishing-listener:   govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:listen_to_publishing_queue
 search-api-govuk-index-listener:  govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:insert_data_into_govuk
 search-api-bulk-reindex-listener: govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:bulk_insert_data_into_govuk
+# sidekiq-monitoring for search-api uses 3234
