@@ -29,6 +29,10 @@
 # [*secret*]
 #   The secret token that CKAN uses for session encryption
 #
+# [*vhost_protected*]
+#   Should this vhost be protected with HTTP Basic auth?
+#   Default: undef
+#
 class govuk::apps::ckan (
   $enabled                        = false,
   $port                           = '3220',
@@ -52,6 +56,7 @@ class govuk::apps::ckan (
   $s3_aws_secret_access_key       = undef,
   $s3_bucket_name                 = undef,
   $s3_aws_region_name             = undef,
+  $vhost_protected                = undef,
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"
@@ -60,7 +65,7 @@ class govuk::apps::ckan (
     govuk::app { 'ckan':
       app_type           => 'procfile',
       port               => $port,
-      vhost_protected    => true,
+      vhost_protected    => $vhost_protected,
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
       log_format_is_json => false,
