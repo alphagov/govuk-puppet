@@ -58,11 +58,3 @@
   location ~ ^/api(/|$) {
     return 410;
   }
-
-  location ~ ^/performance/(.*)/api/(.*) {
-    rewrite ^/performance/(.*)/api/(.*)$ /data/$1/$2 break;
-
-    proxy_ssl_session_reuse off;
-    proxy_set_header Host <%= @backdrop_host %>;
-    proxy_pass <%= @backdrop_url %>;
-  }
