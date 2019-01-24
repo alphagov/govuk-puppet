@@ -7,12 +7,6 @@
 #
 # === Parameters
 #
-# [*backdrop_protocol*]
-#   String. The protocol to use when proxying to Backdrop (e.g. 'https').
-#
-# [*backdrop_host*]
-#   String. The host to use when proxying to Backdrop (e.g. 'www.performance.service.gov.uk').
-#
 # [*privateapi_ssl*]
 #   Boolean. Whether to use SSL for the private API.
 #
@@ -22,8 +16,6 @@
 #
 
 define govuk::app::publicapi (
-  $backdrop_protocol,
-  $backdrop_host,
   $privateapi_ssl,
   $prefix,
 ) {
@@ -48,8 +40,6 @@ define govuk::app::publicapi (
 
     $full_domain = "${app_name}.${app_domain}"
   }
-
-  $backdrop_url = "${backdrop_protocol}://${backdrop_host}"
 
   if ($privateapi_ssl) {
     $privateapi_protocol = 'https'
