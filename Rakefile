@@ -200,6 +200,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db::lb_ip_range
     govuk::apps::publishing_api::db::rds
     govuk::apps::rummager::elasticsearch_hosts
+    govuk::apps::search_api::elasticsearch_hosts
     govuk::apps::service_manual_publisher::db::allow_auth_from_lb
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds

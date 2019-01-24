@@ -116,6 +116,7 @@ node_class: &node_class
   search:
     apps:
       - rummager
+      - search-api
   whitehall_backend:
     apps:
       - whitehall
@@ -189,6 +190,7 @@ deployable_applications: &deployable_applications
   router: {}
   router-api: {}
   rummager: {}
+  search-api: {}
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
@@ -588,6 +590,9 @@ govuk::apps::mapit::enabled: true
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq
 
+govuk::apps::search_api::rabbitmq_hosts:
+  - rabbitmq
+
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
@@ -628,6 +633,22 @@ govuk::apps::rummager::redis_host: 'backend-redis'
 govuk::apps::rummager::redis_port: '6379'
 govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch:9200'
 govuk::apps::rummager::unicorn_worker_processes: "6"
+
+# todo: enable when it seems to be working
+# govuk::apps::search_api::nagios_memory_warning: 4600
+# govuk::apps::search_api::nagios_memory_critical: 4900
+govuk::apps::search_api::enable_bulk_reindex_listener: true
+govuk::apps::search_api::enable_publishing_listener: true
+govuk::apps::search_api::enable_govuk_index_listener: true
+govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener: true
+govuk::apps::search_api::rabbitmq::enable_govuk_index_listener: true
+govuk::apps::search_api::rabbitmq::enable_publishing_listener: true
+govuk::apps::search_api::rabbitmq_user: 'search-api'
+govuk::apps::search_api::redis_host: 'backend-redis'
+govuk::apps::search_api::redis_port: '6379'
+# todo: decide if we're self-hosting or using a managed elasticsearch (use a bogus value for now)
+govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9200'
+govuk::apps::search_api::unicorn_worker_processes: "6"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'mysql-primary'
@@ -1073,6 +1094,21 @@ grafana::dashboards::application_dashboards:
       - frontend
       - government-frontend
       - whitehall-frontend
+  search-api:
+    # search-api is a sinatra app
+    show_controller_errors: false
+    show_elasticsearch_stats: true
+    show_response_times: true
+    show_sidekiq_graphs: true
+    show_slow_requests: false
+    has_workers: true
+    # todo: set when apps are talking to search-api
+    # dependent_app_5xx_errors:
+    #   - collections
+    #   - finder-frontend
+    #   - frontend
+    #   - government-frontend
+    #   - whitehall-frontend
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
