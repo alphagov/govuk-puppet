@@ -31,7 +31,10 @@ govuk::deploy::config::asset_root: 'http://static.dev.gov.uk'
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 govuk::deploy::sync::jenkins_domain: "jenkins.example.com"
 govuk::deploy::sync::auth_token: "example-auth-token"
-
+govuk::node::s_backend_lb::aws_egress_nat_ips:
+  - '1.1.1.1'
+  - '1.1.1.2'
+  - '1.1.1.3'
 govuk_beat::enable: false
 
 govuk_elasticsearch::backup_enabled: true

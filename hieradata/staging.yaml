@@ -129,6 +129,10 @@ govuk::node::s_api_lb::search_servers:
 
 govuk::node::s_asset_master::copy_attachments_hour: 7
 
+govuk::node::s_backend_lb::aws_egress_nat_ips:
+  - '18.202.183.143'
+  - '18.203.90.80'
+  - '18.203.108.248'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
@@ -143,6 +147,10 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
   - 'publishing-api-3.backend'
+govuk::node::s_backend_lb::search_servers:
+  - "search-1.api"
+  - "search-2.api"
+  - "search-3.api"
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
