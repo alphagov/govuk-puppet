@@ -110,6 +110,14 @@
 #   Redis port for Rummager Sidekiq.
 #   Default: undef
 #
+# [*search_api_redis_host*]
+#   Redis host for Search API Sidekiq.
+#   Default: undef
+#
+# [*search_api_redis_port*]
+#   Redis port for Search API Sidekiq.
+#   Default: undef
+#
 # [*signon_redis_host*]
 #   Redis host for Signon Sidekiq.
 #   Default: undef
@@ -185,6 +193,8 @@ class govuk::apps::sidekiq_monitoring (
   $publishing_api_redis_port = undef,
   $rummager_redis_host = undef,
   $rummager_redis_port = undef,
+  $search_api_redis_host = undef,
+  $search_api_redis_port = undef,
   $signon_redis_host = undef,
   $signon_redis_port = undef,
   $specialist_publisher_redis_host = undef,
@@ -314,6 +324,15 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'whitehall',
       host   => $whitehall_redis_host,
       port   => $whitehall_redis_port;
+  }
+
+  if $search_api_redis_host {
+    govuk::app::envvar::redis{
+      "${app_name}_search_api":
+        prefix => 'search_api',
+        host   => $search_api_redis_host,
+        port   => $search_api_redis_port;
+    }
   }
 
   nginx::config::site { $full_domain:

@@ -7,6 +7,7 @@ govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - rummager
   - content_performance_manager
   - cache_clearing_service
+  - search_api
 
 govuk_rabbitmq::aws_clustering: true
 

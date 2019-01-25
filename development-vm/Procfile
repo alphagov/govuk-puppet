@@ -178,3 +178,9 @@ content-data-admin: govuk_setenv content-data-admin ./run_in.sh ../../content-da
 draft-smartanswers: govuk_setenv draft-smartanswers ./run_in.sh ../../smart-answers bundle exec rails server -p 3231 -P tmp/pids/draft-smartanswers.pid
 # content-publisher has reserved 3232 for webpack-dev-server
 cache-clearing-service: govuk_setenv cache-clearing-service ./run_in.sh ../../cache-clearing-service bundle exec bin/cache_clearing_service
+search-api:                       govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec mr-sparkle --force-polling -- -p 3233
+search-api-sidekiq:               govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec sidekiq -C ./config/sidekiq.yml
+search-api-publishing-listener:   govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:listen_to_publishing_queue
+search-api-govuk-index-listener:  govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:insert_data_into_govuk
+search-api-bulk-reindex-listener: govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:bulk_insert_data_into_govuk
+# sidekiq-monitoring for search-api uses 3234
