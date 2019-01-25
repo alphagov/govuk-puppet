@@ -19,7 +19,9 @@
         - github:
             url: https://github.com/alphagov/packager/
     scm:
-      - build_fpm_package
+        - build_fpm_package
+    wrappers:
+        - workspace-cleanup
     parameters:
         - string:
             name: RECIPE
