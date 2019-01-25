@@ -34,6 +34,9 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::hmrc_manuals_api(
   $port = '3071',
   $sentry_dsn = undef,
@@ -42,6 +45,7 @@ class govuk::apps::hmrc_manuals_api(
   $oauth_secret = undef,
   $publish_topics = true,
   $publishing_api_bearer_token = undef,
+  $override_search_location = undef,
 ) {
 
   Govuk::App::Envvar {
@@ -77,11 +81,12 @@ class govuk::apps::hmrc_manuals_api(
   }
 
   govuk::app { 'hmrc-manuals-api':
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/healthcheck',
+    log_format_is_json       => true,
+    override_search_location => $override_search_location,
   }
 }

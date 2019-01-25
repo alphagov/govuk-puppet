@@ -122,6 +122,10 @@
 # [*rummager_bearer_token*]
 #   The bearer token to use when communicating with Rummager.
 #   Default: undef
+#
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -160,6 +164,7 @@ class govuk::apps::whitehall(
   $cpu_warning = 150,
   $cpu_critical = 200,
   $rummager_bearer_token = undef,
+  $override_search_location = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -199,6 +204,7 @@ class govuk::apps::whitehall(
     unicorn_worker_processes => $unicorn_worker_processes,
     cpu_warning              => $cpu_warning,
     cpu_critical             => $cpu_critical,
+    override_search_location => $override_search_location,
   }
 
   Govuk::App::Envvar {
