@@ -871,6 +871,7 @@ govuk_ci::master::pipeline_jobs:
   rails_translation_manager: {}
   router-data: {}
   seal: {}
+  search-api: {}
   shared_mustache: {}
   slimmer: {}
   smokey: {}
