@@ -58,4 +58,17 @@ class govuk::apps::search_api::rabbitmq (
       durable       => true,
     }
   }
+
+  # todo: remove these expiration times when we have search-api set up
+  # and processing the queues properly.
+  rabbitmq_policy { 'search_api-ttl@/':
+    pattern    => 'search_api*',
+    priority   => 0,
+    applyto    => 'queues',
+    definition => {
+      'ha-mode'      => 'all',
+      'ha-sync-mode' => 'automatic',
+      'message-ttl'  => 300000, # 5 minutes
+    },
+  }
 }
