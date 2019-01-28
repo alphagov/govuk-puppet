@@ -38,12 +38,17 @@
 # [*maintenance_mode*]
 #   Puts balancers into maintenance mode.
 #
+# [*aws_egress_nat_ips*]
+#   NAT Gateway Egress IPs from AWS Environment
+#
+
 define loadbalancer::balance(
     $servers,
     $deny_crawlers = false,
     $error_on_http = false,
     $https_port = 443,
     $internal_only = false,
+    $aws_egress_nat_ips = undef,
     $vhost = $title,
     $read_timeout = 15,
     $maintenance_mode = false,

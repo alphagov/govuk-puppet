@@ -152,6 +152,10 @@ govuk::node::s_api_lb::search_servers:
   - "search-3.api"
 
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
+govuk::node::s_backend_lb::aws_egress_nat_ips:
+  - '34.246.209.74'
+  - '34.253.57.8'
+  - '18.202.136.43'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
@@ -166,6 +170,10 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
   - 'publishing-api-3.backend'
+govuk::node::s_backend_lb::search_servers:
+  - "search-1.api"
+  - "search-2.api"
+  - "search-3.api"
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'

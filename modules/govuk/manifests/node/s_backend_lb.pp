@@ -22,8 +22,14 @@
 # [*ckan_backend_servers*]
 #   An array of CKAN backend app servers
 #
+# [*search_servers*]
+#   An array of search-api app servers
+#
 # [*maintenance_mode*]
 #   Whether the backend should be taken offline in nginx
+#
+# [*aws_egress_nat_ips*]
+#   NAT Gateway Egress IPs from AWS Environment
 #
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
@@ -31,6 +37,8 @@ class govuk::node::s_backend_lb (
   $whitehall_backend_servers,
   $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
+  $aws_egress_nat_ips,
+  $search_servers = [],
   $ckan_backend_servers = [],
   $maintenance_mode = false,
 ){
@@ -100,6 +108,11 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { 'publishing-api':
       internal_only => true,
       servers       => $publishing_api_backend_servers,
+  }
+
+  loadbalancer::balance { 'search':
+      aws_egress_nat_ips => $aws_egress_nat_ips,
+      servers            => $search_servers,
   }
 
   loadbalancer::balance { 'kibana':

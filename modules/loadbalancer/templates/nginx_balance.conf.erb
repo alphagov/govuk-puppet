@@ -89,6 +89,12 @@ server {
     allow 10.0.0.0/8;
     allow 127.0.0.1;
     deny all;
+    <%- elsif @aws_egress_nat_ips -%>
+    # Only accept connnections from AWS Environment
+    <%- [@aws_egress_nat_ips].flatten.each do |ip| -%>
+    allow <%= ip %>;
+    <%- end -%>
+    deny all;
     <%- end -%>
     include includes/maintenance.conf;
     if ($maintenance = 1) {
