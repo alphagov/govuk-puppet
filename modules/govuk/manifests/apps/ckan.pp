@@ -69,7 +69,7 @@ class govuk::apps::ckan (
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
       log_format_is_json => false,
-      read_timeout       => 30,
+      read_timeout       => 60,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
