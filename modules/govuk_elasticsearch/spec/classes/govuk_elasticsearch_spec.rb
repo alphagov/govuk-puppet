@@ -42,6 +42,11 @@ describe 'govuk_elasticsearch', :type => :class do
         is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('2.x')
       end
 
+      it "should handle the repo for 5.6.x" do
+        params[:version] = '5.6.14'
+        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('5.x')
+      end
+
       it { is_expected.to contain_class('elasticsearch').with_manage_repo(false) }
     end
 

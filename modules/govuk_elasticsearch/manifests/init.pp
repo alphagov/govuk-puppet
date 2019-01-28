@@ -85,9 +85,13 @@ class govuk_elasticsearch (
   $http_port = '9200'
   $transport_port = '9300'
 
-  # The repository for version 2 is called "elasticsearch-2.x" for all minor versions
+  # For elasticsearch version $MAJOR.$MINOR.$PATCH,
+  #  - if $MAJOR < 2, the repository is called "elasticsearch-$MAJOR.$MINOR"
+  #  - otherwise, the repository is called "elasticsearch-$MAJOR.x"
   if $manage_repo {
-    if versioncmp($version, '2') >= 0 {
+    if versioncmp($version, '5') >= 0 {
+      $repo_version = '5.x'
+    } elsif versioncmp($version, '2') >= 0 {
       $repo_version = '2.x'
     } elsif versioncmp($version, '2') < 0 {
       $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
