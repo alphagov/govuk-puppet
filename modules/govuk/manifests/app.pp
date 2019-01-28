@@ -237,6 +237,9 @@
 # [*collectd_process_regex*]
 #   Regex to use to identify the process.
 #
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -273,6 +276,7 @@ define govuk::app (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
+  $override_search_location = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -348,6 +352,7 @@ define govuk::app (
     cpu_warning                      => $cpu_warning,
     cpu_critical                     => $cpu_critical,
     collectd_process_regex           => $collectd_process_regex,
+    override_search_location         => $override_search_location,
   }
 
   govuk::app::service { $title:

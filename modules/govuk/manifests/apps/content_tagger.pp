@@ -61,6 +61,9 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::content_tagger(
   $port = '3116',
   $secret_key_base = undef,
@@ -78,18 +81,20 @@ class govuk::apps::content_tagger(
   $redis_host = undef,
   $redis_port = undef,
   $enable_procfile_worker = true,
+  $override_search_location = undef
 ) {
   $app_name = 'content-tagger'
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-    asset_pipeline     => true,
-    deny_framing       => false,
-    sentry_dsn         => $sentry_dsn,
+    app_type                 => 'rack',
+    port                     => $port,
+    vhost_ssl_only           => true,
+    health_check_path        => '/healthcheck',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    deny_framing             => false,
+    sentry_dsn               => $sentry_dsn,
+    override_search_location => $override_search_location,
   }
 
   Govuk::App::Envvar {

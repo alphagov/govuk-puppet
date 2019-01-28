@@ -30,6 +30,9 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::collections(
   $vhost = 'collections',
   $port = '3070',
@@ -38,18 +41,20 @@ class govuk::apps::collections(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $email_alert_api_bearer_token = undef,
+  $override_search_location = undef,
 ) {
   govuk::app { 'collections':
-    app_type               => 'rack',
-    port                   => $port,
-    health_check_path      => '/topic/oil-and-gas',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'collections',
-    vhost                  => $vhost,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    sentry_dsn             => $sentry_dsn,
+    app_type                 => 'rack',
+    port                     => $port,
+    health_check_path        => '/topic/oil-and-gas',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => 'collections',
+    vhost                    => $vhost,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    sentry_dsn               => $sentry_dsn,
+    override_search_location => $override_search_location,
   }
 
   Govuk::App::Envvar {

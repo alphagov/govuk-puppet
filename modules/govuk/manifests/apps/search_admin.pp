@@ -42,6 +42,10 @@
 # [*rummager_bearer_token*]
 #   The bearer token to use when communicating with Rummager.
 #   Default: undef
+#
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::search_admin(
   $db_hostname = undef,
   $db_name = undef,
@@ -54,18 +58,20 @@ class govuk::apps::search_admin(
   $oauth_secret = undef,
   $secret_key_base = undef,
   $rummager_bearer_token = undef,
+  $override_search_location = undef,
 ) {
   $app_name = 'search-admin'
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/queries',
-    log_format_is_json => true,
-    asset_pipeline     => true,
-    deny_framing       => true,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/queries',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    deny_framing             => true,
+    override_search_location => $override_search_location,
   }
 
   Govuk::App::Envvar {

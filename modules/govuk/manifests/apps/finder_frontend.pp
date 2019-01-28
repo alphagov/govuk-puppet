@@ -21,6 +21,9 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*override_search_location*]
+#   Alternative hostname to use for Plek("search") and Plek("rummager")
+#
 class govuk::apps::finder_frontend(
   $port = '3062',
   $enabled = false,
@@ -30,6 +33,7 @@ class govuk::apps::finder_frontend(
   $secret_key_base = undef,
   $email_alert_api_bearer_token = undef,
   $unicorn_worker_processes = undef,
+  $override_search_location = undef,
 ) {
 
   if $enabled {
@@ -44,6 +48,7 @@ class govuk::apps::finder_frontend(
       nagios_memory_warning    => $nagios_memory_warning,
       nagios_memory_critical   => $nagios_memory_critical,
       unicorn_worker_processes => $unicorn_worker_processes,
+      override_search_location => $override_search_location,
     }
   }
 
