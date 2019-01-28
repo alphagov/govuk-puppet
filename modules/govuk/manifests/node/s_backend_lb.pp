@@ -29,7 +29,7 @@
 #   Whether the backend should be taken offline in nginx
 #
 # [*aws_egress_nat_ips*]
-#   NAT Gateway Egress IPs from AWS Environment
+#   NAT Gateway Egress IPs from AWS Environment & Internal IP Ranges
 #
 class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
@@ -97,8 +97,8 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'email-alert-api':
-      internal_only => true,
-      servers       => $email_alert_api_backend_servers,
+      aws_egress_nat_ips => $aws_egress_nat_ips,
+      servers            => $email_alert_api_backend_servers,
   }
 
   loadbalancer::balance { 'email-alert-api-public':
