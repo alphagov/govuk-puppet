@@ -106,8 +106,8 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { 'publishing-api':
-      internal_only => true,
-      servers       => $publishing_api_backend_servers,
+      aws_egress_nat_ips => $aws_egress_nat_ips,
+      servers            => $publishing_api_backend_servers,
   }
 
   loadbalancer::balance { 'search':
