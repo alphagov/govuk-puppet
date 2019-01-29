@@ -18,7 +18,7 @@
 # [*ssl_certtype*]
 #   Type of SSL cert passed to nginx::config::ssl
 #   Default: wildcard_publishing
-#
+
 define nginx::config::vhost::default(
   $extra_config = '',
   $status = '500',
@@ -28,13 +28,14 @@ define nginx::config::vhost::default(
 
   # Whether to enable SSL. Used by template.
   $enable_ssl = hiera('nginx_enable_ssl', true)
+  $default_nginx_conf = hiera('default_nginx_conf','nginx/default-vhost.conf')
 
   nginx::config::ssl { $title:
     certtype => $ssl_certtype,
   }
 
   nginx::config::site { $title:
-    content => template('nginx/default-vhost.conf'),
+    content => template($default_nginx_conf),
   }
 
 }
