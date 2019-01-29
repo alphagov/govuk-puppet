@@ -27,6 +27,9 @@
 #   The bearer token that will be used to authenticate with the draft content
 #   store
 #
+# [*router_api_bearer_token*]
+#   The bearer token that will be used to authenticate with the Router API.
+#
 # [*suppress_draft_store_502_error*]
 #   Suppresses "502 Bad Gateway" returned by nginx when publishing API
 #   attempts to store draft content. This is intended to be used only
@@ -120,6 +123,7 @@ class govuk::apps::publishing_api(
   $content_store_bearer_token = undef,
   $draft_content_store = '',
   $draft_content_store_bearer_token = undef,
+  $router_api_bearer_token = undef,
   $suppress_draft_store_502_error = '',
   $sentry_dsn = undef,
   $secret_key_base = undef,
@@ -203,6 +207,9 @@ class govuk::apps::publishing_api(
       "${title}-DRAFT_CONTENT_STORE_BEARER_TOKEN":
         varname => 'DRAFT_CONTENT_STORE_BEARER_TOKEN',
         value   => $draft_content_store_bearer_token;
+      "${title}-ROUTER_API_BEARER_TOKEN":
+        varname => 'ROUTER_API_BEARER_TOKEN',
+        value   => $router_api_bearer_token;
       "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
         varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
         value   => $suppress_draft_store_502_error;
