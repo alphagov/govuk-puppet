@@ -1,6 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_elasticsearch::plugins', :type => :class do
+  let(:facts) {{
+    :fqdn   => 'test.example.com',
+    :kernel => 'Linux',
+  }}
+
 
   context 'Elasticsearch version 1.4.4 should install cloud-aws plugin 2.4.2' do
     let(:params) {{

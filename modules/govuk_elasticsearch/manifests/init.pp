@@ -126,14 +126,25 @@ class govuk_elasticsearch (
       },
     }
   } else {
-    $discovery_config = {
-      'zen' => {
-        'minimum_master_nodes' => $minimum_master_nodes,
-        'ping'                 => {
-          'multicast.enabled' => false,
-          'unicast.hosts'     => $cluster_hosts,
+    if versioncmp($version, '5') >= 0 {
+      $discovery_config = {
+        'zen' => {
+          'minimum_master_nodes' => $minimum_master_nodes,
+          'ping'                 => {
+            'unicast.hosts' => $cluster_hosts,
+          },
         },
-      },
+      }
+    } else {
+      $discovery_config = {
+        'zen' => {
+          'minimum_master_nodes' => $minimum_master_nodes,
+          'ping'                 => {
+            'multicast.enabled' => false,
+            'unicast.hosts'     => $cluster_hosts,
+          },
+        },
+      }
     }
   }
 
@@ -155,22 +166,39 @@ class govuk_elasticsearch (
     $slowlog_config = {}
   }
 
-  $instance_config = {
-    'cluster.name'             => $cluster_name,
-    'index.number_of_replicas' => $number_of_replicas,
-    'index.number_of_shards'   => $number_of_shards,
-    'index.refresh_interval'   => $refresh_interval,
-    'index.search.slowlog'     => $slowlog_config,
-    'transport.tcp.port'       => $transport_port,
-    'network.publish_host'     => $::fqdn,
-    'network.host'             => '0.0.0.0',
-    'node.name'                => $::fqdn,
-    'http.port'                => $http_port,
-    'http.cors.enabled'        => $cors_enabled,
-    'http.cors.allow-headers'  => $cors_allow_headers,
-    'http.cors.allow-origin'   => $cors_allow_origin,
-    'discovery'                => $discovery_config,
-    'cloud.aws.region'         => $aws_region,
+  if versioncmp($version, '5') >= 0 {
+    $instance_config = {
+      'cluster.name'            => $cluster_name,
+      'transport.tcp.port'      => $transport_port,
+      'network.publish_host'    => $::fqdn,
+      'network.host'            => '0.0.0.0',
+      'node.name'               => $::fqdn,
+      'http.port'               => $http_port,
+      'http.cors.enabled'       => $cors_enabled,
+      'http.cors.allow-headers' => $cors_allow_headers,
+      'http.cors.allow-origin'  => $cors_allow_origin,
+      'discovery'               => $discovery_config,
+      'cloud.aws.region'        => $aws_region,
+    }
+  } else {
+    $instance_config = {
+      'cluster.name'             => $cluster_name,
+      'index.number_of_replicas' => $number_of_replicas,
+      'index.number_of_shards'   => $number_of_shards,
+      'index.refresh_interval'   => $refresh_interval,
+      'index.search.slowlog'     => $slowlog_config,
+      'index.max_result_window'  => 1000000, # This will potentially create memory issues however is required until ES 5 when search_after is introduced
+      'transport.tcp.port'       => $transport_port,
+      'network.publish_host'     => $::fqdn,
+      'network.host'             => '0.0.0.0',
+      'node.name'                => $::fqdn,
+      'http.port'                => $http_port,
+      'http.cors.enabled'        => $cors_enabled,
+      'http.cors.allow-headers'  => $cors_allow_headers,
+      'http.cors.allow-origin'   => $cors_allow_origin,
+      'discovery'                => $discovery_config,
+      'cloud.aws.region'         => $aws_region,
+    }
   }
 
   if versioncmp($version, '2.0.0') >= 0 {
@@ -179,7 +207,6 @@ class govuk_elasticsearch (
     $instance_config_real = merge($instance_config, {
       'action.destructive_requires_name' => true,
       'script.engine.groovy.inline.search' => true,
-      'index.max_result_window' => 1000000 # This will potentially create memory issues however is required until ES 5 when search_after is introduced
     })
   } else {
     # 1.4.3 introduced this setting and set it to false by default
@@ -200,8 +227,12 @@ class govuk_elasticsearch (
     config        => $instance_config_real2,
     datadir       => '/mnt/elasticsearch',
     init_defaults => {
-      'ES_HEAP_SIZE' => $heap_size,
+      'ES_JAVA_OPTS' => "\"-Xmx${heap_size} -Xms${heap_size}\"",
     },
+  }
+
+  File <| title == "${elasticsearch::configdir}/${::fqdn}/scripts" |> {
+    force => true,
   }
 
   Class['elasticsearch'] -> Elasticsearch::Instance[$::fqdn] -> Anchor['govuk_elasticsearch::end']
