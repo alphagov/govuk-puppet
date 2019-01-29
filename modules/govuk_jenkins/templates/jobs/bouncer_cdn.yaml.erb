@@ -3,7 +3,7 @@
     name: cdn-configs_Bouncer_CDN
     scm:
         - git:
-            url: git@github.com:alphagov/cdn-configs.git
+            url: git@github.com:alphagov/govuk-cdn-config.git
             branches:
               - master
 
@@ -17,17 +17,16 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
         - github:
-            url: https://github.com/alphagov/cdn-configs/
+            url: https://github.com/alphagov/govuk-cdn-config/
     scm:
         - cdn-configs_Bouncer_CDN
     logrotate:
         numToKeep: 20
     builders:
         - shell: |
-            cd fastly
             export FASTLY_USER=<%= @cdn_username %>
             export FASTLY_SERVICE_ID=<%= @cdn_service_id %>
-            FASTLY_DEBUG=TRUE ./jenkins.sh
+            FASTLY_DEBUG=TRUE ./deploy-bouncer.sh
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
