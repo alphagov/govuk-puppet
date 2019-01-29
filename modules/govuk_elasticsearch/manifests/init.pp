@@ -80,21 +80,20 @@ class govuk_elasticsearch (
   include augeas
   validate_bool($manage_repo)
 
+  if versioncmp($version, '2') < 0 {
+    fail('elasticsearch 1.x is not supported')
+  }
+
   anchor { 'govuk_elasticsearch::begin': }
 
   $http_port = '9200'
   $transport_port = '9300'
 
-  # For elasticsearch version $MAJOR.$MINOR.$PATCH,
-  #  - if $MAJOR < 2, the repository is called "elasticsearch-$MAJOR.$MINOR"
-  #  - otherwise, the repository is called "elasticsearch-$MAJOR.x"
   if $manage_repo {
     if versioncmp($version, '5') >= 0 {
       $repo_version = '5.x'
     } elsif versioncmp($version, '2') >= 0 {
       $repo_version = '2.x'
-    } elsif versioncmp($version, '2') < 0 {
-      $repo_version = regsubst($version, '\.\d+$', '') # 1.4.2 becomes 1.4 etc.
     }
 
     class { 'govuk_elasticsearch::repo':
@@ -170,65 +169,48 @@ class govuk_elasticsearch (
     $slowlog_config = {}
   }
 
+  $instance_config_main = {
+    'cluster.name'                       => $cluster_name,
+    'transport.tcp.port'                 => $transport_port,
+    'network.publish_host'               => $::fqdn,
+    'network.host'                       => '0.0.0.0',
+    'node.name'                          => $::fqdn,
+    'http.port'                          => $http_port,
+    'http.cors.enabled'                  => $cors_enabled,
+    'http.cors.allow-headers'            => $cors_allow_headers,
+    'http.cors.allow-origin'             => $cors_allow_origin,
+    'discovery'                          => $discovery_config,
+    'cloud.aws.region'                   => $aws_region,
+    'action.destructive_requires_name'   => true,
+    'script.engine.groovy.inline.search' => true,
+  }
+
   if versioncmp($version, '5') >= 0 {
-    $instance_config = {
-      'cluster.name'            => $cluster_name,
-      'transport.tcp.port'      => $transport_port,
-      'network.publish_host'    => $::fqdn,
-      'network.host'            => '0.0.0.0',
-      'node.name'               => $::fqdn,
-      'http.port'               => $http_port,
-      'http.cors.enabled'       => $cors_enabled,
-      'http.cors.allow-headers' => $cors_allow_headers,
-      'http.cors.allow-origin'  => $cors_allow_origin,
-      'discovery'               => $discovery_config,
-      'cloud.aws.region'        => $aws_region,
-    }
+    $instance_config_index = {}
   } else {
-    $instance_config = {
-      'cluster.name'             => $cluster_name,
+    $instance_config_index = {
       'index.number_of_replicas' => $number_of_replicas,
       'index.number_of_shards'   => $number_of_shards,
       'index.refresh_interval'   => $refresh_interval,
       'index.search.slowlog'     => $slowlog_config,
       'index.max_result_window'  => 1000000, # This will potentially create memory issues however is required until ES 5 when search_after is introduced
-      'transport.tcp.port'       => $transport_port,
-      'network.publish_host'     => $::fqdn,
-      'network.host'             => '0.0.0.0',
-      'node.name'                => $::fqdn,
-      'http.port'                => $http_port,
-      'http.cors.enabled'        => $cors_enabled,
-      'http.cors.allow-headers'  => $cors_allow_headers,
-      'http.cors.allow-origin'   => $cors_allow_origin,
-      'discovery'                => $discovery_config,
-      'cloud.aws.region'         => $aws_region,
     }
   }
 
-  if versioncmp($version, '2.0.0') >= 0 {
-    # 2.0.0 changed the the setting name
-    # https://www.elastic.co/guide/en/elasticsearch/reference/2.0/modules-scripting.html
-    $instance_config_real = merge($instance_config, {
-      'action.destructive_requires_name' => true,
-      'script.engine.groovy.inline.search' => true,
-    })
+  if $repo_path == undef {
+    $instance_config_repo = {}
   } else {
-    # 1.4.3 introduced this setting and set it to false by default
-    # http://www.elastic.co/guide/en/elasticsearch/reference/1.x/modules-scripting.html
-    $instance_config_real = merge($instance_config, {
-      'action.destructive_requires_name' => true,
-      'script.groovy.sandbox.enabled' => true
-    })
+    $instance_config_repo = { 'path.repo' => $repo_path }
   }
 
-  if $repo_path == undef {
-    $instance_config_real2 = $instance_config_real
-  } else {
-    $instance_config_real2 = merge($instance_config_real, { 'path.repo' => $repo_path })
-  }
+  $instance_config = merge(
+    $instance_config_main,
+    $instance_config_index,
+    $instance_config_repo
+  )
 
   elasticsearch::instance { $::fqdn:
-    config        => $instance_config_real2,
+    config        => $instance_config,
     datadir       => '/mnt/elasticsearch',
     init_defaults => {
       'ES_JAVA_OPTS' => "\"-Xmx${heap_size} -Xms${heap_size}\"",
