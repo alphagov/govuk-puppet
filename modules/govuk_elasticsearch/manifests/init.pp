@@ -89,15 +89,15 @@ class govuk_elasticsearch (
   $http_port = '9200'
   $transport_port = '9300'
 
-  if $manage_repo {
-    if versioncmp($version, '5') >= 0 {
-      $repo_version = '5.x'
-    } elsif versioncmp($version, '2') >= 0 {
-      $repo_version = '2.x'
-    }
+  if versioncmp($version, '5') >= 0 {
+    $abbreviated_version = '5.x'
+  } elsif versioncmp($version, '2') >= 0 {
+    $abbreviated_version = '2.x'
+  }
 
+  if $manage_repo {
     class { 'govuk_elasticsearch::repo':
-      repo_version => $repo_version,
+      repo_version => $abbreviated_version,
     }
   }
 
@@ -187,6 +187,7 @@ class govuk_elasticsearch (
 
   if versioncmp($version, '5') >= 0 {
     $instance_config_index = {}
+    $data_dir = "/mnt/elasticsearch/es-${abbreviated_version}-data"
   } else {
     $instance_config_index = {
       'index.number_of_replicas' => $number_of_replicas,
@@ -195,6 +196,7 @@ class govuk_elasticsearch (
       'index.search.slowlog'     => $slowlog_config,
       'index.max_result_window'  => 1000000, # This will potentially create memory issues however is required until ES 5 when search_after is introduced
     }
+    $data_dir = '/mnt/elasticsearch'
   }
 
   if $repo_path == undef {
@@ -211,7 +213,7 @@ class govuk_elasticsearch (
 
   elasticsearch::instance { $::fqdn:
     config        => $instance_config,
-    datadir       => '/mnt/elasticsearch',
+    datadir       => $data_dir,
     init_defaults => {
       'ES_JAVA_OPTS' => "\"-Xmx${heap_size} -Xms${heap_size}\"",
     },
