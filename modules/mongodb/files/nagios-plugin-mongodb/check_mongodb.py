@@ -919,16 +919,13 @@ def check_oplog(con, warning, critical, perf_data):
     critical = critical or 4
     try:
         db = con.local
-        ol = db.system.namespaces.find_one({"name": "local.oplog.rs"})
         if (db.system.namespaces.find_one({"name": "local.oplog.rs"}) != None):
             oplog = "oplog.rs"
+        elif (db.system.namespaces.find_one({"name": "local.oplog.$main"}) != None):
+            oplog = "oplog.$main"
         else:
-            ol = db.system.namespaces.find_one({"name": "local.oplog.$main"})
-            if (db.system.namespaces.find_one({"name": "local.oplog.$main"}) != None):
-                oplog = "oplog.$main"
-            else:
-                message = "neither master/slave nor replica set replication detected"
-                return check_levels(None, warning, critical, message)
+            message = "neither master/slave nor replica set replication detected"
+            return check_levels(None, warning, critical, message)
 
         try:
                 set_read_preference(con.admin)
