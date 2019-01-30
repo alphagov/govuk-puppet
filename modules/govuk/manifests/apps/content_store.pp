@@ -76,20 +76,22 @@ class govuk::apps::content_store(
   $oauth_id = undef,
   $oauth_secret = undef,
   $router_api_bearer_token = undef,
+  $create_default_nginx_config = false,
 ) {
   $app_name = 'content-store'
 
   govuk::app { $app_name:
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    vhost_ssl_only           => true,
-    health_check_path        => '/healthcheck',
-    log_format_is_json       => true,
-    vhost                    => $vhost,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
-    unicorn_worker_processes => $unicorn_worker_processes,
+    app_type                    => 'rack',
+    port                        => $port,
+    sentry_dsn                  => $sentry_dsn,
+    vhost_ssl_only              => true,
+    health_check_path           => '/healthcheck',
+    log_format_is_json          => true,
+    vhost                       => $vhost,
+    nagios_memory_warning       => $nagios_memory_warning,
+    nagios_memory_critical      => $nagios_memory_critical,
+    unicorn_worker_processes    => $unicorn_worker_processes,
+    create_default_nginx_config => $create_default_nginx_config,
   }
 
   Govuk::App::Envvar {
