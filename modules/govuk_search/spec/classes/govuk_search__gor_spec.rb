@@ -5,6 +5,7 @@ describe 'govuk_search::gor', :type => :class do
     '-input-raw'          => ':3009',
     '-output-file-append' => true,
     '-http-allow-method'  => %w{POST DELETE},
+    '-output-http'        => [],
     '-http-original-host' => '',
   }}
 

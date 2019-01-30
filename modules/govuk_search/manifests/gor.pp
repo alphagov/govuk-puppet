@@ -4,6 +4,11 @@
 # way to recover from failure as we can restore the last backup and then replay the
 # traffic (POST requests are for data insert/update only)
 #
+# Also optionally replays traffic, in real-time, to a given list of
+# target hosts.  This is a temporary measure so we can replay
+# Whitehall and Search Admin updates from Rummager to Search API
+# during the migration.
+#
 # Traffic can then be replayed by follow the guide at:
 # https://github.com/buger/goreplay/wiki/Capturing-and-replaying-traffic
 #
@@ -18,9 +23,14 @@
 #   If the output path contains an `_` then either the filename need to end in an `_`
 #   or output-file-append needs to be set to true for the filename generation to work
 #   as expected.
+#
+# [*replay_target_hosts*]
+#   Hosts to replay traffic to; defaults to an empty list.
+#
 class govuk_search::gor (
   $output_path = '/var/log/gor_dump',
-  $enabled = false
+  $enabled = false,
+  $replay_target_hosts = [],
 ) {
 
   validate_bool($enabled)
@@ -47,6 +57,7 @@ class govuk_search::gor (
         '-output-file'        => $output_file,
         '-output-file-append' => true,
         '-http-allow-method'  => ['POST', 'DELETE'],
+        '-output-http'        => $replay_target_hosts,
         '-http-original-host' => '',
       },
       envvars => {
