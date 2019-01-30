@@ -46,7 +46,7 @@ class Config :
             self.pingdom_key  = config.get('DEFAULT','pingdom_key')
             self.pingdom_user = config.get('DEFAULT','pingdom_user')
         except:
-            unknown("Could not read config file " % config_file)
+            unknown("Could not read config file %s" % config_file)
 
 
 def check_arguments():
