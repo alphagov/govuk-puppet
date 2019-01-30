@@ -83,6 +83,14 @@ class govuk::apps::frontend(
     port => $redis_port,
   }
 
+  $app_domain = hiera('app_domain')
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    govuk::app::envvar::plek_uri_overrides { 'frontend':
+      app_domain => $app_domain,
+    }
+  }
+
   Govuk::App::Envvar {
     app => 'frontend',
   }

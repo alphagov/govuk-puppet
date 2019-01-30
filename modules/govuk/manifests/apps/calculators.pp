@@ -47,4 +47,12 @@ class govuk::apps::calculators(
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
   }
+
+  $app_domain = hiera('app_domain')
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    govuk::app::envvar::plek_uri_overrides { 'calculators':
+      app_domain => $app_domain,
+    }
+  }
 }

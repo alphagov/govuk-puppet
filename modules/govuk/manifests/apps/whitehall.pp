@@ -438,6 +438,20 @@ class govuk::apps::whitehall(
       value   => $rummager_bearer_token;
   }
 
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    govuk::app::envvar {
+      "${title}-PLEK_SERVICE_SEARCH_URI":
+        varname => PLEK_SERVICE_SEARCH_URI,
+        value   => "search.${app_domain}";
+      "${title}-PLEK_SERVICE_EMAIL_ALERT_API_URI":
+        varname => PLEK_SERVICE_EMAIL_ALERT_API_URI,
+        value   => "email-alert-api.${app_domain}";
+      "${title}-PLEK_SERVICE_PUBLISHING_API_URI":
+        varname => PLEK_SERVICE_PUBLISHING_API_URI,
+        value   => "publishing-api.${app_domain}";
+    }
+  }
+
   if $basic_auth_credentials != undef {
     govuk::app::envvar {
       "${title}-BASIC_AUTH_CREDENTIALS":
