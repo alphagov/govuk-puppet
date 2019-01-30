@@ -77,7 +77,7 @@ class nginx::config (
 
   @@icinga::check::graphite { "check_nginx_active_connections_${::hostname}":
     target    => "${::fqdn_metrics}.nginx.nginx_connections-active",
-    warning   => 500,
+    warning   => 650,
     critical  => 1000,
     desc      => 'nginx high active conn',
     host_name => $::fqdn,
