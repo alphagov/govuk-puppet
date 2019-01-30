@@ -364,8 +364,8 @@ govuk::apps::cache_clearing_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
   - rabbitmq-3.backend
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 10000
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 1000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
 govuk::apps::ckan::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::ckan::db_port: 6432
