@@ -377,8 +377,8 @@ govuk::apps::cache_clearing_service::enabled: true
 govuk::apps::cache_clearing_service::nagios_memory_warning: 2750
 govuk::apps::cache_clearing_service::nagios_memory_critical: 3000
 govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 10000
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 1000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
 govuk::apps::ckan::db_hostname: "postgresql-primary"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
