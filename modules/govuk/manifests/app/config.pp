@@ -46,6 +46,10 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+# [*create_default_nginx_config*]
+#   Create the default.conf site in nginx
+#   Default: false
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -82,6 +86,7 @@ define govuk::app::config (
   $collectd_process_regex = undef,
   $alert_when_threads_exceed = 100,
   $override_search_location = undef,
+  $create_default_nginx_config = false,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -257,6 +262,16 @@ define govuk::app::config (
       alert_5xx_critical_rate        => $alert_5xx_critical_rate,
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
+
+    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging') {
+      nginx::config::vhost::app_default { 'default':
+        app_healthcheck_url     => $health_check_path,
+        app_hostname            => $title,
+        app_port                => $port,
+        default_healthcheck_url => '/_healthcheck',
+      }
+    }
+
   }
   $title_underscore = regsubst($title, '\.', '_', 'G')
 

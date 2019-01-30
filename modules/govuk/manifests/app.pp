@@ -240,6 +240,10 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+# [*create_default_nginx_config*]
+#   Create the default.conf site in nginx
+#   Default: false
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -277,6 +281,7 @@ define govuk::app (
   $cpu_critical = 200,
   $collectd_process_regex = undef,
   $override_search_location = undef,
+  $create_default_nginx_config = false,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -353,6 +358,7 @@ define govuk::app (
     cpu_critical                     => $cpu_critical,
     collectd_process_regex           => $collectd_process_regex,
     override_search_location         => $override_search_location,
+    create_default_nginx_config      => $create_default_nginx_config,
   }
 
   govuk::app::service { $title:
