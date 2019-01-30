@@ -43,6 +43,17 @@ class govuk_elasticsearch::plugins (
       module_dir => 'head',
       instances  => $::fqdn,
     }
+
+    # this is a temporary hack needed so we can upgrade to a newer
+    # puppet-elasticsearch which expects these files to exist.
+    file { '/usr/share/elasticsearch/plugins/cloud-aws/.name':
+      ensure  => file,
+      content => 'cloud-aws/2.4.6',
+    }
+    file { '/usr/share/elasticsearch/plugins/head/.name':
+      ensure  => file,
+      content => 'mobz/elasticsearch-head',
+    }
   }
   # If the version is 5.0 or newer, then install the two plugins it got split into:
   # https://www.elastic.co/guide/en/elasticsearch/plugins/5.0/cloud-aws.html
