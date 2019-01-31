@@ -18,6 +18,14 @@
 # [*db_username*]
 #   The username to use in the DATABASE_URL.
 #
+# [*etl_healthcheck_enabled*]
+#   Enables or disables the ETL checks via the healthcheck endpoint
+#   Default: false
+#
+# [*etl_healthcheck_enabled_from_hour*]
+#   The hour of the day where ETL healthcheck alerts are enabled
+#   Default: undef
+#
 # [*google_analytics_govuk_view_id*]
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
@@ -86,6 +94,8 @@ class govuk::apps::content_performance_manager(
   $db_password = undef,
   $db_username = 'content_performance_manager',
   $enable_procfile_worker = true,
+  $etl_healthcheck_enabled = false,
+  $etl_healthcheck_enabled_from_hour = undef,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
@@ -171,6 +181,17 @@ class govuk::apps::content_performance_manager(
     "${title}-SUPPORT_API_BEARER_TOKEN":
       varname => 'SUPPORT_API_BEARER_TOKEN',
       value   => $support_api_bearer_token;
+  }
+
+  if $etl_healthcheck_enabled {
+    govuk::app::envvar {
+      "${title}-ETL_HEALTHCHECK_ENABLED":
+        varname => 'ETL_HEALTHCHECK_ENABLED',
+        value   => '1';
+      "${title}-ETL_HEALTHCHECK_ENABLED_FROM_HOUR":
+        varname => 'ETL_HEALTHCHECK_ENABLED_FROM_HOUR',
+        value   => $etl_healthcheck_enabled_from_hour;
+    }
   }
 
   govuk::app::envvar::redis { $app_name:
