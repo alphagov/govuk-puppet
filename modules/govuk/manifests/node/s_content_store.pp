@@ -1,5 +1,18 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
-class govuk::node::s_content_store inherits govuk::node::s_base {
+# == Class: govuk::node::s_content_store
+#
+# Configures a machine to install the content-store app and its necessary
+# dependencies
+# === Parameters
+#
+# [*skip_default_nginx_config_creation*]
+#  Specifies whether to SKIP the creation of the default nginx config
+#  at this level of the class. The config will have to be created in the
+#  `govuk::apps::content_store` class
+#  Default: false
+#
+class govuk::node::s_content_store (
+  $skip_default_nginx_config_creation = false,
+) inherits govuk::node::s_base {
   include govuk::node::s_app_server
   include govuk_aws_xray_daemon
   include nginx
@@ -8,7 +21,8 @@ class govuk::node::s_content_store inherits govuk::node::s_base {
 
   # In Staging environment, the content-store app will create its own default
   # vhost
-  if ($::aws_environment != 'staging') {
+  if ($::aws_environment != 'staging') or
+      ($::aws_environment == 'staging' and $skip_default_nginx_config_creation == false){
     # If we miss all the apps, throw a 500 to be caught by the cache nginx
     nginx::config::vhost::default { 'default': }
   }
@@ -19,4 +33,3 @@ class govuk::node::s_content_store inherits govuk::node::s_base {
     include icinga::client::check_pings
   }
 }
-

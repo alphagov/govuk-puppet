@@ -5,3 +5,4 @@ icinga::client::check_pings::endpoints:
      ip: 10.2.1.253
 
 govuk::apps::content_store::create_default_nginx_config: true
+govuk::node::s_content_store::skip_default_nginx_config_creation: "%{alias('govuk::apps::content_store::create_default_nginx_config')}"
