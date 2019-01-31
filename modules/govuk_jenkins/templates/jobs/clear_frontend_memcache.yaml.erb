@@ -4,7 +4,7 @@
     display-name: Clear frontend memcache
     project-type: freestyle
     description: >
-      Clears memcache for frontend and whitehall on GOV.UK.
+      Clears memcache for finder-frontend, frontend and whitehall on GOV.UK.
     properties:
       - build-discarder:
           num-to-keep: 30
@@ -14,7 +14,7 @@
 
           set -ex
 
-          for node in `govuk_node_list -c "frontend,whitehall_frontend"`; do
+          for node in `govuk_node_list -c "calculators_frontend,frontend,whitehall_frontend"`; do
             ssh deploy@$node "sudo /etc/init.d/memcached restart"
           done
     wrappers:

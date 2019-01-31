@@ -23,6 +23,12 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
   }
 
+  include ::collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '12%',
+    listen_ip  => '0.0.0.0',
+  }
+
   # Only for testing
   if $::aws_environment == 'staging' {
     include govuk_splunk
