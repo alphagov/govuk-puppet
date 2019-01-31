@@ -61,6 +61,8 @@ class govuk::apps::ckan (
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"
 
+  $request_timeout = 60
+
   if $enabled {
     govuk::app { 'ckan':
       app_type           => 'procfile',
@@ -69,7 +71,7 @@ class govuk::apps::ckan (
       vhost_ssl_only     => true,
       health_check_path  => '/healthcheck',
       log_format_is_json => false,
-      read_timeout       => 60,
+      read_timeout       => $request_timeout,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
@@ -135,6 +137,9 @@ class govuk::apps::ckan (
       "${title}-CKAN_HOME":
         varname => 'CKAN_HOME',
         value   => $ckan_home;
+      "${title}-GUNICORN_TIMEOUT":
+        varname => 'GUNICORN_TIMEOUT',
+        value   => $request_timeout;
       "${title}-GUNICORN_WORKER_PROCESSES":
         varname => 'GUNICORN_WORKER_PROCESSES',
         value   => $gunicorn_worker_processes;
