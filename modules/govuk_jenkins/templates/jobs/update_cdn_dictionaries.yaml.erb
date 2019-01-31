@@ -3,7 +3,7 @@
     name: update_cdn_dictionaries
     scm:
         - git:
-            url: git@github.com:alphagov/cdn-configs.git
+            url: git@github.com:alphagov/govuk-cdn-config.git
             branches:
               - master
             wipe-workspace: false
@@ -19,14 +19,13 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
         - github:
-            url: https://github.com/alphagov/cdn-configs/
+            url: https://github.com/alphagov/govuk-cdn-config/
     scm:
       - update_cdn_dictionaries
     builders:
         - shell: |
-            cd fastly
-            bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bundle exec ./dictionaries/configure_dictionaries ${vhost} <%= @environment %>
+            export ENVIRONMENT=<%= @environment %>
+            ./deploy-dictionaries.sh
     publishers:
       - slack:
           team-domain: <%= @slack_team_domain %>
