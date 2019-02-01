@@ -28,6 +28,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::record_taxonomy_metrics
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::run_metadata_tagger
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics
   - govuk_jenkins::jobs::search_fetch_analytics_data
