@@ -119,7 +119,7 @@ class govuk::apps::content_performance_manager(
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
-    health_check_path => '/api/v1/healthcheck',
+    health_check_path => '/healthcheck',
     json_health_check => true,
     asset_pipeline    => true,
     read_timeout      => 60,
