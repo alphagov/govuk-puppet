@@ -1,0 +1,33 @@
+---
+- scm:
+    name: special-route-publisher_Publish_Special_Routes
+    scm:
+        - git:
+            url: git@github.com:alphagov/special-route-publisher.git
+            branches:
+              - master
+            wipe-workspace: true
+            clean:
+                after: true
+
+- job:
+    name: Publish_Special_Routes
+    display-name: Publish special routes
+    project-type: freestyle
+    description: "Publish special routes for all applications to the Publishing API"
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/special-route-publisher/
+    scm:
+      - special-route-publisher_Publish_Special_Routes
+    builders:
+        - shell: |
+            export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec rake publish_special_routes
+    wrappers:
+        - ansicolor:
+            colormap: xterm
