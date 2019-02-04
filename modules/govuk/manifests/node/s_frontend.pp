@@ -29,7 +29,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
     listen_ip  => '0.0.0.0',
   }
 
-  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+  if ( ( $::aws_migration == 'frontend' ) and ($::aws_environment == 'staging') ) or ( ($::aws_migration == 'frontend' ) and ($::aws_environment == 'production') ) {
     $app_domain = hiera('app_domain')
 
     govuk_envvar {
