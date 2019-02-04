@@ -19,6 +19,8 @@ govuk::apps::ckan::vhost_protected: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
+govuk::apps::content_performance_manager::etl_healthcheck_enabled: true
+govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: 14
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
