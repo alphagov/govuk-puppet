@@ -110,6 +110,11 @@ class govuk::node::s_backend_lb (
       servers            => $publishing_api_backend_servers,
   }
 
+  loadbalancer::balance { 'rummager':
+      aws_egress_nat_ips => $aws_egress_nat_ips,
+      servers            => $search_servers,
+  }
+
   loadbalancer::balance { 'search':
       aws_egress_nat_ips => $aws_egress_nat_ips,
       servers            => $search_servers,
