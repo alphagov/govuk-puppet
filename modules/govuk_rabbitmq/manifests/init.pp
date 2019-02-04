@@ -16,6 +16,10 @@ class govuk_rabbitmq (
 
   if ! $::aws_migration {
     include govuk_rabbitmq::repo
+    package { 'urllib3':
+      ensure   => '1.7.1',
+      provider => pip,
+    }
   }
 
   include '::rabbitmq'
