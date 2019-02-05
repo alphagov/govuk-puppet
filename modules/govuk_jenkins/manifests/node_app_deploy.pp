@@ -31,8 +31,6 @@ define govuk_jenkins::node_app_deploy (
     'asset_env_sync',
     'canary-backend',
     'canary-frontend',
-    'publicapi',
-    'draft-publicapi',
     'support_api_csv_env_sync',
   ]
 

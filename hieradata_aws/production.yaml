@@ -32,7 +32,6 @@ node_class: &node_class
   cache:
     apps:
       - router
-      - publicapi
   content_store:
     apps:
       - content-store
@@ -51,7 +50,6 @@ node_class: &node_class
       - authenticating-proxy
       - router
       - router-api
-      - draft-publicapi
   draft_content_store:
     apps:
       - content-store

@@ -69,7 +69,6 @@ node_class: &node_class
   draft_cache:
     apps:
       - authenticating-proxy
-      - draft-publicapi
       - router
       - router-api
   draft_content_store:
@@ -103,7 +102,6 @@ node_class: &node_class
       - static
   frontend_lb:
     apps:
-      - publicapi
       - public-event-store
   mapit:
     apps:
@@ -1542,7 +1540,6 @@ hosts::production::frontend::app_hostnames:
   - 'info-frontend'
   - 'manuals-frontend'
   - 'licencefinder'
-  - 'publicapi'
   - 'service-manual'
   - 'service-manual-frontend'
   - 'smartanswers'
