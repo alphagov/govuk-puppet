@@ -308,7 +308,6 @@ hosts::backend_migration::hosts:
       - info-frontend.staging.publishing.service.gov.uk
       - manuals-frontend.staging.publishing.service.gov.uk
       - licencefinder.staging.publishing.service.gov.uk
-      - publicapi.staging.publishing.service.gov.uk
       - service-manual.staging.publishing.service.gov.uk
       - service-manual-frontend.staging.publishing.service.gov.uk
       - smartanswers.staging.publishing.service.gov.uk
@@ -523,7 +522,6 @@ hosts::backend_migration::hosts:
       - draft-cache-internal-lb.router
       - draft-cache-internal-lb
       - draft-router-api.staging.publishing.service.gov.uk
-      - draft-publicapi.staging.publishing.service.gov.uk
   mirrorer-1.management.staging.publishing.service.gov.uk:
     ip: 10.2.0.128
     host_aliases:

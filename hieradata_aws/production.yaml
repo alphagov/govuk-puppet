@@ -313,7 +313,6 @@ hosts::backend_migration::hosts:
       - info-frontend.publishing.service.gov.uk
       - manuals-frontend.publishing.service.gov.uk
       - licencefinder.publishing.service.gov.uk
-      - publicapi.publishing.service.gov.uk
       - service-manual.publishing.service.gov.uk
       - service-manual-frontend.publishing.service.gov.uk
       - smartanswers.publishing.service.gov.uk
@@ -505,7 +504,6 @@ hosts::backend_migration::hosts:
       - draft-cache-internal-lb.router
       - draft-cache-internal-lb
       - draft-router-api.publishing.service.gov.uk
-      - draft-publicapi.publishing.service.gov.uk
   mirrorer-1.management.publishing.service.gov.uk:
     ip: 10.3.0.128
     host_aliases:

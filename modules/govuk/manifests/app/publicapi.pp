@@ -49,6 +49,7 @@ define govuk::app::publicapi (
 
   if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
     nginx::config::vhost::proxy { $full_domain:
+      ensure           => absent,
       to               => [$whitehallapi, $content_store_api],
       to_ssl           => $privateapi_ssl,
       protected        => false,
@@ -62,6 +63,7 @@ define govuk::app::publicapi (
     }
   } else {
     nginx::config::vhost::proxy { $full_domain:
+      ensure           => absent,
       to               => [$whitehallapi, $rummager_api, $content_store_api],
       to_ssl           => $privateapi_ssl,
       protected        => false,

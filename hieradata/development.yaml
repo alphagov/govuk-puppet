@@ -134,7 +134,6 @@ govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::maslow::mongodb_nodes: ['localhost']
 govuk::apps::maslow::mongodb_name: 'maslow_development'
-govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'

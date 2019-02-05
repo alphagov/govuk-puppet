@@ -1660,7 +1660,6 @@ hosts::production::router::hosts:
     ip: '10.1.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
-      - "draft-publicapi.%{hiera('app_domain')}"
 
 icinga::config::http_username: "%{hiera('http_username')}"
 icinga::config::http_password: "%{hiera('http_password')}"

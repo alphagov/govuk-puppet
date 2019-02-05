@@ -590,7 +590,6 @@ hosts::production::router::hosts:
     ip: '10.3.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
-      - "draft-publicapi.%{hiera('app_domain')}"
 
 licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
