@@ -263,7 +263,7 @@ define govuk::app::config (
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
 
-    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging') {
+    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging' or $::aws_environment == 'production') {
       nginx::config::vhost::app_default { 'default':
         app_healthcheck_url     => $health_check_path,
         app_hostname            => $title,
