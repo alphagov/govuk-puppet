@@ -5,3 +5,7 @@ postgresql::server::role::rds: true
 govuk_sudo::sudo_conf:
   govuk-backup:
     content: 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/pg_dump'
+  env-sync-script:
+    content: 'Cmnd_Alias BACKUP=/usr/local/bin/govuk_env_sync.sh'
+  deploy-user-env-sync:
+    content: 'deploy ALL=(govuk-backup) NOPASSWD:BACKUP'

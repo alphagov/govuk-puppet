@@ -1,4 +1,9 @@
 ---
+govuk_sudo::sudo_conf:
+  env-sync-script:
+    content: 'Cmnd_Alias BACKUP=/usr/local/bin/govuk_env_sync.sh'
+  deploy-user-env-sync:
+    content: 'deploy ALL=(govuk-backup) NOPASSWD:BACKUP'
 
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'

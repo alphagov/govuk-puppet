@@ -1,4 +1,9 @@
 ---
+govuk_sudo::sudo_conf:
+  env-sync-script:
+    content: 'Cmnd_Alias BACKUP=/usr/local/bin/govuk_env_sync.sh'
+  deploy-user-env-sync:
+    content: 'deploy ALL=(govuk-backup) NOPASSWD:BACKUP'
 
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes:
