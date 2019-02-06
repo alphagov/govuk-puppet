@@ -70,11 +70,6 @@ class govuk::apps::frontend(
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
     vhost                    => $vhost,
-    nginx_extra_config       => '
-  location ^~ /frontend/homepage/no-cache/ {
-    expires epoch;
-  }
-  ',
     unicorn_worker_processes => $unicorn_worker_processes,
   }
 
