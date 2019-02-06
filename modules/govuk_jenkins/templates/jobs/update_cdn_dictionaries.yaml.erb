@@ -41,6 +41,9 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+      - trigger:
+          project: Smokey
+          threshold: SUCCESS
     wrappers:
         - ansicolor:
             colormap: xterm
