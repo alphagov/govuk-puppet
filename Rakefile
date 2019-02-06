@@ -109,6 +109,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_backend_lb::perfplat_public_app_domain
     govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
+    govuk::node::s_backend_lb::whitehall_frontend_servers
     govuk::node::s_frontend_lb::calculators_frontend_servers
     govuk::node::s_frontend_lb::draft_frontend_servers
     govuk::node::s_frontend_lb::frontend_servers

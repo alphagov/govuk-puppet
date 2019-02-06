@@ -37,6 +37,7 @@ class govuk::node::s_backend_lb (
   $whitehall_backend_servers,
   $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
+  $whitehall_frontend_servers,
   $aws_egress_nat_ips,
   $search_servers = [],
   $ckan_backend_servers = [],
@@ -130,6 +131,14 @@ class govuk::node::s_backend_lb (
     ]:
       deny_crawlers => true,
       servers       => $ckan_backend_servers,
+  }
+
+  loadbalancer::balance { [
+      'whitehall-frontend',
+      'draft-whitehall-frontend',
+    ]:
+      aws_egress_nat_ips => $aws_egress_nat_ips,
+      servers            => $whitehall_frontend_servers,
   }
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
