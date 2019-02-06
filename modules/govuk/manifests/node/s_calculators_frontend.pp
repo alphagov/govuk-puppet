@@ -42,7 +42,7 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
       'PLEK_SERVICE_RUMMAGER_URI': value  => "https://rummager.${app_domain}";
       'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain}";
       'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
-      'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall_admin.${app_domain}";
+      'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
     }
   }
 }
