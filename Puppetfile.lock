@@ -44,6 +44,9 @@ FORGE
     puppet-unattended_upgrades (2.1.0)
       puppetlabs-apt (< 3.0.0, >= 2.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+    puppet-yum (2.2.1)
+      puppetlabs-concat (< 5.0.0, >= 1.2.5)
+      puppetlabs-stdlib (< 5.0.0, >= 4.10.0)
     puppet-zypprepo (2.2.1)
     puppetlabs-apt (2.3.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
@@ -67,6 +70,7 @@ FORGE
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.25.1)
     puppetlabs-vcsrepo (2.3.0)
+    richardc-datacat (0.6.2)
     rtyler-jenkins (1.7.0)
       darin-zypprepo (< 2.0.0, >= 1.0.1)
       puppet-archive (>= 0.4.8)
@@ -104,14 +108,6 @@ GIT
   sha: 388b8343188673dc966db8840ed5c4cf7ae00470
   specs:
     alphagov-duplicity (0.0.1)
-
-GIT
-  remote: git://github.com/alphagov/puppet-elasticsearch.git
-  ref: d88a116200f3169e08a1a3d55ce4a840fc3bb7e5
-  sha: d88a116200f3169e08a1a3d55ce4a840fc3bb7e5
-  specs:
-    elasticsearch-elasticsearch (0.4.0)
-      puppetlabs-stdlib (>= 3.2.0)
 
 GIT
   remote: git://github.com/alphagov/puppet-ext4mount.git
@@ -152,6 +148,18 @@ GIT
       puppetlabs-apt (< 3.0.0, >= 1.8.0)
       puppetlabs-concat (< 3.0.0, >= 1.1.0)
       puppetlabs-stdlib (~> 4.0)
+
+GIT
+  remote: git://github.com/elastic/puppet-elasticsearch.git
+  ref: 7d297e0002f1519e488620b7580963c80fe89f18
+  sha: 7d297e0002f1519e488620b7580963c80fe89f18
+  specs:
+    elasticsearch-elasticsearch (5.5.0)
+      puppet-yum (< 3.0.0, >= 0.9.6)
+      puppetlabs-apt (< 5.0.0, >= 2.0.0)
+      puppetlabs-java (< 5.0.0, >= 1.0.0)
+      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
+      richardc-datacat (< 1.0.0, >= 0.6.2)
 
 GIT
   remote: git://github.com/electrical/puppet-logstash.git
