@@ -247,7 +247,11 @@ class govuk_elasticsearch (
   }
 
   if ! $::aws_migration {
-    govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
+    # temporary hack so that CI will build this AWS-only host without
+    # trying to include the firewall class.
+    if ($::hostname != 'elasticsearch5-1') {
+      govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
+    }
   } else {
     # Since UFW is setup as deny by default we need to open the up the firewall
     # from everyone, and firewalling is handled by Security Groups
