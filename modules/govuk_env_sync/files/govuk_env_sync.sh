@@ -22,7 +22,7 @@ set -o errtrace
 #     This is used to construct script names called, e.g. push_s3
 #
 #   T) temppath
-#     Path to create temporary directory in. Directory will be created if 
+#     Path to create temporary directory in. Directory will be created if
 #     sufficient rights are granted to the govuk-backup user.
 #
 #   d) database
@@ -172,7 +172,7 @@ function dump_mongo {
           "$(mongo --quiet --eval 'rs.slaveOk(); db.getCollectionNames();' "localhost/$database")"
 
   for collection in "${collections[@]}"
-  do  
+  do
 
     mongodump \
       --db "${database}" \
@@ -314,6 +314,31 @@ function postprocess_signon_production {
   echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
 }
 
+## function: mongo_backend_domain_manipulator
+## Parameters:
+##  1. backend_id for which the domain will be replaced
+##  2. new domain to be applied for the given backend_id
+## Dependencies:
+##  1. external variables: database, local_domain
+##  2. external database: mongo
+
+function mongo_backend_domain_manipulator {
+ if [ $# != 2 ]; then
+  echo "number of parameters must be 2 for mongo_backend_domain_manipulator: got $# parmeters"
+  exit 1
+ fi
+
+ echo "starting mongo manipulation backend domain $1 manipulation..."
+
+ mongo --quiet --eval \
+  "db = db.getSiblingDB(\"${database}\"); \
+    db.backends.find( { \"backend_id\": \"$1\" } ).forEach( \
+    function(b) { b.backend_url = b.backend_url.replace(\".${local_domain}\", \".$2\"); \
+    db.backends.save(b); } );"
+
+ echo "successful finished mongo manipulation backend domain $1 manipulation"
+}
+
 function postprocess_router {
   static_domain=$(mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
@@ -324,16 +349,18 @@ function postprocess_router {
 
   # local_domain comes from env.d/LOCAL_DOMAIN (see above).
 
-  licensify_domain="${local_domain//govuk.digital/publishing.service.gov.uk}"
-
   mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
-    db.backends.find( { \"backend_id\": { \$ne: \"licensify\" } } ).forEach( \
+    db.backends.find().forEach( \
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
-    db.backends.save(b); } ); \
-    db.backends.find( { \"backend_id\": \"licensify\" } ).forEach( \
-      function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${licensify_domain}\"); \
-    db.backends.save(b); } );"
+    db.backends.save(b); } ); "
+
+  licensify_domain="${source_domain}"
+  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+
+  whitehall_domain="${source_domain}"
+  mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
+  mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 }
 
 function postprocess_database {
@@ -385,7 +412,7 @@ nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storageback
 nagios_code=2
 
 case ${action} in
-  push) 
+  push)
     create_tempdir
     create_timestamp
     set_filename
