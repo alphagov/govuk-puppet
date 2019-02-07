@@ -3,7 +3,13 @@
 # Machines for the elasticsearch cluster in the API vDC
 #
 class govuk::node::s_elasticsearch5 inherits govuk::node::s_base {
-  include govuk_java::openjdk7::jre
+  include govuk_java::openjdk8::jdk
+  include govuk_java::openjdk8::jre
+  class { 'govuk_java::set_defaults':
+    jdk => 'openjdk8',
+    jre => 'openjdk8',
+  }
+
   include govuk_env_sync
 
   $es_heap_size = floor($::memorysize_mb / 2)
@@ -18,7 +24,7 @@ class govuk::node::s_elasticsearch5 inherits govuk::node::s_base {
     heap_size            => "${es_heap_size}m",
     number_of_replicas   => '1',
     host                 => $::fqdn,
-    require              => Class['govuk_java::openjdk7::jre'],
+    require              => Class['govuk_java::openjdk8::jre'],
     aws_cluster_name     => "elasticsearch5-${::aws_stackname}",
     log_slow_queries     => true,
     slow_query_log_level => 'info',
