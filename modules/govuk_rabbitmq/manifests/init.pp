@@ -23,6 +23,8 @@ class govuk_rabbitmq (
       ensure   => '1.7.1',
       provider => pip,
     }
+# Temporary purging of queues not consumed during the migration to AWS
+    include govuk_rabbitmq::purge_queues
   }
 
   include '::rabbitmq'
