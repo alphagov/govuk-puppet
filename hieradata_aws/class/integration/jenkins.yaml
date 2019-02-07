@@ -23,7 +23,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::extract_app_performance
   - govuk_jenkins::jobs::govuk_content_api_docs
   - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
-  - govuk_jenkins::jobs::mirror_repos
   - govuk_jenkins::jobs::monitor_taxonomy_health
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::publication_delay_report
