@@ -29,7 +29,7 @@
             <% end -%>
 
             if [ "$DEPLOY_FROM_AWS_CODECOMMIT" == "true" ]; then
-              export AWS_REGION=eu-west-1
+              export AWS_REGION=eu-west-2
               export GIT_ORIGIN_PREFIX="ssh://git-codecommit.${AWS_REGION}.amazonaws.com/v1/repos"
               export APP_DEPLOYMENT_GIT_URL="${GIT_ORIGIN_PREFIX}/govuk-app-deployment"
               export APP_DEPLOYMENT_SECRET_GIT_URL="${GIT_ORIGIN_PREFIX}/govuk-app-deployment-secrets"
