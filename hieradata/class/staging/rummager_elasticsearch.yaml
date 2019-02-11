@@ -1,0 +1,3 @@
+---
+
+govuk::node::s_rummager_elasticsearch::aws_subnet: 10.12.0.0/16
