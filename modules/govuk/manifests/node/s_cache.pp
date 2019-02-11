@@ -45,6 +45,13 @@ class govuk::node::s_cache (
   include router::gor
   include nscd
 
+  limits::limits { 'deploy_nofile_router':
+    ensure     => present,
+    user       => 'deploy',
+    limit_type => 'nofile',
+    both       => 65535,
+  }
+
   if $router_as_container {
     include ::govuk_containers::apps::router
   }
