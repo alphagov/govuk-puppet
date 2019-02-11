@@ -2,7 +2,16 @@
 #
 # Machines for the elasticsearch cluster in the API vDC
 #
-class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
+# === Parameters
+#
+# [*aws_subnet*]
+#   IPv4 subnet which will allow AWS hosts to contact this host when in
+#   Staging or Production
+#   Default: null
+#
+class govuk::node::s_rummager_elasticsearch (
+  $aws_subnet = null,
+) inherits govuk::node::s_base {
   include govuk_java::openjdk7::jre
   include govuk_env_sync
 
@@ -59,6 +68,13 @@ class govuk::node::s_rummager_elasticsearch inherits govuk::node::s_base {
       port    => 9200,
       from    => getparam(Govuk_host['calculators-frontend-3'], 'ip'),
       require => Govuk_host['calculators-frontend-3'],
+    }
+  }
+
+  if (! $::aws_migration) {
+    @ufw::allow { 'allow-elasticsearch-http-9200-from-aws':
+      port => 9200,
+      from => $aws_subnet,
     }
   }
 
