@@ -150,6 +150,7 @@ class govuk::node::s_apt (
   aptly::repo { 'gof3r': }
   aptly::repo { 'google-cloud-sdk-trusty': }
   aptly::repo { 'gor': }
+  aptly::repo { 'goreplay': }
   aptly::repo { 'govuk-datascrubber': }
   aptly::repo { 'govuk-jenkins': }
   aptly::repo { 'govuk-prometheus': }
