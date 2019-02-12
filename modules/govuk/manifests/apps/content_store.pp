@@ -57,6 +57,10 @@
 # [*router_api_bearer_token*]
 #   The bearer token that will be used to authenticate with the router api
 #
+# [*plek_service_whitehall_frontend_uri*]
+#   whitehall-frontend URL envvar
+#   Default: undef
+#
 
 class govuk::apps::content_store(
   $port = '3068',
@@ -77,6 +81,7 @@ class govuk::apps::content_store(
   $oauth_secret = undef,
   $router_api_bearer_token = undef,
   $create_default_nginx_config = false,
+  $plek_service_whitehall_frontend_uri = undef,
 ) {
   $app_name = 'content-store'
 
@@ -140,5 +145,8 @@ class govuk::apps::content_store(
     "${title}-PERFORMANCEPLATFORM_SPOTLIGHT":
       varname => 'PLEK_SERVICE_SPOTLIGHT_URI',
       value   => $performance_platform_spotlight_url;
+    "${title}-WHITEHALL_FRONTEND_URI":
+      varname => 'PLEK_SERVICE_WHITEHALL_FRONTEND_URI',
+      value   => $plek_service_whitehall_frontend_uri;
   }
 }
