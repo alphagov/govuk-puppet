@@ -1,7 +1,7 @@
 govuk_env_sync::tasks:
   "pull_ckan_production_daily":
     ensure: "present"
-    hour: "2"
+    hour: "3"
     minute: "15"
     action: "pull"
     dbms: "postgresql"
