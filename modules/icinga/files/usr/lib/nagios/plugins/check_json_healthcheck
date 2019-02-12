@@ -130,10 +130,9 @@ class HealthCheckInfo(object):
 
     def _check_parts(self, check_name, check_value):
         base_parts = [check_name, check_value["status"]]
-        if "message" in check_value:
-            return base_parts + [check_value["message"]]
-        else:
-            return base_parts
+        if check_value.get("message") is not None:
+            base_parts.append(check_value["message"])
+        return base_parts
 
 
 if __name__ == "__main__":
