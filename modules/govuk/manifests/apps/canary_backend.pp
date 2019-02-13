@@ -13,7 +13,8 @@ class govuk::apps::canary_backend {
       content => "
         server {
           listen 80;
-          server_name canary-backend canary_backend.*;
+          listen 443 ssl;
+          server_name canary-backend.* canary_backend.*;
           location / {
             default_type application/json;
             add_header cache-control \"max-age=0,no-store,no-cache\";
