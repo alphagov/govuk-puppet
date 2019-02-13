@@ -25,7 +25,7 @@
     builders:
         - shell: |
             export ENVIRONMENT=<%= @environment %>
-            ./jenkins.sh
+            ./deploy-service.sh
     publishers:
       <% if @enable_slack_notifications %>
       - slack:
