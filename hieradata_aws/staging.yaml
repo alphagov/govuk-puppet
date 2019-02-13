@@ -19,6 +19,7 @@ node_class: &node_class
     apps:
       - asset-manager
       - cache-clearing-service
+      - canary-backend
       - transition
       - imminence
       - kibana
