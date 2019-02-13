@@ -21,6 +21,8 @@ define collectd::plugin::process(
   # Sanitise file and metric names.
   validate_re($title, '^[\w\-]+$')
 
+  $collect_file_descriptor = $::lsbdistcodename != 'precise'
+
   @collectd::plugin { "process-${title}":
     ensure  => $ensure,
     content => template('collectd/etc/collectd/conf.d/process.conf.erb'),
