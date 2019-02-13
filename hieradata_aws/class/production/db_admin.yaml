@@ -2,7 +2,7 @@ govuk_env_sync::tasks:
   "push_ckan_production_daily":
     ensure: "present"
     hour: "23"
-    minute: 30"
+    minute: "30"
     action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
