@@ -361,6 +361,12 @@ function postprocess_router {
   whitehall_domain="${source_domain}"
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
+
+  search_domain="${source_domain}"
+  mongo_backend_domain_manipulator "search" "${search_domain}"
+  
+  rummager_domain="${source_domain}"
+  mongo_backend_domain_manipulator "rummager" "${rummager_domain}"
 }
 
 function postprocess_database {
