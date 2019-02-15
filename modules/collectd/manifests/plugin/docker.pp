@@ -16,7 +16,7 @@ class collectd::plugin::docker(
 ) {
 
   $dependencies = [
-    'py-dateutil',
+    'py-dateutil<=2.2',
   ]
 
   package { $dependencies:
@@ -29,7 +29,7 @@ class collectd::plugin::docker(
   # seems to be fixed in puppet 4: https://tickets.puppetlabs.com/browse/PUP-1073
   exec { 'pip install docker':
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
-    command => 'pip install docker',
+    command => 'pip install docker<=2.6.1',
   }
 
   package { 'docker-py':
