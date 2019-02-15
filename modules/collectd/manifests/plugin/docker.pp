@@ -46,6 +46,7 @@ class collectd::plugin::docker(
     source   => $repo,
     revision => $commit,
     notify   => Class['collectd::service'],
+    force    => true,
   }
 
   @collectd::plugin { 'docker':
