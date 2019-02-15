@@ -21,7 +21,7 @@ cd /var/apps/${APPLICATION}/
 EXPECTED_WORKERS=$(env -i /usr/local/bin/govuk_setenv ${APPLICATION} \
     env HOME=/tmp GOVUK_APP_LOGROOT=/tmp bundle exec ruby \
     -e 'require "unicorn"; puts Unicorn::Configurator.new(:config_file => "'${CONFIG_FILE}'")[:worker_processes]' \
-    2>/dev/null)
+    2>/dev/null | grep -Eo '[0-9]+$')
 
 # Bail if not an integer.
 [[ $EXPECTED_WORKERS != *[!0-9]* ]] || exit_unknown
