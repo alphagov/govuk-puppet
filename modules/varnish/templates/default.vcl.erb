@@ -35,7 +35,7 @@ sub vcl_recv {
   # vcl_error completes the redirect
   # Don't redirect "/" to "".
   if (req.url ~ "(.+)/$") {
-    set req.http.x-Redir-Url = regsub(req.url, "^(.+)/$", "\1");
+    set req.http.x-Redir-Url = "//" + req.http.host + regsub(req.url, "^(.+)/$", "\1");
     error 667 req.http.x-Redir-Url;
   }
 
@@ -43,7 +43,7 @@ sub vcl_recv {
   # Ignores URLs with query strings
   # vcl_error completes the redirect
   if (req.url ~ "^[^?]+\.$") {
-    set req.http.x-Redir-Url = regsub(req.url, "^(.*)\.$", "\1");
+    set req.http.x-Redir-Url = "//" + req.http.host + regsub(req.url, "^(.*)\.$", "\1");
     error 667 req.http.x-Redir-Url;
   }
 
