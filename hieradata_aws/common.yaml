@@ -296,8 +296,8 @@ collectd::plugin::tcp::metrics:
   - 'PassiveOpens'
 
 collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-collectd::plugin::docker::repo: "https://github.com/lebauce/docker-collectd-plugin.git"
-collectd::plugin::docker::commit: "c3edc64555f35d8ffcc9aee23b69c289e8f309fb"
+collectd::plugin::docker::repo: "https://github.com/alphagov/docker-collectd-plugin.git"
+collectd::plugin::docker::commit: "e56ddb84536065786e0a55143faa8c6fc035c119"
 
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
