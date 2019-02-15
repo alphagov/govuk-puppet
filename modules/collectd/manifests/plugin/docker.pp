@@ -14,6 +14,7 @@ class collectd::plugin::docker(
   $repo = undef,
   $commit = undef,
 ) {
+  include ::collectd
 
   $dependencies = [
     'py-dateutil<=2.2',
@@ -22,6 +23,7 @@ class collectd::plugin::docker(
   package { $dependencies:
     ensure   => 'present',
     provider => 'pip',
+    notify   => Class['collectd::service'],
   }
 
   # This has to be installed via exec rather than a package as the namespace
@@ -30,6 +32,7 @@ class collectd::plugin::docker(
   exec { 'pip install docker':
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
     command => 'pip install docker<=2.6.1',
+    notify  => Class['collectd::service'],
   }
 
   package { 'docker-py':
@@ -42,6 +45,7 @@ class collectd::plugin::docker(
     provider => git,
     source   => $repo,
     revision => $commit,
+    notify   => Class['collectd::service'],
   }
 
   @collectd::plugin { 'docker':
