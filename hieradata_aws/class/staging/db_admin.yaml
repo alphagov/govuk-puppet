@@ -8,7 +8,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "ckan_production"
     temppath: "/tmp/ckan_production"
-    url: "govuk-staging-database-backups"
+    url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "pull_content_audit_tool_production_daily":
     ensure: "present"
