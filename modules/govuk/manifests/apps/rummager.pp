@@ -80,6 +80,9 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
+# [*rummager_enable*]
+#   Whether rummager is enabled or not
+#
 class govuk::apps::rummager(
   $rabbitmq_user,
   $port = '3009',
@@ -102,13 +105,22 @@ class govuk::apps::rummager(
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $enable_rummager = true,
 ) {
 
-  package { ['aspell', 'aspell-en', 'libaspell-dev']:
-    ensure => $spelling_dependencies,
+  $rummager_ensure = $enable_rummager ? {
+    true    => present,
+    default => absent,
+  }
+
+  if $enable_rummager {
+    package { ['aspell', 'aspell-en', 'libaspell-dev']:
+      ensure => $spelling_dependencies,
+    }
   }
 
   govuk::app { 'rummager':
+    ensure                   => $rummager_ensure,
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
@@ -136,18 +148,21 @@ class govuk::apps::rummager(
     unicorn_worker_processes => $unicorn_worker_processes,
   }
 
-  govuk::app::envvar::rabbitmq { 'rummager':
-    hosts    => $rabbitmq_hosts,
-    user     => $rabbitmq_user,
-    password => $rabbitmq_password,
-  }
+  if $enable_rummager {
+    govuk::app::envvar::rabbitmq { 'rummager':
+      hosts    => $rabbitmq_hosts,
+      user     => $rabbitmq_user,
+      password => $rabbitmq_password,
+    }
 
-  govuk::app::envvar::redis { 'rummager':
-    host => $redis_host,
-    port => $redis_port,
+    govuk::app::envvar::redis { 'rummager':
+      host => $redis_host,
+      port => $redis_port,
+    }
   }
 
   govuk::procfile::worker { 'rummager':
+    ensure         => $rummager_ensure,
     enable_service => $enable_procfile_worker,
   }
 
@@ -187,44 +202,45 @@ class govuk::apps::rummager(
     process_type   => 'bulk-reindex-queue-listener',
   }
 
-  Govuk::App::Envvar {
-    app            => 'rummager',
-  }
+  if $enable_rummager {
+    Govuk::App::Envvar {
+      app            => 'rummager',
+    }
 
-  govuk::app::envvar {
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-  }
+    govuk::app::envvar {
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    }
 
-  govuk::app::envvar {
-    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
-      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
-      value   => $email_alert_api_bearer_token;
-  }
+    govuk::app::envvar {
+      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
+    }
 
-  govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-    varname => 'ELASTICSEARCH_URI',
-    value   => $elasticsearch_hosts,
-  }
+    govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
+      varname => 'ELASTICSEARCH_URI',
+      value   => $elasticsearch_hosts,
+    }
 
-  govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
-    varname => 'ELASTICSEARCH_HOSTS',
-    value   => $elasticsearch_hosts,
-  }
+    govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
+      varname => 'ELASTICSEARCH_HOSTS',
+      value   => $elasticsearch_hosts,
+    }
 
-  govuk::app::envvar { "${title}-SITEMAP_GENERATION_TIME":
-    varname => 'SITEMAP_GENERATION_TIME',
-    value   => $sitemap_generation_time,
-  }
+    govuk::app::envvar { "${title}-SITEMAP_GENERATION_TIME":
+      varname => 'SITEMAP_GENERATION_TIME',
+      value   => $sitemap_generation_time,
+    }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+    }
   }
-
 }
