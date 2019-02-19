@@ -166,7 +166,7 @@ define govuk::app::config (
     }
 
     if $override_search_location {
-      govuk::app::envar {
+      govuk::app::envvar {
         "${title}-PLEK_SERVICE_SEARCH_URI":
           varname => 'PLEK_SERVICE_SEARCH_URI',
           value   => $override_search_location;
