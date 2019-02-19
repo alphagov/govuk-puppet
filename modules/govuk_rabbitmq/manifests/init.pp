@@ -47,6 +47,27 @@ class govuk_rabbitmq (
     rabbitmq_plugin { 'autocluster':
       ensure => present,
     }
+
+    # Temporary federation setup for the duration of the migration to AWS
+    # Remove once the migration is over
+    rabbitmq_plugin { 'rabbitmq_federation':
+      ensure => present,
+    }
+    rabbitmq_plugin { 'rabbitmq_federation_management':
+      ensure => present,
+    }
+    exec { 'rabbitmq parameters':
+      command => "rabbitmqctl set_parameter federation-upstream carrenza '{\"uri\": [ \"amqp://root:${root_password}@10.2.3.70\", \"amqp://root:${root_password}@10.2.3.71\",\"amqp://root:${root_password}@10.2.3.72\" ], \"max-hops\": 1}'",
+      unless  => 'rabbitmqctl list_parameters | grep -qE federation',
+      path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
+      require => Rabbitmq_plugin['rabbitmq_federation'],
+    }
+    exec { 'rabbitmq policy: federation':
+      command => "rabbitmqctl set_policy --apply-to exchanges federation 'published_documents' '{\"federation-upstream-set\":\"all\"}'",
+      unless  => 'rabbitmqctl list_policies | grep -qE federation',
+      path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
+      require => Exec['rabbitmq parameters'],
+    }
   }
 
   rabbitmq_user { 'root':
