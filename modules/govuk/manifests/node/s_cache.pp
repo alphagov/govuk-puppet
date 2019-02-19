@@ -45,11 +45,19 @@ class govuk::node::s_cache (
   include router::gor
   include nscd
 
+  # The next two blocks increase file descriptor and IP connection
+  # tracking limits on cache machines so the router can handle more
+  # simultaneous connections. The router is the only app on these
+  # machines, so we can afford for it to use more resources.
   limits::limits { 'deploy_nofile_router':
     ensure     => present,
     user       => 'deploy',
     limit_type => 'nofile',
-    both       => 65535,
+    both       => 65536,
+  }
+
+  govuk_harden::sysctl::conf { 'cache-nf-conntrack-limit':
+    content => "net.netfilter.nf_conntrack_max = 65536\n",
   }
 
   if $router_as_container {
