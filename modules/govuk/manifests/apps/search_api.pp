@@ -76,6 +76,9 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
+# [*rummager_enable*]
+#   Whether rummager is enabled or not
+#
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port = '3233',
@@ -97,13 +100,15 @@ class govuk::apps::search_api(
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $rummager_enable = true,
 ) {
   $app_name = 'search-api'
 
-  # todo: uncomment this when rummager is removed (as it conflicts)
-  # package { ['aspell', 'aspell-en', 'libaspell-dev']:
-  #   ensure => $spelling_dependencies,
-  # }
+  if ! $rummager_enable {
+    package { ['aspell', 'aspell-en', 'libaspell-dev']:
+      ensure => $spelling_dependencies,
+    }
+  }
 
   govuk::app { 'search-api':
     app_type                 => 'rack',

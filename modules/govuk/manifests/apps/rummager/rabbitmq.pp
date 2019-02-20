@@ -34,6 +34,7 @@ class govuk::apps::rummager::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { 'rummager_to_be_indexed':
+    ensure        => $toggled_ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => 'rummager_to_be_indexed',
     routing_key   => '*.links',
@@ -41,6 +42,7 @@ class govuk::apps::rummager::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { 'rummager_govuk_index':
+    ensure        => $toggled_ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => 'rummager_govuk_index',
     routing_key   => '*.*',
@@ -55,13 +57,17 @@ class govuk::apps::rummager::rabbitmq (
   # We've kept this separate because the message publish rate is much higher
   # than we would expect from normal publishing activity, and this gives us
   # the flexibility to stop/throttle these messages if they become a problem.
-  if $enable_bulk_reindex_listener {
-    govuk_rabbitmq::queue_with_binding { 'rummager_bulk_reindex':
-      amqp_exchange => $amqp_exchange,
-      amqp_queue    => 'rummager_bulk_reindex',
-      routing_key   => '*.bulk.reindex',
-      durable       => true,
-    }
+  $toggled_bulk_ensure = $enable_bulk_reindex_listener ? {
+    true    => present,
+    default => absent,
+  }
+
+  govuk_rabbitmq::queue_with_binding { 'rummager_bulk_reindex':
+    ensure        => $toggled_bulk_ensure,
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => 'rummager_bulk_reindex',
+    routing_key   => '*.bulk.reindex',
+    durable       => true,
   }
 
   # match everything on queue 2 while we test
