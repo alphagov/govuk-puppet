@@ -27,10 +27,14 @@
 # [*replay_target_hosts*]
 #   Hosts to replay traffic to; defaults to an empty list.
 #
+# [*port*]
+#   Port to record traffic from; defaults to 3009.
+#
 class govuk_search::gor (
   $output_path = '/var/log/gor_dump',
   $enabled = false,
   $replay_target_hosts = [],
+  $port = '3009',
 ) {
 
   validate_bool($enabled)
@@ -53,7 +57,7 @@ class govuk_search::gor (
 
     class { 'govuk_gor':
       args    => {
-        '-input-raw'          => ':3009',
+        '-input-raw'          => ":${port}",
         '-output-file'        => $output_file,
         '-output-file-append' => true,
         '-http-allow-method'  => ['POST', 'DELETE'],
