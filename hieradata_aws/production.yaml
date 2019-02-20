@@ -18,6 +18,7 @@ node_class: &node_class
   backend:
     apps:
       - asset-manager
+      - cache-clearing-service
       - canary-backend
       - transition
       - imminence
