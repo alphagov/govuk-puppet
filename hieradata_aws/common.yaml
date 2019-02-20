@@ -1300,6 +1300,7 @@ router::assets_origin::asset_manager_uploaded_assets_routes:
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
+  - 'assets.production.govuk.digital'
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
