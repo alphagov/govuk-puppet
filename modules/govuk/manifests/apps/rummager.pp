@@ -242,5 +242,10 @@ class govuk::apps::rummager(
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
     }
+
+    govuk::app::envvar { "${title}-XRAY_SAMPLE_RATE":
+      varname => 'XRAY_SAMPLE_RATE',
+      value   => '1.0',
+    }
   }
 }
