@@ -57,6 +57,7 @@ class govuk::node::s_cache (
   }
 
   govuk_harden::sysctl::conf { 'cache-nf-conntrack-limit':
+    ensure  => absent,
     content => "net.netfilter.nf_conntrack_max = 65536\n",
   }
 
