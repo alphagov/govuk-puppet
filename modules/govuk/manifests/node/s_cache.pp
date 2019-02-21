@@ -82,7 +82,7 @@ class govuk::node::s_cache (
   }
 
   # The storage size for the cache, excluding per object and static overheads
-  $varnish_storage_size_pre = floor($::memorysize_mb * 0.70 - 2048)
+  $varnish_storage_size_pre = floor($::memorysize_mb * 0.70 - 3072)
 
   # Ensure that there's some varnish storage in small environments (eg, vagrant).
   if $varnish_storage_size_pre < 100 {
