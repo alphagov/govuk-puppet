@@ -5,5 +5,3 @@ govuk::apps::content_store::create_default_nginx_config: true
 icinga::client::check_pings::endpoints:
    router-api:
      ip: 10.3.1.253
-
-icinga::client::contact_groups: 'urgent-priority'
