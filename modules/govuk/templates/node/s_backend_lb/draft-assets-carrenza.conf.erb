@@ -1,0 +1,72 @@
+server {
+  <%- if scope.lookupvar('::aws_migration') %>
+  server_name <%= @draft_assets_carrenza_vhost_name %> <%= @draft_assets_carrenza_vhost_name %>.*;
+  # Send the Strict-Transport-Security header
+  include /etc/nginx/add-sts.conf;
+  <%- else %>
+  server_name <%= @draft_assets_carrenza_vhost_name %>;
+  <%- end %>
+
+  listen 80;
+<% if @enable_ssl -%>
+  rewrite ^/(.*) https://$host/$1 permanent;
+}
+
+server {
+  server_name <%= @draft_assets_carrenza_vhost_name -%>;
+  listen              443 ssl;
+  ssl_certificate     /etc/nginx/ssl/<%= @draft_assets_carrenza_vhost_name -%>.crt;
+  ssl_certificate_key /etc/nginx/ssl/<%= @draft_assets_carrenza_vhost_name -%>.key;
+  include             /etc/nginx/ssl.conf;
+<% end -%>
+
+  proxy_set_header X-Real-IP $remote_addr;
+  proxy_set_header X-Forwarded-Server $host;
+  proxy_set_header X-Forwarded-Host $host;
+  proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+<% if @real_ip_header != '' -%>
+  # use an unspoofable header from an upstream cdn or l7 load balancer.
+  real_ip_header <%= @real_ip_header -%>;
+  real_ip_recursive on;
+  set_real_ip_from 0.0.0.0/0;
+
+  # Limit requests and connections based on $remote_addr.
+  # NB: This may not be accurate if there is a L3 load balancer upstream and
+  # real_ip_header cannot be set!
+  limit_req zone=rate burst=10 nodelay;
+  limit_conn connections 10;
+<% end -%>
+
+  access_log /var/log/nginx/<%= @draft_assets_carrenza_vhost_name %>-json.event.access.log json_event;
+  error_log /var/log/nginx/<%= @draft_assets_carrenza_vhost_name %>-error.log;
+
+  add_header "Access-Control-Allow-Origin" "*";
+  add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
+  add_header "Access-Control-Allow-Headers" "origin, authorization";
+
+  # Avoid falling through to the default host if none of our locations match
+  location / {
+    return 404;
+  }
+  <%- if scope.lookupvar('::aws_migration') %>
+  set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+  <%- end %>
+  location /auth/ {
+    <%- if scope.lookupvar('::aws_migration') %>
+    proxy_pass $upstream_asset_manager;
+    <%- else %>
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    <%- end %>
+  }
+
+  <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
+  location <%= path %> {
+    <%- if scope.lookupvar('::aws_migration') %>
+    proxy_pass $upstream_asset_manager;
+    <%- else %>
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
+    <%- end %>
+  }
+  <%- end -%>
+}
