@@ -92,6 +92,17 @@ govuk::node::s_development::apps:
   - 'travel_advice_publisher'
   - 'whitehall'
 
+govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
+  - '/government/uploads/'
+  - '/media/'
+govuk::node::s_backend_lb::whitehall_uploaded_assets_routes:
+  - '/government/placeholder'
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
+govuk::node::s_backend_lb::assets_carrenza_vhost_name: "assets-carrenza.%{hiera('app_domain')}"
+govuk::node::s_backend_lb::draft_assets_carrenza_vhost_name: "draft-assets-carrenza.%{hiera('app_domain')}"
+govuk::node::s_backend_lb::assets_carrenza_vhost_aliases:
+  - 'assets.example.com'
+
 govuk_app_enable_capistrano_layout: false
 govuk_app_enable_services: false
 
