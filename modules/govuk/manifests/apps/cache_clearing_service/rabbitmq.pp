@@ -86,7 +86,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     definition => {
       'ha-mode'      => 'all',
       'ha-sync-mode' => 'automatic',
-      'message-ttl'  => 3600000, # one hour
+      'message-ttl'  => 1800000, # 30 minutes
     },
   }
 
