@@ -12,7 +12,7 @@ class monitoring::client (
   include collectd::plugin::tcp
 
   package {'gds-nagios-plugins':
-    ensure   => '1.4.0',
+    ensure   => '1.5.0',
     provider => 'pip',
     require  => Package['update-notifier-common'],
   }
