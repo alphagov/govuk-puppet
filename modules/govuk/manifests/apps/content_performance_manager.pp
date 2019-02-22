@@ -74,11 +74,6 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
-# [*read_timeout*]
-# Configure the amount of time the nginx proxy vhost will wait for
-# before it sends the client a 504. We override the default 15 seconds
-# to 60.
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
