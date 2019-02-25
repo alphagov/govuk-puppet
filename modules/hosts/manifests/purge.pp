@@ -16,7 +16,6 @@ class hosts::purge {
   # eg hosts that are only present in AWS
   $whitelist = [
     'db-admin-1',
-    'elasticsearch5-1',
     'email-alert-api-postgresql',
     'publishing-api-db-admin-1',
     'publishing-api-postgresql-1',
