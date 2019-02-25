@@ -12,9 +12,10 @@ class monitoring::client (
   include collectd::plugin::tcp
 
   package {'gds-nagios-plugins':
-    ensure   => '1.5.0',
-    provider => 'pip',
-    require  => Package['update-notifier-common'],
+    ensure          => '1.5.0',
+    provider        => 'pip',
+    require         => Package['update-notifier-common'],
+    install_options => '--index https://pypi.python.org/pypi',
   }
 
   class { 'statsd':
