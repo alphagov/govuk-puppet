@@ -1139,7 +1139,8 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   email-alert-frontend: {}
   feedback: {}
-  finder-frontend: {}
+  finder-frontend:
+    show_external_request_time: true
   frontend: {}
   government-frontend: {}
   hmrc-manuals-api: {}

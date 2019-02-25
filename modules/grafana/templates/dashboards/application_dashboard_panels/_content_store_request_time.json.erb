@@ -1,0 +1,76 @@
+{
+  "id": 15,
+  "title": "Content Store Upper Request Time",
+  "span": 4,
+  "type": "graph",
+  "targets": [
+    {
+      "refId": "A",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.content_store.fetch_request_time.upper, 100, false), 'Content Store Fetch')",
+      "hide": false,
+      "textEditor": false
+    }
+  ],
+  "datasource": "Graphite",
+  "renderer": "flot",
+  "yaxes": [
+    {
+      "label": "ms",
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    },
+    {
+      "label": null,
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    }
+  ],
+  "xaxis": {
+    "show": true,
+    "mode": "time",
+    "name": null,
+    "values": [],
+    "buckets": null
+  },
+  "lines": false,
+  "fill": 1,
+  "linewidth": 1,
+  "dashes": false,
+  "dashLength": 10,
+  "spaceLength": 10,
+  "points": true,
+  "pointradius": 1,
+  "bars": true,
+  "stack": false,
+  "percentage": false,
+  "legend": {
+    "show": false,
+    "values": false,
+    "min": false,
+    "max": false,
+    "current": false,
+    "total": false,
+    "avg": false,
+    "alignAsTable": false,
+    "rightSide": false
+  },
+  "nullPointMode": "null",
+  "steppedLine": false,
+  "tooltip": {
+    "value_type": "individual",
+    "shared": true,
+    "sort": 0
+  },
+  "timeFrom": null,
+  "timeShift": null,
+  "aliasColors": {},
+  "seriesOverrides": [],
+  "thresholds": [],
+  "links": []
+}

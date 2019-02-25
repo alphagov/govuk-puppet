@@ -44,6 +44,7 @@ define grafana::dashboards::application_dashboard (
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
+  $show_external_request_time = false,
   $fields_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
@@ -105,6 +106,17 @@ define grafana::dashboards::application_dashboard (
     $elasticsearch_stats = []
   }
 
+  if $show_external_request_time {
+    $external_request_row = [
+      [
+        'content_store_request_time',
+        'registry_request_time',
+        'rummager_request_time']
+    ]
+  } else {
+    $external_request_row = []
+  }
+
   $panel_partials = concat(
     [
       ['processor_count', '5xx_rate'],
@@ -116,7 +128,8 @@ define grafana::dashboards::application_dashboard (
     $duration_by_controller_row,
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
-    $elasticsearch_stats
+    $elasticsearch_stats,
+    $external_request_row
   )
 
   file {

@@ -1,0 +1,85 @@
+{
+  "id": 13,
+  "title": "Rummager Upper Request Time",
+  "span": 4,
+  "type": "graph",
+  "targets": [
+    {
+      "refId": "A",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper, 100, false), 'Finder Batch Search')",
+      "hide": false,
+      "textEditor": false
+    },
+    {
+      "refId": "B",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.site_search.upper, 100, false), 'Site Search')",
+      "hide": false,
+      "textEditor": false
+    }
+  ],
+  "datasource": "Graphite",
+  "renderer": "flot",
+  "yaxes": [
+    {
+      "label": "ms",
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    },
+    {
+      "label": null,
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    }
+  ],
+  "xaxis": {
+    "show": true,
+    "mode": "time",
+    "name": null,
+    "values": [],
+    "buckets": null
+  },
+  "lines": false,
+  "fill": 1,
+  "linewidth": 1,
+  "dashes": false,
+  "dashLength": 10,
+  "spaceLength": 10,
+  "points": true,
+  "pointradius": 1,
+  "bars": true,
+  "stack": false,
+  "percentage": false,
+  "legend": {
+    "show": true,
+    "values": false,
+    "min": false,
+    "max": false,
+    "current": false,
+    "total": false,
+    "avg": false,
+    "alignAsTable": false,
+    "rightSide": false,
+    "hideZero": false,
+    "hideEmpty": false
+  },
+  "nullPointMode": "null",
+  "steppedLine": false,
+  "tooltip": {
+    "value_type": "individual",
+    "shared": true,
+    "sort": 0
+  },
+  "timeFrom": null,
+  "timeShift": null,
+  "aliasColors": {},
+  "seriesOverrides": [],
+  "thresholds": [],
+  "links": [],
+  "transparent": false
+}

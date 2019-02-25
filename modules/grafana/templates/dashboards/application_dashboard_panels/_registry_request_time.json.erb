@@ -1,0 +1,94 @@
+{
+  "id": 14,
+  "title": "Registries Upper Request Time",
+  "span": 4,
+  "type": "graph",
+  "targets": [
+    {
+      "refId": "A",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.organisations.request_time.upper, 100, false), 'Organisations')",
+      "hide": false,
+      "textEditor": false
+    },
+    {
+      "refId": "B",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.people.request_time.upper, 100, false), 'People')",
+      "hide": false,
+      "textEditor": false
+    },
+    {
+      "refId": "C",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.topic_taxonomy.request_time.upper, 100, false), 'Topic Taxonomy')",
+      "hide": false,
+      "textEditor": false
+    },
+    {
+      "refId": "D",
+      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.world_locations.request_time.upper, 100, false), 'World Locations')",
+      "hide": false,
+      "textEditor": false
+    }
+  ],
+  "datasource": "Graphite",
+  "renderer": "flot",
+  "yaxes": [
+    {
+      "label": "ms",
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    },
+    {
+      "label": null,
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    }
+  ],
+  "xaxis": {
+    "show": true,
+    "mode": "time",
+    "name": null,
+    "values": [],
+    "buckets": null
+  },
+  "lines": false,
+  "fill": 1,
+  "linewidth": 1,
+  "dashes": false,
+  "dashLength": 10,
+  "spaceLength": 10,
+  "points": true,
+  "pointradius": 1,
+  "bars": true,
+  "stack": false,
+  "percentage": false,
+  "legend": {
+    "show": true,
+    "values": false,
+    "min": false,
+    "max": false,
+    "current": false,
+    "total": false,
+    "avg": false,
+    "alignAsTable": false,
+    "rightSide": false
+  },
+  "nullPointMode": "null",
+  "steppedLine": false,
+  "tooltip": {
+    "value_type": "individual",
+    "shared": true,
+    "sort": 0
+  },
+  "timeFrom": null,
+  "timeShift": null,
+  "aliasColors": {},
+  "seriesOverrides": [],
+  "thresholds": [],
+  "links": []
+}
