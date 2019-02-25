@@ -15,7 +15,7 @@ class monitoring::client (
     ensure          => '1.5.0',
     provider        => 'pip',
     require         => Package['update-notifier-common'],
-    install_options => '--index https://pypi.python.org/pypi',
+    install_options => '--index-url https://pypi.python.org/pypi',
   }
 
   class { 'statsd':
