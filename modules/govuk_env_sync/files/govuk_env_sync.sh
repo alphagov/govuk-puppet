@@ -364,9 +364,23 @@ function postprocess_router {
 
   search_domain="${source_domain}"
   mongo_backend_domain_manipulator "search" "${search_domain}"
-  
+
   rummager_domain="${source_domain}"
   mongo_backend_domain_manipulator "rummager" "${rummager_domain}"
+}
+
+function postprocess_ckan {
+  ckan=$(aws ec2 describe-instances \
+    --region eu-west-1 \
+    --filter \
+    Name=instance-state-name,Values=running \
+    Name=tag:aws_stackname,Values=blue \
+    Name=tag:aws_hostname,Values=ckan-1 \
+    | jq -r '.Reservations[0]|.Instances[]|.PrivateDnsName')
+
+  cmd="cd /var/apps/ckan && sudo -u deploy govuk_setenv ckan venv/bin/paster --plugin=ckan search-index rebuild -o -c /var/ckan/ckan.ini"
+
+  ssh "$ckan" '$cmd'
 }
 
 function postprocess_database {
@@ -375,6 +389,7 @@ function postprocess_database {
     # re-using postprocess_router below is not a typo - the script checks $database to determine where to apply changes.
     draft_router) postprocess_router;;
     signon_production) postprocess_signon_production;;
+    ckan_production) postprocess_ckan;;
     *) log "No post processing needed for ${database}" ;;
   esac
 }
