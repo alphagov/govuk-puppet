@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_ckan_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "15"
     action: "pull"

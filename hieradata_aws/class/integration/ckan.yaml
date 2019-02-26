@@ -1,16 +1,12 @@
----
-
-govuk::apps::ckan::enabled: true
-
 govuk_env_sync::tasks:
-  pull_ckan_production_daily:
+  pull_ckan_staging_daily:
     ensure: present
-    hour: '3'
+    hour: '4'
     minute: '15'
     action: pull
     dbms: postgresql
     storagebackend: 's3'
     database: ckan_production
-    temppath: /tmp/ckan_production_pull
-    url: govuk-production-database-backups
+    temppath: '/tmp/ckan_production'
+    url: govuk-staging-database-backups
     path: postgresql-backend
