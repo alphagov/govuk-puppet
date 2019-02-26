@@ -372,9 +372,7 @@ function postprocess_router {
 }
 
 function postprocess_ckan {
-  ckan=$(govuk_node_list -c ckan --single-node)
-  cmd="cd /var/apps/ckan && sudo -u deploy govuk_setenv ckan venv/bin/paster --plugin=ckan search-index rebuild -o -c /var/ckan/ckan.ini"
-  ssh "$ckan" '$cmd'
+  cd /var/apps/ckan && sudo -u deploy govuk_setenv ckan venv/bin/paster --plugin=ckan search-index rebuild -o -c /var/ckan/ckan.ini
 }
 
 function postprocess_database {
