@@ -410,6 +410,7 @@ hosts::backend_migration::hosts:
       - contacts-admin.staging.publishing.service.gov.uk
       - content-audit-tool.staging.publishing.service.gov.uk
       - content-data-admin.staging.publishing.service.gov.uk
+      - content-data-api.staging.publishing.service.gov.uk
       - content-performance-manager.staging.publishing.service.gov.uk
       - content-publisher.staging.publishing.service.gov.uk
       - content-tagger.staging.publishing.service.gov.uk

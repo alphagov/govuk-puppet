@@ -645,6 +645,7 @@ hosts::backend_migration::hosts:
       - contacts-admin.publishing.service.gov.uk
       - content-audit-tool.publishing.service.gov.uk
       - content-data-admin.publishing.service.gov.uk
+      - content-data-api.publishing.service.gov.uk
       - content-performance-manager.publishing.service.gov.uk
       - content-publisher.publishing.service.gov.uk
       - content-tagger.publishing.service.gov.uk
