@@ -45,7 +45,9 @@ define grafana::dashboards::application_dashboard (
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
   $show_external_request_time = false,
+  $show_memcached = false,
   $fields_prefix = '',
+  $instance_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
 ) {
@@ -106,6 +108,16 @@ define grafana::dashboards::application_dashboard (
     $elasticsearch_stats = []
   }
 
+  if $show_memcached {
+    $memcached_row = [
+      [
+        'memcached_free',
+        'memcached_used']
+    ]
+  } else {
+    $memcached_row = []
+  }
+
   if $show_external_request_time {
     $external_request_row = [
       [
@@ -129,6 +141,7 @@ define grafana::dashboards::application_dashboard (
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
     $elasticsearch_stats,
+    $memcached_row,
     $external_request_row
   )
 

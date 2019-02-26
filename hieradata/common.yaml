@@ -1141,6 +1141,8 @@ grafana::dashboards::application_dashboards:
   feedback: {}
   finder-frontend:
     show_external_request_time: true
+    show_memcached: true
+    instance_prefix: 'calculators_frontend'
   frontend: {}
   government-frontend: {}
   hmrc-manuals-api: {}

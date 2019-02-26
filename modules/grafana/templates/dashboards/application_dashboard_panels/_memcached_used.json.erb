@@ -1,32 +1,26 @@
 {
-  "id": 13,
-  "title": "Rummager Upper Request Time",
-  "span": 4,
+  "id": 17,
+  "title": "Memcached used",
+  "span": 6,
   "type": "graph",
   "targets": [
     {
       "refId": "A",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper, 100, false), 'Finder Batch Search')",
-      "hide": false,
-      "textEditor": false
-    },
-    {
-      "refId": "B",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.site_search.upper, 100, false), 'Site Search')",
-      "hide": false,
-      "textEditor": false
+      "target": "aliasByNode(<%= @instance_prefix %>-*.memcached.df-cache.used, 0)",
+      "textEditor": false,
+      "hide": false
     }
   ],
   "datasource": "Graphite",
   "renderer": "flot",
   "yaxes": [
     {
-      "label": "",
+      "label": null,
       "show": true,
       "logBase": 1,
       "min": null,
       "max": null,
-      "format": "ms"
+      "format": "bytes"
     },
     {
       "label": null,
@@ -44,15 +38,15 @@
     "values": [],
     "buckets": null
   },
-  "lines": false,
+  "lines": true,
   "fill": 1,
   "linewidth": 1,
   "dashes": false,
   "dashLength": 10,
   "spaceLength": 10,
-  "points": true,
-  "pointradius": 1,
-  "bars": true,
+  "points": false,
+  "pointradius": 5,
+  "bars": false,
   "stack": false,
   "percentage": false,
   "legend": {
@@ -62,11 +56,7 @@
     "max": false,
     "current": false,
     "total": false,
-    "avg": false,
-    "alignAsTable": false,
-    "rightSide": false,
-    "hideZero": false,
-    "hideEmpty": false
+    "avg": false
   },
   "nullPointMode": "null",
   "steppedLine": false,
@@ -80,6 +70,5 @@
   "aliasColors": {},
   "seriesOverrides": [],
   "thresholds": [],
-  "links": [],
-  "transparent": false
+  "links": []
 }
