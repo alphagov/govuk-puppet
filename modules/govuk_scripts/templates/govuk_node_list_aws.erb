@@ -42,6 +42,31 @@ def ec2_nodes(stackname, nodeclass=None):
 
     return(hosts)
 
+def ec2_nodes_list_with_puppet_class(stackname):
+    client = boto3.client('ec2', region_name=region)
+
+    response = client.describe_instances(
+                   Filters=[
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'instance-state-name','Values': ['running']}
+                   ]
+               )
+
+    nodes = response['Reservations']
+
+    return [
+        "%s:%s" % (
+            instance['Instances'][0]['PrivateDnsName'],
+            next(
+                filter(
+                    lambda t: t['Key'] == 'aws_hostname',
+                    instance['Instances'][0]['Tags']
+                )
+            )['Value']
+        )
+        for instance in list(nodes)
+    ]
+
 def ec2_classes(stackname):
     client = boto3.client('ec2', region_name=region)
 
@@ -110,6 +135,9 @@ def main():
         for instance in instance_ids:
             hosts.append(get_hostname_by_id(instance[host_key]))
 
+    elif opts.nodes_list_with_puppet_class:
+        hosts = ec2_nodes_list_with_puppet_class(stackname)
+
     else:
         hosts = ec2_nodes(stackname)
 
@@ -151,6 +179,13 @@ parser.add_option(
     help='List the available classes',
     action='store_true',
     dest='classes',
+)
+
+parser.add_option(
+    '--with-puppet-class',
+    help='List the nodes in the format of aws_fqdn:name',
+    action='store_true',
+    dest='nodes_list_with_puppet_class',
 )
 
 if __name__ == '__main__':
