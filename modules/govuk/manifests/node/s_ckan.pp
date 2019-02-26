@@ -23,6 +23,7 @@ class govuk::node::s_ckan inherits govuk::node::s_base {
   include postgresql::lib::devel
   include govuk_java::openjdk7::jdk
   include govuk_solr
+  include govuk_postgresql::client
 
   package { 'libgeos-c1':
     ensure => latest,
