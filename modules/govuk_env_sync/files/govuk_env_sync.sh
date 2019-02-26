@@ -241,6 +241,10 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
+  # this is used up by the psql command to try and authenticate
+  # we don't need this on db_admin machines because it authenticates using
+  # normal Unix users, but from a different machine, i.e. ckan, we need to
+  # send the password directly
   DBPASSWORD="${db_password}"
 
 # Checking if the database already exist
