@@ -241,6 +241,8 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
+  DBPASSWORD="${db_password}"
+
 # Checking if the database already exist
 # If it does we will drop the database
   DB_OWNER=''
