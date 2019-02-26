@@ -1,3 +1,9 @@
+govuk_sudo::sudo_conf:
+  govuk-backup:
+    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/pg_dump'
+  env-sync-script:
+    content: 'Cmnd_Alias BACKUP=/usr/local/bin/govuk_env_sync.sh'
+
 govuk_env_sync::tasks:
   pull_ckan_staging_daily:
     ensure: present
