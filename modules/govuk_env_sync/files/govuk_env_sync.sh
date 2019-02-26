@@ -370,16 +370,8 @@ function postprocess_router {
 }
 
 function postprocess_ckan {
-  ckan=$(aws ec2 describe-instances \
-    --region eu-west-1 \
-    --filter \
-    Name=instance-state-name,Values=running \
-    Name=tag:aws_stackname,Values=blue \
-    Name=tag:aws_hostname,Values=ckan-1 \
-    | jq -r '.Reservations[0]|.Instances[]|.PrivateDnsName')
-
+  ckan=$(govuk_node_list -c ckan --single-node)
   cmd="cd /var/apps/ckan && sudo -u deploy govuk_setenv ckan venv/bin/paster --plugin=ckan search-index rebuild -o -c /var/ckan/ckan.ini"
-
   ssh "$ckan" '$cmd'
 }
 
