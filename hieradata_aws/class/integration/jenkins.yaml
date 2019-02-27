@@ -40,6 +40,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_api_index_checks
   - govuk_jenkins::jobs::search_index_checks
   - govuk_jenkins::jobs::search_reindex_with_new_schema
+  - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::search_test_spelling_suggestions
   - govuk_jenkins::jobs::send_bulk_email
   - govuk_jenkins::jobs::signon_cron_rake_tasks

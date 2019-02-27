@@ -16,6 +16,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_api_fetch_analytics_data_search
   - govuk_jenkins::jobs::search_fetch_analytics_data_search_api
   - govuk_jenkins::jobs::search_api_index_checks
+  - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_load_all_data
