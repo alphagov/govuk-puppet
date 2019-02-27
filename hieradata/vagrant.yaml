@@ -115,7 +115,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::network_config_deploy
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::publish_special_routes
-  - govuk_jenkins::jobs::run_metadata_tagger
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
