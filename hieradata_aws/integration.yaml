@@ -100,6 +100,7 @@ govuk_jenkins::jobs::search_benchmark::cron_schedule: '30 9 * * 1-5'
 govuk_jenkins::jobs::search_test_spelling_suggestions::cron_schedule: '0 10 * * 1-5'
 
 govuk_jenkins::jobs::enhanced_ecommerce::cron_schedule: '30 9 * * 1-5'
+govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '30 9 * * 1-5'
 
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
