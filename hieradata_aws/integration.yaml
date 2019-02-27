@@ -16,6 +16,7 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.integration.publishing.service.g
 govuk::apps::ckan::s3_bucket_name: "datagovuk-integration-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::ckan::vhost_protected: true
+govuk::apps::ckan::cronjobs::enable_solr_reindex: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
