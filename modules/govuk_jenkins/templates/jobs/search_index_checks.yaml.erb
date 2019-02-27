@@ -1,7 +1,7 @@
 ---
 - job:
-    name: search_index_checks
-    display-name: Search index checks
+    name: <%= @job_name %>
+    display-name: <%= @job_display_name %>
     project-type: freestyle
     description: |
       This job monitors the GOV.UK search indexes and sends data to statsd.
@@ -18,7 +18,7 @@
           - project: run-rake-task
             block: true
             predefined-parameters: |
-              TARGET_APPLICATION=rummager
+              TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
               RAKE_TASK=rummager:monitor_indices
     wrappers:
