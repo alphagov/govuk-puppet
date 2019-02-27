@@ -9,9 +9,11 @@ class govuk_jenkins::jobs::search_fetch_analytics_data (
   $cron_schedule = '5 4 * * *',
 ) {
 
+  $job_name = 'search-fetch-analytics-data'
   $check_name = 'search-fetch-analytics-data'
   $service_description = 'Fetch analytics data for search'
-  $job_url = "https://deploy.${app_domain}/job/search-fetch-analytics-data/"
+  $job_url = "https://deploy.${app_domain}/job/${job_name}/"
+  $target_application = 'rummager'
 
   file { '/etc/jenkins_jobs/jobs/search_fetch_analytics_data.yaml':
     ensure  => present,

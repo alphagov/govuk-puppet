@@ -8,8 +8,8 @@
               - master
 
 - job:
-    name: search-fetch-analytics-data
-    display-name: search-fetch-analytics-data
+    name: <%= @job_name %>
+    display-name: <%= @job_name %>
     project-type: freestyle
     description: |
       <p>Fetch analytics data from Google Analytics and index in search</p>
@@ -18,7 +18,7 @@
       <p>More information:</p>
       <ul>
         <li><a href='https://github.com/alphagov/search-analytics'>alphagov/search-analytics on GitHub</a></li>
-        <li><a href='https://github.com/alphagov/rummager/blob/master/doc/popularity.md'>Docs on Rummager</a></li>
+        <li><a href='https://github.com/alphagov/<%= @target_application %>/blob/master/doc/popularity.md'>Docs on Search</a></li>
       </ul>
     scm:
         - search-analytics_search-fetch-analytics-data
@@ -33,7 +33,7 @@
             artifact-num-to-keep: 5
     builders:
         - shell: |
-            ./nightly-run.sh
+            TARGET_APPLICATION=<%= @target_application %> ./nightly-run.sh
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:
