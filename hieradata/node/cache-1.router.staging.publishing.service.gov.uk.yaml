@@ -1,8 +1,0 @@
----
-
-# NOTE: These values should not be changed lightly once set.
-#
-# If changed, the old host record must be cleaned up;
-router::gor::replay_targets:
-  'www-origin.integration.publishing.service.gov.uk':
-    ip: '31.210.245.98'

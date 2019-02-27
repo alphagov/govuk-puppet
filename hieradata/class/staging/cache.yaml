@@ -1,1 +1,6 @@
 nscd::config::dns_cache: 'yes'
+
+router::gor::add_hosts: false
+router::gor::replay_targets:
+  'www-origin.integration.publishing.service.gov.uk': {}
+  'www-origin.production.govuk.digital': {}

@@ -1,0 +1,2 @@
+router::gor::replay_targets:
+  'www-origin.staging.govuk.digital': {}
