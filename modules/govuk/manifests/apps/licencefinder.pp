@@ -74,18 +74,10 @@ class govuk::apps::licencefinder(
   }
 
   if $::aws_migration  {
-    if ($::aws_environment == 'integration') {
-      govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-        app     => $app_name,
-        varname => 'ELASTICSEARCH_URI',
-        value   => 'http://rummager-elasticsearch:9200',
-      }
-    } else {
-      govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-        app     => $app_name,
-        varname => 'ELASTICSEARCH_URI',
-        value   => 'http://localhost:9200',
-      }
+    govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
+      app     => $app_name,
+      varname => 'ELASTICSEARCH_URI',
+      value   => 'http://elasticsearch5',
     }
   }
 }
