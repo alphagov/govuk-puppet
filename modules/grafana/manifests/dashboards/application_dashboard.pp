@@ -111,8 +111,7 @@ define grafana::dashboards::application_dashboard (
   if $show_memcached {
     $memcached_row = [
       [
-        'memcached_free',
-        'memcached_used']
+        'memcached']
     ]
   } else {
     $memcached_row = []

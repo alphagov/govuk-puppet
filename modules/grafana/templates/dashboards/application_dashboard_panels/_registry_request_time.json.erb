@@ -1,39 +1,31 @@
 {
-  "id": 14,
-  "title": "Registries Upper Request Time",
+  "id": 5,
+  "title": "Registries Request Time",
   "span": 4,
   "type": "graph",
   "targets": [
     {
       "refId": "A",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.organisations.request_time.upper, 100, false), 'Organisations')",
-      "hide": false,
-      "textEditor": false
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.organisations.request_time.upper_90), 'Organisations')"
     },
     {
       "refId": "B",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.people.request_time.upper, 100, false), 'People')",
-      "hide": false,
-      "textEditor": false
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.people.request_time.upper_90), 'People')"
     },
     {
       "refId": "C",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.topic_taxonomy.request_time.upper, 100, false), 'Topic Taxonomy')",
-      "hide": false,
-      "textEditor": false
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.topic_taxonomy.request_time.upper_90), 'Topic Taxonomy')"
     },
     {
       "refId": "D",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.world_locations.request_time.upper, 100, false), 'World Locations')",
-      "hide": false,
-      "textEditor": false
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.world_locations.request_time.upper_90), 'World Locations')"
     }
   ],
   "datasource": "Graphite",
   "renderer": "flot",
   "yaxes": [
     {
-      "label": "",
+      "label": null,
       "show": true,
       "logBase": 1,
       "min": null,
@@ -74,9 +66,7 @@
     "max": false,
     "current": false,
     "total": false,
-    "avg": false,
-    "alignAsTable": false,
-    "rightSide": false
+    "avg": false
   },
   "nullPointMode": "null",
   "steppedLine": false,

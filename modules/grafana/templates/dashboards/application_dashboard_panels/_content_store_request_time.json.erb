@@ -1,21 +1,19 @@
 {
-  "id": 15,
-  "title": "Content Store Upper Request Time",
+  "id": 2,
+  "title": "Content Store Request Time",
   "span": 4,
   "type": "graph",
   "targets": [
     {
       "refId": "A",
-      "target": "alias(percentileOfSeries(stats.timers.govuk.app.<%= @app_name %>.*.content_store.fetch_request_time.upper, 100, false), 'Content Store Fetch')",
-      "hide": false,
-      "textEditor": false
+      "target": "maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.content_store.fetch_request_time.upper_90)"
     }
   ],
   "datasource": "Graphite",
   "renderer": "flot",
   "yaxes": [
     {
-      "label": "",
+      "label": null,
       "show": true,
       "logBase": 1,
       "min": null,
@@ -56,9 +54,7 @@
     "max": false,
     "current": false,
     "total": false,
-    "avg": false,
-    "alignAsTable": false,
-    "rightSide": false
+    "avg": false
   },
   "nullPointMode": "null",
   "steppedLine": false,

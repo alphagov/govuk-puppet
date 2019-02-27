@@ -1,14 +1,13 @@
 {
-  "id": 17,
-  "title": "Memcached used",
-  "span": 6,
+  "id": 1,
+  "title": "Memcached Free",
+  "span": 12,
   "type": "graph",
   "targets": [
     {
       "refId": "A",
-      "target": "aliasByNode(<%= @instance_prefix %>-*.memcached.df-cache.used, 0)",
-      "textEditor": false,
-      "hide": false
+      "target": "aliasByNode(<%= @instance_prefix %>-*.memcached.df-cache.free, 0)",
+      "textEditor": false
     }
   ],
   "datasource": "Graphite",
@@ -18,7 +17,7 @@
       "label": null,
       "show": true,
       "logBase": 1,
-      "min": null,
+      "min": "0",
       "max": null,
       "format": "bytes"
     },
