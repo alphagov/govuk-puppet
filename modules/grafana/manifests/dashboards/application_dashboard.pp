@@ -30,6 +30,10 @@
 #   with the option to override with a blank field for apps that use a different
 #   configuration of the logstasher gem.
 #
+# [*instance_prefix*]
+#   Used for metrics that are named based on the instance name rather than the
+#   application. For example, calculators_frontend vs finder_frontend.
+#
 define grafana::dashboards::application_dashboard (
   $app_name = $title,
   $docs_name = $title,
@@ -117,6 +121,8 @@ define grafana::dashboards::application_dashboard (
     $memcached_row = []
   }
 
+# These three are pretty specific to finder frontend.
+# If you want to use them then they probably need more white-labelling.
   if $show_external_request_time {
     $external_request_row = [
       [
