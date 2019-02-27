@@ -21,13 +21,17 @@ class govuk::apps::ckan::cronjobs(
     hour           => '2',
   }
 
-  if $enable_solr_reindex {
-    govuk::apps::ckan::paster_cronjob { 'harvester reindex':
-      paster_command => 'search-index rebuild -o',
-      plugin         => 'ckan',
-      hour           => '7',
-      minute         => '0',
-    }
+  $ensure_solr_reindex = $enable_solr_reindex ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
+  govuk::apps::ckan::paster_cronjob { 'harvester reindex':
+    ensure         => $ensure_solr_reindex,
+    paster_command => 'search-index rebuild -o',
+    plugin         => 'ckan',
+    hour           => '7',
+    minute         => '0',
   }
 
 }
