@@ -10,7 +10,10 @@ class govuk_jenkins::jobs::search_reindex_with_new_schema (
 
   $check_name = 'search-reindex-with-new-schema'
   $service_description = 'Rebuild new search indexes with up to date settings and mappings and reindex all content from the existing indexes.'
+  $job_name = 'search_reindex_with_new_schema'
+  $job_display_name = 'Search reindex with new schema'
   $job_url = "https://deploy.${app_domain}/job/search-reindex-with-new-schema/"
+  $target_application = 'rummager'
 
   file { '/etc/jenkins_jobs/jobs/search_reindex_with_new_schema.yaml':
     ensure  => present,
