@@ -643,7 +643,7 @@ govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'backend-redis'
 govuk::apps::search_api::redis_port: '6379'
 # todo: decide if we're self-hosting or using a managed elasticsearch (use a bogus value for now)
-govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9200'
+govuk::apps::search_api::elasticsearch_hosts: 'http://elasticsearch5'
 govuk::apps::search_api::unicorn_worker_processes: "6"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
