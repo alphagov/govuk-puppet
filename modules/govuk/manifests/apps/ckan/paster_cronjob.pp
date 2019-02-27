@@ -18,6 +18,7 @@
 # Paster command to run eg "archiver update"
 #
 define govuk::apps::ckan::paster_cronjob (
+  $ensure = present,
   $hour = undef,
   $minute = undef,
   $month = undef,
@@ -30,6 +31,7 @@ define govuk::apps::ckan::paster_cronjob (
   validate_string($plugin, $paster_command)
 
   cron { $title:
+    ensure   => $ensure,
     command  => "cd /var/apps/ckan; ./venv/bin/paster --plugin=${plugin} ${paster_command} --config=/var/ckan/ckan.ini",
     user     => 'deploy',
     hour     => $hour,
