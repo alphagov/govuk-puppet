@@ -38,7 +38,6 @@ govuk::apps::kibana::logit_environment: 2694f14b-6519-4607-81f2-8a2130e5aaec
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
-govuk::apps::search_api::elasticsearch_hosts: 'http://elasticsearch5.blue.integration.govuk-internal.digital'
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'
 govuk::apps::smartanswers::expose_govspeak: true
