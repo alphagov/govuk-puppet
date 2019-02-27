@@ -37,6 +37,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_benchmark
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_fetch_analytics_data
+  - govuk_jenkins::jobs::search_api_index_checks
   - govuk_jenkins::jobs::search_index_checks
   - govuk_jenkins::jobs::search_reindex_with_new_schema
   - govuk_jenkins::jobs::search_test_spelling_suggestions
