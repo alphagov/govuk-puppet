@@ -13,6 +13,7 @@ class govuk_jenkins::jobs::enhanced_ecommerce (
   $job_name = 'enhanced_ecommerce'
   $service_description = 'Export Enhanced Ecommerce data'
   $job_url = "https://deploy.${app_domain}/job/enhanced_ecommerce/"
+  $target_application = 'rummager'
 
   file { '/etc/jenkins_jobs/jobs/enhanced_ecommerce.yaml':
     ensure  => present,
