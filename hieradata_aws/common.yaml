@@ -22,6 +22,7 @@ node_class: &node_class
       - contacts
       - content-audit-tool
       - content-data-admin
+      - content-data-api
       - content-performance-manager
       - content-publisher
       - content-tagger
@@ -155,6 +156,8 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-data-admin: {}
+  content-data-api:
+    repository: 'content-performance-manager'
   content-performance-manager: {}
   content-publisher: {}
   content-store: {}

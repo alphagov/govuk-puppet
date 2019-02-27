@@ -1,0 +1,40 @@
+---
+- job:
+    name: content_data_api_import_etl_master_process
+    display-name: Content Data API - ETL master
+    project-type: freestyle
+    description: "<p>Run the etl:master rake task.</p>"
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=content-data-api
+              MACHINE_CLASS=backend
+              RAKE_TASK=etl:master
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+    publishers:
+      - email:
+          recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
+  <% if @rake_etl_master_process_cron_schedule %>
+    triggers:
+      - timed: <%= @rake_etl_master_process_cron_schedule %>
+  <% end %>
+    logrotate:
+        numToKeep: 10
+    publishers:
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: 'SUCCESS'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: 'FAILED'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
+                NSCA_CODE=2
+

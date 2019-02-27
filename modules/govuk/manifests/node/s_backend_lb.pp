@@ -69,6 +69,7 @@ class govuk::node::s_backend_lb (
     'contacts-admin',
     'content-audit-tool',
     'content-data-admin',
+    'content-data-api',
     'content-performance-manager',
     'content-publisher',
     'content-tagger',
