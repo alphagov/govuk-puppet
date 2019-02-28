@@ -30,6 +30,10 @@
 #   with the option to override with a blank field for apps that use a different
 #   configuration of the logstasher gem.
 #
+# [*instance_prefix*]
+#   Used for metrics that are named based on the instance name rather than the
+#   application. For example, calculators_frontend vs finder_frontend.
+#
 define grafana::dashboards::application_dashboard (
   $app_name = $title,
   $docs_name = $title,
@@ -44,7 +48,10 @@ define grafana::dashboards::application_dashboard (
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
   $show_elasticsearch_stats = false,
+  $show_external_request_time = false,
+  $show_memcached = false,
   $fields_prefix = '',
+  $instance_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
 ) {
@@ -105,6 +112,28 @@ define grafana::dashboards::application_dashboard (
     $elasticsearch_stats = []
   }
 
+  if $show_memcached {
+    $memcached_row = [
+      [
+        'memcached']
+    ]
+  } else {
+    $memcached_row = []
+  }
+
+# These three are pretty specific to finder frontend.
+# If you want to use them then they probably need more white-labelling.
+  if $show_external_request_time {
+    $external_request_row = [
+      [
+        'content_store_request_time',
+        'registry_request_time',
+        'rummager_request_time']
+    ]
+  } else {
+    $external_request_row = []
+  }
+
   $panel_partials = concat(
     [
       ['processor_count', '5xx_rate'],
@@ -116,7 +145,9 @@ define grafana::dashboards::application_dashboard (
     $duration_by_controller_row,
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
-    $elasticsearch_stats
+    $elasticsearch_stats,
+    $memcached_row,
+    $external_request_row
   )
 
   file {
