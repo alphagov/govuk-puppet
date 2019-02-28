@@ -763,18 +763,6 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
-govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
-  - '/government/uploads/'
-  - '/media/'
-govuk::node::s_backend_lb::whitehall_uploaded_assets_routes:
-  - '/government/placeholder'
-  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
-govuk::node::s_backend_lb::assets_carrenza_vhost_name: "assets-carrenza.%{hiera('app_domain')}"
-govuk::node::s_backend_lb::draft_assets_carrenza_vhost_name: "draft-assets-carrenza.%{hiera('app_domain')}"
-govuk::node::s_backend_lb::assets_carrenza_vhost_aliases:
-  - 'assets.digital.cabinet-office.gov.uk'
-  - 'assets.publishing.service.gov.uk'
-
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
