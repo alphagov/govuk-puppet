@@ -774,7 +774,6 @@ govuk::node::s_backend_lb::draft_assets_carrenza_vhost_name: "draft-assets-carre
 govuk::node::s_backend_lb::assets_carrenza_vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
-govuk::node::s_backend_lb::assets_carrenza_real_ip_header: "True-Client-Ip"
 
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
