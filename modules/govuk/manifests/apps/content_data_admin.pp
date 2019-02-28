@@ -50,11 +50,6 @@
 # [*google_tag_manager_auth*]
 #   The identifier of an environment for Google Tag Manager
 #
-# [*read_timeout*]
-# Configure the amount of time the nginx proxy vhost will wait for the
-# backing app before it sends the client a 504. We override the default 15 seconds
-# to 60.
-#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
