@@ -818,6 +818,9 @@ govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_base::log_remote: false
 
+govuk::node::s_backend_lb::app_specific_static_asset_routes:
+  '/asset-manager': "asset-manager"
+  '/government/assets/': "whitehall-frontend"
 govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'
   - '/media/'

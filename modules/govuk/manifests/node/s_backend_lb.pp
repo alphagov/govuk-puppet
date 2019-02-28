@@ -173,6 +173,10 @@ class govuk::node::s_backend_lb (
   }
 
   if ! $::aws_migration {
+    nginx::conf { 'rate-limiting':
+      content => template('govuk/node/s_backend_lb/rate-limiting.conf.erb'),
+    }
+
     # Custom vhost to proxy assets-origin to asset-manager and whitehall in Carrenza
     validate_array($assets_carrenza_vhost_aliases)
 

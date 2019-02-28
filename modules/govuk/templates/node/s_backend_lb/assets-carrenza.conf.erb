@@ -47,6 +47,19 @@ server {
     rewrite ^/government/uploads/system/uploads/consultation_response_form/(.*)$ /government/uploads/system/uploads/consultation_response_form_data/$1;
   }
 
+  <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
+  <%- if scope.lookupvar('::aws_migration') %>
+  set $upstream_<%= vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
+  <%- end %>
+  location <%= alias_path %> {
+    <%- if scope.lookupvar('::aws_migration') %>
+    proxy_pass $upstream_<%= vhost_name.delete "-" %>;
+    <%- else %>
+    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
+    <%- end %>
+  }
+  <%- end -%>
+
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   <%- end %>
