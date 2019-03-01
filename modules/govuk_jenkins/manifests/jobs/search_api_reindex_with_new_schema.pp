@@ -1,21 +1,21 @@
-# == Class: govuk_jenkins::jobs::search-reindex-with-new-schema
+# == Class: govuk_jenkins::jobs::search_api_reindex_with_new_schema
 #
 # Test rebuilding the search indexes and reindexing all content
 #
-class govuk_jenkins::jobs::search_reindex_with_new_schema (
+class govuk_jenkins::jobs::search_api_reindex_with_new_schema (
   $app_domain = hiera('app_domain'),
   $icinga_check_enabled = false,
   $cron_schedule = undef,
 ) {
 
-  $check_name = 'search-reindex-with-new-schema'
-  $service_description = 'Rebuild new search indexes with up to date settings and mappings and reindex all content from the existing indexes.'
-  $job_name = 'search_reindex_with_new_schema'
-  $job_display_name = 'Search reindex with new schema'
+  $check_name = 'search-api-reindex-with-new-schema'
+  $service_description = 'Rebuild new Search API indexes with up to date settings and mappings and reindex all content from the existing indexes.'
+  $job_name = 'search_api_reindex_with_new_schema'
+  $job_display_name = 'Search API reindex with new schema'
   $job_url = "https://deploy.${app_domain}/job/search-reindex-with-new-schema/"
-  $target_application = 'rummager'
+  $target_application = 'search-api'
 
-  file { '/etc/jenkins_jobs/jobs/search_reindex_with_new_schema.yaml':
+  file { '/etc/jenkins_jobs/jobs/search_api_reindex_with_new_schema.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/search_reindex_with_new_schema.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
