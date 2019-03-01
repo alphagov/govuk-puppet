@@ -367,6 +367,9 @@ function postprocess_router {
 
   rummager_domain="${source_domain}"
   mongo_backend_domain_manipulator "rummager" "${rummager_domain}"
+
+  spotlight_proxy_domain="${source_domain}"
+  mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
 }
 
 function postprocess_database {
