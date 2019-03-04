@@ -4,6 +4,10 @@
     scm:
         - git:
             url: git@github.com:alphagov/govuk-aws.git
+            shallow-clone: true
+            wipe-workspace: false
+            clean:
+              before: true
             branches:
                 - master
 - job:
