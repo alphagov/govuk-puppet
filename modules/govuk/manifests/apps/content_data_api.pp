@@ -48,7 +48,7 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3206
+#   Default: 3235
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
@@ -96,7 +96,7 @@ class govuk::apps::content_data_api(
   $google_private_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3206',
+  $port = '3235',
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_vhost = '/',
