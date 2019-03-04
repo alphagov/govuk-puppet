@@ -121,6 +121,7 @@ govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publish
 govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
+govuk::apps::content_store::app_domain: publishing.service.gov.uk
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.publishing.service.gov.uk'
