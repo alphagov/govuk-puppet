@@ -46,6 +46,14 @@
 #   Redis port for Content Performance Manager Sidekiq.
 #   Default: undef
 #
+# [*content_publisher_redis_host*]
+#   Redis host for Content Publisher Sidekiq.
+#   Default: undef
+#
+# [*content_publisher_redis_port*]
+#   Redis port for Content Publisher Sidekiq.
+#   Default: undef
+#
 # [*content_tagger_redis_host*]
 #   Redis host for Content Tagger Sidekiq.
 #   Default: undef
@@ -177,6 +185,8 @@ class govuk::apps::sidekiq_monitoring (
   $content_audit_tool_redis_port = undef,
   $content_performance_manager_redis_host = undef,
   $content_performance_manager_redis_port = undef,
+  $content_publisher_redis_host = undef,
+  $content_publisher_redis_port = undef,
   $content_tagger_redis_host = undef,
   $content_tagger_redis_port = undef,
   $email_alert_api_redis_host = undef,
@@ -254,6 +264,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'content_performance_manager',
       host   => $content_performance_manager_redis_host,
       port   => $content_performance_manager_redis_port;
+
+    "${app_name}_content_publisher":
+      prefix => 'content_publisher',
+      host   => $content_publisher_redis_host,
+      port   => $content_publisher_redis_port;
 
     "${app_name}_content_tagger":
       prefix => 'content_tagger',
