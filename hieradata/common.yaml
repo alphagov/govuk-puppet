@@ -27,7 +27,6 @@ node_class: &node_class
       - content-performance-manager
       - content-publisher
       - content-tagger
-      - event-store
       - hmrc-manuals-api
       - imminence
       - kibana
@@ -100,9 +99,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  frontend_lb:
-    apps:
-      - public-event-store
   mapit:
     apps:
       - mapit
@@ -457,8 +453,6 @@ govuk::apps::email_alert_service::rabbitmq_hosts:
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
-
-govuk::apps::event_store::enabled: false
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::nagios_memory_warning: 2000
