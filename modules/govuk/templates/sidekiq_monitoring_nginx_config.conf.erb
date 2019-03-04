@@ -34,6 +34,10 @@ server {
     proxy_pass http://localhost:3207;
   }
 
+  location /content-publisher {
+    proxy_pass http://localhost:3236;
+  }
+
   location /content-tagger {
     proxy_pass http://localhost:3125;
   }
