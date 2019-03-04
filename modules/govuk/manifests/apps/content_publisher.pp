@@ -75,6 +75,14 @@
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -98,6 +106,8 @@ class govuk::apps::content_publisher (
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
   $asset_manager_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -164,6 +174,11 @@ class govuk::apps::content_publisher (
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
         value   => $asset_manager_bearer_token;
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $::govuk_node_class !~ /^development$/ {
