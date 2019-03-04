@@ -95,7 +95,6 @@ node_class: &node_class
   search:
     apps:
       - rummager
-      - search-api
   whitehall_backend:
     apps:
       - whitehall
