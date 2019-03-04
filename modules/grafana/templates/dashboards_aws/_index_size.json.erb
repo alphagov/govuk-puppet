@@ -1,0 +1,174 @@
+<% @index_names.each_with_index do |index_name, j| %>
+  <%= ',' if j > 0 %>{
+    "collapse": false,
+    "height": 250,
+    "panels": [
+      {
+        "columns": [
+          {
+            "text": "Current",
+            "value": "current"
+          }
+        ],
+        "datasource": "Graphite",
+        "fontSize": "100%",
+        "hideTimeOverride": true,
+        "id": <%= j * 2 %>,
+        "links": [],
+        "pageSize": null,
+        "scroll": true,
+        "showHeader": true,
+        "sort": {
+          "col": 0,
+          "desc": true
+        },
+        "span": 4,
+        "styles": [
+          {
+            "alias": "Time",
+            "dateFormat": "DD MMM YYYY",
+            "pattern": "Time",
+            "type": "date"
+          },
+          {
+            "alias": "",
+            "colorMode": null,
+            "colors": [
+              "rgba(245, 54, 54, 0.9)",
+              "rgba(237, 129, 40, 0.89)",
+              "rgba(50, 172, 45, 0.97)"
+            ],
+            "decimals": 0,
+            "pattern": "/.*/",
+            "thresholds": [
+              ""
+            ],
+            "type": "number",
+            "unit": "none"
+          }
+        ],
+        "targets": [
+          {
+            "refId": "A",
+            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), '7d')),'Change')",
+            "textEditor": true
+          },
+          {
+            "refId": "B",
+            "target": "alias(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252),'Index size')",
+            "textEditor": true
+          },
+          {
+            "refId": "C",
+            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), '7d'),'Index size (last week)')",
+            "textEditor": true
+          }
+        ],
+        "timeFrom": "5s",
+        "timeShift": null,
+        "title": "Change stats - <%= index_name %>",
+        "transform": "timeseries_aggregations",
+        "type": "table"
+      },
+      {
+        "aliasColors": {},
+        "bars": false,
+        "dashLength": 10,
+        "dashes": false,
+        "datasource": "Graphite",
+        "fill": 1,
+        "hideTimeOverride": true,
+        "id": <%= 1 + (j * 2) %>,
+        "legend": {
+          "avg": false,
+          "current": false,
+          "max": false,
+          "min": false,
+          "show": true,
+          "total": false,
+          "values": false
+        },
+        "lines": true,
+        "linewidth": 1,
+        "links": [],
+        "nullPointMode": "null",
+        "percentage": false,
+        "pointradius": 5,
+        "points": false,
+        "renderer": "flot",
+        "seriesOverrides": [
+          {
+            "alias": "Change",
+            "color": "#BF1B00",
+            "linewidth": 5,
+            "yaxis": 2
+          }
+        ],
+        "spaceLength": 10,
+        "span": 8,
+        "stack": false,
+        "steppedLine": false,
+        "targets": [
+          {
+            "refId": "C",
+            "target": "alias(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), '7d')),'Change')",
+            "textEditor": true
+          },
+          {
+            "refId": "A",
+            "target": "alias(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252), 'Index size')",
+            "textEditor": true
+          },
+          {
+            "refId": "B",
+            "target": "alias(timeShift(keepLastValue(stats.gauges.govuk.app.search-api.<%= index_name %>_index.docs.count,252),'7d'), 'Index size (last week)')",
+            "textEditor": true
+          }
+        ],
+        "thresholds": [],
+        "timeFrom": "1d",
+        "timeShift": null,
+        "title": "<%= index_name %>",
+        "tooltip": {
+          "shared": true,
+          "sort": 0,
+          "value_type": "individual"
+        },
+        "type": "graph",
+        "xaxis": {
+          "buckets": null,
+          "mode": "time",
+          "name": null,
+          "show": true,
+          "values": []
+        },
+        "yaxes": [
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": "Index Size",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          },
+          {
+            "decimals": 0,
+            "format": "short",
+            "label": "Change (count)",
+            "logBase": 1,
+            "max": null,
+            "min": null,
+            "show": true
+          }
+        ]
+      }
+    ],
+    "repeat": null,
+    "repeatIteration": null,
+    "repeatRowId": null,
+    "showTitle": false,
+    "title": "Dashboard Row",
+    "titleSize": "h6"
+  }
+<% end %>
