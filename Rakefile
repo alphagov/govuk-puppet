@@ -177,6 +177,16 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
+    govuk::apps::content_data_api::db::allow_auth_from_lb
+    govuk::apps::content_data_api::db::backend_ip_range
+    govuk::apps::content_data_api::db::lb_ip_range
+    govuk::apps::content_data_api::db::rds
+    govuk::apps::content_data_api::db_hostname
+    govuk::apps::content_data_api::rabbitmq_hosts
+    govuk::apps::content_data_api::rabbitmq_password
+    govuk::apps::content_data_api::rabbitmq_user
+    govuk::apps::content_data_api::redis_host
+    govuk::apps::content_data_api::redis_port
     govuk::apps::content_performance_manager::db::allow_auth_from_lb
     govuk::apps::content_performance_manager::db::lb_ip_range
     govuk::apps::content_performance_manager::db::rds
