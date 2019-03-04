@@ -1,6 +1,8 @@
 #!/usr/bin/env ruby
 
 def create_machines_hash
+  return {} unless File.exist? '/etc/facter/facts.d/aws_environment.txt'
+
   machines_names_hash = Hash.new
 
   `/usr/local/bin/govuk_node_list --with-puppet-class`.each_line do |machine|
