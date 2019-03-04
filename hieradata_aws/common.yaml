@@ -421,7 +421,6 @@ govuk::apps::content_data_admin::db::rds: true
 govuk::apps::content_data_api::rabbitmq_user: "content_data_api"
 govuk::apps::content_data_api::rabbitmq_password: "%{hiera('govuk::apps::content_data_api::rabbitmq::amqp_pass')}"
 govuk::apps::content_data_api::db_hostname: "content-data-api-postgresql-primary"
-govuk::apps::content_data_api::db::allow_auth_from_lb: true
 govuk::apps::content_data_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::content_data_api::rabbitmq_hosts:
   - rabbitmq
