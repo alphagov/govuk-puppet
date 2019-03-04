@@ -45,10 +45,8 @@ class govuk::node::s_cache (
   include router::gor
   include nscd
 
-  # The next two blocks increase file descriptor and IP connection
-  # tracking limits on cache machines so the router can handle more
-  # simultaneous connections. The router is the only app on these
-  # machines, so we can afford for it to use more resources.
+  # Increase the maximum number of file descriptors usable by the router
+  # A file descriptor is used per connection
   limits::limits { 'deploy_nofile_router':
     ensure     => present,
     user       => 'deploy',
@@ -56,8 +54,17 @@ class govuk::node::s_cache (
     both       => 65536,
   }
 
+  # Increase the maximum number of simulaneous connections that can be
+  # tracked by the netfilter
   govuk_harden::sysctl::conf { 'cache-nf-conntrack-limit':
     content => "net.netfilter.nf_conntrack_max = 65536\n",
+  }
+
+  # Decrease the timeout for established TCP connections from the default
+  # of 5 days to a more sensible 10 minutes so connections don't unnecessarily
+  # take up tracked connection slots
+  govuk_harden::sysctl::conf { 'cache-nf-conntrack-tcp-timeout-established':
+    content => "net.netfilter.nf_conntrack_tcp_timeout_established = 600\n",
   }
 
   if $router_as_container {
