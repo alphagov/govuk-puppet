@@ -104,7 +104,10 @@ class govuk::apps::search_api(
 ) {
   $app_name = 'search-api'
 
-  if ! $rummager_enable {
+  if $rummager_enable {
+    $vhost_aliases = []
+  } else {
+    $vhost_aliases = ['search']
     package { ['aspell', 'aspell-en', 'libaspell-dev']:
       ensure => $spelling_dependencies,
     }
@@ -115,6 +118,8 @@ class govuk::apps::search_api(
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
     health_check_path        => '/search?q=search_healthcheck',
+
+    vhost_aliases            => $vhost_aliases,
 
     log_format_is_json       => true,
     nginx_extra_config       => '

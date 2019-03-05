@@ -114,9 +114,12 @@ class govuk::apps::rummager(
   }
 
   if $enable_rummager {
+    $vhost_aliases = ['search']
     package { ['aspell', 'aspell-en', 'libaspell-dev']:
       ensure => $spelling_dependencies,
     }
+  } else {
+    $vhost_aliases = []
   }
 
   govuk::app { 'rummager':
@@ -128,7 +131,7 @@ class govuk::apps::rummager(
 
     # support search as an alias for ease of migration from old
     # cluster running in backend VDC.
-    vhost_aliases            => ['search'],
+    vhost_aliases            => $vhost_aliases,
 
     log_format_is_json       => true,
     nginx_extra_config       => '
