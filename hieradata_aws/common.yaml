@@ -446,6 +446,8 @@ govuk::apps::content_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix
 govuk::apps::content_publisher::db::rds: true
 govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::content_publisher::aws_region: "eu-west-1"
+govuk::apps::content_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_store::nagios_memory_warning: 2600
 govuk::apps::content_store::nagios_memory_critical: 2800
@@ -680,6 +682,8 @@ govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk:
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_publisher_redis_host: "%{hiera('govuk::apps::content_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_publisher_redis_port: "%{hiera('govuk::apps::content_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
@@ -1047,7 +1051,9 @@ grafana::dashboards::application_dashboards:
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true
-  content-publisher: {}
+  content-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   content-store:
     dependent_app_5xx_errors:
       - calendars

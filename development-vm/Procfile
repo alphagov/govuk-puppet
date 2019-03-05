@@ -185,3 +185,6 @@ search-api-govuk-index-listener:  govuk_setenv search-api ./run_in.sh ../../sear
 search-api-bulk-reindex-listener: govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:bulk_insert_data_into_govuk
 # sidekiq-monitoring for search-api uses 3234
 content-data-api:      govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec rails server -p 3235
+# sidekiq-monitoring for content-publisher uses 3236
+# byebug web listener for content-publisher uses 3237
+# byebug sidekiq listener for content-publisher uses 3238
