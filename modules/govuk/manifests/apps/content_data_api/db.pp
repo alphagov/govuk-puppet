@@ -6,7 +6,7 @@
 #   The DB instance password.
 #
 class govuk::apps::content_data_api::db (
-  $password,
+  $password = undef,
 ) {
   govuk_postgresql::db { 'content_performance_manager_production':
     user                => 'content_performance_manager',
