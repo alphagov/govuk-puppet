@@ -5,27 +5,27 @@
 #
 # === Parameters
 #
-# [*postgresql_host*]
+# [*postgres_host*]
 #   Hostname of the RDS database to use.
 #   Default: undef
 #
-# [*postgresql_user*]
+# [*postgres_user*]
 #   The PostgreSQL user to use for admisistering the database.
 #   Default: undef
 #
-# [*postgresql_password*]
-#   The password corresponding to the above `postgresql_user`.
+# [*postgres_password*]
+#   The password corresponding to the above `postgres_user`.
 #   Default: undef
 #
-# [*postgresql_port*]
-#   The port with which to connect to the `postgresql_host`.
+# [*postgres_port*]
+#   The port with which to connect to the `postgres_host`.
 #   Default: '5432'
 #
 class govuk::node::s_content_data_api_db_admin(
-  $postgresql_host        = undef,
-  $postgresql_user        = undef,
-  $postgresql_password    = undef,
-  $postgresql_port        = '5432',
+  $postgres_host        = undef,
+  $postgres_user        = undef,
+  $postgres_password    = undef,
+  $postgres_port        = '5432',
 ) {
   include govuk_env_sync
   include ::govuk::node::s_base
@@ -35,7 +35,7 @@ class govuk::node::s_content_data_api_db_admin(
   file { '/root/.pgpass':
     ensure  => present,
     mode    => '0600',
-    content => "${postgresql_host}:5432:*:${postgresql_user}:${postgresql_password}",
+    content => "${postgres_host}:5432:*:${postgres_user}:${postgres_password}",
   }
 
   # Unfortunately, the prior art for configuring db-admin style
@@ -45,10 +45,10 @@ class govuk::node::s_content_data_api_db_admin(
 
   # Connect to the RDS instance when performing Puppet operations
   $default_connect_settings = {
-    'PGUSER'     => $postgresql_user,
-    'PGPASSWORD' => $postgresql_password,
-    'PGHOST'     => $postgresql_host,
-    'PGPORT'     => $postgresql_port,
+    'PGUSER'     => $postgres_user,
+    'PGPASSWORD' => $postgres_password,
+    'PGHOST'     => $postgres_host,
+    'PGPORT'     => $postgres_port,
   }
 
   # We don't actually want to run a local PostgreSQL server, just
