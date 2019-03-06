@@ -83,6 +83,10 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -108,6 +112,7 @@ class govuk::apps::content_publisher (
   $asset_manager_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $enable_procfile_worker = true,
 ) {
   $app_name = 'content-publisher'
 
@@ -191,5 +196,9 @@ class govuk::apps::content_publisher (
       allow_prepared_statements => $db_allow_prepared_statements,
       database                  => $db_name,
     }
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
   }
 }
