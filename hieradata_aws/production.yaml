@@ -190,7 +190,7 @@ govuk_jenkins::job_builder::environment: 'production'
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
-govuk_jenkins::jobs::smokey::environment: production
+govuk_jenkins::jobs::smokey::environment: production_aws
 
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
   -
@@ -245,7 +245,7 @@ monitoring::checks::rds::servers:
    - 'mysql-primary'
    - 'mysql-replica'
 
-monitoring::checks::smokey::environment: 'production'
+monitoring::checks::smokey::environment: 'production_aws'
 monitoring::uptime_collector::environment: 'production'
 
 postfix::smarthost:
