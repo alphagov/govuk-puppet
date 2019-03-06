@@ -38,6 +38,8 @@ define govuk::procfile::worker (
   $setenv_as = $title,
   $process_count = 1,
   $alert_when_threads_exceed = 50,
+  $respawn_count = 5,
+  $respawn_timeout = 20,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
