@@ -193,7 +193,7 @@ deployable_applications: &deployable_applications
   travel-advice-publisher: {}
   whitehall: {}
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
