@@ -65,9 +65,9 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-production-database-backups"
     path: "mongo-api"
-  "pull_licence_finder_production":
-    ensure: "absent"
-    hour: "2"
+  "push_licence_finder_production":
+    ensure: "present"
+    hour: "0"
     minute: "21"
     action: "pull"
     dbms: "mongo"
