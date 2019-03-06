@@ -55,7 +55,6 @@ class govuk::node::s_content_data_api_db_admin(
   # configure the RDS one
   class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
-    package_ensure           => absent,
     service_manage           => false,
   }
 
