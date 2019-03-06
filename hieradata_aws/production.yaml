@@ -814,7 +814,6 @@ hosts::backend_migration::hosts:
       - apt.cluster
       - gemstash.cluster
       - apt-1
-      - apt.production.alphagov.co.uk
   search-2.api.publishing.service.gov.uk:
     ip: 10.3.4.5
     host_aliases:
