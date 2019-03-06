@@ -27,7 +27,6 @@ class govuk::node::s_jenkins (
   include govuk_postgresql::client
   include govuk_rbenv::all
   include ::chromedriver
-  include ::phantomjs
   include ::selenium
 
   class { 'govuk_jenkins':
