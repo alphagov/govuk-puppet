@@ -1,7 +1,7 @@
 govuk_env_sync::tasks:
-  "pull_router_daily":
-    ensure: "absent"
-    hour: "1"
+  "push_router_daily":
+    ensure: "present"
+    hour: "0"
     minute: "24"
     action: "pull"
     dbms: "mongo"
@@ -10,9 +10,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/.dumps"
     url: "govuk-production-database-backups"
     path: "mongo-router"
-  "pull_draft_router_daily":
-    ensure: "absent"
-    hour: "1"
+  "push_draft_router_daily":
+    ensure: "present"
+    hour: "0"
     minute: "45"
     action: "pull"
     dbms: "mongo"
