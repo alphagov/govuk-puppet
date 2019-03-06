@@ -42,8 +42,11 @@ class govuk::node::s_cache (
 ) inherits govuk::node::s_base {
 
   include govuk_htpasswd
-  include router::gor
   include nscd
+
+  unless ( 'ip-10-12-4' in $::hostname ) and ( $::aws_migration == 'cache' ) and ( $::aws_environment == 'staging' ) {
+    include router::gor
+  }
 
   # Increase the maximum number of file descriptors usable by the router
   # A file descriptor is used per connection
