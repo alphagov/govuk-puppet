@@ -94,8 +94,8 @@ class govuk::apps::smartanswers(
     vhost                    => $vhost,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
-    alert_5xx_warning_rate   => 0.2,
-    alert_5xx_critical_rate  => 0.3,
+    alert_5xx_warning_rate   => 0.001,
+    alert_5xx_critical_rate  => 0.005,
     repo_name                => 'smart-answers',
     unicorn_worker_processes => $unicorn_worker_processes,
   }

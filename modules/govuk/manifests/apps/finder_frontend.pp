@@ -49,8 +49,6 @@ class govuk::apps::finder_frontend(
       nagios_memory_critical   => $nagios_memory_critical,
       unicorn_worker_processes => $unicorn_worker_processes,
       override_search_location => $override_search_location,
-      alert_5xx_warning_rate   => 0.1,
-      alert_5xx_critical_rate  => 0.2,
     }
   }
 
