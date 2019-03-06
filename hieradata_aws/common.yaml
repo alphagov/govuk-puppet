@@ -1076,7 +1076,10 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   email-alert-frontend: {}
   feedback: {}
-  finder-frontend: {}
+  finder-frontend:
+    show_external_request_time: true
+    show_memcached: true
+    instance_prefix: 'calculators_frontend'
   frontend: {}
   government-frontend: {}
   hmrc-manuals-api: {}
