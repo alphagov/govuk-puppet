@@ -30,16 +30,14 @@ class govuk::apps::manuals_frontend(
   $secret_key_base = undef,
 ) {
   govuk::app { 'manuals-frontend':
-    app_type                => 'rack',
-    port                    => $port,
-    sentry_dsn              => $sentry_dsn,
-    asset_pipeline          => true,
-    asset_pipeline_prefix   => 'manuals-frontend',
-    vhost                   => $vhost,
-    health_check_path       => '/healthcheck',
-    json_health_check       => true,
-    alert_5xx_warning_rate  => 0.1,
-    alert_5xx_critical_rate => 0.2,
+    app_type              => 'rack',
+    port                  => $port,
+    sentry_dsn            => $sentry_dsn,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'manuals-frontend',
+    vhost                 => $vhost,
+    health_check_path     => '/healthcheck',
+    json_health_check     => true,
   }
 
   Govuk::App::Envvar {
