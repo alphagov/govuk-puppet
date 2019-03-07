@@ -426,6 +426,12 @@ govuk::apps::content_data_api::rabbitmq_hosts:
 govuk::apps::content_data_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 
+# Temporarily match up the Content Data API and Content Performance
+# Manager database name and user, to make it easier to sync the
+# Content Performance Manager database over
+govuk::apps::content_data_api::db_name: "content_performance_manager_production"
+govuk::apps::content_data_api::db_username: "content_performance_manager"
+
 govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
 govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
 govuk::apps::content_performance_manager::db_hostname: "warehouse-postgresql-primary"
