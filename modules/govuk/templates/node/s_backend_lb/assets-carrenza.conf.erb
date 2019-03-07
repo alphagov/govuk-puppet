@@ -47,6 +47,13 @@ server {
     rewrite ^/government/uploads/system/uploads/consultation_response_form/(.*)$ /government/uploads/system/uploads/consultation_response_form_data/$1;
   }
 
+  # 1stline use this URL in their zendesk template
+  location /static/gov.uk_logotype_crown.png {
+    add_header Cache-Control "public";
+    expires 1y;
+    rewrite (.*) /media/5c810ef4ed915d43e50ce260/gov.uk_logotype_crown.png;
+  }
+
   <%- @app_specific_static_asset_routes.each do |alias_path, assets_carrenza_vhost_name| -%>
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_<%= assets_carrenza_vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= assets_carrenza_vhost_name %>.<%= @app_domain %>;
