@@ -69,7 +69,7 @@ govuk_env_sync::tasks:
     ensure: "present"
     hour: "0"
     minute: "21"
-    action: "pull"
+    action: "push"
     dbms: "mongo"
     storagebackend: "s3"
     database: "licence_finder_production"
