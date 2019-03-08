@@ -256,10 +256,6 @@ postfix::smarthost:
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
-router::nginx::robotstxt: |
-  User-agent: *
-  Disallow: /
-
 nginx::config::stack_network_prefix: '10.13.0'
 
 govuk_datascrubber::ensure: 'latest'
