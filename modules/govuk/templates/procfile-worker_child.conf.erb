@@ -4,8 +4,9 @@ instance $INDEX
 
 respawn
 
-# If the app respawns more than 5 times in 20 seconds, it has deeper problems
-# and should be killed off.
-respawn limit 5 20
+# If the app respawns more than <%= @respawn_count %> times in
+# <%= @respawn_timeout %> seconds, it has deeper problems and should be
+# killed off.
+respawn limit <%= @respawn_count %> <%= @respawn_timeout %>
 
 exec govuk_setenv <%= @setenv_as %> govuk_run_procfile_worker <%= @process_type %>

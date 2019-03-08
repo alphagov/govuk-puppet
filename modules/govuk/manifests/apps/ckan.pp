@@ -115,6 +115,7 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => $enable_harvester_fetch,
       process_type   => 'harvester_fetch_consumer',
+      respawn_count  => 15,
     }
 
     govuk::procfile::worker { 'harvester_gather_consumer':
