@@ -8,6 +8,10 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Ensure value to pass down to other resources.
+#   Default: present.
+#
 # [*amqp_user*]
 #   The RabbitMQ username (default: 'content_data_api')
 #
@@ -27,6 +31,7 @@
 #   (default: 'content_data_api_govuk_importer')
 #
 class govuk::apps::content_data_api::rabbitmq (
+  $ensure = present,
   $amqp_user  = 'content_data_api',
   $amqp_pass = undef,
   $amqp_exchange = 'published_documents',
@@ -35,7 +40,7 @@ class govuk::apps::content_data_api::rabbitmq (
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
-    ensure        => 'present',
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.major',
@@ -43,7 +48,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@minor@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -53,7 +58,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@links@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -63,7 +68,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@republish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -73,7 +78,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@unpublish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -83,7 +88,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue:
-    ensure        => 'present',
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_bulk_importing_queue,
     routing_key   => '*.bulk.data-warehouse',
@@ -91,7 +96,7 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   govuk_rabbitmq::consumer { $amqp_user:
-    ensure               => 'present',
+    ensure               => $ensure,
     amqp_pass            => $amqp_pass,
     read_permission      => "^${amqp_queue}|${amqp_bulk_importing_queue}\$",
     write_permission     => "^\$",
