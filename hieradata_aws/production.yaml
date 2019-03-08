@@ -156,6 +156,8 @@ govuk::deploy::setup::ssh_keys:
 govuk::node::s_backend_lb::aws_egress_nat_ips: []
 govuk::node::s_backend_lb::search_servers: []
 
+govuk::node::s_monitoring::enable_fastly_metrics: true
+
 # Staging never receives requests to bouncer
 govuk_cdnlogs::bouncer_monitoring_enabled: false
 # Increase the freshness-threshold for govuk logs as traffic is slower
