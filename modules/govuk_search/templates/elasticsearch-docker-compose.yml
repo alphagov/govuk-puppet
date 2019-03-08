@@ -9,9 +9,13 @@ services:
       - xpack.security.enabled=false
     volumes:
       - esdata5:/usr/share/elasticsearch/data
+      - dataimport:/usr/share/elasticsearch/import
+      - /usr/share/docker/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
     ports:
       - 9205:9200
 
 volumes:
   esdata5:
+    driver: local
+  dataimport:
     driver: local

@@ -12,6 +12,11 @@ class govuk_search::docker_elasticsearch {
     content => template('govuk_search/elasticsearch-docker-compose.yml'),
   }
 
+  file { '/usr/share/docker/elasticsearch.yml':
+    ensure  => file,
+    content => template('govuk_search/elasticsearch.yml'),
+  }
+
   include ::govuk_docker
 
   class { '::docker::compose':

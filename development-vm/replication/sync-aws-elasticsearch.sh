@@ -17,7 +17,7 @@ fi
 
 shift $(($OPTIND-1))
 
-LOCAL_ES_HOST="http://localhost:9200/"
+LOCAL_ES_HOST="http://localhost:9205/"
 LOCAL_ARCHIVE_PATH="${DIR}/elasticsearch"
 
 status "Starting search index replication from AWS"
@@ -42,22 +42,22 @@ else
 
   # Get the meta and snap files require to do the restore
   aws_auth
-  remote_config_paths=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/ | grep snapshot | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
+  remote_config_paths=$(aws s3 ls s3://govuk-integration-elasticsearch5-manual-snapshots/ | grep snapshot | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   status "${remote_config_paths}"
   for remote_config_path in $remote_config_paths; do
     status "Syncing data from ${remote_config_path}"
     aws_auth
-    aws s3 cp s3://govuk-integration-database-backups/elasticsearch/${remote_config_path} $LOCAL_ARCHIVE_PATH/
+    aws s3 cp s3://govuk-integration-elasticsearch5-manual-snapshots/${remote_config_path} $LOCAL_ARCHIVE_PATH/
   done
 
   # get the index directories
   aws_auth
-  remote_file_details=$(aws s3 ls s3://govuk-integration-database-backups/elasticsearch/indices/)
+  remote_file_details=$(aws s3 ls s3://govuk-integration-elasticsearch5-manual-snapshots/indices/)
   remote_paths=$(echo $remote_file_details | ruby -e 'STDOUT << STDIN.read.split("PRE").group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   for remote_path in $remote_paths; do
     status "Syncing data from ${remote_path}"
     aws_auth
-    aws s3 sync s3://govuk-integration-database-backups/elasticsearch/indices/${remote_path} $LOCAL_ARCHIVE_PATH/indices/$remote_path/
+    aws s3 sync s3://govuk-integration-elasticsearch5-manual-snapshots/indices/${remote_path} $LOCAL_ARCHIVE_PATH/indices/$remote_path/
   done
 fi
 
@@ -93,20 +93,23 @@ if $DRY_RUN; then
 else
   status "Restoring data into Elasticsearch for $index_names"
 
+  # put the snapshot in the docker container
+  sudo docker cp /var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}/. elasticsearch5:/usr/share/elasticsearch/import/
+
   # setup the snapshot details on the server
-  curl localhost:9200/_snapshot/snapshots?wait_for_completion=true -X PUT -d "{
+  curl localhost:9205/_snapshot/snapshots -X PUT -d "{
     \"type\": \"fs\",
     \"settings\": {
       \"compress\": true,
-      \"location\": \"/var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}\"
+      \"location\": \"/usr/share/elasticsearch/import\"
     }
   }"
 
   # get the snapshot name
-  SNAPSHOT_NAME=$(curl localhost:9200/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
+  SNAPSHOT_NAME=$(curl localhost:9205/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
 
   # restore the snapshot
-  curl localhost:9200/_snapshot/snapshots/$SNAPSHOT_NAME/_restore?wait_for_completion=true -X POST -d "{
+  curl localhost:9205/_snapshot/snapshots/$SNAPSHOT_NAME/_restore?wait_for_completion=true -X POST -d "{
     \"indices\": \"${index_names}\",
     \"index_settings\": {
       \"index.number_of_replicas\": 0
