@@ -195,26 +195,6 @@ class monitoring::checks (
 
   # END search
 
-  icinga::plugin { 'check_hsts_headers':
-    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_hsts_headers',
-  }
-
-  icinga::check_config { 'check_hsts_headers':
-    content => template('monitoring/check_hsts_headers.cfg.erb'),
-    require => Icinga::Plugin['check_hsts_headers'],
-  }
-
-  # We can't have Strict-Transport-Security headers in AWS since
-  # SSL is terminated at the ELB, which doesn't support this header,
-  # and nginx only receives HTTP requests.
-  unless $::aws_migration {
-    icinga::check { "check_hsts_headers_from_${::hostname}":
-      check_command       => 'check_hsts_headers',
-      service_description => 'Strict-Transport-Security headers',
-      host_name           => $::fqdn,
-    }
-  }
-
   # In AWS this is liable to happen more often as machines come and go
   unless $::aws_migration {
     icinga::check_config { 'check_puppetdb_ssh_host_keys':
