@@ -84,22 +84,6 @@ class govuk::apps::ckan (
       default => present,
     }
 
-    govuk::procfile::worker { 'celery_priority':
-      ensure         => $toggled_priority_ensure,
-      setenv_as      => 'ckan',
-      enable_service => $priority_worker_processes != '0',
-      process_type   => 'celery_priority',
-      process_count  => $priority_worker_processes,
-    }
-
-    govuk::procfile::worker { 'celery_bulk':
-      ensure         => $toggled_bulk_ensure,
-      setenv_as      => 'ckan',
-      enable_service => $bulk_worker_processes != '0',
-      process_type   => 'celery_bulk',
-      process_count  => $bulk_worker_processes,
-    }
-
     $toggled_harvester_fetch = $enable_harvester_fetch ? {
       true    => present,
       default => absent,
