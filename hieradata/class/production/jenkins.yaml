@@ -6,6 +6,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::build_offsite_backup
   - govuk_jenkins::jobs::check_cdn_ip_ranges
   - govuk_jenkins::jobs::check_pingdom_ip_ranges
+  - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::clear_cdn_cache
   - govuk_jenkins::jobs::clear_frontend_memcache
   - govuk_jenkins::jobs::clear_template_cache

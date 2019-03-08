@@ -1,0 +1,35 @@
+---
+- scm:
+    name: check-sentry-errors
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-sentry-monitor.git
+            branches:
+              - master
+            wipe-workspace: false
+
+- job:
+    name: Check_Sentry_Errors
+    display-name: Check Sentry Errors
+    project-type: freestyle
+    description: "This job reports the number of errors in Sentry to Graphite."
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/govuk-sentry-monitor/
+    scm:
+      - check-sentry-errors
+    builders:
+        - shell: |
+            export SENTRY_AUTH_TOKEN=<%= @sentry_auth_token %>
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec rake run
+    publishers:
+        - email:
+            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            */15 * * * *

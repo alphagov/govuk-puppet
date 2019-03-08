@@ -7,6 +7,7 @@ govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Production'
 
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::passive_checks
