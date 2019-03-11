@@ -225,9 +225,16 @@ function  dump_postgresql {
     db_hostname='postgresql-primary'
   fi
 
-# We do not need sudo rights to write the output file
-# shellcheck disable=SC2024
-  sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
+
+  if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+    # We do not need sudo rights to write the output file
+    # shellcheck disable=SC2024
+    sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
+  else
+    # We do not need sudo rights to write the output file
+    # shellcheck disable=SC2024
+    sudo -u postgres pg_dump --format=c "${database}" > "${tempdir}/${filename}"
+  fi
 }
 
 function restore_postgresql {
