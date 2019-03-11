@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: search-analytics_search-fetch-analytics-data
+    name: <%= @job_name %>
     scm:
         - git:
             url: git@github.com:alphagov/search-analytics.git
@@ -21,7 +21,7 @@
         <li><a href='https://github.com/alphagov/<%= @target_application %>/blob/master/doc/popularity.md'>Docs on Search</a></li>
       </ul>
     scm:
-        - search-analytics_search-fetch-analytics-data
+        - <%= @job_name %>
     properties:
         <% if @skip_page_traffic_load %>
         - inject:
