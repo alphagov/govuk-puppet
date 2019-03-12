@@ -9,7 +9,7 @@
             clean:
               before: true
             branches:
-                - master
+              - $BRANCH
 - job:
     name: Deploy_Terraform_GOVUK_AWS
     display-name: Deploy_Terraform_GOVUK_AWS
@@ -86,3 +86,7 @@
             name: TERRAFORM_VERSION
             description: Version of Terraform to run against. Leave blank for default.
             default: false
+        - string:
+            name: BRANCH
+            description: Branch of govuk-aws to use.
+            default: master
