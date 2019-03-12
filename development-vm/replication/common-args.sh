@@ -25,7 +25,7 @@ OPTIONS:
     -q       Skip MySQL import
     -e       Skip Elasticsearch import
     -t       Skip Mapit import
-    -k       Delete backups after import (will keep by default)
+    -x       Delete backups after import (will keep by default)
 
 EOF
 }
@@ -55,7 +55,7 @@ function ignored() {
 }
 
 
-while getopts "hF:u:d:sri:onmpqetk" OPTION
+while getopts "hF:u:d:sri:onmpqetx" OPTION
 do
   case $OPTION in
     h )
@@ -95,7 +95,7 @@ do
     t )
       SKIP_MAPIT=true
       ;;
-    k )
+    x )
       KEEP_BACKUPS=false
       ;;
     * )
