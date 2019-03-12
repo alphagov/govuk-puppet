@@ -41,3 +41,7 @@ if ! $DRY_RUN; then
 fi
 
 ok "Data replication complete"
+
+if $KEEP_BACKUPS; then
+  status "If no longer needed, delete backups from ${DIR}"
+fi
