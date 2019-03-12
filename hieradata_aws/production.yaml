@@ -189,6 +189,8 @@ govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
 govuk_jenkins::job_builder::environment: 'production'
 
+govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache: true
+
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 

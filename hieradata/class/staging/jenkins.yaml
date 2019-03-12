@@ -2,9 +2,6 @@
 govuk_jenkins::config::executors: '8'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::clear_frontend_memcache
-  - govuk_jenkins::jobs::clear_template_cache
-  - govuk_jenkins::jobs::clear_varnish_cache
   - govuk_jenkins::jobs::content_performance_manager
   - govuk_jenkins::jobs::copy_data_from_staging_to_aws
   - govuk_jenkins::jobs::data_sync
@@ -13,7 +10,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_dns
-  - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_lambda_app
   - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
@@ -27,7 +23,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::publish_special_routes
   - govuk_jenkins::jobs::record_superfluous_taggings_metrics
   - govuk_jenkins::jobs::record_taxonomy_metrics
-  - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics
