@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*aws_origin_domain*]
+#   the domain name used by the AWS cache load balancer
+#
 # [*http_username*]
 #   Basic auth HTTP username
 #
@@ -11,8 +14,9 @@
 #   Password for $http_username
 #
 class monitoring::checks (
-  $http_username = 'UNSET',
-  $http_password = 'UNSET',
+  $aws_origin_domain = undef,
+  $http_username     = 'UNSET',
+  $http_password     = 'UNSET',
 ) {
 
   exec { 'install_boto':
@@ -76,31 +80,48 @@ class monitoring::checks (
   }
 
   # START ssl certificate checks
-  icinga::check { 'check_www_cert_valid_at_origin':
-    # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
-    check_command       => "check_ssl_cert!www-origin.${app_domain}!www.gov.uk!30",
-    host_name           => $::fqdn,
-    service_description => 'check the www.gov.uk TLS certificate at ORIGIN is valid and not due to expire',
-    notes_url           => monitoring_docs_url(renew-tls-certificate),
+  if $::aws_migration {
+    # migration of the www-origin.*.publishing.service.gov.uk to AWS is now complete
+    icinga::check { 'check_www_cert_valid_at_origin':
+      # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
+      check_command       => "check_ssl_cert!www-origin.${app_domain}!www.gov.uk!30",
+      host_name           => $::fqdn,
+      service_description => 'check the www.gov.uk TLS certificate at ORIGIN is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
+
+    icinga::check { 'check_www_cert_valid_at_aws_origin':
+      # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
+      check_command       => "check_ssl_cert!www-origin.${aws_origin_domain}!www.gov.uk!30",
+      host_name           => $::fqdn,
+      service_description => 'check the www.gov.uk TLS certificate at AWS ORIGIN is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
   }
+
   icinga::check { 'check_www_cert_valid_at_edge':
     check_command       => 'check_ssl_cert!www.gov.uk!www.gov.uk!30',
     host_name           => $::fqdn,
     service_description => 'check the www.gov.uk TLS certificate at EDGE is valid and not due to expire',
     notes_url           => monitoring_docs_url(renew-tls-certificate),
   }
-  icinga::check { 'check_www_staging_cert_valid_at_edge':
-    check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!30',
-    host_name           => $::fqdn,
-    service_description => 'check the www.staging.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
-    notes_url           => monitoring_docs_url(renew-tls-certificate),
+
+  if $::aws_migration {
+    icinga::check { 'check_www_staging_cert_valid_at_edge':
+      check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!30',
+      host_name           => $::fqdn,
+      service_description => 'check the www.staging.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
   }
+
   icinga::check { 'check_www_integration_cert_valid_at_edge':
     check_command       => 'check_ssl_cert!www.integration.publishing.service.gov.uk!www.integration.publishing.service.gov.uk!30',
     host_name           => $::fqdn,
     service_description => 'check the www.integration.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
     notes_url           => monitoring_docs_url(renew-tls-certificate),
   }
+
   icinga::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!signon.${app_domain}!30",
     host_name           => $::fqdn,

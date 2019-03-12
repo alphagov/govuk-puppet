@@ -1223,6 +1223,7 @@ mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
 
+monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
 monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
 monitoring::client::alert_hostname: 'alert'

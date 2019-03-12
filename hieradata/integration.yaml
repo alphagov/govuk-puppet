@@ -205,6 +205,7 @@ licensify::apps::licensify::environment: 'integration'
 licensify::apps::licensify_feed::environment: 'integration'
 
 monitoring::ci_environment: true
+monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: eu-west-1

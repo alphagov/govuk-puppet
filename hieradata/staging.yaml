@@ -558,6 +558,7 @@ licensify::apps::licensify_admin::environment: 'staging'
 licensify::apps::licensify::environment: 'staging'
 licensify::apps::licensify_feed::environment: 'staging'
 
+monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::smokey::environment: 'staging'
