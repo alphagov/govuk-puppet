@@ -14,12 +14,17 @@ set -o errtrace
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-#     Database management system / data source (One of: mongo,elasticsearch,postgresql,mysql)
+
+#     Database management system / data source (One of: mongo,elasticsearch,
+#     elasticsearch5,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
+#     If dbms is elasticsearch5, storagebackend must be es_snapshot
+
 #
 #   S) storagebackend
-#     Storage backend (One of: s3)
+#     Storage backend (One of: s3,es_snapshot)
 #     This is used to construct script names called, e.g. push_s3
+#     If storagebackend is es_snapshot, dbms must be elasticsearch5
 #
 #   T) temppath
 #     Path to create temporary directory in. Directory will be created if
@@ -30,10 +35,12 @@ set -o errtrace
 #     to the directory to copy/sync.
 #
 #   u) url
-#     URL of storage backend, bucket name in case of S3
+#     URL of storage backend, bucket name in case of S3, repository name in case of
+#     es_snapshot
 #
 #   p) path
-#     Path to use on storage backend, prefix in case of S3
+#     Path to use on storage backend, prefix in case of S3, repository name in case
+#     of es_snapshot
 #
 #   t) timestamp
 #     Optional provide specific timestamp to restore.
@@ -157,6 +164,11 @@ function is_writable_elasticsearch {
   fi
 }
 
+function is_writable_elasticsearch5 {
+# elasticsearch5 is always writable
+  echo "true"
+}
+
 function is_writable_postgresql {
 # db-admin is always writable
   echo "true"
@@ -212,6 +224,15 @@ function restore_elasticsearch {
   iso_date="$(date --iso-8601=seconds|cut --byte=-19|tr "[:upper:]" "[:lower:]" )z"
   real_name="$database-$iso_date-00000000-0000-0000-0000-000000000000"
   /usr/local/bin/es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
+}
+
+function dump_elasticsearch5 {
+  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${filename}?wait_for_completion=true"
+}
+
+function restore_elasticsearch5 {
+  curl -XDELETE 'http://elasticsearch5/_all'
+  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${filename}/_restore?wait_for_completion=true"
 }
 
 function  dump_postgresql {
@@ -300,6 +321,25 @@ function get_timestamp_rsync {
   # shellcheck disable=SC2029
   timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+}
+
+function push_es_snapshot {
+  # there is no file to push
+  "ok"
+}
+
+function pull_es_snapshot {
+  # there is no file to pull
+  "ok"
+}
+
+function get_timestamp_es_snapshot {
+  timestamp="$(/usr/bin/curl -XGET "http://elasticsearch5/_snapshot/${url}/_all" | \
+  /usr/bin/jq -r '.snapshots | .[] | .snapshot' | \
+  grep "\\-${database}" | \
+  sort | \
+  tail -1 | \
+  grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
 function postprocess_signon_production {
@@ -419,6 +459,15 @@ done
 : "${database?"No database name specified (pass -d option)"}"
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
+
+if [[ "$dbms" == "elasticsearch5" ]] && [[ "$storagebackend" != "es_snapshot" ]]; then
+  echo "$dbms is only compatible with the es_snapshot storage backend"
+  exit 1
+fi
+if [[ "$storagebackend" == "es_snapshot" ]] && [[ "$dbms" != "elasticsearch5" ]]; then
+  echo "$dbms is not compatible with the $storagebackend storage backend"
+  exit 1
+fi
 
 # Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
