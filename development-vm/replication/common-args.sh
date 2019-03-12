@@ -25,7 +25,7 @@ OPTIONS:
     -q       Skip MySQL import
     -e       Skip Elasticsearch import
     -t       Skip Mapit import
-    -k       Keep backups after import (will delete by default)
+    -x       Delete backups after import (will keep by default)
 
 EOF
 }
@@ -39,7 +39,7 @@ SKIP_ELASTIC=false
 SKIP_MAPIT=false
 RENAME_DATABASES=true
 DRY_RUN=false
-KEEP_BACKUPS=false
+KEEP_BACKUPS=true
 # By default, ignore large databases which are not useful when replicated.
 IGNORE="transition backdrop support_contacts draft_content_store imminence draft_router content_performance_manager ckan"
 
@@ -55,7 +55,7 @@ function ignored() {
 }
 
 
-while getopts "hF:u:d:sri:onmpqetk" OPTION
+while getopts "hF:u:d:sri:onmpqetx" OPTION
 do
   case $OPTION in
     h )
@@ -95,8 +95,8 @@ do
     t )
       SKIP_MAPIT=true
       ;;
-    k )
-      KEEP_BACKUPS=true
+    x )
+      KEEP_BACKUPS=false
       ;;
     * )
       usage
