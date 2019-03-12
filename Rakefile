@@ -148,7 +148,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
     govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule
-    govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
     govuk_jenkins::jobs::network_config_deploy::environments
     govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
@@ -246,6 +245,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::deploy_all_apps::deploy_environment
     govuk_jenkins::jobs::deploy_app::graphite_host
     govuk_jenkins::jobs::deploy_app::graphite_port
+    govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
