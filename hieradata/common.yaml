@@ -1546,7 +1546,6 @@ hosts::production::external_licensify: true
 
 hosts::production::frontend::app_hostnames:
   - 'calculators'
-  - 'calendars'
   - 'canary-frontend'
   - 'collections'
   - 'draft-collections'
