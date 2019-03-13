@@ -195,6 +195,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::allow_auth_from_lb
     govuk::apps::content_publisher::db::lb_ip_range
     govuk::apps::content_publisher::db::rds
+    govuk::apps::content_store::plek_service_rummager_uri
     govuk::apps::content_store::plek_service_whitehall_frontend_uri
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
