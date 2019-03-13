@@ -1552,7 +1552,6 @@ hosts::production::external_licensify: true
 
 hosts::production::frontend::app_hostnames:
   - 'calculators'
-  - 'calendars'
   - 'canary-frontend'
   - 'collections'
   - 'draft-collections'
@@ -1827,7 +1826,6 @@ resolvconf::options:
 router::assets_origin::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
   '/calculators/': "calculators"
-  '/calendars/': "calendars"
   '/collections/': "collections"
   '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"
