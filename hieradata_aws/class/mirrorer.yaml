@@ -8,7 +8,7 @@ icinga::client::checks::disk_time_critical: 250 # milliseconds
 
 lv:
   worker:
-    pv: '/dev/xvdf'
+    pv: '/dev/nvme1n1'
     vg: 'crawler'
 
 mount:
