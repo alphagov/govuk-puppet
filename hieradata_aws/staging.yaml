@@ -124,6 +124,7 @@ govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
+govuk::apps::content_store::plek_service_rummager_uri: 'https://rummager.staging.publishing.service.gov.uk'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.staging.publishing.service.gov.uk'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
