@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
-#
+# shellcheck disable=SC2086
+# shellcheck disable=SC2046
 # Fetch the most recent database dump files from production and restore locally.
 #
 
