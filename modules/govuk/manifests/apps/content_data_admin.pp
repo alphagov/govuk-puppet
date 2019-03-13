@@ -58,6 +58,10 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -77,6 +81,7 @@ class govuk::apps::content_data_admin (
   $google_tag_manager_auth = undef,
   $redis_host = undef,
   $redis_port = undef,
+  $enable_procfile_worker = true,
 ) {
   $app_name = 'content-data-admin'
 
@@ -143,5 +148,9 @@ class govuk::apps::content_data_admin (
       database                  => $db_name,
       allow_prepared_statements => $db_allow_prepared_statements,
     }
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
   }
 }
