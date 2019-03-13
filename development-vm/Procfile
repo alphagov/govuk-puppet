@@ -176,6 +176,7 @@ content-publisher: govuk_setenv content-publisher ./run_in.sh ../../content-publ
 # Smokey BrowserMob Proxy uses ports 3222-3229
 content-data-admin: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec unicorn -c config/unicorn.rb -p 3230
 content-data-admin-sidekiq-default: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec sidekiq -C ./config/sidekiq.yml
+# sidekiq-monitoring for content-data-admin uses port 3240
 draft-smartanswers: govuk_setenv draft-smartanswers ./run_in.sh ../../smart-answers bundle exec rails server -p 3231 -P tmp/pids/draft-smartanswers.pid
 # content-publisher has reserved 3232 for webpack-dev-server
 cache-clearing-service: govuk_setenv cache-clearing-service ./run_in.sh ../../cache-clearing-service bundle exec bin/cache_clearing_service

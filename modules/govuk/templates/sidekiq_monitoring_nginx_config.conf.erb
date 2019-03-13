@@ -30,6 +30,10 @@ server {
     proxy_pass http://localhost:3217;
   }
 
+  location /content-data-admin {
+    proxy_pass http://localhost:3240;
+  }
+
   location /content-performance-manager {
     proxy_pass http://localhost:3207;
   }
