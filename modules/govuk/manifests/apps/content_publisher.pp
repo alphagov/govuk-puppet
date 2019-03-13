@@ -87,6 +87,9 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*govuk_notify_api_key*]
+#   API key for integration with GOV.UK Notify for sending emails
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -113,6 +116,7 @@ class govuk::apps::content_publisher (
   $redis_host = undef,
   $redis_port = undef,
   $enable_procfile_worker = true,
+  $govuk_notify_api_key = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -179,6 +183,9 @@ class govuk::apps::content_publisher (
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
         value   => $asset_manager_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
   }
 
   govuk::app::envvar::redis { $app_name:
