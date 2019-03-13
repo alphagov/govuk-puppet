@@ -416,6 +416,8 @@ govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_
 govuk::apps::content_data_admin::db::allow_auth_from_lb: true
 govuk::apps::content_data_admin::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::content_data_admin::db::rds: true
+govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_data_api::rabbitmq_user: "content_data_api"
 govuk::apps::content_data_api::rabbitmq_password: "%{hiera('govuk::apps::content_data_api::rabbitmq::amqp_pass')}"
@@ -680,6 +682,8 @@ govuk::apps::sidekiq_monitoring::collections_publisher_redis_host: "%{hiera('gov
 govuk::apps::sidekiq_monitoring::collections_publisher_redis_port: "%{hiera('govuk::apps::collections_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_data_admin_redis_host: "%{hiera('govuk::apps::content_data_admin::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_data_admin_redis_port: "%{hiera('govuk::apps::content_data_admin::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_publisher_redis_host: "%{hiera('govuk::apps::content_publisher::redis_host')}"
@@ -1047,7 +1051,9 @@ grafana::dashboards::application_dashboards:
   content-audit-tool:
     show_sidekiq_graphs: true
     has_workers: true
-  content-data-admin: {}
+  content-data-admin: 
+    show_sidekiq_graphs: true
+    has_workers: true
   content-performance-manager:
     show_sidekiq_graphs: true
     has_workers: true

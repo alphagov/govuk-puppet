@@ -50,6 +50,14 @@
 # [*google_tag_manager_auth*]
 #   The identifier of an environment for Google Tag Manager
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -67,6 +75,8 @@ class govuk::apps::content_data_admin (
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'content-data-admin'
 
@@ -116,6 +126,11 @@ class govuk::apps::content_data_admin (
     "${title}-GOOGLE_TAG_MANAGER_AUTH":
         varname => 'GOOGLE_TAG_MANAGER_AUTH',
         value   => $google_tag_manager_auth;
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $::govuk_node_class !~ /^development$/ {
