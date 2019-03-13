@@ -39,11 +39,11 @@
 #   Default: undef
 #
 # [*content_data_admin_redis_host*]
-#   Redis host for Content Performance Manager Sidekiq.
+#   Redis host for Content Data Admin Sidekiq.
 #   Default: undef
 #
 # [*content_data_admin_redis_port*]
-#   Redis port for Content Performance Manager Sidekiq.
+#   Redis port for Content Data Admin Sidekiq.
 #   Default: undef
 #
 # [*content_performance_manager_redis_host*]
