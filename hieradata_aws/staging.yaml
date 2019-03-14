@@ -149,13 +149,15 @@ govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
+govuk_search::gor::port: 3233
+
 govuk::apps::collections::override_search_location: 'https://search-api.staging.govuk-internal.digital'
-# govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk-internal.digital' - in carrenza
+govuk::apps::content_tagger::override_search_location: NULL
 govuk::apps::finder_frontend::override_search_location: 'https://search-api.staging.govuk-internal.digital'
-# govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.staging.govuk-internal.digital' - in carrenza
+govuk::apps::hmrc_manuals_api::override_search_location: NULL
 govuk::apps::licencefinder::override_search_location: 'https://search-api.staging.govuk-internal.digital'
-# govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk-internal.digital' - in carrenza
-# govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk-internal.digital' - in carrenza
+govuk::apps::search_admin::override_search_location: NULL
+govuk::apps::whitehall::override_search_location: NULL
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
