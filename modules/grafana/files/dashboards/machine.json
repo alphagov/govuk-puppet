@@ -226,7 +226,7 @@
           "datasource": "Graphite",
           "editable": true,
           "error": false,
-          "fill": 1,
+          "fill": 0,
           "grid": {},
           "id": 2,
           "legend": {
@@ -249,12 +249,13 @@
           "seriesOverrides": [
             {
               "alias": "Total",
-              "color": "#890F02",
-              "fill": 0
+              "color": "#890F02"
             },
             {
               "alias": "Used",
-              "color": "#629E51"
+              "color": "#629E51",
+              "linewidth": 3,
+              "fill": 2
             },
             {
               "alias": "Buffered",
@@ -271,16 +272,16 @@
           "steppedLine": false,
           "targets": [
             {
+              "refId": "A",
+              "target": "alias($hostname.memory.memory-used, 'Used')"
+            },
+            {
               "refId": "C",
               "target": "alias($hostname.memory.memory-buffered, 'Buffered')"
             },
             {
               "refId": "B",
               "target": "alias($hostname.memory.memory-cached, 'Cached')"
-            },
-            {
-              "refId": "A",
-              "target": "alias($hostname.memory.memory-used, 'Used')"
             },
             {
               "refId": "D",
