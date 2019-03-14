@@ -244,9 +244,6 @@ class govuk::apps::rummager(
       "${title}-OAUTH_SECRET":
         varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-XRAY_SAMPLE_RATE":
-        varname => 'XRAY_SAMPLE_RATE',
-        value   => '1.0';
     }
   }
 }
