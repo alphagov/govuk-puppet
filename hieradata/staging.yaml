@@ -52,8 +52,15 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
-govuk_search::gor::replay_target_hosts:
-  - 'https://search-api.staging.govuk.digital'
+govuk_search::gor::port: 3233
+
+govuk::apps::collections::override_search_location: NULL
+govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::finder_frontend::override_search_location: NULL
+govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::licencefinder::override_search_location: NULL
+govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk.digital'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'

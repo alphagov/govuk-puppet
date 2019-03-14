@@ -124,7 +124,7 @@ govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
-govuk::apps::content_store::plek_service_rummager_uri: 'https://rummager.staging.publishing.service.gov.uk'
+govuk::apps::content_store::plek_service_rummager_uri: 'https://search-api.staging.govuk-internal.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.staging.publishing.service.gov.uk'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
@@ -149,7 +149,15 @@ govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
-govuk_search::gor::replay_target_hosts: []
+govuk_search::gor::port: 3233
+
+govuk::apps::collections::override_search_location: 'https://search-api.staging.govuk-internal.digital'
+govuk::apps::content_tagger::override_search_location: NULL
+govuk::apps::finder_frontend::override_search_location: 'https://search-api.staging.govuk-internal.digital'
+govuk::apps::hmrc_manuals_api::override_search_location: NULL
+govuk::apps::licencefinder::override_search_location: 'https://search-api.staging.govuk-internal.digital'
+govuk::apps::search_admin::override_search_location: NULL
+govuk::apps::whitehall::override_search_location: NULL
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
