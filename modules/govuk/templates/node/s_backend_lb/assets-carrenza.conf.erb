@@ -107,11 +107,7 @@ server {
   }
 
   location /__canary__ {
-    <%- if scope.lookupvar('::aws_migration') %>
-    proxy_pass $upstream_static;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-    <%- end %>
+    return 200;
   }
 
   location / {
