@@ -1,0 +1,3 @@
+---
+logrotate::conf::days_to_keep: 7
+nginx::logging::days_to_keep: 7
