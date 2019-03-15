@@ -18,7 +18,7 @@ script
                          --startas /usr/bin/java \
                          -- \
                          <%= @java_args %> \
-                         -XX:OnOutOfMemoryError="kill -9 %p" \
+                         -XX:OnOutOfMemoryError="kill -9 %p; /etc/init.d/puppetdb restart; /etc/init.d/puppetserver restart" \
                          -jar /usr/share/puppetdb/puppetdb.jar \
                          services -c /etc/puppetdb/conf.d \
                          >> /var/log/puppetdb/upstart.out.log \
