@@ -242,6 +242,8 @@ function  dump_postgresql {
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
     db_hostname='warehouse-postgresql-primary'
+  elif [ "${database}" == 'content_data_api_production' ]; then
+    db_hostname='content-data-api-postgresql-primary'
   else
     db_hostname='postgresql-primary'
   fi
@@ -260,11 +262,13 @@ function  dump_postgresql {
 
 function restore_postgresql {
   # Check which postgres instance the database needs to restore into
-  # (warehouse, transition, or postgresql-primary).
+  # (content-data-api, transition, or postgresql).
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='warehouse-postgresql-primary'
+    db_hostname='content-data-api-postgresql-primary'
+  elif [ "${database}" == 'content_data_api_production' ]; then
+    db_hostname='content-data-api-postgresql-primary'
   else
     db_hostname='postgresql-primary'
   fi
