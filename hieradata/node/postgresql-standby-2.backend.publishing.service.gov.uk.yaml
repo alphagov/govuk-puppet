@@ -1,9 +1,7 @@
 icinga::client::check_cputype::cputype: 'amd'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
-govuk_sudo::sudo_conf:
-  govuk-backup:
-    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/pg_dump'
+
 govuk_env_sync::tasks:
   "push_local-links-manager_production_daily":
     ensure: "absent"
