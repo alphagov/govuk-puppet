@@ -62,6 +62,8 @@ govuk::apps::licencefinder::override_search_location: NULL
 govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk.digital'
 
+govuk::apps::rummager::enable_rummager: true
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::setup::ssh_keys:
