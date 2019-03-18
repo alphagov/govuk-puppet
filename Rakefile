@@ -215,10 +215,25 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db::rds
     govuk::apps::rummager::elasticsearch_hosts
     govuk::apps::search_api::elasticsearch_hosts
+    govuk::apps::search_api::enable_bulk_reindex_listener
+    govuk::apps::search_api::enable_govuk_index_listener
+    govuk::apps::search_api::enable_publishing_listener
+    govuk::apps::search_api::nagios_memory_critical
+    govuk::apps::search_api::nagios_memory_warning
+    govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener
+    govuk::apps::search_api::rabbitmq::enable_govuk_index_listener
+    govuk::apps::search_api::rabbitmq::enable_publishing_listener
+    govuk::apps::search_api::rabbitmq_hosts
+    govuk::apps::search_api::rabbitmq_user
+    govuk::apps::search_api::redis_host
+    govuk::apps::search_api::redis_port
+    govuk::apps::search_api::unicorn_worker_processes
     govuk::apps::service_manual_publisher::db::allow_auth_from_lb
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::sidekiq_monitoring::search_api_redis_host
+    govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::support_api::db::allow_auth_from_lb
     govuk::apps::support_api::db::lb_ip_range
     govuk::apps::support_api::db::rds
