@@ -62,6 +62,18 @@
 #   Whether to enable the procfile worker
 #   Default: true
 #
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_csv_export_bucket_name*]
+#   The S3 Bucket used for csv exports.
+#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -82,6 +94,10 @@ class govuk::apps::content_data_admin (
   $redis_host = undef,
   $redis_port = undef,
   $enable_procfile_worker = true,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_region = 'eu-west-1',
+  $aws_csv_export_bucket_name = undef,
 ) {
   $app_name = 'content-data-admin'
 
@@ -123,14 +139,26 @@ class govuk::apps::content_data_admin (
       varname => 'CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN',
       value   => $content_performance_manager_bearer_token;
     "${title}-GOOGLE_TAG_MANAGER_ID":
-        varname => 'GOOGLE_TAG_MANAGER_ID',
-        value   => $google_tag_manager_id;
+      varname => 'GOOGLE_TAG_MANAGER_ID',
+      value   => $google_tag_manager_id;
     "${title}-GOOGLE_TAG_MANAGER_PREVIEW":
-        varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
-        value   => $google_tag_manager_preview;
+      varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
+      value   => $google_tag_manager_preview;
     "${title}-GOOGLE_TAG_MANAGER_AUTH":
-        varname => 'GOOGLE_TAG_MANAGER_AUTH',
-        value   => $google_tag_manager_auth;
+      varname => 'GOOGLE_TAG_MANAGER_AUTH',
+      value   => $google_tag_manager_auth;
+    "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
+      value   => $aws_access_key_id;
+    "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
+      value   => $aws_secret_access_key;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
+    "${title}-AWS_CSV_EXPORT_BUCKET_NAME":
+      varname => 'AWS_CSV_EXPORT_BUCKET_NAME',
+      value   => $aws_csv_export_bucket_name;
   }
 
   govuk::app::envvar::redis { $app_name:
