@@ -722,6 +722,8 @@ govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 # dummy configuration for search-api, because all keys in
 # hieradata_aws/common.yaml have to be in hieradata/common.yaml as
 # well (even though search-api isn't deployable here):
+govuk::apps::search_api::nagios_memory_warning: 4600
+govuk::apps::search_api::nagios_memory_critical: 4900
 govuk::apps::search_api::rabbitmq_hosts: []
 govuk::apps::search_api::enable_bulk_reindex_listener: false
 govuk::apps::search_api::enable_publishing_listener: false

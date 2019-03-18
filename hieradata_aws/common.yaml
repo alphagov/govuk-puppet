@@ -651,9 +651,8 @@ govuk::apps::rummager::redis_port: '6379'
 govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch:9200'
 govuk::apps::rummager::unicorn_worker_processes: "6"
 
-# todo: enable when it seems to be working
-# govuk::apps::search_api::nagios_memory_warning: 4600
-# govuk::apps::search_api::nagios_memory_critical: 4900
+govuk::apps::search_api::nagios_memory_warning: 4600
+govuk::apps::search_api::nagios_memory_critical: 4900
 govuk::apps::search_api::enable_bulk_reindex_listener: true
 govuk::apps::search_api::enable_publishing_listener: true
 govuk::apps::search_api::enable_govuk_index_listener: true
