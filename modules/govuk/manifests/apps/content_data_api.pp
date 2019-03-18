@@ -20,7 +20,7 @@
 #
 # [*etl_healthcheck_enabled*]
 #   Enables or disables the ETL checks via the healthcheck endpoint
-#   Default: false
+#   Default: true
 #
 # [*etl_healthcheck_enabled_from_hour*]
 #   The hour of the day where ETL healthcheck alerts are enabled
@@ -89,7 +89,7 @@ class govuk::apps::content_data_api(
   $db_password = undef,
   $db_username = 'content_data_api',
   $enable_procfile_worker = true,
-  $etl_healthcheck_enabled = false,
+  $etl_healthcheck_enabled = true,
   $etl_healthcheck_enabled_from_hour = undef,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
