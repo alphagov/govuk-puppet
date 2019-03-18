@@ -19,6 +19,8 @@ node_class: &node_class
     apps:
       - cache-clearing-service
       - canary-backend
+      - content-data-admin
+      - content-data-api
       - transition
       - imminence
       - kibana
