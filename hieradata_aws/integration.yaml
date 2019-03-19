@@ -25,6 +25,7 @@ govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publis
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-6"
+govuk::apps::content_publisher::govuk_notify_allow_list: "content-publisher-notifications-integration@digital.cabinet-office.gov.uk"
 govuk::apps::content_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-integration-email-alert-api-archive'
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
