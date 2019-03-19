@@ -241,7 +241,11 @@ function  dump_postgresql {
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='warehouse-postgresql-primary'
+    if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+      db_hostname='content-data-api-postgresql-primary'
+    else
+      db_hostname='warehouse-postgresql-primary'
+    fi
   elif [ "${database}" == 'content_data_api_production' ]; then
     db_hostname='content-data-api-postgresql-primary'
   else
