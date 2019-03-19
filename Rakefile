@@ -29,6 +29,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
+    govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
@@ -181,6 +182,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_api::db::lb_ip_range
     govuk::apps::content_data_api::db::rds
     govuk::apps::content_data_api::db_hostname
+    govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour
     govuk::apps::content_data_api::rabbitmq_hosts
     govuk::apps::content_data_api::rabbitmq_password
     govuk::apps::content_data_api::rabbitmq_user
