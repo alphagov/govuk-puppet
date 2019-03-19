@@ -90,6 +90,9 @@
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
+# [*govuk_notify_template_id*]
+#   Template ID for GOV.UK Notify
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -117,6 +120,7 @@ class govuk::apps::content_publisher (
   $redis_port = undef,
   $enable_procfile_worker = true,
   $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -186,6 +190,9 @@ class govuk::apps::content_publisher (
     "${title}-GOVUK_NOTIFY_API_KEY":
         varname => 'GOVUK_NOTIFY_API_KEY',
         value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
   }
 
   govuk::app::envvar::redis { $app_name:
