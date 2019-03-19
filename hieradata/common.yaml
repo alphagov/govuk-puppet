@@ -1576,7 +1576,6 @@ hosts::production::frontend::app_hostnames:
   - 'service-manual'
   - 'service-manual-frontend'
   - 'smartanswers'
-  - 'static'
   - 'whitehall-frontend'
   - 'draft-whitehall-frontend'
 
