@@ -58,6 +58,7 @@ ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep
 # No, it is not a typo
 # shellcheck disable=SC2153
 local_domain="${LOCAL_DOMAIN}"
+ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
 function log {
   echo -ne "$(basename "$0"): $1\\n"
@@ -365,12 +366,20 @@ function postprocess_signon_production {
   echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
 }
 
+function get_aws_environment {
+  aws_environment=""
+  if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+    aws_environment=$(cut -d'=' -f2 < /etc/facter/facts.d/aws_environment.txt)
+  fi
+  echo "${aws_environment}"
+}
+
 ## function: mongo_backend_domain_manipulator
 ## Parameters:
 ##  1. backend_id for which the domain will be replaced
 ##  2. new domain to be applied for the given backend_id
 ## Dependencies:
-##  1. external variables: database, local_domain
+##  1. external variables: database, local_domain, ORIGINAL_DOMAIN
 ##  2. external database: mongo
 
 function mongo_backend_domain_manipulator {
@@ -381,10 +390,16 @@ function mongo_backend_domain_manipulator {
 
  echo "starting mongo manipulation backend domain $1 manipulation..."
 
+ domain_to_replace="${local_domain}"
+ aws_environment="$(get_aws_environment)"
+ if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
+     domain_to_replace="${ORIGINAL_DOMAIN}"
+ fi
+
  mongo --quiet --eval \
   "db = db.getSiblingDB(\"${database}\"); \
     db.backends.find( { \"backend_id\": \"$1\" } ).forEach( \
-    function(b) { b.backend_url = b.backend_url.replace(\".${local_domain}\", \".$2\"); \
+    function(b) { b.backend_url = b.backend_url.replace(\".${domain_to_replace}\", \".$2\"); \
     db.backends.save(b); } );"
 
  echo "successful finished mongo manipulation backend domain $1 manipulation"
@@ -398,6 +413,12 @@ function postprocess_router {
   # router and draft-router hostnames differ - snip off up to first dot.
   source_domain="${static_domain#*.}"
 
+  unmigrated_source_domain="${ORIGINAL_DOMAIN}"
+  aws_environment="$(get_aws_environment)"
+  if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
+      unmigrated_source_domain="${aws_environment}.${ORIGINAL_DOMAIN}"
+  fi
+
   # local_domain comes from env.d/LOCAL_DOMAIN (see above).
 
   mongo --quiet --eval \
@@ -406,20 +427,20 @@ function postprocess_router {
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
     db.backends.save(b); } ); "
 
-  licensify_domain="${source_domain}"
+  licensify_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
 
-  whitehall_domain="${source_domain}"
+  whitehall_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 
-  search_domain="${source_domain}"
+  search_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "search" "${search_domain}"
 
-  rummager_domain="${source_domain}"
+  rummager_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "rummager" "${rummager_domain}"
 
-  spotlight_proxy_domain="${source_domain}"
+  spotlight_proxy_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
 }
 
