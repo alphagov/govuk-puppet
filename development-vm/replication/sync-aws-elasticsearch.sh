@@ -42,7 +42,7 @@ else
 
   # Get the meta and snap files require to do the restore
   aws_auth
-  remote_config_paths=$(aws s3 ls s3://govuk-integration-elasticsearch5-manual-snapshots/ | grep snapshot | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
+  remote_config_paths=$(aws s3 ls s3://govuk-integration-elasticsearch5-manual-snapshots/ | grep -v '/$' | ruby -e 'STDOUT << STDIN.read.split("\n").map{|a| a.split(" ").last }.group_by { |n| n.split(/-\d/).first }.map { |_, d| d.sort.last.strip }.join(" ")')
   status "${remote_config_paths}"
   for remote_config_path in $remote_config_paths; do
     status "Syncing data from ${remote_config_path}"
@@ -114,12 +114,7 @@ else
   SNAPSHOT_NAME=$(curl localhost:9205/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
 
   # restore the snapshot
-  curl "localhost:9205/_snapshot/snapshots/${SNAPSHOT_NAME}/_restore?wait_for_completion=true" -X POST -d "{
-    \"indices\": \"${index_names}\",
-    \"index_settings\": {
-      \"index.number_of_replicas\": 0
-    }
-  }"
+  curl "localhost:9205/_snapshot/snapshots/${SNAPSHOT_NAME}/_restore?wait_for_completion=true" -X POST
 
   status ""
   status "Remove alises from old indices and archiving"
