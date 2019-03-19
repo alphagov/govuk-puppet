@@ -84,7 +84,6 @@ define icinga::check::graphite(
   $args_real = "-F ${from} ${args}"
   $url_encoded_target = regsubst($target, '"', '%22', 'G')
 
-  $app_domain = hiera('app_domain')
   $graph_width = 1000
   $graph_height = 600
 
@@ -101,6 +100,11 @@ define icinga::check::graphite(
   }
 
   if $action_url == undef {
+    $app_domain = hiera('app_domain')
+    if $::aws_migration {
+      $app_domain = hiera('app_domain_internal')
+    }
+
     $action_url_real = "https://graphite.${app_domain}/render/?\
 width=${graph_width}&height=${graph_height}&colorList=red,orange,blue,green,purple,brown\
 ${crit_line}${warn_line}\
