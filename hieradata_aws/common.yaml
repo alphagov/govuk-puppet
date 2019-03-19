@@ -856,6 +856,8 @@ govuk::node::s_backend_lb::assets_carrenza_real_ip_header: "True-Client-Ip"
 
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

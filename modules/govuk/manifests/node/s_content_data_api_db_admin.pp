@@ -26,6 +26,7 @@ class govuk::node::s_content_data_api_db_admin(
   $postgres_user        = undef,
   $postgres_password    = undef,
   $postgres_port        = '5432',
+  $apt_mirror_hostname,
 ) {
   include govuk_env_sync
   include ::govuk::node::s_base
@@ -50,6 +51,14 @@ class govuk::node::s_content_data_api_db_admin(
     'PGHOST'     => $postgres_host,
     'PGPORT'     => $postgres_port,
   }
+
+  apt::source { 'postgresql':
+    ensure       => present,
+    location     => "http://${apt_mirror_hostname}/postgresql",
+    release      => "${::lsbdistcodename}-pgdg",
+    architecture => $::architecture,
+    key          => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8',
+  } ->
 
   # We don't actually want to run a local PostgreSQL server, just
   # configure the RDS one
