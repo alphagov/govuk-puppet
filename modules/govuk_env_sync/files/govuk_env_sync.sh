@@ -288,7 +288,13 @@ function restore_postgresql {
      DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
-  pg_stderr=$(sudo pg_restore -U aws_db_admin -h "${db_hostname}" --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
+
+  pg_restore "${tempdir}/${filename}" -f "${tempdir}/${filename}.dump"
+  sed -i '/COMMENT\ ON\ EXTENSION\ plpgsql/d' "${tempdir}/${filename}.dump"
+  sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+  pg_stderr=$(sudo psql -U aws_db_admin -h "${db_hostname}" -1 --no-password -d "${database}" -f "${tempdir}/${filename}.dump" 2>&1)
+  rm "${tempdir}/${filename}.dump"
+
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
      echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
