@@ -1,0 +1,4 @@
+---
+postgresql::globals::version: '9.6'
+postgresql::globals::manage_package_repo: true
+postgresql::server::role::rds: true

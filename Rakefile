@@ -230,6 +230,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
     govuk::node::s_apt::apt_service
+    govuk::node::s_content_data_api_db_admin::apt_mirror_hostname
     govuk::node::s_apt::gemstash_service
     govuk::node::s_asset_base::alert_hostname
     govuk::node::s_backend_lb::ckan_backend_servers
