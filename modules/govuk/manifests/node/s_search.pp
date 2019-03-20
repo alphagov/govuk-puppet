@@ -16,6 +16,11 @@ class govuk::node::s_search inherits govuk::node::s_base {
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
+  # Data sync for managed elasticsearch
+  if $::aws_migration {
+    include govuk_env_sync
+  }
+
   # Local proxy for Rummager to access ES cluster.
   if ! $::aws_migration {
     include govuk_elasticsearch::local_proxy
