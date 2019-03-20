@@ -1,5 +1,7 @@
 source "https://rubygems.org"
 
+ruby '1.9.3'
+
 gem "rake"
 gem "puppet-syntax", '2.1.0'
 gem "puppet-lint", '2.0.0'
@@ -12,6 +14,8 @@ gem "rspec-puppet"
 # FIXME: There is some confusion about who should require who.
 # https://github.com/rodjek/rspec-puppet/issues/56
 gem 'puppetlabs_spec_helper', '1.0.1'
+# Workaround a Mocha incompatibility in puppetlabs_spec_helper
+gem 'mocha', '< 1.5.0'
 gem "webmock", "~> 1.20.0"
 gem "sshkey", "1.9.0"
 
