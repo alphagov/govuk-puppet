@@ -26,11 +26,12 @@ excluded_classes = [
 ENV.fetch('classes').split(",").each do |class_name|
   node_hostname = class_name.tr("_", "-")
 
-  unless (excluded_classes.include?(class_name))
+  next if excluded_classes.include?(class_name)
 
-    describe "govuk::node::s_#{class_name}", :type => :class do
-      let(:node) { "#{node_hostname}-1.example.com" }
-      let(:facts) {{
+  describe "govuk::node::s_#{class_name}", :type => :class do
+    let(:node) { "#{node_hostname}-1.example.com" }
+    let(:facts) do
+      {
         :environment => (class_name =~ /^development$/ ? "development" : 'vagrant'),
         :concat_basedir => '/var/lib/puppet/concat/',
         :kernel => 'Linux',
@@ -38,24 +39,25 @@ ENV.fetch('classes').split(",").each do |class_name|
         :memorysize_mb => 3953.43,
         :aws_migration => (class_name =~ /db_admin/ ? true : false),
         :vdc => 'example',
-      }}
+      }
+    end
 
-      let(:hiera_config) { temporary_hiera_file.path }
+    let(:hiera_config) { temporary_hiera_file.path }
 
-      # Pull in some required bits from top-level site.pp
-      let(:pre_condition) { <<-EOT
+    # Pull in some required bits from top-level site.pp
+    let(:pre_condition) do
+      <<-EOT
         $govuk_node_class = "#{class_name}"
 
         $lv = hiera('lv',{})
         create_resources('govuk_lvm', $lv)
         $mount = hiera('mount',{})
         create_resources('govuk_mount', $mount)
-        EOT
-      }
+      EOT
+    end
 
-      it "should compile" do
-        expect { subject.call }.not_to raise_error
-      end
+    it "should compile" do
+      expect { subject.call }.not_to raise_error
     end
   end
 end
