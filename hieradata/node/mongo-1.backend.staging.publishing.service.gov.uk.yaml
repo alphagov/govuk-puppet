@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_licence_finder_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "21"
     action: "push"
@@ -77,7 +77,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-normal"
   "push_imminence_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "0"
     action: "push"

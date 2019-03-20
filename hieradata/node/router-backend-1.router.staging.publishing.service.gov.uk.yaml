@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "24"
     action: "push"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-router"
   "push_draft_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "45"
     action: "push"

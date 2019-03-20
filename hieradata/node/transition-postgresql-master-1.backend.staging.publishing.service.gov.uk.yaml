@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_transition_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "3"
     action: "push"
