@@ -82,6 +82,8 @@ class govuk::node::s_development (
     require                => Class['govuk_java::set_defaults'],
   }
 
+  include govuk_search::docker_elasticsearch
+
   include nginx
 
   nginx::config::vhost::default { 'default': }

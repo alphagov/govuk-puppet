@@ -1,0 +1,21 @@
+version: '2'
+services:
+  elasticsearch5:
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.6.15
+    container_name: elasticsearch5
+    environment:
+      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+    volumes:
+      - esdata5:/usr/share/elasticsearch/data
+      - dataimport:/usr/share/elasticsearch/import
+      - /usr/share/docker/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    ports:
+      - 9205:9200
+
+volumes:
+  esdata5:
+    driver: local
+  dataimport:
+    driver: local
