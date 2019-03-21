@@ -61,7 +61,7 @@ local_domain="${LOCAL_DOMAIN}"
 ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
 function log {
-  echo -ne "$(basename "$0"): $1\\n"
+  echo -ne "$(basename "$0"): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
@@ -282,8 +282,8 @@ function restore_postgresql {
 # If it does we will drop the database
   DB_OWNER=''
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
-     echo "Database ${database} exists, we will drop it before continuing"
-     echo "Disconnect existing connections to database"
+     log "Database ${database} exists, we will drop it before continuing"
+     log "Disconnect existing connections to database"
      sudo psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
      DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
@@ -311,10 +311,12 @@ function  restore_mysql {
 
 function push_s3 {
   aws s3 cp "${tempdir}/${filename}" "s3://${url}/${path}/${filename}" --sse AES256
+  log "Upload to s3://${url}/${path}/${filename} completed."
 }
 
 function pull_s3 {
   aws s3 cp "s3://${url}/${path}/${filename}" "${tempdir}/${filename}" --sse AES256
+  log "Download from s3://${url}/${path}/${filename} completed."
 }
 
 function get_timestamp_s3 {
@@ -325,10 +327,12 @@ function get_timestamp_s3 {
 
 function push_rsync {
   rsync -acq "${tempdir}/${filename}" "${url}:/${path}/${filename}"
+  log "Upload to ${url}:/${path}/${filename} completed."
 }
 
 function pull_rsync {
   rsync -acq "${url}:${path}/${filename}" "${tempdir}/${filename}"
+  log "Download from ${url}:${path}/${filename} completed."
 }
 
 function get_timestamp_rsync {
@@ -537,4 +541,4 @@ esac
 # The script arrived here without detour to throw_error/exit
 nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
 nagios_code=0
-log "Ended \"$0 ${args[*]:-''}\""
+log "Completed \"$0 ${args[*]:-''}\""

@@ -49,6 +49,7 @@ define govuk_env_sync::task(
 ) {
 
   require govuk_env_sync::aws_auth
+  require govuk_env_sync::log
   require govuk_env_sync::sync_script
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
