@@ -77,9 +77,9 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_local-links-manager_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "0"
+    ensure: "present"
+    hour: "3"
+    minute: "30"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
@@ -99,7 +99,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mysql"
   "pull_publishing_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "20"
     action: "pull"
@@ -132,7 +132,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mysql"
   "pull_signon_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "32"
     action: "pull"
