@@ -79,6 +79,8 @@ govuk_elasticsearch::dump::run_es_dump_hour: '9'
 govuk_jenkins::job_builder::environment: 'integration'
 govuk_jenkins::config::executors: '8'
 
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
+
 govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule: '0 13 * * *'
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true

@@ -195,6 +195,8 @@ govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
 govuk_jenkins::job_builder::environment: 'staging'
 
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 11 * *'
+
 govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-staging'
   - 'carrenza-staging-dr'
