@@ -100,9 +100,11 @@ define icinga::check::graphite(
   }
 
   if $action_url == undef {
-    $app_domain = hiera('app_domain')
+
     if $::aws_migration {
       $app_domain = hiera('app_domain_internal')
+    } else {
+      $app_domain = hiera('app_domain')
     }
 
     $action_url_real = "https://graphite.${app_domain}/render/?\
