@@ -132,6 +132,9 @@ govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://p
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
 govuk::apps::content_store::plek_service_rummager_uri: 'https://search-api.staging.govuk-internal.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.staging.publishing.service.gov.uk'
+
+govuk::apps::email_alert_service::enabled: false
+govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
