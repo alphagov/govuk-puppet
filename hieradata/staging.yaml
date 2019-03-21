@@ -26,6 +26,7 @@ govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
+govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
