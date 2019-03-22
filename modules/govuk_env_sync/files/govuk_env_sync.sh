@@ -228,12 +228,14 @@ function restore_elasticsearch {
 }
 
 function dump_elasticsearch5 {
-  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${filename}?wait_for_completion=true"
+  snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
+  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}?wait_for_completion=true"
 }
 
 function restore_elasticsearch5 {
+  snapshot_name="${filename//.gz/}"
   curl -XDELETE 'http://elasticsearch5/_all'
-  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${filename}/_restore?wait_for_completion=true"
+  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore?wait_for_completion=true"
 }
 
 function  dump_postgresql {
@@ -354,7 +356,7 @@ function get_timestamp_es_snapshot {
   grep "\\-${database}" | \
   sort | \
   tail -1 | \
-  grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+  sed "s/-${database}$//")"
 }
 
 function postprocess_signon_production {
