@@ -340,12 +340,12 @@ function get_timestamp_rsync {
 
 function push_es_snapshot {
   # there is no file to push
-  "ok"
+  true
 }
 
 function pull_es_snapshot {
   # there is no file to pull
-  "ok"
+  true
 }
 
 function get_timestamp_es_snapshot {
