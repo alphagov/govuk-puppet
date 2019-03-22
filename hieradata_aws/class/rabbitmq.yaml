@@ -1,7 +1,6 @@
 ---
 
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
-  - rummager
   - content_data_api
   - cache_clearing_service
   - search_api
