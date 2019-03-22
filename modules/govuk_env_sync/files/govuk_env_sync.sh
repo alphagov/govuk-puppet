@@ -166,8 +166,18 @@ function is_writable_elasticsearch {
 }
 
 function is_writable_elasticsearch5 {
-# elasticsearch5 is always writable
-  echo "true"
+# We don't want to run the restore on multiple nodes, so we need to
+# pick a unique one.  Pick the one in availability zone 'a'.  The
+# elasticsearch data sync is non-critical, so if it fails due to the
+# ec2 instance in zone a being down when the script is due to run,
+# it's not a big deal.
+  AZ=$(curl http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.*\(.\)/\1/')
+  if [ "$AZ" == "a" ]
+  then
+    echo "true"
+  else
+    echo "false"
+  fi
 }
 
 function is_writable_postgresql {
