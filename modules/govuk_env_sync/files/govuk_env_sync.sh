@@ -166,8 +166,18 @@ function is_writable_elasticsearch {
 }
 
 function is_writable_elasticsearch5 {
-# elasticsearch5 is always writable
-  echo "true"
+# We don't want to run the restore on multiple nodes, so we need to
+# pick a unique one.  Pick the one in availability zone 'a'.  The
+# elasticsearch data sync is non-critical, so if it fails due to the
+# ec2 instance in zone a being down when the script is due to run,
+# it's not a big deal.
+  AZ=$(curl http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.*\(.\)/\1/')
+  if [ "$AZ" == "a" ]
+  then
+    echo "true"
+  else
+    echo "false"
+  fi
 }
 
 function is_writable_postgresql {
@@ -228,12 +238,14 @@ function restore_elasticsearch {
 }
 
 function dump_elasticsearch5 {
-  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${filename}?wait_for_completion=true"
+  snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
+  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}?wait_for_completion=true"
 }
 
 function restore_elasticsearch5 {
+  snapshot_name="${filename//.gz/}"
   curl -XDELETE 'http://elasticsearch5/_all'
-  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${filename}/_restore?wait_for_completion=true"
+  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore?wait_for_completion=true"
 }
 
 function  dump_postgresql {
@@ -340,12 +352,12 @@ function get_timestamp_rsync {
 
 function push_es_snapshot {
   # there is no file to push
-  "ok"
+  true
 }
 
 function pull_es_snapshot {
   # there is no file to pull
-  "ok"
+  true
 }
 
 function get_timestamp_es_snapshot {
@@ -354,7 +366,7 @@ function get_timestamp_es_snapshot {
   grep "\\-${database}" | \
   sort | \
   tail -1 | \
-  grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+  sed "s/-${database}$//")"
 }
 
 function postprocess_signon_production {

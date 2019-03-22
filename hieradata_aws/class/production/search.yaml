@@ -1,6 +1,17 @@
 govuk_env_sync::tasks:
-  "push_es_metasearch_daily":
+  "push_es_everything_daily":
     ensure: "present"
+    hour: "0"
+    minute: "20"
+    action: "push"
+    dbms: "elasticsearch5"
+    storagebackend: "es_snapshot"
+    database: "everything"
+    temppath: "/tmp/es_snapshot_everything"
+    url: "govuk-production"
+    path: "elasticsearch5"
+  "push_es_metasearch_daily":
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -11,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_page_traffic_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -22,7 +33,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_detailed_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -33,7 +44,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_government_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -44,7 +55,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_govuk_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -55,7 +66,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_licence_finder_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
