@@ -174,6 +174,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_audit_tool::db::allow_auth_from_lb
     govuk::apps::content_audit_tool::db::lb_ip_range
     govuk::apps::content_audit_tool::db::rds
+    govuk::apps::content_data_admin::content_performance_manager_uri
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds

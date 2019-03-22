@@ -37,6 +37,11 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*content_performance_manager_uri*]
+#   The value to pass to the Content Data Admin through the
+#   PLEK_SERVICE_CONTENT_PERFORMANCE_MANAGER_URI environment variable.
+#   Default: undef
+#
 # [*content_performance_manager_bearer_token*]
 #   The bearer token to use when communicating with Content Performance Manager.
 #   Default: undef
@@ -87,6 +92,7 @@ class govuk::apps::content_data_admin (
   $db_allow_prepared_statements = undef,
   $db_password                  = undef,
   $db_name                      = 'content_data_admin_production',
+  $content_performance_manager_uri = undef,
   $content_performance_manager_bearer_token = undef,
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
@@ -159,6 +165,13 @@ class govuk::apps::content_data_admin (
     "${title}-AWS_CSV_EXPORT_BUCKET_NAME":
       varname => 'AWS_CSV_EXPORT_BUCKET_NAME',
       value   => $aws_csv_export_bucket_name;
+  }
+
+  if $content_performance_manager_uri != undef {
+    govuk::app::envvar { "${title}-PLEK_SERVICE_CONTENT_PERFORMANCE_MANAGER_URI":
+      varname => 'PLEK_SERVICE_CONTENT_PERFORMANCE_MANAGER_URI',
+      value   => $content_performance_manager_uri,
+    }
   }
 
   govuk::app::envvar::redis { $app_name:
