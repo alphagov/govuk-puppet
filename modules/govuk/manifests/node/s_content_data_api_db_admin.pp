@@ -65,6 +65,10 @@ class govuk::node::s_content_data_api_db_admin(
   class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
     service_manage           => false,
+  } ->
+
+  service { 'postgresql':
+    ensure  => stopped,
   }
 
   include ::govuk_postgresql::server::not_slave
