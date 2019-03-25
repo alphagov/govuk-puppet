@@ -290,6 +290,8 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
+  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
+
 # Checking if the database already exist
 # If it does we will drop the database
   DB_OWNER=''
@@ -301,7 +303,6 @@ function restore_postgresql {
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
 
-  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
   sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   pg_stderr=$(zcat "${tempdir}/${filename}" | sudo psql -U aws_db_admin -h "${db_hostname}" -1 --no-password -d "${database}" 2>&1)
   rm "${tempdir}/${filename}.dump"
