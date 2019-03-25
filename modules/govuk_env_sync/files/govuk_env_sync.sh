@@ -298,6 +298,7 @@ function restore_postgresql {
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      log "Database ${database} exists, we will drop it before continuing"
      log "Disconnect existing connections to database"
+     sudo psql -U aws_db_admin -h "${db_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
      sudo psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
      DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
