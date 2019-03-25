@@ -310,13 +310,15 @@ function  restore_mysql {
 }
 
 function push_s3 {
+  log "Upload to s3://${url}/${path}/${filename}..."
   aws s3 cp "${tempdir}/${filename}" "s3://${url}/${path}/${filename}" --sse AES256
-  log "Upload to s3://${url}/${path}/${filename} completed."
+  log "completed."
 }
 
 function pull_s3 {
+  log "Download from s3://${url}/${path}/${filename}..."
   aws s3 cp "s3://${url}/${path}/${filename}" "${tempdir}/${filename}" --sse AES256
-  log "Download from s3://${url}/${path}/${filename} completed."
+  log "completed."
 }
 
 function get_timestamp_s3 {
@@ -326,13 +328,15 @@ function get_timestamp_s3 {
 }
 
 function push_rsync {
+  log "Upload to ${url}:/${path}/${filename}..."
   rsync -acq "${tempdir}/${filename}" "${url}:/${path}/${filename}"
-  log "Upload to ${url}:/${path}/${filename} completed."
+  log "completed."
 }
 
 function pull_rsync {
+  log "Download from ${url}:${path}/${filename}..."
   rsync -acq "${url}:${path}/${filename}" "${tempdir}/${filename}"
-  log "Download from ${url}:${path}/${filename} completed."
+  log "completed."
 }
 
 function get_timestamp_rsync {
@@ -402,7 +406,7 @@ function mongo_backend_domain_manipulator {
   exit 1
  fi
 
- echo "starting mongo manipulation backend domain $1 manipulation..."
+ log "starting mongo manipulation backend domain $1 manipulation..."
 
  domain_to_replace="${local_domain}"
  aws_environment="$(get_aws_environment)"
