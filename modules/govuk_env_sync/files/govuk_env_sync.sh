@@ -301,10 +301,9 @@ function restore_postgresql {
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
 
-  pg_restore "${tempdir}/${filename}" -f "${tempdir}/${filename}.dump"
-  sed -i '/COMMENT\ ON\ EXTENSION\ plpgsql/d' "${tempdir}/${filename}.dump"
+  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
   sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
-  pg_stderr=$(sudo psql -U aws_db_admin -h "${db_hostname}" -1 --no-password -d "${database}" -f "${tempdir}/${filename}.dump" 2>&1)
+  pg_stderr=$(zcat "${tempdir}/${filename}" | sudo psql -U aws_db_admin -h "${db_hostname}" -1 --no-password -d "${database}" 2>&1)
   rm "${tempdir}/${filename}.dump"
 
   if [ "$DB_OWNER" != '' ] ; then
