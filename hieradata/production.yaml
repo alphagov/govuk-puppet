@@ -91,6 +91,8 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
+govuk::apps::rummager::enable_rummager: true
+
 govuk::deploy::actionmailer_enable_delivery: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
