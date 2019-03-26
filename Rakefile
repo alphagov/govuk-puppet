@@ -271,6 +271,8 @@ task :check_consistency_between_aws_and_carrenza do
     puppet::puppetserver::puppetdb_version
     stackname
 
+    govuk_search::gor::port
+
     govuk::apps::ckan::s3_aws_region_name
     govuk::apps::ckan::s3_bucket_name
     govuk::apps::content_store::app_domain
