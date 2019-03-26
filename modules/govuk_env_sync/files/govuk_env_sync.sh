@@ -239,13 +239,13 @@ function restore_elasticsearch {
 
 function dump_elasticsearch5 {
   snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
-  /usr/bin/curl --connect-timeout 10 -sS -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}?wait_for_completion=true"
+  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}"
 }
 
 function restore_elasticsearch5 {
   snapshot_name="${filename//.gz/}"
   curl -XDELETE 'http://elasticsearch5/_all'
-  /usr/bin/curl --connect-timeout 10 -sS -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore?wait_for_completion=true"
+  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore"
 }
 
 function  dump_postgresql {
