@@ -153,6 +153,8 @@ govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
+govuk_search::gor::port: 3233
+
 govuk_search::gor::replay_target_hosts: []
 
 govuk::apps::rummager::enable_rummager: false
