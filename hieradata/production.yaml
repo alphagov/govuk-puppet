@@ -92,7 +92,7 @@ govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
 govuk_search::gor::replay_target_hosts:
-  - 'search-api.production.govuk.digital'
+  - 'https://search-api.production.govuk.digital'
 
 govuk::apps::rummager::enable_rummager: true
 
