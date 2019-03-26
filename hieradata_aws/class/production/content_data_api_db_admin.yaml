@@ -1,7 +1,7 @@
 govuk_env_sync::tasks:
   # Temporary task to pull data from Carrenza production
   "pull_content_performance_manager_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "0"
     action: "pull"
