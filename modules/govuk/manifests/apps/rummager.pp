@@ -170,17 +170,17 @@ class govuk::apps::rummager(
   }
 
   $toggled_ensure = $enable_publishing_listener ? {
-    true    => present,
+    true    => $rummager_ensure,
     default => absent,
   }
 
   $toggled_govuk_index_listener = $enable_govuk_index_listener ? {
-    true    => present,
+    true    => $rummager_ensure,
     default => absent,
   }
 
   $toggled_bulk_reindex_listener = $enable_bulk_reindex_listener ? {
-    true    => present,
+    true    => $rummager_ensure,
     default => absent,
   }
 
