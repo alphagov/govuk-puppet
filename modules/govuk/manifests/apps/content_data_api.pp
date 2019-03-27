@@ -128,18 +128,21 @@ class govuk::apps::content_data_api(
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'default-worker',
+    process_regex  => 'sidekiq content-data-api ',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'publishing-api-consumer',
+    process_regex  => '\/rake publishing_api:consumer',
   }
 
   govuk::procfile::worker { 'content-data-api-bulk-import-publishing-api-consumer':
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'bulk-import-publishing-api-consumer',
+    process_regex  => '\/rake publishing_api:bulk_import_consumer',
   }
 
   govuk::app::envvar {
