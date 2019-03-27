@@ -33,7 +33,7 @@
 #
 # [*process_regex*]
 #   The regex to use for the CollectD Process plugin.
-#   Default: "sidekiq .* ${title}.*\\.gov\\.uk"
+#   Default: "sidekiq .* ${title}(.*\\.gov\\.uk)? "
 #
 define govuk::procfile::worker (
   $enable_service = true,
@@ -44,7 +44,7 @@ define govuk::procfile::worker (
   $alert_when_threads_exceed = 50,
   $respawn_count = 5,
   $respawn_timeout = 20,
-  $process_regex = "sidekiq .* ${title}.*\\.gov\\.uk",
+  $process_regex = "sidekiq .* ${title}(.*\\.gov\\.uk)? ",
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
