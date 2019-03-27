@@ -158,6 +158,7 @@ govuk_search::gor::port: 3233
 govuk_search::gor::replay_target_hosts: []
 
 govuk::apps::rummager::enable_rummager: false
+govuk::apps::search_api::rummager_enable: false
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
