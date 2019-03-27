@@ -67,6 +67,7 @@ govuk::apps::search_admin::override_search_location: 'https://search-api.staging
 govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk.digital'
 
 govuk::apps::rummager::enable_rummager: true
+govuk::apps::search_api::rummager_enable: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
