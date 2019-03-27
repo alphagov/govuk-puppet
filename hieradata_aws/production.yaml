@@ -159,6 +159,8 @@ govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
 
 govuk::apps::collections::override_search_location: 'https://search-api.production.govuk-internal.digital'
+govuk::apps::content_tagger::override_search_location: NULL
+govuk::apps::hmrc_manuals_api::override_search_location: NULL
 govuk::apps::licencefinder::override_search_location: 'https://search-api.production.govuk-internal.digital'
 govuk::apps::finder_frontend::override_search_location: 'https://search-api.production.govuk-internal.digital'
 

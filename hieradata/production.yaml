@@ -92,6 +92,8 @@ govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
 govuk::apps::collections::override_search_location: NULL
+govuk::apps::content_tagger::override_search_location: 'https://search-api.production.govuk.digital'
+govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::licencefinder::override_search_location: NULL
 govuk::apps::finder_frontend::override_search_location: NULL
 
