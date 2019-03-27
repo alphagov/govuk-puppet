@@ -31,6 +31,10 @@
 #   If set, alert using Icinga if the number of threads exceeds the value specified.
 #   Default: 50
 #
+# [*process_regex*]
+#   The regex to use for the CollectD Process plugin.
+#   Default: "sidekiq .* ${title}.*\\.gov\\.uk"
+#
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
@@ -40,6 +44,7 @@ define govuk::procfile::worker (
   $alert_when_threads_exceed = 50,
   $respawn_count = 5,
   $respawn_timeout = 20,
+  $process_regex = "sidekiq .* ${title}.*\\.gov\\.uk",
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -50,7 +55,7 @@ define govuk::procfile::worker (
 
   collectd::plugin::process { "app-worker-${title_underscore}":
     ensure => $ensure,
-    regex  => "sidekiq .* ${title}.*\\.gov\\.uk",
+    regex  => $process_regex,
   }
 
   if $ensure == present {
