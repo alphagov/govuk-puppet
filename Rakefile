@@ -272,6 +272,8 @@ task :check_consistency_between_aws_and_carrenza do
     stackname
 
     govuk_search::gor::port
+    govuk_search::monitoring::es_port
+    govuk_search::monitoring::es_host
 
     govuk::apps::ckan::s3_aws_region_name
     govuk::apps::ckan::s3_bucket_name
