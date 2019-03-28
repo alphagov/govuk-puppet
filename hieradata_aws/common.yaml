@@ -1058,7 +1058,7 @@ grafana::dashboards::application_dashboards:
   content-audit-tool:
     show_sidekiq_graphs: true
     has_workers: true
-  content-data-admin: 
+  content-data-admin:
     show_sidekiq_graphs: true
     has_workers: true
   content-performance-manager:
@@ -1392,6 +1392,8 @@ unattended_reboot::etcd_endpoints:
 
 unattended_upgrades::blacklist:
  - 'mysql-server.*'
+ - 'linux.*4.4.0-143.*'
+ 
 unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
