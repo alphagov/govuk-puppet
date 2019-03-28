@@ -65,13 +65,14 @@ class govuk::apps::ckan (
 
   if $enabled {
     govuk::app { 'ckan':
-      app_type           => 'procfile',
-      port               => $port,
-      vhost_protected    => $vhost_protected,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      log_format_is_json => false,
-      read_timeout       => $request_timeout,
+      app_type               => 'procfile',
+      port                   => $port,
+      vhost_protected        => $vhost_protected,
+      vhost_ssl_only         => true,
+      health_check_path      => '/healthcheck',
+      log_format_is_json     => false,
+      read_timeout           => $request_timeout,
+      collectd_process_regex => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
