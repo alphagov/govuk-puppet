@@ -1898,6 +1898,8 @@ unattended_reboot::etcd_endpoints:
 
 unattended_upgrades::blacklist:
  - 'mysql-server.*'
+ - 'linux.*4.4.0-143.*'
+ 
 unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
