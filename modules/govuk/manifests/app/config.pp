@@ -84,7 +84,7 @@ define govuk::app::config (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
-  $alert_when_threads_exceed = 100,
+  $alert_when_threads_exceed = undef,
   $override_search_location = undef,
   $create_default_nginx_config = false,
 ) {
