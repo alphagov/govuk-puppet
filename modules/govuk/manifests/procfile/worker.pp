@@ -86,6 +86,16 @@ define govuk::procfile::worker (
         notes_url           => monitoring_docs_url(check-process-running),
       }
 
+      @@icinga::check::graphite { "check_${title_underscore}_app_worker_process_count_${::hostname}":
+        # Make the process count negative, as I don't think the
+        # check-graphite command can handle checking for a low value.
+        target    => "scale(${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.processes,-1)",
+        warning   => -1, # WARN if there are 0 processes (more than -1, with the negative metric)
+        critical  => 0, # Don't use the CRITICAL status for now
+        desc      => "No processes found for ${title_underscore}",
+        host_name => $::fqdn,
+      }
+
       if $alert_when_threads_exceed {
         @@icinga::check::graphite { "check_app_${title}_procfile_worker_thread_count_${::hostname}":
           target    => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.threads",
