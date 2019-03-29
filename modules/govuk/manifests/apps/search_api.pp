@@ -158,18 +158,21 @@ class govuk::apps::search_api(
     setenv_as      => $app_name,
     enable_service => $enable_publishing_listener,
     process_type   => 'publishing-queue-listener',
+    process_regex  => '\/rake message_queue:listen_to_publishing_queue',
   }
 
   govuk::procfile::worker { 'search-api-govuk-index-queue-listener':
     setenv_as      => $app_name,
     enable_service => $enable_govuk_index_listener,
     process_type   => 'govuk-index-queue-listener',
+    process_regex  => '\/rake message_queue:insert_data_into_govuk',
   }
 
   govuk::procfile::worker { 'search-api-bulk-reindex-queue-listener':
     setenv_as      => $app_name,
     enable_service => $enable_bulk_reindex_listener,
     process_type   => 'bulk-reindex-queue-listener',
+    process_regex  => '\/rake message_queue:bulk_insert_data_into_govuk',
   }
 
   Govuk::App::Envvar {
