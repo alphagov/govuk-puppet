@@ -128,7 +128,6 @@ class govuk::apps::content_data_api(
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'default-worker',
-    process_regex  => 'sidekiq content-data-api ',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
