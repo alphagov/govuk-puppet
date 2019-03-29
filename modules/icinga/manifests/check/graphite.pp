@@ -100,9 +100,9 @@ define icinga::check::graphite(
   }
 
   if $action_url == undef {
-
     if $::aws_migration {
-      $app_domain = hiera('app_domain_internal')
+      # temporary solution while we have two Icinga instances
+      $app_domain = "${::aws_environment}.govuk.digital"
     } else {
       $app_domain = hiera('app_domain')
     }
