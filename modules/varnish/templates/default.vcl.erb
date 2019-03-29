@@ -94,7 +94,7 @@ sub vcl_recv {
     if (!client.ip ~ purge_acl) {
       error 405 "Not allowed";
     } else {
-      ban("obj.http.url == " + req.url);
+      ban("obj.http.x-url == " + req.url);
       error 200 "Purged";
     }
   }
