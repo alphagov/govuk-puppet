@@ -6,7 +6,7 @@ class govuk_env_sync::sync_script {
   sudo::conf {
     'govuk-env-sync-commands':
       ensure  => 'present',
-      content => 'govuk-backup ALL=NOPASSWD:/usr/bin/psql,/usr/bin/createdb,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/mysql,/usr/bin/mysqldump,/usr/bin/pg_dump';
+      content => 'govuk-backup ALL=(root,postgres) NOPASSWD:/usr/bin/psql,/usr/bin/createdb,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/mysql,/usr/bin/mysqldump,/usr/bin/pg_dump';
   }
 
   # sync script
