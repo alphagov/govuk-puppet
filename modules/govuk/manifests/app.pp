@@ -237,6 +237,10 @@
 # [*collectd_process_regex*]
 #   Regex to use to identify the process.
 #
+# [*alert_when_threads_exceed*]
+#   If set, alert using Icinga if the number of threads exceeds the value specified.
+#   Default: 100
+#
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
@@ -280,6 +284,7 @@ define govuk::app (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
+  $alert_when_threads_exceed = 100,
   $override_search_location = undef,
   $create_default_nginx_config = false,
 ) {
@@ -357,6 +362,7 @@ define govuk::app (
     cpu_warning                      => $cpu_warning,
     cpu_critical                     => $cpu_critical,
     collectd_process_regex           => $collectd_process_regex,
+    alert_when_threads_exceed        => $alert_when_threads_exceed,
     override_search_location         => $override_search_location,
     create_default_nginx_config      => $create_default_nginx_config,
   }
