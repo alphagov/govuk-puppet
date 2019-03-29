@@ -103,6 +103,7 @@ class govuk::apps::ckan (
       enable_service => $enable_harvester_fetch,
       process_type   => 'harvester_fetch_consumer',
       respawn_count  => 15,
+      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester fetch\_consumer',
     }
 
     govuk::procfile::worker { 'harvester_gather_consumer':
@@ -110,6 +111,7 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => $enable_harvester_gather,
       process_type   => 'harvester_gather_consumer',
+      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer',
     }
 
     include govuk::apps::ckan::cronjobs
