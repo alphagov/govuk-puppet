@@ -290,11 +290,6 @@ postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 nginx::config::stack_network_prefix: '10.13.0'
 
-govuk_datascrubber::ensure: 'latest'
-govuk_datascrubber::share_with:
-  - '210287912431'     # AWS integration
-govuk_datascrubber::s3_export_prefix: 's3://govuk-staging-database-backups/scrubbed'
-
 hosts::backend_migration::hosts:
   calculators-frontend-3.frontend.publishing.service.gov.uk:
     ip: 10.3.2.13
