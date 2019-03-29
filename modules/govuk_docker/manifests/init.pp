@@ -25,6 +25,7 @@ class govuk_docker (
     docker_users                => $docker_users,
     use_upstream_package_source => false,
     version                     => $version,
+    manage_kernel               => false,
   }
 
   package { 'ctop':
