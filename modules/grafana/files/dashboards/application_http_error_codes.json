@@ -56,12 +56,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.frontend-*.nginx_logs.*.http_4xx, 3, \"sumSeries\")",
+              "target": "groupByNode(stats.*frontend-*.nginx_logs.*.http_4xx, 3, \"sumSeries\")",
               "refId": "A"
-            },
-            {
-              "target": "groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*.http_4xx, 3, \"sumSeries\")",
-              "refId": "B"
             }
           ],
           "title": "4XX by Application",
@@ -142,12 +138,8 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "groupByNode(stats.frontend-*.nginx_logs.*.http_5xx, 3, \"sumSeries\")",
+              "target": "groupByNode(stats.*frontend-*.nginx_logs.*.http_5xx, 3, \"sumSeries\")",
               "refId": "A"
-            },
-            {
-              "target": "groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*.http_5xx, 3, \"sumSeries\")",
-              "refId": "B"
             }
           ],
           "title": "5XX by Application",
