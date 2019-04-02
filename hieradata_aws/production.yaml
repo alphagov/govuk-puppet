@@ -156,7 +156,7 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk_search::gor::port: 3233
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch5.blue.staging.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
 
 govuk_search::gor::replay_target_hosts: []
 
