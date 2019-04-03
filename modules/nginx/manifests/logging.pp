@@ -19,6 +19,7 @@ class nginx::logging (
     postrotate      => '[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`',
     rotate_if_empty => true,
     sharedscripts   => true,
+    maxsize         => '500M',
   }
 
   nginx::log {

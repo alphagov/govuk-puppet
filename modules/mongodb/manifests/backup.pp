@@ -80,6 +80,7 @@ class mongodb::backup(
     delaycompress => true,
     copytruncate  => false,
     create        => '644 root root',
+    maxsize       => '250M',
   }
 
   if $enabled_real {
