@@ -227,6 +227,5 @@ users::usernames:
   - vanitabarrett
   - vitaliemogoreanu
   - williamfranklin
-  - felicitymoon
 
 nginx::config::stack_network_prefix: '10.1.0'
