@@ -305,7 +305,13 @@ function restore_postgresql {
   fi
 
   sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
-  pg_stderr=$(zcat "${tempdir}/${filename}.dump" | sudo psql -U aws_db_admin -h "${db_hostname}" -1 --no-password -d "${database}" 2>&1)
+
+  single_transaction='-1'
+  if [ "${database}" == 'ckan_production' ]; then
+    single_transaction=''
+  fi
+
+  pg_stderr=$(zcat "${tempdir}/${filename}.dump" | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" --no-password -d "${database}" 2>&1)
   rm "${tempdir}/${filename}.dump"
 
   if [ "$DB_OWNER" != '' ] ; then
