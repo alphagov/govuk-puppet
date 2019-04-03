@@ -15,7 +15,6 @@ class nginx::logging (
     days_to_keep    => $days_to_keep,
     copytruncate    => false,
     create          => '0640 www-data adm',
-    delaycompress   => true,
     prerotate       => 'if [ -d /etc/logrotate.d/httpd-prerotate ]; then run-parts /etc/logrotate.d/httpd-prerotate; fi',
     postrotate      => '[ ! -f /var/run/nginx.pid ] || kill -USR1 `cat /var/run/nginx.pid`',
     rotate_if_empty => true,
