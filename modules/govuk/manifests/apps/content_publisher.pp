@@ -93,8 +93,8 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
-# [*govuk_notify_allow_list*]
-#   List of email addresses that intercepted Notify emails can be sent to
+# [*email_address_override*]
+#   An email address that intercepted Notify emails can be sent to
 #
 class govuk::apps::content_publisher (
   $port = '3221',
@@ -124,7 +124,7 @@ class govuk::apps::content_publisher (
   $enable_procfile_worker = true,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $govuk_notify_allow_list = undef,
+  $email_address_override = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -197,9 +197,9 @@ class govuk::apps::content_publisher (
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
-    "${title}-GOVUK_NOTIFY_ALLOW_LIST":
-        varname => 'GOVUK_NOTIFY_ALLOW_LIST',
-        value   => $govuk_notify_allow_list;
+    "${title}-EMAIL_ADDRESS_OVERRIDE":
+        varname => 'EMAIL_ADDRESS_OVERRIDE',
+        value   => $email_address_override;
   }
 
   govuk::app::envvar::redis { $app_name:
