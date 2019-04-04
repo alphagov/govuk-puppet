@@ -30,6 +30,7 @@ class govuk::apps::email_alert_service::rabbitmq_test_permissions (
   $amqp_exchange = 'email_alert_service_published_documents_test_exchange',
   $amqp_major_change_queue = 'email_alert_service_published_documents_test_queue',
   $amqp_unpublishing_queue = 'email_alert_service_unpublishing_documents_test_queue',
+  $amqp_workflow_queue = 'email_alert_service_workflow_test_queue',
 ) {
 
   govuk_rabbitmq::exchange { "${amqp_exchange}@/":
@@ -51,10 +52,17 @@ class govuk::apps::email_alert_service::rabbitmq_test_permissions (
     durable       => true,
   } ->
 
+  govuk_rabbitmq::queue_with_binding { $amqp_workflow_queue:
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $amqp_workflow_queue,
+    routing_key   => '*.workflow.#',
+    durable       => true,
+  } ->
+
   govuk_rabbitmq::consumer { $amqp_user:
     amqp_pass            => $amqp_pass,
-    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_exchange})\$",
-    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_exchange})\$",
-    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue})\$",
+    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_workflow_queue}|${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_workflow_queue}|${amqp_exchange})\$",
+    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_workflow_queue})\$",
   }
 }
