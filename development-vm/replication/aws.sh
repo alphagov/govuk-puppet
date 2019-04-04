@@ -10,9 +10,9 @@ aws_auth() {
 
     # setup AWS access
     SESSION_NAME=$(whoami)-$(date +%d-%m-%y_%H-%M)
-    ROLE_ARN=$(awk '/profile govuk-integration/ {profile=1} /role_arn/ && profile==1 {print $3; exit}' ~/.aws/config)
-    MFA_SERIAL=$(awk '/profile govuk-integration/ {profile=1} /mfa_serial/ && profile==1 {print $3; exit}' ~/.aws/config)
-    SOURCE_PROFILE=$(awk '/profile govuk-integration/ {profile=1} /source_profile/ && profile==1 {print $3; exit}' ~/.aws/config)
+    ROLE_ARN=$(awk '/profile govuk-infrastructure-integration/ {profile=1} /role_arn/ && profile==1 {print $3; exit}' ~/.aws/config)
+    MFA_SERIAL=$(awk '/profile govuk-infrastructure-integration/ {profile=1} /mfa_serial/ && profile==1 {print $3; exit}' ~/.aws/config)
+    SOURCE_PROFILE=$(awk '/profile govuk-infrastructure-integration/ {profile=1} /source_profile/ && profile==1 {print $3; exit}' ~/.aws/config)
 
     unset AWS_SESSION_TOKEN
 
