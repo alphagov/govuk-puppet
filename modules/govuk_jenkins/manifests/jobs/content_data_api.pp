@@ -16,7 +16,7 @@ class govuk_jenkins::jobs::content_data_api (
 
   $check_name = 'etl-content-data-api'
   $service_description = 'Content Data API ETL [Extract - transform - load]'
-  $job_url = "https://deploy.${app_domain}/job/content_data_api_import_etl_master_process/"
+  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/content_data_api_import_etl_master_process/"
 
   file { '/etc/jenkins_jobs/jobs/content_data_api.yaml':
     ensure  => present,
