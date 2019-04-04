@@ -105,6 +105,7 @@ class govuk::node::s_base (
 
   @logrotate::conf { 'govuk-logs':
     matches => '/var/log/govuk/*.log',
+    maxsize => '250M',
   }
 
   # whoopsie is the ubuntu crash reporter. We don't want to be running any

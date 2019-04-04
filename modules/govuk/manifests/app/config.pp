@@ -326,7 +326,7 @@ define govuk::app::config (
   @logrotate::conf { "govuk-${title}":
     ensure  => $ensure,
     matches => "/var/log/${title}/*.log",
-    maxsize => '500M',
+    maxsize => '100M',
   }
 
   @logrotate::conf { "govuk-${title}-rack":
@@ -334,7 +334,7 @@ define govuk::app::config (
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
     user    => 'deploy',
     group   => 'deploy',
-    maxsize => '500M',
+    maxsize => '100M',
   }
 
   if $health_check_path != 'NOTSET' {

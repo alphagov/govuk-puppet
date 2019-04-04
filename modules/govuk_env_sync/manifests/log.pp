@@ -20,6 +20,7 @@ class govuk_env_sync::log {
     delaycompress => true,
     copytruncate  => false,
     create        => "644 ${govuk_env_sync::user} ${govuk_env_sync::user}",
+    maxsize       => '100M',
   }
 
 }

@@ -51,6 +51,7 @@ class govuk_search::gor (
 
     @logrotate::conf { 'govuk_search_logs':
       matches => "${output_path}/*.log",
+      maxsize => '100M',
     }
 
     $output_file = "${output_path}/%Y%m%d.log"
