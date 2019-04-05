@@ -1145,12 +1145,6 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     show_slow_requests: false
     has_workers: true
-    dependent_app_5xx_errors:
-      - collections
-      - finder-frontend
-      - frontend
-      - government-frontend
-      - whitehall-frontend
   search-api:
     # search-api is a sinatra app
     show_controller_errors: false
@@ -1159,13 +1153,10 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     show_slow_requests: false
     has_workers: true
-    # todo: set when apps are talking to search-api
-    # dependent_app_5xx_errors:
-    #   - collections
-    #   - finder-frontend
-    #   - frontend
-    #   - government-frontend
-    #   - whitehall-frontend
+    dependent_app_5xx_errors:
+      - collections
+      - finder-frontend
+      - whitehall-frontend
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
