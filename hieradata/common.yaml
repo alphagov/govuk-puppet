@@ -1129,7 +1129,9 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
-  collections: {}
+  collections:
+    instance_prefix: 'frontend'
+    show_memcached: true
   collections-publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1190,6 +1192,8 @@ grafana::dashboards::application_dashboards:
   local-links-manager:
     dependent_app_5xx_errors:
       - frontend
+    instance_prefix: 'backend'
+    show_memcached: true
   manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
@@ -1208,6 +1212,8 @@ grafana::dashboards::application_dashboards:
   publishing-api:
     show_sidekiq_graphs: true
     has_workers: true
+    instance_prefix: 'publishing_api'
+    show_memcached: true
   release: {}
   router-api: {}
   rummager:
