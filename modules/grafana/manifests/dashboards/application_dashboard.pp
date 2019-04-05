@@ -136,7 +136,7 @@ define grafana::dashboards::application_dashboard (
 
   $panel_partials = concat(
     [
-      ['processor_count', '5xx_rate'],
+      ['processor_count'],
       ['error_counts_table', 'links']
     ],
     $worker_row,
