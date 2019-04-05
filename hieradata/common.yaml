@@ -1224,12 +1224,6 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     show_slow_requests: false
     has_workers: true
-    dependent_app_5xx_errors:
-      - collections
-      - finder-frontend
-      - frontend
-      - government-frontend
-      - whitehall-frontend
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
