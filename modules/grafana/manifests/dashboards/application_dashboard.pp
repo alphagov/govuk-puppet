@@ -24,12 +24,6 @@
 # [*error_threshold*]
 #   Point at which count turns `red` in the error count table data
 #
-# [*fields_prefix*]
-#   Add the prefix to Elasticsearch queries. Depending on the version of logstasher
-#   some applications do not include the @fields prefix. Add this prefix by default,
-#   with the option to override with a blank field for apps that use a different
-#   configuration of the logstasher gem.
-#
 # [*instance_prefix*]
 #   Used for metrics that are named based on the instance name rather than the
 #   application. For example, calculators_frontend vs finder_frontend.
@@ -50,7 +44,6 @@ define grafana::dashboards::application_dashboard (
   $show_elasticsearch_stats = false,
   $show_external_request_time = false,
   $show_memcached = false,
-  $fields_prefix = '',
   $instance_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
