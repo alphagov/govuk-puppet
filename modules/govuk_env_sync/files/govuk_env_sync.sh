@@ -239,7 +239,12 @@ function restore_elasticsearch {
 
 function dump_elasticsearch5 {
   snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
-  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}"
+  # attempting to start multiple snapshots at once (which happens
+  # because this script runs on three machines at the same time)
+  # throws an error - so unconditionally ignore curl errors, but check
+  # that there is a snapshot being created.
+  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}" || true
+  /usr/bin/curl "http://elasticsearch5/_snapshot/${url}/_all" | grep -q "IN_PROGRESS"
 }
 
 function restore_elasticsearch5 {
