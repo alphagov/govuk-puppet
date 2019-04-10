@@ -669,8 +669,8 @@ govuk::apps::signon::db_username: 'signon'
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
 govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::signon::nagios_memory_warning: 900
-govuk::apps::signon::nagios_memory_critical: 1000
+govuk::apps::signon::nagios_memory_warning: 1100
+govuk::apps::signon::nagios_memory_critical: 1200
 govuk::apps::signon::unicorn_worker_processes: "4"
 
 govuk::apps::specialist_publisher::enabled: true
