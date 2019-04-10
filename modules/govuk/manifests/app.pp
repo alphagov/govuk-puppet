@@ -248,6 +248,12 @@
 #   Create the default.conf site in nginx
 #   Default: false
 #
+# [*monitor_unicornherder*]
+#   Whether to set up Icinga alerts that monitor unicornherder. This is true if
+#   the app_type is set to 'rack' but this is useful if your app uses a Procfile
+#   which runs unicornherder.
+#   Default: true if app_type is 'rack' else false
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -287,6 +293,7 @@ define govuk::app (
   $alert_when_threads_exceed = 100,
   $override_search_location = undef,
   $create_default_nginx_config = false,
+  $monitor_unicornherder = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -365,6 +372,7 @@ define govuk::app (
     alert_when_threads_exceed        => $alert_when_threads_exceed,
     override_search_location         => $override_search_location,
     create_default_nginx_config      => $create_default_nginx_config,
+    monitor_unicornherder            => $monitor_unicornherder,
   }
 
   govuk::app::service { $title:
