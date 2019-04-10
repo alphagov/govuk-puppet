@@ -83,7 +83,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "value_type": "cumulative"
+            "value_type": "cumulative",
+            "sort": 2
           },
           "type": "graph",
           "xaxis": {
