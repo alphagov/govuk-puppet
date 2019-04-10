@@ -46,8 +46,8 @@ class govuk::apps::router (
     port                   => $port,
     enable_nginx_vhost     => $enable_nginx_vhost,
     vhost_aliases          => $vhost_aliases,
-    nagios_memory_warning  => 750,
-    nagios_memory_critical => 900,
+    nagios_memory_warning  => 900,
+    nagios_memory_critical => 1100,
   }
 
   # We can't pass `health_check_path` to `govuk::app` because it has the
