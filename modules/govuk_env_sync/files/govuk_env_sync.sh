@@ -143,6 +143,9 @@ function remove_tempdir {
   rm -rf "${tempdir}"
 }
 
+# Delete temp directory on exit to avoid filling up space
+trap remove_tempdir EXIT
+
 function set_filename {
   filename="${timestamp}-${database}.gz"
 }
