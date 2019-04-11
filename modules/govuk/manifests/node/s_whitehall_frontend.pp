@@ -21,6 +21,10 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
     listen_ip  => '0.0.0.0',
   }
 
+  govuk_envvar {
+    'UNICORN_TIMEOUT': value => 15;
+  }
+
   if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
 
     govuk_envvar {
