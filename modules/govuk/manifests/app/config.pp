@@ -330,6 +330,22 @@ define govuk::app::config (
     outgoing => $port,
   }
 
+  if $unicorn_worker_processes {
+    $local_tcpconns_warning = $unicorn_worker_processes
+  } else {
+    $local_tcpconns_warning = 2 # This is the defualt in govuk_app_config
+  }
+  $local_tcpconns_critical = $local_tcpconns_warning + 2
+
+  @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
+    ensure    => $ensure,
+    target    => "${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED",
+    warning   => $local_tcpconns_warning,
+    critical  => $local_tcpconns_critical,
+    desc      => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
+    host_name => $::fqdn,
+  }
+
   @logrotate::conf { "govuk-${title}":
     ensure  => $ensure,
     matches => "/var/log/${title}/*.log",
