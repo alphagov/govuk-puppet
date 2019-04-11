@@ -29,6 +29,10 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     listen_ip  => '0.0.0.0',
   }
 
+  govuk_envvar {
+    'UNICORN_TIMEOUT': value => 15;
+  }
+
   # Only for testing
   if $::aws_environment == 'staging' {
     include govuk_splunk
