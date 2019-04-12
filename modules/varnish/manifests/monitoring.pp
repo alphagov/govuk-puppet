@@ -8,6 +8,10 @@ class varnish::monitoring {
     require => Package['varnish'],
   }
 
+  collectd::plugin::process { 'service-varnish':
+    regex  => 'varnishd',
+  }
+
   @filebeat::prospector { 'varnishncsa':
     paths  => ['/var/log/varnish/varnishncsa.log'],
     fields => {'application' => 'varnish'},
