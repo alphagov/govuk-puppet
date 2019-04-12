@@ -126,10 +126,6 @@ function nagios_passive {
 #
 trap 'report_error $LINENO' ERR
 
-# Trap exit signal to push state to icinga
-#
-trap nagios_passive EXIT
-
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
 }
@@ -143,8 +139,12 @@ function remove_tempdir {
   rm -rf "${tempdir}"
 }
 
-# Delete temp directory on exit to avoid filling up space
-trap remove_tempdir EXIT
+function on_exit {
+  remove_tempdir
+  nagios_passive
+}
+
+trap on_exit EXIT
 
 function set_filename {
   filename="${timestamp}-${database}.gz"
