@@ -56,6 +56,16 @@
 #   which runs unicornherder.
 #   Default: true if app_type is 'rack' else false
 #
+# [*local_tcpconns_established_warning*]
+#   Warning value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
+#
+# [*local_tcpconns_established_critical*]
+#   Critical value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -94,6 +104,8 @@ define govuk::app::config (
   $override_search_location = undef,
   $create_default_nginx_config = false,
   $monitor_unicornherder = undef,
+  $local_tcpconns_established_warning = undef,
+  $local_tcpconns_established_critical = undef,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -330,12 +342,21 @@ define govuk::app::config (
     outgoing => $port,
   }
 
-  if $unicorn_worker_processes {
-    $local_tcpconns_warning = $unicorn_worker_processes
-  } else {
-    $local_tcpconns_warning = 2 # This is the defualt in govuk_app_config
+  if $local_tcpconns_established_warning == undef {
+    if $unicorn_worker_processes {
+      $local_tcpconns_warning = $unicorn_worker_processes
+    } else {
+      # This is the defualt in govuk_app_config for Unicorn worker processes
+      $local_tcpconns_warning = 2
+    }
   }
-  $local_tcpconns_critical = $local_tcpconns_warning + 2
+  if $local_tcpconns_established_critical == undef {
+    $local_tcpconns_critical = (
+      $local_tcpconns_warning + 2
+    )
+  } else {
+    $local_tcpconns_critical = $local_tcpconns_established_critical
+  }
 
   @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
     ensure    => $ensure,
