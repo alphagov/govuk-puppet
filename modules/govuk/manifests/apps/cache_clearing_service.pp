@@ -60,7 +60,7 @@ class govuk::apps::cache_clearing_service (
     app_type                  => 'bare',
     enable_nginx_vhost        => false,
     sentry_dsn                => $sentry_dsn,
-    command                   => 'bundle exec foreman start',
+    command                   => './bin/cache_clearing_service',
     collectd_process_regex    => 'cache-clearing-service/.*rake message_queue:consumer',
     nagios_memory_warning     => $nagios_memory_warning,
     nagios_memory_critical    => $nagios_memory_critical,
