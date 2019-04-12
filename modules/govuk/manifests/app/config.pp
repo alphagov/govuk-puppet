@@ -343,22 +343,15 @@ define govuk::app::config (
       outgoing => $port,
     }
 
-    if $local_tcpconns_established_warning == undef {
-      if $unicorn_worker_processes {
-        $local_tcpconns_warning = $unicorn_worker_processes
-      } else {
-        # This is the defualt in govuk_app_config for Unicorn worker
-        # processes
-        $local_tcpconns_warning = 2
-      }
-    }
-    if $local_tcpconns_established_critical == undef {
-      $local_tcpconns_critical = (
-        $local_tcpconns_warning + 2
-      )
-    } else {
-      $local_tcpconns_critical = $local_tcpconns_established_critical
-    }
+    $local_tcpconns_warning = pick(
+      $local_tcpconns_established_warning,
+      $unicorn_worker_processes,
+      2 # Defualt from govuk_app_config for Unicorn worker processes
+    )
+    $local_tcpconns_critical = pick(
+      $local_tcpconns_established_critical,
+      $local_tcpconns_warning + 2
+    )
 
     @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
       ensure    => $ensure,
