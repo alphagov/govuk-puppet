@@ -53,7 +53,7 @@ define govuk_env_sync::task(
   require govuk_env_sync::sync_script
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
-    ensure  => 'present',
+    ensure  => $ensure,
     mode    => '0755',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
