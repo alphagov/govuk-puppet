@@ -10,5 +10,12 @@ class govuk_env_sync(
 
   include govuk_env_sync::lock_file
 
+  file { $conf_dir:
+    ensure  => 'directory',
+    recurse => true,
+    purge   => true,
+    force   => true,
+  }
+
   create_resources(govuk_env_sync::task, $tasks)
 }
