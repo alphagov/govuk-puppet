@@ -118,11 +118,18 @@ class govuk::apps::content_data_admin (
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
+    vhost             => 'content-data',
     vhost_ssl_only    => true,
     health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
     deny_framing      => true,
     asset_pipeline    => true,
     read_timeout      => 60,
+  }
+
+  # Redirect for the old domain
+  $app_domain = hiera('app_domain')
+  nginx::config::vhost::redirect { "content-data-admin.${app_domain}":
+    to => "https://content-data.${app_domain}/",
   }
 
   Govuk::App::Envvar {
