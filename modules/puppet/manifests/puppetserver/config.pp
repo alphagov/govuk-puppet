@@ -23,7 +23,7 @@ class puppet::puppetserver::config {
   file_line { 'default_puppetserver':
     ensure => present,
     path   => '/etc/default/puppetserver',
-    line   => inline_template("JAVA_ARGS=\"${java_args}\"\n"),
+    line   => inline_template("JAVA_ARGS=\"${java_args}\""),
     match  => '^JAVA_ARGS=',
   }
 
