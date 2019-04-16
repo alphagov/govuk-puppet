@@ -514,12 +514,15 @@ hosts::production::management::hosts:
     legacy_aliases:
       - "deploy.%{hiera('app_domain')}"
   puppetmaster-1:
-    ip: '10.3.0.5'
+    ip: '10.3.0.6'
     legacy_aliases:
       - 'puppet'
     service_aliases:
       - 'puppet'
       - 'puppetdb'
+      - "puppetmaster-2.%{hiera('app_domain')}"
+  puppetmaster-2:
+    ip: '10.3.0.6'
   monitoring-1:
     ip: '10.3.0.20'
     legacy_aliases:
