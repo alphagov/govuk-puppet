@@ -8,6 +8,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Ensure the RabbitMQ state is setup, or not.
+#
 # [*amqp_user*]
 #   The RabbitMQ username (default: 'email_alert_service')
 #
@@ -30,6 +33,7 @@
 #   a warning.
 #
 class govuk::apps::email_alert_service::rabbitmq (
+  $ensure = 'present',
   $amqp_user  = 'email_alert_service',
   $amqp_pass  = 'email_alert_service',
   $amqp_exchange = 'published_documents',
@@ -41,6 +45,7 @@ class govuk::apps::email_alert_service::rabbitmq (
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_major_change_queue:
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_major_change_queue,
     routing_key   => '*.major.#',
@@ -48,7 +53,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::monitor_messages {"${amqp_major_change_queue}_message_monitoring":
-    ensure             => present,
+    ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $amqp_major_change_queue,
     critical_threshold => $queue_size_critical_threshold,
@@ -56,6 +61,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::queue_with_binding { $amqp_unpublishing_queue:
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_unpublishing_queue,
     routing_key   => 'redirect.unpublish.#',
@@ -63,7 +69,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::monitor_messages {"${amqp_unpublishing_queue}_message_monitoring":
-    ensure             => present,
+    ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $amqp_unpublishing_queue,
     critical_threshold => $queue_size_critical_threshold,
@@ -86,6 +92,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::consumer { $amqp_user:
+    ensure               => $ensure,
     amqp_pass            => $amqp_pass,
     read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_workflow_queue}|${amqp_exchange})\$",
     write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_workflow_queue})\$",
