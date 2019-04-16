@@ -35,6 +35,10 @@
 # [*name*]
 #   Descriptive name for configuration, used for config file name
 #
+# [*ensure*]
+#   One of 'present', 'disabled' or 'absent' to control the task.
+#   Default: 'present'
+#
 define govuk_env_sync::task(
   $hour,
   $minute,
@@ -47,13 +51,22 @@ define govuk_env_sync::task(
   $path,
   $ensure = 'present',
 ) {
+  $general_ensure = $ensure ? {
+    'disabled' => 'absent',
+    default => $ensure,
+  }
+
+  $config_ensure = $ensure ? {
+    'disabled' => 'present',
+    default => $ensure,
+  }
 
   require govuk_env_sync::aws_auth
   require govuk_env_sync::log
   require govuk_env_sync::sync_script
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
-    ensure  => $ensure,
+    ensure  => $config_ensure,
     mode    => '0755',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
@@ -75,7 +88,7 @@ define govuk_env_sync::task(
     ])
 
   cron { $name:
-    ensure  => $ensure,
+    ensure  => $general_ensure,
     command => $synccommand,
     user    => $govuk_env_sync::user,
     hour    => $hour,
@@ -88,7 +101,7 @@ define govuk_env_sync::task(
   $service_desc = "GOV.UK environment sync ${title}"
 
   @@icinga::passive_check { "govuk_env_sync.sh-${title}-${::hostname}":
-    ensure              => $ensure,
+    ensure              => $general_ensure,
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
