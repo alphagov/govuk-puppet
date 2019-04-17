@@ -99,9 +99,6 @@ govuk::apps::finder_frontend::override_search_location: NULL
 govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::whitehall::override_search_location: 'https://search-api.production.govuk.digital'
 
-govuk::apps::rummager::enable_rummager: true
-govuk::apps::search_api::rummager_enable: true
-
 govuk::deploy::actionmailer_enable_delivery: true
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'

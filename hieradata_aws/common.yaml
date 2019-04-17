@@ -189,7 +189,6 @@ deployable_applications: &deployable_applications
   release: {}
   router: {}
   router-api: {}
-  rummager: {}
   search-api: {}
   search-admin: {}
   service-manual-frontend: {}
@@ -604,6 +603,9 @@ govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
+
+govuk::apps::rummager::enable_rummager: false
+govuk::apps::search_api::rummager_enable: false
 
 govuk::apps::rummager::rabbitmq_hosts:
   - rabbitmq
