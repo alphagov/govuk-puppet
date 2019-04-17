@@ -19,9 +19,9 @@ class govuk_ci::agent::rabbitmq {
 
   rabbitmq_user_permissions {
     'email_alert_service_test@/':
-      configure_permission => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue|email_alert_service_workflow_test_queue)$',
-      read_permission      => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue|email_alert_service_workflow_test_queue)$',
-      write_permission     => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue|email_alert_service_workflow_test_queue)$';
+      configure_permission => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue)$',
+      read_permission      => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue)$',
+      write_permission     => '^(amq\.gen.*|email_alert_service_published_documents_test_exchange|email_alert_service_published_documents_test_queue|email_alert_service_unpublishing_documents_test_queue)$';
     'govuk_seed_crawler@/':
       configure_permission => '^govuk_seed_crawler.*',
       read_permission      => '^govuk_seed_crawler.*',
