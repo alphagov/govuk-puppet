@@ -69,8 +69,6 @@ govuk::node::s_development::apps:
   - 'router::enable_running_in_draft_mode'
   - 'router_api'
   - 'router_api::enable_running_in_draft_mode'
-  - 'rummager'
-  - 'rummager::rabbitmq'
   - 'search_api'
   - 'search_api::rabbitmq'
   - 'search_admin'
@@ -162,6 +160,9 @@ govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9205'
 govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
 govuk::apps::search_api::redis_host: 'localhost'
+
+govuk::apps::rummager::enable_rummager: false
+govuk::apps::search_api::rummager_enable: false
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
@@ -302,7 +303,6 @@ hosts::development::apps:
   - 'release'
   - 'router-api'
   - 'router'
-  - 'rummager'
   - 'search-api'
   - 'search'
   - 'search-admin'
