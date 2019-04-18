@@ -695,26 +695,6 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-# dummy configuration for search-api, because all keys in
-# hieradata_aws/common.yaml have to be in hieradata/common.yaml as
-# well (even though search-api isn't deployable here):
-govuk::apps::search_api::nagios_memory_warning: 4600
-govuk::apps::search_api::nagios_memory_critical: 4900
-govuk::apps::search_api::rabbitmq_hosts: []
-govuk::apps::search_api::enable_bulk_reindex_listener: false
-govuk::apps::search_api::enable_publishing_listener: false
-govuk::apps::search_api::enable_govuk_index_listener: false
-govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener: false
-govuk::apps::search_api::rabbitmq::enable_govuk_index_listener: false
-govuk::apps::search_api::rabbitmq::enable_publishing_listener: false
-govuk::apps::search_api::rabbitmq_user: 'search-api'
-govuk::apps::search_api::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::search_api::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::search_api::elasticsearch_hosts: ''
-govuk::apps::search_api::unicorn_worker_processes: '0'
-govuk::apps::sidekiq_monitoring::search_api_redis_host: "%{hiera('govuk::apps::search_api::redis_host')}"
-govuk::apps::sidekiq_monitoring::search_api_redis_port: "%{hiera('govuk::apps::search_api::redis_port')}"
-
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
