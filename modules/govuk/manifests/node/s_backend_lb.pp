@@ -69,6 +69,7 @@ class govuk::node::s_backend_lb (
     'collections-publisher',
     'contacts-admin',
     'content-audit-tool',
+    'content-data',
     'content-data-admin',
     'content-data-api',
     'content-performance-manager',
