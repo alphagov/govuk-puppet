@@ -1,18 +1,4 @@
 govuk_env_sync::tasks:
-  # Temporary task to pull data from Carrenza production
-  "pull_content_performance_manager_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "0"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    # Use the old database name for consistency while still working on
-    # the migration for the Content Performance Manager
-    database: "content_performance_manager_production"
-    temppath: "/tmp/content_performance_manager_production"
-    url: "govuk-production-database-backups"
-    path: "warehouse-postgresql"
   # Use the new Content Data API name here, to avoid issues with
   # changing the name later
   "push_content_data_api_production_daily":
