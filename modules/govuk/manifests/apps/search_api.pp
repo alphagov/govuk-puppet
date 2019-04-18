@@ -2,11 +2,6 @@
 #
 # The main search application
 #
-# Note: this currently duplicates a lot of govuk::apps::rummager.  This class
-# will be applied to a new set of servers, and will allow us to run 2 versions
-# of rummager at the same time while we migrate to elasticsearch 1.4.  Once the
-# migration is complete, the legacy govuk:apps::rummager class will be removed.
-#
 # === Parameters
 #
 # [*port*]
@@ -80,9 +75,6 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
-# [*rummager_enable*]
-#   Whether rummager is enabled or not
-#
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port = '3233',
@@ -105,17 +97,11 @@ class govuk::apps::search_api(
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $rummager_enable = true,
 ) {
   $app_name = 'search-api'
 
-  if $rummager_enable {
-    $vhost_aliases = []
-  } else {
-    $vhost_aliases = ['search']
-    package { ['aspell', 'aspell-en', 'libaspell-dev']:
-      ensure => $spelling_dependencies,
-    }
+  package { ['aspell', 'aspell-en', 'libaspell-dev']:
+    ensure => $spelling_dependencies,
   }
 
   govuk::app { 'search-api':
@@ -124,7 +110,7 @@ class govuk::apps::search_api(
     sentry_dsn               => $sentry_dsn,
     health_check_path        => '/search?q=search_healthcheck',
 
-    vhost_aliases            => $vhost_aliases,
+    vhost_aliases            => ['search'],
 
     log_format_is_json       => true,
     nginx_extra_config       => '

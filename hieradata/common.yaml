@@ -558,8 +558,6 @@ govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
-govuk::apps::search_api::rummager_enable: false
-
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'

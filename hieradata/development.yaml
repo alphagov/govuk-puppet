@@ -158,8 +158,6 @@ govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
 govuk::apps::search_api::redis_host: 'localhost'
 
-govuk::apps::search_api::rummager_enable: false
-
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_development'
