@@ -9,8 +9,8 @@
 class monitoring::checks::sidekiq (
   $enable_support_check = true,
 ) {
-  icinga::check::graphite { 'check_rummager_queue_latency':
-    target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.rummager.*.workers.queues.default.latency)), 0)',
+  icinga::check::graphite { 'check_search_api_queue_latency':
+    target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.search-api.*.workers.queues.default.latency)), 0)',
     warning             => 2.5,
     critical            => 15,
     use                 => 'govuk_normal_priority',
@@ -21,9 +21,17 @@ class monitoring::checks::sidekiq (
     # seconds per datapoint is the last 3 minutes
     args                => '--dropfirst -36',
     host_name           => $::fqdn,
-    desc                => 'Rummager Sidekiq queue latency',
+    desc                => 'Search API Sidekiq queue latency',
     notification_period => 'inoffice',
-    notes_url           => monitoring_docs_url(rummager-queue-latency),
+    notes_url           => monitoring_docs_url(search-api-queue-latency),
+  }
+  icinga::check::graphite { 'check_rummager_queue_latency':
+    ensure    => 'absent',
+    target    => undef,
+    desc      => undef,
+    warning   => undef,
+    critical  => undef,
+    host_name => undef,
   }
 
   icinga::check::graphite { 'check_signon_queue_sizes':
