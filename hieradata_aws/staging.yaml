@@ -179,7 +179,6 @@ govuk::deploy::setup::ssh_keys:
     jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
 
 govuk::node::s_backend_lb::aws_egress_nat_ips: []
-govuk::node::s_backend_lb::search_servers: []
 
 # Staging never receives requests to bouncer
 govuk_cdnlogs::bouncer_monitoring_enabled: false
@@ -194,8 +193,6 @@ govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
 govuk_crawler::targets:
   - 's3://govuk-staging-mirror-1/'
-
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
 
 govuk_jenkins::job_builder::environment: 'staging'
 
@@ -530,11 +527,6 @@ hosts::backend_migration::hosts:
   #     - puppetdb.cluster
   #     - puppetmaster-1
   #     - puppet
-  elasticsearch-3.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.17
-    host_aliases:
-      - elasticsearch-3.backend
-      - elasticsearch-3
   gds01prod.aptosolutions.co.uk:
     ip: 185.40.10.139
   draft-cache-internal-lb.router.staging.publishing.service.gov.uk:
@@ -633,11 +625,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - frontend-lb-2.frontend
       - frontend-lb-2
-  elasticsearch-2.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.16
-    host_aliases:
-      - elasticsearch-2.backend
-      - elasticsearch-2
   frontend-3.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.4
     host_aliases:
@@ -658,11 +645,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - whitehall-frontend-3.frontend
       - whitehall-frontend-3
-  elasticsearch-1.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.15
-    host_aliases:
-      - elasticsearch-1.backend
-      - elasticsearch-1
   calculators-frontend-2.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.12
     host_aliases:
@@ -1059,21 +1041,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - docker-backend-1.backend
       - docker-backend-1
-  rummager-elasticsearch-2.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.56
-    host_aliases:
-      - rummager-elasticsearch-2.api
-      - rummager-elasticsearch-2
-  rummager-elasticsearch-1.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.55
-    host_aliases:
-      - rummager-elasticsearch-1.api
-      - rummager-elasticsearch-1
-  rummager-elasticsearch-3.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.57
-    host_aliases:
-      - rummager-elasticsearch-3.api
-      - rummager-elasticsearch-3
   #ci-agent-6.ci.staging.publishing.service.gov.uk:
   #   ip: 10.1.6.26
   #   host_aliases:

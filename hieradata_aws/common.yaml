@@ -932,11 +932,7 @@ govuk_crawler::site_root: "https://www.%{hiera('app_domain')}"
 govuk_docker::version: "17.09.0~ce-0~ubuntu"
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_elasticsearch::backup::alert_hostname: 'alert'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk_elasticsearch::backup_enabled: true
-govuk_elasticsearch::open_firewall_from_all: true
 
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::config::github_api_uri: "https://api.github.com"
@@ -1010,7 +1006,6 @@ govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
-govuk_unattended_reboot::elasticsearch::enabled: true
 
 govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
