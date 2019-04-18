@@ -34,7 +34,6 @@ class grafana::dashboards (
   }
   file {
     "${dashboard_directory}/publishing_api_overview.json": content => template('grafana/dashboards/publishing_api_overview.json.erb');
-    "${dashboard_directory}/rummager_index_size.json": content => template('grafana/dashboards/rummager_index_size.json.erb');
   }
 
   create_resources('grafana::dashboards::application_dashboard', $application_dashboards, {

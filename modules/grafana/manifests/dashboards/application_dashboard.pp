@@ -121,7 +121,7 @@ define grafana::dashboards::application_dashboard (
       [
         'content_store_request_time',
         'registry_request_time',
-        'rummager_request_time']
+        'search_api_request_time']
     ]
   } else {
     $external_request_row = []
