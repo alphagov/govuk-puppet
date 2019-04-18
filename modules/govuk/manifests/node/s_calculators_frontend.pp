@@ -6,11 +6,6 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
 
   include nginx
 
-  # Local proxy for licence-finder to access ES cluster.
-  if (! $::aws_migration) or ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
-    include govuk_elasticsearch::local_proxy
-  }
-
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
