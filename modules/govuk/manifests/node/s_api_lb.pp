@@ -4,7 +4,6 @@ class govuk::node::s_api_lb (
   $content_store_servers,
   $draft_content_store_servers,
   $mapit_servers,
-  $search_servers,
 ) {
   include govuk::node::s_base
   include loadbalancer
@@ -12,7 +11,6 @@ class govuk::node::s_api_lb (
   validate_array($api_servers)
   validate_array($content_store_servers)
   validate_array($draft_content_store_servers)
-  validate_array($search_servers)
 
   loadbalancer::balance {
     [
@@ -56,17 +54,5 @@ class govuk::node::s_api_lb (
       servers       => $mapit_servers,
       internal_only => true,
     }
-  }
-
-  loadbalancer::balance {
-    [
-      'rummager',
-
-      # support search as an alias for ease of migration from old
-      # cluster running in backend VDC.
-      'search',
-    ]:
-      servers       => $search_servers,
-      internal_only => true;
   }
 }
