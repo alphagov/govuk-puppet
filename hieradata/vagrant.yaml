@@ -65,9 +65,6 @@ govuk::node::s_api_lb::draft_content_store_servers:
   - "draft-content-store-2.api"
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
-govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
 govuk::node::s_asset_base::firewall_allow_ip_range: '127.0.0.1'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
