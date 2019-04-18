@@ -96,7 +96,6 @@ node_class: &node_class
       - router-api
   search:
     apps:
-      - rummager
       - search-api
   whitehall_backend:
     apps:
@@ -757,7 +756,6 @@ hosts::backend_migration::hosts:
       - backdrop-read.staging.publishing.service.gov.uk
       - backdrop-write.staging.publishing.service.gov.uk
       - content-store.staging.publishing.service.gov.uk
-      - rummager.staging.publishing.service.gov.uk
       - search.staging.publishing.service.gov.uk
   #api-mongo-1.api.staging.publishing.service.gov.uk:
   #   ip: 10.2.4.21

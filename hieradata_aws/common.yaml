@@ -113,7 +113,6 @@ node_class: &node_class
       - router-api
   search:
     apps:
-      - rummager
       - search-api
   whitehall_backend:
     apps:
@@ -604,11 +603,7 @@ govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
-govuk::apps::rummager::enable_rummager: false
 govuk::apps::search_api::rummager_enable: false
-
-govuk::apps::rummager::rabbitmq_hosts:
-  - rabbitmq
 
 govuk::apps::search_api::rabbitmq_hosts:
   - rabbitmq
@@ -639,20 +634,6 @@ govuk::apps::release::db_hostname: "mysql-primary"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"
-
-govuk::apps::rummager::nagios_memory_warning: 4600
-govuk::apps::rummager::nagios_memory_critical: 4900
-govuk::apps::rummager::enable_bulk_reindex_listener: true
-govuk::apps::rummager::enable_publishing_listener: true
-govuk::apps::rummager::enable_govuk_index_listener: true
-govuk::apps::rummager::rabbitmq::enable_bulk_reindex_listener: false
-govuk::apps::rummager::rabbitmq::enable_govuk_index_listener: false
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: false
-govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
-govuk::apps::rummager::redis_host: 'backend-redis'
-govuk::apps::rummager::redis_port: '6379'
-govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch:9200'
-govuk::apps::rummager::unicorn_worker_processes: "6"
 
 govuk::apps::search_api::nagios_memory_warning: 4600
 govuk::apps::search_api::nagios_memory_critical: 4900
@@ -710,8 +691,6 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::search_api_redis_host: "%{hiera('govuk::apps::search_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::search_api_redis_port: "%{hiera('govuk::apps::search_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
@@ -1139,14 +1118,6 @@ grafana::dashboards::application_dashboards:
     show_memcached: true
   release: {}
   router-api: {}
-  rummager:
-    # rummager is a sinatra app
-    show_controller_errors: false
-    show_elasticsearch_stats: true
-    show_response_times: true
-    show_sidekiq_graphs: true
-    show_slow_requests: false
-    has_workers: true
   search-api:
     # search-api is a sinatra app
     show_controller_errors: false
