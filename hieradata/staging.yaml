@@ -99,9 +99,6 @@ govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-staging-dr'
   - 'skyscape-staging'
 
-govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
-govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
-
 govuk_jenkins::jobs::smokey::environment: staging
 
 govuk_jenkins::jobs::data_sync_complete_staging::signon_domains_to_migrate:

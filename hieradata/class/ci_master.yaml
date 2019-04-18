@@ -62,7 +62,6 @@ govuk_jenkins::config::views:
   Finding_Things:
     - 'collections-publisher'
     - 'govuk-content-schemas'
-    - 'rummager'
   Publishing_Platform:
     - 'content-store'
     - 'publishing-api'

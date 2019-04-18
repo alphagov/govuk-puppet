@@ -153,15 +153,11 @@ govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_name: 'draft_router'
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
-govuk::apps::rummager::enable_procfile_worker: false
-govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9205'
 govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
 govuk::apps::search_api::redis_host: 'localhost'
 
-govuk::apps::rummager::enable_rummager: false
 govuk::apps::search_api::rummager_enable: false
 
 govuk::apps::signon::enable_procfile_worker: false
