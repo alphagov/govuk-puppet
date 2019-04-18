@@ -116,7 +116,6 @@ govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-production-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
-govuk::apps::content_data_admin::content_performance_manager_uri: "https://content-data-api.%{hiera('app_domain_internal')}/"
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '9'
