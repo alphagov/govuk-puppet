@@ -90,8 +90,6 @@ govuk_jenkins::config::theme_colour: '#ffbf47'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Staging'
 
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
-
 govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::jobs::network_config_deploy::environments:
@@ -259,12 +257,6 @@ hosts::production::api::hosts:
     ip: '10.2.4.33'
   performance-mongo-4:
     ip: '10.2.12.31'
-  rummager-elasticsearch-1:
-    ip: '10.2.4.55'
-  rummager-elasticsearch-2:
-    ip: '10.2.4.56'
-  rummager-elasticsearch-3:
-    ip: '10.2.4.57'
   search-1:
     ip: '10.2.4.4'
   search-2:
@@ -303,12 +295,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.111'
   docker-backend-2:
     ip: '10.2.3.112'
-  elasticsearch-1:
-    ip: '10.2.3.15'
-  elasticsearch-2:
-    ip: '10.2.3.16'
-  elasticsearch-3:
-    ip: '10.2.3.17'
   email-alert-api-1:
     ip: '10.2.3.40'
   email-alert-api-2:
