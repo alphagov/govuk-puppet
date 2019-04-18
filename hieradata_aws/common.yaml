@@ -1114,7 +1114,6 @@ grafana::dashboards::application_dashboards:
   search-api:
     # search-api is a sinatra app
     show_controller_errors: false
-    show_elasticsearch_stats: true
     show_response_times: true
     show_sidekiq_graphs: true
     show_slow_requests: false

@@ -41,7 +41,6 @@ define grafana::dashboards::application_dashboard (
   $show_response_times = false,
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
-  $show_elasticsearch_stats = false,
   $show_external_request_time = false,
   $show_memcached = false,
   $instance_prefix = '',
@@ -94,17 +93,6 @@ define grafana::dashboards::application_dashboard (
     $dependent_app_5xx_row = []
   }
 
-  if $show_elasticsearch_stats {
-    $elasticsearch_stats = [
-      [
-        'elasticsearch_disk_io',
-        'elasticsearch_free_memory',
-        'elasticsearch_idle_cpu']
-    ]
-  } else {
-    $elasticsearch_stats = []
-  }
-
   if $show_memcached {
     $memcached_row = [
       [
@@ -138,7 +126,6 @@ define grafana::dashboards::application_dashboard (
     $duration_by_controller_row,
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
-    $elasticsearch_stats,
     $memcached_row,
     $external_request_row
   )
