@@ -37,8 +37,8 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
-# [*content_performance_manager_bearer_token*]
-#   The bearer token to use when communicating with Content Performance Manager.
+# [*content_data_api_bearer_token*]
+#   The bearer token to use when communicating with Content Data API.
 #   Default: undef
 #
 # [*google_tag_manager_id*]
@@ -87,7 +87,7 @@ class govuk::apps::content_data_admin (
   $db_allow_prepared_statements = undef,
   $db_password                  = undef,
   $db_name                      = 'content_data_admin_production',
-  $content_performance_manager_bearer_token = undef,
+  $content_data_api_bearer_token = undef,
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
@@ -144,7 +144,10 @@ class govuk::apps::content_data_admin (
       value   => $oauth_secret;
     "${title}-CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN":
       varname => 'CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN',
-      value   => $content_performance_manager_bearer_token;
+      value   => $content_data_api_bearer_token;
+    "${title}-CONTENT_DATA_API_BEARER_TOKEN":
+      varname => 'CONTENT_DATA_API_BEARER_TOKEN',
+      value   => $content_data_api_bearer_token;
     "${title}-GOOGLE_TAG_MANAGER_ID":
       varname => 'GOOGLE_TAG_MANAGER_ID',
       value   => $google_tag_manager_id;
