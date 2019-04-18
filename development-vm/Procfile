@@ -5,11 +5,7 @@ imminence:             govuk_setenv imminence             ./run_in.sh ../../immi
 # needotron used port 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec rails server -p 3005
 # planner used port 3007
-rummager:              govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec mr-sparkle --force-polling -- -p 3009
-rummager-sidekiq:      govuk_setenv rummager              ./run_in.sh ../../rummager       bundle exec sidekiq -C ./config/sidekiq.yml
-rummager-publishing-listener: govuk_setenv rummager       ./run_in.sh ../../rummager       bundle exec rake message_queue:listen_to_publishing_queue
-rummager-govuk-index-listener: govuk_setenv rummager      ./run_in.sh ../../rummager       bundle exec rake message_queue:insert_data_into_govuk
-rummager-bulk-reindex-listener: govuk_setenv rummager ./run_in.sh ../../rummager    bundle exec rake message_queue:bulk_insert_data_into_govuk
+# rummager used port 3009
 smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../../smart-answers  bundle exec rails server -p 3010
 calendars:             govuk_setenv calendars             ./run_in.sh ../../calendars      bundle exec rails server -p 3011
 static:                govuk_setenv static                ./run_in.sh ../../static         bundle exec rails server -p 3013
@@ -95,7 +91,7 @@ email-alert-api-worker: govuk_setenv email-alert-api       ./run_in.sh ../../ema
 email-alert-service:   govuk_setenv email-alert-service   ./run_in.sh ../../email-alert-service bundle exec bin/email_alert_service
 # sidekiq-monitoring for email-alert-api uses port 3089
 government-frontend:   govuk_setenv government-frontend   ./run_in.sh ../../government-frontend bundle exec rails server -p 3090
-# sidekiq-monitoring for rummager uses port 3091
+# sidekiq-monitoring for rummager used port 3091
 # courts-api used port 3092
 publishing-api-web:    govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec rails server -p 3093
 publishing-api-worker: govuk_setenv publishing-api        ./run_in.sh ../../publishing-api bundle exec sidekiq -C ./config/sidekiq.yml
