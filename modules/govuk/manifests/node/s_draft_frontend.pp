@@ -28,8 +28,6 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
     'PLEK_SERVICE_IMMINENCE_URI': value => "https://imminence.${app_domain}";
     'PLEK_SERVICE_LOCAL_LINKS_MANAGER_URI': value => "https://local-links-manager.${app_domain}";
     'PLEK_SERVICE_MAPIT_URI': value     => "https://mapit.${app_domain_internal}";
-    'PLEK_SERVICE_SEARCH_URI': value    => "https://search.${plek_uri_domain_override}";
-    'PLEK_SERVICE_RUMMAGER_URI': value  => "https://rummager.${plek_uri_domain_override}";
     'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${plek_uri_domain_override}";
     'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain_internal}";
   }

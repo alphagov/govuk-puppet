@@ -153,16 +153,11 @@ govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_name: 'draft_router'
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
-govuk::apps::rummager::enable_procfile_worker: false
-govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::redis_host: 'localhost'
 govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9205'
 govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
+govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'localhost'
-
-govuk::apps::rummager::enable_rummager: false
-govuk::apps::search_api::rummager_enable: false
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
@@ -207,7 +202,7 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
-govuk_elasticsearch::version: '2.4.6'
+govuk_elasticsearch::version: '5.6.14'
 govuk_elasticsearch::cors_enabled: true
 govuk_elasticsearch::repo_path:
   - '/var/govuk/govuk-puppet/development-vm/replication/backups'
@@ -234,8 +229,6 @@ govuk_sshkeys::development_keys:
     host_aliases: "31.210.245.102"
   api-mongo-1.api.integration:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDvJt9OIoKskyBWKNiRW/G+qE6V6waKhQy93keoOZFxRVk0WG2U6CKNtvwrm1z/fYMOGOJpwsp2DT8Sg+F94BswgucUkBFPt2ymXICX1m/Tx0u0EihwGPpfT8umc7obC1Kw+LNtTatVtF6XG3fKeFOvW5Z3SQyuhQbg7792c0KXEfhP7ombXGUhC/sEJpEzBd4vebFAnKXoCVkEYuJsllDRhtgren7LhdDye+3+xx5xyGZdy+1oG/Yu5ZP7yzMLrT3yTlLRjHmu6gSU9hr4v8yyamTq6M3qreyeOcE1rXpSp2PL2+4VBznEVNyyezrz/IS7u7Yw4MO+o2KqbSd5V2A/"
-  elasticsearch-1.backend.integration:
-    key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCs9pZ4UZPvRkOefOwRIgGSDDVAWiCDT5vNuI65sFjrhkl5EvXDAnCMJbe9+aymWhN0gyOabuD9YJqgHxbtuX8drmYr0okVEv4Ny9BRMZFaBbR7YXMQpqauU4gLS4LXXNISoFbRo/sBkzS/9MNCtknyV4xMWTuFoDlk3j1P139LnWw9EKNMbqUfi8v77as+KYk8h70PkkhTtgoQ2nxM3uw/Ylyegorn9Cg4sV4pJPL4EkuuBMhyWQMsAceESuvjO9pKXQfUMMlT5r/8JJVbMY3sjSCWVGmimXB3BK0JndWslUeoqngeVYCfpme4bGcfDoG0soMF3xuFoATIuOyv3KtZ"
   mongo-1.backend.integration:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCx9IsUMfEKVIAU1oTFTIFNYGOeIP7dzpfV6cv5FFc+fYR54mDPvAqVFU0gFxdR5/ZzGLy9BK11KCcDuJcG3igqMt3pdaoPAsxaRG4h716wEmUyI1h5z42ncqgIy/Y+FV96jI7zGKw0/wJa205NEIiYcO7xoFUqyA+8q8811kST6okVk08BJsWlPtB+WB+AwuHQS09e6EF4JWun5f1gpJmZW0YZW/axU/tha4vMX0IylRW7+lQXKsYrP3GjFsIALTnYR9X0YLhEUYL94EoztEbuq5ZuhHmCTwZdwcy81K5159XxR1S8ibFnA9RIBLuLvPUvWWEZEpcT6zRuefoxwXN3"
   mysql-backup-1.backend.integration:

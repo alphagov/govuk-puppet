@@ -80,20 +80,17 @@ class govuk_elasticsearch (
   include augeas
   validate_bool($manage_repo)
 
-  if versioncmp($version, '2') < 0 {
-    fail('elasticsearch 1.x is not supported')
+
+  if versioncmp($version, '5') >= 0 {
+    $abbreviated_version = '5.x'
+  } else {
+    fail 'Unsupported version of elasticsearch'
   }
 
   anchor { 'govuk_elasticsearch::begin': }
 
   $http_port = '9200'
   $transport_port = '9300'
-
-  if versioncmp($version, '5') >= 0 {
-    $abbreviated_version = '5.x'
-  } elsif versioncmp($version, '2') >= 0 {
-    $abbreviated_version = '2.x'
-  }
 
   if $manage_repo {
     class { 'govuk_elasticsearch::repo':
@@ -185,19 +182,7 @@ class govuk_elasticsearch (
     'script.engine.groovy.inline.search' => true,
   }
 
-  if versioncmp($version, '5') >= 0 {
-    $instance_config_index = {}
-    $data_dir = "/mnt/elasticsearch/es-${abbreviated_version}-data"
-  } else {
-    $instance_config_index = {
-      'index.number_of_replicas' => $number_of_replicas,
-      'index.number_of_shards'   => $number_of_shards,
-      'index.refresh_interval'   => $refresh_interval,
-      'index.search.slowlog'     => $slowlog_config,
-      'index.max_result_window'  => 1000000, # This will potentially create memory issues however is required until ES 5 when search_after is introduced
-    }
-    $data_dir = '/mnt/elasticsearch'
-  }
+  $data_dir = "/mnt/elasticsearch/es-${abbreviated_version}-data"
 
   if $repo_path == undef {
     $instance_config_repo = {}
@@ -207,7 +192,6 @@ class govuk_elasticsearch (
 
   $instance_config = merge(
     $instance_config_main,
-    $instance_config_index,
     $instance_config_repo
   )
 

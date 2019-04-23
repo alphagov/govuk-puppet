@@ -111,9 +111,6 @@ node_class: &node_class
   router_backend:
     apps:
       - router-api
-  search:
-    apps:
-      - rummager
   whitehall_backend:
     apps:
       - whitehall
@@ -561,14 +558,6 @@ govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
-govuk::apps::rummager::enable_rummager: false
-govuk::apps::search_api::rummager_enable: false
-
-govuk::apps::rummager::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -597,19 +586,6 @@ govuk::apps::release::db_hostname: "master.mysql"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"
-
-govuk::apps::rummager::nagios_memory_warning: 4600
-govuk::apps::rummager::nagios_memory_critical: 4900
-govuk::apps::rummager::enable_bulk_reindex_listener: true
-govuk::apps::rummager::enable_govuk_index_listener: true
-govuk::apps::rummager::enable_publishing_listener: true
-govuk::apps::rummager::rabbitmq::enable_bulk_reindex_listener: false
-govuk::apps::rummager::rabbitmq::enable_govuk_index_listener: false
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: false
-govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
-govuk::apps::rummager::redis_host: 'api-redis-1.api'
-govuk::apps::rummager::redis_port: '6379'
-govuk::apps::rummager::unicorn_worker_processes: "6"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'master.mysql'
@@ -649,8 +625,6 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
 govuk::apps::sidekiq_monitoring::signon_redis_port: "%{hiera('govuk::apps::signon::redis_port')}"
 govuk::apps::sidekiq_monitoring::specialist_publisher_redis_host: "%{hiera('govuk::apps::specialist_publisher::redis_host')}"
@@ -720,26 +694,6 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-# dummy configuration for search-api, because all keys in
-# hieradata_aws/common.yaml have to be in hieradata/common.yaml as
-# well (even though search-api isn't deployable here):
-govuk::apps::search_api::nagios_memory_warning: 4600
-govuk::apps::search_api::nagios_memory_critical: 4900
-govuk::apps::search_api::rabbitmq_hosts: []
-govuk::apps::search_api::enable_bulk_reindex_listener: false
-govuk::apps::search_api::enable_publishing_listener: false
-govuk::apps::search_api::enable_govuk_index_listener: false
-govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener: false
-govuk::apps::search_api::rabbitmq::enable_govuk_index_listener: false
-govuk::apps::search_api::rabbitmq::enable_publishing_listener: false
-govuk::apps::search_api::rabbitmq_user: 'search-api'
-govuk::apps::search_api::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::search_api::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::search_api::elasticsearch_hosts: ''
-govuk::apps::search_api::unicorn_worker_processes: '0'
-govuk::apps::sidekiq_monitoring::search_api_redis_host: "%{hiera('govuk::apps::search_api::redis_host')}"
-govuk::apps::sidekiq_monitoring::search_api_redis_port: "%{hiera('govuk::apps::search_api::redis_port')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -1083,8 +1037,6 @@ govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_search::gor::enabled: true
-
 govuk_sudo::sudo_conf:
   deploy_docker_image:
     content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
@@ -1110,7 +1062,6 @@ govuk_sysdig::ensure: 'absent'
 
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
-govuk_unattended_reboot::elasticsearch::enabled: true
 
 govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
@@ -1218,14 +1169,6 @@ grafana::dashboards::application_dashboards:
     show_memcached: true
   release: {}
   router-api: {}
-  rummager:
-    # rummager is a sinatra app
-    show_controller_errors: false
-    show_elasticsearch_stats: true
-    show_response_times: true
-    show_sidekiq_graphs: true
-    show_slow_requests: false
-    has_workers: true
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
@@ -1315,26 +1258,10 @@ hosts::production::api::hosts:
     ip: '10.1.4.33'
   performance-mongo-4:
     ip: '10.1.12.31'
-  rummager-elasticsearch-1:
-    ip: '10.1.4.55'
-  rummager-elasticsearch-2:
-    ip: '10.1.4.56'
-  rummager-elasticsearch-3:
-    ip: '10.1.4.57'
-  search-1:
-    ip: '10.1.4.4'
-  search-2:
-    ip: '10.1.4.5'
-  # FIXME: This machine doesn't exist, but this host entry
-  # is depended upon by s_api_elasticsearch. We should fix that.
-  search-3:
-    ip: '10.1.4.6'
 
 hosts::production::api::app_hostnames:
   - 'backdrop-read'
   - 'backdrop-write'
-  - 'rummager'
-  - 'search'
 
 hosts::production::backend::hosts:
   asset-master-1:
@@ -1369,12 +1296,6 @@ hosts::production::backend::hosts:
     ip: '10.1.3.111'
   docker-backend-2:
     ip: '10.1.3.112'
-  elasticsearch-1:
-    ip: '10.1.3.15'
-  elasticsearch-2:
-    ip: '10.1.3.16'
-  elasticsearch-3:
-    ip: '10.1.3.17'
   email-alert-api-1:
     ip: '10.1.3.40'
   email-alert-api-2:

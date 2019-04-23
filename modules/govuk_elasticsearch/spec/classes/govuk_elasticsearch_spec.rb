@@ -28,7 +28,15 @@ describe 'govuk_elasticsearch', :type => :class do
         :version => '1.7.1',
       }}
 
-      it { is_expected.to raise_error(Puppet::Error, /elasticsearch 1.x is not supported/) }
+      it { is_expected.to raise_error(Puppet::Error, /Unsupported version of elasticsearch/) }
+    end
+
+    context "when set to 2.4.3" do
+      let(:params) {{
+        :version => '2.4.3',
+      }}
+
+      it { is_expected.to raise_error(Puppet::Error, /Unsupported version of elasticsearch/) }
     end
   end
 
@@ -39,11 +47,6 @@ describe 'govuk_elasticsearch', :type => :class do
 
     context 'true (default)' do
       it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('5.x') }
-
-      it "should handle the repo for 2.4.x" do
-        params[:version] = '2.4.3'
-        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('2.x')
-      end
 
       it "should handle the repo for 5.6.x" do
         params[:version] = '5.6.14'
@@ -60,18 +63,6 @@ describe 'govuk_elasticsearch', :type => :class do
 
       it { is_expected.not_to contain_class('govuk_elasticsearch::repo') }
       it { is_expected.to contain_class('elasticsearch').with_manage_repo(false) }
-    end
-  end
-
-  describe "enabling dynamic scripting" do
-    let(:params) {{}}
-
-    it "should add the correct setting name enabled for 2.4.6" do
-      params[:version] = '2.4.6'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]['script.engine.groovy.inline.search']).to eq(true)
-      expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
     end
   end
 

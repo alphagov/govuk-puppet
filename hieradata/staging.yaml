@@ -56,8 +56,6 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
-govuk_search::gor::port: 3233
-
 govuk::apps::collections::override_search_location: NULL
 govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::finder_frontend::override_search_location: NULL
@@ -90,17 +88,12 @@ govuk_jenkins::config::theme_colour: '#ffbf47'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Staging'
 
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
-
 govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-staging'
   - 'carrenza-staging-dr'
   - 'skyscape-staging'
-
-govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
-govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
 govuk_jenkins::jobs::smokey::environment: staging
 
@@ -139,10 +132,6 @@ govuk::node::s_api_lb::draft_content_store_servers:
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
   - "mapit-2.api"
-govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
-  - "search-3.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 7
 
@@ -164,10 +153,6 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
   - 'publishing-api-3.backend'
-govuk::node::s_backend_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
-  - "search-3.api"
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
@@ -262,18 +247,6 @@ hosts::production::api::hosts:
     ip: '10.2.4.33'
   performance-mongo-4:
     ip: '10.2.12.31'
-  rummager-elasticsearch-1:
-    ip: '10.2.4.55'
-  rummager-elasticsearch-2:
-    ip: '10.2.4.56'
-  rummager-elasticsearch-3:
-    ip: '10.2.4.57'
-  search-1:
-    ip: '10.2.4.4'
-  search-2:
-    ip: '10.2.4.5'
-  search-3:
-    ip: '10.2.4.6'
 
 hosts::production::backend::hosts:
   asset-master-1:
@@ -306,12 +279,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.111'
   docker-backend-2:
     ip: '10.2.3.112'
-  elasticsearch-1:
-    ip: '10.2.3.15'
-  elasticsearch-2:
-    ip: '10.2.3.16'
-  elasticsearch-3:
-    ip: '10.2.3.17'
   email-alert-api-1:
     ip: '10.2.3.40'
   email-alert-api-2:

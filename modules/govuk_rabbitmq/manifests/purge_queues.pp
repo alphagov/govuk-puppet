@@ -22,16 +22,22 @@ class govuk_rabbitmq::purge_queues {
     minute  => '2',
     user    => 'root',
   }
-  cron::crondotdee { 'purge_rummager_govuk_index':
-    command => '/usr/sbin/rabbitmqctl purge_queue rummager_govuk_index > /dev/null 2>&1',
+  cron::crondotdee { 'purge_search_api_govuk_index':
+    command => '/usr/sbin/rabbitmqctl purge_queue search_api_govuk_index > /dev/null 2>&1',
     hour    => '*',
     minute  => '3',
     user    => 'root',
   }
-  cron::crondotdee { 'purge_rummager_to_be_indexed':
-    command => '/usr/sbin/rabbitmqctl purge_queue rummager_to_be_indexed > /dev/null 2>&1',
+  cron::crondotdee { 'purge_rummager_govuk_index':
+    ensure => 'absent',
+  }
+  cron::crondotdee { 'purge_search_api_to_be_indexed':
+    command => '/usr/sbin/rabbitmqctl purge_queue search_api_to_be_indexed > /dev/null 2>&1',
     hour    => '*',
     minute  => '4',
     user    => 'root',
+  }
+  cron::crondotdee { 'purge_rummager_to_be_indexed':
+    ensure => 'absent',
   }
 }

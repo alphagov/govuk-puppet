@@ -118,14 +118,6 @@
 #   Redis port for Publishing API Sidekiq.
 #   Default: undef
 #
-# [*rummager_redis_host*]
-#   Redis host for Rummager Sidekiq.
-#   Default: undef
-#
-# [*rummager_redis_port*]
-#   Redis port for Rummager Sidekiq.
-#   Default: undef
-#
 # [*search_api_redis_host*]
 #   Redis host for Search API Sidekiq.
 #   Default: undef
@@ -211,8 +203,6 @@ class govuk::apps::sidekiq_monitoring (
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
   $publishing_api_redis_port = undef,
-  $rummager_redis_host = undef,
-  $rummager_redis_port = undef,
   $search_api_redis_host = undef,
   $search_api_redis_port = undef,
   $signon_redis_host = undef,
@@ -319,11 +309,6 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'publishing_api',
       host   => $publishing_api_redis_host,
       port   => $publishing_api_redis_port;
-
-    "${app_name}_rummager":
-      prefix => 'rummager',
-      host   => $rummager_redis_host,
-      port   => $rummager_redis_port;
 
     "${app_name}_signon":
       prefix => 'signon',

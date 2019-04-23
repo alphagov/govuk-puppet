@@ -479,12 +479,6 @@ function postprocess_router {
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 
-  search_domain="${unmigrated_source_domain}"
-  mongo_backend_domain_manipulator "search" "${search_domain}"
-
-  rummager_domain="${unmigrated_source_domain}"
-  mongo_backend_domain_manipulator "rummager" "${rummager_domain}"
-
   spotlight_proxy_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
 }

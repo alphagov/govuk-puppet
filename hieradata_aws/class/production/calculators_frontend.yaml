@@ -1,6 +1,0 @@
----
-
-govuk_elasticsearch::local_proxy::servers:
-  - 'rummager-elasticsearch-cz-1.production.govuk-internal.digital'
-  - 'rummager-elasticsearch-cz-2.production.govuk-internal.digital'
-  - 'rummager-elasticsearch-cz-3.production.govuk-internal.digital'

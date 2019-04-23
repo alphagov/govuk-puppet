@@ -1,21 +1,16 @@
 {
-  "title": "Elasticsearch disk IO time",
-  "error": false,
+  "id": 4,
+  "title": "Search API Request Time",
   "span": 4,
-  "editable": true,
   "type": "graph",
-  "isNew": true,
-  "id": 13,
   "targets": [
     {
       "refId": "A",
-      "target": "alias(averageSeries(rummager-elasticsearch-*.disk-sdb1.disk_time.read), 'read')",
-      "textEditor": true
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.site_search.upper_90), 'Site Search')"
     },
     {
       "refId": "B",
-      "target": "alias(averageSeries(rummager-elasticsearch-*.disk-sdb1.disk_time.write), 'write')",
-      "textEditor": true
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper_90), 'Finder Batch Search')"
     }
   ],
   "datasource": "Graphite",
@@ -27,7 +22,7 @@
       "logBase": 1,
       "min": null,
       "max": null,
-      "format": "short"
+      "format": "ms"
     },
     {
       "label": null,
@@ -39,20 +34,21 @@
     }
   ],
   "xaxis": {
-    "show": true
+    "show": true,
+    "mode": "time",
+    "name": null,
+    "values": [],
+    "buckets": null
   },
-  "grid": {
-    "threshold1": null,
-    "threshold2": null,
-    "threshold1Color": "rgba(216, 200, 27, 0.27)",
-    "threshold2Color": "rgba(234, 112, 112, 0.22)"
-  },
-  "lines": true,
+  "lines": false,
   "fill": 1,
-  "linewidth": 2,
-  "points": false,
-  "pointradius": 5,
-  "bars": false,
+  "linewidth": 1,
+  "dashes": false,
+  "dashLength": 10,
+  "spaceLength": 10,
+  "points": true,
+  "pointradius": 1,
+  "bars": true,
   "stack": false,
   "percentage": false,
   "legend": {
@@ -64,17 +60,17 @@
     "total": false,
     "avg": false
   },
-  "nullPointMode": "connected",
+  "nullPointMode": "null",
   "steppedLine": false,
   "tooltip": {
-    "value_type": "cumulative",
+    "value_type": "individual",
     "shared": true,
-    "sort": 0,
-    "msResolution": true
+    "sort": 0
   },
   "timeFrom": null,
   "timeShift": null,
   "aliasColors": {},
   "seriesOverrides": [],
+  "thresholds": [],
   "links": []
 }

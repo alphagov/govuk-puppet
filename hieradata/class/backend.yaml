@@ -46,11 +46,6 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk_elasticsearch::local_proxy::servers:
-  - 'elasticsearch-1.backend'
-  - 'elasticsearch-2.backend'
-  - 'elasticsearch-3.backend'
-
 lv:
   data:
     pv: '/dev/sdb1'

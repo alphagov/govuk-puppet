@@ -21,11 +21,6 @@ class govuk::node::s_search inherits govuk::node::s_base {
     include govuk_env_sync
   }
 
-  # Local proxy for Rummager to access ES cluster.
-  if ! $::aws_migration {
-    include govuk_elasticsearch::local_proxy
-  }
-
   # Set Plek for AWS to Carrenza communication
   if ( ( $::aws_migration == 'search' ) and ($::aws_environment == 'staging') ) or ( ($::aws_migration == 'search' ) and ($::aws_environment == 'production') ) {
     $app_domain = hiera('app_domain')

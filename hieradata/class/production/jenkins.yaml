@@ -25,7 +25,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
   - govuk_jenkins::jobs::email_alert_check
-  - govuk_jenkins::jobs::enhanced_ecommerce
   - govuk_jenkins::jobs::govuk_navigation_link_analysis
   - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
   - govuk_jenkins::jobs::launch_vms
@@ -42,9 +41,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics
-  - govuk_jenkins::jobs::search_fetch_analytics_data
-  - govuk_jenkins::jobs::search_index_checks
-  - govuk_jenkins::jobs::search_reindex_with_new_schema
   - govuk_jenkins::jobs::send_bulk_email
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::smokey

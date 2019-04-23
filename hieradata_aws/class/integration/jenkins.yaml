@@ -20,7 +20,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
-  - govuk_jenkins::jobs::enhanced_ecommerce
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::extract_app_performance
   - govuk_jenkins::jobs::govuk_content_api_docs
@@ -37,10 +36,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics
   - govuk_jenkins::jobs::search_benchmark
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
-  - govuk_jenkins::jobs::search_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_index_checks
-  - govuk_jenkins::jobs::search_index_checks
-  - govuk_jenkins::jobs::search_reindex_with_new_schema
   - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::search_test_spelling_suggestions
   - govuk_jenkins::jobs::send_bulk_email
