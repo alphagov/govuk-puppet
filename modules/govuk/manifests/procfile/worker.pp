@@ -95,6 +95,7 @@ define govuk::procfile::worker (
                             # (less than -1 processes)
         desc      => "No processes found for ${title_underscore}",
         host_name => $::fqdn,
+        from      => '30seconds',
       }
 
       if $alert_when_threads_exceed {
