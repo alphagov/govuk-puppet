@@ -27,7 +27,7 @@ class govuk_rbenv::all (
     '2.5.1',
     '2.5.3',
     '2.6.1',
-    '2.6.2',
+    '2.6.3',
   ]
 
   govuk_rbenv::install_ruby_version { $ruby_versions:
@@ -42,6 +42,6 @@ class govuk_rbenv::all (
     to_version => '2.5.3',
   }
   rbenv::alias { '2.6':
-    to_version => '2.6.2',
+    to_version => '2.6.3',
   }
 }
