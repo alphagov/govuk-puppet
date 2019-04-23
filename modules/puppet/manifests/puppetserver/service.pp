@@ -3,4 +3,8 @@ class puppet::puppetserver::service {
   service { 'puppetserver':
     ensure   => running,
   }
+
+  collectd::plugin::process { 'service-puppetserver':
+    regex  => '\/usr\/share\/puppetserver\/puppet-server-release\.jar',
+  }
 }
