@@ -116,7 +116,6 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.u
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::ckan::cronjobs::enable_solr_reindex: true
-govuk::apps::content_data_admin::content_performance_manager_uri: "https://content-data-api.%{hiera('app_domain_internal')}/"
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
