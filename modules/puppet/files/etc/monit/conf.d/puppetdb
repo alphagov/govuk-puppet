@@ -1,0 +1,6 @@
+check process puppetdb with pidfile /var/run/puppetdb.pid
+   start program = "/etc/init.d/puppetdb start"
+   stop  program = "/etc/init.d/puppetdb stop"
+   if failed port 8081 type tcp then restart
+   if failed port 8080 type tcp then restart
+   if does not exist then restart
