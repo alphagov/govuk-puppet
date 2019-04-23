@@ -8,8 +8,10 @@ set -eu
 . $(dirname $0)/common-args.sh
 . $(dirname $0)/aws.sh
 
-status "Running bundle install"
-bundle install --quiet
+if ! $DRY_RUN; then
+  status "Running bundle install"
+  bundle install --quiet
+fi
 
 $(dirname $0)/sync-aws-mysql.sh "$@" mysql-master
 
