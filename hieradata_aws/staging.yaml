@@ -490,8 +490,6 @@ hosts::backend_migration::hosts:
       - cache.cluster
       - router.cluster
       - cache
-      - www.staging.publishing.service.gov.uk
-      - www-origin.staging.publishing.service.gov.uk
       - assets-origin.staging.publishing.service.gov.uk
   draft-cache-1.router.staging.publishing.service.gov.uk:
     ip: 10.2.1.200
