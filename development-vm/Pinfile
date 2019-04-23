@@ -12,7 +12,7 @@ process :bouncer
 process :'cache-clearing-service'
 process :calculators => [:static, :'content-store']
 process :calendars => [:static, :'content-store']
-process :collections => [:static, :'content-store', :search-api]
+process :collections => [:static, :'content-store', :'search-api']
 process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker', :'link-checker-api']
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:'publishing-api', :whitehall]
@@ -36,10 +36,10 @@ process :'email-alert-api-worker'
 process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :static]
 process :'email-alert-service'
 process :feedback => [:static, :support, :'support-api']
-process :'finder-frontend' => [:static, :search-api, :'content-store']
+process :'finder-frontend' => [:static, :'search-api', :'content-store']
 process :frontend => [:static, :'content-store']
 process :'government-frontend' => [:'content-store', :static]
-process :'hmrc-manuals-api' => [:'publishing-api', :search-api]
+process :'hmrc-manuals-api' => [:'publishing-api', :'search-api']
 process :imminence => [:mapit]
 process :'info-frontend' => [:static, :'content-store']
 process :licencefinder => [:static, :'content-store']
@@ -65,7 +65,7 @@ process :'search-api-publishing-listener'
 process :'search-api-govuk-index-listener'
 process :'search-api-bulk-reindex-listener'
 process :screenshot_as_a_service
-process :'search-admin' => [:search-api, :'publishing-api']
+process :'search-admin' => [:'search-api', :'publishing-api']
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api']
 process :'short-url-manager' => [:'publishing-api']
@@ -80,7 +80,7 @@ process :'support-api'
 process :transition
 process :'travel-advice-publisher' => [:static, 'asset-manager', :'travel-advice-publisher-worker', :'email-alert-api', :'link-checker-api']
 process :'travel-advice-publisher-worker'
-process :whitehall => [:'asset-manager', :static, :'publishing-api', :search-api, :'whitehall-worker', :'link-checker-api']
+process :whitehall => [:'asset-manager', :static, :'publishing-api', :'search-api', :'whitehall-worker', :'link-checker-api']
 
 # These are aliases for travel-advice-publisher for compatibility with people who still use them
 process :travel_advice_publisher => :'travel-advice-publisher'
