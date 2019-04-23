@@ -1,7 +1,4 @@
 ---
 govuk_ppa::repo_ensure: 'present'
 
-govuk_unattended_reboot::manage_repo_class: true
-
 nodejs::version: '6.14.3-1nodesource1'
-statsd::manage_repo_class: true
