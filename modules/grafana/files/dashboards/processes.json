@@ -396,7 +396,7 @@
         "current": {},
         "datasource": "Graphite",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "Processes",
         "multi": true,
         "name": "processes",
