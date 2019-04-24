@@ -295,8 +295,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
+            "sort": 2,
+            "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
