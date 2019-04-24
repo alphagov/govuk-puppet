@@ -125,7 +125,6 @@ govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
-govuk::apps::content_store::plek_service_rummager_uri: 'https://search-api.production.govuk-internal.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.publishing.service.gov.uk'
 
 govuk::apps::email_alert_service::enabled: false
@@ -157,11 +156,8 @@ govuk_search::gor::port: 3233
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
 
-govuk::apps::collections::override_search_location: 'https://search-api.production.govuk-internal.digital'
 govuk::apps::content_tagger::override_search_location: NULL
 govuk::apps::hmrc_manuals_api::override_search_location: NULL
-govuk::apps::licencefinder::override_search_location: 'https://search-api.production.govuk-internal.digital'
-govuk::apps::finder_frontend::override_search_location: 'https://search-api.production.govuk-internal.digital'
 govuk::apps::search_admin::override_search_location: NULL
 govuk::apps::whitehall::override_search_location: NULL
 
