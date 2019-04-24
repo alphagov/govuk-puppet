@@ -161,11 +161,6 @@ govuk_search::gor::port: 3233
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
 
-govuk::apps::content_tagger::override_search_location: NULL
-govuk::apps::hmrc_manuals_api::override_search_location: NULL
-govuk::apps::search_admin::override_search_location: NULL
-govuk::apps::whitehall::override_search_location: NULL
-
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::config::licensify_app_domain: 'staging.publishing.service.gov.uk'

@@ -133,6 +133,11 @@ task :check_consistency_between_aws_and_carrenza do
     mongodb::s3backup::backup::s3_bucket
     mongodb::s3backup::backup::s3_bucket_daily
 
+    govuk::apps::content_tagger::override_search_location
+    govuk::apps::hmrc_manuals_api::override_search_location
+    govuk::apps::search_admin::override_search_location
+    govuk::apps::whitehall::override_search_location
+
     _
     backup::assets::backup_private_gpg_key_fingerprint
     backup::assets::jobs
