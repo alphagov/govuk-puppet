@@ -136,7 +136,9 @@ function create_tempdir {
 }
 
 function remove_tempdir {
-  rm -rf "${tempdir}"
+  if [ ! -z "${tempdir:-}" ]; then
+    rm -rf "${tempdir}"
+  fi
 }
 
 function on_exit {
