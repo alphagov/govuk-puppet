@@ -3,9 +3,19 @@
 # Pull in a standard set of modules for all machines. Used everywhere, by
 # both `govuk::node::s_base` and `govuk::node::s_development`.
 #
-class base {
+# [*esm_repo*]
+#   Wether or not to install ESM repo.
+#
+
+class base (
+  $esm_repo = false,
+) {
   class { '::apparmor':
     package_ensure => present,
+  }
+
+  if $esm_repo {
+    include base::esm
   }
 
   include apt
