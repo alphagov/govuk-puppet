@@ -147,7 +147,7 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # grafana has reserved port 3204
 manuals-publisher:  govuk_setenv manuals-publisher  ./run_in.sh ../../manuals-publisher bundle exec rails server -p 3205
 manuals-publisher-worker: govuk_setenv manuals-publisher ./run_in.sh ../../manuals-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec unicorn -c config/unicorn.rb -p 3206
+content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec unicorn -c config/unicorn.rb -p 3235
 # sidekiq-monitoring for content-performance-manager uses port 3207
 content-performance-manager-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
 content-performance-manager-bulk-import-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:bulk_import_consumer
