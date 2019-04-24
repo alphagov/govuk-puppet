@@ -1,0 +1,5 @@
+check process puppetserver with pidfile /var/run/puppetserver.pid
+   start program = "/etc/init.d/puppetserver start"
+   stop  program = "/etc/init.d/puppetserver stop"
+   if failed port 8140 type tcp then restart
+   if does not exist then restart

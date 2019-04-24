@@ -16,4 +16,3 @@ describe 'puppet::puppetserver::sentry', :type => :class do
     is_expected.to contain_file('/etc/puppet/sentry.conf').with_content('dsn=rspec dsn')
   end
 end
-
