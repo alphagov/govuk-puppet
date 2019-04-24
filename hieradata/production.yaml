@@ -124,8 +124,6 @@ govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-production-dr'
   - 'skyscape-production'
 
-govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule: '0 7 * * *'
-
 govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency: '0 1 * * 0,3'
 govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency: '0 6 * * 0,3'
 
