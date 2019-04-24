@@ -88,8 +88,8 @@ class govuk::apps::content_performance_manager(
   $db_name = 'content_performance_manager_production',
   $db_password = undef,
   $db_username = 'content_performance_manager',
-  $enable_procfile_worker = true,
-  $etl_healthcheck_enabled = true,
+  $enable_procfile_worker = false,
+  $etl_healthcheck_enabled = false,
   $etl_healthcheck_enabled_from_hour = undef,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
@@ -111,6 +111,7 @@ class govuk::apps::content_performance_manager(
   $app_name = 'content-performance-manager'
 
   govuk::app { $app_name:
+    ensure            => 'absent',
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
@@ -121,22 +122,26 @@ class govuk::apps::content_performance_manager(
   }
 
   Govuk::App::Envvar {
+    ensure => 'absent',
     app    => $app_name,
   }
 
   govuk::procfile::worker { "${app_name}-default-worker":
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'default-worker',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'publishing-api-consumer',
   }
 
   govuk::procfile::worker { 'cpm-bulk-import-publishing-api-consumer':
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'bulk-import-publishing-api-consumer',
