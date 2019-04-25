@@ -2,5 +2,3 @@ source "https://rubygems.org"
 
 gem "foreman", "0.75.0"
 gem "bowler", "~> 2.1.0"
-
-gem "es_dump_restore", "~> 2.2.2"

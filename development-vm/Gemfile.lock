@@ -6,25 +6,9 @@ GEM
     dotenv (0.11.1)
       dotenv-deployment (~> 0.0.2)
     dotenv-deployment (0.0.2)
-    es_dump_restore (2.2.2)
-      httpclient
-      multi_json
-      progress_bar
-      rake
-      rubyzip (>= 1.0.0)
-      thor
     foreman (0.75.0)
       dotenv (~> 0.11.1)
       thor (~> 0.19.1)
-    highline (1.7.8)
-    httpclient (2.8.3)
-    multi_json (1.12.2)
-    options (2.3.2)
-    progress_bar (1.1.0)
-      highline (~> 1.6)
-      options (~> 2.3.0)
-    rake (12.2.1)
-    rubyzip (1.2.1)
     thor (0.19.1)
 
 PLATFORMS
@@ -32,5 +16,4 @@ PLATFORMS
 
 DEPENDENCIES
   bowler (~> 2.1.0)
-  es_dump_restore (~> 2.2.2)
   foreman (= 0.75.0)
