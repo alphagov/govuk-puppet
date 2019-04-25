@@ -14,10 +14,14 @@ node {
       govuk.checkoutFromGitHubWithSSH(REPOSITORY)
     }
 
+    stage("Merge master") {
+      govuk.mergeMasterBranch()
+    }
+
     stage("Bundle install") {
       govuk.bundleApp()
     }
-    
+
     stage("Check consistency between AWS and Carrenza") {
       govuk.runRakeTask('check_consistency_between_aws_and_carrenza')
     }
