@@ -1,0 +1,34 @@
+---
+- scm:
+    name: govuk-provisioning_Check_GitHub_IP_Ranges
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-provisioning.git
+            branches:
+              - master
+            wipe-workspace: false
+
+- job:
+    name: Check_GitHub_IP_Ranges
+    display-name: Check_GitHub_IP_Ranges
+    project-type: freestyle
+    description: "This job compares the IP ranges that GitHub publishes against the ranges configured in govuk-provisioning and errors if they don't match."
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/govuk-provisioning/
+    scm:
+      - govuk-provisioning_Check_GitHub_IP_Ranges
+    builders:
+        - shell: |
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            bundle exec ./tools/github_ips.rb
+    publishers:
+        - email:
+            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            H 3 * * *
