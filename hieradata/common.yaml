@@ -1169,6 +1169,15 @@ grafana::dashboards::application_dashboards:
     show_memcached: true
   release: {}
   router-api: {}
+  search-api:
+    # search-api isn't in carrenza, but we need the dashboard to exist
+    # for the release app
+    show_controller_errors: false
+    show_response_times: false
+    show_sidekiq_graphs: false
+    show_slow_requests: false
+    has_workers: false
+    dependent_app_5xx_errors: []
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
