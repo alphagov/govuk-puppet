@@ -8,6 +8,13 @@ class govuk_scripts {
     mode   => '0755',
   }
 
+  # govuk_app_console: opens a database console for a specified application
+  file { '/usr/local/bin/govuk_app_dbconsole':
+    ensure => present,
+    source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_app_dbconsole',
+    mode   => '0755',
+  }
+
   # govuk_check_security_upgrades list packages which need a security upgrade
   file { '/usr/local/bin/govuk_check_security_upgrades':
     ensure => present,
