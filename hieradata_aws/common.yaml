@@ -1017,6 +1017,7 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   authenticating-proxy: {}
+  cache-clearing-service: {}
   calculators: {}
   calendars: {}
   ckan:
@@ -1065,6 +1066,7 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-frontend: {}
+  email-alert-service: {}
   feedback: {}
   finder-frontend:
     show_external_request_time: true
@@ -1110,6 +1112,7 @@ grafana::dashboards::application_dashboards:
     instance_prefix: 'publishing_api'
     show_memcached: true
   release: {}
+  router: {}
   router-api: {}
   search-api:
     # search-api is a sinatra app
@@ -1126,6 +1129,7 @@ grafana::dashboards::application_dashboards:
   service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
+  sidekiq-monitoring: {}
   signon:
     show_sidekiq_graphs: true
     has_workers: true
