@@ -14,6 +14,10 @@ node {
       govuk.checkoutFromGitHubWithSSH(REPOSITORY)
     }
 
+    stage("Merge master") {
+      mergeMasterBranch()
+    }
+
     stage("Bundle install") {
       govuk.bundleApp()
     }
