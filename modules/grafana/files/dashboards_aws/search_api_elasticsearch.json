@@ -41,93 +41,30 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "divideSeries(sumSeries(*search-*.curl_json-elasticsearch.counter-indices_search_query_time_in_millis),sumSeries(*search-*.curl_json-elasticsearch.counter-indices_search_query_total))",
+              "target": "alias(maxSeries(stats.timers.govuk.app.search-api.*.elasticsearch.best_bets_raw_search.upper_90), 'Bets Bet Lookup')",
               "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Per-second mean ElasticSearch query duration",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "dtdurationms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
             },
             {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 16,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
+              "refId": "B",
+              "target": "alias(maxSeries(stats.timers.govuk.app.search-api.*.elasticsearch.raw_search.upper_90), 'Search')",
+              "textEditor": true
+            },
             {
-              "refId": "A",
-              "target": "divideSeries(sumSeries(*search-*.curl_json-elasticsearch.counter-indices_search_fetch_time_in_millis),sumSeries(*search-*.curl_json-elasticsearch.counter-indices_search_fetch_total))",
+              "refId": "C",
+              "target": "alias(maxSeries(stats.timers.govuk.app.search-api.*.elasticsearch.msearch.upper_90), 'Batch Search')",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Per-second mean ElasticSearch fetch duration",
+          "title": "ElasticSearch round-trip time",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -636,7 +573,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "stats.*.nginx_logs.search-api_publishing_service_gov_uk.http_5xx",
+              "target": "stats.*.nginx_logs.search-api*.http_5xx",
               "textEditor": true
             }
           ],
