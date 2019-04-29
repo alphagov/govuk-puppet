@@ -171,6 +171,8 @@ task :check_consistency_between_aws_and_carrenza do
     backup::mysql::alert_hostname
     collectd::package::collectd_version
     govuk::apps::bouncer::postgresql_role::rds
+    govuk::apps::ckan::ckan_site_url
+    govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
     govuk::apps::ckan::db::lb_ip_range
     govuk::apps::ckan::db::rds

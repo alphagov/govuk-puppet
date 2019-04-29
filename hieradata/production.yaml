@@ -55,7 +55,6 @@ environment_ip_prefix: '10.3'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
 govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: '9'
@@ -160,8 +159,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
-govuk::node::s_backend_lb::ckan_backend_servers:
-  - 'ckan-1.backend'
 govuk::node::s_backend_lb::email_alert_api_backend_servers:
   - 'email-alert-api-1.backend'
   - 'email-alert-api-2.backend'
@@ -288,7 +285,6 @@ hosts::production::api::hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'ckan'
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
@@ -340,8 +336,6 @@ hosts::production::backend::hosts:
     ip: '10.3.3.101'
   backend-lb-2:
     ip: '10.3.3.102'
-  ckan-1:
-    ip: '10.3.3.120'
   docker-backend-1:
     ip: '10.3.3.111'
   docker-backend-2:
