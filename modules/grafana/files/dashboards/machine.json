@@ -295,8 +295,8 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "sort": 0,
-            "value_type": "cumulative"
+            "sort": 2,
+            "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
@@ -312,7 +312,7 @@
               "label": null,
               "logBase": 1,
               "max": null,
-              "min": null,
+              "min": "0",
               "show": true
             },
             {
