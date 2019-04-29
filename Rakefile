@@ -29,6 +29,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
+    govuk::apps::content_data_admin::enabled
     govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
