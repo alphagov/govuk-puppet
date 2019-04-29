@@ -866,16 +866,6 @@ govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_
 
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::node::s_transition_postgresql_master::alert_hostname: 'alert'
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
-govuk::node::s_transition_postgresql_slave::aws_access_key_id: "%{hiera('govuk::node::s_transition_postgresql_master::aws_access_key_id')}"
-govuk::node::s_transition_postgresql_slave::aws_secret_access_key: "%{hiera('govuk::node::s_transition_postgresql_master::aws_secret_access_key')}"
-govuk::node::s_transition_postgresql_slave::s3_bucket_url: "%{hiera('govuk::node::s_transition_postgresql_master::s3_bucket_url')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key_fingerprint')}"
-
 govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_bundler::config::service: 'http://gemstash'

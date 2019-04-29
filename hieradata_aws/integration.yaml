@@ -140,9 +140,6 @@ govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xt
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
 govuk_sudo::sudo_conf:
   deploy_service_postgresql:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
