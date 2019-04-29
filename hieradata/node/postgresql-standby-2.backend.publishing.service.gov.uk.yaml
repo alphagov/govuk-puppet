@@ -1,16 +1,3 @@
 icinga::client::check_cputype::cputype: 'amd'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
-
-govuk_env_sync::tasks:
-  "push_support-contacts_production_daily":
-    ensure: "absent"
-    hour: "3"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "support_contacts_production"
-    temppath: "/tmp/govuk_env_sync/"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
