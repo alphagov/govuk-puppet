@@ -1,6 +1,6 @@
 # == Class: base::esm
 #
-# Installs extended security maintenance repo and credentials
+# Installs extended security maintenance credentials and preferences
 #
 # === Parameters
 #
@@ -14,17 +14,21 @@ class base::esm (
   $esm_user,
   $esm_password,
 ) {
-  package { 'ubuntu-advantage-tools':
-    ensure  => '10ubuntu0.14.04.3',
-    require => Package['apt-transport-https'],
+  file { '/etc/apt/auth.conf.d/90ubuntu-advantage':
+    ensure  => file,
+    content => template('base/90ubuntu-advantage.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0600',
   }
-
+  file { '/etc/apt/apt.conf.d/51ubuntu-advantage-esm':
+    ensure => file,
+    source => 'puppet:///modules/base/51ubuntu-advantage-esm',
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+  }
   package { 'apt-transport-https':
     ensure  => present,
-  }
-
-  exec {'create esm repo':
-    command => "sudo ubuntu-advantage enable-esm ${esm_user}:${esm_password}",
-    require => Package['ubuntu-advantage-tools'],
   }
 }
