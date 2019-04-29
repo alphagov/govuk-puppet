@@ -763,20 +763,11 @@ govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node:
 govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
 govuk::node::s_postgresql_standby::aws_access_key_id: "%{hiera('govuk::node::s_postgresql_primary::aws_access_key_id')}"
 govuk::node::s_postgresql_standby::aws_secret_access_key: "%{hiera('govuk::node::s_postgresql_primary::aws_secret_access_key')}"
 govuk::node::s_postgresql_standby::s3_bucket_url: "%{hiera('govuk::node::s_postgresql_primary::s3_bucket_url')}"
 govuk::node::s_postgresql_standby::wale_private_gpg_key: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key')}"
 govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key_fingerprint')}"
-
-govuk::node::s_transition_postgresql_slave::aws_access_key_id: "%{hiera('govuk::node::s_transition_postgresql_master::aws_access_key_id')}"
-govuk::node::s_transition_postgresql_slave::aws_secret_access_key: "%{hiera('govuk::node::s_transition_postgresql_master::aws_secret_access_key')}"
-govuk::node::s_transition_postgresql_slave::s3_bucket_url: "%{hiera('govuk::node::s_transition_postgresql_master::s3_bucket_url')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key_fingerprint')}"
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
@@ -1713,10 +1704,6 @@ postgresql_api_slave_addresses_live: "%{hiera('environment_ip_prefix')}.4.41/32"
 postgresql_api_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.12.41/32"
 postgresql_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.13/32"
 postgresql_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.13/32"
-postgresql_transition_slave_addresses_live: "%{hiera('environment_ip_prefix')}.3.61/32"
-postgresql_transition_slave_addresses_dr: "%{hiera('environment_ip_prefix')}.11.61/32"
-postgresql_transition_standby_addresses_live: "%{hiera('environment_ip_prefix')}.3.161/32"
-postgresql_transition_standby_addresses_dr: "%{hiera('environment_ip_prefix')}.11.161/32"
 
 postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
