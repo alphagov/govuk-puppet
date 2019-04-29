@@ -538,8 +538,6 @@ hosts::backend_migration::hosts:
       - cache.cluster
       - router.cluster
       - cache
-      - www.publishing.service.gov.uk
-      - www-origin.publishing.service.gov.uk
       - assets-origin.publishing.service.gov.uk
   # monitoring-1.management.publishing.service.gov.uk:
   #   ip: 10.3.0.20
