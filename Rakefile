@@ -348,9 +348,33 @@ task :check_consistency_between_aws_and_carrenza do
     else
       puts "#{environment} keys okay!"
     end
+  end
 
-    if failed
-      exit 1
-    end
+  all_carrenza_keys = hieradata_file_names.flat_map do |filename|
+    YAML.load_file("hieradata/#{filename}.yaml").keys
+  end
+
+  missing_carrenza_keys = CARRENZA_ONLY_KEYS - all_carrenza_keys
+
+  if missing_carrenza_keys.any?
+    puts "\n\nCHECKING all Carrenza keys"
+    puts "\nThese keys are listed as Carrenza only, but don't exist in any Carrenza related hieradata file: \n -" + missing_carrenza_keys.join("\n -")
+    failed = true
+  end
+
+  all_aws_keys = hieradata_file_names.flat_map do |filename|
+    YAML.load_file("hieradata_aws/#{filename}.yaml").keys
+  end
+
+  missing_aws_keys = AWS_ONLY_KEYS - all_aws_keys
+
+  if missing_aws_keys.any?
+    puts "\n\nCHECKING all AWS keys"
+    puts "\nThese keys are listed as AWS only, but don't exist in any AWS related hieradata file: \n -" + missing_aws_keys.join("\n -")
+    failed = true
+  end
+
+  if failed
+    exit 1
   end
 end
