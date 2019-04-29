@@ -137,14 +137,17 @@
           "id": 1,
           "legend": {
             "alignAsTable": true,
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
+            "avg": true,
+            "current": true,
+            "hideEmpty": true,
+            "max": true,
+            "min": true,
             "rightSide": false,
             "show": true,
+            "sort": "max",
+            "sortDesc": true,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
           "linewidth": 1,
