@@ -14,17 +14,6 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/autopostgresqlbackup/local-links-manager_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-  "push_link-checker-api_production_daily":
-    ensure: "absent"
-    hour: "3"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "link_checker_api_production"
-    temppath: "/tmp/govuk_env_sync/"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_support-contacts_production_daily":
     ensure: "absent"
     hour: "3"
