@@ -27,7 +27,6 @@ namespace :spec do
       base
       postgresql_base
       redis_base
-      transition_postgresql_base
     )
 
     # get the list of machine classes
