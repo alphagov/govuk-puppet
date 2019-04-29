@@ -158,6 +158,7 @@ govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
 govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'localhost'
+govuk::apps::search_api::rabbitmq::enable_publishing_listener: true
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
