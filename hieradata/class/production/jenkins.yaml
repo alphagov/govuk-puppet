@@ -8,7 +8,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::check_pingdom_ip_ranges
   - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::content_audit_tool
-  - govuk_jenkins::jobs::content_performance_manager
   - govuk_jenkins::jobs::copy_attachments_to_integration
   - govuk_jenkins::jobs::copy_attachments_to_staging
   - govuk_jenkins::jobs::copy_data_from_production_to_aws
