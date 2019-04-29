@@ -330,7 +330,9 @@ task :check_consistency_between_aws_and_carrenza do
 
   failed = false
 
-  %w[common staging production].each do |environment|
+  hieradata_file_names = %w[common staging production]
+
+  hieradata_file_names.each do |environment|
     carrenza = YAML.load_file("hieradata/#{environment}.yaml")
 
     aws = YAML.load_file("hieradata_aws/#{environment}.yaml")
