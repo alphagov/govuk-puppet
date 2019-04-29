@@ -1096,7 +1096,7 @@ grafana::dashboards::application_dashboards:
   content-data-admin:
     show_sidekiq_graphs: true
     has_workers: true
-  content-performance-manager:
+  content-data-api:
     show_sidekiq_graphs: true
     has_workers: true
   content-publisher:
