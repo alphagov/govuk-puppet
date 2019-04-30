@@ -21,3 +21,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/es_snapshot_everything"
     url: "govuk-staging"
     path: "elasticsearch5"
+
+logrotate::conf::days_to_keep: 7
+nginx::logging::days_to_keep: 7
