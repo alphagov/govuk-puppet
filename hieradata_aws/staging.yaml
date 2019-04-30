@@ -482,7 +482,6 @@ hosts::backend_migration::hosts:
       - cache.cluster
       - router.cluster
       - cache
-      - assets-origin.staging.publishing.service.gov.uk
   draft-cache-1.router.staging.publishing.service.gov.uk:
     ip: 10.2.1.200
     host_aliases:
