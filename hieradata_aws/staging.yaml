@@ -26,6 +26,7 @@ node_class: &node_class
       - kibana
       - link-checker-api
       - local-links-manager
+      - sidekiq-monitoring
       - support
       - support-api
       - support_api_csv_env_sync
