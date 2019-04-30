@@ -47,10 +47,6 @@
             sed -i.bak "s/PG_TR_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_TR_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
             sed -i "s/PG_TR_DST_ENV_SYNC_PW=PLACEHOLDER/PG_TR_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
 
-            echo "Putting in the real Warehouse Postgresql password"
-            sed -i.bak "s/PG_WH_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_WH_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-warehouse-postgresql.sh
-            sed -i "s/PG_WH_DST_ENV_SYNC_PW=PLACEHOLDER/PG_WH_DST_ENV_SYNC_PW='<%= @pg_wh_dst_env_sync_pw %>'/" scripts/sync-warehouse-postgresql.sh
-
             set +e
 
             echo "Disabling Gor traffic replay"
@@ -124,4 +120,3 @@
                 - mysql-whitehall
                 - postgresql-backend
                 - postgresql-transition
-                - postgresql-warehouse
