@@ -14,7 +14,7 @@ class base::esm (
   $esm_user,
   $esm_password,
 ) {
-  file { '/etc/apt/auth.conf.d/90ubuntu-advantage':
+  file { '/etc/apt/auth.conf':
     ensure  => file,
     content => template('base/90ubuntu-advantage.erb'),
     owner   => 'root',
