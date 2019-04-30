@@ -97,9 +97,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
 
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '127.0.0.1'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::data_sync_complete_staging
   - govuk_jenkins::jobs::deploy_app

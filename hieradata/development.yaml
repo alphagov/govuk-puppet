@@ -343,7 +343,6 @@ nginx_enable_ssl: false
 
 postgresql_api_slave_addresses_live: '127.0.0.1/32'
 postgresql_slave_addresses_live: '127.0.0.1/32'
-postgresql_transition_slave_addresses_live: '127.0.0.1/32'
 
 govuk_pgbouncer::include_vagrant_user: true
 

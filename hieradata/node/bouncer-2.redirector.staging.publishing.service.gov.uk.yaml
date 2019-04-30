@@ -1,4 +1,0 @@
----
-
-govuk_bouncer::gor::enabled: true
-govuk_bouncer::gor::target: 'bouncer.blue.integration.govuk.digital'

@@ -120,6 +120,11 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_mysql_master::s3_bucket_name
     govuk::node::s_transition_postgresql_slave::redirector_ip_range
     govuk::node::s_transition_postgresql_standby::redirector_ip_range
+    govuk::node::s_postgresql_standby::aws_access_key_id
+    govuk::node::s_postgresql_standby::aws_secret_access_key
+    govuk::node::s_postgresql_standby::s3_bucket_url
+    govuk::node::s_postgresql_standby::wale_private_gpg_key
+    govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint
     govuk::node::s_whitehall_mysql_backup::s3_bucket_name
     govuk::node::s_whitehall_mysql_master::s3_bucket_name
     govuk_jenkins::config::banner_colour_background
@@ -172,6 +177,8 @@ task :check_consistency_between_aws_and_carrenza do
     backup::mysql::alert_hostname
     collectd::package::collectd_version
     govuk::apps::bouncer::postgresql_role::rds
+    govuk::apps::ckan::ckan_site_url
+    govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
     govuk::apps::ckan::db::lb_ip_range
     govuk::apps::ckan::db::rds

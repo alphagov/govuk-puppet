@@ -1,38 +1,3 @@
 icinga::client::check_cputype::cputype: 'amd'
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'DR node: only used in the event of a disaster'
-
-govuk_env_sync::tasks:
-  "push_local-links-manager_production_daily":
-    ensure: "absent"
-    hour: "0"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "local-links-manager_production"
-    temppath: "/var/lib/autopostgresqlbackup/local-links-manager_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
-  "push_link-checker-api_production_daily":
-    ensure: "absent"
-    hour: "3"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "link_checker_api_production"
-    temppath: "/tmp/govuk_env_sync/"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
-  "push_support-contacts_production_daily":
-    ensure: "absent"
-    hour: "3"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "support_contacts_production"
-    temppath: "/tmp/govuk_env_sync/"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"

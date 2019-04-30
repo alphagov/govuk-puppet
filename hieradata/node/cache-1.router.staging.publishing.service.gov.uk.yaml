@@ -1,3 +1,0 @@
-router::gor::add_hosts: false
-router::gor::replay_targets:
-  'www-origin.production.govuk.digital': {}

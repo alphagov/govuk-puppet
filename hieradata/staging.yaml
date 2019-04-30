@@ -15,8 +15,6 @@ environment_ip_prefix: '10.2'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
-govuk::apps::ckan::cronjobs::enable_solr_reindex: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
@@ -137,8 +135,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
-govuk::node::s_backend_lb::ckan_backend_servers:
-  - 'ckan-1.backend'
 govuk::node::s_backend_lb::email_alert_api_backend_servers:
   - 'email-alert-api-1.backend'
   - 'email-alert-api-2.backend'
@@ -178,8 +174,6 @@ govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-staging'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-staging'
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -267,8 +261,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.101'
   backend-lb-2:
     ip: '10.2.3.102'
-  ckan-1:
-    ip: '10.2.3.120'
   docker-backend-1:
     ip: '10.2.3.111'
   docker-backend-2:
@@ -376,7 +368,6 @@ hosts::production::backend::hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'ckan'
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
