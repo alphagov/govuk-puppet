@@ -45,7 +45,7 @@
 #
 define logrotate::conf (
   $matches,
-  $days_to_keep = '31',
+  $days_to_keep = hiera('logrotate::conf::days_to_keep', '31'),
   $ensure = 'present',
   $user = undef,
   $group = undef,
