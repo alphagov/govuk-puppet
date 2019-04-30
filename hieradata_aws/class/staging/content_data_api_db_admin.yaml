@@ -1,0 +1,27 @@
+govuk_env_sync::tasks:
+  # Use the new Content Data API name here, to avoid issues with
+  # changing the name later
+  "pull_content_data_api_production_daily":
+    ensure: "present"
+    hour: "4"
+    minute: "0"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_performance_manager_production"
+    temppath: "/tmp/content_data_api_production"
+    url: "govuk-production-database-backups"
+    path: "content-data-api-postgresql"
+  "push_content_data_api_production_daily":
+    ensure: "present"
+    hour: "9"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    # Use the old database name for consistency while still working on
+    # the migration for the Content Performance Manager
+    database: "content_performance_manager_production"
+    temppath: "/tmp/content_data_api_production"
+    url: "govuk-staging-database-backups"
+    path: "content-data-api-postgresql"

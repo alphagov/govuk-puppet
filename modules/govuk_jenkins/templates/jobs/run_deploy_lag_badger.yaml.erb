@@ -32,3 +32,10 @@
     wrappers:
       - ansicolor:
           colormap: xterm
+      - inject-passwords:
+          global: false
+          mask-password-params: true
+          job-passwords:
+            - name: GITHUB_TOKEN
+              password:
+                '<%= @github_token %>'

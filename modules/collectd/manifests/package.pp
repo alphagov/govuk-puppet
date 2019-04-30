@@ -14,7 +14,7 @@
 #   The hostname of the local aptly mirror.
 #
 class collectd::package (
-  $collectd_version = '5.4.0-3ubuntu2',
+  $collectd_version = '5.8.0.145.gca1cb27-1~trusty',
   $yajl_package = 'libyajl2',
   $apt_mirror_hostname,
 ) {

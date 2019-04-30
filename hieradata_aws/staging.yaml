@@ -17,14 +17,16 @@ node_class: &node_class
       - asset_env_sync
   backend:
     apps:
-      - asset-manager
       - cache-clearing-service
+      - canary-backend
+      - content-data-admin
+      - content-data-api
       - transition
       - imminence
       - kibana
       - link-checker-api
       - local-links-manager
-      - signon
+      - sidekiq-monitoring
       - support
       - support-api
       - support_api_csv_env_sync
@@ -34,7 +36,6 @@ node_class: &node_class
   cache:
     apps:
       - router
-      - publicapi
   content_store:
     apps:
       - content-store
@@ -53,7 +54,6 @@ node_class: &node_class
       - authenticating-proxy
       - router
       - router-api
-      - draft-publicapi
   draft_content_store:
     apps:
       - content-store
@@ -97,7 +97,7 @@ node_class: &node_class
       - router-api
   search:
     apps:
-      - rummager
+      - search-api
   whitehall_backend:
     apps:
       - whitehall
@@ -116,16 +116,24 @@ govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
+govuk::apps::ckan::cronjobs::enable_solr_reindex: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-staging-content-data-csvs'
+govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '12'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
-govuk::apps::content_store::app_domain: staging.publishing.service.gov.uk
+govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
+govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.staging.publishing.service.gov.uk'
+
+govuk::apps::email_alert_service::enabled: false
+govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
@@ -149,6 +157,11 @@ govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
+govuk_search::gor::port: 3233
+
+govuk_search::monitoring::es_port: '80'
+govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::config::licensify_app_domain: 'staging.publishing.service.gov.uk'
@@ -157,7 +170,6 @@ govuk::deploy::setup::ssh_keys:
     jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
 
 govuk::node::s_backend_lb::aws_egress_nat_ips: []
-govuk::node::s_backend_lb::search_servers: []
 
 # Staging never receives requests to bouncer
 govuk_cdnlogs::bouncer_monitoring_enabled: false
@@ -173,9 +185,9 @@ govuk_crawler::sync_enable: true
 govuk_crawler::targets:
   - 's3://govuk-staging-mirror-1/'
 
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
-
 govuk_jenkins::job_builder::environment: 'staging'
+
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 11 * * *'
 
 govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-staging'
@@ -185,7 +197,7 @@ govuk_jenkins::jobs::network_config_deploy::environments:
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
-govuk_jenkins::jobs::smokey::environment: staging
+govuk_jenkins::jobs::smokey::environment: staging_aws
 
 govuk_jenkins::jobs::data_sync_complete_staging::signon_domains_to_migrate:
   -
@@ -224,6 +236,7 @@ licensify::apps::licensify_admin::environment: 'staging'
 licensify::apps::licensify::environment: 'staging'
 licensify::apps::licensify_feed::environment: 'staging'
 
+monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
@@ -239,7 +252,7 @@ monitoring::checks::rds::servers:
    - 'mysql-replica'
 
 
-monitoring::checks::smokey::environment: 'staging'
+monitoring::checks::smokey::environment: 'staging_aws'
 
 monitoring::uptime_collector::environment: 'staging'
 
@@ -254,11 +267,6 @@ router::nginx::robotstxt: |
   Disallow: /
 
 nginx::config::stack_network_prefix: '10.12.0'
-
-govuk_datascrubber::ensure: 'latest'
-govuk_datascrubber::share_with:
-  - '210287912431'     # AWS integration
-govuk_datascrubber::s3_export_prefix: 's3://govuk-production-database-backups/scrubbed'
 
 hosts::backend_migration::hosts:
   cache-1.router.staging.publishing.service.gov.uk:
@@ -308,7 +316,6 @@ hosts::backend_migration::hosts:
       - info-frontend.staging.publishing.service.gov.uk
       - manuals-frontend.staging.publishing.service.gov.uk
       - licencefinder.staging.publishing.service.gov.uk
-      - publicapi.staging.publishing.service.gov.uk
       - service-manual.staging.publishing.service.gov.uk
       - service-manual-frontend.staging.publishing.service.gov.uk
       - smartanswers.staging.publishing.service.gov.uk
@@ -414,6 +421,7 @@ hosts::backend_migration::hosts:
       - contacts-admin.staging.publishing.service.gov.uk
       - content-audit-tool.staging.publishing.service.gov.uk
       - content-data-admin.staging.publishing.service.gov.uk
+      - content-data-api.staging.publishing.service.gov.uk
       - content-performance-manager.staging.publishing.service.gov.uk
       - content-publisher.staging.publishing.service.gov.uk
       - content-tagger.staging.publishing.service.gov.uk
@@ -474,9 +482,6 @@ hosts::backend_migration::hosts:
       - cache.cluster
       - router.cluster
       - cache
-      - www.staging.publishing.service.gov.uk
-      - www-origin.staging.publishing.service.gov.uk
-      - assets-origin.staging.publishing.service.gov.uk
   draft-cache-1.router.staging.publishing.service.gov.uk:
     ip: 10.2.1.200
     host_aliases:
@@ -510,11 +515,6 @@ hosts::backend_migration::hosts:
   #     - puppetdb.cluster
   #     - puppetmaster-1
   #     - puppet
-  elasticsearch-3.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.17
-    host_aliases:
-      - elasticsearch-3.backend
-      - elasticsearch-3
   gds01prod.aptosolutions.co.uk:
     ip: 185.40.10.139
   draft-cache-internal-lb.router.staging.publishing.service.gov.uk:
@@ -523,7 +523,6 @@ hosts::backend_migration::hosts:
       - draft-cache-internal-lb.router
       - draft-cache-internal-lb
       - draft-router-api.staging.publishing.service.gov.uk
-      - draft-publicapi.staging.publishing.service.gov.uk
   mirrorer-1.management.staging.publishing.service.gov.uk:
     ip: 10.2.0.128
     host_aliases:
@@ -614,11 +613,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - frontend-lb-2.frontend
       - frontend-lb-2
-  elasticsearch-2.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.16
-    host_aliases:
-      - elasticsearch-2.backend
-      - elasticsearch-2
   frontend-3.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.4
     host_aliases:
@@ -639,11 +633,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - whitehall-frontend-3.frontend
       - whitehall-frontend-3
-  elasticsearch-1.backend.staging.publishing.service.gov.uk:
-    ip: 10.2.3.15
-    host_aliases:
-      - elasticsearch-1.backend
-      - elasticsearch-1
   calculators-frontend-2.frontend.staging.publishing.service.gov.uk:
     ip: 10.2.2.12
     host_aliases:
@@ -737,7 +726,6 @@ hosts::backend_migration::hosts:
       - backdrop-read.staging.publishing.service.gov.uk
       - backdrop-write.staging.publishing.service.gov.uk
       - content-store.staging.publishing.service.gov.uk
-      - rummager.staging.publishing.service.gov.uk
       - search.staging.publishing.service.gov.uk
   #api-mongo-1.api.staging.publishing.service.gov.uk:
   #   ip: 10.2.4.21
@@ -1041,21 +1029,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - docker-backend-1.backend
       - docker-backend-1
-  rummager-elasticsearch-2.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.56
-    host_aliases:
-      - rummager-elasticsearch-2.api
-      - rummager-elasticsearch-2
-  rummager-elasticsearch-1.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.55
-    host_aliases:
-      - rummager-elasticsearch-1.api
-      - rummager-elasticsearch-1
-  rummager-elasticsearch-3.api.staging.publishing.service.gov.uk:
-    ip: 10.2.4.57
-    host_aliases:
-      - rummager-elasticsearch-3.api
-      - rummager-elasticsearch-3
   #ci-agent-6.ci.staging.publishing.service.gov.uk:
   #   ip: 10.1.6.26
   #   host_aliases:

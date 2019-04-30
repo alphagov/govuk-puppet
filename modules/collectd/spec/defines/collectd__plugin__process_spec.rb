@@ -9,6 +9,7 @@ describe 'collectd::plugin::process', :type => :define do
     it {
         is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
+  CollectFileDescriptor true
   Process "giraffe"
 </Plugin>
 EOS
@@ -22,7 +23,21 @@ EOS
       it {
         is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
+  CollectFileDescriptor true
   ProcessMatch "giraffe" "^gi.*fe$"
+</Plugin>
+EOS
+      )}
+    end
+
+    describe "disables CollectFileDescriptor on precise" do
+      let(:facts) {{ 'lsbdistcodename' => 'precise' }}
+      let(:title) { 'giraffe' }
+
+      it {
+        is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
+<Plugin Processes>
+  Process "giraffe"
 </Plugin>
 EOS
       )}
@@ -36,6 +51,7 @@ EOS
       it {
         is_expected.to contain_collectd__plugin('process-giraffe').with_content(<<EOS
 <Plugin Processes>
+  CollectFileDescriptor true
   ProcessMatch "giraffe" "^giraffe\\\\.giraffe\\\\\\\\$"
 </Plugin>
 EOS

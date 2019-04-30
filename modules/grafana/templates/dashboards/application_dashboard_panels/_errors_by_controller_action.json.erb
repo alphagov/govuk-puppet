@@ -39,7 +39,7 @@
       "bucketAggs": [
         {
           "fake": true,
-          "field": "<%= @fields_prefix -%>controller",
+          "field": "controller",
           "id": "3",
           "settings": {
             "order": "desc",
@@ -50,7 +50,7 @@
         },
         {
           "fake": true,
-          "field": "<%= @fields_prefix -%>action",
+          "field": "action",
           "id": "4",
           "settings": {
             "order": "desc",
@@ -78,13 +78,13 @@
           "type": "count"
         }
       ],
-      "query": "application:<%= @app_name %> AND <%= @fields_prefix -%>status:[ 500 TO 599 ]",
+      "query": "application:<%= @app_name %> AND status:[ 500 TO 599 ]",
       "refId": "A",
       "target": "",
       "timeField": "@timestamp"
     }
   ],
-  "timeFrom": "6h",
+  "timeFrom": null,
   "timeShift": null,
   "title": "Top 10 Error Count by Controller and Action",
   "tooltip": {

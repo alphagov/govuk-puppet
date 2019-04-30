@@ -23,11 +23,7 @@
         - shell: |
             bundle install --path "${HOME}/bundles/${JOB_NAME}";
             bundle exec bin/health_check --download
-            <%- if scope.lookupvar('::aws_migration') %>
-            bundle exec bin/health_check --json=https://search.<%= @app_domain_internal %>/search.json --type=<%= @test_type %> --auth="$AUTH_USERNAME:$AUTH_PASSWORD" --rate_limit_token=$RATE_LIMIT_TOKEN
-            <%- else %>
             bundle exec bin/health_check --json=https://www-origin.<%= @app_domain %>/api/search.json --type=<%= @test_type %> --auth="$AUTH_USERNAME:$AUTH_PASSWORD" --rate_limit_token=$RATE_LIMIT_TOKEN
-            <%- end %>
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:

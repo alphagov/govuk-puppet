@@ -1,0 +1,10 @@
+---
+
+govuk::node::s_rabbitmq::apps_using_rabbitmq:
+  - backdrop_write
+  - email_alert_service
+  - publishing_api
+  - content_data_api
+  - content_performance_manager
+  - cache_clearing_service
+  - search_api

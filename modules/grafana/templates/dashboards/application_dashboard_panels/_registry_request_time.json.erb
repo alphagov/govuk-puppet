@@ -1,0 +1,84 @@
+{
+  "id": 5,
+  "title": "Registries Request Time",
+  "span": 4,
+  "type": "graph",
+  "targets": [
+    {
+      "refId": "A",
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.organisations.request_time.upper_90), 'Organisations')"
+    },
+    {
+      "refId": "B",
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.people.request_time.upper_90), 'People')"
+    },
+    {
+      "refId": "C",
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.topic_taxonomy.request_time.upper_90), 'Topic Taxonomy')"
+    },
+    {
+      "refId": "D",
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.world_locations.request_time.upper_90), 'World Locations')"
+    }
+  ],
+  "datasource": "Graphite",
+  "renderer": "flot",
+  "yaxes": [
+    {
+      "label": null,
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "ms"
+    },
+    {
+      "label": null,
+      "show": true,
+      "logBase": 1,
+      "min": null,
+      "max": null,
+      "format": "short"
+    }
+  ],
+  "xaxis": {
+    "show": true,
+    "mode": "time",
+    "name": null,
+    "values": [],
+    "buckets": null
+  },
+  "lines": false,
+  "fill": 1,
+  "linewidth": 1,
+  "dashes": false,
+  "dashLength": 10,
+  "spaceLength": 10,
+  "points": true,
+  "pointradius": 1,
+  "bars": true,
+  "stack": false,
+  "percentage": false,
+  "legend": {
+    "show": true,
+    "values": false,
+    "min": false,
+    "max": false,
+    "current": false,
+    "total": false,
+    "avg": false
+  },
+  "nullPointMode": "null",
+  "steppedLine": false,
+  "tooltip": {
+    "value_type": "individual",
+    "shared": true,
+    "sort": 0
+  },
+  "timeFrom": null,
+  "timeShift": null,
+  "aliasColors": {},
+  "seriesOverrides": [],
+  "thresholds": [],
+  "links": []
+}

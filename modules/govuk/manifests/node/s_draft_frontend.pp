@@ -12,10 +12,15 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
 
   $app_domain = hiera('app_domain')
 
-  if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    $app_domain_internal      = hiera('app_domain_internal')
+    $plek_uri_domain_override = $app_domain
+  } elsif $::aws_environment == 'integration' {
+    $app_domain_internal      = hiera('app_domain_internal')
+    $plek_uri_domain_override = $app_domain_internal
   } else {
-    $app_domain_internal = $app_domain
+    $app_domain_internal      = $app_domain
+    $plek_uri_domain_override = $app_domain
   }
 
   govuk_envvar {
@@ -23,9 +28,7 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
     'PLEK_SERVICE_IMMINENCE_URI': value => "https://imminence.${app_domain}";
     'PLEK_SERVICE_LOCAL_LINKS_MANAGER_URI': value => "https://local-links-manager.${app_domain}";
     'PLEK_SERVICE_MAPIT_URI': value     => "https://mapit.${app_domain_internal}";
-    'PLEK_SERVICE_SEARCH_URI': value    => "https://search.${app_domain_internal}";
-    'PLEK_SERVICE_RUMMAGER_URI': value  => "https://rummager.${app_domain_internal}";
-    'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain_internal}";
+    'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${plek_uri_domain_override}";
     'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain_internal}";
   }
 

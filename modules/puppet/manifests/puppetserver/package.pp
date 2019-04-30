@@ -5,6 +5,8 @@
 class puppet::puppetserver::package {
   require '::govuk_java::openjdk7::jre'
 
+  include govuk_monit
+
   package { 'puppetserver':
     ensure => 'latest',
   }

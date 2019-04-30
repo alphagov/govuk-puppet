@@ -1,9 +1,35 @@
 #!/usr/bin/env ruby
 
+def create_machines_hash
+  return {} unless File.exist? '/etc/facter/facts.d/aws_environment.txt'
+
+  machines_names_hash = Hash.new
+
+  `/usr/local/bin/govuk_node_list --with-puppet-class`.each_line do |machine|
+    hostname, name = machine.chomp.split(":")
+    machines_names_hash[hostname] = name
+  end
+
+  return machines_names_hash
+end
+
+def hostname_with_node_name(hostname, machines_names_hash)
+  name = machines_names_hash[hostname]
+
+  if name
+    "%s with hostname: %s" % [name, hostname]
+  else
+    hostname
+  end
+
+end
+
 all_machines = `/usr/local/bin/govuk_node_list`.split("\n")
 
 unsafe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::careful,govuk_safe_to_reboot::no`.split("\n")
 safe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::yes,govuk_safe_to_reboot::overnight`.split("\n")
+
+machines_names_hash = create_machines_hash
 
 # Safety check that we haven't added other safe to reboot options
 # that we don't account for here.
@@ -30,14 +56,16 @@ else
     puts "\n"
     puts 'These hosts need to be rebooted manually:'
     unsafe_machines.sort.each do |hostname|
-      puts "- #{hostname}"
+      hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
+      puts "- #{hydrated_name}"
     end
   end
   if safe_machines.length > 0
     puts "\n"
     puts 'These hosts should reboot overnight:'
     safe_machines.sort.each do |hostname|
-      puts "- #{hostname}"
+      hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
+      puts "- #{hydrated_name}"
     end
   end
   exit 1

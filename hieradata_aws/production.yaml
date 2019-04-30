@@ -17,12 +17,16 @@ node_class: &node_class
       - asset_env_sync
   backend:
     apps:
-      - asset-manager
+      - cache-clearing-service
+      - canary-backend
+      - content-data-admin
+      - content-data-api
       - transition
       - imminence
       - kibana
       - link-checker-api
       - local-links-manager
+      - sidekiq-monitoring
       - support
       - support-api
       - support_api_csv_env_sync
@@ -32,7 +36,6 @@ node_class: &node_class
   cache:
     apps:
       - router
-      - publicapi
   content_store:
     apps:
       - content-store
@@ -51,7 +54,6 @@ node_class: &node_class
       - authenticating-proxy
       - router
       - router-api
-      - draft-publicapi
   draft_content_store:
     apps:
       - content-store
@@ -95,7 +97,7 @@ node_class: &node_class
       - router-api
   search:
     apps:
-      - rummager
+      - search-api
   whitehall_backend:
     apps:
       - whitehall
@@ -114,16 +116,20 @@ govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-production-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
-govuk::apps::content_data_admin::google_tag_manager_auth: 'bcb35jL0VPLO8b6W2rJXyA'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
-govuk::apps::content_data_admin::google_tag_manager_preview: 'env-8'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
+govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '9'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
-govuk::apps::content_store::app_domain: publishing.service.gov.uk
+govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
+govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.publishing.service.gov.uk'
+
+govuk::apps::email_alert_service::enabled: false
+govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
@@ -146,6 +152,11 @@ govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
+govuk_search::gor::port: 3233
+
+govuk_search::monitoring::es_port: '80'
+govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
@@ -154,7 +165,8 @@ govuk::deploy::setup::ssh_keys:
     jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
 
 govuk::node::s_backend_lb::aws_egress_nat_ips: []
-govuk::node::s_backend_lb::search_servers: []
+
+govuk::node::s_monitoring::enable_fastly_metrics: true
 
 # Staging never receives requests to bouncer
 govuk_cdnlogs::bouncer_monitoring_enabled: false
@@ -169,12 +181,22 @@ govuk_crawler::seed_enable: true
 govuk_crawler::sync_enable: true
 govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::targets:
+  - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
+  - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
   - 's3://govuk-mirror-production/'
 
 govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.digital.cabinet-office.gov.uk/'
   - "https://assets.%{hiera('app_domain')}/"
   - 'https://www.gov.uk/'
+
+govuk_crawler::ssh_keys:
+  mirror0.mirror.provider1.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VVHvPeBh8MoAEBTLpO9Xj/s5s+rqe4AN61HTzu4hGpYIB4sv+j8VHzHVHVmhP31gl9xaIiv+7BI8AstuGWPiehOIgTR+ufKyvnr1msHO59dM5Vht5i2ZVVB5WF/MphTfGT4vO3RDAZGvZXUaasBxOqqE6jrp4jF5d8WFV44mzE5PqqhAodiBGyfKDcd0gzuQhGpOsafYAy4+E+OlIbcX3LvTZyZdrC5va0l5LSVxstJjUjTSw85/m1pjSYBPMLc50T0M5SYA79G2yPaPYqux5YpA+D/0qnWlNQfR7MQdo3XO4ZGqRyjSn9/WcYsyn5KVivRd+Id6Jw8x0MwPzIVJ'
+    type: 'ssh-rsa'
+  mirror1.mirror.provider1.production.govuk.service.gov.uk:
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
+    type: 'ssh-rsa'
 
 govuk_jenkins::config::banner_colour_background: '#df3034'
 govuk_jenkins::config::banner_colour_text: 'white'
@@ -183,14 +205,16 @@ govuk_jenkins::config::theme_colour: '#df3034'
 govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Production'
 
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
-
 govuk_jenkins::job_builder::environment: 'production'
+
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 7 * * *'
+
+govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache: true
 
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
-govuk_jenkins::jobs::smokey::environment: production
+govuk_jenkins::jobs::smokey::environment: production_aws
 
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
   -
@@ -227,6 +251,7 @@ licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
+monitoring::checks::aws_origin_domain: "production.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
@@ -245,7 +270,7 @@ monitoring::checks::rds::servers:
    - 'mysql-primary'
    - 'mysql-replica'
 
-monitoring::checks::smokey::environment: 'production'
+monitoring::checks::smokey::environment: 'production_aws'
 monitoring::uptime_collector::environment: 'production'
 
 postfix::smarthost:
@@ -254,16 +279,7 @@ postfix::smarthost:
 postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
-router::nginx::robotstxt: |
-  User-agent: *
-  Disallow: /
-
 nginx::config::stack_network_prefix: '10.13.0'
-
-govuk_datascrubber::ensure: 'latest'
-govuk_datascrubber::share_with:
-  - '210287912431'     # AWS integration
-govuk_datascrubber::s3_export_prefix: 's3://govuk-staging-database-backups/scrubbed'
 
 hosts::backend_migration::hosts:
   calculators-frontend-3.frontend.publishing.service.gov.uk:
@@ -313,7 +329,6 @@ hosts::backend_migration::hosts:
       - info-frontend.publishing.service.gov.uk
       - manuals-frontend.publishing.service.gov.uk
       - licencefinder.publishing.service.gov.uk
-      - publicapi.publishing.service.gov.uk
       - service-manual.publishing.service.gov.uk
       - service-manual-frontend.publishing.service.gov.uk
       - smartanswers.publishing.service.gov.uk
@@ -462,11 +477,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - draft-frontend-2.frontend
       - draft-frontend-2
-  elasticsearch-3.backend.publishing.service.gov.uk:
-    ip: 10.3.3.17
-    host_aliases:
-      - elasticsearch-3.backend
-      - elasticsearch-3
   vcloud-no-vpn.carrenza.com:
     ip: 31.210.240.69
   router-backend-1.router.publishing.service.gov.uk:
@@ -505,7 +515,6 @@ hosts::backend_migration::hosts:
       - draft-cache-internal-lb.router
       - draft-cache-internal-lb
       - draft-router-api.publishing.service.gov.uk
-      - draft-publicapi.publishing.service.gov.uk
   mirrorer-1.management.publishing.service.gov.uk:
     ip: 10.3.0.128
     host_aliases:
@@ -530,9 +539,6 @@ hosts::backend_migration::hosts:
       - cache.cluster
       - router.cluster
       - cache
-      - www.publishing.service.gov.uk
-      - www-origin.publishing.service.gov.uk
-      - assets-origin.publishing.service.gov.uk
   # monitoring-1.management.publishing.service.gov.uk:
   #   ip: 10.3.0.20
   #   host_aliases:
@@ -593,11 +599,6 @@ hosts::backend_migration::hosts:
   #   host_aliases:
   #     - jumpbox-1.management
   #     - jumpbox-1
-  # elasticsearch-2.backend.publishing.service.gov.uk:
-  #   ip: 10.3.3.16
-  #   host_aliases:
-  #     - elasticsearch-2.backend
-  #     - elasticsearch-2
   whitehall-frontend-2.frontend.publishing.service.gov.uk:
     ip: 10.3.2.6
     host_aliases:
@@ -608,11 +609,6 @@ hosts::backend_migration::hosts:
   #   host_aliases:
   #     - bouncer-vse-lb.redirector
   #     - bouncer-vse-lb
-  # elasticsearch-1.backend.publishing.service.gov.uk:
-  #   ip: 10.3.3.15
-  #   host_aliases:
-  #     - elasticsearch-1.backend
-  #     - elasticsearch-1
   calculators-frontend-2.frontend.publishing.service.gov.uk:
     ip: 10.3.2.12
     host_aliases:
@@ -646,6 +642,7 @@ hosts::backend_migration::hosts:
       - contacts-admin.publishing.service.gov.uk
       - content-audit-tool.publishing.service.gov.uk
       - content-data-admin.publishing.service.gov.uk
+      - content-data-api.publishing.service.gov.uk
       - content-performance-manager.publishing.service.gov.uk
       - content-publisher.publishing.service.gov.uk
       - content-tagger.publishing.service.gov.uk
@@ -689,7 +686,6 @@ hosts::backend_migration::hosts:
       - backdrop-read.publishing.service.gov.uk
       - backdrop-write.publishing.service.gov.uk
       - content-store.publishing.service.gov.uk
-      - rummager.publishing.service.gov.uk
       - search.publishing.service.gov.uk
   content-store-3.api.publishing.service.gov.uk:
     ip: 10.3.4.13
@@ -815,7 +811,6 @@ hosts::backend_migration::hosts:
       - apt.cluster
       - gemstash.cluster
       - apt-1
-      - apt.production.alphagov.co.uk
   search-2.api.publishing.service.gov.uk:
     ip: 10.3.4.5
     host_aliases:
@@ -1047,21 +1042,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - docker-backend-1.backend
       - docker-backend-1
-  rummager-elasticsearch-2.api.publishing.service.gov.uk:
-    ip: 10.3.4.56
-    host_aliases:
-      - rummager-elasticsearch-2.api
-      - rummager-elasticsearch-2
-  rummager-elasticsearch-1.api.publishing.service.gov.uk:
-    ip: 10.3.4.55
-    host_aliases:
-      - rummager-elasticsearch-1.api
-      - rummager-elasticsearch-1
-  rummager-elasticsearch-3.api.publishing.service.gov.uk:
-    ip: 10.3.4.57
-    host_aliases:
-      - rummager-elasticsearch-3.api
-      - rummager-elasticsearch-3
   ci-agent-6.ci.publishing.service.gov.uk:
     ip: 10.1.6.26
     host_aliases:

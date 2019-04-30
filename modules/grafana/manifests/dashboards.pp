@@ -34,7 +34,6 @@ class grafana::dashboards (
   }
   file {
     "${dashboard_directory}/publishing_api_overview.json": content => template('grafana/dashboards/publishing_api_overview.json.erb');
-    "${dashboard_directory}/rummager_index_size.json": content => template('grafana/dashboards/rummager_index_size.json.erb');
   }
 
   create_resources('grafana::dashboards::application_dashboard', $application_dashboards, {
@@ -50,6 +49,10 @@ class grafana::dashboards (
       "${dashboard_directory}/aws-elb-classic-load-balancer.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-elb-classic-load-balancer.json';
       "${dashboard_directory}/aws-rds.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-rds.json';
       "${dashboard_directory}/aws-s3.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-s3.json';
+      "${dashboard_directory}/detailed_search_api_queues.json": source => 'puppet:///modules/grafana/dashboards_aws/detailed_search_api_queues.json';
+      "${dashboard_directory}/search_api_elasticsearch.json": source => 'puppet:///modules/grafana/dashboards_aws/search_api_elasticsearch.json';
+      "${dashboard_directory}/search_api_queues.json": source => 'puppet:///modules/grafana/dashboards_aws/search_api_queues.json';
+      "${dashboard_directory}/search_api_index_size.json": content => template('grafana/dashboards_aws/search_api_index_size.json.erb');
     }
   }
 }

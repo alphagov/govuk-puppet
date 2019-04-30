@@ -50,6 +50,22 @@
 #   Create the default.conf site in nginx
 #   Default: false
 #
+# [*monitor_unicornherder*]
+#   Whether to set up Icinga alerts that monitor unicornherder. This is true if
+#   the app_type is set to 'rack' but this is useful if your app uses a Procfile
+#   which runs unicornherder.
+#   Default: true if app_type is 'rack' else false
+#
+# [*local_tcpconns_established_warning*]
+#   Warning value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
+#
+# [*local_tcpconns_established_critical*]
+#   Critical value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -84,9 +100,12 @@ define govuk::app::config (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
-  $alert_when_threads_exceed = 100,
+  $alert_when_threads_exceed = undef,
   $override_search_location = undef,
   $create_default_nginx_config = false,
+  $monitor_unicornherder = undef,
+  $local_tcpconns_established_warning = undef,
+  $local_tcpconns_established_critical = undef,
 ) {
   $ensure_directory = $ensure ? {
     'present' => 'directory',
@@ -166,7 +185,7 @@ define govuk::app::config (
     }
 
     if $override_search_location {
-      govuk::app::envar {
+      govuk::app::envvar {
         "${title}-PLEK_SERVICE_SEARCH_URI":
           varname => 'PLEK_SERVICE_SEARCH_URI',
           value   => $override_search_location;
@@ -263,7 +282,7 @@ define govuk::app::config (
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
 
-    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging') {
+    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging' or $::aws_environment == 'production') {
       nginx::config::vhost::app_default { 'default':
         app_healthcheck_url     => $health_check_path,
         app_hostname            => $title,
@@ -317,16 +336,37 @@ define govuk::app::config (
     }
   }
 
-  collectd::plugin::tcpconn { "app-${title_underscore}":
-    ensure   => $ensure,
-    incoming => $port,
-    outgoing => $port,
+  if $port != 0 {
+    collectd::plugin::tcpconn { "app-${title_underscore}":
+      ensure   => $ensure,
+      incoming => $port,
+      outgoing => $port,
+    }
+
+    $local_tcpconns_warning = pick(
+      $local_tcpconns_established_warning,
+      $unicorn_worker_processes,
+      2 # Defualt from govuk_app_config for Unicorn worker processes
+    )
+    $local_tcpconns_critical = pick(
+      $local_tcpconns_established_critical,
+      $local_tcpconns_warning + 2
+    )
+
+    @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
+      ensure    => $ensure,
+      target    => "${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED",
+      warning   => $local_tcpconns_warning,
+      critical  => $local_tcpconns_critical,
+      desc      => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
+      host_name => $::fqdn,
+    }
   }
 
   @logrotate::conf { "govuk-${title}":
     ensure  => $ensure,
     matches => "/var/log/${title}/*.log",
-    maxsize => '500M',
+    maxsize => '100M',
   }
 
   @logrotate::conf { "govuk-${title}-rack":
@@ -334,7 +374,7 @@ define govuk::app::config (
     matches => "/data/vhost/${vhost_full}/shared/log/*.log",
     user    => 'deploy',
     group   => 'deploy',
-    maxsize => '500M',
+    maxsize => '100M',
   }
 
   if $health_check_path != 'NOTSET' {
@@ -362,7 +402,7 @@ define govuk::app::config (
       }
     }
   }
-  if $app_type == 'rack' {
+  if ($app_type == 'rack') or $monitor_unicornherder {
     @@icinga::check { "check_app_${title}_unicornherder_up_${::hostname}":
       ensure              => $ensure,
       check_command       => "check_nrpe!check_proc_running_with_arg!unicornherder /var/run/${title}/app.pid",
@@ -370,6 +410,8 @@ define govuk::app::config (
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(unicorn-herder),
     }
+  }
+  if $app_type == 'rack' {
     include icinga::client::check_unicorn_workers
     @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
       ensure              => $ensure,

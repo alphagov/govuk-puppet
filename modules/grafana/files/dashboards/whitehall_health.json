@@ -405,79 +405,9 @@
           "timeFrom": null,
           "timeShift": null,
           "seriesOverrides": []
-        },
-        {
-          "aliasColors": {},
-          "annotate": {
-            "enable": false
-          },
-          "bars": false,
-          "datasource": "Graphite",
-          "fill": 0,
-          "grid": {
-            "max": null,
-            "min": 0,
-            "threshold1": null,
-            "threshold1Color": "rgba(216, 200, 27, 0.27)",
-            "threshold2": null,
-            "threshold2Color": "rgba(234, 112, 112, 0.22)"
-          },
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "resolution": 100,
-          "scale": 1,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "target": "aliasSub(groupByNode({rummager-elasticsearch,elasticsearch,support}-*.cpu-*.cpu-user,0,\"sumSeries\"),\"_backend\",\"\")",
-              "refId": "A"
-            }
-          ],
-          "title": "ElasticSearch CPU Usage",
-          "tooltip": {
-            "query_as_alias": true,
-            "value_type": "cumulative",
-            "shared": true,
-            "msResolution": true
-          },
-          "type": "graph",
-          "zerofill": true,
-          "id": 6,
-          "yaxes": [
-            {
-              "show": true,
-              "format": "short"
-            },
-            {
-              "show": true,
-              "format": "short"
-            }
-          ],
-          "xaxis": {
-            "show": true
-          },
-          "timeFrom": null,
-          "timeShift": null,
-          "seriesOverrides": []
         }
       ],
-      "title": "ES & MySQL CPU"
+      "title": "MySQL CPU"
     }
   ],
   "time": {

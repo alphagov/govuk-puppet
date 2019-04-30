@@ -104,13 +104,13 @@ class govuk_datascrubber (
     ])
   )
 
-  $cron_ensure = $ensure ? {
+  $ensure_absent_or_present = $ensure ? {
     'absent' => 'absent',
     default  => 'present',
   }
 
   cron { 'datascrubber' :
-    ensure  => $cron_ensure,
+    ensure  => $ensure_absent_or_present,
     user    => $cron_user,
     hour    => $cron_hour,
     minute  => $cron_minute,
@@ -129,6 +129,9 @@ class govuk_datascrubber (
   # Puppet 3.8 w/o future parser.
   #
   $icinga_checks = parsejson(template('govuk_datascrubber/generate_icinga_checks.erb'))
-  create_resources('::govuk_datascrubber::icinga_check', $icinga_checks)
-
+  create_resources(
+    '::govuk_datascrubber::icinga_check',
+    $icinga_checks,
+    { ensure => $ensure_absent_or_present },
+  )
 }

@@ -38,12 +38,28 @@
 #   Redis port for Content Audit Tool Sidekiq.
 #   Default: undef
 #
-# [*content_performance_manager_redis_host*]
-#   Redis host for Content Performance Manager Sidekiq.
+# [*content_data_admin_redis_host*]
+#   Redis host for Content Data Admin Sidekiq.
 #   Default: undef
 #
-# [*content_performance_manager_redis_port*]
-#   Redis port for Content Performance Manager Sidekiq.
+# [*content_data_admin_redis_port*]
+#   Redis port for Content Data Admin Sidekiq.
+#   Default: undef
+#
+# [*content_data_api_redis_host*]
+#   Redis host for Content Data API Sidekiq.
+#   Default: undef
+#
+# [*content_data_api_redis_port*]
+#   Redis port for Content Data API Sidekiq.
+#   Default: undef
+#
+# [*content_publisher_redis_host*]
+#   Redis host for Content Publisher Sidekiq.
+#   Default: undef
+#
+# [*content_publisher_redis_port*]
+#   Redis port for Content Publisher Sidekiq.
 #   Default: undef
 #
 # [*content_tagger_redis_host*]
@@ -100,14 +116,6 @@
 #
 # [*publishing_api_redis_port*]
 #   Redis port for Publishing API Sidekiq.
-#   Default: undef
-#
-# [*rummager_redis_host*]
-#   Redis host for Rummager Sidekiq.
-#   Default: undef
-#
-# [*rummager_redis_port*]
-#   Redis port for Rummager Sidekiq.
 #   Default: undef
 #
 # [*search_api_redis_host*]
@@ -175,8 +183,12 @@ class govuk::apps::sidekiq_monitoring (
   $collections_publisher_redis_port = undef,
   $content_audit_tool_redis_host = undef,
   $content_audit_tool_redis_port = undef,
-  $content_performance_manager_redis_host = undef,
-  $content_performance_manager_redis_port = undef,
+  $content_data_admin_redis_host = undef,
+  $content_data_admin_redis_port = undef,
+  $content_data_api_redis_host = undef,
+  $content_data_api_redis_port = undef,
+  $content_publisher_redis_host = undef,
+  $content_publisher_redis_port = undef,
   $content_tagger_redis_host = undef,
   $content_tagger_redis_port = undef,
   $email_alert_api_redis_host = undef,
@@ -191,8 +203,6 @@ class govuk::apps::sidekiq_monitoring (
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
   $publishing_api_redis_port = undef,
-  $rummager_redis_host = undef,
-  $rummager_redis_port = undef,
   $search_api_redis_host = undef,
   $search_api_redis_port = undef,
   $signon_redis_host = undef,
@@ -250,10 +260,20 @@ class govuk::apps::sidekiq_monitoring (
       host   => $content_audit_tool_redis_host,
       port   => $content_audit_tool_redis_port;
 
-    "${app_name}_content_performance_manager":
-      prefix => 'content_performance_manager',
-      host   => $content_performance_manager_redis_host,
-      port   => $content_performance_manager_redis_port;
+    "${app_name}_content_data_admin":
+      prefix => 'content_data_admin',
+      host   => $content_data_admin_redis_host,
+      port   => $content_data_admin_redis_port;
+
+    "${app_name}_content_data_api":
+      prefix => 'content_data_api',
+      host   => $content_data_api_redis_host,
+      port   => $content_data_api_redis_port;
+
+    "${app_name}_content_publisher":
+      prefix => 'content_publisher',
+      host   => $content_publisher_redis_host,
+      port   => $content_publisher_redis_port;
 
     "${app_name}_content_tagger":
       prefix => 'content_tagger',
@@ -289,11 +309,6 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'publishing_api',
       host   => $publishing_api_redis_host,
       port   => $publishing_api_redis_port;
-
-    "${app_name}_rummager":
-      prefix => 'rummager',
-      host   => $rummager_redis_host,
-      port   => $rummager_redis_port;
 
     "${app_name}_signon":
       prefix => 'signon',

@@ -25,8 +25,8 @@
 class govuk_gor(
   $args = {},
   $enable = false,
-  $version = '0.14.1',
-  $binary_path = '/usr/local/bin/gor',
+  $version = '0.16.1',
+  $binary_path = '/usr/local/bin/goreplay',
   $envvars = {},
   $apt_mirror_hostname,
 ) {
@@ -57,8 +57,14 @@ class govuk_gor(
     $logstream_ensure   = absent
   }
 
+  # This is to remove the old gor 0.14.1
+  package { 'gor':
+    ensure => absent,
+  }
+
   class { '::gor':
     args           => $args,
+    package_name   => 'goreplay',
     package_ensure => $version,
     service_ensure => $gor_service_ensure,
     envvars        => $envvars,
@@ -74,7 +80,7 @@ class govuk_gor(
 
   @@icinga::check { "check_gor_running_${::hostname}":
     ensure              => $nagios_ensure,
-    check_command       => 'check_nrpe!check_proc_running!gor',
+    check_command       => 'check_nrpe!check_proc_running!goreplay',
     host_name           => $::fqdn,
     service_description => 'gor running',
     notes_url           => monitoring_docs_url(gor),

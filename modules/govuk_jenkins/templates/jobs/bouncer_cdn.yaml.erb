@@ -9,7 +9,7 @@
 
 - job:
     name: Bouncer_CDN
-    display-name: Bouncer_CDN
+    display-name: "CDN: deploy Bouncer configs"
     project-type: freestyle
     description: "After a loading new site config into the Transition app, this job will make sure that the traffic hitting the CDN for those domains is routed to Bouncer."
     properties:
@@ -39,6 +39,9 @@
               predefined-parameters: |
                   NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                   NSCA_OUTPUT=<%= @service_description %> failed
+        - trigger:
+            project: Smokey
+            threshold: SUCCESS
     wrappers:
         - ansicolor:
             colormap: xterm

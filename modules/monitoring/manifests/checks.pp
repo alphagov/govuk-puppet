@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*aws_origin_domain*]
+#   the domain name used by the AWS cache load balancer
+#
 # [*http_username*]
 #   Basic auth HTTP username
 #
@@ -11,8 +14,9 @@
 #   Password for $http_username
 #
 class monitoring::checks (
-  $http_username = 'UNSET',
-  $http_password = 'UNSET',
+  $aws_origin_domain = undef,
+  $http_username     = 'UNSET',
+  $http_password     = 'UNSET',
 ) {
 
   exec { 'install_boto':
@@ -76,31 +80,48 @@ class monitoring::checks (
   }
 
   # START ssl certificate checks
-  icinga::check { 'check_www_cert_valid_at_origin':
-    # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
-    check_command       => "check_ssl_cert!www-origin.${app_domain}!www.gov.uk!30",
-    host_name           => $::fqdn,
-    service_description => 'check the www.gov.uk TLS certificate at ORIGIN is valid and not due to expire',
-    notes_url           => monitoring_docs_url(renew-tls-certificate),
+  if $::aws_migration {
+    # migration of the www-origin.*.publishing.service.gov.uk to AWS is now complete
+    icinga::check { 'check_www_cert_valid_at_origin':
+      # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
+      check_command       => "check_ssl_cert!www-origin.${app_domain}!www.gov.uk!30",
+      host_name           => $::fqdn,
+      service_description => 'check the www.gov.uk TLS certificate at ORIGIN is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
+
+    icinga::check { 'check_www_cert_valid_at_aws_origin':
+      # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI
+      check_command       => "check_ssl_cert!www-origin.${aws_origin_domain}!www.gov.uk!30",
+      host_name           => $::fqdn,
+      service_description => 'check the www.gov.uk TLS certificate at AWS ORIGIN is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
   }
+
   icinga::check { 'check_www_cert_valid_at_edge':
     check_command       => 'check_ssl_cert!www.gov.uk!www.gov.uk!30',
     host_name           => $::fqdn,
     service_description => 'check the www.gov.uk TLS certificate at EDGE is valid and not due to expire',
     notes_url           => monitoring_docs_url(renew-tls-certificate),
   }
-  icinga::check { 'check_www_staging_cert_valid_at_edge':
-    check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!30',
-    host_name           => $::fqdn,
-    service_description => 'check the www.staging.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
-    notes_url           => monitoring_docs_url(renew-tls-certificate),
+
+  if $::aws_migration {
+    icinga::check { 'check_www_staging_cert_valid_at_edge':
+      check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!30',
+      host_name           => $::fqdn,
+      service_description => 'check the www.staging.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
+      notes_url           => monitoring_docs_url(renew-tls-certificate),
+    }
   }
+
   icinga::check { 'check_www_integration_cert_valid_at_edge':
     check_command       => 'check_ssl_cert!www.integration.publishing.service.gov.uk!www.integration.publishing.service.gov.uk!30',
     host_name           => $::fqdn,
     service_description => 'check the www.integration.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
     notes_url           => monitoring_docs_url(renew-tls-certificate),
   }
+
   icinga::check { 'check_wildcard_cert_valid':
     check_command       => "check_ssl_cert!signon.${app_domain}!signon.${app_domain}!30",
     host_name           => $::fqdn,
@@ -131,88 +152,70 @@ class monitoring::checks (
   }
   # END DNS checks
 
-  # START search
+  if $::aws_migration {
+    # START search
 
-  # On average 326 new documents were created per day in 2017, in total.
-  # The govuk index will only receive a fraction of these until we start
-  # indexing whitehall content in it.
-  #
-  # These metrics are reported from a rake task, run every 10 minutes
-  # by Jenkins. Assuming Graphite is keeping metrics in 5 second
-  # intervals, there should be a 120 interval gap (600 seconds / 5)
-  # between measurements on average.
+    # On average 326 new documents were created per day in 2017, in total.
+    # The govuk index will only receive a fraction of these until we start
+    # indexing whitehall content in it.
+    #
+    # These metrics are reported from a rake task, run every 10 minutes
+    # by Jenkins. Assuming Graphite is keeping metrics in 5 second
+    # intervals, there should be a 120 interval gap (600 seconds / 5)
+    # between measurements on average.
 
-  # Drop all but the last minute of data (assuming 5 second intervals)
-  $drop_first = '-12'
+    # Drop all but the last minute of data (assuming 5 second intervals)
+    $drop_first = '-12'
 
-  # Smooth out the data by using keepLastValue, with a limit of 132
-  # intervals, which is 10 minutes, plus a minute of padding to avoid
-  # any spurious alerts from late arriving metrics. It's important to
-  # set a limit here so that if the metrics are missing, then the
-  # alerts will fire.
-  $keep_last_value_limit = '132'
+    # Smooth out the data by using keepLastValue, with a limit of 132
+    # intervals, which is 10 minutes, plus a minute of padding to avoid
+    # any spurious alerts from late arriving metrics. It's important to
+    # set a limit here so that if the metrics are missing, then the
+    # alerts will fire.
+    $keep_last_value_limit = '132'
 
-  icinga::check::graphite { 'check_rummager_govuk_index_size_changed':
-    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.govuk_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 3000,
-    critical            => 10000,
-    desc                => 'rummager govuk index size has significantly increased/decreased over the last 7 days',
-    host_name           => $::fqdn,
-    notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
-    notes_url           => monitoring_docs_url(rummager-index-size-change),
-    from                => '25minutes',
-    args                => "--dropfirst ${drop_first}",
-  }
-
-  # Government is comparable to the govuk index.
-  icinga::check::graphite { 'check_rummager_government_index_size_changed':
-    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.government_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 2500,
-    critical            => 8000,
-    desc                => 'rummager government index size has significantly increased/decreased over the last 7 days',
-    host_name           => $::fqdn,
-    notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
-    notes_url           => monitoring_docs_url(rummager-index-size-change),
-    from                => '25minutes',
-    args                => "--dropfirst ${drop_first}",
-  }
-
-  # Detailed is smaller than the other indexes (about 4500 documents)
-  icinga::check::graphite { 'check_rummager_detailed_index_size_changed':
-    target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.rummager.detailed_index.docs.count,${keep_last_value_limit}), \"7d\")))",
-    warning             => 100,
-    critical            => 500,
-    desc                => 'rummager detailed index size has significantly increased/decreased over the last 7 days',
-    host_name           => $::fqdn,
-    notification_period => 'inoffice',
-    action_url          => "https://grafana.${app_domain}/dashboard/file/rummager_index_size.json",
-    notes_url           => monitoring_docs_url(rummager-index-size-change),
-    from                => '25minutes',
-    args                => "--dropfirst ${drop_first}",
-  }
-
-  # END search
-
-  icinga::plugin { 'check_hsts_headers':
-    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_hsts_headers',
-  }
-
-  icinga::check_config { 'check_hsts_headers':
-    content => template('monitoring/check_hsts_headers.cfg.erb'),
-    require => Icinga::Plugin['check_hsts_headers'],
-  }
-
-  # We can't have Strict-Transport-Security headers in AWS since
-  # SSL is terminated at the ELB, which doesn't support this header,
-  # and nginx only receives HTTP requests.
-  unless $::aws_migration {
-    icinga::check { "check_hsts_headers_from_${::hostname}":
-      check_command       => 'check_hsts_headers',
-      service_description => 'Strict-Transport-Security headers',
+    icinga::check::graphite { 'check_search_api_govuk_index_size_changed':
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.govuk_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.govuk_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      warning             => 3000,
+      critical            => 10000,
+      desc                => 'search-api govuk index size has significantly increased/decreased over the last 7 days',
       host_name           => $::fqdn,
+      notification_period => 'inoffice',
+      action_url          => "https://grafana.${app_domain}/dashboard/file/search_api_index_size.json",
+      notes_url           => monitoring_docs_url(search-api-index-size-change),
+      from                => '25minutes',
+      args                => "--dropfirst ${drop_first}",
     }
+
+    # Government is comparable to the govuk index.
+    icinga::check::graphite { 'check_search_api_government_index_size_changed':
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.government_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      warning             => 2500,
+      critical            => 8000,
+      desc                => 'search-api government index size has significantly increased/decreased over the last 7 days',
+      host_name           => $::fqdn,
+      notification_period => 'inoffice',
+      action_url          => "https://grafana.${app_domain}/dashboard/file/search_api_index_size.json",
+      notes_url           => monitoring_docs_url(search-api-index-size-change),
+      from                => '25minutes',
+      args                => "--dropfirst ${drop_first}",
+    }
+
+    # Detailed is smaller than the other indexes (about 4500 documents)
+    icinga::check::graphite { 'check_search_api_detailed_index_size_changed':
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.detailed_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.detailed_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      warning             => 100,
+      critical            => 500,
+      desc                => 'search-api detailed index size has significantly increased/decreased over the last 7 days',
+      host_name           => $::fqdn,
+      notification_period => 'inoffice',
+      action_url          => "https://grafana.${app_domain}/dashboard/file/search_api_index_size.json",
+      notes_url           => monitoring_docs_url(search-api-index-size-change),
+      from                => '25minutes',
+      args                => "--dropfirst ${drop_first}",
+    }
+
+    # END search
   }
 
   # In AWS this is liable to happen more often as machines come and go

@@ -81,6 +81,15 @@ class puppet::puppetdb (
     notify  => Service['puppetdb'],
   }
 
+  file_line { 'initd_puppetdb':
+    ensure  => present,
+    path    => '/etc/init.d/puppetdb',
+    line    => "\t-XX:OnOutOfMemoryError='kill -9 %p; /etc/init.d/puppetdb restart; /etc/init.d/puppetserver restart' \$JAVA_ARGS \\",
+    match   => '-XX:OnOutOfMemoryError=',
+    require => Package['puppetdb'],
+    notify  => Service['puppetdb'],
+  }
+
   file_line { 'default_puppetdb':
     ensure  => present,
     path    => '/etc/default/puppetdb',
@@ -120,4 +129,3 @@ class puppet::puppetdb (
     matches => '/var/log/puppetdb/*.log',
   }
 }
-

@@ -1,0 +1,237 @@
+---
+app_domain: "training.govuk.digital"
+app_domain_internal: "training.govuk-internal.digital"
+
+base::shell::shell_prompt_string: 'training'
+base::supported_kernel::enabled: false
+
+cron::weekly_dow: 1
+cron::daily_hour: 6
+
+environment_ip_prefix: '10.4'
+
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-training'
+govuk::apps::asset_manager::aws_region: 'eu-west-2'
+govuk::apps::ckan::ckan_site_url: 'https://ckan.training.govuk.digital'
+govuk::apps::ckan::s3_bucket_name: "datagovuk-training-ckan-organogram"
+govuk::apps::ckan::s3_aws_region_name: "eu-west-2"
+govuk::apps::ckan::vhost_protected: true
+govuk::apps::ckan::cronjobs::enable_solr_reindex: true
+govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
+govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
+govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-training-content-data-csvs'
+govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '14'
+govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: '14'
+govuk::apps::content_publisher::aws_s3_bucket: "govuk-training-content-publisher-activestorage"
+govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
+govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
+govuk::apps::content_publisher::google_tag_manager_preview: "env-6"
+govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-training@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
+govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-training-email-alert-api-archive'
+govuk::apps::email_alert_api::email_archive_s3_enabled: true
+govuk::apps::email_alert_api::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
+govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
+govuk::apps::email_alert_api::email_address_override_whitelist_only: true
+govuk::apps::email_alert_api::delivery_request_threshold: "3000"
+govuk::apps::email_alert_frontend::subscription_management_enabled: true
+govuk::apps::govuk_crawler_worker::enabled: false
+govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
+govuk::apps::kibana::logit_environment: 2694f14b-6519-4607-81f2-8a2130e5aaec
+govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-training'
+govuk::apps::publishing_api::content_api_prototype: true
+govuk::apps::short_url_manager::instance_name: 'training'
+govuk::apps::signon::instance_name: 'training'
+govuk::apps::smartanswers::expose_govspeak: true
+govuk::apps::specialist_publisher::publish_pre_production_finders: true
+govuk::apps::static::ga_universal_id: 'UA-26179049-22'
+govuk::apps::support::aws_s3_bucket_name: 'govuk-training-support-api-csvs'
+govuk::apps::support_api::aws_s3_bucket_name: 'govuk-training-support-api-csvs'
+govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::show_historical_edition_link: true
+govuk::apps::url_arbiter::db::backend_ip_range: '10.4.3.0/24'
+govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::whitehall::highlight_words_to_avoid: true
+
+govuk_search::gor::port: 3233
+
+govuk_search::monitoring::es_port: '80'
+govuk_search::monitoring::es_host: 'elasticsearch5.training.govuk-internal.digital'
+
+govuk::apps::content_store::plek_service_rummager_uri: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::collections::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::content_store::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::content_tagger::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::finder_frontend::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::licencefinder::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::search_admin::override_search_location: 'https://search-api.training.govuk-internal.digital'
+govuk::apps::whitehall::override_search_location: 'https://search-api.training.govuk-internal.digital'
+
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-2.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: "training-%{hiera('stackname')}-aws"
+govuk::deploy::config::licensify_app_domain: 'training.govuk.digital'
+govuk::deploy::setup::ssh_keys:
+  jenkins_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa1zEG3dIOwsTTcJsMybZW0nPmCLBqS9/xzv4WoW5VzvID6yrSlg5XfX1Qxq8FmFGIDaAhb1fna2Z05EAC1Jh8EnCSFK8Q6NaUGxlyYoHRD06kZI8ZdAj3Ct8Hsqa0YaWKa/vSIWKIRtboVKm6SMbNxcLwQ04AG2zP2wtnGpyDKBPZol/L3jxVExx1B2lIww0drSKNFKQzM9kijZyAmhu8ocClNl19Rv86q44v0PcDIv5hkW5bEbsavTghnLNXad2dmiSP5Se68NscumyboetuG+o0lOFbFjuHk8NaXklOWiFZxJaJXiOVLihXHVhpDcuXEzwNoOKhYEzA06vHBVXbngBuEsgns/Hgpz4we2H4y4k9w9eJ4rKNhTvrfAzcYzEsnmhbNtQMZaLbqKnWBt2+X6lKTYUBpnUWXwLMaAb5dqEqD+LGiDxcfJ4b6UctSR7+CF29gRChwv0HUO1NdiVzZ2AMrqsYp9QtCWnfNipveGZl9Rqox3JSt4u/+7+I9xw0d8bFp8xCPxan78eMu42i3jNm4qcbbXGvPU6WFP0htjZZ8S0Fq7Dss4AbADrLxwepW8n7E+PozZRjH2P7TgmZ+wQXS6aUNHdgDeYsv5070NYK33wuE2f9GNVuN35/5ImB9PuyxDNSdHIPXTABMOZk7fVQUqXLCRw=='
+  jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
+  jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
+
+govuk_cdnlogs::govuk_monitoring_enabled: false
+govuk_cdnlogs::bouncer_monitoring_enabled: false
+
+govuk_containers::terraboard::aws_bucket: 'govuk-training-terraform-state'
+govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.training.govuk.digital'
+
+govuk_elasticsearch::dump::run_es_dump_hour: '9'
+
+govuk_jenkins::job_builder::environment: 'training'
+govuk_jenkins::config::executors: '8'
+
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
+
+govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule: '0 13 * * *'
+
+govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
+govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-training'
+govuk_jenkins::jobs::deploy_dns::zones:
+  - 'dnstest.alphagov.co.uk'
+
+govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
+govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_password: "%{hiera('govuk::node::s_jenkins::jenkins_api_token')}"
+
+govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: true
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 11 * * *'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '15 11 * * *'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '45 11 * * *'
+
+govuk_jenkins::jobs::smokey::environment: training
+
+govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-training'
+
+govuk_jenkins::jobs::search_benchmark::cron_schedule: '30 9 * * 1-5'
+govuk_jenkins::jobs::search_test_spelling_suggestions::cron_schedule: '0 10 * * 1-5'
+
+govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '30 9 * * 1-5'
+
+govuk_jenkins::jobs::search_api_fetch_analytics_data::skip_page_traffic_load: true
+govuk_jenkins::jobs::search_api_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
+
+govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa1zEG3dIOwsTTcJsMybZW0nPmCLBqS9/xzv4WoW5VzvID6yrSlg5XfX1Qxq8FmFGIDaAhb1fna2Z05EAC1Jh8EnCSFK8Q6NaUGxlyYoHRD06kZI8ZdAj3Ct8Hsqa0YaWKa/vSIWKIRtboVKm6SMbNxcLwQ04AG2zP2wtnGpyDKBPZol/L3jxVExx1B2lIww0drSKNFKQzM9kijZyAmhu8ocClNl19Rv86q44v0PcDIv5hkW5bEbsavTghnLNXad2dmiSP5Se68NscumyboetuG+o0lOFbFjuHk8NaXklOWiFZxJaJXiOVLihXHVhpDcuXEzwNoOKhYEzA06vHBVXbngBuEsgns/Hgpz4we2H4y4k9w9eJ4rKNhTvrfAzcYzEsnmhbNtQMZaLbqKnWBt2+X6lKTYUBpnUWXwLMaAb5dqEqD+LGiDxcfJ4b6UctSR7+CF29gRChwv0HUO1NdiVzZ2AMrqsYp9QtCWnfNipveGZl9Rqox3JSt4u/+7+I9xw0d8bFp8xCPxan78eMu42i3jNm4qcbbXGvPU6WFP0htjZZ8S0Fq7Dss4AbADrLxwepW8n7E+PozZRjH2P7TgmZ+wQXS6aUNHdgDeYsv5070NYK33wuE2f9GNVuN35/5ImB9PuyxDNSdHIPXTABMOZk7fVQUqXLCRw=='
+
+govuk_mtail::graphite_host_port: 'graphite:2003'
+
+govuk::node::s_api_lb::api_servers:
+  - "api"
+govuk::node::s_api_lb::content_store_servers:
+  - "content-store"
+govuk::node::s_api_lb::draft_content_store_servers:
+  - "draft-content-store"
+govuk::node::s_api_lb::mapit_servers:
+  - "mapit-1"
+  - "mapit-2"
+govuk::node::s_api_lb::search_servers:
+  - "search"
+  - "search"
+
+govuk::node::s_asset_master::copy_attachments_hour: 11
+
+govuk::node::s_backend_lb::backend_servers:
+  - 'backend'
+govuk::node::s_backend_lb::whitehall_backend_servers:
+  - 'whitehall-backend'
+govuk::node::s_backend_lb::publishing_api_backend_servers:
+  - 'publishing-api'
+govuk::node::s_bouncer::minimum_request_rate: 0.1
+govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
+govuk::node::s_cache::protect_cache_servers: true
+govuk::node::s_mirrorer::daily_queue_purge: true
+govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-training'
+govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
+govuk::node::s_whitehall_backend::sync_mirror: true
+
+govuk_sudo::sudo_conf:
+  deploy_service_postgresql:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
+
+# FIXME: This PPA should be renamed 'integration'
+govuk_ppa::path: 'preview'
+
+grafana::dashboards::machine_suffix_metrics: '_training'
+
+mongodb::backup::mongo_backup_node: 'localhost'
+
+monitoring::checks::aws_origin_domain: "training.govuk.digital"
+monitoring::checks::sidekiq::enable_support_check: false
+monitoring::checks::pingdom::enable: false
+monitoring::checks::ses::region: 'eu-west-2'
+monitoring::checks::rds::region: 'eu-west-2'
+monitoring::checks::cache::region: 'eu-west-2'
+monitoring::checks::smokey::environment: 'training'
+monitoring::uptime_collector::environment: 'training'
+
+postfix::smarthost:
+  - 'email-smtp.eu-west-2.amazonaws.com:587'
+
+router::nginx::check_requests_warning: '@0.5'
+router::nginx::check_requests_critical: '@0.25'
+
+users::usernames:
+  - agnieszkadufrat
+  - alangabbianelli
+  - alexandrujurubita
+  - anafernandez
+  - andysellick
+  - anikahenke
+  - benthorner
+  - bevanloon
+  - brucebolt
+  - camilledescartes
+  - christopherashton
+  - christopherbaines
+  - deanwilson
+  - deborahchua
+  - dilwoarhussain
+  - edwardkerry
+  - elliotcm
+  - emmabeynon
+  - erinrajstaniland
+  - felisialoukou
+  - fredericfrancois
+  - ianjames
+  - jessicajones
+  - jonathanhallam
+  - joskoetsier
+  - julianstandring
+  - karlbaker
+  - kelvingan
+  - kentsang
+  - kevindew
+  - leenagupte
+  - mahmudhussain
+  - maxlehmann
+  - michaelswalker
+  - murilodalri
+  - oscarwyatt
+  - petergoddard
+  - peterhartshorn
+  - richardmorton
+  - rochtrinque
+  - rubenarakelyan
+  - seanrankine
+  - sebastianschmieschek
+  - sebastianszypowicz
+  - simonhughesdon
+  - stephengrier
+  - stephenharker
+  - stevelaing
+  - thomasleese
+  - tijmenbrommet
+  - timblair
+  - vanitabarrett
+  - vitaliemogoreanu
+  - williamfranklin
+
+nginx::config::stack_network_prefix: '10.4.0'

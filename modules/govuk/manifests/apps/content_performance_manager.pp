@@ -18,6 +18,14 @@
 # [*db_username*]
 #   The username to use in the DATABASE_URL.
 #
+# [*etl_healthcheck_enabled*]
+#   Enables or disables the ETL checks via the healthcheck endpoint
+#   Default: true
+#
+# [*etl_healthcheck_enabled_from_hour*]
+#   The hour of the day where ETL healthcheck alerts are enabled
+#   Default: undef
+#
 # [*google_analytics_govuk_view_id*]
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
@@ -66,11 +74,6 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
-# [*read_timeout*]
-# Configure the amount of time the nginx proxy vhost will wait for
-# before it sends the client a 504. We override the default 15 seconds
-# to 60.
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -85,7 +88,9 @@ class govuk::apps::content_performance_manager(
   $db_name = 'content_performance_manager_production',
   $db_password = undef,
   $db_username = 'content_performance_manager',
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
+  $etl_healthcheck_enabled = false,
+  $etl_healthcheck_enabled_from_hour = undef,
   $google_analytics_govuk_view_id = undef,
   $google_client_email = undef,
   $google_private_key = undef,
@@ -106,32 +111,37 @@ class govuk::apps::content_performance_manager(
   $app_name = 'content-performance-manager'
 
   govuk::app { $app_name:
+    ensure            => 'absent',
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
-    health_check_path => '/api/v1/healthcheck',
+    health_check_path => '/healthcheck',
     json_health_check => true,
     asset_pipeline    => true,
     read_timeout      => 60,
   }
 
   Govuk::App::Envvar {
+    ensure => 'absent',
     app    => $app_name,
   }
 
   govuk::procfile::worker { "${app_name}-default-worker":
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'default-worker',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'publishing-api-consumer',
   }
 
   govuk::procfile::worker { 'cpm-bulk-import-publishing-api-consumer':
+    ensure         => 'absent',
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'bulk-import-publishing-api-consumer',
@@ -171,6 +181,17 @@ class govuk::apps::content_performance_manager(
     "${title}-SUPPORT_API_BEARER_TOKEN":
       varname => 'SUPPORT_API_BEARER_TOKEN',
       value   => $support_api_bearer_token;
+  }
+
+  if $etl_healthcheck_enabled {
+    govuk::app::envvar {
+      "${title}-ETL_HEALTHCHECK_ENABLED":
+        varname => 'ETL_HEALTHCHECK_ENABLED',
+        value   => '1';
+      "${title}-ETL_HEALTHCHECK_ENABLED_FROM_HOUR":
+        varname => 'ETL_HEALTHCHECK_ENABLED_FROM_HOUR',
+        value   => $etl_healthcheck_enabled_from_hour;
+    }
   }
 
   govuk::app::envvar::redis { $app_name:

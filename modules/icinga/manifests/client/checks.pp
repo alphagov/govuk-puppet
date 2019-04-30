@@ -89,12 +89,6 @@ class icinga::client::checks (
     }
   }
 
-  @@icinga::check { "check_users_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_users',
-    service_description => 'high user logins',
-    host_name           => $::fqdn,
-  }
-
   @@icinga::check { "check_zombies_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_zombie_procs',
     service_description => 'high zombie procs',

@@ -27,7 +27,6 @@ mod 'saz/ntp', '2.3.2'
 mod 'saz/rsyslog', '3.2.0'
 mod 'saz/sudo', '3.1.0'
 mod 'saz/timezone'
-mod 'stankevich/python', '1.9.8'
 mod 'covermymeds-pgbouncer', '0.3.3'
 
 # Installing from GitHub because we need this revision
@@ -45,13 +44,16 @@ mod 'alphagov/duplicity',
   :git => 'git://github.com/alphagov/puppet-duplicity.git',
   :ref => '388b8343188673dc966db8840ed5c4cf7ae00470'
 mod 'elasticsearch/elasticsearch',
-  :git => 'git://github.com/alphagov/puppet-elasticsearch.git',
-  :ref => 'd88a116200f3169e08a1a3d55ce4a840fc3bb7e5'
+  :git => 'git://github.com/elastic/puppet-elasticsearch.git',
+  :ref => '7d297e0002f1519e488620b7580963c80fe89f18'
 mod 'puppet/ext4mount',
   :git => 'git://github.com/alphagov/puppet-ext4mount.git'
+mod 'puppet/python',
+  :git => 'git://github.com/voxpupuli/puppet-python.git',
+  :ref => '1.9.8'
 mod 'gdsoperations/gor',
   :git => 'git://github.com/alphagov/puppet-gor.git',
-  :ref => 'v0.3.1'
+  :ref => 'v0.4.0'
 mod 'alphagov/puppet-rcs',
   :git => 'git://github.com/alphagov/puppet-rcs.git'
 mod 'elasticsearch/logstash',
@@ -69,7 +71,7 @@ mod 'gdsoperations/aptly',
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.2.0'
 mod 'gdsoperations/goenv', '0.0.4'
-mod 'gdsoperations/graphite', '~> 2.0.6'
+mod 'gdsoperations/graphite', '~> 2.1'
 mod 'gdsoperations/openconnect', '~> 1.2.2'
 mod 'gdsoperations/rbenv', '~> 1.3'
 mod 'gdsoperations/resolvconf', '0.2.0'

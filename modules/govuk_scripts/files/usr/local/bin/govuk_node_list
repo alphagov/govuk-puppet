@@ -7,6 +7,7 @@ from __future__ import print_function
 from optparse import OptionParser
 import json
 import random
+import re
 import string
 import sys
 import urllib
@@ -67,6 +68,19 @@ def main():
     res = urllib2.urlopen('http://puppetdb.cluster/v2/{0}?{1}'.format(endpoint, qs))
     hosts = json.load(res)
 
+    if opts.classes:
+        extract_node_class_regex = re.compile("(.*)-\d+\..*")
+        node_classes = {
+            extract_node_class_regex.search(
+                host[host_key]
+            ).group(1).replace('-', '_')
+            for host in hosts
+        }
+        for node_class in sorted(node_classes):
+            print(node_class)
+
+        exit(0)
+
     if opts.single_node and len(hosts) > 0:
         hosts = [random.choice(hosts)]
 
@@ -112,6 +126,13 @@ parser.add_option(
     help='Select a single node at random',
     action='store_true',
     dest='single_node',
+)
+
+parser.add_option(
+    '--classes',
+    help='List the available node classes',
+    action='store_true',
+    dest='classes',
 )
 
 if __name__ == '__main__':

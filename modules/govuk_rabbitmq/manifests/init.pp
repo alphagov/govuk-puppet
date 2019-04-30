@@ -18,6 +18,13 @@ class govuk_rabbitmq (
     include govuk_rabbitmq::repo
   }
 
+  if $::aws_migration {
+    package { 'urllib3':
+      ensure   => '1.7.1',
+      provider => pip,
+    }
+  }
+
   include '::rabbitmq'
 
   rabbitmq_plugin { 'rabbitmq_stomp':
@@ -38,8 +45,18 @@ class govuk_rabbitmq (
     rabbitmq_plugin { 'autocluster':
       ensure => present,
     }
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+
+    # Temporary federation setup for the duration of the migration to AWS
+    # Remove once the migration is over
+    include govuk_rabbitmq::federate
+
+    # Temporary purging of queues not consumed during the migration to AWS
+    include govuk_rabbitmq::purge_queues
   }
 
+  }
   rabbitmq_user { 'root':
     admin    => true,
     password => $root_password,

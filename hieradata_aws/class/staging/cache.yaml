@@ -1,0 +1,6 @@
+---
+logrotate::conf::days_to_keep: 7
+nginx::logging::days_to_keep: 7
+router::gor::add_hosts: false
+router::gor::replay_targets:
+  'www-origin.integration.publishing.service.gov.uk': {}

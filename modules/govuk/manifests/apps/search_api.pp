@@ -2,11 +2,6 @@
 #
 # The main search application
 #
-# Note: this currently duplicates a lot of govuk::apps::rummager.  This class
-# will be applied to a new set of servers, and will allow us to run 2 versions
-# of rummager at the same time while we migrate to elasticsearch 1.4.  Once the
-# migration is complete, the legacy govuk:apps::rummager class will be removed.
-#
 # === Parameters
 #
 # [*port*]
@@ -33,6 +28,10 @@
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
+# [*email_alert_api_bearer_token*]
+#   The bearer token to use when communicating with Email Alert API.
 #   Default: undef
 #
 # [*rabbitmq_hosts*]
@@ -85,6 +84,7 @@ class govuk::apps::search_api(
   $enable_publishing_listener = false,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
+  $email_alert_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_password = 'search-api',
   $redis_host = undef,
@@ -100,16 +100,17 @@ class govuk::apps::search_api(
 ) {
   $app_name = 'search-api'
 
-  # todo: uncomment this when rummager is removed (as it conflicts)
-  # package { ['aspell', 'aspell-en', 'libaspell-dev']:
-  #   ensure => $spelling_dependencies,
-  # }
+  package { ['aspell', 'aspell-en', 'libaspell-dev']:
+    ensure => $spelling_dependencies,
+  }
 
   govuk::app { 'search-api':
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
     health_check_path        => '/search?q=search_healthcheck',
+
+    vhost_aliases            => ['search'],
 
     log_format_is_json       => true,
     nginx_extra_config       => '
@@ -148,18 +149,21 @@ class govuk::apps::search_api(
     setenv_as      => $app_name,
     enable_service => $enable_publishing_listener,
     process_type   => 'publishing-queue-listener',
+    process_regex  => '\/rake message_queue:listen_to_publishing_queue',
   }
 
   govuk::procfile::worker { 'search-api-govuk-index-queue-listener':
     setenv_as      => $app_name,
     enable_service => $enable_govuk_index_listener,
     process_type   => 'govuk-index-queue-listener',
+    process_regex  => '\/rake message_queue:insert_data_into_govuk',
   }
 
   govuk::procfile::worker { 'search-api-bulk-reindex-queue-listener':
     setenv_as      => $app_name,
     enable_service => $enable_bulk_reindex_listener,
     process_type   => 'bulk-reindex-queue-listener',
+    process_regex  => '\/rake message_queue:bulk_insert_data_into_govuk',
   }
 
   Govuk::App::Envvar {
@@ -170,6 +174,12 @@ class govuk::apps::search_api(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+  }
+
+  govuk::app::envvar {
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
   }
 
   govuk::app::envvar { "${title}-ELASTICSEARCH_URI":

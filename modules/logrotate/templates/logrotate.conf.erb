@@ -36,4 +36,9 @@
   <%- if @maxsize -%>
   maxsize <%= @maxsize %>
   <%- end -%>
+  firstaction
+    # Remove empty .1 log files. There seems to be an issue where logrotate
+    # will refuse to rotate the logs if an empty .1 log file exists.
+    find <%= @matches %>* -wholename '/var/log/*' -name '*.1' -size 0 -delete
+  endscript
 }

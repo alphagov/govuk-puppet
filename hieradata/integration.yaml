@@ -95,9 +95,6 @@ govuk::node::s_api_lb::draft_content_store_servers:
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
   - "mapit-2.api"
-govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
@@ -137,9 +134,6 @@ govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xt
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
 govuk_postgresql::backup::auto_postgresql_backup_hour: 10
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -166,7 +160,6 @@ hosts::production::licensify_hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'ckan'
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
@@ -205,6 +198,7 @@ licensify::apps::licensify::environment: 'integration'
 licensify::apps::licensify_feed::environment: 'integration'
 
 monitoring::ci_environment: true
+monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: eu-west-1
@@ -219,16 +213,17 @@ postfix::smarthost:
   - 'ses-smtp-eu-west-1-prod-345515633.eu-west-1.elb.amazonaws.com:587'
 
 users::usernames:
+  - agnieszkadufrat
   - alangabbianelli
   - alexandrujurubita
-  - alextorrance
+  - anafernandez
   - andysellick
   - anikahenke
   - benthorner
   - bevanloon
   - brucebolt
+  - camilledescartes
   - christopherbaines
-  - conorglynn
   - deanwilson
   - deborahchua
   - dilwoarhussain
@@ -245,17 +240,17 @@ users::usernames:
   - julianstandring
   - karlbaker
   - kelvingan
+  - kentsang
   - kevindew
-  - kevingarwood
   - leenagupte
   - mahmudhussain
   - maxlehmann
   - michaelswalker
   - murilodalri
   - oscarwyatt
-  - pablomanrubia
   - petergoddard
   - peterhartshorn
+  - richardmorton
   - rochtrinque
   - rubenarakelyan
   - seanrankine

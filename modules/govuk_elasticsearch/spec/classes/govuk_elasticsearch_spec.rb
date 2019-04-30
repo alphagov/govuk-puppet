@@ -22,24 +22,35 @@ describe 'govuk_elasticsearch', :type => :class do
 
       it { is_expected.to raise_error(Puppet::Error, /must be in the form x\.y\.z/) }
     end
+
+    context "when set to 1.7.1" do
+      let(:params) {{
+        :version => '1.7.1',
+      }}
+
+      it { is_expected.to raise_error(Puppet::Error, /Unsupported version of elasticsearch/) }
+    end
+
+    context "when set to 2.4.3" do
+      let(:params) {{
+        :version => '2.4.3',
+      }}
+
+      it { is_expected.to raise_error(Puppet::Error, /Unsupported version of elasticsearch/) }
+    end
   end
 
   describe '#manage_repo' do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '5.1.0',
     }}
 
     context 'true (default)' do
-      it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.7') }
+      it { is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('5.x') }
 
-      it "should handle the repo for 1.4.x" do
-        params[:version] = '1.4.2'
-        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('1.4')
-      end
-
-      it "should handle the repo for 2.4.x" do
-        params[:version] = '2.4.3'
-        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('2.x')
+      it "should handle the repo for 5.6.x" do
+        params[:version] = '5.6.14'
+        is_expected.to contain_class('govuk_elasticsearch::repo').with_repo_version('5.x')
       end
 
       it { is_expected.to contain_class('elasticsearch').with_manage_repo(false) }
@@ -55,40 +66,9 @@ describe 'govuk_elasticsearch', :type => :class do
     end
   end
 
-  describe "destructive actions require name to be used explicitly" do
-    let (:params) {{}}
-
-    it "should be added to 1.4.4" do
-      params[:version] = '1.4.4'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]).to have_key('action.destructive_requires_name')
-    end
-  end
-
-  describe "enabling dynamic scripting" do
-    let(:params) {{}}
-
-    it "should add the correct setting name enabled for 1.4.3" do
-      params[:version] = '1.4.3'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]['script.groovy.sandbox.enabled']).to eq(true)
-      expect(instance[:config]).not_to have_key('script.engine.groovy.inline.search')
-    end
-
-    it "should add the correct setting name enabled for 2.4.6" do
-      params[:version] = '2.4.6'
-
-      instance = subject.call.resource('elasticsearch::instance', facts[:fqdn])
-      expect(instance[:config]['script.engine.groovy.inline.search']).to eq(true)
-      expect(instance[:config]).not_to have_key('script.groovy.sandbox.enabled')
-    end
-  end
-
   describe "setting transport firewall rules" do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '5.6.14',
       :open_firewall_from_all => false,
     }}
 
@@ -148,7 +128,7 @@ describe 'govuk_elasticsearch', :type => :class do
 
   describe "firewall rules" do
     let(:params) {{
-      :version => '1.7.0',
+      :version => '5.6.14',
     }}
 
     let(:pre_condition) {

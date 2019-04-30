@@ -24,9 +24,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*override_search_location*]
-#   Alternative hostname to use for Plek("search") and Plek("rummager")
-#
 class govuk::apps::licencefinder(
   $port = '3014',
   $sentry_dsn = undef,
@@ -34,21 +31,19 @@ class govuk::apps::licencefinder(
   $mongodb_name = 'licence_finder_production',
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
-  $override_search_location = undef,
 ) {
 
   $app_name = 'licencefinder'
 
   govuk::app { $app_name:
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/licence-finder/sectors',
-    log_format_is_json       => true,
-    asset_pipeline           => true,
-    asset_pipeline_prefix    => 'licencefinder',
-    repo_name                => 'licence-finder',
-    override_search_location => $override_search_location,
+    app_type              => 'rack',
+    port                  => $port,
+    sentry_dsn            => $sentry_dsn,
+    health_check_path     => '/licence-finder/sectors',
+    log_format_is_json    => true,
+    asset_pipeline        => true,
+    asset_pipeline_prefix => 'licencefinder',
+    repo_name             => 'licence-finder',
   }
 
   if $::govuk_node_class !~ /^development$/ {
@@ -73,11 +68,11 @@ class govuk::apps::licencefinder(
     value   => $publishing_api_bearer_token,
   }
 
-  if $::aws_migration {
+  if $::aws_migration  {
     govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
       app     => $app_name,
       varname => 'ELASTICSEARCH_URI',
-      value   => 'http://rummager-elasticsearch:9200',
+      value   => 'http://elasticsearch5',
     }
   }
 }

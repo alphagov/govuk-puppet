@@ -16,13 +16,13 @@ namespace :librarian do
 
   desc "Install modules and update cache"
   task :package do
-    librarian_run('package --clean', true)
+    librarian_run('package --clean --verbose', true)
   end
 
   desc "Update a module version and cache"
   task :update, :module_name do |t, args|
     system('librarian-puppet config mode --local --delete')
-    system("librarian-puppet update #{args[:module_name]}")
+    system("librarian-puppet update --verbose #{args[:module_name]}")
     Rake::Task['librarian:package'].invoke
   end
 end

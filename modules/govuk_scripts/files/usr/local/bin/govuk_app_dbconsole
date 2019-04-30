@@ -1,0 +1,25 @@
+#!/bin/sh
+
+#
+# govuk_app_dbconsole: opens a database console for a specified application
+#
+# Currently supports Rails apps
+#
+
+set -eu
+
+if [ "$#" -ne "1" ] || [ "$1" = "-h" ]; then
+  echo "Usage: govuk_app_dbconsole app_name" >&2
+  exit 1
+fi
+
+cd /var/apps/$1
+
+if [ -f bin/rails ]; then
+  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails dbconsole -p
+elif [ -f script/rails ]; then
+  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails dbconsole -p
+else
+  echo "I don't know how to run a console for $1"
+  exit 1
+fi

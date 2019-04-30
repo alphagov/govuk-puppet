@@ -7,10 +7,25 @@ govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Production'
 
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::check_sentry_errors
+  - govuk_jenkins::jobs::clear_cdn_cache
+  - govuk_jenkins::jobs::clear_frontend_memcache
+  - govuk_jenkins::jobs::clear_template_cache
+  - govuk_jenkins::jobs::clear_varnish_cache
+  - govuk_jenkins::jobs::content_data_api
   - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::publish_special_routes
+  - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::search_benchmark
+  - govuk_jenkins::jobs::search_test_spelling_suggestions
+  - govuk_jenkins::jobs::search_api_fetch_analytics_data
+  - govuk_jenkins::jobs::search_api_index_checks
+  - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_load_all_data

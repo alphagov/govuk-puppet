@@ -49,7 +49,7 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3206
+#   Default: 3213
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.

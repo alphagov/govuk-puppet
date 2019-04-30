@@ -35,7 +35,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
-    ensure        => 'present',
+    ensure        => 'absent',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.major',
@@ -43,7 +43,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => 'absent',
     name             => "${amqp_exchange}@${amqp_queue}@minor@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -53,7 +53,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   }
 
   rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => 'absent',
     name             => "${amqp_exchange}@${amqp_queue}@links@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -63,7 +63,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   }
 
   rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => 'absent',
     name             => "${amqp_exchange}@${amqp_queue}@republish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -73,7 +73,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   }
 
   rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue}@/":
-    ensure           => 'present',
+    ensure           => 'absent',
     name             => "${amqp_exchange}@${amqp_queue}@unpublish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -83,7 +83,7 @@ class govuk::apps::content_performance_manager::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue:
-    ensure        => 'present',
+    ensure        => 'absent',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_bulk_importing_queue,
     routing_key   => '*.bulk.data-warehouse',

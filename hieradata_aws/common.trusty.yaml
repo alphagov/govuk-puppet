@@ -1,0 +1,42 @@
+---
+apt::sources:
+  ubuntu:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}'
+    repos: 'main restricted universe multiverse'
+  ubuntu-updates:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-updates'
+    repos: 'main restricted universe multiverse'
+  ubuntu-backports:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-backports'
+    repos: 'main restricted universe multiverse'
+  ubuntu-security:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-security'
+    repos: 'main restricted universe multiverse'
+  'ubuntu-esm-security':
+    location: 'https://esm.ubuntu.com/ubuntu/'
+    release: 'trusty-security'
+    repos: 'main'
+    key:
+      id: '56F7650A24C9E9ECF87C4D8D4067E40313CB4B13'
+      server: 'keyserver.ubuntu.com'
+    include:
+      src: false
+      deb: true
+  'ubuntu-esm-updates':
+    location: 'https://esm.ubuntu.com/ubuntu/'
+    release: 'trusty-updates'
+    repos: 'main'
+    key:
+      id: '56F7650A24C9E9ECF87C4D8D4067E40313CB4B13'
+      server: 'keyserver.ubuntu.com'
+    include:
+      src: false
+      deb: true
+
+base::esm_repo: true
+base::esm::esm_user: "%{hiera('base::esm::esm_trusty_user')}"
+base::esm::esm_password: "%{hiera('base::esm::esm_trusty_password')}"

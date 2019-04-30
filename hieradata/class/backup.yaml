@@ -11,10 +11,6 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automongodbbackup/
     fq_dn: performance-mongo-1.api.%{hiera('app_domain')}
     priority: '001'
-  backup_mongodb_backups_router_backend:
-    directory: /var/lib/automongodbbackup/
-    fq_dn: router-backend-1.router.%{hiera('app_domain')}
-    priority: '001'
   backup_mysql_backups_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
     fq_dn: mysql-backup-1.backend.%{hiera('app_domain')}

@@ -301,15 +301,15 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(scale(averageSeries(stats.timers.search-*.nginx_logs.rummager_*.time_request.mean),1000),\"nginx\")",
+              "target": "alias(scale(averageSeries(stats.timers.search-*.nginx_logs.search-api_*.time_request.mean),1000),\"nginx\")",
               "refId": "A"
             },
             {
-              "target": "groupByNode(stats.timers.search-*.rummager.time_*.mean,4,\"avg\")",
+              "target": "groupByNode(stats.timers.search-*.search-api.time_*.mean,4,\"avg\")",
               "refId": "B"
             }
           ],
-          "title": "rummager resp/avg",
+          "title": "search-api resp/avg",
           "tooltip": {
             "query_as_alias": true,
             "value_type": "cumulative",

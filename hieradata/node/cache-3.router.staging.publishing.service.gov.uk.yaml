@@ -1,6 +1,0 @@
----
-
-router::gor::add_hosts: false
-router::gor::replay_targets:
-  'www-origin.blue.integration.govuk.digital': {}
-  'www-origin.blue.staging.govuk.digital': {}

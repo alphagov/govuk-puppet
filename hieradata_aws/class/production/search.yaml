@@ -1,0 +1,15 @@
+govuk_env_sync::tasks:
+  "push_es_everything_daily":
+    ensure: "present"
+    hour: "0"
+    minute: "20"
+    action: "push"
+    dbms: "elasticsearch5"
+    storagebackend: "es_snapshot"
+    database: "everything"
+    temppath: "/tmp/es_snapshot_everything"
+    url: "govuk-production"
+    path: "elasticsearch5"
+
+logrotate::conf::days_to_keep: 7
+nginx::logging::days_to_keep: 7

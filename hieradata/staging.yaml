@@ -15,14 +15,16 @@ environment_ip_prefix: '10.2'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-staging-content-data-csvs'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
+govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
@@ -51,6 +53,11 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
 
+govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk.digital'
+govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk.digital'
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::setup::ssh_keys:
@@ -75,17 +82,12 @@ govuk_jenkins::config::theme_colour: '#ffbf47'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'Staging'
 
-govuk_elasticsearch::dump::run_es_dump_hour: '4'
-
 govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-staging'
   - 'carrenza-staging-dr'
   - 'skyscape-staging'
-
-govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
-govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
 govuk_jenkins::jobs::smokey::environment: staging
 
@@ -122,10 +124,6 @@ govuk::node::s_api_lb::draft_content_store_servers:
 govuk::node::s_api_lb::mapit_servers:
   - "mapit-1.api"
   - "mapit-2.api"
-govuk::node::s_api_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
-  - "search-3.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 7
 
@@ -137,8 +135,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
-govuk::node::s_backend_lb::ckan_backend_servers:
-  - 'ckan-1.backend'
 govuk::node::s_backend_lb::email_alert_api_backend_servers:
   - 'email-alert-api-1.backend'
   - 'email-alert-api-2.backend'
@@ -147,15 +143,15 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
   - 'publishing-api-3.backend'
-govuk::node::s_backend_lb::search_servers:
-  - "search-1.api"
-  - "search-2.api"
-  - "search-3.api"
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
   - 'whitehall-backend-3.backend'
   - 'whitehall-backend-4.backend'
+govuk::node::s_backend_lb::whitehall_frontend_servers:
+  - 'whitehall-frontend-1.frontend'
+  - 'whitehall-frontend-2.frontend'
+  - 'whitehall-frontend-3.frontend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'staging.performance.service.gov.uk'
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_frontend_lb::calculators_frontend_servers:
@@ -178,8 +174,6 @@ govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-staging'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-staging'
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.2.5.0/24'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -241,18 +235,6 @@ hosts::production::api::hosts:
     ip: '10.2.4.33'
   performance-mongo-4:
     ip: '10.2.12.31'
-  rummager-elasticsearch-1:
-    ip: '10.2.4.55'
-  rummager-elasticsearch-2:
-    ip: '10.2.4.56'
-  rummager-elasticsearch-3:
-    ip: '10.2.4.57'
-  search-1:
-    ip: '10.2.4.4'
-  search-2:
-    ip: '10.2.4.5'
-  search-3:
-    ip: '10.2.4.6'
 
 hosts::production::backend::hosts:
   asset-master-1:
@@ -279,18 +261,10 @@ hosts::production::backend::hosts:
     ip: '10.2.3.101'
   backend-lb-2:
     ip: '10.2.3.102'
-  ckan-1:
-    ip: '10.2.3.120'
   docker-backend-1:
     ip: '10.2.3.111'
   docker-backend-2:
     ip: '10.2.3.112'
-  elasticsearch-1:
-    ip: '10.2.3.15'
-  elasticsearch-2:
-    ip: '10.2.3.16'
-  elasticsearch-3:
-    ip: '10.2.3.17'
   email-alert-api-1:
     ip: '10.2.3.40'
   email-alert-api-2:
@@ -394,7 +368,6 @@ hosts::production::backend::hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'ckan'
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
@@ -455,12 +428,15 @@ hosts::production::management::hosts:
     legacy_aliases:
       - "deploy.%{hiera('app_domain')}"
   puppetmaster-1:
-    ip: '10.2.0.5'
+    ip: '10.2.0.6'
     legacy_aliases:
       - 'puppet'
     service_aliases:
       - 'puppet'
       - 'puppetdb'
+      - "puppetmaster-2.%{hiera('app_domain')}"
+  puppetmaster-2:
+    ip: '10.2.0.6'
   monitoring-1:
     ip: '10.2.0.20'
     legacy_aliases:
@@ -531,9 +507,6 @@ hosts::production::router::hosts:
     ip: '10.2.1.254'
     legacy_aliases:
       - 'cache'
-      - "www.%{hiera('app_domain')}"
-      - "www-origin.%{hiera('app_domain')}"
-      - "assets-origin.%{hiera('app_domain')}"
     service_aliases:
       - 'cache'
       - 'router'
@@ -545,12 +518,12 @@ hosts::production::router::hosts:
     ip: '10.2.1.252'
     legacy_aliases:
       - "draft-router-api.%{hiera('app_domain')}"
-      - "draft-publicapi.%{hiera('app_domain')}"
 
 licensify::apps::licensify_admin::environment: 'staging'
 licensify::apps::licensify::environment: 'staging'
 licensify::apps::licensify_feed::environment: 'staging'
 
+monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::smokey::environment: 'staging'

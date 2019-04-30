@@ -29,6 +29,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
+    govuk::apps::content_data_admin::enabled
+    govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
@@ -109,6 +111,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_backend_lb::perfplat_public_app_domain
     govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
+    govuk::node::s_backend_lb::whitehall_frontend_servers
     govuk::node::s_frontend_lb::calculators_frontend_servers
     govuk::node::s_frontend_lb::draft_frontend_servers
     govuk::node::s_frontend_lb::frontend_servers
@@ -117,6 +120,11 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_mysql_master::s3_bucket_name
     govuk::node::s_transition_postgresql_slave::redirector_ip_range
     govuk::node::s_transition_postgresql_standby::redirector_ip_range
+    govuk::node::s_postgresql_standby::aws_access_key_id
+    govuk::node::s_postgresql_standby::aws_secret_access_key
+    govuk::node::s_postgresql_standby::s3_bucket_url
+    govuk::node::s_postgresql_standby::wale_private_gpg_key
+    govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint
     govuk::node::s_whitehall_mysql_backup::s3_bucket_name
     govuk::node::s_whitehall_mysql_master::s3_bucket_name
     govuk_jenkins::config::banner_colour_background
@@ -130,6 +138,11 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::licensify_hosts
     mongodb::s3backup::backup::s3_bucket
     mongodb::s3backup::backup::s3_bucket_daily
+
+    govuk::apps::content_tagger::override_search_location
+    govuk::apps::hmrc_manuals_api::override_search_location
+    govuk::apps::search_admin::override_search_location
+    govuk::apps::whitehall::override_search_location
 
     _
     backup::assets::backup_private_gpg_key_fingerprint
@@ -147,7 +160,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
     govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule
-    govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
     govuk_jenkins::jobs::network_config_deploy::environments
     govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
@@ -165,6 +177,8 @@ task :check_consistency_between_aws_and_carrenza do
     backup::mysql::alert_hostname
     collectd::package::collectd_version
     govuk::apps::bouncer::postgresql_role::rds
+    govuk::apps::ckan::ckan_site_url
+    govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
     govuk::apps::ckan::db::lb_ip_range
     govuk::apps::ckan::db::rds
@@ -173,9 +187,23 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_audit_tool::db::allow_auth_from_lb
     govuk::apps::content_audit_tool::db::lb_ip_range
     govuk::apps::content_audit_tool::db::rds
+    govuk::apps::content_data_admin::content_performance_manager_uri
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
+    govuk::apps::content_data_api::db::allow_auth_from_lb
+    govuk::apps::content_data_api::db::backend_ip_range
+    govuk::apps::content_data_api::db::lb_ip_range
+    govuk::apps::content_data_api::db::rds
+    govuk::apps::content_data_api::db_hostname
+    govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour
+    govuk::apps::content_data_api::rabbitmq_hosts
+    govuk::apps::content_data_api::rabbitmq_password
+    govuk::apps::content_data_api::rabbitmq_user
+    govuk::apps::content_data_api::redis_host
+    govuk::apps::content_data_api::redis_port
+    govuk::apps::content_data_api::db_name
+    govuk::apps::content_data_api::db_username
     govuk::apps::content_performance_manager::db::allow_auth_from_lb
     govuk::apps::content_performance_manager::db::lb_ip_range
     govuk::apps::content_performance_manager::db::rds
@@ -183,12 +211,16 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::allow_auth_from_lb
     govuk::apps::content_publisher::db::lb_ip_range
     govuk::apps::content_publisher::db::rds
+    govuk::apps::content_store::plek_service_rummager_uri
+    govuk::apps::content_store::plek_service_whitehall_frontend_uri
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
     govuk::apps::content_tagger::db::rds
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
+    govuk::apps::email_alert_service::enabled
+    govuk::apps::email_alert_service::rabbitmq::ensure
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds
@@ -199,7 +231,27 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::lb_ip_range
     govuk::apps::publishing_api::db::rds
-    govuk::apps::rummager::elasticsearch_hosts
+    govuk_search::gor::enabled
+    govuk::apps::search_api::nagios_memory_warning
+    govuk::apps::search_api::nagios_memory_critical
+    govuk::apps::search_api::rabbitmq_hosts
+    govuk::apps::search_api::enable_bulk_reindex_listener
+    govuk::apps::search_api::enable_publishing_listener
+    govuk::apps::search_api::enable_govuk_index_listener
+    govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener
+    govuk::apps::search_api::rabbitmq::enable_govuk_index_listener
+    govuk::apps::search_api::rabbitmq::enable_publishing_listener
+    govuk::apps::search_api::rabbitmq_user
+    govuk::apps::search_api::redis_host
+    govuk::apps::search_api::redis_port
+    govuk::apps::search_api::elasticsearch_hosts
+    govuk::apps::search_api::unicorn_worker_processes
+    govuk::apps::sidekiq_monitoring::content_data_admin_redis_host
+    govuk::apps::sidekiq_monitoring::content_data_admin_redis_port
+    govuk::apps::sidekiq_monitoring::content_data_api_redis_host
+    govuk::apps::sidekiq_monitoring::content_data_api_redis_port
+    govuk::apps::sidekiq_monitoring::search_api_redis_host
+    govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::search_api::elasticsearch_hosts
     govuk::apps::service_manual_publisher::db::allow_auth_from_lb
     govuk::apps::service_manual_publisher::db::lb_ip_range
@@ -214,6 +266,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
     govuk::node::s_apt::apt_service
+    govuk::node::s_content_data_api_db_admin::apt_mirror_hostname
     govuk::node::s_apt::gemstash_service
     govuk::node::s_asset_base::alert_hostname
     govuk::node::s_backend_lb::ckan_backend_servers
@@ -230,8 +283,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_elasticsearch::open_firewall_from_all
     govuk_jenkins::deploy_all_apps::apps_on_nodes
     govuk_jenkins::deploy_all_apps::deploy_environment
+    govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule
     govuk_jenkins::jobs::deploy_app::graphite_host
     govuk_jenkins::jobs::deploy_app::graphite_port
+    govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
@@ -250,6 +305,10 @@ task :check_consistency_between_aws_and_carrenza do
     puppet::monitoring::alert_hostname
     puppet::puppetserver::puppetdb_version
     stackname
+
+    govuk_search::gor::port
+    govuk_search::monitoring::es_port
+    govuk_search::monitoring::es_host
 
     govuk::apps::ckan::s3_aws_region_name
     govuk::apps::ckan::s3_bucket_name
@@ -284,6 +343,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_cdnlogs::warning_cdn_freshness
     govuk_elasticsearch::dump::run_es_dump_hour
     govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate
+    govuk_jenkins::jobs::search_api_fetch_analytics_data_search::cron_schedule
+    govuk_jenkins::jobs::search_api_fetch_analytics_data_search::skip_page_traffic_load
     govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule
     govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load
     govuk_jenkins::jobs::smokey::environment

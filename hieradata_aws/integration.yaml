@@ -16,13 +16,19 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.integration.publishing.service.g
 govuk::apps::ckan::s3_bucket_name: "datagovuk-integration-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::ckan::vhost_protected: true
+govuk::apps::ckan::cronjobs::enable_solr_reindex: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7Q'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-integration-content-data-csvs'
+govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '14'
+govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: '14'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-6"
+govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-integration@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-integration-email-alert-api-archive'
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
@@ -49,6 +55,11 @@ govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
 govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::whitehall::highlight_words_to_avoid: true
 
+govuk_search::gor::port: 3233
+
+govuk_search::monitoring::es_port: '80'
+govuk_search::monitoring::es_host: 'elasticsearch5.blue.integration.govuk-internal.digital'
+
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: "integration-%{hiera('stackname')}-aws"
 govuk::deploy::config::licensify_app_domain: 'integration.publishing.service.gov.uk'
@@ -67,6 +78,8 @@ govuk_elasticsearch::dump::run_es_dump_hour: '9'
 
 govuk_jenkins::job_builder::environment: 'integration'
 govuk_jenkins::config::executors: '8'
+
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
@@ -89,10 +102,10 @@ govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::search_benchmark::cron_schedule: '30 9 * * 1-5'
 govuk_jenkins::jobs::search_test_spelling_suggestions::cron_schedule: '0 10 * * 1-5'
 
-govuk_jenkins::jobs::enhanced_ecommerce::cron_schedule: '30 9 * * 1-5'
+govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '30 9 * * 1-5'
 
-govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
-govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
+govuk_jenkins::jobs::search_api_fetch_analytics_data::skip_page_traffic_load: true
+govuk_jenkins::jobs::search_api_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
 
 govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa1zEG3dIOwsTTcJsMybZW0nPmCLBqS9/xzv4WoW5VzvID6yrSlg5XfX1Qxq8FmFGIDaAhb1fna2Z05EAC1Jh8EnCSFK8Q6NaUGxlyYoHRD06kZI8ZdAj3Ct8Hsqa0YaWKa/vSIWKIRtboVKm6SMbNxcLwQ04AG2zP2wtnGpyDKBPZol/L3jxVExx1B2lIww0drSKNFKQzM9kijZyAmhu8ocClNl19Rv86q44v0PcDIv5hkW5bEbsavTghnLNXad2dmiSP5Se68NscumyboetuG+o0lOFbFjuHk8NaXklOWiFZxJaJXiOVLihXHVhpDcuXEzwNoOKhYEzA06vHBVXbngBuEsgns/Hgpz4we2H4y4k9w9eJ4rKNhTvrfAzcYzEsnmhbNtQMZaLbqKnWBt2+X6lKTYUBpnUWXwLMaAb5dqEqD+LGiDxcfJ4b6UctSR7+CF29gRChwv0HUO1NdiVzZ2AMrqsYp9QtCWnfNipveGZl9Rqox3JSt4u/+7+I9xw0d8bFp8xCPxan78eMu42i3jNm4qcbbXGvPU6WFP0htjZZ8S0Fq7Dss4AbADrLxwepW8n7E+PozZRjH2P7TgmZ+wQXS6aUNHdgDeYsv5070NYK33wuE2f9GNVuN35/5ImB9PuyxDNSdHIPXTABMOZk7fVQUqXLCRw=='
 
@@ -127,9 +140,6 @@ govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xt
 govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: '10.1.5.0/24'
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
 govuk_sudo::sudo_conf:
   deploy_service_postgresql:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
@@ -141,6 +151,7 @@ grafana::dashboards::machine_suffix_metrics: '_integration'
 
 mongodb::backup::mongo_backup_node: 'localhost'
 
+monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: 'eu-west-1'
@@ -157,16 +168,18 @@ router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
 
 users::usernames:
+  - agnieszkadufrat
   - alangabbianelli
   - alexandrujurubita
-  - alextorrance
+  - anafernandez
   - andysellick
   - anikahenke
   - benthorner
   - bevanloon
   - brucebolt
+  - camilledescartes
+  - christopherashton
   - christopherbaines
-  - conorglynn
   - deanwilson
   - deborahchua
   - dilwoarhussain
@@ -183,17 +196,17 @@ users::usernames:
   - julianstandring
   - karlbaker
   - kelvingan
+  - kentsang
   - kevindew
-  - kevingarwood
   - leenagupte
   - mahmudhussain
   - maxlehmann
   - michaelswalker
   - murilodalri
   - oscarwyatt
-  - pablomanrubia
   - petergoddard
   - peterhartshorn
+  - richardmorton
   - rochtrinque
   - rubenarakelyan
   - seanrankine

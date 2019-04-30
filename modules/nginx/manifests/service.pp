@@ -3,6 +3,7 @@ class nginx::service {
 
   service { 'nginx':
     ensure    => running,
+    start     => '/etc/init.d/nginx start || { killall nginx; /etc/init.d/nginx start;}',
     hasstatus => true,
     restart   => '/etc/init.d/nginx configtest && /etc/init.d/nginx reload',
   }

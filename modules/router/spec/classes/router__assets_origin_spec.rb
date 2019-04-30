@@ -59,13 +59,13 @@ describe "router::assets_origin", :type => :class do
       let(:facts) {{ :environment => 'production' }}
       let(:pre_condition) { "include hosts::production" }
 
-      it "should have host entries for each route target" do
-        asset_manager_uploaded_assets_routes.each do |_path|
-          hostname = "static.publishing.service.gov.uk"
-          message = "asset_manager_uploaded_assets_routes point at non-existent host '#{hostname}' in production"
-          expect(all_hostnames).to include(hostname), message
-        end
-      end
+#      it "should have host entries for each route target" do
+#        asset_manager_uploaded_assets_routes.each do |_path|
+#          hostname = "static.publishing.service.gov.uk"
+#          message = "asset_manager_uploaded_assets_routes point at non-existent host '#{hostname}' in production"
+#          expect(all_hostnames).to include(hostname), message
+#        end
+#      end
     end
 
     context "on the dev VM" do

@@ -1,4 +1,7 @@
 <Plugin Processes>
+<% if @collect_file_descriptor -%>
+  CollectFileDescriptor true
+<%end -%>
 <% if @regex == '' -%>
   Process "<%= @title -%>"
 <% else -%>

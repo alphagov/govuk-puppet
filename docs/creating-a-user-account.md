@@ -30,7 +30,7 @@ lead is probably one) can do this for you.
 
 If you're getting access to staging and production, repeat the above step,
 specifying the 'GOV.UK Production' team. You'll also need to add yourself to
-`ssh::config::allow_users` in those environments (hieradata can be found in
+`ssh::config::allow_users` and `users::usernames` in those environments (hieradata can be found in
 `govuk-secrets`) to be able to SSH to machines.
 
 Talk to the GOV.UK Platform Operations Manager about when you need to have production access.

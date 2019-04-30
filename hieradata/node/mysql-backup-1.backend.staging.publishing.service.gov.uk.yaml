@@ -1,6 +1,3 @@
-govuk_sudo::sudo_conf:
-  govuk-backup:
-    content: 'govuk-backup ALL=NOPASSWD:/usr/bin/mysqldump'
 govuk_env_sync::tasks:
   "push_collections_publisher_production_daily":
     ensure: "present"

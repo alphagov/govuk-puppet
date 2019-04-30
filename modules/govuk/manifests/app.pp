@@ -237,12 +237,32 @@
 # [*collectd_process_regex*]
 #   Regex to use to identify the process.
 #
+# [*alert_when_threads_exceed*]
+#   If set, alert using Icinga if the number of threads exceeds the value specified.
+#   Default: 100
+#
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
 # [*create_default_nginx_config*]
 #   Create the default.conf site in nginx
 #   Default: false
+#
+# [*monitor_unicornherder*]
+#   Whether to set up Icinga alerts that monitor unicornherder. This is true if
+#   the app_type is set to 'rack' but this is useful if your app uses a Procfile
+#   which runs unicornherder.
+#   Default: true if app_type is 'rack' else false
+#
+# [*local_tcpconns_established_warning*]
+#   Warning value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
+#
+# [*local_tcpconns_established_critical*]
+#   Critical value to use for the Icinga check on the number of
+#   established TCP connections to $port.
+#   Default: undef
 #
 define govuk::app (
   $app_type,
@@ -280,8 +300,12 @@ define govuk::app (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
+  $alert_when_threads_exceed = 100,
   $override_search_location = undef,
   $create_default_nginx_config = false,
+  $monitor_unicornherder = undef,
+  $local_tcpconns_established_warning = undef,
+  $local_tcpconns_established_critical = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -323,42 +347,46 @@ define govuk::app (
   }
 
   govuk::app::config { $title:
-    ensure                           => $ensure,
-    require                          => Govuk::App::Package[$title],
-    app_type                         => $app_type,
-    command                          => $command,
-    create_pidfile                   => $create_pidfile,
-    domain                           => $app_domain,
-    port                             => $port,
-    vhost_aliases                    => $vhost_aliases,
-    vhost_full                       => $vhost_full,
-    vhost_protected                  => $vhost_protected,
-    vhost_ssl_only                   => $vhost_ssl_only,
-    nginx_extra_config               => $nginx_extra_config,
-    health_check_path                => $health_check_path,
-    expose_health_check              => $expose_health_check,
-    json_health_check                => $json_health_check,
-    health_check_service_template    => $health_check_service_template,
-    health_check_notification_period => $health_check_notification_period,
-    deny_framing                     => $deny_framing,
-    enable_nginx_vhost               => $enable_nginx_vhost,
-    nagios_memory_warning            => $nagios_memory_warning,
-    nagios_memory_critical           => $nagios_memory_critical,
-    alert_5xx_warning_rate           => $alert_5xx_warning_rate,
-    alert_5xx_critical_rate          => $alert_5xx_critical_rate,
-    unicorn_herder_timeout           => $unicorn_herder_timeout,
-    asset_pipeline                   => $asset_pipeline,
-    asset_pipeline_prefix            => $asset_pipeline_prefix,
-    depends_on_nfs                   => $depends_on_nfs,
-    read_timeout                     => $read_timeout,
-    sentry_dsn                       => $sentry_dsn,
-    proxy_http_version_1_1_enabled   => $proxy_http_version_1_1_enabled,
-    unicorn_worker_processes         => $unicorn_worker_processes,
-    cpu_warning                      => $cpu_warning,
-    cpu_critical                     => $cpu_critical,
-    collectd_process_regex           => $collectd_process_regex,
-    override_search_location         => $override_search_location,
-    create_default_nginx_config      => $create_default_nginx_config,
+    ensure                              => $ensure,
+    require                             => Govuk::App::Package[$title],
+    app_type                            => $app_type,
+    command                             => $command,
+    create_pidfile                      => $create_pidfile,
+    domain                              => $app_domain,
+    port                                => $port,
+    vhost_aliases                       => $vhost_aliases,
+    vhost_full                          => $vhost_full,
+    vhost_protected                     => $vhost_protected,
+    vhost_ssl_only                      => $vhost_ssl_only,
+    nginx_extra_config                  => $nginx_extra_config,
+    health_check_path                   => $health_check_path,
+    expose_health_check                 => $expose_health_check,
+    json_health_check                   => $json_health_check,
+    health_check_service_template       => $health_check_service_template,
+    health_check_notification_period    => $health_check_notification_period,
+    deny_framing                        => $deny_framing,
+    enable_nginx_vhost                  => $enable_nginx_vhost,
+    nagios_memory_warning               => $nagios_memory_warning,
+    nagios_memory_critical              => $nagios_memory_critical,
+    alert_5xx_warning_rate              => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate             => $alert_5xx_critical_rate,
+    unicorn_herder_timeout              => $unicorn_herder_timeout,
+    asset_pipeline                      => $asset_pipeline,
+    asset_pipeline_prefix               => $asset_pipeline_prefix,
+    depends_on_nfs                      => $depends_on_nfs,
+    read_timeout                        => $read_timeout,
+    sentry_dsn                          => $sentry_dsn,
+    proxy_http_version_1_1_enabled      => $proxy_http_version_1_1_enabled,
+    unicorn_worker_processes            => $unicorn_worker_processes,
+    cpu_warning                         => $cpu_warning,
+    cpu_critical                        => $cpu_critical,
+    collectd_process_regex              => $collectd_process_regex,
+    alert_when_threads_exceed           => $alert_when_threads_exceed,
+    override_search_location            => $override_search_location,
+    create_default_nginx_config         => $create_default_nginx_config,
+    monitor_unicornherder               => $monitor_unicornherder,
+    local_tcpconns_established_warning  => $local_tcpconns_established_warning,
+    local_tcpconns_established_critical => $local_tcpconns_established_critical,
   }
 
   govuk::app::service { $title:

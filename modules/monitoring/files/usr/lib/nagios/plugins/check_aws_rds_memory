@@ -28,8 +28,8 @@
 # 1) AWS Regions. This is called with '-r'                                   			 #
 # 2) Icinga warning value. This is called with '-w'                          			 #
 # 3) Icinga critical vale. This is called with '-c'                          			 #
-# 4) The AWS RDS Instance name. This is called with '-i'                     			 # 
-#                                                                            			 # 
+# 4) The AWS RDS Instance name. This is called with '-i'                     			 #
+#                                                                            			 #
 # Test                                                                       			 #
 # ----                                                                       			 #
 # You can test this script by following the steps below.                     			 #
@@ -99,33 +99,9 @@ cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 ######################################
 # http://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.DBInstanceClass.html
 db_classes = {
-   'db.t1.micro': 0.615,
-   'db.m1.small': 1.7,
-   'db.m1.medium': 3.75,
-   'db.m1.large': 7.5,
-   'db.m1.xlarge': 15,
    'db.m4.large': 8,
    'db.m4.xlarge': 16,
-   'db.m4.2xlarge': 32,
-   'db.m4.4xlarge': 64,
-   'db.m4.10xlarge': 160,
-   'db.r3.large': 15,
-   'db.r3.xlarge': 30.5,
-   'db.r3.2xlarge': 61,
-   'db.r3.4xlarge': 122,
-   'db.r3.8xlarge': 244,
-   'db.t2.micro': 1,
-   'db.t2.small': 2,
-   'db.t2.medium': 4,
-   'db.t2.large': 8,
-   'db.m3.medium': 3.75,
-   'db.m3.large': 7.5,
-   'db.m3.xlarge': 15,
-   'db.m3.2xlarge': 30,
-   'db.m2.xlarge': 17.1,
-   'db.m2.2xlarge': 34.2,
-   'db.m2.4xlarge': 68.4,
-   'db.cr1.8xlarge': 244,
+   'db.m5.2xlarge': 32,
 }
 
 ####################################################

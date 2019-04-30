@@ -12,15 +12,18 @@
 #   are arrays of Elasticsearch types for that index.
 #
 class collectd::plugin::elasticsearch(
-  $es_port,
+  $es_host = '127.0.0.1',
+  $es_port = '9200',
   $log_index_type_count = {},
+  $node_id = '_local',
+  $template = 'collectd/etc/collectd/conf.d/elasticsearch.conf.erb'
 ) {
   include collectd::plugin::curl_json
 
-  $es_node_stats_url = "http://127.0.0.1:${es_port}/_nodes/_local/stats/indices,http,jvm,process,transport"
+  $es_node_stats_url = "http://${es_host}:${es_port}/_nodes/${node_id}/stats/indices,http,jvm,process,transport"
 
   @collectd::plugin { 'elasticsearch':
-    content => template('collectd/etc/collectd/conf.d/elasticsearch.conf.erb'),
+    content => template($template),
     require => Class['collectd::plugin::curl_json'],
   }
 }

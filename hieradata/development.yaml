@@ -33,6 +33,7 @@ govuk::node::s_development::apps:
   - 'collections_publisher'
   - 'contacts'
   - 'content_audit_tool'
+  - 'content_data_api'
   - 'content_performance_manager'
   - 'content_performance_manager::rabbitmq'
   - 'content_publisher'
@@ -44,7 +45,6 @@ govuk::node::s_development::apps:
   - 'email_alert_service'
   - 'email_alert_service::rabbitmq'
   - 'email_alert_service::rabbitmq_test_permissions'
-  - 'event_store'
   - 'feedback'
   - 'finder_frontend'
   - 'frontend'
@@ -61,8 +61,6 @@ govuk::node::s_development::apps:
   - 'manuals_publisher'
   - 'mapit'
   - 'maslow'
-  - 'public_event_store'
-  - 'publicapi'
   - 'publisher'
   - 'publishing_api'
   - 'publishing_api::rabbitmq'
@@ -72,8 +70,6 @@ govuk::node::s_development::apps:
   - 'router::enable_running_in_draft_mode'
   - 'router_api'
   - 'router_api::enable_running_in_draft_mode'
-  - 'rummager'
-  - 'rummager::rabbitmq'
   - 'search_api'
   - 'search_api::rabbitmq'
   - 'search_admin'
@@ -132,7 +128,6 @@ govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
 govuk::apps::maslow::mongodb_nodes: ['localhost']
 govuk::apps::maslow::mongodb_name: 'maslow_development'
-govuk::apps::publicapi::privateapi_ssl: false
 govuk::apps::publisher::enable_procfile_worker: false
 govuk::apps::publishing_api::content_store: 'http://content-store.dev.gov.uk'
 govuk::apps::publishing_api::draft_content_store: 'http://draft-content-store.dev.gov.uk'
@@ -158,12 +153,12 @@ govuk::apps::router_api::router_nodes: ['localhost:3055']
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_name: 'draft_router'
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
-govuk::apps::rummager::enable_procfile_worker: false
-govuk::apps::rummager::rabbitmq_hosts: ['localhost']
-govuk::apps::rummager::redis_host: 'localhost'
+govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9205'
 govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
+govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'localhost'
+govuk::apps::search_api::rabbitmq::enable_publishing_listener: true
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
@@ -208,7 +203,7 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
-govuk_elasticsearch::version: '2.4.6'
+govuk_elasticsearch::version: '5.6.14'
 govuk_elasticsearch::cors_enabled: true
 govuk_elasticsearch::repo_path:
   - '/var/govuk/govuk-puppet/development-vm/replication/backups'
@@ -235,8 +230,6 @@ govuk_sshkeys::development_keys:
     host_aliases: "31.210.245.102"
   api-mongo-1.api.integration:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDvJt9OIoKskyBWKNiRW/G+qE6V6waKhQy93keoOZFxRVk0WG2U6CKNtvwrm1z/fYMOGOJpwsp2DT8Sg+F94BswgucUkBFPt2ymXICX1m/Tx0u0EihwGPpfT8umc7obC1Kw+LNtTatVtF6XG3fKeFOvW5Z3SQyuhQbg7792c0KXEfhP7ombXGUhC/sEJpEzBd4vebFAnKXoCVkEYuJsllDRhtgren7LhdDye+3+xx5xyGZdy+1oG/Yu5ZP7yzMLrT3yTlLRjHmu6gSU9hr4v8yyamTq6M3qreyeOcE1rXpSp2PL2+4VBznEVNyyezrz/IS7u7Yw4MO+o2KqbSd5V2A/"
-  elasticsearch-1.backend.integration:
-    key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCs9pZ4UZPvRkOefOwRIgGSDDVAWiCDT5vNuI65sFjrhkl5EvXDAnCMJbe9+aymWhN0gyOabuD9YJqgHxbtuX8drmYr0okVEv4Ny9BRMZFaBbR7YXMQpqauU4gLS4LXXNISoFbRo/sBkzS/9MNCtknyV4xMWTuFoDlk3j1P139LnWw9EKNMbqUfi8v77as+KYk8h70PkkhTtgoQ2nxM3uw/Ylyegorn9Cg4sV4pJPL4EkuuBMhyWQMsAceESuvjO9pKXQfUMMlT5r/8JJVbMY3sjSCWVGmimXB3BK0JndWslUeoqngeVYCfpme4bGcfDoG0soMF3xuFoATIuOyv3KtZ"
   mongo-1.backend.integration:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCx9IsUMfEKVIAU1oTFTIFNYGOeIP7dzpfV6cv5FFc+fYR54mDPvAqVFU0gFxdR5/ZzGLy9BK11KCcDuJcG3igqMt3pdaoPAsxaRG4h716wEmUyI1h5z42ncqgIy/Y+FV96jI7zGKw0/wJa205NEIiYcO7xoFUqyA+8q8811kST6okVk08BJsWlPtB+WB+AwuHQS09e6EF4JWun5f1gpJmZW0YZW/axU/tha4vMX0IylRW7+lQXKsYrP3GjFsIALTnYR9X0YLhEUYL94EoztEbuq5ZuhHmCTwZdwcy81K5159XxR1S8ibFnA9RIBLuLvPUvWWEZEpcT6zRuefoxwXN3"
   mysql-backup-1.backend.integration:
@@ -268,6 +261,7 @@ hosts::development::apps:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-data-admin'
+  - 'content-data-api'
   - 'content-performance-manager'
   - 'content-publisher'
   - 'content-store'
@@ -283,7 +277,6 @@ hosts::development::apps:
   - 'email-alert-api'
   - 'email-alert-api-public'
   - 'email-alert-frontend'
-  - 'event-store'
   - 'feedback'
   - 'finder-frontend'
   - 'frontend'
@@ -298,8 +291,6 @@ hosts::development::apps:
   - 'manuals-publisher'
   - 'mapit'
   - 'maslow'
-  - 'publicapi'
-  - 'public-event-store'
   - 'publisher'
   - 'publishing-api'
   - 'publishing-components'
@@ -307,7 +298,6 @@ hosts::development::apps:
   - 'release'
   - 'router-api'
   - 'router'
-  - 'rummager'
   - 'search-api'
   - 'search'
   - 'search-admin'
@@ -353,7 +343,6 @@ nginx_enable_ssl: false
 
 postgresql_api_slave_addresses_live: '127.0.0.1/32'
 postgresql_slave_addresses_live: '127.0.0.1/32'
-postgresql_transition_slave_addresses_live: '127.0.0.1/32'
 
 govuk_pgbouncer::include_vagrant_user: true
 

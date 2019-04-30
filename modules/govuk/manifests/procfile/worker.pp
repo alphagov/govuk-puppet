@@ -31,6 +31,10 @@
 #   If set, alert using Icinga if the number of threads exceeds the value specified.
 #   Default: 50
 #
+# [*process_regex*]
+#   The regex to use for the CollectD Process plugin.
+#   Default: "sidekiq .* ${title}(.*\\.gov\\.uk)? "
+#
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
@@ -38,6 +42,9 @@ define govuk::procfile::worker (
   $setenv_as = $title,
   $process_count = 1,
   $alert_when_threads_exceed = 50,
+  $respawn_count = 5,
+  $respawn_timeout = 20,
+  $process_regex = "sidekiq .* ${title}(.*\\.gov\\.uk)? ",
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -48,7 +55,7 @@ define govuk::procfile::worker (
 
   collectd::plugin::process { "app-worker-${title_underscore}":
     ensure => $ensure,
-    regex  => "sidekiq .* ${title}.*\\.gov\\.uk",
+    regex  => $process_regex,
   }
 
   if $ensure == present {
@@ -77,6 +84,18 @@ define govuk::procfile::worker (
         service_description => "${title} procfile worker upstart up",
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(check-process-running),
+      }
+
+      @@icinga::check::graphite { "check_${title_underscore}_app_worker_process_count_${::hostname}":
+        # Make the process count negative, as I don't think the
+        # check-graphite command can handle checking for a low value.
+        target    => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.processes",
+        warning   => '@0', # WARN if there are 0 processes
+        critical  => '@-1', # Don't use the CRITICAL status for now
+                            # (less than -1 processes)
+        desc      => "No processes found for ${title_underscore}",
+        host_name => $::fqdn,
+        from      => '30seconds',
       }
 
       if $alert_when_threads_exceed {

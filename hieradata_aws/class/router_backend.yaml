@@ -1,5 +1,4 @@
 ---
-
 govuk::apps::router_api::mongodb_name: 'router'
 govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-1'

@@ -12,7 +12,7 @@
 
 - job:
     name: Update_CDN_Dictionaries
-    display-name: Update CDN dictionaries
+    display-name: "CDN: update dictionaries"
     project-type: freestyle
     properties:
         - build-discarder:
@@ -41,6 +41,9 @@
           notify-repeatedfailure: false
           include-test-summary: false
           room: <%= @slack_room %>
+      - trigger:
+          project: Smokey
+          threshold: SUCCESS
     wrappers:
         - ansicolor:
             colormap: xterm

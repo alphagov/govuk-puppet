@@ -2,7 +2,7 @@
   "aliasColors": {},
   "bars": false,
   "datasource": "Graphite",
-  "description": "Shows the process count for <%= @app_name %> backend machines. During deployment the number of processes should double and then return to normal. Code should be tested once the old processes have been killed.",
+  "description": "Shows the error rate for <%= @app_name %> (against the right Y axis) and the process count for each machine on which the application runs (against the left Y axis). During deployment the number of processes should double and then return to normal. Code should be tested once the old processes have been killed.",
   "fill": 0,
   "grid": {
     "threshold1": null,
@@ -20,7 +20,7 @@
     "total": false,
     "values": true,
     "alignAsTable": true,
-    "rightSide": true
+    "rightSide": false
   },
   "lines": true,
   "linewidth": 1,
@@ -30,8 +30,13 @@
   "pointradius": 5,
   "points": false,
   "renderer": "flot",
-  "seriesOverrides": [],
-  "span": 6,
+  "seriesOverrides": [
+    {
+      "alias": "<%= @app_name %>",
+      "yaxis": 2
+    }
+  ],
+  "span": 12,
   "stack": false,
   "steppedLine": false,
   "targets": [
@@ -56,12 +61,17 @@
       "target": "aliasByNode(*.processes-app-<%= @app_name %>.ps_count.processes,0)",
       "textEditor": true,
       "timeField": "@timestamp"
+    },
+    {
+      "refId": "B",
+      "target": "groupByNode(stats.*.nginx_logs.<%= @app_name %>.http_5xx, 3, 'sum')",
+      "textEditor": true
     }
   ],
   "thresholds": [],
-  "timeFrom": "15m",
+  "timeFrom": null,
   "timeShift": null,
-  "title": "Processes",
+  "title": "Process count and error rate",
   "tooltip": {
     "msResolution": false,
     "shared": true,
@@ -78,19 +88,20 @@
   "yaxes": [
     {
       "format": "short",
-      "label": null,
+      "label": "Process count",
       "logBase": 1,
       "max": null,
-      "min": null,
+      "min": 0,
       "show": true
     },
     {
       "format": "short",
-      "label": null,
+      "label": "<%= @app_name %> error rate",
       "logBase": 1,
       "max": null,
-      "min": null,
-      "show": true
+      "min": 0,
+      "show": true,
+      "decimals": 1
     }
   ],
   "decimals": 0

@@ -12,7 +12,7 @@
 
 - job:
     name: Deploy_CDN
-    display-name: Deploy_CDN
+    display-name: "CDN: deploy service"
     project-type: freestyle
     properties:
         - build-discarder:
@@ -25,7 +25,7 @@
     builders:
         - shell: |
             export ENVIRONMENT=<%= @environment %>
-            ./jenkins.sh
+            ./deploy-service.sh
     publishers:
       <% if @enable_slack_notifications %>
       - slack:
@@ -43,6 +43,9 @@
           include-test-summary: false
           room: <%= @slack_room %>
       <% end %>
+      - trigger:
+          project: Smokey
+          threshold: SUCCESS
     wrappers:
         - ansicolor:
             colormap: xterm

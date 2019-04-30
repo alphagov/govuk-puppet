@@ -24,11 +24,9 @@
 # [*error_threshold*]
 #   Point at which count turns `red` in the error count table data
 #
-# [*fields_prefix*]
-#   Add the prefix to Elasticsearch queries. Depending on the version of logstasher
-#   some applications do not include the @fields prefix. Add this prefix by default,
-#   with the option to override with a blank field for apps that use a different
-#   configuration of the logstasher gem.
+# [*instance_prefix*]
+#   Used for metrics that are named based on the instance name rather than the
+#   application. For example, calculators_frontend vs finder_frontend.
 #
 define grafana::dashboards::application_dashboard (
   $app_name = $title,
@@ -43,8 +41,9 @@ define grafana::dashboards::application_dashboard (
   $show_response_times = false,
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
-  $show_elasticsearch_stats = false,
-  $fields_prefix = '',
+  $show_external_request_time = false,
+  $show_memcached = false,
+  $instance_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
 ) {
@@ -94,20 +93,31 @@ define grafana::dashboards::application_dashboard (
     $dependent_app_5xx_row = []
   }
 
-  if $show_elasticsearch_stats {
-    $elasticsearch_stats = [
+  if $show_memcached {
+    $memcached_row = [
       [
-        'elasticsearch_disk_io',
-        'elasticsearch_free_memory',
-        'elasticsearch_idle_cpu']
+        'memcached']
     ]
   } else {
-    $elasticsearch_stats = []
+    $memcached_row = []
+  }
+
+# These three are pretty specific to finder frontend.
+# If you want to use them then they probably need more white-labelling.
+  if $show_external_request_time {
+    $external_request_row = [
+      [
+        'content_store_request_time',
+        'registry_request_time',
+        'search_api_request_time']
+    ]
+  } else {
+    $external_request_row = []
   }
 
   $panel_partials = concat(
     [
-      ['processor_count', '5xx_rate'],
+      ['processor_count'],
       ['error_counts_table', 'links']
     ],
     $worker_row,
@@ -116,7 +126,8 @@ define grafana::dashboards::application_dashboard (
     $duration_by_controller_row,
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
-    $elasticsearch_stats
+    $memcached_row,
+    $external_request_row
   )
 
   file {

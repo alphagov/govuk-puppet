@@ -85,7 +85,7 @@ if @log_index_type_count.keys.length > 0
   @log_index_type_count.each do |index_name, type_names| 
     type_names.each do |type_name|
 -%>
-  <URL "http://127.0.0.1:<%= @es_port -%>/<%= index_name -%>/<%= type_name %>/_count">
+  <URL "http://<%= @es_host -%>:<%= @es_port -%>/<%= index_name -%>/<%= type_name %>/_count">
     Instance "elasticsearch"
     <Key "count">
       Type "gauge"

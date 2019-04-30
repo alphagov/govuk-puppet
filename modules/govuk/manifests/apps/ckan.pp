@@ -65,13 +65,16 @@ class govuk::apps::ckan (
 
   if $enabled {
     govuk::app { 'ckan':
-      app_type           => 'procfile',
-      port               => $port,
-      vhost_protected    => $vhost_protected,
-      vhost_ssl_only     => true,
-      health_check_path  => '/healthcheck',
-      log_format_is_json => false,
-      read_timeout       => $request_timeout,
+      app_type               => 'procfile',
+      port                   => $port,
+      vhost_protected        => $vhost_protected,
+      vhost_ssl_only         => true,
+      health_check_path      => '/healthcheck',
+      log_format_is_json     => false,
+      read_timeout           => $request_timeout,
+      collectd_process_regex => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
+      nagios_memory_warning  => 2400,
+      nagios_memory_critical => 2500,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
@@ -82,22 +85,6 @@ class govuk::apps::ckan (
     $toggled_bulk_ensure = $bulk_worker_processes ? {
       '0'     => absent,
       default => present,
-    }
-
-    govuk::procfile::worker { 'celery_priority':
-      ensure         => $toggled_priority_ensure,
-      setenv_as      => 'ckan',
-      enable_service => $priority_worker_processes != '0',
-      process_type   => 'celery_priority',
-      process_count  => $priority_worker_processes,
-    }
-
-    govuk::procfile::worker { 'celery_bulk':
-      ensure         => $toggled_bulk_ensure,
-      setenv_as      => 'ckan',
-      enable_service => $bulk_worker_processes != '0',
-      process_type   => 'celery_bulk',
-      process_count  => $bulk_worker_processes,
     }
 
     $toggled_harvester_fetch = $enable_harvester_fetch ? {
@@ -115,6 +102,8 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => $enable_harvester_fetch,
       process_type   => 'harvester_fetch_consumer',
+      respawn_count  => 15,
+      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester fetch\_consumer',
     }
 
     govuk::procfile::worker { 'harvester_gather_consumer':
@@ -122,6 +111,7 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => $enable_harvester_gather,
       process_type   => 'harvester_gather_consumer',
+      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer',
     }
 
     include govuk::apps::ckan::cronjobs

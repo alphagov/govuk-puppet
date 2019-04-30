@@ -22,10 +22,10 @@ node_class: &node_class
       - contacts
       - content-audit-tool
       - content-data-admin
+      - content-data-api
       - content-performance-manager
       - content-publisher
       - content-tagger
-      - event-store
       - hmrc-manuals-api
       - imminence
       - kibana
@@ -52,7 +52,6 @@ node_class: &node_class
   cache:
     apps:
       - router
-      - publicapi
   content_store:
     apps:
       - content-store
@@ -71,7 +70,6 @@ node_class: &node_class
       - authenticating-proxy
       - router
       - router-api
-      - draft-publicapi
   draft_content_store:
     apps:
       - content-store
@@ -115,7 +113,6 @@ node_class: &node_class
       - router-api
   search:
     apps:
-      - rummager
       - search-api
   whitehall_backend:
     apps:
@@ -157,6 +154,8 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-data-admin: {}
+  content-data-api:
+    repository: 'content-performance-manager'
   content-performance-manager: {}
   content-publisher: {}
   content-store: {}
@@ -189,7 +188,6 @@ deployable_applications: &deployable_applications
   release: {}
   router: {}
   router-api: {}
-  rummager: {}
   search-api: {}
   search-admin: {}
   service-manual-frontend: {}
@@ -207,7 +205,7 @@ deployable_applications: &deployable_applications
   travel-advice-publisher: {}
   whitehall: {}
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
@@ -298,11 +296,8 @@ collectd::plugin::tcp::metrics:
   - 'PassiveOpens'
 
 collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-collectd::plugin::docker::repo: "https://github.com/lebauce/docker-collectd-plugin.git"
-collectd::plugin::docker::commit: "c3edc64555f35d8ffcc9aee23b69c289e8f309fb"
-
-collectd::package::collectd_version: '5.6.0-0.1~pl5~trusty1'
-collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+collectd::plugin::docker::repo: "https://github.com/alphagov/docker-collectd-plugin.git"
+collectd::plugin::docker::commit: "e56ddb84536065786e0a55143faa8c6fc035c119"
 
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
@@ -419,6 +414,23 @@ govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_
 govuk::apps::content_data_admin::db::allow_auth_from_lb: true
 govuk::apps::content_data_admin::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::content_data_admin::db::rds: true
+govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
+
+govuk::apps::content_data_api::rabbitmq_user: "content_data_api"
+govuk::apps::content_data_api::rabbitmq_password: "%{hiera('govuk::apps::content_data_api::rabbitmq::amqp_pass')}"
+govuk::apps::content_data_api::db_hostname: "content-data-api-postgresql-primary"
+govuk::apps::content_data_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+govuk::apps::content_data_api::rabbitmq_hosts:
+  - rabbitmq
+govuk::apps::content_data_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
+
+# Temporarily match up the Content Data API and Content Performance
+# Manager database name and user, to make it easier to sync the
+# Content Performance Manager database over
+govuk::apps::content_data_api::db_name: "content_performance_manager_production"
+govuk::apps::content_data_api::db_username: "content_performance_manager"
 
 govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
 govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
@@ -440,10 +452,12 @@ govuk::apps::content_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix
 govuk::apps::content_publisher::db::rds: true
 govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::content_publisher::aws_region: "eu-west-1"
+govuk::apps::content_publisher::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_store::nagios_memory_warning: 2600
 govuk::apps::content_store::nagios_memory_critical: 2800
-govuk::apps::content_store::unicorn_worker_processes: "8"
+govuk::apps::content_store::unicorn_worker_processes: "12"
 
 govuk::apps::content_tagger::db_hostname: "db-admin"
 govuk::apps::content_tagger::db_port: 6432
@@ -465,13 +479,17 @@ govuk::apps::email_alert_api::db_hostname: 'db-admin'
 govuk::apps::email_alert_api::db_port: 6432
 govuk::apps::email_alert_api::db_allow_prepared_statements: false
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
-govuk::apps::email_alert_api::unicorn_worker_processes: '4'
+govuk::apps::email_alert_api::nagios_memory_warning: 2400
+govuk::apps::email_alert_api::nagios_memory_critical: 3000
+govuk::apps::email_alert_api::unicorn_worker_processes: '8'
 # This list should be kept in sync with https://www.notifications.service.gov.uk/services/ecfc7e2f-5145-45a6-9413-5d9b6e813ea9/users
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
+  - deborah.chua@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
+  - michael.s.walker@digital.cabinet-office.gov.uk
   - ruben.arakelyan@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
   - tijmen.brommet@digital.cabinet-office.gov.uk
@@ -483,12 +501,10 @@ govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 
-govuk::apps::event_store::enabled: false
-
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::nagios_memory_warning: 2000
 govuk::apps::finder_frontend::nagios_memory_critical: 2500
-govuk::apps::finder_frontend::unicorn_worker_processes: "4"
+govuk::apps::finder_frontend::unicorn_worker_processes: "6"
 
 govuk::apps::frontend::nagios_memory_warning: 1200
 govuk::apps::frontend::nagios_memory_critical: 1400
@@ -587,9 +603,6 @@ govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
-govuk::apps::rummager::rabbitmq_hosts:
-  - rabbitmq
-
 govuk::apps::search_api::rabbitmq_hosts:
   - rabbitmq
 
@@ -620,23 +633,8 @@ govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"
 
-govuk::apps::rummager::nagios_memory_warning: 4600
-govuk::apps::rummager::nagios_memory_critical: 4900
-govuk::apps::rummager::enable_bulk_reindex_listener: true
-govuk::apps::rummager::enable_publishing_listener: true
-govuk::apps::rummager::enable_govuk_index_listener: true
-govuk::apps::rummager::rabbitmq::enable_bulk_reindex_listener: true
-govuk::apps::rummager::rabbitmq::enable_govuk_index_listener: true
-govuk::apps::rummager::rabbitmq::enable_publishing_listener: true
-govuk::apps::rummager::rabbitmq_user: 'rummager-v2'
-govuk::apps::rummager::redis_host: 'backend-redis'
-govuk::apps::rummager::redis_port: '6379'
-govuk::apps::rummager::elasticsearch_hosts: 'http://rummager-elasticsearch:9200'
-govuk::apps::rummager::unicorn_worker_processes: "6"
-
-# todo: enable when it seems to be working
-# govuk::apps::search_api::nagios_memory_warning: 4600
-# govuk::apps::search_api::nagios_memory_critical: 4900
+govuk::apps::search_api::nagios_memory_warning: 4600
+govuk::apps::search_api::nagios_memory_critical: 4900
 govuk::apps::search_api::enable_bulk_reindex_listener: true
 govuk::apps::search_api::enable_publishing_listener: true
 govuk::apps::search_api::enable_govuk_index_listener: true
@@ -647,8 +645,8 @@ govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'backend-redis'
 govuk::apps::search_api::redis_port: '6379'
 # todo: decide if we're self-hosting or using a managed elasticsearch (use a bogus value for now)
-govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9200'
-govuk::apps::search_api::unicorn_worker_processes: "6"
+govuk::apps::search_api::elasticsearch_hosts: 'http://elasticsearch5'
+govuk::apps::search_api::unicorn_worker_processes: "9"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'mysql-primary'
@@ -671,8 +669,12 @@ govuk::apps::sidekiq_monitoring::collections_publisher_redis_host: "%{hiera('gov
 govuk::apps::sidekiq_monitoring::collections_publisher_redis_port: "%{hiera('govuk::apps::collections_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
-govuk::apps::sidekiq_monitoring::content_performance_manager_redis_host: "%{hiera('govuk::apps::content_performance_manager::redis_host')}"
-govuk::apps::sidekiq_monitoring::content_performance_manager_redis_port: "%{hiera('govuk::apps::content_performance_manager::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_data_admin_redis_host: "%{hiera('govuk::apps::content_data_admin::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_data_admin_redis_port: "%{hiera('govuk::apps::content_data_admin::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_data_api_redis_host: "%{hiera('govuk::apps::content_data_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_data_api_redis_port: "%{hiera('govuk::apps::content_data_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::content_publisher_redis_host: "%{hiera('govuk::apps::content_publisher::redis_host')}"
+govuk::apps::sidekiq_monitoring::content_publisher_redis_port: "%{hiera('govuk::apps::content_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_port: "%{hiera('govuk::apps::content_tagger::redis_port')}"
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::apps::email_alert_api::redis_host')}"
@@ -687,8 +689,6 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_host: "%{hiera('govuk::apps::rummager::redis_host')}"
-govuk::apps::sidekiq_monitoring::rummager_redis_port: "%{hiera('govuk::apps::rummager::redis_port')}"
 govuk::apps::sidekiq_monitoring::search_api_redis_host: "%{hiera('govuk::apps::search_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::search_api_redis_port: "%{hiera('govuk::apps::search_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
@@ -711,8 +711,8 @@ govuk::apps::signon::db_username: 'signon'
 govuk::apps::signon::redis_url: "redis://backend-redis:6379/0"
 govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::signon::nagios_memory_warning: 900
-govuk::apps::signon::nagios_memory_critical: 1000
+govuk::apps::signon::nagios_memory_warning: 1100
+govuk::apps::signon::nagios_memory_critical: 1200
 govuk::apps::signon::unicorn_worker_processes: "4"
 
 govuk::apps::specialist_publisher::enabled: true
@@ -735,8 +735,8 @@ govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::static::unicorn_worker_processes: "8"
-govuk::apps::static::nagios_memory_warning: 1050
-govuk::apps::static::nagios_memory_critical: 1200
+govuk::apps::static::nagios_memory_warning: 1500
+govuk::apps::static::nagios_memory_critical: 1750
 
 govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"
@@ -769,6 +769,7 @@ govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::apps::content_audit_tool::db::rds: true
+govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_performance_manager::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
@@ -817,7 +818,25 @@ govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_base::log_remote: false
 
+govuk::node::s_backend_lb::app_specific_static_asset_routes:
+  '/asset-manager': "asset-manager"
+  '/government/assets/': "whitehall-frontend"
+govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
+  - '/government/uploads/'
+  - '/media/'
+govuk::node::s_backend_lb::whitehall_uploaded_assets_routes:
+  - '/government/placeholder'
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
+govuk::node::s_backend_lb::assets_carrenza_vhost_name: "assets-carrenza.%{hiera('app_domain')}"
+govuk::node::s_backend_lb::draft_assets_carrenza_vhost_name: "draft-assets-carrenza.%{hiera('app_domain')}"
+govuk::node::s_backend_lb::assets_carrenza_vhost_aliases:
+  - 'assets.digital.cabinet-office.gov.uk'
+  - 'assets.publishing.service.gov.uk'
+govuk::node::s_backend_lb::assets_carrenza_real_ip_header: "True-Client-Ip"
+
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -846,22 +865,6 @@ govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::n
 govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk::node::s_transition_postgresql_master::alert_hostname: 'alert'
-govuk::node::s_transition_postgresql_slave::redirector_ip_range: 10.6.0.1/16
-govuk::node::s_transition_postgresql_standby::redirector_ip_range: "%{hiera('govuk::node::s_transition_postgresql_slave::redirector_ip_range')}"
-
-govuk::node::s_postgresql_standby::aws_access_key_id: "%{hiera('govuk::node::s_postgresql_primary::aws_access_key_id')}"
-govuk::node::s_postgresql_standby::aws_secret_access_key: "%{hiera('govuk::node::s_postgresql_primary::aws_secret_access_key')}"
-govuk::node::s_postgresql_standby::s3_bucket_url: "%{hiera('govuk::node::s_postgresql_primary::s3_bucket_url')}"
-govuk::node::s_postgresql_standby::wale_private_gpg_key: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key')}"
-govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key_fingerprint')}"
-
-govuk::node::s_transition_postgresql_slave::aws_access_key_id: "%{hiera('govuk::node::s_transition_postgresql_master::aws_access_key_id')}"
-govuk::node::s_transition_postgresql_slave::aws_secret_access_key: "%{hiera('govuk::node::s_transition_postgresql_master::aws_secret_access_key')}"
-govuk::node::s_transition_postgresql_slave::s3_bucket_url: "%{hiera('govuk::node::s_transition_postgresql_master::s3_bucket_url')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key')}"
-govuk::node::s_transition_postgresql_slave::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_transition_postgresql_master::wale_private_gpg_key_fingerprint')}"
 
 govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -911,11 +914,7 @@ govuk_crawler::site_root: "https://www.%{hiera('app_domain')}"
 govuk_docker::version: "17.09.0~ce-0~ubuntu"
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_elasticsearch::backup::alert_hostname: 'alert'
 govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk_elasticsearch::backup_enabled: true
-govuk_elasticsearch::open_firewall_from_all: true
 
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::config::github_api_uri: "https://api.github.com"
@@ -962,6 +961,8 @@ govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk_search::gor::enabled: true
+
 govuk_sudo::sudo_conf:
   deploy_docker_image:
     content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
@@ -987,7 +988,6 @@ govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
-govuk_unattended_reboot::elasticsearch::enabled: true
 
 govuk_unattended_reboot::monitoring_basic_auth:
   username: "%{hiera('http_username')}"
@@ -1001,6 +1001,7 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   authenticating-proxy: {}
+  cache-clearing-service: {}
   calculators: {}
   calendars: {}
   ckan:
@@ -1008,7 +1009,9 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
-  collections: {}
+  collections:
+    instance_prefix: 'frontend'
+    show_memcached: true
   collections-publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1017,11 +1020,15 @@ grafana::dashboards::application_dashboards:
   content-audit-tool:
     show_sidekiq_graphs: true
     has_workers: true
-  content-data-admin: {}
-  content-performance-manager:
+  content-data-admin:
     show_sidekiq_graphs: true
     has_workers: true
-  content-publisher: {}
+  content-data-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   content-store:
     dependent_app_5xx_errors:
       - calendars
@@ -1043,8 +1050,12 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-frontend: {}
+  email-alert-service: {}
   feedback: {}
-  finder-frontend: {}
+  finder-frontend:
+    show_external_request_time: true
+    show_memcached: true
+    instance_prefix: 'calculators_frontend'
   frontend: {}
   government-frontend: {}
   hmrc-manuals-api: {}
@@ -1062,6 +1073,8 @@ grafana::dashboards::application_dashboards:
   local-links-manager:
     dependent_app_5xx_errors:
       - frontend
+    instance_prefix: 'backend'
+    show_memcached: true
   manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
@@ -1080,12 +1093,14 @@ grafana::dashboards::application_dashboards:
   publishing-api:
     show_sidekiq_graphs: true
     has_workers: true
+    instance_prefix: 'publishing_api'
+    show_memcached: true
   release: {}
+  router: {}
   router-api: {}
-  rummager:
-    # rummager is a sinatra app
+  search-api:
+    # search-api is a sinatra app
     show_controller_errors: false
-    show_elasticsearch_stats: true
     show_response_times: true
     show_sidekiq_graphs: true
     show_slow_requests: false
@@ -1093,28 +1108,12 @@ grafana::dashboards::application_dashboards:
     dependent_app_5xx_errors:
       - collections
       - finder-frontend
-      - frontend
-      - government-frontend
       - whitehall-frontend
-  search-api:
-    # search-api is a sinatra app
-    show_controller_errors: false
-    show_elasticsearch_stats: true
-    show_response_times: true
-    show_sidekiq_graphs: true
-    show_slow_requests: false
-    has_workers: true
-    # todo: set when apps are talking to search-api
-    # dependent_app_5xx_errors:
-    #   - collections
-    #   - finder-frontend
-    #   - frontend
-    #   - government-frontend
-    #   - whitehall-frontend
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
+  sidekiq-monitoring: {}
   signon:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1182,6 +1181,7 @@ mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::server::version: '2.4.9'
 
+monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
 monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
 monitoring::client::alert_hostname: 'alert'
@@ -1232,10 +1232,6 @@ monitoring::checks::rds::servers:
    - 'transition-postgresql-standby'
    - 'warehouse-postgresql-primary'
    - 'warehouse-postgresql-standby'
-   - 'email-alert-api-postgresql-primary'
-   - 'email-alert-api-postgresql-standby'
-   - 'publishing-api-postgresql-primary'
-   - 'publishing-api-postgresql-standby'
    - 'mysql-primary'
    - 'mysql-replica'
 
@@ -1303,6 +1299,7 @@ router::assets_origin::asset_manager_uploaded_assets_routes:
 router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
+  - 'assets.production.govuk.digital'
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
@@ -1346,12 +1343,13 @@ unattended_reboot::etcd_endpoints:
 
 unattended_upgrades::blacklist:
  - 'mysql-server.*'
+
 unattended_upgrades::mail_to: 'machine.email@digital.cabinet-office.gov.uk'
 unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
-unicornherder::version: '0.0.8'
+unicornherder::version: '0.1.0'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

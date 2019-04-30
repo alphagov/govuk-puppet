@@ -1,7 +1,7 @@
 app_domain: 'environment.example.com'
 app_domain_internal: 'dev.govuk-internal.digital'
 
-apt_mirror_hostname: 'apt.production.alphagov.co.uk'
+apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
 backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -27,6 +27,7 @@ govuk::deploy::sync::jenkins_domain: "jenkins.example.com"
 govuk::deploy::sync::auth_token: "example-auth-token"
 
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

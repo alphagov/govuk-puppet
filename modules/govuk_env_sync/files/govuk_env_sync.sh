@@ -14,15 +14,20 @@ set -o errtrace
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-#     Database management system / data source (One of: mongo,elasticsearch,postgresql,mysql)
+
+#     Database management system / data source (One of: mongo,elasticsearch,
+#     elasticsearch5,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
+#     If dbms is elasticsearch5, storagebackend must be es_snapshot
+
 #
 #   S) storagebackend
-#     Storage backend (One of: s3)
+#     Storage backend (One of: s3,es_snapshot)
 #     This is used to construct script names called, e.g. push_s3
+#     If storagebackend is es_snapshot, dbms must be elasticsearch5
 #
 #   T) temppath
-#     Path to create temporary directory in. Directory will be created if 
+#     Path to create temporary directory in. Directory will be created if
 #     sufficient rights are granted to the govuk-backup user.
 #
 #   d) database
@@ -30,10 +35,12 @@ set -o errtrace
 #     to the directory to copy/sync.
 #
 #   u) url
-#     URL of storage backend, bucket name in case of S3
+#     URL of storage backend, bucket name in case of S3, repository name in case of
+#     es_snapshot
 #
 #   p) path
-#     Path to use on storage backend, prefix in case of S3
+#     Path to use on storage backend, prefix in case of S3, repository name in case
+#     of es_snapshot
 #
 #   t) timestamp
 #     Optional provide specific timestamp to restore.
@@ -51,9 +58,10 @@ ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep
 # No, it is not a typo
 # shellcheck disable=SC2153
 local_domain="${LOCAL_DOMAIN}"
+ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
 function log {
-  echo -ne "$(basename "$0"): $1\\n"
+  echo -ne "$(basename "$0"): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
@@ -118,10 +126,6 @@ function nagios_passive {
 #
 trap 'report_error $LINENO' ERR
 
-# Trap exit signal to push state to icinga
-#
-trap nagios_passive EXIT
-
 function create_timestamp {
   timestamp="$(date +%Y-%m-%dT%H:%M:%S)"
 }
@@ -132,8 +136,17 @@ function create_tempdir {
 }
 
 function remove_tempdir {
-  rm -rf "${tempdir}"
+  if [ ! -z "${tempdir:-}" ]; then
+    rm -rf "${tempdir}"
+  fi
 }
+
+function on_exit {
+  remove_tempdir
+  nagios_passive
+}
+
+trap on_exit EXIT
 
 function set_filename {
   filename="${timestamp}-${database}.gz"
@@ -157,6 +170,21 @@ function is_writable_elasticsearch {
   fi
 }
 
+function is_writable_elasticsearch5 {
+# We don't want to run the restore on multiple nodes, so we need to
+# pick a unique one.  Pick the one in availability zone 'a'.  The
+# elasticsearch data sync is non-critical, so if it fails due to the
+# ec2 instance in zone a being down when the script is due to run,
+# it's not a big deal.
+  AZ=$(curl http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.*\(.\)/\1/')
+  if [ "$AZ" == "a" ]
+  then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
 function is_writable_postgresql {
 # db-admin is always writable
   echo "true"
@@ -172,7 +200,7 @@ function dump_mongo {
           "$(mongo --quiet --eval 'rs.slaveOk(); db.getCollectionNames();' "localhost/$database")"
 
   for collection in "${collections[@]}"
-  do  
+  do
 
     mongodump \
       --db "${database}" \
@@ -214,44 +242,88 @@ function restore_elasticsearch {
   /usr/local/bin/es_dump_restore restore_alias http://localhost:9200/ "$database" "$real_name" "${tempdir}/${filename}"
 }
 
+function dump_elasticsearch5 {
+  snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
+  # attempting to start multiple snapshots at once (which happens
+  # because this script runs on three machines at the same time)
+  # throws an error - so unconditionally ignore curl errors, but check
+  # that there is a snapshot being created.
+  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}" || true
+  /usr/bin/curl "http://elasticsearch5/_snapshot/${url}/_all" | grep -q "IN_PROGRESS"
+}
+
+function restore_elasticsearch5 {
+  snapshot_name="${filename//.gz/}"
+  curl -XDELETE 'http://elasticsearch5/_all'
+  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore"
+}
+
 function  dump_postgresql {
   # Check which postgres instance the database needs to restore into
   # (warehouse, transition, or postgresql-primary).
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='warehouse-postgresql-primary'
+    if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+      db_hostname='content-data-api-postgresql-primary'
+    else
+      db_hostname='warehouse-postgresql-primary'
+    fi
+  elif [ "${database}" == 'content_data_api_production' ]; then
+    db_hostname='content-data-api-postgresql-primary'
   else
     db_hostname='postgresql-primary'
   fi
 
-# We do not need sudo rights to write the output file
-# shellcheck disable=SC2024
-  sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
+
+  if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+    # We do not need sudo rights to write the output file
+    # shellcheck disable=SC2024
+    sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
+  else
+    # We do not need sudo rights to write the output file
+    # shellcheck disable=SC2024
+    sudo -u postgres pg_dump --format=c "${database}" > "${tempdir}/${filename}"
+  fi
 }
 
 function restore_postgresql {
   # Check which postgres instance the database needs to restore into
-  # (warehouse, transition, or postgresql-primary).
+  # (content-data-api, transition, or postgresql).
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='warehouse-postgresql-primary'
+    db_hostname='content-data-api-postgresql-primary'
+  elif [ "${database}" == 'content_data_api_production' ]; then
+    db_hostname='content-data-api-postgresql-primary'
   else
     db_hostname='postgresql-primary'
   fi
+
+  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
 
 # Checking if the database already exist
 # If it does we will drop the database
   DB_OWNER=''
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
-     echo "Database ${database} exists, we will drop it before continuing"
-     echo "Disconnect existing connections to database"
+     log "Database ${database} exists, we will drop it before continuing"
+     log "Disconnect existing connections to database"
+     sudo psql -U aws_db_admin -h "${db_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
      sudo psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
      DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
   fi
-  pg_stderr=$(sudo pg_restore -U aws_db_admin -h "${db_hostname}" --create --no-password -d postgres "${tempdir}/${filename}" 2>&1)
+
+  sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+
+  single_transaction='-1'
+  if [ "${database}" == 'ckan_production' ]; then
+    single_transaction=''
+  fi
+
+  pg_stderr=$(zcat "${tempdir}/${filename}.dump" | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" --no-password -d "${database}" 2>&1)
+  rm "${tempdir}/${filename}.dump"
+
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
      echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
@@ -267,11 +339,15 @@ function  restore_mysql {
 }
 
 function push_s3 {
+  log "Upload to s3://${url}/${path}/${filename}..."
   aws s3 cp "${tempdir}/${filename}" "s3://${url}/${path}/${filename}" --sse AES256
+  log "completed."
 }
 
 function pull_s3 {
+  log "Download from s3://${url}/${path}/${filename}..."
   aws s3 cp "s3://${url}/${path}/${filename}" "${tempdir}/${filename}" --sse AES256
+  log "completed."
 }
 
 function get_timestamp_s3 {
@@ -281,11 +357,15 @@ function get_timestamp_s3 {
 }
 
 function push_rsync {
+  log "Upload to ${url}:/${path}/${filename}..."
   rsync -acq "${tempdir}/${filename}" "${url}:/${path}/${filename}"
+  log "completed."
 }
 
 function pull_rsync {
+  log "Download from ${url}:${path}/${filename}..."
   rsync -acq "${url}:${path}/${filename}" "${tempdir}/${filename}"
+  log "completed."
 }
 
 function get_timestamp_rsync {
@@ -293,6 +373,25 @@ function get_timestamp_rsync {
   # shellcheck disable=SC2029
   timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
+}
+
+function push_es_snapshot {
+  # there is no file to push
+  true
+}
+
+function pull_es_snapshot {
+  # there is no file to pull
+  true
+}
+
+function get_timestamp_es_snapshot {
+  timestamp="$(/usr/bin/curl -XGET "http://elasticsearch5/_snapshot/${url}/_all" | \
+  /usr/bin/jq -r '.snapshots | .[] | .snapshot' | \
+  grep "\\-${database}" | \
+  sort | \
+  tail -1 | \
+  sed "s/-${database}$//")"
 }
 
 function postprocess_signon_production {
@@ -314,6 +413,45 @@ function postprocess_signon_production {
   echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
 }
 
+function get_aws_environment {
+  aws_environment=""
+  if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+    aws_environment=$(cut -d'=' -f2 < /etc/facter/facts.d/aws_environment.txt)
+  fi
+  echo "${aws_environment}"
+}
+
+## function: mongo_backend_domain_manipulator
+## Parameters:
+##  1. backend_id for which the domain will be replaced
+##  2. new domain to be applied for the given backend_id
+## Dependencies:
+##  1. external variables: database, local_domain, ORIGINAL_DOMAIN
+##  2. external database: mongo
+
+function mongo_backend_domain_manipulator {
+ if [ $# != 2 ]; then
+  echo "number of parameters must be 2 for mongo_backend_domain_manipulator: got $# parmeters"
+  exit 1
+ fi
+
+ log "starting mongo manipulation backend domain $1 manipulation..."
+
+ domain_to_replace="${local_domain}"
+ aws_environment="$(get_aws_environment)"
+ if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
+     domain_to_replace="${ORIGINAL_DOMAIN}"
+ fi
+
+ mongo --quiet --eval \
+  "db = db.getSiblingDB(\"${database}\"); \
+    db.backends.find( { \"backend_id\": \"$1\" } ).forEach( \
+    function(b) { b.backend_url = b.backend_url.replace(\".${domain_to_replace}\", \".$2\"); \
+    db.backends.save(b); } );"
+
+ echo "successful finished mongo manipulation backend domain $1 manipulation"
+}
+
 function postprocess_router {
   static_domain=$(mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
@@ -322,18 +460,29 @@ function postprocess_router {
   # router and draft-router hostnames differ - snip off up to first dot.
   source_domain="${static_domain#*.}"
 
-  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
+  unmigrated_source_domain="${ORIGINAL_DOMAIN}"
+  aws_environment="$(get_aws_environment)"
+  if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
+      unmigrated_source_domain="${aws_environment}.${ORIGINAL_DOMAIN}"
+  fi
 
-  licensify_domain="${local_domain//govuk.digital/publishing.service.gov.uk}"
+  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
 
   mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
-    db.backends.find( { \"backend_id\": { \$ne: \"licensify\" } } ).forEach( \
+    db.backends.find().forEach( \
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
-    db.backends.save(b); } ); \
-    db.backends.find( { \"backend_id\": \"licensify\" } ).forEach( \
-      function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${licensify_domain}\"); \
-    db.backends.save(b); } );"
+    db.backends.save(b); } ); "
+
+  licensify_domain="${unmigrated_source_domain}"
+  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+
+  whitehall_domain="${unmigrated_source_domain}"
+  mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
+  mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
+
+  spotlight_proxy_domain="${unmigrated_source_domain}"
+  mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
 }
 
 function postprocess_database {
@@ -377,6 +526,15 @@ done
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
 
+if [[ "$dbms" == "elasticsearch5" ]] && [[ "$storagebackend" != "es_snapshot" ]]; then
+  echo "$dbms is only compatible with the es_snapshot storage backend"
+  exit 1
+fi
+if [[ "$storagebackend" == "es_snapshot" ]] && [[ "$dbms" != "elasticsearch5" ]]; then
+  echo "$dbms is not compatible with the $storagebackend storage backend"
+  exit 1
+fi
+
 # Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
 
@@ -385,7 +543,7 @@ nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storageback
 nagios_code=2
 
 case ${action} in
-  push) 
+  push)
     create_tempdir
     create_timestamp
     set_filename
@@ -410,4 +568,4 @@ esac
 # The script arrived here without detour to throw_error/exit
 nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
 nagios_code=0
-log "Ended \"$0 ${args[*]:-''}\""
+log "Completed \"$0 ${args[*]:-''}\""

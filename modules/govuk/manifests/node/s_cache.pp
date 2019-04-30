@@ -42,8 +42,33 @@ class govuk::node::s_cache (
 ) inherits govuk::node::s_base {
 
   include govuk_htpasswd
-  include router::gor
   include nscd
+
+  unless ( 'ip-10-12-4' in $::hostname ) and ( $::aws_migration == 'cache' ) and ( $::aws_environment == 'staging' ) {
+    include router::gor
+  }
+
+  # Increase the maximum number of file descriptors usable by the router
+  # A file descriptor is used per connection
+  limits::limits { 'deploy_nofile_router':
+    ensure     => present,
+    user       => 'deploy',
+    limit_type => 'nofile',
+    both       => 65536,
+  }
+
+  # Increase the maximum number of simulaneous connections that can be
+  # tracked by the netfilter
+  govuk_harden::sysctl::conf { 'cache-nf-conntrack-limit':
+    content => "net.netfilter.nf_conntrack_max = 65536\n",
+  }
+
+  # Decrease the timeout for established TCP connections from the default
+  # of 5 days to a more sensible 10 minutes so connections don't unnecessarily
+  # take up tracked connection slots
+  govuk_harden::sysctl::conf { 'cache-nf-conntrack-tcp-timeout-established':
+    content => "net.netfilter.nf_conntrack_tcp_timeout_established = 600\n",
+  }
 
   if $router_as_container {
     include ::govuk_containers::apps::router
@@ -67,7 +92,7 @@ class govuk::node::s_cache (
   }
 
   # The storage size for the cache, excluding per object and static overheads
-  $varnish_storage_size_pre = floor($::memorysize_mb * 0.70 - 2048)
+  $varnish_storage_size_pre = floor($::memorysize_mb * 0.70 - 3072)
 
   # Ensure that there's some varnish storage in small environments (eg, vagrant).
   if $varnish_storage_size_pre < 100 {

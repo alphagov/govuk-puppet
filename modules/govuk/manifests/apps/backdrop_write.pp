@@ -51,6 +51,7 @@ class govuk::apps::backdrop_write (
     govuk::procfile::worker { 'backdrop-transformer':
       setenv_as      => $app_name,
       enable_service => $enable_procfile_worker,
+      process_regex  => 'backdrop\.transformers\.worker',
     }
 
     Govuk::App::Envvar {

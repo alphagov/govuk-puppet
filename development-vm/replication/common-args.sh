@@ -14,8 +14,6 @@ ${USAGE_DESCRIPTION-}
 
 OPTIONS:
     -h       Show this message
-    -F file  Use a custom SSH configuration file
-    -u user  SSH user to log in as (overrides SSH config)
     -d dir   Use named directory to store and load backups
     -s       Skip downloading the backups (use with -d to load old backups)
     -r       Reset ignore list. This overrides any default ignores
@@ -39,7 +37,6 @@ SKIP_POSTGRES=false
 SKIP_MYSQL=false
 SKIP_ELASTIC=false
 SKIP_MAPIT=false
-SSH_CONFIG="../ssh_config"
 RENAME_DATABASES=true
 DRY_RUN=false
 KEEP_BACKUPS=false
@@ -64,12 +61,6 @@ do
     h )
       usage
       exit 1
-      ;;
-    F )
-      SSH_CONFIG=$OPTARG
-      ;;
-    u )
-      SSH_USER=$OPTARG
       ;;
     d )
       DIR=$OPTARG

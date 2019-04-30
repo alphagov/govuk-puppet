@@ -99,6 +99,12 @@
 #   The ?prepared_statements= parameter to use in the DATABASE_URL.
 #   Default: undef
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -137,6 +143,8 @@ class govuk::apps::email_alert_api(
   $aws_region = 'eu-west-1',
   $email_archive_s3_bucket = undef,
   $email_archive_s3_enabled = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
 
   $ensure = $enabled ? {
@@ -153,6 +161,8 @@ class govuk::apps::email_alert_api(
     health_check_path        => '/healthcheck',
     json_health_check        => true,
     unicorn_worker_processes => $unicorn_worker_processes,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

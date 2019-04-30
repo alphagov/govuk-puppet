@@ -20,6 +20,7 @@ temporary_hiera_file.close
 
 excluded_classes = [
   "email_alert_api_postgresql",
+  "content_data_api_db_admin",
 ]
 
 ENV.fetch('classes').split(",").each do |class_name|

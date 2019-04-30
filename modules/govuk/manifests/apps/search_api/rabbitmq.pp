@@ -59,6 +59,19 @@ class govuk::apps::search_api::rabbitmq (
     }
   }
 
+  $toggled_ensure = $enable_publishing_listener ? {
+    true    => present,
+    default => absent,
+  }
+
+  govuk_rabbitmq::consumer { 'search-api':
+    ensure               => $toggled_ensure,
+    amqp_pass            => $password,
+    read_permission      => "^(amq\\.gen.*|search_api_to_be_indexed|search_api_govuk_index|search_api_bulk_reindex|${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|search_api_to_be_indexed|search_api_govuk_index)\$",
+    configure_permission => "^(amq\\.gen.*|search_api_to_be_indexed|search_api_govuk_index)\$",
+  }
+
   # todo: remove these expiration times when we have search-api set up
   # and processing the queues properly.
   rabbitmq_policy { 'search_api-ttl@/':

@@ -23,8 +23,15 @@ class puppet::puppetserver::config {
   file_line { 'default_puppetserver':
     ensure => present,
     path   => '/etc/default/puppetserver',
-    line   => inline_template("JAVA_ARGS=\"${java_args}\"\n"),
+    line   => inline_template("JAVA_ARGS=\"${java_args}\""),
     match  => '^JAVA_ARGS=',
+  }
+
+  file_line { 'initd_puppetserver':
+    ensure => present,
+    path   => '/etc/init.d/puppetserver',
+    line   => 'EXEC="$JAVA_BIN -XX:OnOutOfMemoryError=\"kill -9 %p; /etc/init.d/puppetdb restart; /etc/init.d/puppetserver restart\" -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/var/log/$NAME -Djava.security.egd=/dev/urandom $JAVA_ARGS"',
+    match  => '^EXEC=\"\$JAVA_BIN -XX:OnOutOfMemoryError=',
   }
 
   # Track checksums and reload `puppetmaster` service when they change. This

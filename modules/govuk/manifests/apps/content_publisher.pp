@@ -75,6 +75,27 @@
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
+# [*govuk_notify_api_key*]
+#   API key for integration with GOV.UK Notify for sending emails
+#
+# [*govuk_notify_template_id*]
+#   Template ID for GOV.UK Notify
+#
+# [*email_address_override*]
+#   An email address that intercepted Notify emails can be sent to
+#
 class govuk::apps::content_publisher (
   $port = '3221',
   $enabled = true,
@@ -98,6 +119,12 @@ class govuk::apps::content_publisher (
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
   $asset_manager_bearer_token = undef,
+  $redis_host = undef,
+  $redis_port = undef,
+  $enable_procfile_worker = true,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $email_address_override = undef,
 ) {
   $app_name = 'content-publisher'
 
@@ -164,6 +191,20 @@ class govuk::apps::content_publisher (
     "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
         value   => $asset_manager_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+    "${title}-EMAIL_ADDRESS_OVERRIDE":
+        varname => 'EMAIL_ADDRESS_OVERRIDE',
+        value   => $email_address_override;
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   if $::govuk_node_class !~ /^development$/ {
@@ -176,5 +217,9 @@ class govuk::apps::content_publisher (
       allow_prepared_statements => $db_allow_prepared_statements,
       database                  => $db_name,
     }
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
   }
 }

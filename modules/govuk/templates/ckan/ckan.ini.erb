@@ -90,7 +90,7 @@ ckan.cors.origin_allow_all = true
 #       Add ``datapusher`` to enable DataPusher
 #       Add ``resource_proxy`` to enable resorce proxying and get around the
 #       same origin policy
-ckan.plugins = datagovuk_publisher_form datagovuk datagovsg_s3_resources dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api csw_harvester waf_harvester doc_harvester inventory_harvester
+ckan.plugins = datagovuk_publisher_form datagovuk datagovsg_s3_resources dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api gemini_csw_harvester gemini_waf_harvester gemini_doc_harvester inventory_harvester
 
 # These are marked as legacy harvesters
 # gemini_csw_harvester gemini_doc_harvester gemini_waf_harvester
@@ -115,6 +115,7 @@ ckan.redis.url = redis://<%= @redis_host%>:<%= @redis_port%>/1
 
 ckan.spatial.validator.profiles = iso19139eden,constraints-1.4,gemini2-1.3
 ckan.spatial.validator.reject = true
+ckan.spatial.srid = 4258
 
 # Define which views should be created by default
 # (plugins must be loaded in ckan.plugins)

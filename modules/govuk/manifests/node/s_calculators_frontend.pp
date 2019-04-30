@@ -6,11 +6,6 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
 
   include nginx
 
-  # Local proxy for licence-finder to access ES cluster.
-  if ! $::aws_migration {
-    include govuk_elasticsearch::local_proxy
-  }
-
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default': }
 
@@ -29,8 +24,22 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     listen_ip  => '0.0.0.0',
   }
 
+  govuk_envvar {
+    'UNICORN_TIMEOUT': value => 15;
+  }
+
   # Only for testing
   if $::aws_environment == 'staging' {
     include govuk_splunk
+  }
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    $app_domain = hiera('app_domain')
+
+    govuk_envvar {
+      'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain}";
+      'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
+      'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
+    }
   }
 }
