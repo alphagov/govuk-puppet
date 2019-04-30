@@ -51,7 +51,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-app-$processes.ps_cputime.user, 0)"
+              "target": "aliasByNode($host.processes-$processes.ps_cputime.user, 0)"
             }
           ],
           "thresholds": [],
@@ -140,7 +140,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-app-$processes.ps_rss, 0)"
+              "target": "aliasByNode($host.processes-$processes.ps_rss, 0)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -229,7 +230,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-app-$processes.ps_count.processes, 0)"
+              "target": "aliasByNode($host.processes-$processes.ps_count.processes, 0)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -315,7 +317,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-app-$processes.ps_count.threads, 0)"
+              "target": "aliasByNode($host.processes-$processes.ps_count.threads, 0)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -393,14 +396,14 @@
         "current": {},
         "datasource": "Graphite",
         "hide": 0,
-        "includeAll": true,
+        "includeAll": false,
         "label": "Processes",
         "multi": true,
         "name": "processes",
         "options": [],
         "query": "*.processes-*",
         "refresh": 1,
-        "regex": "/processes-app-(.*)/",
+        "regex": "/processes-(.*)/",
         "sort": 0,
         "tagValuesQuery": "",
         "tags": [],
