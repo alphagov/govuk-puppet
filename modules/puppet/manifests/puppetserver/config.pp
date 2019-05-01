@@ -1,7 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class puppet::puppetserver::config {
 
-  $java_args = '-Xms12g -Xmx12g -XX:MaxPermSize=1g'
+  $java_args = '-Xms10g -Xmx10g -XX:MaxPermSize=1g'
 
   file {'/etc/puppet/puppetdb.conf':
     content => template('puppet/etc/puppet/puppetdb.conf.erb'),
