@@ -1,0 +1,27 @@
+---
+govuk_jenkins::config::banner_colour_background: '#ffbf47'
+govuk_jenkins::config::banner_colour_text: 'black'
+govuk_jenkins::config::banner_string: 'AWS Training'
+govuk_jenkins::config::theme_colour: '#ffbf47'
+govuk_jenkins::config::theme_text_colour: 'black'
+govuk_jenkins::config::theme_environment_name: 'AWS Training'
+
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::clear_frontend_memcache
+  - govuk_jenkins::jobs::clear_template_cache
+  - govuk_jenkins::jobs::clear_varnish_cache
+  - govuk_jenkins::jobs::content_data_api
+  - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_emergency_banner
+  - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::deploy_router_data
+  - govuk_jenkins::jobs::mongo_data_sync
+  - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::publish_special_routes
+  - govuk_jenkins::jobs::remove_emergency_banner
+  - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::smokey
+  - govuk_jenkins::jobs::smokey_deploy
+
+govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: false
+govuk_jenkins::jobs::smokey::enable_slack_notifications: false
