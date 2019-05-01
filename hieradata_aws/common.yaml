@@ -881,7 +881,7 @@ govuk_sshkeys::deployment_keys:
   github.digital.cabinet-office.gov.uk:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC5y+7bm9YIMJXYbSdk2pVzl/w110eFrLIvirT4HKYATp7pxV454T2YoWIvIbtKF7GKz1SwX79uKePmwFKBQ8LIYlmFBbcYf8j3Jl9Px4vcmDPkWjZlfg/aqZUJI3WqwVCNelYM+RTlgtDsME8hIK2FbyPIjotF1WRsE1JgsMLfpzK/rVACGbktfQdmgY+56Ze9WA/rfCCKvrCtdavFR1rNxwkjm+GMImlcgmYTIT8BCEM2pkK0dIEJwKJWBVyyRBcTwHZDgvfVM/EyEfe+gIsgiQTORa1JaScHntH7Q7CBagpXvQHr/tSngGvbSBM1vMRLdtrw8BF5//AmNLOW3glZ'
 
-govuk_cdnlogs::use_tls: '0'
+govuk_cdnlogs::use_tls: '1'
 govuk_cdnlogs::service_port_map:
   govuk: 6514
   assets: 6515
