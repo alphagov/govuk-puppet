@@ -60,6 +60,9 @@
 # [*aws_s3_bucket_name*]
 #   The S3 Bucket for AWS to access.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token that will be used to authenticate with publishing-api
+#
 class govuk::apps::support(
   $emergency_contact_details = undef,
   $sentry_dsn = undef,
@@ -78,6 +81,7 @@ class govuk::apps::support(
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $aws_s3_bucket_name = undef,
+  $publishing_api_bearer_token = undef,
 ) {
 
   $app_name = 'support'
@@ -147,6 +151,9 @@ class govuk::apps::support(
     "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
       value   => $aws_s3_bucket_name;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $secret_key_base != undef {
