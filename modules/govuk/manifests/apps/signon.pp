@@ -54,6 +54,12 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
+# [*splunk_event_log_endpoint_url*]
+#   Splunk HTTP Event Collector API endpoint URL to stream event log messages to.
+#
+# [*splunk_event_log_endpoint_hec_token*]
+#   Authentication token used by the Splunk HTTP Event Collector.
+#
 # [*sso_push_user_email*]
 #   Email address for the SSO sync push user.
 #
@@ -77,6 +83,8 @@ class govuk::apps::signon(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $splunk_event_log_endpoint_url = undef,
+  $splunk_event_log_endpoint_hec_token = undef,
   $sso_push_user_email = undef,
   $unicorn_worker_processes = undef,
 ) {
@@ -133,6 +141,18 @@ class govuk::apps::signon(
     govuk::app::envvar { "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base,
+    }
+  }
+
+  if $splunk_event_log_endpoint_url != undef and $splunk_event_log_endpoint_hec_token != undef {
+    govuk::app::envvar { "${title}-SPLUNK_EVENT_LOG_ENDPOINT_URL":
+      varname => 'SPLUNK_EVENT_LOG_ENDPOINT_URL',
+      value   => $splunk_event_log_endpoint_url,
+    }
+
+    govuk::app::envvar { "${title}-SPLUNK_EVENT_LOG_ENDPOINT_HEC_TOKEN":
+      varname => 'SPLUNK_EVENT_LOG_ENDPOINT_HEC_TOKEN',
+      value   => $splunk_event_log_endpoint_hec_token,
     }
   }
 
