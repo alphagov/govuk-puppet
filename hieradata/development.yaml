@@ -34,8 +34,7 @@ govuk::node::s_development::apps:
   - 'contacts'
   - 'content_audit_tool'
   - 'content_data_api'
-  - 'content_performance_manager'
-  - 'content_performance_manager::rabbitmq'
+  - 'content_data_api::rabbitmq'
   - 'content_publisher'
   - 'content_store'
   - 'content_store::enable_running_in_draft_mode'
@@ -103,11 +102,13 @@ govuk::apps::ckan::priority_worker_processes: '1'
 govuk::apps::ckan::bulk_worker_processes: '1'
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-admin']
+govuk::apps::content_data_admin::enabled: true
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
-govuk::apps::content_performance_manager::rabbitmq_user: 'content_performance_manager'
-govuk::apps::content_performance_manager::rabbitmq_hosts: ['localhost']
-govuk::apps::content_performance_manager::rabbitmq::amqp_pass: 'content_performance_manager'
+govuk::apps::content_data_api::rabbitmq_user: 'content_data_api'
+govuk::apps::content_data_api::rabbitmq_hosts: ['localhost']
+govuk::apps::content_data_api::rabbitmq::amqp_pass: 'content_data_api'
+govuk::apps::content_data_api::rabbitmq_password: "%{hiera('govuk::apps::content_data_api::rabbitmq::amqp_pass')}"
 govuk::apps::content_publisher::enabled: true
 govuk::apps::content_tagger::enable_procfile_worker: false
 govuk::apps::email_alert_api::enable_procfile_worker: false
@@ -262,7 +263,6 @@ hosts::development::apps:
   - 'contacts-admin'
   - 'content-data-admin'
   - 'content-data-api'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-store'
   - 'content-tagger'
