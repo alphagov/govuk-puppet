@@ -209,7 +209,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "alias(consolidateBy(summarize(rabbitmq_%2F.queues-search_api_to_be_indexed.messages_ready, '10s', 'max'), 'max'), 'Unprocessed')",
+              "target": "alias(consolidateBy(summarize(rabbitmq_default.queues-search_api_to_be_indexed.messages_ready, '10s', 'max'), 'max'), 'Unprocessed')",
               "refId": "A"
             }
           ],

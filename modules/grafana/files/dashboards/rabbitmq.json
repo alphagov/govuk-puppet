@@ -67,15 +67,15 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(rabbitmq_%2F.exchanges-$Exchanges.confirm_details-rate, 'confirm rate')"
+              "target": "alias(rabbitmq_default.exchanges-$Exchanges.confirm_details-rate, 'confirm rate')"
             },
             {
               "refId": "B",
-              "target": "alias(rabbitmq_%2F.exchanges-$Exchanges.publish_in_details-rate, 'publish (in) rate')"
+              "target": "alias(rabbitmq_default.exchanges-$Exchanges.publish_in_details-rate, 'publish (in) rate')"
             },
             {
               "refId": "C",
-              "target": "alias(rabbitmq_%2F.exchanges-$Exchanges.publish_out_details-rate, 'publish (out) rate')"
+              "target": "alias(rabbitmq_default.exchanges-$Exchanges.publish_out_details-rate, 'publish (out) rate')"
             }
           ],
           "thresholds": [],
@@ -173,32 +173,32 @@
           "targets": [
             {
               "refId": "D",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.messages_ready, 'messages ready')"
+              "target": "alias(rabbitmq_default.queues-$Queues.messages_ready, 'messages ready')"
             },
             {
               "refId": "E",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.messages_unacknowledged, 'messages unacknowledged')"
+              "target": "alias(rabbitmq_default.queues-$Queues.messages_unacknowledged, 'messages unacknowledged')"
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.publish_details-rate, 'publish')",
+              "target": "alias(rabbitmq_default.queues-$Queues.publish_details-rate, 'publish')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.ack_details-rate, 'ack')"
+              "target": "alias(rabbitmq_default.queues-$Queues.ack_details-rate, 'ack')"
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.deliver_details-rate, 'deliver')"
+              "target": "alias(rabbitmq_default.queues-$Queues.deliver_details-rate, 'deliver')"
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias(rabbitmq_%2F.queues-$Queues.redeliver_details-rate, 'redeliver')"
+              "target": "alias(rabbitmq_default.queues-$Queues.redeliver_details-rate, 'redeliver')"
             }
           ],
           "thresholds": [],
@@ -261,7 +261,7 @@
         "multi": true,
         "name": "Queues",
         "options": [],
-        "query": "rabbitmq_%2F.queues-*",
+        "query": "rabbitmq_default.queues-*",
         "refresh": 1,
         "regex": "/queues-(.*)/",
         "sort": 1,
@@ -281,7 +281,7 @@
         "multi": true,
         "name": "Exchanges",
         "options": [],
-        "query": "rabbitmq_%2F.exchanges-*",
+        "query": "rabbitmq_default.exchanges-*",
         "refresh": 1,
         "regex": "/exchanges-(.*)/",
         "sort": 1,
