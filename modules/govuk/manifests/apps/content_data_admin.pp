@@ -191,6 +191,6 @@ class govuk::apps::content_data_admin (
   govuk::procfile::worker { "${app_name}-sidekiq":
     ensure         => $ensure,
     enable_service => $enable_procfile_worker,
-    process_regex  => 'sidekiq .*  content-data ',
+    process_regex  => 'sidekiq .* content-data ',
   }
 }
