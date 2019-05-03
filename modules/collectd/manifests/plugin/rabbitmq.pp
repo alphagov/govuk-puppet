@@ -13,7 +13,7 @@ class collectd::plugin::rabbitmq (
   ){
 
   @package { 'collectd-rabbitmq':
-    ensure   => '1.5.0',
+    ensure   => '1.20.0',
     provider => pip,
   }
 
