@@ -1,7 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define icinga::slack_contact (
-  $slack_subdomain,
-  $slack_token,
+  $slack_webhook_url,
   $slack_channel,
   $slack_username = 'Icinga',
   $nagios_cgi_url = 'https://example.org/cgi-bin/icinga/status.cgi'

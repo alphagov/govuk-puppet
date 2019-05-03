@@ -12,12 +12,37 @@
 #   Whether to alert PagerDuty.
 #   Default: false
 #
+# [*notify_slack*]
+#   Whether to alert Slack.
+#   Default: false
+#
+# [*slack_channel*]
+#   Slack channel to send alerts to.
+#   Default: undef
+#
+# [*slack_username*]
+#   Slack username to send alerts with.
+#   Default: undef
+#
+# [*slack_webhook_url*]
+#   Slack Webhook URL to send alerts with.
+#   Default: undef
+#
+# [*slack_alert_url*]
+#   URL to include in Slack alerts.
+#   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
+#
 class monitoring::contacts (
   $pagerduty_servicekey = '',
   $notify_pager = false,
+  $notify_slack = false,
   $notify_graphite = false,
+  $slack_channel = undef,
+  $slack_username = 'Icinga',
+  $slack_webhook_url = undef,
+  $slack_alert_url = 'https://example.com/cgi-bin/icinga/status.cgi',
 ) {
-  validate_bool($notify_pager, $notify_graphite)
+  validate_bool($notify_pager, $notify_slack, $notify_graphite)
 
   $midnight_day_start = '00:00'
   $office_day_start = '08:30'
@@ -76,6 +101,19 @@ class monitoring::contacts (
     timeperiod_alias => 'Never',
   }
 
+  if $notify_slack and ($slack_webhook_url and $slack_channel) {
+    icinga::slack_contact { 'slack_notification':
+      slack_webhook_url => $slack_webhook_url,
+      slack_channel     => $slack_channel,
+      slack_username    => $slack_username,
+      nagios_cgi_url    => $slack_alert_url,
+    }
+
+    $slack_members = ['slack_notification']
+  } else {
+    $slack_members = []
+  }
+
   if $notify_graphite {
     icinga::graphite_contact { 'graphite_notification': }
     $graphite_members = ['graphite_notification']
@@ -100,6 +138,7 @@ class monitoring::contacts (
     group_alias => 'Contacts for urgent priority alerts',
     members     => flatten([
       $graphite_members,
+      $slack_members,
       $pager_members,
     ]),
   }
@@ -112,6 +151,7 @@ class monitoring::contacts (
     group_alias => 'Contacts for high priority alerts',
     members     => flatten([
       $graphite_members,
+      $slack_members,
     ]),
   }
   icinga::service_template { 'govuk_high_priority':
@@ -123,6 +163,7 @@ class monitoring::contacts (
     group_alias => 'Contacts for normal priority alerts',
     members     => flatten([
       $graphite_members,
+      $slack_members,
     ]),
   }
   icinga::service_template { 'govuk_normal_priority':
@@ -134,6 +175,7 @@ class monitoring::contacts (
     group_alias => 'Contacts for regular alerts',
     members     => flatten([
       $graphite_members,
+      $slack_members,
     ]),
   }
   icinga::service_template { [
