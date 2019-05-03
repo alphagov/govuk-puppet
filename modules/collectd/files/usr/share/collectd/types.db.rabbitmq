@@ -20,10 +20,13 @@ rabbitmq_memory                  value:GAUGE:0:U
 rabbitmq_messages                value:GAUGE:0:U
 rabbitmq_messages_ready          value:GAUGE:0:U
 rabbitmq_messages_unacknowledged value:GAUGE:0:U
+rabbitmq_connections             value:GAUGE:0:U
 rabbitmq_consumers               value:GAUGE:0:U
+rabbitmq_consumer_utilisation    value:GAUGE:0:1
+rabbitmq_exchanges               value:GAUGE:0:U
+rabbitmq_channels                value:GAUGE:0:U
+rabbitmq_queues                  value:GAUGE:0:U
 rabbitmq_details                 avg:GAUGE:0:U avg_rate:GAUGE:0:U rate:GAUGE:0:U samples:GAUGE:0:U
-rabbitmq_consumers value:GAUGE:0:U
-rabbitmq_details avg:GAUGE:0:U, avg_rate:GAUGE:0:U, rate:GAUGE:0:U, samples:GAUGE:0:U
 
 ack                 value:GAUGE:0:U
 ack_details         value:GAUGE:0:U
@@ -48,6 +51,8 @@ redeliver               value:GAUGE:0:U
 redeliver_details       value:GAUGE:0:U
 return                  value:GAUGE:0:U
 
+consumers               value:GAUGE:0:U
+consumer_utilisation    value:GAUGE:0:1
 messages                value:GAUGE:0:U
 messages_ready          value:GAUGE:0:U
 messages_unacknowledged value:GAUGE:0:U
