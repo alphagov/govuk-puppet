@@ -318,7 +318,7 @@
             {
               "hide": false,
               "refId": "B",
-              "target": "rabbitmq_%2F.queues-search_api*.messages_*",
+              "target": "rabbitmq_default.queues-search_api*.messages_*",
               "textEditor": true
             }
           ],
@@ -395,7 +395,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "rabbitmq_%2F.queues-search_api*.deliver_details-rate",
+              "target": "rabbitmq_default.queues-search_api*.deliver_details-rate",
               "textEditor": false
             }
           ],
