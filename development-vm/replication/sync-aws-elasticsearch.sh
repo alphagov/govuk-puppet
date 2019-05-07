@@ -99,7 +99,7 @@ else
   status "Restoring data into Elasticsearch for $index_names"
 
   # put the snapshot in the docker container
-  sudo docker cp "/var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}/." elasticsearch5:/usr/share/elasticsearch/import/
+  sudo docker cp "/var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}/." elasticsearch:/usr/share/elasticsearch/import/
 
   # setup the snapshot details on the server
   curl localhost:9205/_snapshot/snapshots -X PUT -d "{

@@ -73,6 +73,9 @@ class govuk::node::s_development (
     jre => 'openjdk8',
   }
 
+  include ::govuk_docker
+  include ::govuk_containers::elasticsearch
+
   class { 'govuk_elasticsearch':
     cluster_name           => 'govuk-development',
     heap_size              => '1024m',
@@ -82,6 +85,7 @@ class govuk::node::s_development (
     require                => Class['govuk_java::set_defaults'],
   }
 
+  # todo: remove
   include govuk_search::docker_elasticsearch
 
   include nginx
