@@ -168,7 +168,7 @@ content-audit-tool-sidekiq-publishing-api:  govuk_setenv content-audit-tool ./ru
 # organisations-publisher used port 3218
 # organisations-publisher sidekiq-monitoring used port 3219
 # ckan uses port 3220
-content-publisher: govuk_setenv content-publisher ./run_in.sh ../../content-publisher bundle exec foreman start -f Procfile.dev
+content-publisher: govuk_setenv content-publisher ./run_in.sh ../../content-publisher foreman start -f Procfile.dev
 # Smokey BrowserMob Proxy uses ports 3222-3229
 content-data: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec unicorn -c config/unicorn.rb -p 3230
 content-data-sidekiq-default: govuk_setenv content-data-admin ./run_in.sh ../../content-data-admin bundle exec sidekiq -C ./config/sidekiq.yml
