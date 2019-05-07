@@ -8,14 +8,14 @@ class govuk_elasticsearch::plugins (
 ){
 
   elasticsearch::plugin { 'discovery-ec2':
-    ensure     => 'present',
+    ensure     => 'absent',
     module_dir => 'discovery-ec2',
     instances  => $::fqdn,
     configdir  => $elasticsearch_configdir,
   }
 
   elasticsearch::plugin { 'repository-s3':
-    ensure     => 'present',
+    ensure     => 'absent',
     module_dir => 'repository-s3',
     instances  => $::fqdn,
     configdir  => $elasticsearch_configdir,
