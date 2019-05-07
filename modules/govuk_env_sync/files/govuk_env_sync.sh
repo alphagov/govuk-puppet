@@ -260,15 +260,11 @@ function restore_elasticsearch5 {
 
 function  dump_postgresql {
   # Check which postgres instance the database needs to restore into
-  # (warehouse, transition, or postgresql-primary).
+  # (transition, or postgresql-primary).
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
-    if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
-      db_hostname='content-data-api-postgresql-primary'
-    else
-      db_hostname='warehouse-postgresql-primary'
-    fi
+    db_hostname='content-data-api-postgresql-primary'
   elif [ "${database}" == 'content_data_api_production' ]; then
     db_hostname='content-data-api-postgresql-primary'
   else
