@@ -164,7 +164,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-audit-tool'
   - 'content-data-admin'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

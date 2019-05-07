@@ -22,7 +22,6 @@ govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-training-content-data-csvs'
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '14'
-govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: '14'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-training-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
@@ -88,8 +87,6 @@ govuk_jenkins::job_builder::environment: 'training'
 govuk_jenkins::config::executors: '8'
 
 govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
-
-govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule: '0 13 * * *'
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-training'

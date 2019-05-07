@@ -30,7 +30,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
     govuk::apps::content_data_admin::enabled
-    govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
@@ -159,7 +158,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_crawler::ssh_keys
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
-    govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule
     govuk_jenkins::jobs::network_config_deploy::environments
     govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
@@ -187,7 +185,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_audit_tool::db::allow_auth_from_lb
     govuk::apps::content_audit_tool::db::lb_ip_range
     govuk::apps::content_audit_tool::db::rds
-    govuk::apps::content_data_admin::content_performance_manager_uri
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
@@ -204,9 +201,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_api::redis_port
     govuk::apps::content_data_api::db_name
     govuk::apps::content_data_api::db_username
-    govuk::apps::content_performance_manager::db::allow_auth_from_lb
-    govuk::apps::content_performance_manager::db::lb_ip_range
-    govuk::apps::content_performance_manager::db::rds
     govuk::apps::content_publisher::backend_ip_range
     govuk::apps::content_publisher::db::allow_auth_from_lb
     govuk::apps::content_publisher::db::lb_ip_range

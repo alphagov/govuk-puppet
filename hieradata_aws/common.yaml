@@ -23,7 +23,6 @@ node_class: &node_class
       - content-audit-tool
       - content-data-admin
       - content-data-api
-      - content-performance-manager
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -156,7 +155,6 @@ deployable_applications: &deployable_applications
   content-data-admin: {}
   content-data-api:
     repository: 'content-performance-manager'
-  content-performance-manager: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
@@ -431,17 +429,6 @@ govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 # Content Performance Manager database over
 govuk::apps::content_data_api::db_name: "content_performance_manager_production"
 govuk::apps::content_data_api::db_username: "content_performance_manager"
-
-govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
-govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
-govuk::apps::content_performance_manager::db_hostname: "warehouse-postgresql-primary"
-govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_performance_manager::db::allow_auth_from_lb: true
-govuk::apps::content_performance_manager::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::content_performance_manager::rabbitmq_hosts:
-  - rabbitmq
-govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "db-admin"
 govuk::apps::content_publisher::db_port: 6432
@@ -770,7 +757,6 @@ govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::apps::content_audit_tool::db::rds: true
 govuk::apps::content_data_api::db::rds: true
-govuk::apps::content_performance_manager::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
