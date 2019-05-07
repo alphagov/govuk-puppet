@@ -99,115 +99,14 @@ class govuk_elasticsearch (
   }
 
   class { 'elasticsearch':
-    version     => $version,
-    manage_repo => false,
-    require     => Anchor['govuk_elasticsearch::begin'],
-    before      => Anchor['govuk_elasticsearch::end'],
-  }
-
-  exec { 'disable-default-elasticsearch':
-    onlyif      => '/usr/bin/test -f /etc/init.d/elasticsearch',
-    command     => '/etc/init.d/elasticsearch stop && /bin/rm -f /etc/init.d/elasticsearch && /usr/sbin/update-rc.d elasticsearch remove',
-    before      => Elasticsearch::Instance[$::fqdn],
-    subscribe   => Package['elasticsearch'],
-    refreshonly => true,
-  }
-
-  Package['elasticsearch'] ~> Exec['disable-default-elasticsearch']
-
-  if $::aws_migration {
-    $discovery_config = {
-      'type'  => 'ec2',
-      'zen'   => {
-        'minimum_master_nodes' => $minimum_master_nodes,
-      },
-      'ec2'   => {
-        'tag.cluster_name' => $aws_cluster_name,
-      },
-    }
-  } else {
-    if versioncmp($version, '5') >= 0 {
-      $discovery_config = {
-        'zen' => {
-          'minimum_master_nodes' => $minimum_master_nodes,
-          'ping'                 => {
-            'unicast.hosts' => $cluster_hosts,
-          },
-        },
-      }
-    } else {
-      $discovery_config = {
-        'zen' => {
-          'minimum_master_nodes' => $minimum_master_nodes,
-          'ping'                 => {
-            'multicast.enabled' => false,
-            'unicast.hosts'     => $cluster_hosts,
-          },
-        },
-      }
-    }
-  }
-
-  if $log_slow_queries {
-    $slowlog_config = {
-      'threshold.query' => {
-        'warn'  => '5s',
-        'info'  => '2s',
-        'debug' => '1s',
-      },
-      'threshold.fetch' => {
-        'warn'  => '1s',
-        'info'  => '800ms',
-        'debug' => '500ms',
-      },
-      'level' => $slow_query_log_level,
-    }
-  } else {
-    $slowlog_config = {}
-  }
-
-  $instance_config_main = {
-    'cluster.name'                       => $cluster_name,
-    'transport.tcp.port'                 => $transport_port,
-    'network.publish_host'               => $::fqdn,
-    'network.host'                       => '0.0.0.0',
-    'node.name'                          => $::fqdn,
-    'http.port'                          => $http_port,
-    'http.cors.enabled'                  => $cors_enabled,
-    'http.cors.allow-headers'            => $cors_allow_headers,
-    'http.cors.allow-origin'             => $cors_allow_origin,
-    'discovery'                          => $discovery_config,
-    'cloud.aws.region'                   => $aws_region,
-    'action.destructive_requires_name'   => true,
-    'script.engine.groovy.inline.search' => true,
-  }
-
-  $data_dir = "/mnt/elasticsearch/es-${abbreviated_version}-data"
-
-  if $repo_path == undef {
-    $instance_config_repo = {}
-  } else {
-    $instance_config_repo = { 'path.repo' => $repo_path }
-  }
-
-  $instance_config = merge(
-    $instance_config_main,
-    $instance_config_repo
-  )
-
-  elasticsearch::instance { $::fqdn:
-    config        => $instance_config,
-    datadir       => $data_dir,
-    init_defaults => {
-      'ES_JAVA_OPTS' => "\"-Xmx${heap_size} -Xms${heap_size}\"",
-    },
+    ensure  => 'absent',
+    version => $version,
   }
 
   File <| title == "${elasticsearch::configdir}/${::fqdn}/scripts" |> {
-    force => true,
+    ensure => 'absent',
+    force  => true,
   }
-
-  Class['elasticsearch'] -> Elasticsearch::Instance[$::fqdn] -> Anchor['govuk_elasticsearch::end']
 
   class { 'govuk_elasticsearch::monitoring':
     host_count           => size($cluster_hosts),
@@ -219,29 +118,7 @@ class govuk_elasticsearch (
 
   include govuk_unattended_reboot::elasticsearch
 
-  if $open_firewall_from_all {
-    @ufw::allow { "allow-elasticsearch-http-${http_port}-from-all":
-      port => $http_port,
-    }
-  } else {
-    exec { "remove-allow-elasticsearch-http-${http_port}-from-all":
-      command => "ufw delete allow ${http_port}/tcp",
-      onlyif  => "ufw status | grep -E '${http_port}/tcp\s+ALLOW\s+Anywhere'",
-    }
-  }
-
-  if ! $::aws_migration {
-    govuk_elasticsearch::firewall_transport_rule { $cluster_hosts: }
-  } else {
-    # Since UFW is setup as deny by default we need to open the up the firewall
-    # from everyone, and firewalling is handled by Security Groups
-    @ufw::allow { "allow-elasticsearch-transport-${transport_port}":
-      port => $transport_port,
-    }
-  }
-
   include govuk_elasticsearch::estools
-  include govuk_elasticsearch::plugins
 
   if $backup_enabled {
     include govuk_elasticsearch::backup

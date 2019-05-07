@@ -21,6 +21,7 @@ class govuk_elasticsearch::repo(
   $repo_version,
 ) {
   apt::source { "elasticsearch-${repo_version}":
+    ensure       => 'absent',
     location     => "http://${apt_mirror_hostname}/elasticsearch-${repo_version}",
     release      => 'stable',
     architecture => $::architecture,

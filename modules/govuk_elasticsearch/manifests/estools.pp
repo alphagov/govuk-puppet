@@ -4,7 +4,7 @@
 # https://github.com/alphagov/estools).
 class govuk_elasticsearch::estools {
   package { 'estools':
-    ensure   => '1.1.1',
+    ensure   => 'absent',
     provider => 'pip',
   }
 }

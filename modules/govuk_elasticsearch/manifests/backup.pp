@@ -7,9 +7,6 @@
 # [*s3_bucket*]
 #   Defines the AWS S3 bucket where the backups will be uploaded.
 #
-# [*ensure*]
-#   Whether to create the resources.
-#
 # [*aws_access_key_id*]
 #   AWS key to authenticate requests.
 #
@@ -42,7 +39,6 @@
 #
 class govuk_elasticsearch::backup (
   $s3_bucket,
-  $ensure = 'present',
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
@@ -63,41 +59,33 @@ class govuk_elasticsearch::backup (
 
   ensure_packages(['jq'])
 
-  @@icinga::passive_check { "check_es-backup-s3-${::hostname}":
-    ensure              => $ensure,
-    service_description => $service_desc,
-    freshness_threshold => $threshold_secs,
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(backup-passive-checks),
-  }
-
   file { '/usr/local/bin/es-backup-s3':
-    ensure  => $ensure,
+    ensure  => 'absent',
     mode    => '0755',
     content => template('govuk_elasticsearch/es-backup-s3.erb'),
   }
 
   cron::crondotdee { 'es-backup-s3':
-    ensure  => $ensure,
+    ensure  => 'absent',
     command => '/usr/local/bin/es-backup-s3',
     hour    => $backup_cron_hour,
     minute  => $backup_cron_minute,
   }
 
   file { '/usr/local/bin/es-restore-s3':
-    ensure  => $ensure,
+    ensure  => 'absent',
     mode    => '0755',
     content => template('govuk_elasticsearch/es-restore-s3.erb'),
   }
 
   file { '/usr/local/bin/es-prune-snapshots':
-    ensure  => $ensure,
+    ensure  => 'absent',
     content => template('govuk_elasticsearch/es-prune-snapshots.erb'),
     mode    => '0755',
   }
 
   cron::crondotdee { 'es-prune-snapshots':
-    ensure  => $ensure,
+    ensure  => 'absent',
     command => '/usr/local/bin/es-prune-snapshots',
     hour    => $prune_cron_hour,
     minute  => $prune_cron_minute,

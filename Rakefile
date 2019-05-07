@@ -341,7 +341,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_cdnlogs::bouncer_monitoring_enabled
     govuk_cdnlogs::critical_cdn_freshness
     govuk_cdnlogs::warning_cdn_freshness
-    govuk_elasticsearch::dump::run_es_dump_hour
     govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate
     govuk_jenkins::jobs::search_api_fetch_analytics_data_search::cron_schedule
     govuk_jenkins::jobs::search_api_fetch_analytics_data_search::skip_page_traffic_load
