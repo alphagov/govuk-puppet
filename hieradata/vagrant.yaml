@@ -1,5 +1,5 @@
 ---
-# These credentials apply only to vagrant machines created with https://github.com/alphagov/vagrant-govuk
+# This hieradata relates to the Vagrantfile in govuk-puppet
 
 app_domain: 'dev.gov.uk'
 
