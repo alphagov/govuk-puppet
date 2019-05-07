@@ -10,18 +10,6 @@ class govuk_rabbitmq::purge_queues {
     minute  => '0',
     user    => 'root',
   }
-  cron::crondotdee { 'purge_email_alert_service':
-    command => '/usr/sbin/rabbitmqctl purge_queue email_alert_service > /dev/null 2>&1',
-    hour    => '*',
-    minute  => '1',
-    user    => 'root',
-  }
-  cron::crondotdee { 'purge_email_unpublishing':
-    command => '/usr/sbin/rabbitmqctl purge_queue email_unpublishing > /dev/null 2>&1',
-    hour    => '*',
-    minute  => '2',
-    user    => 'root',
-  }
   cron::crondotdee { 'purge_search_api_govuk_index':
     command => '/usr/sbin/rabbitmqctl purge_queue search_api_govuk_index > /dev/null 2>&1',
     hour    => '*',
