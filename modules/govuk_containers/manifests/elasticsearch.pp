@@ -16,7 +16,7 @@
 class govuk_containers::elasticsearch(
   $image_name = 'elastic/elasticsearch',
   $image_version = '5.6.15',
-  $elasticsearch_port = '9205',
+  $elasticsearch_port = '9200',
 ) {
 
   file { '/etc/elasticsearch-docker.yml':
