@@ -17,7 +17,7 @@ fi
 
 shift $((OPTIND-1))
 
-LOCAL_ES_HOST="http://localhost:9205/"
+LOCAL_ES_HOST="http://localhost:9200/"
 LOCAL_ARCHIVE_PATH="${DIR}/elasticsearch"
 
 status "Starting search index replication from AWS"
@@ -102,7 +102,7 @@ else
   sudo docker cp "/var/govuk/govuk-puppet/development-vm/replication/${LOCAL_ARCHIVE_PATH}/." elasticsearch:/usr/share/elasticsearch/import/
 
   # setup the snapshot details on the server
-  curl localhost:9205/_snapshot/snapshots -X PUT -d "{
+  curl localhost:9200/_snapshot/snapshots -X PUT -d "{
     \"type\": \"fs\",
     \"settings\": {
       \"compress\": true,
@@ -111,10 +111,10 @@ else
   }"
 
   # get the snapshot name
-  SNAPSHOT_NAME=$(curl localhost:9205/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
+  SNAPSHOT_NAME=$(curl localhost:9200/_snapshot/snapshots/_all | ruby -e 'require "json"; STDOUT << (JSON.parse(STDIN.read)["snapshots"].map { |a| a["snapshot"] }.sort.last)')
 
   # restore the snapshot
-  curl "localhost:9205/_snapshot/snapshots/${SNAPSHOT_NAME}/_restore?wait_for_completion=true" -X POST
+  curl "localhost:9200/_snapshot/snapshots/${SNAPSHOT_NAME}/_restore?wait_for_completion=true" -X POST
 
   status ""
   status "Remove alises from old indices and archiving"
