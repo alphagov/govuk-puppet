@@ -182,7 +182,11 @@ search-api-publishing-listener:   govuk_setenv search-api ./run_in.sh ../../sear
 search-api-govuk-index-listener:  govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:insert_data_into_govuk
 search-api-bulk-reindex-listener: govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:bulk_insert_data_into_govuk
 # sidekiq-monitoring for search-api uses 3234
-content-data-api:      govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec rails server -p 3235
+content-data-api:      govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3235
+
+content-data-api-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
+content-data-api-bulk-import-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:bulk_import_consumer
+content-data-api-sidekiq-default:  govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/default.yml
 # sidekiq-monitoring for content-publisher uses 3236
 # byebug web listener for content-publisher uses 3237
 # byebug sidekiq listener for content-publisher uses 3238

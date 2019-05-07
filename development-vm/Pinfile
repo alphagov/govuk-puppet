@@ -17,8 +17,8 @@ process :'collections-publisher' => [:'publishing-api', :'collections-publisher-
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:'publishing-api', :whitehall]
 process :'content-audit-tool' => [:'publishing-api-read', :'content-audit-tool-sidekiq-google-analytics', :'content-audit-tool-sidekiq-publishing-api']
-process :'content-data' =>[:'content-performance-manager', :'content-data-sidekiq-default']
-process :'content-performance-manager' => [:'publishing-api', :'content-performance-manager-sidekiq-default', :'content-performance-manager-publishing-api-consumer', 'content-performance-manager-bulk-import-publishing-api-consumer', 'content-store']
+process :'content-data' =>[:'content-data-api', :'content-data-sidekiq-default']
+process :'content-data-api' => [:'publishing-api', :'content-data-api-sidekiq-default', :'content-data-api-publishing-api-consumer', 'content-data-api-bulk-import-publishing-api-consumer', 'content-store']
 process :'content-publisher' => [:'publishing-api', :'asset-manager']
 process :'content-store'
 # Example usage: bowl [your-app] dummy-content-store --without content-store
