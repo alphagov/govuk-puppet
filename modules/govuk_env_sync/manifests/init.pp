@@ -15,6 +15,9 @@ class govuk_env_sync(
     recurse => true,
     purge   => true,
     force   => true,
+    owner   => $user,
+    group   => $user,
+    mode    => '0770',
   }
 
   create_resources(govuk_env_sync::task, $tasks)
