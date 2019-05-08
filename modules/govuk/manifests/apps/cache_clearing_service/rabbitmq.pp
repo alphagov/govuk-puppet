@@ -22,6 +22,7 @@
 #   (default: 'cache_clearing_service')
 #
 class govuk::apps::cache_clearing_service::rabbitmq (
+  $enabled = false,
   $amqp_user  = 'cache_clearing_service',
   $amqp_pass = 'cache_clearing_service',
   $amqp_exchange = 'published_documents',
@@ -29,12 +30,17 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   $queue_size_critical_threshold,
   $queue_size_warning_threshold,
 ) {
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
   $high_queue = "${amqp_queue}-high" # major, unpublish
   $medium_queue = "${amqp_queue}-medium" # minor, republish
   $low_queue = "${amqp_queue}-low" # links
 
   govuk_rabbitmq::queue_with_binding { $high_queue:
-    ensure        => 'present',
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $high_queue,
     routing_key   => '*.major',
@@ -42,7 +48,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${high_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${high_queue}@unpublish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -53,7 +59,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $medium_queue:
-    ensure        => 'present',
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $medium_queue,
     routing_key   => '*.minor',
@@ -61,7 +67,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   rabbitmq_binding { "binding_republish_${amqp_exchange}@${medium_queue}@/":
-    ensure           => 'present',
+    ensure           => $ensure,
     name             => "${amqp_exchange}@${medium_queue}@republish@/",
     user             => 'root',
     password         => $::govuk_rabbitmq::root_password,
@@ -72,7 +78,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $low_queue:
-    ensure        => 'present',
+    ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $low_queue,
     routing_key   => '*.links',
@@ -91,7 +97,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::consumer { $amqp_user:
-    ensure               => 'present',
+    ensure               => $ensure,
     amqp_pass            => $amqp_pass,
     read_permission      => "^${amqp_queue}-\\w+\$",
     write_permission     => "^\$",
@@ -99,7 +105,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::monitor_messages {"${high_queue}_message_monitoring":
-    ensure             => present,
+    ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $high_queue,
     critical_threshold => $queue_size_critical_threshold,
@@ -108,7 +114,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::monitor_messages {"${medium_queue}_message_monitoring":
-    ensure             => present,
+    ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $medium_queue,
     critical_threshold => $queue_size_critical_threshold,
@@ -117,7 +123,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::monitor_messages {"${low_queue}_message_monitoring":
-    ensure             => present,
+    ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $low_queue,
     critical_threshold => $queue_size_critical_threshold,

@@ -16,6 +16,7 @@ govuk::deploy::setup::ssh_keys:
 govuk::app::nginx_vhost::asset_pipeline_enabled: false
 
 govuk::apps::cache_clearing_service::enabled: true
+govuk::apps::cache_clearing_service::rabbitmq::enabled: true
 
 govuk::node::s_development::apps:
   - 'asset_manager'
