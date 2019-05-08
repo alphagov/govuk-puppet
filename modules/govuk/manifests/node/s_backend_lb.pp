@@ -68,7 +68,6 @@ class govuk::node::s_backend_lb (
     'content-data',
     'content-data-admin',
     'content-data-api',
-    'content-performance-manager',
     'content-publisher',
     'content-tagger',
     'manuals-publisher',

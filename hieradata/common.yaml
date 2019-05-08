@@ -24,7 +24,6 @@ node_class: &node_class
       - contacts
       - content-audit-tool
       - content-data-admin
-      - content-performance-manager
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -138,7 +137,6 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-data-admin: {}
-  content-performance-manager: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
@@ -386,17 +384,6 @@ govuk::apps::content_data_admin::db_allow_prepared_statements: false
 govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
-govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
-govuk::apps::content_performance_manager::db_hostname: "warehouse-postgresql-1.backend"
-govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_performance_manager::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
@@ -1389,7 +1376,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-audit-tool'
   - 'content-data-admin'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

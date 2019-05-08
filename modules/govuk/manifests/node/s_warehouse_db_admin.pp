@@ -74,10 +74,7 @@ class govuk::node::s_warehouse_db_admin(
   include ::govuk_postgresql::server::not_slave
 
   # Ensure the client class is installed
-  class { '::govuk_postgresql::client': } ->
-
-  # include all PostgreSQL classes that create databases and users
-  class { '::govuk::apps::content_performance_manager::db': }
+  class { '::govuk_postgresql::client': }
 
   $postgres_backup_desc = 'RDS Warehouse PostgreSQL backup to S3'
 

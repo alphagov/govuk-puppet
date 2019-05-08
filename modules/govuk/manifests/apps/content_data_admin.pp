@@ -142,9 +142,6 @@ class govuk::apps::content_data_admin (
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN":
-      varname => 'CONTENT_PERFORMANCE_MANAGER_BEARER_TOKEN',
-      value   => $content_data_api_bearer_token;
     "${title}-CONTENT_DATA_API_BEARER_TOKEN":
       varname => 'CONTENT_DATA_API_BEARER_TOKEN',
       value   => $content_data_api_bearer_token;
