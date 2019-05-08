@@ -47,4 +47,12 @@ class govuk_containers::elasticsearch(
     service_description => 'dockerised elasticsearch port not responding',
     host_name           => $::fqdn,
   }
+
+  # todo: remove
+  @@icinga::check { "check_elasticsearch_running_${::hostname}":
+    ensure              => 'absent',
+    check_command       => 'check_nrpe!check_proc_running!elasticsearch',
+    service_description => 'dockerised elasticsearch running',
+    notes_url           => monitoring_docs_url(check-process-running),
+  }
 }
