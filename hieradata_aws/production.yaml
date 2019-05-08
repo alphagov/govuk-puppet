@@ -67,10 +67,6 @@ node_class: &node_class
       - service-manual-frontend
       - smartanswers
       - static
-  email_alert_api:
-    apps:
-      - email-alert-api
-      - email-alert-service
   frontend:
     apps:
       - canary-frontend
@@ -89,21 +85,12 @@ node_class: &node_class
   mirrorer:
     apps:
       - govuk-crawler-worker
-  publishing_api:
-    apps:
-      - publishing-api
   router_backend:
     apps:
       - router-api
   search:
     apps:
       - search-api
-  whitehall_backend:
-    apps:
-      - whitehall
-  whitehall_frontend:
-    apps:
-      - whitehall
 
 govuk::node::s_base::node_apps:
   <<: *node_class
