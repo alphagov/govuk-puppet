@@ -39,19 +39,16 @@ class govuk_search::gor (
 
   validate_bool($enabled)
 
-  if($enabled) {
     validate_re($output_path, '^/.*')
 
     file { $output_path:
-      ensure => 'directory',
-      owner  => root,
-      group  => root,
-      mode   => '0755',
-    }
-
-    @logrotate::conf { 'govuk_search_logs':
-      matches => "${output_path}/*.log",
-      maxsize => '100M',
+      ensure  => 'absent',
+      recurse => true,
+      purge   => true,
+      force   => true,
+      owner   => root,
+      group   => root,
+      mode    => '0755',
     }
 
     $output_file = "${output_path}/%Y%m%d.log"
@@ -68,7 +65,6 @@ class govuk_search::gor (
       envvars => {
         'GODEBUG' => 'netdns=go',
       },
-      enable  => $enabled,
+      enable  => false,
     }
-  }
 }
