@@ -164,7 +164,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'
