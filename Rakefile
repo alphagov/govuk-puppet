@@ -29,7 +29,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
-    govuk::apps::content_data_admin::enabled
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
@@ -178,6 +177,14 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
+    govuk::apps::content_data_admin::db::backend_ip_range
+    govuk::apps::content_data_admin::db_allow_prepared_statements
+    govuk::apps::content_data_admin::db_hostname
+    govuk::apps::content_data_admin::db_port
+    govuk::apps::content_data_admin::redis_host
+    govuk::apps::content_data_admin::redis_port
+    govuk::apps::content_data_admin::aws_csv_export_bucket_name
+    govuk::apps::content_data_admin::google_tag_manager_id
     govuk::apps::content_data_api::db::lb_ip_range
     govuk::apps::content_data_api::db::rds
     govuk::apps::content_data_api::db_hostname
