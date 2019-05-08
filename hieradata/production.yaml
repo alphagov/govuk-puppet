@@ -55,8 +55,6 @@ environment_ip_prefix: '10.3'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
-govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
