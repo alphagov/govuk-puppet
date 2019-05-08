@@ -135,7 +135,6 @@ deployable_applications: &deployable_applications
   contacts:
     repository: 'contacts-admin'
   content-audit-tool: {}
-  content-data-admin: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
