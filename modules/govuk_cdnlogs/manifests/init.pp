@@ -24,6 +24,9 @@
 #   0: do not expect encrypted connection
 #   1: expect encrypted connection
 #
+# [*days_to_keep*]
+#   The number of days to keep the logs, default is 2 days
+#
 
 class govuk_cdnlogs (
   $log_dir,
@@ -35,6 +38,7 @@ class govuk_cdnlogs (
   $server_crt,
   $use_tls = '1' ,
   $service_port_map,
+  $days_to_keep = 2,
 ) {
   validate_hash($service_port_map)
   $ports = join(values($service_port_map), ',')
