@@ -54,5 +54,6 @@ class govuk_containers::elasticsearch(
     check_command       => 'check_nrpe!check_proc_running!elasticsearch',
     service_description => 'dockerised elasticsearch running',
     notes_url           => monitoring_docs_url(check-process-running),
+    host_name           => $::fqdn,
   }
 }
