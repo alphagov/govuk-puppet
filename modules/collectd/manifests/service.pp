@@ -5,5 +5,6 @@
 class collectd::service {
   service { 'collectd':
     ensure  => running,
+    restart => '/etc/init.d/collectd restart || { pkill -9 collectdmon; /etc/init.d/collectd start; }',
   }
 }
