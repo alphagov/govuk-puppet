@@ -42,7 +42,7 @@ class govuk_containers::elasticsearch(
     source => 'puppet:///modules/govuk_containers/nrpe_check_dockerised_elasticsearch_responding.cfg',
   }
 
-  @@icinga::check { 'check_dockerised_elasticsearch_responding':
+  @@icinga::check { "check_dockerised_elasticsearch_responding_${::hostname}":
     check_command       => "check_nrpe!check_dockerised_elasticsearch_responding!${elasticsearch_port}",
     service_description => 'dockerised elasticsearch port not responding',
     host_name           => $::fqdn,
