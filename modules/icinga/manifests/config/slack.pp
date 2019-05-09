@@ -2,6 +2,6 @@
 class icinga::config::slack {
   package {'icinga-slack-webhook':
     ensure   => '2.0.0',
-    provider => 'pip',
+    provider => pip3,
   }
 }
