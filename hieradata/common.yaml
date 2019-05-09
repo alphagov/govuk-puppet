@@ -436,6 +436,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - deborah.chua@digital.cabinet-office.gov.uk
+  - edward.kerry@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
   - ruben.arakelyan@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
