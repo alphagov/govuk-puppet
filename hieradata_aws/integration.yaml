@@ -145,6 +145,161 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
+grafana::dashboards::application_dashboards:
+  asset-manager:
+    show_sidekiq_graphs: true
+    has_workers: true
+  authenticating-proxy: {}
+  cache-clearing-service: {}
+  calculators: {}
+  calendars: {}
+  ckan:
+    docs_name: 'ckanext-datagovuk'
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  collections:
+    instance_prefix: 'frontend'
+    show_memcached: true
+  collections-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  contacts:
+    docs_name: 'contacts-admin'
+  content-audit-tool:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-data-admin:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-data-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-store:
+    dependent_app_5xx_errors:
+      - calendars
+      - collections
+      - contacts
+      - email-alert-frontend
+      - finder-frontend
+      - frontend
+      - government-frontend
+      - info-frontend
+      - manuals-frontend
+      - publishing-api
+      - smartanswers
+      - whitehall-frontend
+  content-tagger:
+    show_sidekiq_graphs: true
+    has_workers: true
+  email-alert-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  email-alert-frontend: {}
+  email-alert-service: {}
+  feedback: {}
+  finder-frontend:
+    show_external_request_time: true
+    show_memcached: true
+    instance_prefix: 'calculators_frontend'
+  frontend: {}
+  government-frontend: {}
+  hmrc-manuals-api: {}
+  imminence:
+    dependent_app_5xx_errors:
+      - frontend
+    show_sidekiq_graphs: true
+    has_workers: true
+  info-frontend: {}
+  licencefinder:
+    docs_name: 'licence-finder'
+  link-checker-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  local-links-manager:
+    dependent_app_5xx_errors:
+      - frontend
+    instance_prefix: 'backend'
+    show_memcached: true
+  manuals-frontend: {}
+  manuals-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  mapit:
+    dependent_app_5xx_errors:
+      - frontend
+      - imminence
+    # No data in kibana
+    show_controller_errors: false
+    show_slow_requests: false
+  maslow: {}
+  publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  publishing-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+    instance_prefix: 'publishing_api'
+    show_memcached: true
+  release: {}
+  router: {}
+  router-api: {}
+  search-api:
+    # search-api is a sinatra app
+    show_controller_errors: false
+    show_response_times: true
+    show_sidekiq_graphs: true
+    show_slow_requests: false
+    has_workers: true
+    dependent_app_5xx_errors:
+      - collections
+      - finder-frontend
+      - whitehall-frontend
+  search-admin: {}
+  service-manual-frontend: {}
+  service-manual-publisher: {}
+  short-url-manager: {}
+  sidekiq-monitoring: {}
+  signon:
+    show_sidekiq_graphs: true
+    has_workers: true
+  smartanswers:
+    docs_name: 'smart-answers'
+  specialist-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  static:
+    dependent_app_5xx_errors:
+      - calendars
+      - collections
+      - contacts
+      - email-alert-frontend
+      - finder-frontend
+      - frontend
+      - government-frontend
+      - manuals-frontend
+      - smartanswers
+      - whitehall-frontend
+  support:
+    show_sidekiq_graphs: true
+    has_workers: true
+  support-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  transition:
+    show_sidekiq_graphs: true
+    has_workers: true
+  travel-advice-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  whitehall:
+    show_sidekiq_graphs: true
+    has_workers: true
+    error_threshold: 50
+    warning_threshold: 25
 
 mongodb::backup::mongo_backup_node: 'localhost'
 
