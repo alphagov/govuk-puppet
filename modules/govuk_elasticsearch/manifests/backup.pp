@@ -77,17 +77,4 @@ class govuk_elasticsearch::backup (
     mode    => '0755',
     content => template('govuk_elasticsearch/es-restore-s3.erb'),
   }
-
-  file { '/usr/local/bin/es-prune-snapshots':
-    ensure  => 'absent',
-    content => template('govuk_elasticsearch/es-prune-snapshots.erb'),
-    mode    => '0755',
-  }
-
-  cron::crondotdee { 'es-prune-snapshots':
-    ensure  => 'absent',
-    command => '/usr/local/bin/es-prune-snapshots',
-    hour    => $prune_cron_hour,
-    minute  => $prune_cron_minute,
-  }
 }
