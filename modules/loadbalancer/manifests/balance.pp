@@ -53,6 +53,9 @@ define loadbalancer::balance(
     $read_timeout = 15,
     $maintenance_mode = false,
 ) {
+  if empty($servers) {
+    fail("NGinx can't load balance for ${vhost} without any servers")
+  }
 
   $vhost_suffix = hiera('app_domain')
   $vhost_real = "${vhost}.${vhost_suffix}"
