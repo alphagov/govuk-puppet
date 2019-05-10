@@ -380,7 +380,7 @@ define govuk::app::config (
   if $health_check_path != 'NOTSET' {
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       ensure              => $ensure,
-      check_command       => "check_nrpe!check_app_up!${port} ${health_check_path}",
+      check_command       => "check_app_health!check_app_up!${port} ${health_check_path}",
       service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(app-healthcheck-failed),
@@ -393,7 +393,7 @@ define govuk::app::config (
 
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
-        check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path}",
+        check_command       => "check_app_health!check_json_healthcheck!${port} ${health_check_path}",
         service_description => $healthcheck_desc,
         use                 => $health_check_service_template,
         notification_period => $health_check_notification_period,
