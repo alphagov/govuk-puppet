@@ -42,7 +42,6 @@ node_class: &node_class
       - specialist-publisher
       - support
       - support-api
-      - transition
       - support_api_csv_env_sync
       - travel-advice-publisher
   bouncer:
@@ -319,8 +318,6 @@ filebeat::prospectors:
       application: 'apt'
 
 gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk::apps::transition::ensure: 'absent'
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
