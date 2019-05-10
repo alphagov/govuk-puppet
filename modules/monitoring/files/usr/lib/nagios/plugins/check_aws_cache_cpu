@@ -63,7 +63,7 @@ import datetime
 # Passing acceptable parameters #
 #################################
 parser = argparse.ArgumentParser()
-parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1'], help="AWS region to check")
+parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1','eu-west-2'], help="AWS region to check")
 parser.add_argument("-w","--warning", type=float, help="Percentage at which to raise a warning alert (80)", default=80)
 parser.add_argument("-c","--critical", type=float, help="Percentage at which to raise a critical alert (90)", default=90)
 parser.add_argument("-i","--instanceid", type=str, help="Instanceid", default=0)
@@ -101,7 +101,7 @@ except boto.exception.BotoServerError as err:
 #                'CacheClusters']						#
 # pprint.pprint(cluster_info)							#
 #										#
-# To view the details for a specific member, you can use index numbers. For 	#				
+# To view the details for a specific member, you can use index numbers. For 	#
 # example [0] is will match the first member. To do this, uncomment the two 	#
 # lines below and replace the number to suit your need.				#
 #										#
