@@ -1,0 +1,16 @@
+#!/bin/bash
+
+set -e
+
+# Redirect stdout and stderr to syslog
+exec 1> >(/usr/bin/logger -s -t $(basename $0)) 2>&1
+
+LIMIT=<%= @snapshots_to_keep %>
+
+# This gets snapshots for the repo but leaves behind 'n' youngest snapshots, 'n' being the LIMIT set above
+SNAPSHOTS=$(/usr/bin/curl --connect-timeout 10 -sS -XGET "<%= @es_address -%>/_snapshot/<%= @es_repo -%>/_all" | /usr/bin/jq --raw-output ".snapshots[:-${LIMIT}][].snapshot")
+
+for SNAPSHOT in $SNAPSHOTS; do
+  echo "Deleting ${SNAPSHOT}"
+  /usr/bin/curl --connect-timeout 10 -s -XDELETE "<%= @es_address -%>/_snapshot/<%= @es_repo -%>/${SNAPSHOT}?pretty"
+done
