@@ -257,7 +257,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_content_data_api_db_admin::apt_mirror_hostname
     govuk::node::s_apt::gemstash_service
     govuk::node::s_asset_base::alert_hostname
-    govuk::node::s_backend_lb::ckan_backend_servers
     govuk::node::s_base::log_remote
     govuk::node::s_postgresql_primary::alert_hostname
     govuk_bundler::config::service

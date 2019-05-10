@@ -19,9 +19,6 @@
 # [*publishing_api_backend_servers*]
 #   An array of publishing-api backend app servers
 #
-# [*ckan_backend_servers*]
-#   An array of CKAN backend app servers
-#
 # [*maintenance_mode*]
 #   Whether the backend should be taken offline in nginx
 #
@@ -36,7 +33,6 @@ class govuk::node::s_backend_lb (
   $publishing_api_backend_servers,
   $whitehall_frontend_servers,
   $aws_egress_nat_ips,
-  $ckan_backend_servers = [],
   $maintenance_mode = false,
   $app_specific_static_asset_routes = {},
   $asset_manager_uploaded_assets_routes = [],
@@ -118,13 +114,6 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { 'kibana':
     read_timeout => 5,
     servers      => $backend_servers,
-  }
-
-  loadbalancer::balance { [
-      'ckan',
-    ]:
-      deny_crawlers => true,
-      servers       => $ckan_backend_servers,
   }
 
   loadbalancer::balance { [
