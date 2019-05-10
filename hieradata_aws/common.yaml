@@ -347,6 +347,8 @@ filebeat::prospectors:
 
 gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk::apps::transition::ensure: 'present'
+
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
   - 'mongo-1'
