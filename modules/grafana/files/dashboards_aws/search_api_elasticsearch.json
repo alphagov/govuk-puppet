@@ -12,7 +12,117 @@
   "rows": [
     {
       "collapse": false,
-      "height": "250px",
+      "height": 258,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 1,
+          "id": 19,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Upper bound [SLI]",
+              "yaxis": 2
+            },
+            {
+              "alias": "Upper Bound",
+              "yaxis": 2
+            },
+            {
+              "alias": "Upper bound",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "alias(maxSeries(stats.timers.calculators_frontend-*.nginx_logs.finder-frontend.time_request.mean_90), \"90th percentile (mean)\")",
+              "textEditor": true
+            },
+            {
+              "refId": "A",
+              "target": "alias(maxSeries(stats.timers.calculators_frontend-*.nginx_logs.finder-frontend.time_request.upper_90), \"90th percentile (upper bound)\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(maxSeries(stats.timers.calculators_frontend-*.nginx_logs.finder-frontend.time_request.upper), \"Upper bound\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Finder Frontend Request Duration",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": 0,
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Row title",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": true,
+      "height": 241,
       "panels": [
         {
           "aliasColors": {},
@@ -39,15 +149,115 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "(finder-frontend) Batch Search [SLI]",
+              "yaxis": 2
+            },
+            {
+              "alias": "(search-api) Best Bet Lookup",
+              "yaxis": 1
+            },
+            {
+              "alias": "Finder Search [SLI]",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
-          "span": 12,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "D",
+              "target": "alias(maxSeries(stats.timers.govuk.app.finder-frontend.*.rummager.finder_batch_search.upper_90), 'Finder Frontend <-> Search API round-trip time')",
+              "textEditor": true
+            },
+            {
+              "refId": "A",
+              "target": "",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Finder Frontend <-> Search API round-trip time",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "ms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 18,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "(finder-frontend) Batch Search [SLI]",
+              "yaxis": 2
+            },
+            {
+              "alias": "(search-api) Best Bet Lookup",
+              "yaxis": 1
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(maxSeries(stats.timers.govuk.app.search-api.*.elasticsearch.best_bets_raw_search.upper_90), 'Bets Bet Lookup')",
+              "target": "alias(maxSeries(stats.timers.govuk.app.search-api.*.elasticsearch.best_bets_raw_search.upper_90), 'Best Bet Lookup')",
               "textEditor": true
             },
             {
@@ -64,7 +274,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ElasticSearch round-trip time",
+          "title": "Search API <-> Elasticsearch round trip time",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -80,7 +290,7 @@
           },
           "yaxes": [
             {
-              "format": "dtdurationms",
+              "format": "ms",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -101,13 +311,130 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
+      "showTitle": true,
+      "title": "Details - Search API Round Trip Times",
       "titleSize": "h6"
     },
     {
       "collapse": false,
-      "height": "250px",
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "",
+          "editable": true,
+          "error": false,
+          "fill": 1,
+          "grid": {},
+          "id": 14,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "RabbitMQ - Sidekiq",
+              "yaxis": 2
+            },
+            {
+              "alias": "Difference",
+              "yaxis": 2
+            },
+            {
+              "alias": "Difference [SLI]",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias(summarize(sumSeries(perSecond(integral(stats.timers.*.app.search-api.*.workers.*.PublishingEventWorker.processing_time.count))), \"1hour\", \"sum\"), \"Sidekiq publishing-api jobs processed per hour\")",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "D",
+              "target": "alias(summarize(sumSeries(rabbitmq_default.queues-search_api_*.deliver_details-rate), \"1hour\", \"sum\"), \"RabbitMQ messages delivered per hour\")",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "E",
+              "target": "alias(diffSeries(summarize(sumSeries(perSecond(integral(stats.timers.*.app.search-api.*.workers.*.PublishingEventWorker.processing_time.count))), \"1hour\", \"sum\"),summarize(sumSeries(rabbitmq_default.queues-search_api_*.deliver_details-rate), \"1hour\", \"sum\")), \"Difference\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "RabbitMQ and Sidekiq Message Processing",
+          "tooltip": {
+            "msResolution": true,
+            "shared": true,
+            "sort": 0,
+            "value_type": "cumulative"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": null,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": true,
+      "height": 251,
       "panels": [
         {
           "aliasColors": {},
@@ -119,6 +446,7 @@
           "error": false,
           "fill": 1,
           "grid": {},
+          "height": "",
           "id": 2,
           "legend": {
             "avg": false,
@@ -202,7 +530,7 @@
           "error": false,
           "fill": 1,
           "grid": {},
-          "id": 4,
+          "id": 17,
           "legend": {
             "avg": false,
             "current": false,
@@ -215,27 +543,43 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 1,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "RabbitMQ - Sidekiq",
+              "yaxis": 2
+            },
+            {
+              "alias": "Difference",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
+              "hide": false,
               "refId": "A",
-              "target": "stats_counts.govuk.app.search-api.message_queue.indexer.*",
+              "target": "alias(sumSeries(rabbitmq_default.queues-search_api*.deliver_details-rate), \"RabbitMQ messages delivered per second\")",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias(sumSeries(perSecond(integral(stats.timers.*.app.search-api.*.workers.*.*.processing_time.count))), \"Sidekiq jobs processed per second\")",
               "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Link update message queue activity",
+          "title": "RabbitMQ and Sidekiq delivery rate",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -273,17 +617,17 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
+      "showTitle": true,
+      "title": "Details - Indexing",
       "titleSize": "h6"
     },
     {
-      "collapse": false,
-      "height": "250px",
+      "collapse": true,
+      "height": 242,
       "panels": [
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
@@ -301,10 +645,10 @@
             "total": false,
             "values": false
           },
-          "lines": true,
+          "lines": false,
           "linewidth": 2,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -319,6 +663,11 @@
               "hide": false,
               "refId": "B",
               "target": "rabbitmq_default.queues-search_api*.messages_*",
+              "textEditor": true
+            },
+            {
+              "refId": "A",
+              "target": "",
               "textEditor": true
             }
           ],
@@ -364,12 +713,9 @@
           "bars": false,
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Graphite",
-          "editable": true,
-          "error": false,
+          "datasource": null,
           "fill": 1,
-          "grid": {},
-          "id": 14,
+          "id": 16,
           "legend": {
             "avg": false,
             "current": false,
@@ -380,9 +726,9 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -395,19 +741,23 @@
           "targets": [
             {
               "refId": "A",
-              "target": "rabbitmq_default.queues-search_api*.deliver_details-rate",
-              "textEditor": false
+              "target": "aliasByNode(averageSeriesWithWildcards(stats.gauges.govuk.app.search-api.*.workers.queues.*.enqueued, max, 5), 7)",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(averageSeriesWithWildcards(stats.gauges.govuk.app.search-api.*.workers.retry_set_size, max, 5), \"Retry Set\")",
+              "textEditor": true
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Rabbit MQ message delivery rate (per second)",
+          "title": "Sidekiq queue length",
           "tooltip": {
-            "msResolution": true,
             "shared": true,
             "sort": 0,
-            "value_type": "cumulative"
+            "value_type": "individual"
           },
           "type": "graph",
           "xaxis": {
@@ -440,12 +790,111 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
+      "showTitle": true,
+      "title": "Details - Queue Activity",
       "titleSize": "h6"
     },
     {
       "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 1,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Total 5xx rate (per hour) [SLI]",
+              "yaxis": 2
+            },
+            {
+              "alias": "Total 5xx rate (per hour)",
+              "yaxis": 2
+            },
+            {
+              "alias": "Total 5xx rate per hour",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(summarize(sumSeries(stats.*.nginx_logs.finder-frontend*.http_5xx), \"1hour\", \"sum\"), \"Total 5xx rate per hour\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Finder-frontend 5xx Rate",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            },
+            {
+              "decimals": 1,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": true,
       "height": "250px",
       "panels": [
         {
@@ -478,7 +927,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -491,7 +940,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Finder frontend 5xxs",
+          "title": "Finder Frontend 5xx responses",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -524,19 +973,7 @@
               "show": true
             }
           ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": "250px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -567,13 +1004,13 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 12,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "stats.*.nginx_logs.search-api*.http_5xx",
+              "target": "groupByNode(stats.*.nginx_logs.search-api*.http_5xx, 3, 'sum')",
               "textEditor": true
             }
           ],
@@ -618,8 +1055,8 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
+      "showTitle": true,
+      "title": "Details - 5xx Rate",
       "titleSize": "h6"
     }
   ],
@@ -659,6 +1096,6 @@
     ]
   },
   "timezone": "browser",
-  "title": "Search API / ElasticSearch Activity",
+  "title": "Search API / ElasticSearch SLIs",
   "version": 0
 }
