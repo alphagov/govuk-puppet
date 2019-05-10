@@ -5,7 +5,7 @@ import boto.ses
 import sys
 
 parser = argparse.ArgumentParser()
-parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1'], help="AWS region to check")
+parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1','eu-west-2'], help="AWS region to check")
 parser.add_argument("-a","--access_key", type=str, help="AWS access key")
 parser.add_argument("-s","--secret_key", type=str, help="AWS secret key")
 parser.add_argument("-w","--warning", type=int, help="Percentage at which to raise a warning alert (30)", default=30)
@@ -63,5 +63,3 @@ except Exception as e:
     sys.exit(3)
 
 sys.exit(0)
-
-
