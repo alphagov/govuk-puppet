@@ -15,10 +15,6 @@ environment_ip_prefix: '10.2'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
-govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
-govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
-govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-staging-content-data-csvs'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
@@ -369,7 +365,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

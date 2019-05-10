@@ -23,7 +23,6 @@ node_class: &node_class
       - collections-publisher
       - contacts
       - content-audit-tool
-      - content-data-admin
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -136,7 +135,6 @@ deployable_applications: &deployable_applications
   contacts:
     repository: 'contacts-admin'
   content-audit-tool: {}
-  content-data-admin: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
@@ -377,14 +375,6 @@ govuk::apps::content_audit_tool::db_allow_prepared_statements: false
 govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_data_admin::enabled: false
-govuk::apps::content_data_admin::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_data_admin::db_port: 6432
-govuk::apps::content_data_admin::db_allow_prepared_statements: false
-govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
@@ -1277,7 +1267,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'
