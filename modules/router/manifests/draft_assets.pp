@@ -19,11 +19,11 @@ class router::draft_assets(
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
 
+  $app_domain = hiera('app_domain')
+
   if $::aws_migration {
-    $app_domain = hiera('app_domain_internal')
     $upstream_ssl = true
   } else {
-    $app_domain = hiera('app_domain')
     $upstream_ssl = $enable_ssl
   }
 
