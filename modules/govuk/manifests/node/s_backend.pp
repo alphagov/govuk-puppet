@@ -52,4 +52,13 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     max_memory => '12%',
     listen_ip  => '0.0.0.0',
   }
+
+  # Set Plek for AWS to Carrenza communication
+  if ( ( $::aws_migration == 'backend' ) and ($::aws_environment == 'staging') ) or ( ($::aws_migration == 'backend' ) and ($::aws_environment == 'production') ) {
+    $app_domain = hiera('app_domain')
+
+    govuk_envvar {
+      'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
+    }
+  }
 }
