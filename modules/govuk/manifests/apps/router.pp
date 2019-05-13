@@ -56,7 +56,7 @@ class govuk::apps::router (
   # reverse proxy port, not the API port. Changing the port would lose us
   # TCP connection stats.
   @@icinga::check { "check_app_router_up_on_${::hostname}":
-    check_command       => "check_nrpe!check_app_up!${api_port} ${api_healthcheck}",
+    check_command       => "check_app_health!check_app_up!${api_port} ${api_healthcheck}",
     service_description => 'router app healthcheck',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(app-healthcheck-failed),

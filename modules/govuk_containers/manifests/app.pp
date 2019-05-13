@@ -95,7 +95,7 @@ define govuk_containers::app (
   if $healthcheck_path {
     @@icinga::check { "check_app_${title}_up_on_${::hostname}":
       ensure              => $ensure,
-      check_command       => "check_nrpe!check_app_up!${port} ${healthcheck_path}",
+      check_command       => "check_app_health!check_app_up!${port} ${healthcheck_path}",
       service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(app-healthcheck-failed),
@@ -108,7 +108,7 @@ define govuk_containers::app (
 
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
-        check_command       => "check_nrpe!check_json_healthcheck!${port} ${healthcheck_path}",
+        check_command       => "check_app_health!check_json_healthcheck!${port} ${healthcheck_path}",
         service_description => $healthcheck_desc,
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url($healthcheck_opsmanual),

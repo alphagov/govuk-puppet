@@ -29,7 +29,7 @@ class govuk_containers::apps::router (
   # the API
   if $healthcheck_path {
     @@icinga::check { "check_app_router_up_on_${::hostname}":
-      check_command       => "check_nrpe!check_app_up!${api_port} ${healthcheck_path}",
+      check_command       => "check_app_health!check_app_up!${api_port} ${healthcheck_path}",
       service_description => 'router app healthcheck',
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(app-healthcheck-failed),
