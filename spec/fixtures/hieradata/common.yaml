@@ -47,7 +47,6 @@ govuk_cdnlogs::govuk_monitoring_enabled: false
 govuk_cdnlogs::bouncer_monitoring_enabled: falseA
 
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_elasticsearch::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
