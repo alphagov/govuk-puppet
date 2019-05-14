@@ -7,8 +7,6 @@ class govuk::node::s_search inherits govuk::node::s_base {
 
   include govuk_aws_xray_daemon
 
-  include govuk_search::gor
-
   include govuk_search::monitoring
 
   include govuk_search::prune

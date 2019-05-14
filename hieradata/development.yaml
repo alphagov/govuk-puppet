@@ -228,8 +228,6 @@ govuk_postgresql::server::snakeoil_ssl_key: key
 
 govuk_ppa::path: preview
 
-govuk_search::gor::enabled: false
-
 govuk_sshkeys::development_keys:
   jumpbox.integration.publishing.service.gov.uk:
     key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDLRdHg/Ae3XZy2f7o2PMJIDQznrE7FjWyzC1MIvL1dDDKhcG+ht+IH05w3eUCuMQVj8t5Wihpp/oB8Fm/+d15xJQtW3oIggE34KMADYN3M00anaod+GhdKubOnFQRF/wtX0/CPdt/isuWdGweudKSwse4rV4U7aaTD+sb1co8tIGfpQNtnI1nEg0rjSe4DSw1FT9gzmkrISj3yECcA0OMvAFlxorRY4WzWajCW2tfxGRdBA7jpzMTpMy1nmuj6YXcvmpzkegu1IioxH5H6YosBxOd2i7gq89YDEMkWRM/8u+hMF77jV9kO+4zbKDo95UUyH87TKSlG1iU4A/8MLMT7"
