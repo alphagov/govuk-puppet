@@ -46,7 +46,7 @@ class govuk::apps::datagovuk_publish {
 
   @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
     ensure              => $ensure,
-    check_command       => "check_nrpe!check_json_healthcheck!${port} ${health_check_path} ${host}",
+    check_command       => "check_app_health!check_json_healthcheck!${port} ${health_check_path} ${host}",
     service_description => $healthcheck_desc,
     use                 => $health_check_service_template,
     notification_period => $health_check_notification_period,
