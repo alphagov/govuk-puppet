@@ -76,9 +76,6 @@ class govuk::node::s_development (
   include ::govuk_docker
   include ::govuk_containers::elasticsearch
 
-  # todo: remove
-  include govuk_search::docker_elasticsearch
-
   include nginx
 
   nginx::config::vhost::default { 'default': }
