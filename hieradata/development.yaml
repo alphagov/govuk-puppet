@@ -15,6 +15,9 @@ govuk::deploy::setup::ssh_keys:
 
 govuk::app::nginx_vhost::asset_pipeline_enabled: false
 
+govuk::apps::cache_clearing_service::enabled: true
+govuk::apps::cache_clearing_service::rabbitmq::enabled: true
+
 govuk::node::s_development::apps:
   - 'asset_manager'
   - 'authenticating_proxy'
@@ -102,7 +105,14 @@ govuk::apps::ckan::priority_worker_processes: '1'
 govuk::apps::ckan::bulk_worker_processes: '1'
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-admin']
-govuk::apps::content_data_admin::enabled: true
+
+govuk::apps::content_data_admin::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::content_data_admin::db_port: 6432
+govuk::apps::content_data_admin::db_allow_prepared_statements: false
+govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
+
 govuk::apps::content_store::mongodb_nodes: ['localhost']
 govuk::apps::content_store::mongodb_name: 'content_store_development'
 govuk::apps::content_data_api::rabbitmq_user: 'content_data_api'

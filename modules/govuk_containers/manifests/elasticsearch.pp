@@ -38,10 +38,22 @@ class govuk_containers::elasticsearch(
     volumes => ['esdata5:/usr/share/elasticsearch/data', 'dataimport:/usr/share/elasticsearch/import', '/etc/elasticsearch-docker.yml:/usr/share/elasticsearch/config/elasticsearch.yml'],
   }
 
+  @icinga::nrpe_config { 'check_dockerised_elasticsearch_responding':
+    source => 'puppet:///modules/govuk_containers/nrpe_check_dockerised_elasticsearch_responding.cfg',
+  }
+
+  @@icinga::check { "check_dockerised_elasticsearch_responding_${::hostname}":
+    check_command       => "check_nrpe!check_dockerised_elasticsearch_responding!${elasticsearch_port}",
+    service_description => 'dockerised elasticsearch port not responding',
+    host_name           => $::fqdn,
+  }
+
+  # todo: remove
   @@icinga::check { "check_elasticsearch_running_${::hostname}":
+    ensure              => 'absent',
     check_command       => 'check_nrpe!check_proc_running!elasticsearch',
     service_description => 'dockerised elasticsearch running',
-    host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
+    host_name           => $::fqdn,
   }
 }

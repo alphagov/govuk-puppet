@@ -33,6 +33,7 @@ class collectd::plugin::docker(
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
     command => 'pip install "docker<=2.6.1"',
     notify  => Class['collectd::service'],
+    unless  => 'pip list | grep "docker (2.6.1)"',
   }
 
   package { 'docker-py':

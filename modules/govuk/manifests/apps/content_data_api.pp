@@ -1,6 +1,6 @@
 # == Class: govuk::apps::content_data_api
 #
-# App details at: https://github.com/alphagov/content-performance-manager
+# App details at: https://github.com/alphagov/content-data-api
 #
 # === Parameters
 #

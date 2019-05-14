@@ -29,8 +29,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
-    govuk::apps::content_data_admin::enabled
-    govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
@@ -52,7 +50,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_mysql::server::expire_log_days
     govuk_mysql::server::monitoring::master::plaintext_mysql_password
     govuk_mysql::server::monitoring::slave::plaintext_mysql_password
-    govuk_search::gor::enabled
     govuk_sysdig::apt_mirror_hostname
     govuk_sysdig::ensure
     hosts::production::api::app_hostnames
@@ -78,10 +75,6 @@ task :check_consistency_between_aws_and_carrenza do
     postgresql_api_slave_addresses_live
     postgresql_slave_addresses_dr
     postgresql_slave_addresses_live
-    postgresql_transition_slave_addresses_dr
-    postgresql_transition_slave_addresses_live
-    postgresql_transition_standby_addresses_dr
-    postgresql_transition_standby_addresses_live
     puppet::master::puppetdb_version
     puppet::puppetdb::database_password
     rabbitmq::manage_repos
@@ -104,9 +97,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_api_lb::content_store_servers
     govuk::node::s_api_lb::draft_content_store_servers
     govuk::node::s_api_lb::mapit_servers
-    govuk::node::s_api_lb::search_servers
     govuk::node::s_backend_lb::backend_servers
-    govuk::node::s_backend_lb::ckan_backend_servers
     govuk::node::s_backend_lb::email_alert_api_backend_servers
     govuk::node::s_backend_lb::perfplat_public_app_domain
     govuk::node::s_backend_lb::publishing_api_backend_servers
@@ -118,8 +109,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_frontend_lb::whitehall_frontend_servers
     govuk::node::s_mysql_backup::s3_bucket_name
     govuk::node::s_mysql_master::s3_bucket_name
-    govuk::node::s_transition_postgresql_slave::redirector_ip_range
-    govuk::node::s_transition_postgresql_standby::redirector_ip_range
     govuk::node::s_postgresql_standby::aws_access_key_id
     govuk::node::s_postgresql_standby::aws_secret_access_key
     govuk::node::s_postgresql_standby::s3_bucket_url
@@ -159,7 +148,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_crawler::ssh_keys
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
-    govuk_jenkins::jobs::content_performance_manager::rake_etl_master_process_cron_schedule
     govuk_jenkins::jobs::network_config_deploy::environments
     govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
@@ -175,7 +163,6 @@ task :check_consistency_between_aws_and_carrenza do
   # Keys that are AWS-only
   AWS_ONLY_KEYS = %w[
     backup::mysql::alert_hostname
-    collectd::package::collectd_version
     govuk::apps::bouncer::postgresql_role::rds
     govuk::apps::ckan::ckan_site_url
     govuk::apps::ckan::cronjobs::enable_solr_reindex
@@ -187,12 +174,17 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_audit_tool::db::allow_auth_from_lb
     govuk::apps::content_audit_tool::db::lb_ip_range
     govuk::apps::content_audit_tool::db::rds
-    govuk::apps::content_data_admin::content_performance_manager_uri
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
-    govuk::apps::content_data_api::db::allow_auth_from_lb
-    govuk::apps::content_data_api::db::backend_ip_range
+    govuk::apps::content_data_admin::db::backend_ip_range
+    govuk::apps::content_data_admin::db_allow_prepared_statements
+    govuk::apps::content_data_admin::db_hostname
+    govuk::apps::content_data_admin::db_port
+    govuk::apps::content_data_admin::redis_host
+    govuk::apps::content_data_admin::redis_port
+    govuk::apps::content_data_admin::aws_csv_export_bucket_name
+    govuk::apps::content_data_admin::google_tag_manager_id
     govuk::apps::content_data_api::db::lb_ip_range
     govuk::apps::content_data_api::db::rds
     govuk::apps::content_data_api::db_hostname
@@ -204,14 +196,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_api::redis_port
     govuk::apps::content_data_api::db_name
     govuk::apps::content_data_api::db_username
-    govuk::apps::content_performance_manager::db::allow_auth_from_lb
-    govuk::apps::content_performance_manager::db::lb_ip_range
-    govuk::apps::content_performance_manager::db::rds
     govuk::apps::content_publisher::backend_ip_range
     govuk::apps::content_publisher::db::allow_auth_from_lb
     govuk::apps::content_publisher::db::lb_ip_range
     govuk::apps::content_publisher::db::rds
-    govuk::apps::content_store::plek_service_rummager_uri
     govuk::apps::content_store::plek_service_whitehall_frontend_uri
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
@@ -269,18 +257,13 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_content_data_api_db_admin::apt_mirror_hostname
     govuk::node::s_apt::gemstash_service
     govuk::node::s_asset_base::alert_hostname
-    govuk::node::s_backend_lb::ckan_backend_servers
     govuk::node::s_base::log_remote
     govuk::node::s_postgresql_primary::alert_hostname
-    govuk::node::s_transition_postgresql_master::alert_hostname
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars
     govuk_crawler::alert_hostname
     govuk_datascrubber::apt_mirror_hostname
     govuk_datascrubber::aws_region
-    govuk_elasticsearch::backup::alert_hostname
-    govuk_elasticsearch::backup_enabled
-    govuk_elasticsearch::open_firewall_from_all
     govuk_jenkins::deploy_all_apps::apps_on_nodes
     govuk_jenkins::deploy_all_apps::deploy_environment
     govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule
@@ -312,15 +295,12 @@ task :check_consistency_between_aws_and_carrenza do
 
     govuk::apps::ckan::s3_aws_region_name
     govuk::apps::ckan::s3_bucket_name
-    govuk::apps::content_store::app_domain
     govuk::deploy::config::licensify_app_domain
     govuk::node::s_base::node_apps
     govuk::node::s_cache::router_as_container
     govuk_containers::terraboard::aws_bucket
     govuk_containers::terraboard::oauth2_proxy_base_url
     govuk_datascrubber::ensure
-    govuk_datascrubber::s3_export_prefix
-    govuk_datascrubber::share_with
     hosts::backend_migration::hosts
     monitoring::checks::cache::region
     monitoring::checks::rds::region
@@ -342,8 +322,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_cdnlogs::critical_cdn_freshness
     govuk_cdnlogs::warning_cdn_freshness
     govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate
-    govuk_jenkins::jobs::search_api_fetch_analytics_data_search::cron_schedule
-    govuk_jenkins::jobs::search_api_fetch_analytics_data_search::skip_page_traffic_load
     govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule
     govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load
     govuk_jenkins::jobs::smokey::environment
@@ -358,7 +336,9 @@ task :check_consistency_between_aws_and_carrenza do
 
   failed = false
 
-  %w[common staging production].each do |environment|
+  hieradata_file_names = %w[common staging production]
+
+  hieradata_file_names.each do |environment|
     carrenza = YAML.load_file("hieradata/#{environment}.yaml")
 
     aws = YAML.load_file("hieradata_aws/#{environment}.yaml")
@@ -374,9 +354,33 @@ task :check_consistency_between_aws_and_carrenza do
     else
       puts "#{environment} keys okay!"
     end
+  end
 
-    if failed
-      exit 1
-    end
+  all_carrenza_keys = hieradata_file_names.flat_map do |filename|
+    YAML.load_file("hieradata/#{filename}.yaml").keys
+  end
+
+  missing_carrenza_keys = CARRENZA_ONLY_KEYS - all_carrenza_keys
+
+  if missing_carrenza_keys.any?
+    puts "\n\nCHECKING all Carrenza keys"
+    puts "\nThese keys are listed as Carrenza only, but don't exist in any Carrenza related hieradata file: \n -" + missing_carrenza_keys.join("\n -")
+    failed = true
+  end
+
+  all_aws_keys = hieradata_file_names.flat_map do |filename|
+    YAML.load_file("hieradata_aws/#{filename}.yaml").keys
+  end
+
+  missing_aws_keys = AWS_ONLY_KEYS - all_aws_keys
+
+  if missing_aws_keys.any?
+    puts "\n\nCHECKING all AWS keys"
+    puts "\nThese keys are listed as AWS only, but don't exist in any AWS related hieradata file: \n -" + missing_aws_keys.join("\n -")
+    failed = true
+  end
+
+  if failed
+    exit 1
   end
 end

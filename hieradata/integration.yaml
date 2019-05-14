@@ -145,6 +145,7 @@ govuk_sudo::sudo_conf:
 govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
+grafana::dashboards::application_dashboards: {}
 
 hosts::production::ip_api_lb: '10.1.4.254'
 hosts::production::ip_backend_lb: '10.1.3.254'
@@ -163,8 +164,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

@@ -22,8 +22,6 @@ node_class: &node_class
       - collections-publisher
       - contacts
       - content-audit-tool
-      - content-data-admin
-      - content-performance-manager
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -135,8 +133,6 @@ deployable_applications: &deployable_applications
   contacts:
     repository: 'contacts-admin'
   content-audit-tool: {}
-  content-data-admin: {}
-  content-performance-manager: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
@@ -339,10 +335,11 @@ govuk::apps::bouncer::nagios_memory_warning: 1400
 govuk::apps::bouncer::nagios_memory_critical: 1500
 govuk::apps::bouncer::unicorn_worker_processes: "8"
 
-govuk::apps::cache_clearing_service::enabled: true
+govuk::apps::cache_clearing_service::enabled: false
 govuk::apps::cache_clearing_service::nagios_memory_warning: 2750
 govuk::apps::cache_clearing_service::nagios_memory_critical: 3000
 govuk::apps::cache_clearing_service::puppetdb_node_url: 'http://puppetdb.cluster/v2/nodes'
+govuk::apps::cache_clearing_service::rabbitmq::enabled: false
 govuk::apps::cache_clearing_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
@@ -376,25 +373,6 @@ govuk::apps::content_audit_tool::db_allow_prepared_statements: false
 govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_data_admin::enabled: false
-govuk::apps::content_data_admin::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_data_admin::db_port: 6432
-govuk::apps::content_data_admin::db_allow_prepared_statements: false
-govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_data_admin::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_data_admin::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_performance_manager::rabbitmq_user: "content_performance_manager"
-govuk::apps::content_performance_manager::rabbitmq_password: "%{hiera('govuk::apps::content_performance_manager::rabbitmq::amqp_pass')}"
-govuk::apps::content_performance_manager::db_hostname: "warehouse-postgresql-1.backend"
-govuk::apps::content_performance_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_performance_manager::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-govuk::apps::content_performance_manager::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_performance_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
@@ -434,6 +412,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - deborah.chua@digital.cabinet-office.gov.uk
+  - edward.kerry@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
   - ruben.arakelyan@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
@@ -1055,17 +1034,6 @@ grafana::dashboards::application_dashboards:
   asset-manager:
     show_sidekiq_graphs: true
     has_workers: true
-  authenticating-proxy: {}
-  calculators: {}
-  calendars: {}
-  ckan:
-    docs_name: 'ckanext-datagovuk'
-    # No data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
-  collections:
-    instance_prefix: 'frontend'
-    show_memcached: true
   collections-publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1074,72 +1042,20 @@ grafana::dashboards::application_dashboards:
   content-audit-tool:
     show_sidekiq_graphs: true
     has_workers: true
-  content-data-admin:
-    show_sidekiq_graphs: true
-    has_workers: true
-  content-data-api:
-    show_sidekiq_graphs: true
-    has_workers: true
   content-publisher:
     show_sidekiq_graphs: true
     has_workers: true
-  content-store:
-    dependent_app_5xx_errors:
-      - calendars
-      - collections
-      - contacts
-      - email-alert-frontend
-      - finder-frontend
-      - frontend
-      - government-frontend
-      - info-frontend
-      - manuals-frontend
-      - publishing-api
-      - smartanswers
-      - whitehall-frontend
   content-tagger:
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-api:
     show_sidekiq_graphs: true
     has_workers: true
-  email-alert-frontend: {}
   email-alert-service: {}
-  feedback: {}
-  finder-frontend:
-    show_external_request_time: true
-    show_memcached: true
-    instance_prefix: 'calculators_frontend'
-  frontend: {}
-  government-frontend: {}
   hmrc-manuals-api: {}
-  imminence:
-    dependent_app_5xx_errors:
-      - frontend
-    show_sidekiq_graphs: true
-    has_workers: true
-  info-frontend: {}
-  licencefinder:
-    docs_name: 'licence-finder'
-  link-checker-api:
-    show_sidekiq_graphs: true
-    has_workers: true
-  local-links-manager:
-    dependent_app_5xx_errors:
-      - frontend
-    instance_prefix: 'backend'
-    show_memcached: true
-  manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
     has_workers: true
-  mapit:
-    dependent_app_5xx_errors:
-      - frontend
-      - imminence
-    # No data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
   maslow: {}
   publisher:
     show_sidekiq_graphs: true
@@ -1150,49 +1066,14 @@ grafana::dashboards::application_dashboards:
     instance_prefix: 'publishing_api'
     show_memcached: true
   release: {}
-  router: {}
-  router-api: {}
-  search-api:
-    # search-api isn't in carrenza, but we need the dashboard to exist
-    # for the release app
-    show_controller_errors: false
-    show_response_times: false
-    show_sidekiq_graphs: false
-    show_slow_requests: false
-    has_workers: false
-    dependent_app_5xx_errors: []
   search-admin: {}
-  service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
   signon:
     show_sidekiq_graphs: true
     has_workers: true
-  smartanswers:
-    docs_name: 'smart-answers'
   specialist-publisher:
-    show_sidekiq_graphs: true
-    has_workers: true
-  static:
-    dependent_app_5xx_errors:
-      - calendars
-      - collections
-      - contacts
-      - email-alert-frontend
-      - finder-frontend
-      - frontend
-      - government-frontend
-      - manuals-frontend
-      - smartanswers
-      - whitehall-frontend
-  support:
-    show_sidekiq_graphs: true
-    has_workers: true
-  support-api:
-    show_sidekiq_graphs: true
-    has_workers: true
-  transition:
     show_sidekiq_graphs: true
     has_workers: true
   travel-advice-publisher:
@@ -1357,8 +1238,6 @@ hosts::production::backend::hosts:
     ip: '10.1.3.161'
   transition-postgresql-standby-2:
     ip: '10.1.11.161'
-  warehouse-postgresql-1:
-    ip: '10.1.3.110'
   whitehall-backend-1:
     ip: '10.1.3.25'
   whitehall-backend-2:
@@ -1385,8 +1264,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

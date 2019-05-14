@@ -55,9 +55,6 @@ environment_ip_prefix: '10.3'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
-govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
-govuk::apps::content_performance_manager::etl_healthcheck_enabled_from_hour: '9'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
@@ -286,8 +283,6 @@ hosts::production::backend::app_hostnames:
   - 'collections-publisher'
   - 'contacts-admin'
   - 'content-audit-tool'
-  - 'content-data-admin'
-  - 'content-performance-manager'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'
@@ -410,8 +405,6 @@ hosts::production::backend::hosts:
     ip: '10.3.3.161'
   transition-postgresql-standby-2:
     ip: '10.3.11.161'
-  warehouse-postgresql-1:
-    ip: '10.3.3.110'
   whitehall-backend-1:
     ip: '10.3.3.25'
   whitehall-backend-2:
@@ -575,6 +568,10 @@ monitoring::checks::ses::region: us-east-1
 monitoring::checks::smokey::environment: 'production'
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
+monitoring::contacts::notify_slack: true
+monitoring::contacts::slack_channel: '#govuk-alerts'
+monitoring::contacts::slack_username: 'Carrenza Production'
+monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::edge::enabled: true
 monitoring::uptime_collector::environment: 'production'
 

@@ -67,10 +67,6 @@ node_class: &node_class
       - service-manual-frontend
       - smartanswers
       - static
-  email_alert_api:
-    apps:
-      - email-alert-api
-      - email-alert-service
   frontend:
     apps:
       - canary-frontend
@@ -89,21 +85,12 @@ node_class: &node_class
   mirrorer:
     apps:
       - govuk-crawler-worker
-  publishing_api:
-    apps:
-      - publishing-api
   router_backend:
     apps:
       - router-api
   search:
     apps:
       - search-api
-  whitehall_backend:
-    apps:
-      - whitehall
-  whitehall_frontend:
-    apps:
-      - whitehall
 
 govuk::node::s_base::node_apps:
   <<: *node_class
@@ -258,6 +245,10 @@ monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
+monitoring::contacts::notify_slack: true
+monitoring::contacts::slack_channel: '#govuk-alerts'
+monitoring::contacts::slack_username: 'AWS Production'
+monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 
@@ -643,7 +634,6 @@ hosts::backend_migration::hosts:
       - content-audit-tool.publishing.service.gov.uk
       - content-data-admin.publishing.service.gov.uk
       - content-data-api.publishing.service.gov.uk
-      - content-performance-manager.publishing.service.gov.uk
       - content-publisher.publishing.service.gov.uk
       - content-tagger.publishing.service.gov.uk
       - docs.publishing.service.gov.uk

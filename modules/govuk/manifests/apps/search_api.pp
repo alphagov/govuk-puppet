@@ -108,7 +108,9 @@ class govuk::apps::search_api(
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/search?q=search_healthcheck',
+    health_check_path        => '/healthcheck',
+    expose_health_check      => false,
+    json_health_check        => true,
 
     vhost_aliases            => ['search'],
 

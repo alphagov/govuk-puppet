@@ -42,6 +42,10 @@ class nginx::config (
     content => template('nginx/etc/nginx/nginx.conf.erb'),
   }
 
+  exec { 'nginx_configtest':
+    command => '/etc/init.d/nginx configtest',
+  }
+
   file { '/etc/nginx/blockips.conf':
     ensure  => present,
     content => template('nginx/etc/nginx/blockips.conf.erb'),

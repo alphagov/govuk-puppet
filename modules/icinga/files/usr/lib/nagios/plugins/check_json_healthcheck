@@ -17,9 +17,9 @@ information:
         }
     }
 
-This script can be invoked with the healthcheck port and path as arguments:
+This script can be invoked with the healthcheck port, path and host as arguments:
 
-    check_json_healthcheck 3000 /healthcheck
+    check_json_healthcheck 3000 /healthcheck host_path
 
 """
 
@@ -61,15 +61,21 @@ def url_from_arguments(arguments):
     """Construct a health check URL from command-line arguments.
 
     The first argument should be the port; the second argument the healthcheck
-    path. The healthcheck is assumed to be on localhost and over HTTP.
+    path; the third is the host. The healthcheck is assumed to be on localhost
+    and over HTTP.
 
     """
     check_port = int(arguments[0])
     check_path = arguments[1]
 
+    try:
+        check_host = arguments[2]
+    except IndexError:
+        check_host = 'localhost'
+
     return urlunparse((
         "http",
-        "localhost:%d" % (check_port,),
+        "%s:%d" % (check_host, check_port),
         check_path,
         None,  # params
         None,  # query
@@ -79,11 +85,11 @@ def url_from_arguments(arguments):
 
 def json_request(request_url):
     """Create a Request object suitable to pass into `urlopen`.
-    
+
     We can't just pass the URL itself into `urlopen`, because we need to add
     an explicit Accept header to be sure the apps we're checking will return a
     suitable response.
-    
+
     """
     return Request(request_url,
                    data=None,
@@ -118,11 +124,11 @@ class HealthCheckInfo(object):
     @property
     def check_statuses(self):
         """Return a list of strings summarising the status of each check.
-        
+
         For example:
-            
+
             ["sufficient_whizbangs - ok", "recently_dusted - warning"]
-        
+
         """
         checks = self._dict.get("checks", {})
         return [" - ".join(self._check_parts(check_name, check_value))
@@ -142,7 +148,7 @@ if __name__ == "__main__":
     check_url = url_from_arguments(sys.argv[1:])
 
     try:
-        with closing(urlopen(json_request(check_url), timeout=10)) as response:
+        with closing(urlopen(json_request(check_url), timeout=20)) as response:
             healthcheck_info = HealthCheckInfo(json.load(response))
     except HTTPError as e:
         report_error("healthcheck returned HTTP error %d" % (e.code,))
