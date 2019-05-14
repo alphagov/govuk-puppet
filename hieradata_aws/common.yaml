@@ -153,8 +153,7 @@ deployable_applications: &deployable_applications
     repository: 'contacts-admin'
   content-audit-tool: {}
   content-data-admin: {}
-  content-data-api:
-    repository: 'content-performance-manager'
+  content-data-api: {}
   content-publisher: {}
   content-store: {}
   content-tagger: {}
