@@ -18,7 +18,6 @@ node_class: &node_class
   backend:
     apps:
       - asset-manager
-      - cache-clearing-service
       - canary-backend
       - collections-publisher
       - contacts
@@ -127,7 +126,6 @@ deployable_applications: &deployable_applications
   backdrop-write:
     repository: 'backdrop'
   bouncer: {}
-  cache-clearing-service: {}
   calculators: {}
   calendars: {}
   collections: {}
@@ -1036,7 +1034,6 @@ grafana::dashboards::application_dashboards:
   asset-manager:
     show_sidekiq_graphs: true
     has_workers: true
-  cache-clearing-service: {}
   collections-publisher:
     show_sidekiq_graphs: true
     has_workers: true
