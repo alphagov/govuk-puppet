@@ -43,4 +43,4 @@ base::esm::esm_password: "%{hiera('base::esm::esm_trusty_password')}"
 
 govuk_ppa::repo_ensure: 'present'
 
-nodejs::version: '6.14.3-1nodesource1'
+nodejs::version: '10.15.3-1nodesource1'

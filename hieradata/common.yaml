@@ -1562,7 +1562,7 @@ nginx::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 nginx::package::nginx_version: "1.14.0-1~trusty"
 
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-nodejs::version: '6.14.3-1nodesource1'
+nodejs::version: '10.15.3-1nodesource1'
 
 ntp::server_list:
   - 'ntp.ubuntu.com'
