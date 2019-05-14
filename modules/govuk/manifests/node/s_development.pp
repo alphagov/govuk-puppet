@@ -76,18 +76,6 @@ class govuk::node::s_development (
   include ::govuk_docker
   include ::govuk_containers::elasticsearch
 
-  class { 'govuk_elasticsearch':
-    cluster_name           => 'govuk-development',
-    heap_size              => '1024m',
-    number_of_replicas     => '0',
-    minimum_master_nodes   => '1',
-    open_firewall_from_all => true,
-    require                => Class['govuk_java::set_defaults'],
-  }
-
-  # todo: remove
-  include govuk_search::docker_elasticsearch
-
   include nginx
 
   nginx::config::vhost::default { 'default': }
