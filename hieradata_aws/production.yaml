@@ -85,9 +85,6 @@ node_class: &node_class
   mirrorer:
     apps:
       - govuk-crawler-worker
-  monitoring:
-    apps:
-      - datagovuk_publish
   router_backend:
     apps:
       - router-api
@@ -118,7 +115,6 @@ govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://p
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.publishing.service.gov.uk'
 
-govuk::apps::datagovuk_publish::host: 'publish-data-beta-production.cloudapps.digital'
 govuk::apps::email_alert_service::enabled: false
 govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
@@ -241,6 +237,8 @@ licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
+monitoring::checks::datagovuk_publish::ensure: 'present'
+monitoring::checks::datagovuk_publish::host: 'publish-data-beta-production.cloudapps.digital'
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'

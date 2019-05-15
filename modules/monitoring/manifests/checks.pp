@@ -35,6 +35,7 @@ class monitoring::checks (
   include monitoring::checks::pingdom
   include monitoring::checks::ses
   include monitoring::checks::sidekiq
+  include monitoring::checks::datagovuk_publish
   include monitoring::checks::smokey
   include monitoring::checks::cache
   include monitoring::checks::rds
