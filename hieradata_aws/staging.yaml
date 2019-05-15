@@ -130,6 +130,19 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
+
+govuk::apps::govuk_crawler_worker::blacklist_paths:
+  - '/apply-for-a-licence'
+  - '/business-finance-support-finder'
+  - '/drug-device-alerts.atom'
+  - '/drug-safety-update.atom'
+  - '/foreign-travel-advice.atom'
+  - '/government/announcements.atom'
+  - '/government/publications.atom'
+  - '/government/statistics.atom'
+  - '/licence-finder'
+  - '/search'
+
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::kibana::logit_environment: b13bfb70-e07a-473b-9903-02e806ebd045
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
@@ -166,9 +179,10 @@ govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-staging
 govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.staging.govuk.digital'
 
 govuk_crawler::seed_enable: true
+govuk_crawler::start_hour: 20
 govuk_crawler::sync_enable: true
 govuk_crawler::targets:
-  - 's3://govuk-staging-mirror-1/'
+  - 's3://govuk-staging-mirror/'
 
 govuk_jenkins::job_builder::environment: 'staging'
 

@@ -37,11 +37,23 @@ class govuk_crawler::config (
     ensure  => present,
   }
 
-  file { "/etc/govuk/${env_name}/env.d/AWS_SECRET_ACCESS_KEY":
-    content => $aws_secret_key,
+  if $aws_secret_key {
+    file { "/etc/govuk/${env_name}/env.d/AWS_SECRET_ACCESS_KEY":
+      content => $aws_secret_key,
+    }
+  } else {
+    file { "/etc/govuk/${env_name}/env.d/AWS_SECRET_ACCESS_KEY":
+      ensure => 'absent',
+    }
   }
 
-  file { "/etc/govuk/${env_name}/env.d/AWS_ACCESS_KEY_ID":
-    content => $aws_access_key,
+  if $aws_access_key {
+    file { "/etc/govuk/${env_name}/env.d/AWS_ACCESS_KEY_ID":
+      content => $aws_access_key,
+    }
+  } else {
+    file { "/etc/govuk/${env_name}/env.d/AWS_ACCESS_KEY_ID":
+      ensure => 'absent',
+    }
   }
 }
