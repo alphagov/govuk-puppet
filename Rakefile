@@ -278,6 +278,8 @@ task :check_consistency_between_aws_and_carrenza do
     icinga::client::config::allowed_hosts
     icinga::config::graphite_hostname
     mongodb::backup::alert_hostname
+    monitoring::checks::datagovuk_publish::ensure
+    monitoring::checks::datagovuk_publish::host
     monitoring::checks::cache::servers
     monitoring::checks::rds::servers
     monitoring::client::alert_hostname
