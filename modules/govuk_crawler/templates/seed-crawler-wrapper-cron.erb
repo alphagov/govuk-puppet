@@ -1,1 +1,1 @@
-0 6 * * * <%= @crawler_user %> /usr/bin/setlock -n <%= @seeder_lock_path %> <%= @seeder_script_wrapper_path %>
+0 <%= @start_hour %> * * * <%= @crawler_user %> /usr/bin/setlock -n <%= @seeder_lock_path %> <%= @seeder_script_wrapper_path %>
