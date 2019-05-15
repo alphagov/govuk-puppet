@@ -31,11 +31,10 @@
 # reports the app's status as OK.
 #
 
-class govuk::apps::datagovuk_publish {
+class govuk::apps::datagovuk_publish($host) {
   include icinga::client::check_json_healthcheck
 
   $port                             = 80
-  $host                             = 'publish-data-beta.cloudapps.digital'
   $ensure                           = 'present'
   $title                            = 'datagovuk_publish'
   $healthcheck_desc                 = "${title} app healthcheck not ok"
