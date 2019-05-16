@@ -14,6 +14,7 @@
 class monitoring::checks::datagovuk_publish(
   $ensure = 'absent',
   $host   = undef,
+  $protocol = 'https'
 ) {
   include icinga::client::check_json_healthcheck
 
@@ -24,7 +25,7 @@ class monitoring::checks::datagovuk_publish(
 
   @@icinga::check { 'check_datagovuk_publish_healthcheck':
     ensure              => $ensure,
-    check_command       => "check_app_health!check_json_healthcheck!${port} ${health_check_path} ${host}",
+    check_command       => "check_app_health!check_json_healthcheck!${port} ${health_check_path} ${host} ${protocol}",
     service_description => $healthcheck_desc,
     use                 => 'govuk_regular_service',
     host_name           => $::fqdn,
