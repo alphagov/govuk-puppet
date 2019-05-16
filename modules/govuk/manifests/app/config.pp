@@ -14,6 +14,10 @@
 #   The title of a `Icinga::Timeperiod` resource to be used by the
 #   healthcheck.
 #
+# [*additional_check_contact_groups*]
+#   Additional contact groups to pass to the icinga::checks for this
+#   application.
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -82,6 +86,7 @@ define govuk::app::config (
   $json_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
+  $additional_check_contact_groups = undef,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $unicorn_herder_timeout = 'NOTSET',
@@ -307,31 +312,34 @@ define govuk::app::config (
       regex  => pick($collectd_process_regex, $default_collectd_process_regex),
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
-      ensure    => $ensure,
-      target    => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
-      warning   => $cpu_warning,
-      critical  => $cpu_critical,
-      desc      => "high CPU usage for ${title} app",
-      host_name => $::fqdn,
+      ensure         => $ensure,
+      target         => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
+      warning        => $cpu_warning,
+      critical       => $cpu_critical,
+      desc           => "high CPU usage for ${title} app",
+      host_name      => $::fqdn,
+      contact_groups => additional_check_contact_groups,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-      ensure        => $ensure,
-      target        => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
-      warning       => $nagios_memory_warning_real,
-      critical      => $nagios_memory_critical_real,
-      desc          => "high memory for ${title} app",
-      host_name     => $::fqdn,
-      event_handler => "govuk_app_high_memory!${title}",
-      notes_url     => monitoring_docs_url(high-memory-for-application),
+      ensure         => $ensure,
+      target         => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
+      warning        => $nagios_memory_warning_real,
+      critical       => $nagios_memory_critical_real,
+      desc           => "high memory for ${title} app",
+      host_name      => $::fqdn,
+      event_handler  => "govuk_app_high_memory!${title}",
+      notes_url      => monitoring_docs_url(high-memory-for-application),
+      contact_groups => additional_check_contact_groups,
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
-        ensure    => $ensure,
-        target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
-        warning   => $alert_when_threads_exceed,
-        critical  => $alert_when_threads_exceed,
-        desc      => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
-        host_name => $::fqdn,
+        ensure         => $ensure,
+        target         => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
+        warning        => $alert_when_threads_exceed,
+        critical       => $alert_when_threads_exceed,
+        desc           => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+        host_name      => $::fqdn,
+        contact_groups => additional_check_contact_groups,
       }
     }
   }
@@ -354,12 +362,13 @@ define govuk::app::config (
     )
 
     @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
-      ensure    => $ensure,
-      target    => "${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED",
-      warning   => $local_tcpconns_warning,
-      critical  => $local_tcpconns_critical,
-      desc      => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
-      host_name => $::fqdn,
+      ensure         => $ensure,
+      target         => "${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED",
+      warning        => $local_tcpconns_warning,
+      critical       => $local_tcpconns_critical,
+      desc           => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
+      host_name      => $::fqdn,
+      contact_groups => additional_check_contact_groups,
     }
   }
 
@@ -384,6 +393,7 @@ define govuk::app::config (
       service_description => "${title} app healthcheck",
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(app-healthcheck-failed),
+      contact_groups      => additional_check_contact_groups,
     }
     if $json_health_check {
       include icinga::client::check_json_healthcheck
@@ -399,6 +409,7 @@ define govuk::app::config (
         notification_period => $health_check_notification_period,
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url($healthcheck_opsmanual),
+        contact_groups      => additional_check_contact_groups,
       }
     }
   }
@@ -409,6 +420,7 @@ define govuk::app::config (
       service_description => "${title} app unicornherder not running",
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(unicorn-herder),
+      contact_groups      => additional_check_contact_groups,
     }
   }
   if $app_type == 'rack' {
@@ -418,6 +430,7 @@ define govuk::app::config (
       check_command       => "check_nrpe!check_unicorn_workers!${title}",
       service_description => "${title} does not have the expected number of unicorn workers",
       host_name           => $::fqdn,
+      contact_groups      => additional_check_contact_groups,
     }
     include icinga::client::check_unicorn_ruby_version
     @@icinga::check { "check_app_${title}_unicorn_ruby_version_${::hostname}":
@@ -426,6 +439,7 @@ define govuk::app::config (
       service_description => "${title} is not running the expected ruby version",
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(ruby-version),
+      contact_groups      => additional_check_contact_groups,
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
@@ -434,5 +448,6 @@ define govuk::app::config (
     service_description => "${title} upstart not up",
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
+    contact_groups      => additional_check_contact_groups,
   }
 }

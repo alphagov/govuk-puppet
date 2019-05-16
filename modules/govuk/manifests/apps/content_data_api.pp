@@ -111,13 +111,14 @@ class govuk::apps::content_data_api(
   $app_name = 'content-data-api'
 
   govuk::app { $app_name:
-    app_type          => 'rack',
-    port              => $port,
-    sentry_dsn        => $sentry_dsn,
-    health_check_path => '/healthcheck',
-    json_health_check => true,
-    asset_pipeline    => true,
-    read_timeout      => 60,
+    app_type                        => 'rack',
+    port                            => $port,
+    sentry_dsn                      => $sentry_dsn,
+    health_check_path               => '/healthcheck',
+    json_health_check               => true,
+    asset_pipeline                  => true,
+    read_timeout                    => 60,
+    additional_check_contact_groups => ['slack-channel-data-informed'],
   }
 
   Govuk::App::Envvar {

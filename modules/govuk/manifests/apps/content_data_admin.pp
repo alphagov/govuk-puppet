@@ -108,16 +108,17 @@ class govuk::apps::content_data_admin (
 
   # see modules/govuk/manifests/app.pp for more options
   govuk::app { $app_name:
-    ensure            => $ensure,
-    app_type          => 'rack',
-    port              => $port,
-    sentry_dsn        => $sentry_dsn,
-    vhost             => 'content-data',
-    vhost_ssl_only    => true,
-    health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing      => true,
-    asset_pipeline    => true,
-    read_timeout      => 60,
+    ensure                          => $ensure,
+    app_type                        => 'rack',
+    port                            => $port,
+    sentry_dsn                      => $sentry_dsn,
+    vhost                           => 'content-data',
+    vhost_ssl_only                  => true,
+    health_check_path               => '/healthcheck', # must return HTTP 200 for an unauthenticated request
+    deny_framing                    => true,
+    asset_pipeline                  => true,
+    read_timeout                    => 60,
+    additional_check_contact_groups => ['slack-channel-data-informed'],
   }
 
   # Redirect for the old domain
