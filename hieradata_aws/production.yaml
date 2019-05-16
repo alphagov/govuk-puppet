@@ -247,7 +247,7 @@ monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts'
-monitoring::contacts::slack_username: 'AWS Production'
+monitoring::contacts::slack_username: 'Production (AWS)'
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 

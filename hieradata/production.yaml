@@ -570,7 +570,7 @@ monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts'
-monitoring::contacts::slack_username: 'Carrenza Production'
+monitoring::contacts::slack_username: 'Production (Carrenza)'
 monitoring::edge::enabled: true
 monitoring::uptime_collector::environment: 'production'
 
