@@ -18,7 +18,7 @@ class monitoring::checks::datagovuk_publish(
 ) {
   include icinga::client::check_json_healthcheck
 
-  $port                             = 80
+  $port                             = 443
   $healthcheck_desc                 = 'data.gov.uk publish healthcheck not ok'
   $healthcheck_opsmanual            = regsubst($healthcheck_desc, ' ', '-', 'G')
   $health_check_path                = '/healthcheck'
