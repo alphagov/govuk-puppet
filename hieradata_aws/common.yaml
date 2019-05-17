@@ -484,7 +484,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::message_queues::enable_unpublishing_queue_consumer: true
-govuk::apps::email_alert_service::message_queues::enable_major_change_queue_consumer: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
