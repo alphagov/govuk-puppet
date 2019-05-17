@@ -189,7 +189,7 @@ class monitoring::contacts (
   if $slack_webhook_url {
     icinga::slack_contact { 'slack_data_informed':
       slack_webhook_url => $slack_webhook_url,
-      slack_channel     => '#govuk-data-informed',
+      slack_channel     => '#govuk-data-inf-alerts',
       slack_username    => $slack_username,
       nagios_cgi_url    => $slack_alert_url,
     }
