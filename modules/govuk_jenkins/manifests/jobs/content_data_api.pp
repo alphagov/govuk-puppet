@@ -30,6 +30,7 @@ class govuk_jenkins::jobs::content_data_api (
       host_name           => $::fqdn,
       freshness_threshold => 104400,
       action_url          => $job_url,
+      contact_groups      => ['slack-channel-data-informed'],
     }
   }
 }
