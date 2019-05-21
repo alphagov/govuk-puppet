@@ -16,10 +16,10 @@ define contact {
 
 define command{
     command_name    <%= notify_host_command %>
-    command_line    /usr/local/bin/icinga_slack_webhook_notify -u <%= @slack_webhook_url %> -c '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$HOSTDISPLAYNAME$ is $HOSTSTATE$' -H '$HOSTDISPLAYNAME$' -A '$HOSTACTIONURL$' -N '$HOSTNOTESURL$' -S '<%= @nagios_cgi_url %>'
+    command_line    /usr/local/bin/icinga_slack_webhook_notify -u <%= @slack_webhook_url %> -c '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$HOSTDISPLAYNAME$ is $HOSTSTATE$' --host '$HOSTNAME$' --host-display-name '$HOSTDISPLAYNAME$' -A '$HOSTACTIONURL$' -N '$HOSTNOTESURL$' --host-state $HOSTSTATE$ -S '<%= @icinga_status_cgi_url %>' --extinfo-cgi-url '<%= @nagios_extinfo_cgi_url %>'
 }
 
 define command{
     command_name    <%= notify_service_command %>
-    command_line    /usr/local/bin/icinga_slack_webhook_notify -u <%= @slack_webhook_url %> -c '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$SERVICEDESC$' -H '$HOSTDISPLAYNAME$' -A '$SERVICEACTIONURL$' -N '$SERVICENOTESURL$' -L $SERVICESTATE$ -S '<%= @nagios_cgi_url %>'
+    command_line    /usr/local/bin/icinga_slack_webhook_notify -u <%= @slack_webhook_url %> -c '<%= @slack_channel %>' -U '<%= @slack_username %>' -m '$SERVICEDESC$' --host '$HOSTNAME$' --host-display-name '$HOSTDISPLAYNAME$' -A '$SERVICEACTIONURL$' -N '$SERVICENOTESURL$' -L $SERVICESTATE$ -S '<%= @icinga_status_cgi_url %>' --extinfo-cgi-url '<%= @nagios_extinfo_cgi_url %>'
 }

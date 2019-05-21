@@ -3,7 +3,8 @@ define icinga::slack_contact (
   $slack_webhook_url,
   $slack_channel,
   $slack_username = 'Icinga',
-  $nagios_cgi_url = 'https://example.org/cgi-bin/icinga/status.cgi'
+  $icinga_status_cgi_url = 'https://example.org/cgi-bin/icinga/status.cgi',
+  $icinga_extinfo_cgi_url = 'https://example.org/cgi-bin/icinga/extinfo.cgi'
 ) {
 
   include icinga::config::slack

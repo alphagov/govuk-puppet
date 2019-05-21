@@ -28,8 +28,12 @@
 #   Slack Webhook URL to send alerts with.
 #   Default: undef
 #
-# [*slack_alert_url*]
-#   URL to include in Slack alerts.
+# [*slack_icinga_status_cgi_url*]
+#   URL to use in Slack messages when linking to Icinga.
+#   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
+#
+# [*slack_icinga_extinfo_cgi_url*]
+#   URL to use in Slack messages when linking to Icinga.
 #   Default: 'https://example.com/cgi-bin/icinga/status.cgi'
 #
 class monitoring::contacts (
@@ -40,7 +44,8 @@ class monitoring::contacts (
   $slack_channel = undef,
   $slack_username = 'Icinga',
   $slack_webhook_url = undef,
-  $slack_alert_url = 'https://example.com/cgi-bin/icinga/status.cgi',
+  $slack_icinga_status_cgi_url = 'https://example.com/cgi-bin/icinga/status.cgi',
+  $slack_icinga_extinfo_cgi_url = 'https://example.com/cgi-bin/icinga/extinfo.cgi',
 ) {
   validate_bool($notify_pager, $notify_slack, $notify_graphite)
 
@@ -103,10 +108,11 @@ class monitoring::contacts (
 
   if $notify_slack and ($slack_webhook_url and $slack_channel) {
     icinga::slack_contact { 'slack_notification':
-      slack_webhook_url => $slack_webhook_url,
-      slack_channel     => $slack_channel,
-      slack_username    => $slack_username,
-      nagios_cgi_url    => $slack_alert_url,
+      slack_webhook_url      => $slack_webhook_url,
+      slack_channel          => $slack_channel,
+      slack_username         => $slack_username,
+      icinga_status_cgi_url  => $slack_icinga_status_cgi_url,
+      icinga_extinfo_cgi_url => $slack_icinga_extinfo_cgi_url,
     }
 
     $slack_members = ['slack_notification']
@@ -188,10 +194,11 @@ class monitoring::contacts (
   # Data Informed Content
   if $slack_webhook_url {
     icinga::slack_contact { 'slack_data_informed':
-      slack_webhook_url => $slack_webhook_url,
-      slack_channel     => '#govuk-data-inf-alerts',
-      slack_username    => $slack_username,
-      nagios_cgi_url    => $slack_alert_url,
+      slack_webhook_url      => $slack_webhook_url,
+      slack_channel          => '#govuk-data-inf-alerts',
+      slack_username         => $slack_username,
+      icinga_status_cgi_url  => $slack_icinga_status_cgi_url,
+      icinga_extinfo_cgi_url => $slack_icinga_extinfo_cgi_url,
     }
 
     icinga::contact_group { 'slack-channel-data-informed':
