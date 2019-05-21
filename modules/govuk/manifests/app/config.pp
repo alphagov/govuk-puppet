@@ -311,6 +311,15 @@ define govuk::app::config (
       ensure => $ensure,
       regex  => pick($collectd_process_regex, $default_collectd_process_regex),
     }
+    @@icinga::check::graphite { "check_${title_underscore}_app_process_count_${::hostname}":
+      ensure    => $ensure,
+      target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.processes",
+      warning   => '@0', # WARN if there are 0 processes
+      critical  => '@-1', # Don't use the CRITICAL status for now
+      desc      => "No processes found for ${title_underscore}",
+      host_name => $::fqdn,
+      from      => '30seconds',
+    }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure         => $ensure,
       target         => "scale(sumSeries(${::fqdn_metrics}.processes-app-${title_underscore}.ps_cputime.*),0.0001)",
