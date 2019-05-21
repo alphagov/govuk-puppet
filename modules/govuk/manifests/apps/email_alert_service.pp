@@ -61,7 +61,7 @@ class govuk::apps::email_alert_service(
   govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
     setenv_as      => $app_name,
     enable_service => $enable_unpublishing_queue_consumer,
-    process_type   => 'unpublishing_queue_consumer',
+    process_type   => 'unpublishing-queue-consumer',
     process_regex  => '\/rake message_queues:unpublishing_consumer',
   }
 
