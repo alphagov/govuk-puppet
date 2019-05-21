@@ -37,6 +37,11 @@
 # [*service_template*]
 #   Which parent Icinga service to inherit from
 #
+# [*contact_groups*]
+#   Convenience parameter to use in addition to the service
+#   templates. This is so you can pass a group to a check without
+#   having to define a new service template
+#
 define icinga::passive_check (
   $service_description,
   $host_name,
@@ -47,6 +52,7 @@ define icinga::passive_check (
   $action_url              = undef,
   $notes_url               = undef,
   $service_template        = 'govuk_regular_service',
+  $contact_groups          = undef,
 ){
 
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
