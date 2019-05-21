@@ -51,11 +51,12 @@ class govuk::apps::email_alert_service(
   $app_name = 'email-alert-service'
 
   govuk::app { 'email-alert-service':
-    ensure             => $ensure,
-    app_type           => 'bare',
-    enable_nginx_vhost => false,
-    sentry_dsn         => $sentry_dsn,
-    command            => 'bundle exec rake message_queues:major_change_consumer',
+    ensure                 => $ensure,
+    app_type               => 'bare',
+    enable_nginx_vhost     => false,
+    sentry_dsn             => $sentry_dsn,
+    collectd_process_regex => 'email-alert-service/.*rake message_queues:major_change_consumer',
+    command                => 'bundle exec rake message_queues:major_change_consumer',
   }
 
   govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
