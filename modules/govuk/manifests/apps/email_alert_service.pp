@@ -21,13 +21,17 @@
 #   RabbitMQ password.
 #   Default: email_alert_service
 #
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*enable_unpublishing_queue_consumer*]
+#   Whether or not to configure the queue for the unpublishing processor
+#   Default: false
+#
+
 class govuk::apps::email_alert_service(
   $enabled = false,
   $rabbitmq_hosts = ['localhost'],
@@ -36,6 +40,7 @@ class govuk::apps::email_alert_service(
   $sentry_dsn = undef,
   $redis_host = undef,
   $email_alert_api_bearer_token = undef,
+  $enable_unpublishing_queue_consumer = false
 ) {
 
   $ensure = $enabled ? {
@@ -43,12 +48,21 @@ class govuk::apps::email_alert_service(
     false => 'absent',
   }
 
+  $app_name = 'email-alert-service'
+
   govuk::app { 'email-alert-service':
     ensure             => $ensure,
     app_type           => 'bare',
     enable_nginx_vhost => false,
     sentry_dsn         => $sentry_dsn,
-    command            => './bin/email_alert_service',
+    command            => 'bundle exec rake message_queues:major_change_consumer',
+  }
+
+  govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
+    setenv_as      => $app_name,
+    enable_service => $enable_unpublishing_queue_consumer,
+    process_type   => 'unpublishing_queue_consumer',
+    process_regex  => '\/rake message_queues:unpublishing_consumer',
   }
 
   Govuk::App::Envvar {

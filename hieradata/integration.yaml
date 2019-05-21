@@ -203,6 +203,7 @@ monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::smokey::environment: 'integration'
 monitoring::uptime_collector::environment: 'integration'
+monitoring::contacts::slack_username: 'CI'
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-integration'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-integration'
@@ -252,6 +253,7 @@ users::usernames:
   - richardmorton
   - rochtrinque
   - rubenarakelyan
+  - samuelculley 
   - seanrankine
   - sebastianschmieschek
   - sebastianszypowicz

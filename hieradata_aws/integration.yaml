@@ -309,6 +309,8 @@ monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::checks::smokey::environment: 'integration'
 monitoring::uptime_collector::environment: 'integration'
+monitoring::contacts::slack_username: 'Integration'
+
 
 postfix::smarthost:
   - 'email-smtp.eu-west-1.amazonaws.com:587'
@@ -360,6 +362,7 @@ users::usernames:
   - richardmorton
   - rochtrinque
   - rubenarakelyan
+  - samuelculley 
   - seanrankine
   - sebastianschmieschek
   - sebastianszypowicz

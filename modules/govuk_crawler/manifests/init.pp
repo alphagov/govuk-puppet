@@ -44,6 +44,12 @@
 #   The web site to be crawled, e.g. https://www.gov.uk
 #   Default: ''
 #
+# [*start_hour*]
+#   The hour at which the crawl starts
+#   Type: integer
+#   Range: 0-23
+#   Default: 6
+#
 # [*ssh_keys*]
 #   A hash of hostnames with ssh host keys and type of ssh host key.
 #   Default: {}
@@ -74,6 +80,7 @@ class govuk_crawler(
   $mirror_root,
   $seed_enable = false,
   $site_root = '',
+  $start_hour = 6,
   $ssh_keys = {},
   $ssh_private_key = '',
   $sync_enable = false,

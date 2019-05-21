@@ -419,6 +419,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - tijmen.brommet@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
+govuk::apps::email_alert_service::message_queues::enable_unpublishing_queue_consumer: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
@@ -1506,6 +1507,7 @@ mongodb::server::version: '2.4.9'
 monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
 monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
+monitoring::contacts::slack_alert_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 
 monitoring::checks::smokey::features:
   check_bouncer:

@@ -17,9 +17,10 @@ information:
         }
     }
 
-This script can be invoked with the healthcheck port, path and host as arguments:
+This script can be invoked with the healthcheck port, path, host(optional) and
+protocol(optional) as arguments:
 
-    check_json_healthcheck 3000 /healthcheck host_path
+    check_json_healthcheck 3000 /healthcheck host_path https
 
 """
 
@@ -61,8 +62,9 @@ def url_from_arguments(arguments):
     """Construct a health check URL from command-line arguments.
 
     The first argument should be the port; the second argument the healthcheck
-    path; the third is the host. The healthcheck is assumed to be on localhost
-    and over HTTP.
+    path; the third is the host; fourth is the protocol.
+    The host and protocol is optional, if it's not specified the default is localhost
+    over HTTP.
 
     """
     check_port = int(arguments[0])
@@ -73,8 +75,13 @@ def url_from_arguments(arguments):
     except IndexError:
         check_host = 'localhost'
 
+    try:
+        protocol = arguments[3]
+    except IndexError:
+        protocol = 'http'
+
     return urlunparse((
-        "http",
+        protocol,
         "%s:%d" % (check_host, check_port),
         check_path,
         None,  # params
