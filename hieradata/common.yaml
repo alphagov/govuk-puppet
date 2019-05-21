@@ -419,7 +419,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - tijmen.brommet@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
-govuk::apps::email_alert_service::message_queues::enable_unpublishing_queue_consumer: true
+govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq-1.backend
   - rabbitmq-2.backend
