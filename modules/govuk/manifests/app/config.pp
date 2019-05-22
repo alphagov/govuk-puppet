@@ -377,6 +377,7 @@ define govuk::app::config (
       critical       => $local_tcpconns_critical,
       desc           => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
       host_name      => $::fqdn,
+      notes_url      => monitoring_docs_url(established-connections-exceed),
       contact_groups => $additional_check_contact_groups,
     }
   }
