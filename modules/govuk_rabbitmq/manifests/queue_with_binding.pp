@@ -34,12 +34,16 @@
 #   Queues can be durable or transient. Durable queues survive broker restart, transient queues do not.
 #   (default: true)
 #
+# [*arguments*]
+#   The hash of arguments to configure the queue.
+#
 define govuk_rabbitmq::queue_with_binding (
   $amqp_exchange,
   $amqp_queue,
   $routing_key,
   $durable = true,
-  $ensure = 'present'
+  $ensure = 'present',
+  $arguments = {}
 ) {
   validate_re($routing_key, '^.+$', '$routing_key must be non-empty')
   $amqp_user = $title
@@ -50,7 +54,7 @@ define govuk_rabbitmq::queue_with_binding (
     password    => $::govuk_rabbitmq::root_password,
     durable     => $durable,
     auto_delete => false,
-    arguments   => {},
+    arguments   => $arguments,
   } ->
   rabbitmq_binding { "binding_${routing_key}_${amqp_exchange}@${amqp_queue}@/":
     ensure           => $ensure,
