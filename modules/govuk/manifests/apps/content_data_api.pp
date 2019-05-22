@@ -66,6 +66,14 @@
 #   RabbitMQ password.
 #   This is a required parameter
 #
+# [*rabbitmq_queue*]
+#   RabbitMQ queue to consume messages.
+#   This is a required parameter
+#
+# [*rabbitmq_queue_bulk*]
+#   RabbitMQ bulk queue to consume messages.
+#   This is a required parameter
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -102,6 +110,8 @@ class govuk::apps::content_data_api(
   $rabbitmq_vhost = '/',
   $rabbitmq_password = undef,
   $rabbitmq_user = undef,
+  $rabbitmq_queue = 'content_data_api',
+  $rabbitmq_queue_bulk = 'content_data_api_govuk_importer',
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
@@ -177,6 +187,12 @@ class govuk::apps::content_data_api(
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
       value   => $rabbitmq_password;
+    "${title}-RABBITMQ_QUEUE":
+      varname => 'RABBITMQ_QUEUE',
+      value   => $rabbitmq_queue;
+    "${title}-RABBITMQ_QUEUE_BULK":
+      varname => 'RABBITMQ_QUEUE_BULK',
+      value   => $rabbitmq_queue_bulk;
     "${title}-SUPPORT_API_BEARER_TOKEN":
       varname => 'SUPPORT_API_BEARER_TOKEN',
       value   => $support_api_bearer_token;
