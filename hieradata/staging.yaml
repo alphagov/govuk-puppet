@@ -97,6 +97,9 @@ govuk_jenkins::jobs::data_sync_complete_staging::signon_domains_to_migrate:
   -
     old: -production.cloudapps.digital
     new: -staging.cloudapps.digital
+  -
+    old: -production.london.cloudapps.digital
+    new: -staging.london.cloudapps.digital
 
 govuk_jenkins::jobs::deploy_dns::gce_client_name: 'govuk-dns-deploy'
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-staging-160211'
