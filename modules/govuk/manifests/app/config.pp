@@ -299,7 +299,7 @@ define govuk::app::config (
     if defined(Concat['/etc/nginx/lb_healthchecks.conf']) and $health_check_path != 'NOTSET' {
       concat::fragment { "${title}_lb_healthcheck":
         target  => '/etc/nginx/lb_healthchecks.conf',
-        content => "  location /_healthcheck_${title} {\n    proxy_pass http://${title}-proxy${health_check_path};\n  }\n",
+        content => "location /_healthcheck_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy${health_check_path};\n}\n",
       }
     }
   }
