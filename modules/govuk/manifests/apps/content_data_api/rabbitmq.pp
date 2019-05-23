@@ -39,9 +39,7 @@ class govuk::apps::content_data_api::rabbitmq (
   $amqp_exchange = 'published_documents',
   $amqp_dlx = 'content_data_api_dlx',
   $amqp_queue = 'content_data_api',
-  $amqp_queue_temp = 'content_data_api_temp',
   $amqp_bulk_importing_queue = 'content_data_api_govuk_importer',
-  $amqp_bulk_importing_queue_temp = 'content_data_api_govuk_importer_temp',
   $amqp_dead_letter_queue = 'content_data_api_dead_letter_queue'
 ) {
 
@@ -56,69 +54,6 @@ class govuk::apps::content_data_api::rabbitmq (
     routing_key   => '#',
     durable       => true,
   }
-
-  govuk_rabbitmq::queue_with_binding { $amqp_queue_temp:
-    ensure        => 'present',
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_queue_temp,
-    routing_key   => '*.major',
-    durable       => true,
-    arguments     => {
-      x-dead-letter-exchange => $amqp_dlx,
-    },
-  }
-
-  rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue_temp}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue_temp}@minor@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.minor',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_links_${amqp_exchange}@${amqp_queue_temp}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue_temp}@links@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.links',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_republish_${amqp_exchange}@${amqp_queue_temp}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue_temp}@republish@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.republish',
-    arguments        => {},
-  }
-
-  rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${amqp_queue_temp}@/":
-    ensure           => 'present',
-    name             => "${amqp_exchange}@${amqp_queue_temp}@unpublish@/",
-    user             => 'root',
-    password         => $::govuk_rabbitmq::root_password,
-    destination_type => 'queue',
-    routing_key      => '*.unpublish',
-    arguments        => {},
-  }
-
-  govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue_temp:
-    ensure        => 'present',
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_bulk_importing_queue_temp,
-    routing_key   => '*.bulk.data-warehouse',
-    durable       => true,
-    arguments     => {
-      x-dead-letter-exchange => "${amqp_dlx}@/",
-    },
-  }
-
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
     ensure        => 'present',
@@ -185,7 +120,7 @@ class govuk::apps::content_data_api::rabbitmq (
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
     amqp_pass            => $amqp_pass,
-    read_permission      => "^${amqp_queue}|${amqp_queue_temp}|${amqp_bulk_importing_queue}|${amqp_bulk_importing_queue_temp}|${amqp_dead_letter_queue}\$",
+    read_permission      => "^${amqp_queue}|${amqp_bulk_importing_queue}\$",
     write_permission     => "^\$",
     configure_permission => "^\$",
   }
