@@ -55,15 +55,22 @@ class govuk::apps::content_data_api::rabbitmq (
     durable       => true,
   }
 
+  rabbitmq_policy { 'content_data_api-dlx@/':
+    pattern    => "^${amqp_queue}.*",
+    applyto    => 'queues',
+    definition => {
+      'dead-letter-exchange' => $amqp_dlx,
+      'ha-mode'              => 'all',
+      'ha-sync-mode'         => 'automatic',
+    },
+  }
+
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
     ensure        => 'present',
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_queue,
     routing_key   => '*.major',
     durable       => true,
-    arguments     => {
-      x-dead-letter-exchange => $amqp_dlx,
-    },
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
@@ -112,15 +119,12 @@ class govuk::apps::content_data_api::rabbitmq (
     amqp_queue    => $amqp_bulk_importing_queue,
     routing_key   => '*.bulk.data-warehouse',
     durable       => true,
-    arguments     => {
-      x-dead-letter-exchange => "${amqp_dlx}@/",
-    },
   }
 
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => 'present',
     amqp_pass            => $amqp_pass,
-    read_permission      => "^${amqp_queue}|${amqp_bulk_importing_queue}\$",
+    read_permission      => "^${amqp_queue}|${amqp_bulk_importing_queue}|${amqp_dead_letter_queue}\$",
     write_permission     => "^\$",
     configure_permission => "^\$",
   }
