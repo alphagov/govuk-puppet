@@ -43,7 +43,7 @@ class govuk::node::s_backend inherits govuk::node::s_base {
     concat { '/etc/nginx/lb_healthchecks.conf':
       ensure => present,
     }
-    $extra_config = 'include /etc/nginx/lb_healthchecks.conf'
+    $extra_config = 'include /etc/nginx/lb_healthchecks.conf;'
   } else {
     $extra_config = ''
   }
