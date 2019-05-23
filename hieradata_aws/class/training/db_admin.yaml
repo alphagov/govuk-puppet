@@ -1,0 +1,23 @@
+govuk_env_sync::tasks:
+  "pull_content_data_admin_integration_daily":
+    ensure: "present"
+    hour: "0"
+    minute: "18"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_data_admin_production"
+    temppath: "/tmp/content_data_admin_integration_pull"
+    url: "govuk-integration-database-backups"
+    path: "postgresql-backend"
+  "push_content_data_admin_integration_daily":
+    ensure: "present"
+    hour: "1"
+    minute: "18"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_data_admin_production"
+    temppath: "/tmp/content_data_admin_integration_push"
+    url: "govuk-training-database-backups"
+    path: "postgresql-backend"
