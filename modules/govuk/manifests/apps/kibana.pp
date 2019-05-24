@@ -14,4 +14,11 @@ class govuk::apps::kibana(
   nginx::config::vhost::redirect { "${app_name}.${app_domain}":
     to => "https://logit.io/a/${logit_account}/s/${logit_environment}/kibana/access",
   }
+
+  if defined(Concat['/etc/nginx/lb_healthchecks.conf']) {
+    concat::fragment { 'kibana_lb_healthcheck':
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => 'location /_healthcheck_kibana {\n  return 200;\n}\n',
+    }
+  }
 }
