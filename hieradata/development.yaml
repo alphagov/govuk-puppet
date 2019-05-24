@@ -1,6 +1,24 @@
 ---
 app_domain: 'dev.gov.uk'
 
+apt::sources:
+  ubuntu:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}'
+    repos: 'main restricted universe multiverse'
+  ubuntu-updates:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-updates'
+    repos: 'main restricted universe multiverse'
+  ubuntu-backports:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-backports'
+    repos: 'main restricted universe multiverse'
+  ubuntu-security:
+    location: 'http://gb.archive.ubuntu.com/ubuntu/'
+    release: '%{::lsbdistcodename}-security'
+    repos: 'main restricted universe multiverse'
+
 assets::mount_asset_master: false
 
 base::shell::shell_prompt_string: 'dev'
