@@ -74,6 +74,10 @@
 #   RabbitMQ bulk queue to consume messages.
 #   This is a required parameter
 #
+# [*rabbitmq_queue_dead*]
+#   RabbitMQ dead letter queue to consume messages.
+#   This is a required parameter
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -112,6 +116,7 @@ class govuk::apps::content_data_api(
   $rabbitmq_user = undef,
   $rabbitmq_queue = 'content_data_api',
   $rabbitmq_queue_bulk = 'content_data_api_govuk_importer',
+  $rabbitmq_queue_dead = 'content_data_api_dead_letter_queue',
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
@@ -193,6 +198,9 @@ class govuk::apps::content_data_api(
     "${title}-RABBITMQ_QUEUE_BULK":
       varname => 'RABBITMQ_QUEUE_BULK',
       value   => $rabbitmq_queue_bulk;
+    "${title}-RABBITMQ_QUEUE_DEAD":
+      varname => 'RABBITMQ_QUEUE_DEAD',
+      value   => $rabbitmq_queue_dead;
     "${title}-SUPPORT_API_BEARER_TOKEN":
       varname => 'SUPPORT_API_BEARER_TOKEN',
       value   => $support_api_bearer_token;
