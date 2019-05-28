@@ -15,10 +15,10 @@ class govuk::apps::kibana(
     to => "https://logit.io/a/${logit_account}/s/${logit_environment}/kibana/access",
   }
 
-  if defined(Concat['/etc/nginx/lb_healthchecks.conf']) {
+  if ( $::aws_migration and ($::aws_environment == 'integration') ) {
     concat::fragment { 'kibana_lb_healthcheck':
       target  => '/etc/nginx/lb_healthchecks.conf',
-      content => 'location /_healthcheck_kibana {\n  return 200;\n}\n',
+      content => "location /_healthcheck_kibana {\n  return 200;\n}\n",
     }
   }
 }
