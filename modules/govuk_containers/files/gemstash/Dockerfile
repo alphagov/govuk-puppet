@@ -22,8 +22,8 @@ RUN apk update \
         linux-headers \
         make \
         ncurses-dev \
-        openssl \
-        openssl-dev \
+        libressl \
+        libressl-dev \
         procps \
         readline-dev \
         ruby \
