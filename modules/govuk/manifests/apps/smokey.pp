@@ -51,4 +51,10 @@ class govuk::apps::smokey (
     'SIGNON_EMAIL':     value => $smokey_signon_email;
     'SIGNON_PASSWORD':  value => $smokey_signon_password;
   }
+
+  if $::aws_migration {
+    govuk::app::envvar {
+      'PLEK_SERVICE_ASSET_MANAGER_URI': value => "https://asset-manager.${app_domain}";
+    }
+  }
 }
