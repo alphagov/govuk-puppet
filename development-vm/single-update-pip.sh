@@ -15,6 +15,7 @@ cd "../../$REPO"
 if [ -f lock ]; then
   warn "skipped because 'lock' file exists"
 else
+  rm -rf $DIRECTORY
   virtualenv -q "$DIRECTORY"
   echo "Updating $REPO..."
   outputfile=$(mktemp -t update-pip.XXXXXX)
