@@ -106,6 +106,7 @@ else
     \"type\": \"fs\",
     \"settings\": {
       \"compress\": true,
+      \"readonly\": true,
       \"location\": \"/usr/share/elasticsearch/import\"
     }
   }"
