@@ -1062,11 +1062,6 @@ hosts::backend_migration::hosts:
     host_aliases:
       - email-alert-api-3.backend
       - email-alert-api-3
-  # - warehouse-postgresql-1.backend.staging.publishing.service.gov.uk
-  #   ip: 10.2.3.110
-  #   host_aliases:
-  #     - warehouse-postgresql-1.backend
-  #     - warehouse-postgresql-1
   ckan-1.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.120
     host_aliases:
