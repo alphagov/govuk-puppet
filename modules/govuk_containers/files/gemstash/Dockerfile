@@ -1,4 +1,4 @@
-FROM alpine:3.3
+FROM alpine:3.6.5
 LABEL maintainer="govuk-role-platform-accounts-members@digital.cabinet-office.gov.uk" \
       description="Runs a Gemstash server on top of Alpine" \
       version="0.1.0"
@@ -22,8 +22,8 @@ RUN apk update \
         linux-headers \
         make \
         ncurses-dev \
-        openssl \
-        openssl-dev \
+        libressl \
+        libressl-dev \
         procps \
         readline-dev \
         ruby \
