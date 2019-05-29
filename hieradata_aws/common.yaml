@@ -851,8 +851,6 @@ govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_
 
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk_bundler::config::service: 'http://gemstash'
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
@@ -1161,8 +1159,6 @@ monitoring::checks::rds::servers:
    - 'postgresql-standby'
    - 'transition-postgresql-primary'
    - 'transition-postgresql-standby'
-   - 'warehouse-postgresql-primary'
-   - 'warehouse-postgresql-standby'
    - 'mysql-primary'
    - 'mysql-replica'
 
