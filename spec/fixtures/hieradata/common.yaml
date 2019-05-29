@@ -31,7 +31,6 @@ govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mir
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_logging::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk::node::s_warehouse_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_mount::no_op: false
 
