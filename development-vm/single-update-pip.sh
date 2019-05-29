@@ -19,7 +19,7 @@ else
   virtualenv -q "$DIRECTORY"
   echo "Updating $REPO..."
   outputfile=$(mktemp -t update-pip.XXXXXX)
-  trap "rm -f '$outputfile'" EXIT
+  trap 'rm -f "$outputfile"' EXIT
 
   . $DIRECTORY/bin/activate
 
