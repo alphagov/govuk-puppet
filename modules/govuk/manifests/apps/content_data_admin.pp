@@ -127,7 +127,7 @@ class govuk::apps::content_data_admin (
     to => "https://content-data.${app_domain}/",
   }
 
-  if ( $::aws_migration and ($::aws_environment == 'integration') ) {
+  if ( $::aws_migration and ($::aws_environment != 'production') ) {
     concat::fragment { "${app_name}_redir_lb_healthcheck":
       target  => '/etc/nginx/lb_healthchecks.conf',
       content => "location /_healthcheck_${app_name} {\n  proxy_pass http://content-data-proxy/healthcheck;\n}\n",

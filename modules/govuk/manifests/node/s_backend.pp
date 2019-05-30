@@ -39,9 +39,10 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include nginx
 
-  if ( $::aws_migration and ($::aws_environment == 'integration') ) {
+  if ( $::aws_migration and ($::aws_environment != 'production') ) {
     concat { '/etc/nginx/lb_healthchecks.conf':
       ensure => present,
+      before => Nginx::Config::Vhost::Default['default'],
     }
     $extra_config = 'include /etc/nginx/lb_healthchecks.conf;'
   } else {
