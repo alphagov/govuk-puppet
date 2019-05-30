@@ -1,3 +1,4 @@
+# Creates the Jonathon Shire user
 class users::jonathonshire {
   govuk_user { 'jonathonshire':
     fullname => 'Jonathon Shire',
