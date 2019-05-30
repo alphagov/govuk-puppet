@@ -37,14 +37,12 @@ for NODE in $ASSET_SLAVE_NODES; do
     logger -t copy_attachments "Attachments copied to $NODE successfully"
   else
     logger -t copy_attachments "Attachments errored while copying to $NODE"
+    STATUS=1
   fi
 done
 
-if [ $? == 0 ]
-  then
-    STATUS=0
-  else
-    STATUS=1
+if [ -z $STATUS ]; then
+  STATUS=0
 fi
 
 if [ $STATUS -eq 0 ]; then
