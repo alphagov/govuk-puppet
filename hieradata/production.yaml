@@ -49,7 +49,7 @@ backup::offsite::jobs:
     # No encryption because of size and sensitivity
 
 base::shell::shell_prompt_string: 'production'
-base::supported_kernel::enabled: false
+base::supported_kernel::enabled: true
 
 environment_ip_prefix: '10.3'
 
