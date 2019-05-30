@@ -429,13 +429,13 @@ define govuk::app (
     logfile       => "/var/log/${title}/app.out.log",
     tags          => ['application'],
     fields        => {'application' => $title},
-    statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+    statsd_metric => "${statsd_timer_prefix}.http_%{status}",
     statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
-                        value => '@fields.duration'},
+                        value => 'duration'},
                       {metric => "${statsd_timer_prefix}.time_db",
-                        value => '@fields.db'},
+                        value => 'db'},
                       {metric => "${statsd_timer_prefix}.time_view",
-                        value => '@fields.view'}],
+                        value => 'view'}],
         }
 
   @filebeat::prospector { "${title}-app-out":
@@ -475,13 +475,13 @@ define govuk::app (
       logfile       => $log_path,
       tags          => ['stdout', 'application'],
       fields        => {'application' => $title},
-      statsd_metric => "${statsd_timer_prefix}.http_%{@field.status}",
+      statsd_metric => "${statsd_timer_prefix}.http_%{status}",
       statsd_timers => [{metric => "${statsd_timer_prefix}.time_duration",
-                          value => '@fields.duration'},
+                          value => 'duration'},
                         {metric => "${statsd_timer_prefix}.time_db",
-                          value => '@fields.db'},
+                          value => 'db'},
                         {metric => "${statsd_timer_prefix}.time_view",
-                          value => '@fields.view'}],
+                          value => 'view'}],
     }
 
     @filebeat::prospector { "${title}-production-log":
