@@ -41,7 +41,7 @@ for NODE in $ASSET_SLAVE_NODES; do
   fi
 done
 
-if [ -z $STATUS ]; then
+if [ -z "${STATUS:-}" ]; then
   STATUS=0
 fi
 
