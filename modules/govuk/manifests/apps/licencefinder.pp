@@ -17,6 +17,10 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*elasticsearch_uri*]
+#   The URL of the elasticsearch instance
+#   Default: http://elasticsearch5
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -29,6 +33,7 @@ class govuk::apps::licencefinder(
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',
+  $elasticsearch_uri = 'http://elasticsearch5',
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
 ) {
@@ -72,7 +77,7 @@ class govuk::apps::licencefinder(
     govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
       app     => $app_name,
       varname => 'ELASTICSEARCH_URI',
-      value   => 'http://elasticsearch5',
+      value   => $elasticsearch_uri,
     }
   }
 }
