@@ -52,7 +52,7 @@ for FILELIST in $(find $FILELIST_DIR -type f); do
   rm -f $FILELIST
 done
 
-if [ -z $STATUS ]; then
+if [ -z "${STATUS:-}" ]; then
   STATUS=0
 fi
 

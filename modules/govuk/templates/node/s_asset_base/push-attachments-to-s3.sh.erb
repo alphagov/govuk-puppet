@@ -39,7 +39,7 @@ else
   STATUS=1
 fi
 
-if [ -z $STATUS ]; then
+if [ -z "${STATUS:-}" ]; then
   STATUS=0
 fi
 
