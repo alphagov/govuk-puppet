@@ -183,6 +183,7 @@ govuk::apps::router_api::enable_running_in_draft_mode::mongodb_name: 'draft_rout
 govuk::apps::router_api::enable_running_in_draft_mode::mongodb_nodes: ['localhost']
 govuk::apps::router_api::enable_running_in_draft_mode::router_nodes: ['localhost:3134']
 govuk::apps::search_api::elasticsearch_hosts: 'http://localhost:9200'
+govuk::apps::search_api::elasticsearch_b_uri: 'http://localhost:9200'
 govuk::apps::search_api::enable_procfile_worker: false
 govuk::apps::search_api::rabbitmq_hosts: ['localhost']
 govuk::apps::search_api::rabbitmq_user: 'search-api'
