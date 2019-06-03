@@ -31,9 +31,23 @@ class collectd::plugin::docker(
   # seems to be fixed in puppet 4: https://tickets.puppetlabs.com/browse/PUP-1073
   exec { 'pip install docker':
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
-    command => 'pip install "docker<=2.6.1"',
+    command => 'pip install "docker==2.7.0"',
     notify  => Class['collectd::service'],
-    unless  => 'pip list | grep "docker (2.6.1)"',
+    unless  => 'pip list | grep "docker (2.7.0)"',
+  }
+
+  exec { 'pip install urllib3':
+    path    => ['/usr/local/bin', '/usr/bin', '/bin'],
+    command => 'pip install "urllib3==1.25.3"',
+    notify  => Class['collectd::service'],
+    unless  => 'pip list | grep "urllib3 (1.25.3)"',
+  }
+
+  exec { 'pip install requests':
+    path    => ['/usr/local/bin', '/usr/bin', '/bin'],
+    command => 'pip install "requests==2.22.0"',
+    notify  => Class['collectd::service'],
+    unless  => 'pip list | grep "requests (2.22.0)"',
   }
 
   package { 'docker-py':
