@@ -48,11 +48,12 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_dead_letter_queue:
-    ensure        => 'present',
-    amqp_exchange => $amqp_dlx,
-    amqp_queue    => $amqp_dead_letter_queue,
-    routing_key   => '#',
-    durable       => true,
+    ensure            => 'present',
+    amqp_exchange     => $amqp_dlx,
+    amqp_queue        => $amqp_dead_letter_queue,
+    routing_key       => '#',
+    durable           => true,
+    monitor_consumers => false,
   }
 
   rabbitmq_policy { 'content_data_api-dlx@/':
