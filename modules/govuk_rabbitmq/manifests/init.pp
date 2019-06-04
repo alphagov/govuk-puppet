@@ -20,7 +20,12 @@ class govuk_rabbitmq (
 
   if $::aws_migration {
     package { 'urllib3':
-      ensure   => '1.7.1',
+      ensure   => '1.25.3',
+      provider => pip,
+    }
+
+    package { 'requests':
+      ensure   => '2.22.0',
       provider => pip,
     }
   }
