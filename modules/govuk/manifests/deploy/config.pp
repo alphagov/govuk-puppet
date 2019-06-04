@@ -25,6 +25,12 @@
 # [*licensify_app_domain*]
 #   The app domain for Licensify hosts, which are different in AWS.
 #
+# [*csp_report_only*]
+#   Whether to report content security policy violations rather than block them
+#
+# [*csp_report_uri*]
+#   The URI to report any content security policy violations too
+#
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
@@ -32,6 +38,8 @@ class govuk::deploy::config(
   $website_root,
   $app_domain,
   $licensify_app_domain = undef,
+  $csp_report_only = false,
+  $csp_report_uri = undef,
 ){
 
   limits::limits { 'deploy_nofile':
@@ -84,6 +92,11 @@ class govuk::deploy::config(
     require => File['/etc/govuk'],
   }
 
+  $csp_report_only_value = $csp_report_only ? {
+    true => 'yes',
+    default => undef,
+  }
+
   govuk_envvar {
     'GOVUK_ENV': value => $govuk_env;
     'NODE_ENV': value => $govuk_env;
@@ -95,6 +108,8 @@ class govuk::deploy::config(
     'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
+    'GOVUK_CSP_REPORT_ONLY': value     => $csp_report_only_value;
+    'GOVUK_CSP_REPORT_URI': value      => $csp_report_uri;
   }
 
   if $::aws_migration {

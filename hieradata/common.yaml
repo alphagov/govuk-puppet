@@ -673,9 +673,11 @@ govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::deploy::config::asset_root: "https://assets.%{hiera('app_domain')}"
-govuk::deploy::config::website_root: "https://www.%{hiera('app_domain')}"
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
+govuk::deploy::config::asset_root: "https://assets.%{hiera('app_domain')}"
+govuk::deploy::config::csp_report_only: true
+govuk::deploy::config::csp_report_uri: https://jhpno0hk6b.execute-api.eu-west-2.amazonaws.com/production
+govuk::deploy::config::website_root: "https://www.%{hiera('app_domain')}"
 
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

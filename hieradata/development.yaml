@@ -27,6 +27,8 @@ base::supported_kernel::enabled: true
 clamav::use_service: false
 
 govuk::deploy::config::asset_root: 'http://assets-origin.dev.gov.uk'
+govuk::deploy::config::csp_report_only: false
+govuk::deploy::config::csp_report_uri: null
 govuk::deploy::config::website_root: 'http://www.dev.gov.uk'
 govuk::deploy::setup::ssh_keys:
     development_user: SEVIRUhFSEVIIFRoaXMgaXMgbm90IGEgcmVhbCBrZXkgYnV0IEknbSBnb2luZyB0byBtYWtlIGl0IGxvb2sgbGlrZSBpdCdzIG9uZSBqdXN0IHRvIHJlYWxseSBhbm5veSB5b3UhCg==
