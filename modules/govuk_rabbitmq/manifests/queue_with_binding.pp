@@ -37,13 +37,17 @@
 # [*arguments*]
 #   The hash of arguments to configure the queue.
 #
+# [*monitor_consumers*]
+#   Toggle to add icinga alarm to monitor queue for attached consumers. (default: true)
+#
 define govuk_rabbitmq::queue_with_binding (
   $amqp_exchange,
   $amqp_queue,
   $routing_key,
   $durable = true,
   $ensure = 'present',
-  $arguments = {}
+  $arguments = {},
+  $monitor_consumers = true
 ) {
   validate_re($routing_key, '^.+$', '$routing_key must be non-empty')
   $amqp_user = $title
@@ -56,6 +60,7 @@ define govuk_rabbitmq::queue_with_binding (
     auto_delete => false,
     arguments   => $arguments,
   } ->
+
   rabbitmq_binding { "binding_${routing_key}_${amqp_exchange}@${amqp_queue}@/":
     ensure           => $ensure,
     name             => "${amqp_exchange}@${amqp_queue}@/",
@@ -66,9 +71,11 @@ define govuk_rabbitmq::queue_with_binding (
     arguments        => {},
   }
 
-  govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
-    ensure            => $ensure,
-    rabbitmq_hostname => 'localhost',
-    rabbitmq_queue    => $amqp_queue,
+  if $monitor_consumers {
+    govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
+      ensure            => $ensure,
+      rabbitmq_hostname => 'localhost',
+      rabbitmq_queue    => $amqp_queue,
+    }
   }
 }
