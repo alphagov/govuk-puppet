@@ -105,6 +105,8 @@ Vagrant.configure("2") do |config|
     config.vm.synced_folder "../..", "/var/govuk", :type => :nfs
   end
 
+  config.vm.provision "file", source: "~/.gitconfig", destination: "~/.gitconfig"
+
   config = common_config(config)
 
   # See Vagrantfile.localconfig.example for instructions on
