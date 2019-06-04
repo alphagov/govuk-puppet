@@ -93,6 +93,7 @@ class govuk::apps::search_api(
   $nagios_memory_critical = undef,
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
+  $elasticsearch_b_uri = undef,
   $sitemap_generation_time = '1.10am',
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
@@ -187,6 +188,11 @@ class govuk::apps::search_api(
   govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
     varname => 'ELASTICSEARCH_URI',
     value   => $elasticsearch_hosts,
+  }
+
+  govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
+    varname => 'ELASTICSEARCH_B_URI',
+    value   => $elasticsearch_b_uri,
   }
 
   govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
