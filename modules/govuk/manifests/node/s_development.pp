@@ -56,6 +56,12 @@ class govuk::node::s_development (
     source => 'puppet:///modules/govuk/etc/profile.d/govuk-guix.sh',
   }
 
+  file { '/etc/profile.d/govukcli.sh':
+    ensure => present,
+    mode   => '0755',
+    source => 'puppet:///modules/govuk/etc/profile.d/govukcli.sh',
+  }
+
   # Install additional bash completions.
   package { 'bash-completion':
     ensure  => present,
