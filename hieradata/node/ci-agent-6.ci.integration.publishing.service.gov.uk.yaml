@@ -1,0 +1,3 @@
+---
+govuk_containers::elasticsearch::primary::ensure: 'absent'
+govuk_containers::elasticsearch::secondary::ensure: 'absent'
