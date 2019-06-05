@@ -1,4 +1,2 @@
 ---
-govuk_containers::elasticsearch::primary::image_version: '6.7.2'
-
 mongodb::server::version: '2.4.9'
