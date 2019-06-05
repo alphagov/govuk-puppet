@@ -238,10 +238,11 @@ class govuk::apps::sidekiq_monitoring (
   }
 
   govuk::app { $app_name:
-    app_type           => 'bare',
-    command            => 'bundle exec foreman start',
-    enable_nginx_vhost => false,
-    hasrestart         => true,
+    app_type               => 'bare',
+    command                => 'bundle exec foreman start',
+    enable_nginx_vhost     => false,
+    hasrestart             => true,
+    collectd_process_regex => '/data/apps/sidekiq-monitoring/shared/bundle/ruby/.*/bin/rackup .*',
   }
 
   govuk::app::envvar::redis{
