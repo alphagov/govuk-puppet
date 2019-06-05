@@ -7,6 +7,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether Imminence should be present or absent.
+#
 # [*port*]
 #   The port that Imminence is served on.
 #   Default: 3002
@@ -50,6 +53,7 @@
 #   Default: undef
 #
 class govuk::apps::imminence(
+  $ensure = 'present',
   $port = '3002',
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
@@ -69,10 +73,12 @@ class govuk::apps::imminence(
   $app_name = 'imminence'
 
   Govuk::App::Envvar {
-    app => $app_name,
+    ensure => $ensure,
+    app    => $app_name,
   }
 
   govuk::app { $app_name:
+    ensure                   => $ensure,
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
@@ -126,6 +132,7 @@ class govuk::apps::imminence(
   }
 
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 }
