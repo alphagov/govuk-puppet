@@ -15,16 +15,16 @@ class govuk_containers::elasticsearch::primary(
   $port    = '9200',
   $ensure  = 'present',
 ) {
+  # todo: remove absent things
+  ::docker::run { 'elasticsearch':
+    ensure => 'absent',
+    image  => "elasticsearch:${version}",
+  } ->
+
   ::govuk_containers::elasticsearch { 'primary':
     ensure             => $ensure,
     image_version      => $version,
     elasticsearch_port => $port,
-  }
-
-  # todo: remove
-  ::docker::run { 'elasticsearch':
-    ensure => 'absent',
-    image  => "elasticsearch:${version}",
   }
 
   @icinga::nrpe_config { 'check_dockerised_elasticsearch_responding':
