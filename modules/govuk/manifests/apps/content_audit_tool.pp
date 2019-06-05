@@ -107,12 +107,14 @@ class govuk::apps::content_audit_tool(
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'google-analytics-worker',
+    process_regex  => 'sidekiq .* content-audit-tool\/google-analytics-worker .*',
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-worker":
     enable_service => $enable_procfile_worker,
     setenv_as      => $app_name,
     process_type   => 'publishing-api-worker',
+    process_regex  => 'sidekiq .* content-audit-tool\/publishing-api-worker .*',
   }
 
   govuk::app::envvar {
