@@ -177,9 +177,5 @@ class govuk::node::s_graphite (
       }
   }
 
-  if ! $::aws_migration {
-    include collectd::server
-  }
-
   include grafana
 }
