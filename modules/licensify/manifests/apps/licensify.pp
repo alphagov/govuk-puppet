@@ -16,7 +16,7 @@ class licensify::apps::licensify (
     require                        => File['/etc/licensing'],
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
-    collectd_process_regex         => 'java -Duser.dir=/data/vhost/licensify.integration.publishing.service.gov.uk/licensify-.*',
+    collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*',
   }
 
   licensify::apps::envvars { 'licensify':
