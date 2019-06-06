@@ -396,18 +396,14 @@ govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_audit_tool::db_hostname: "db-admin"
-govuk::apps::content_audit_tool::db_port: 6432
-govuk::apps::content_audit_tool::db_allow_prepared_statements: false
+govuk::apps::content_audit_tool::db_hostname: "postgresql-primary"
 govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_audit_tool::db::allow_auth_from_lb: true
 govuk::apps::content_audit_tool::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_data_admin::db_hostname: "db-admin"
-govuk::apps::content_data_admin::db_port: 6432
-govuk::apps::content_data_admin::db_allow_prepared_statements: false
+govuk::apps::content_data_admin::db_hostname: "postgresql-primary"
 govuk::apps::content_data_admin::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_data_admin::db::allow_auth_from_lb: true
 govuk::apps::content_data_admin::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
@@ -430,9 +426,7 @@ govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::content_data_api::db_name: "content_performance_manager_production"
 govuk::apps::content_data_api::db_username: "content_performance_manager"
 
-govuk::apps::content_publisher::db_hostname: "db-admin"
-govuk::apps::content_publisher::db_port: 6432
-govuk::apps::content_publisher::db_allow_prepared_statements: false
+govuk::apps::content_publisher::db_hostname: "postgresql-primary"
 govuk::apps::content_publisher::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_publisher::db::allow_auth_from_lb: true
 govuk::apps::content_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
@@ -446,9 +440,7 @@ govuk::apps::content_store::nagios_memory_warning: 2600
 govuk::apps::content_store::nagios_memory_critical: 2800
 govuk::apps::content_store::unicorn_worker_processes: "12"
 
-govuk::apps::content_tagger::db_hostname: "db-admin"
-govuk::apps::content_tagger::db_port: 6432
-govuk::apps::content_tagger::db_allow_prepared_statements: false
+govuk::apps::content_tagger::db_hostname: "postgresql-primary"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::db::allow_auth_from_lb: true
 govuk::apps::content_tagger::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
@@ -462,9 +454,7 @@ govuk::apps::email_alert_api::db::allow_auth_from_lb: true
 govuk::apps::email_alert_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::email_alert_api::db_hostname: 'db-admin'
-govuk::apps::email_alert_api::db_port: 6432
-govuk::apps::email_alert_api::db_allow_prepared_statements: false
+govuk::apps::email_alert_api::db_hostname: "postgresql-primary"
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
 govuk::apps::email_alert_api::nagios_memory_warning: 2400
 govuk::apps::email_alert_api::nagios_memory_critical: 3000
@@ -505,9 +495,7 @@ govuk::apps::government_frontend::nagios_memory_warning: 2500
 govuk::apps::government_frontend::nagios_memory_critical: 2800
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
-govuk::apps::link_checker_api::db_hostname: "db-admin"
-govuk::apps::link_checker_api::db_port: 6432
-govuk::apps::link_checker_api::db_allow_prepared_statements: false
+govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::db::allow_auth_from_lb: true
 govuk::apps::link_checker_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
@@ -580,9 +568,7 @@ govuk::apps::info_frontend::enabled: true
 
 govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
 
-govuk::apps::local_links_manager::db_hostname: "db-admin"
-govuk::apps::local_links_manager::db_port: 6432
-govuk::apps::local_links_manager::db_allow_prepared_statements: false
+govuk::apps::local_links_manager::db_hostname: "postgresql-primary"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::local_links_manager::db::allow_auth_from_lb: true
 govuk::apps::local_links_manager::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
@@ -602,9 +588,7 @@ govuk::apps::licencefinder::mongodb_nodes:
 
 govuk::apps::publishing_api::unicorn_worker_processes: "8"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::db_hostname: "db-admin"
-govuk::apps::publishing_api::db_port: 6432
-govuk::apps::publishing_api::db_allow_prepared_statements: false
+govuk::apps::publishing_api::db_hostname: "postgresql-primary"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq
@@ -645,9 +629,7 @@ govuk::apps::search_admin::db_username: 'search_admin'
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
-govuk::apps::service_manual_publisher::db_hostname: 'db-admin'
-govuk::apps::service_manual_publisher::db_port: 6432
-govuk::apps::service_manual_publisher::db_allow_prepared_statements: false
+govuk::apps::service_manual_publisher::db_hostname: "postgresql-primary"
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::service_manual_publisher::db::allow_auth_from_lb: true
@@ -734,9 +716,7 @@ govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cab
 govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::support_api::db_name: 'support_contacts_production'
-govuk::apps::support_api::db_hostname: 'db-admin'
-govuk::apps::support_api::db_port: 6432
-govuk::apps::support_api::db_allow_prepared_statements: false
+govuk::apps::support_api::db_hostname: "postgresql-primary"
 govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
 govuk::apps::support_api::db_username: 'support_contacts'
 govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
