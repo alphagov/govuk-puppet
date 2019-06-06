@@ -4,5 +4,6 @@
 #
 class govuk_ci::agent::elasticsearch {
   include ::govuk_docker
-  include ::govuk_containers::elasticsearch
+  include ::govuk_containers::elasticsearch::primary
+  include ::govuk_containers::elasticsearch::secondary
 }

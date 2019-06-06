@@ -1,4 +1,4 @@
-# == Class: govuk_containers::elasticsearch
+# == Resource: govuk_containers::elasticsearch
 #
 # Install and run a dockerised Elasticsearch server
 #
@@ -13,47 +13,43 @@
 # [*elasticsearch_port*]
 #   The port (outside the container) to use for elasticsearch.
 #
-class govuk_containers::elasticsearch(
+define govuk_containers::elasticsearch(
   $image_name = 'elastic/elasticsearch',
   $image_version = '5.6.15',
   $elasticsearch_port = '9200',
+  $ensure = 'present',
 ) {
 
-  file { '/etc/elasticsearch-docker.yml':
-    ensure  => present,
+  file { "/etc/elasticsearch-docker-${image_version}.yml":
+    ensure  => $ensure,
     content => template('govuk_containers/elasticsearch.yml'),
   }
 
-  ::docker::image { $image_name:
-    ensure    => 'present',
+  ::docker::image { "${image_name}:${image_version}":
+    ensure    => $ensure,
     require   => Class['govuk_docker'],
+    image     => $image_name,
     image_tag => $image_version,
   }
 
-  ::docker::run { 'elasticsearch':
+  ::docker::run { "${image_name}:${image_version}":
+    ensure  => $ensure,
     ports   => ["${elasticsearch_port}:9200"],
     image   => "${image_name}:${image_version}",
-    require => [Docker::Image[$image_name], File['/etc/elasticsearch-docker.yml']],
+    require => [Docker::Image["${image_name}:${image_version}"], File["/etc/elasticsearch-docker-${image_version}.yml"]],
     env     => ['"ES_JAVA_OPTS=-Xms512m -Xmx512m"', 'discovery.type=single-node', 'xpack.security.enabled=false'],
-    volumes => ['esdata5:/usr/share/elasticsearch/data', 'dataimport:/usr/share/elasticsearch/import', '/etc/elasticsearch-docker.yml:/usr/share/elasticsearch/config/elasticsearch.yml'],
+    volumes => ['/usr/share/elasticsearch/data', '/usr/share/elasticsearch/import', "/etc/elasticsearch-docker-${image_version}.yml:/usr/share/elasticsearch/config/elasticsearch.yml"],
   }
 
-  @icinga::nrpe_config { 'check_dockerised_elasticsearch_responding':
+  @icinga::nrpe_config { "check_dockerised_elasticsearch_${image_version}_responding":
+    ensure => $ensure,
     source => 'puppet:///modules/govuk_containers/nrpe_check_dockerised_elasticsearch_responding.cfg',
   }
 
-  @@icinga::check { "check_dockerised_elasticsearch_responding_${::hostname}":
+  @@icinga::check { "check_dockerised_elasticsearch_${image_version}_responding_${::hostname}":
+    ensure              => $ensure,
     check_command       => "check_nrpe!check_dockerised_elasticsearch_responding!${elasticsearch_port}",
     service_description => 'dockerised elasticsearch port not responding',
-    host_name           => $::fqdn,
-  }
-
-  # todo: remove
-  @@icinga::check { "check_elasticsearch_running_${::hostname}":
-    ensure              => 'absent',
-    check_command       => 'check_nrpe!check_proc_running!elasticsearch',
-    service_description => 'dockerised elasticsearch running',
-    notes_url           => monitoring_docs_url(check-process-running),
     host_name           => $::fqdn,
   }
 }
