@@ -19,7 +19,7 @@ class govuk_containers::elasticsearch::primary(
   ::docker::run { 'elasticsearch':
     ensure => 'absent',
     image  => "elasticsearch:${version}",
-  } ->
+  }
 
   ::govuk_containers::elasticsearch { 'primary':
     ensure             => $ensure,
