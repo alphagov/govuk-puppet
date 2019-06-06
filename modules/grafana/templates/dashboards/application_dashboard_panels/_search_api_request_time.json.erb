@@ -6,11 +6,11 @@
   "targets": [
     {
       "refId": "A",
-      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.site_search.upper_90), 'Site Search')"
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_search.upper_90), 'Single search')"
     },
     {
       "refId": "B",
-      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper_90), 'Finder Batch Search')"
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper_90), 'Batch search')"
     }
   ],
   "datasource": "Graphite",
