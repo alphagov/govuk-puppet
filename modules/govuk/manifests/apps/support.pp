@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether Support should be present or absent.
+#
 # [*emergency_contact_details*]
 #   Emergency phone numbers and other contact details presented in this app.
 #
@@ -64,6 +67,7 @@
 #   The bearer token that will be used to authenticate with publishing-api
 #
 class govuk::apps::support(
+  $ensure = 'present',
   $emergency_contact_details = undef,
   $sentry_dsn = undef,
   $enable_procfile_worker = true,
@@ -87,6 +91,7 @@ class govuk::apps::support(
   $app_name = 'support'
 
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -102,11 +107,13 @@ class govuk::apps::support(
   }
 
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 
   Govuk::App::Envvar {
-    app => $app_name,
+    ensure => $ensure,
+    app    => $app_name,
   }
 
   govuk::app::envvar::redis { $app_name:
