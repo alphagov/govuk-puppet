@@ -13,11 +13,14 @@
 class govuk_containers::elasticsearch::secondary(
   $version = '6.7.2',
   $port    = '9201',
-  $ensure  = 'present'
+  $ensure  = 'present',
+  $enable  = true,
 ) {
-  ::govuk_containers::elasticsearch { 'secondary':
-    ensure             => $ensure,
-    image_version      => $version,
-    elasticsearch_port => $port,
+  if $enable {
+    ::govuk_containers::elasticsearch { 'secondary':
+      ensure             => $ensure,
+      image_version      => $version,
+      elasticsearch_port => $port,
+    }
   }
 }
