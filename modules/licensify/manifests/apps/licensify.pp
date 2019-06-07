@@ -17,6 +17,8 @@ class licensify::apps::licensify (
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
     collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*',
+    nagios_memory_warning          => 900,
+    nagios_memory_critical         => 1000,
   }
 
   licensify::apps::envvars { 'licensify':
