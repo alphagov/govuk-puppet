@@ -36,6 +36,7 @@ govuk::apps::imminence::ensure: 'absent'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::kibana::logit_environment: d414187a-2796-4ea7-9b9a-d40c341646d6
+govuk::apps::link_checker_api::ensure: 'absent'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
