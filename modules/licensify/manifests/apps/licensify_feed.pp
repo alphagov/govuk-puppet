@@ -17,6 +17,8 @@ class licensify::apps::licensify_feed(
     log_format_is_json             => true,
     health_check_path              => '/licence-management/feed/process-applications',
     collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify-feed\..*publishing\.service\.gov\.uk\/licensify-feed-.*',
+    nagios_memory_warning          => 1400,
+    nagios_memory_critical         => 1500,
   }
 
   licensify::apps::envvars { 'licensify-feed':
