@@ -78,7 +78,7 @@ class govuk::apps::govuk_crawler_worker (
       'BLACKLIST_PATHS':
         value => join($blacklist_paths, ',');
       'CRAWLER_THREADS':
-        value => $crawler_threads;
+        value => '$crawler_threads';
       'HTTP_PORT':
         value => $port;
       'REDIS_ADDRESS':
