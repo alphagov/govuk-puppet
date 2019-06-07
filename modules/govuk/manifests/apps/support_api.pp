@@ -114,7 +114,7 @@ class govuk::apps::support_api(
   $app_name = 'support-api'
 
   govuk::app { $app_name:
-    ensure             => 'present',
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
