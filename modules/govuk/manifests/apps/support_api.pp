@@ -7,6 +7,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether Support API should be present or absent.
+#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -83,6 +86,7 @@
 #   The S3 Bucket for AWS to access.
 #
 class govuk::apps::support_api(
+  $ensure = 'present',
   $db_hostname = undef,
   $db_port = undef,
   $db_allow_prepared_statements = undef,
@@ -110,6 +114,7 @@ class govuk::apps::support_api(
   $app_name = 'support-api'
 
   govuk::app { $app_name:
+    ensure             => 'present',
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -119,7 +124,8 @@ class govuk::apps::support_api(
   }
 
   Govuk::App::Envvar {
-    app => $app_name,
+    ensure => $ensure,
+    app    => $app_name,
   }
 
   govuk::app::envvar {
@@ -164,6 +170,7 @@ class govuk::apps::support_api(
   }
 
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 

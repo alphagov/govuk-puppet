@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether Link Checker API should be present or absent.
+#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -73,6 +76,7 @@
 #   Default: undef
 #
 class govuk::apps::link_checker_api (
+  $ensure = 'present',
   $db_hostname = undef,
   $db_username = 'link_checker_api',
   $db_password = undef,
@@ -97,6 +101,7 @@ class govuk::apps::link_checker_api (
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     log_format_is_json => true,
     port               => $port,
@@ -106,7 +111,8 @@ class govuk::apps::link_checker_api (
   }
 
   Govuk::App::Envvar {
-    app => $app_name,
+    ensure => $ensure,
+    app    => $app_name,
   }
 
   govuk::app::envvar {
@@ -119,6 +125,7 @@ class govuk::apps::link_checker_api (
   }
 
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 
