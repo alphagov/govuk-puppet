@@ -1,0 +1,16 @@
+limits::entries:
+  'default_core':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'core'
+    both: 0
+  'default_nproc':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nproc'
+    hard: 2048
+  'default_nofile':
+    ensure: 'present'
+    user: '*'
+    limit_type: 'nofile'
+    hard: 2048
