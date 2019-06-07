@@ -32,6 +32,12 @@
 #   User that the synchronisation cron job runs as.
 #   Default: 'govuk-crawler'
 #
+# [*days*]
+#   The days at which the crawl runs
+#   Type: string, comma delimited specific days or every day using *
+#   Range: SUN, MON, TUE, WED, THU, FRI, SAT
+#   Default: '*'
+#
 # [*mirror_root*]
 #   The directory where crawled content is stored.
 #   Mandatory parameter
@@ -77,6 +83,7 @@ class govuk_crawler(
   $amqp_user = 'govuk_crawler_worker',
   $amqp_vhost = '/',
   $crawler_user = 'govuk-crawler',
+  $days = '*',
   $mirror_root,
   $seed_enable = false,
   $site_root = '',

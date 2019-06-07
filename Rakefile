@@ -339,6 +339,8 @@ task :check_consistency_between_aws_and_carrenza do
     router::nginx::robotstxt
     govuk::apps::govuk_crawler_worker::blacklist_paths
     govuk_crawler::start_hour
+    govuk_crawler::days
+    govuk::apps::govuk_crawler_worker::crawler_threads
   ]
 
   failed = false

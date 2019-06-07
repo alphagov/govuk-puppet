@@ -115,6 +115,20 @@ govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://p
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.publishing.service.gov.uk'
 
+govuk::apps::govuk_crawler_worker::blacklist_paths:
+  - '/apply-for-a-licence'
+  - '/business-finance-support-finder'
+  - '/drug-device-alerts.atom'
+  - '/drug-safety-update.atom'
+  - '/foreign-travel-advice.atom'
+  - '/government/announcements.atom'
+  - '/government/publications.atom'
+  - '/government/statistics.atom'
+  - '/licence-finder'
+  - '/search'
+
+govuk::apps::govuk_crawler_worker::crawler_threads: 32
+
 govuk::apps::email_alert_service::enabled: false
 govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
@@ -163,12 +177,14 @@ govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-product
 govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.production.govuk.digital'
 
 govuk_crawler::seed_enable: true
+govuk_crawler::days: 'FRI'
+govuk_crawler::start_hour: 20
 govuk_crawler::sync_enable: true
 govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::targets:
   - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
   - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
-  - 's3://govuk-mirror-production/'
+  - 's3://govuk-production-mirror/'
 
 govuk::apps::govuk_crawler_worker::root_urls:
   - 'https://assets.digital.cabinet-office.gov.uk/'
