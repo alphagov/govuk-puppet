@@ -16,16 +16,6 @@ class collectd::plugin::docker(
 ) {
   include ::collectd
 
-  $dependencies = [
-    'py-dateutil<=2.2',
-  ]
-
-  package { $dependencies:
-    ensure   => 'present',
-    provider => 'pip',
-    notify   => Class['collectd::service'],
-  }
-
   # This has to be installed via exec rather than a package as the namespace
   # conflicts with the different (but same name) docker package. This issue
   # seems to be fixed in puppet 4: https://tickets.puppetlabs.com/browse/PUP-1073
@@ -50,6 +40,12 @@ class collectd::plugin::docker(
     unless  => 'pip list | grep "requests (2.22.0)"',
   }
 
+  package { 'py-dateutil':
+    ensure   => '2.2',
+    provider => 'pip',
+    notify   => Class['collectd::service'],
+  }
+
   package { 'docker-py':
     ensure   => 'absent',
     provider => 'pip',
@@ -66,6 +62,6 @@ class collectd::plugin::docker(
 
   @collectd::plugin { 'docker':
     content => template('collectd/etc/collectd/conf.d/docker.conf.erb'),
-    require => Package[$dependencies],
+    require => Package['py-dateutil'],
   }
 }
