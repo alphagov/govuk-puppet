@@ -600,6 +600,7 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2'
   - 'mongo-3'
 
+govuk::apps::publishing_api::unicorn_worker_processes: "8"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "db-admin"
 govuk::apps::publishing_api::db_port: 6432

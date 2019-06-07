@@ -37,6 +37,9 @@
 #   store running while testing unrelated features.
 #   Default: ''
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -125,6 +128,7 @@ class govuk::apps::publishing_api(
   $draft_content_store_bearer_token = undef,
   $router_api_bearer_token = undef,
   $suppress_draft_store_502_error = '',
+  $unicorn_worker_processes = undef,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $db_hostname = undef,
@@ -165,6 +169,7 @@ class govuk::apps::publishing_api(
     health_check_path                => '/healthcheck',
     health_check_service_template    => 'govuk_urgent_priority',
     health_check_notification_period => '24x7',
+    unicorn_worker_processes         => $unicorn_worker_processes,
     json_health_check                => true,
     log_format_is_json               => true,
     deny_framing                     => true,
