@@ -174,9 +174,7 @@ govuk::apps::myapp::db_allow_prepared_statements: false
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 # hieradata_aws/common.yaml
-govuk::apps::myapp::db_hostname: "db-admin"
-govuk::apps::myapp::db_port: 6432
-govuk::apps::myapp::db_allow_prepared_statements: false
+govuk::apps::myapp::db_hostname: "postgresql-primary"
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::myapp::db::allow_auth_from_lb: true
 govuk::apps::myapp::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
