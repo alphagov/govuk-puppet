@@ -127,7 +127,7 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/licence-finder'
   - '/search'
 
-govuk::apps::govuk_crawler_worker::crawler_threads: 32
+govuk::apps::govuk_crawler_worker::crawler_threads: '32'
 
 govuk::apps::email_alert_service::enabled: false
 govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
