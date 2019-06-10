@@ -29,11 +29,29 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
+    govuk::apps::content_audit_tool::db_allow_prepared_statements
+    govuk::apps::content_audit_tool::db_port
+    govuk::apps::content_publisher::db_allow_prepared_statements
+    govuk::apps::content_publisher::db_port
     govuk::apps::content_publisher::db::backend_ip_range
+    govuk::apps::content_tagger::db_allow_prepared_statements
+    govuk::apps::content_tagger::db_port
+    govuk::apps::email_alert_api::db_allow_prepared_statements
+    govuk::apps::email_alert_api::db_port
     govuk::apps::info_frontend::vhost_aliases
+    govuk::apps::link_checker_api::db_allow_prepared_statements
+    govuk::apps::link_checker_api::db_port
+    govuk::apps::local_links_manager::db_allow_prepared_statements
+    govuk::apps::local_links_manager::db_port
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
+    govuk::apps::publishing_api::db_allow_prepared_statements
+    govuk::apps::publishing_api::db_port
+    govuk::apps::service_manual_publisher::db_allow_prepared_statements
+    govuk::apps::service_manual_publisher::db_port
+    govuk::apps::support_api::db_allow_prepared_statements
+    govuk::apps::support_api::db_port
     govuk::node::s_logging::apt_mirror_hostname
     govuk_ci::agent::master_ssh_key
     govuk_ci::master::ci_agents
@@ -183,9 +201,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds
     govuk::apps::content_data_admin::db::backend_ip_range
-    govuk::apps::content_data_admin::db_allow_prepared_statements
     govuk::apps::content_data_admin::db_hostname
-    govuk::apps::content_data_admin::db_port
     govuk::apps::content_data_admin::redis_host
     govuk::apps::content_data_admin::redis_port
     govuk::apps::content_data_admin::aws_csv_export_bucket_name
