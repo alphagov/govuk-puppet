@@ -103,7 +103,7 @@ node_class: &node_class
       - mapit
   mirrorer:
     apps:
-      - govuk-crawler-worker
+      - govuk_crawler_worker
   publishing_api:
     apps:
       - publishing-api
