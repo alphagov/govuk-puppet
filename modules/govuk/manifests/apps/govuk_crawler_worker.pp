@@ -22,8 +22,8 @@
 #
 # [*crawler_threads*]
 #   The number of threads for the crawler worker
-#   Type: integer
-#   Default: 4
+#   Type: Integer in string format
+#   Default: '4'
 #
 # [*enabled*]
 #   Whether the app should be enabled
@@ -48,7 +48,7 @@ class govuk::apps::govuk_crawler_worker (
   $amqp_host = 'localhost',
   $amqp_pass = 'guest',
   $blacklist_paths = [],
-  $crawler_threads = 4,
+  $crawler_threads = '4',
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
   $port = '3074',
@@ -78,7 +78,7 @@ class govuk::apps::govuk_crawler_worker (
       'BLACKLIST_PATHS':
         value => join($blacklist_paths, ',');
       'CRAWLER_THREADS':
-        value => '$crawler_threads';
+        value => $crawler_threads;
       'HTTP_PORT':
         value => $port;
       'REDIS_ADDRESS':
