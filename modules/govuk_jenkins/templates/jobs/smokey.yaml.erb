@@ -22,6 +22,8 @@
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+          auth-token-id: slack-token
+          auth-token-credential-id: slack-token
           build-server-url: <%= @slack_build_server_url %>
           notify-start: false
           notify-success: false
