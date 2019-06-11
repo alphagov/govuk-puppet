@@ -77,9 +77,13 @@ govuk_jenkins::plugins:
   ace-editor:
     version: '1.1'
   analysis-core:
-    version: '1.95'
+    version: '1.96'
+  analysis-model-api:
+    version: '5.1.1'
   ansicolor:
-    version: '0.5.2'
+    version: '0.5.3'
+  ant:
+    version: '1.9'
   antisamy-markup-formatter:
     version: '1.5'
   apache-httpcomponents-client-4-api:
@@ -87,213 +91,227 @@ govuk_jenkins::plugins:
   authentication-tokens:
     version: '1.3'
   bouncycastle-api:
-    version: '2.16.3'
+    version: '2.17'
   brakeman:
     version: '0.12'
   branch-api:
-    version: '2.0.20'
+    version: '2.0.21'
   build-name-setter:
-    version: '1.6.9'
+    version: '2.0.1'
   build-pipeline-plugin:
     version: '1.5.8'
   cloudbees-folder:
     version: '6.5.1'
   cobertura:
-    version: '1.12.1'
+    version: '1.13'
+  code-coverage-api:
+    version: '1.0.11'
   command-launcher:
-    version: '1.2'
+    version: '1.3'
   conditional-buildstep:
     version: '1.3.6'
   copyartifact:
-    version: '1.39.1'
+    version: '1.42.1'
   credentials-binding:
-    version: '1.16'
+    version: '1.18'
   description-setter:
     version: '1.10'
   display-url-api:
-    version: '2.2.0'
+    version: '2.3.1'
   docker-commons:
-    version: '1.13'
+    version: '1.14'
   docker-workflow:
-    version: '1.17'
+    version: '1.18'
   durable-task:
-    version: '1.22'
+    version: '1.29'
   envinject-api:
     version: '1.5'
   envinject:
     version: '2.1.6'
+  external-monitor-job:
+    version: '1.7'
   findbugs:
-    version: '4.72'
+    version: '5.0.0'
   git-client:
-    version: '2.7.3'
+    version: '2.7.7'
   git:
-    version: '3.9.1'
+    version: '3.10.0'
   github-api:
-    version: '1.92'
+    version: '1.95'
   github-branch-source:
-    version: '2.3.6'
+    version: '2.5.3'
   github:
-    version: '1.29.2'
+    version: '1.29.4'
   github-oauth:
-    version: '0.29'
+    version: '0.32'
   git-server:
     version: '1.7'
   google-container-registry-auth:
     version: '0.3'
   google-oauth-plugin:
-    version: '0.6'
+    version: '0.8'
   gradle:
-    version: '1.29'
+    version: '1.32'
   greenballs:
     version: '1.15'
   groovy:
-    version: '2.0'
+    version: '2.2'
   handlebars:
     version: '1.1.1'
   htmlpublisher:
-    version: '1.16'
+    version: '1.18'
   icon-shim:
     version: '2.0.3'
   jackson2-api:
-    version: '2.8.11.3'
+    version: '2.9.9'
   javadoc:
-    version: '1.4'
+    version: '1.5'
+  jdk-tool:
+    version: '1.2'
   jenkinswalldisplay:
     version: '0.6.34'
   jquery-detached:
     version: '1.2.1'
   jquery:
     version: '1.12.4-0'
+  jquery-ui:
+    version: '1.0.2'
   jsch:
-    version: '0.1.54.2'
+    version: '0.1.55'
   junit:
-    version: '1.24'
+    version: '1.27'
+  ldap:
+    version: '1.20'
   lockable-resources:
-    version: '2.3'
+    version: '2.5'
   mailer:
-    version: '1.21'
+    version: '1.23'
   mapdb-api:
     version: '1.0.9.0'
   matrix-auth:
     version: '2.3'
   matrix-project:
-    version: '1.13'
+    version: '1.14'
   maven-plugin:
-    version: '3.1.2'
+    version: '3.2'
   momentjs:
     version: '1.1.1'
   monitoring:
-    version: '1.73.1'
+    version: '1.77.0'
   next-build-number:
     version: '1.5'
   nodelabelparameter:
     version: '1.7.2'
   oauth-credentials:
     version: '0.3'
+  pam-auth:
+    version: '1.4.1'
   parameterized-trigger:
     version: '2.35.2'
   pipeline-build-step:
-    version: '2.7'
+    version: '2.9'
   pipeline-graph-analysis:
-    version: '1.7'
+    version: '1.9'
   pipeline-input-step:
-    version: '2.8'
+    version: '2.10'
   pipeline-milestone-step:
     version: '1.3.1'
   pipeline-model-api:
-    version: '1.3.1'
+    version: '1.3.8'
   pipeline-model-declarative-agent:
     version: '1.1.1'
   pipeline-model-definition:
-    version: '1.3.1'
+    version: '1.3.8'
   pipeline-model-extensions:
-    version: '1.3.1'
+    version: '1.3.8'
   pipeline-rest-api:
-    version: '2.10'
+    version: '2.11'
   pipeline-stage-step:
     version: '2.3'
   pipeline-stage-tags-metadata:
-    version: '1.3.1'
+    version: '1.3.8'
   pipeline-stage-view:
-    version: '2.10'
+    version: '2.11'
   plain-credentials:
-    version: '1.4'
+    version: '1.5'
   rake:
     version: '1.8.0'
   rebuild:
-    version: '1.28'
+    version: '1.31'
   resource-disposer:
-    version: '0.11'
+    version: '0.12'
   role-strategy:
-    version: '2.8.1'
+    version: '2.11'
   ruby:
     version: '1.2'
   rubyMetrics:
     version: '1.6.5'
   run-condition:
-    version: '1.0'
+    version: '1.2'
   saferestart:
     version: '0.3'
   scm-api:
-    version: '2.2.7'
+    version: '2.4.1'
   script-security:
-    version: '1.44'
+    version: '1.60'
   simple-theme-plugin:
-    version: '0.4'
+    version: '0.5.1'
   sitemonitor:
-    version: '0.5'
+    version: '0.6'
   slack:
-    version: '2.3'
+    version: '2.20'
   ssh-agent:
-    version: '1.15'
+    version: '1.17'
   ssh-credentials:
-    version: '1.14'
+    version: '1.16'
   ssh-slaves:
-    version: '1.26'
+    version: '1.29.4'
   structs:
-    version: '1.14'
+    version: '1.19'
   swarm:
-    version: '3.13'
+    version: '3.17'
   text-finder:
-    version: '1.10'
+    version: '1.11'
   throttle-concurrents:
     version: '2.0.1'
   timestamper:
-    version: '1.8.10'
+    version: '1.9'
   token-macro:
-    version: '2.5'
+    version: '2.8'
   versionnumber:
     version: '1.9'
   violations:
     version: '0.7.11'
+  warnings-ng:
+    version: '5.1.0'
   warnings:
-    version: '4.68'
+    version: '5.0.1'
   windows-slaves:
-    version: '1.3.1'
+    version: '1.4'
   workflow-aggregator:
     version: '2.5'
   workflow-api:
-    version: '2.27'
+    version: '2.33'
   workflow-basic-steps:
-    version: '2.8'
+    version: '2.15'
   workflow-cps-global-lib:
-    version: '2.9'
+    version: '2.13'
   workflow-cps:
-    version: '2.54'
+    version: '2.70'
   workflow-durable-task-step:
-    version: '2.19'
+    version: '2.28'
   workflow-job:
-    version: '2.23'
+    version: '2.32'
   workflow-multibranch:
-    version: '2.20'
+    version: '2.21'
   workflow-scm-step:
-    version: '2.6'
+    version: '2.9'
   workflow-step-api:
-    version: '2.16'
+    version: '2.20'
   workflow-support:
-    version: '2.19'
+    version: '3.3'
   ws-cleanup:
-    version: '0.34'
+    version: '0.37'
 
 icinga::client::check_cputype::cputype: 'intel'
 
