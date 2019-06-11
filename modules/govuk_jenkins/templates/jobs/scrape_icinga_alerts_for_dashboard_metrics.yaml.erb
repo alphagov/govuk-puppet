@@ -38,6 +38,8 @@
       - slack:
           team-domain: <%= @slack_team_domain %>
           auth-token: <%= @slack_auth_token %>
+          auth-token-id: slack-token
+          auth-token-credential-id: slack-token
           build-server-url: <%= @slack_build_server_url %>
           notify-start: false
           notify-success: true
