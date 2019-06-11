@@ -1,5 +1,4 @@
 ---
-govuk_jenkins::version: '2.164.3'
 
 govuk_jenkins::config:
   NAME:

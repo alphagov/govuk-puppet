@@ -50,8 +50,6 @@ govuk_jenkins::config::user_permissions:
       - 'hudson.model.Item.Build'
       - 'hudson.model.Item.Read'
 
-govuk_jenkins::version: '2.164.3'
-
 govuk_jenkins::plugins:
   ace-editor:
     version: '1.1'
