@@ -1,31 +1,31 @@
 <?xml version='1.1' encoding='UTF-8'?>
-<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.17">
+<org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject plugin="workflow-multibranch@2.21">
   <actions/>
   <description></description>
   <properties>
-    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.2.8">
+    <org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig plugin="pipeline-model-definition@1.3.8">
       <dockerLabel></dockerLabel>
-      <registry plugin="docker-commons@1.11"/>
+      <registry plugin="docker-commons@1.14"/>
     </org.jenkinsci.plugins.pipeline.modeldefinition.config.FolderConfig>
   </properties>
-  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.19">
+  <folderViews class="jenkins.branch.MultiBranchProjectViewHolder" plugin="branch-api@2.0.21">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </folderViews>
   <healthMetrics/>
-  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.19">
+  <icon class="jenkins.branch.MetadataActionFolderIcon" plugin="branch-api@2.0.21">
     <owner class="org.jenkinsci.plugins.workflow.multibranch.WorkflowMultiBranchProject" reference="../.."/>
   </icon>
-  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.4">
+  <orphanedItemStrategy class="com.cloudbees.hudson.plugins.folder.computed.DefaultOrphanedItemStrategy" plugin="cloudbees-folder@6.5.1">
     <pruneDeadBranches>true</pruneDeadBranches>
     <daysToKeep>30</daysToKeep>
     <numToKeep>50</numToKeep>
   </orphanedItemStrategy>
   <triggers/>
   <disabled>false</disabled>
-  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.19">
+  <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.21">
     <data>
       <jenkins.branch.BranchSource>
-        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.3.4">
+        <source class="org.jenkinsci.plugins.github_branch_source.GitHubSCMSource" plugin="github-branch-source@2.5.3">
           <id>45dd6853-59d2-4695-80ac-4520f8a2b64f</id>
           <credentialsId>github-token-govuk-ci-username</credentialsId>
           <repoOwner><%= @repo_owner %></repoOwner>
@@ -34,7 +34,7 @@
             <org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
               <strategyId>3</strategyId>
             </org.jenkinsci.plugins.github__branch__source.BranchDiscoveryTrait>
-            <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait plugin="git@3.8.0">
+            <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait plugin="git@3.10.0">
               <templates>
                 <jenkins.plugins.git.traits.RefSpecsSCMSourceTrait_-RefSpecTemplate>
                   <value>+refs/heads/*:refs/remotes/@{remote}/*</value>
