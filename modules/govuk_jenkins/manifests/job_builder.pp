@@ -42,9 +42,9 @@ class govuk_jenkins::job_builder (
 
   validate_array($jobs)
 
-  if $::aws_migration {
-    govuk_jenkins::api_user { 'jenkins_api_user': }
-  }
+#  if $::aws_migration {
+#    govuk_jenkins::api_user { 'jenkins_api_user': }
+#  }
 
   package { 'jenkins-job-builder':
     ensure   => '2.0.3',
