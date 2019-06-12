@@ -102,12 +102,18 @@ class icinga::client::checks (
     host_name           => $::fqdn,
   }
 
-  $app_domain = hiera('app_domain')
+  if $::aws_migration or ($::aws_environment == 'integration'){
+    $grafana = "grafana.${::aws_environment}.govuk.digital"
+  } else {
+    $app_domain = hiera('app_domain')
+    $grafana = "grafana.${app_domain}"
+  }
+
   @@icinga::check { "check_load_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_load',
     service_description => 'high load on',
     host_name           => $::fqdn,
-    action_url          => "https://grafana.${app_domain}/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=${::fqdn_metrics}",
+    action_url          => "https://${grafana}/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=${::fqdn_metrics}",
   }
 
   if $::aws_migration {
