@@ -1096,8 +1096,8 @@ monitoring::checks::http_username: "%{hiera('http_username')}"
 monitoring::checks::http_password: "%{hiera('http_password')}"
 monitoring::client::alert_hostname: 'alert'
 monitoring::client::graphite_hostname: 'graphite'
-monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{hiera('stackname')}.govuk.digital/cgi-bin/icinga/status.cgi"
-monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{hiera('stackname')}.govuk.digital/cgi-bin/icinga/status.cgi"
+monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{::aws_environment}.govuk.digital/cgi-bin/icinga/status.cgi"
+monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_environment}.govuk.digital/cgi-bin/icinga/status.cgi"
 
 monitoring::checks::smokey::features:
   check_bouncer:
