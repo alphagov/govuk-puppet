@@ -7,6 +7,18 @@ server {
   }
 
   <%- if scope.lookupvar('::aws_migration') %>
+  # Health checks from ALB reuse Fastly __canary__ health check path
+  # and bypass authentication on Integration
+  location /_healthcheck_www {
+    proxy_pass http://varnish/__canary__;
+  }
+  location /_healthcheck_www-origin {
+    proxy_pass http://varnish/__canary__;
+  }
+  location /_healthcheck_assets-origin {
+    return 200;
+  }
+
   # Send the Strict-Transport-Security header
   include /etc/nginx/add-sts.conf;
   # Required for L7 ALB
