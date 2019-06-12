@@ -24,8 +24,20 @@ class govuk::node::s_publishing_api inherits govuk::node::s_base {
 
   include nginx
 
+  if ( $::aws_migration and ($::aws_environment != 'production') ) {
+    concat { '/etc/nginx/lb_healthchecks.conf':
+      ensure => present,
+      before => Nginx::Config::Vhost::Default['default'],
+    }
+    $extra_config = 'include /etc/nginx/lb_healthchecks.conf;'
+  } else {
+    $extra_config = ''
+  }
+
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
-  nginx::config::vhost::default { 'default': }
+  nginx::config::vhost::default { 'default':
+    extra_config => $extra_config,
+  }
 
   # Ensure memcached is available to backend nodes
   include collectd::plugin::memcached
