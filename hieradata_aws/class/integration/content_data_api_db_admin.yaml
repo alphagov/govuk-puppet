@@ -12,9 +12,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_api_production"
     url: "govuk-production-database-backups"
     path: "content-data-api-postgresql"
-  "push_content_data_api_production_daily":
+  "push_content_data_api_integration_daily":
     ensure: "present"
-    hour: "9"
+    hour: "3"
     minute: "0"
     action: "push"
     dbms: "postgresql"
