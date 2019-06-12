@@ -118,4 +118,8 @@ class govuk::node::s_base (
   user { 'ubuntu':
     ensure => absent,
   }
+
+  govuk_envvar {
+    'GOVUK_APP_CONFIG_DISABLE_XRAY': value => '1';
+  }
 }
