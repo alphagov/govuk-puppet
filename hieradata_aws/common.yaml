@@ -1138,8 +1138,6 @@ monitoring::checks::cache::servers:
   - 'backend-redis-002'
 
 monitoring::checks::rds::servers:
-   - 'content-data-api-postgresql-primary'
-   - 'content-data-api-postgresql-standby'
    - 'postgresql-primary'
    - 'postgresql-standby'
    - 'transition-postgresql-primary'
