@@ -198,30 +198,36 @@ smtp.mail_from = team@data.gov.uk
 keys = root, ckan, ckanext
 
 [handlers]
-keys = console
+keys = console, file
 
 [formatters]
 keys = generic
 
 [logger_root]
 level = WARNING
-handlers = console
+handlers = console, file
 
 [logger_ckan]
 level = INFO
-handlers = console
+handlers = console, file
 qualname = ckan
 propagate = 0
 
 [logger_ckanext]
 level = DEBUG
-handlers = console
+handlers = console, file
 qualname = ckanext
 propagate = 0
 
 [handler_console]
 class = StreamHandler
 args = (sys.stderr,)
+level = NOTSET
+formatter = generic
+
+[handler_file]
+class = logging.handlers.RotatingFileHandler
+args = ("/var/log/ckan/ckan.log", "a", 20000000, 9)
 level = NOTSET
 formatter = generic
 
