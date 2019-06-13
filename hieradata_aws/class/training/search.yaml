@@ -1,0 +1,20 @@
+# the "pull" is intentionally before the "push", so both integration
+# and staging will be based on the same production snapshot (rather
+# than integration being a day behind).
+govuk_env_sync::tasks:
+  "pull_es_everything_daily_integration":
+    ensure: "present"
+    hour: "3"
+    minute: "24"
+    action: "pull"
+    dbms: "elasticsearch5"
+    storagebackend: "es_snapshot"
+    database: "everything"
+    temppath: "/tmp/es_snapshot_everything"
+    url: "govuk-integration"
+    path: "elasticsearch5"
+
+logrotate::conf::days_to_keep: 7
+nginx::logging::days_to_keep: 7
+
+govuk_search::prune::es_repo: "govuk-training"
