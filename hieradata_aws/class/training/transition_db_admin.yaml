@@ -1,0 +1,12 @@
+govuk_env_sync::tasks:
+  "pull_transition_training_daily":
+    ensure: "present"
+    hour: "4"
+    minute: "30"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "transition_production"
+    temppath: "/tmp/transition_production"
+    url: "govuk-integration-database-backups"
+    path: "transition-postgresql"
