@@ -24,7 +24,7 @@ class govuk::node::s_email_alert_api inherits govuk::node::s_base {
 
   include nginx
 
-  if ( $::aws_migration and ($::aws_environment != 'production') ) {
+  if $::aws_migration {
     concat { '/etc/nginx/lb_healthchecks.conf':
       ensure => present,
       before => Nginx::Config::Vhost::Default['default'],

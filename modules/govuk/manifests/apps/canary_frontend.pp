@@ -19,11 +19,9 @@ class govuk::apps::canary_frontend {
       ",
     }
 
-    if $::aws_environment != 'production' {
-      concat::fragment { 'canary-frontend_lb_healthcheck':
-        target  => '/etc/nginx/lb_healthchecks.conf',
-        content => "location /_healthcheck_canary-frontend {\n  return 200;\n}\n",
-      }
+    concat::fragment { 'canary-frontend_lb_healthcheck':
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => "location /_healthcheck_canary-frontend {\n  return 200;\n}\n",
     }
   } else {
     nginx::config::site { "canary-frontend.${app_domain}":
