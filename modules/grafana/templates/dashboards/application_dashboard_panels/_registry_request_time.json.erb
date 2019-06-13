@@ -19,6 +19,10 @@
     {
       "refId": "D",
       "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.world_locations.request_time.upper_90), 'World Locations')"
+    },
+    {
+      "refId": "E",
+      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.registries.full_topic_taxonomy.request_time.upper_90), 'Full Topic Taxonomy')"
     }
   ],
   "datasource": "Graphite",
