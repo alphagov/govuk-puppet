@@ -19,14 +19,14 @@ class govuk::apps::content_data_api::db (
   @@monitoring::checks::rds_config { 'content-data-api-postgresql-primary':
     memory_warning   => 2,
     memory_critical  => 1,
-    storage_warning  => 500,
-    storage_critical => 250,
+    storage_warning  => 50,
+    storage_critical => 25,
   }
 
   @@monitoring::checks::rds_config { 'content-data-api-postgresql-standby':
     memory_warning   => 2,
     memory_critical  => 1,
-    storage_warning  => 500,
-    storage_critical => 250,
+    storage_warning  => 50,
+    storage_critical => 25,
   }
 }
