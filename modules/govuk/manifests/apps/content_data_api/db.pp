@@ -15,18 +15,4 @@ class govuk::apps::content_data_api::db (
     extensions          => ['plpgsql'],
     enable_in_pgbouncer => false,
   }
-
-  @@monitoring::checks::rds_config { 'content-data-api-postgresql-primary':
-    memory_warning   => 2,
-    memory_critical  => 1,
-    storage_warning  => 500,
-    storage_critical => 250,
-  }
-
-  @@monitoring::checks::rds_config { 'content-data-api-postgresql-standby':
-    memory_warning   => 2,
-    memory_critical  => 1,
-    storage_warning  => 500,
-    storage_critical => 250,
-  }
 }

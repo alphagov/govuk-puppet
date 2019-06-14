@@ -53,6 +53,5 @@ class monitoring::checks::rds (
       monitoring::checks::rds_config { $servers:
         region => $region,
       }
-      Monitoring::Checks::Rds_config <<| |>>
     }
 }
