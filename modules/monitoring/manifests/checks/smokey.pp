@@ -25,7 +25,7 @@ class monitoring::checks::smokey (
     ensure     => present,
     name       => 'smokey',
     managehome => true,
-    shell      => '/bin/false',
+    shell      => '/bin/bash',
     system     => true,
   }
 

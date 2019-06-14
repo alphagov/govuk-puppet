@@ -21,7 +21,6 @@ class govuk::node::s_monitoring (
   include ::govuk_docker
   include ::govuk_containers::terraboard
   include govuk_rbenv::all
-  include ::chromedriver
   include ::selenium
   include ::govuk_cdnlogs
   include monitoring
