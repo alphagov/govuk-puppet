@@ -27,7 +27,8 @@ use = egg:ckan
 full_stack = true
 cache_dir = /tmp/%(ckan.site_id)s/
 beaker.session.key = ckan
-
+# Expire login sessions after 30 days (shown in seconds)
+beaker.session.cookie_expires = 2592000
 beaker.session.secret = <%= @secret%>
 app_instance_uuid = fdee5057-84ad-4b96-804a-d8c2dc027721
 
