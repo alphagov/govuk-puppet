@@ -28,6 +28,7 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::docker
   include ::golang
   include ::govuk_ci::agent::gcloud
+  include ::govuk_ci::agent::memcached
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::mysql
   include ::govuk_ci::agent::postgresql
