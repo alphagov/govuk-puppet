@@ -240,6 +240,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::lb_ip_range
     govuk::apps::publishing_api::db::rds
+    govuk::apps::search_api::elasticsearch_b_uri
     govuk::apps::search_api::nagios_memory_warning
     govuk::apps::search_api::nagios_memory_critical
     govuk::apps::search_api::rabbitmq_hosts
