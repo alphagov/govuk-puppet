@@ -306,6 +306,25 @@ monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::pingdom::enable: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
+
+monitoring::checks::lb::region: 'eu-west-1'
+monitoring::checks::lb::loadbalancers:
+  blue-calculators-frontend-int: {}
+  blue-draft-frontend-internal:
+    healthyhosts_ignore:
+      - draft-fron-draft-finder-frontend
+  blue-frontend-internal:
+    healthyhosts_ignore:
+      - frontend-i-designprinciples
+      - frontend-i-spotlight
+  govuk-backend-public:
+    healthyhosts_ignore:
+      - backend-content-api
+      - backend-content-performance-m
+      - backend-docs
+      - backend-policy-publisher
+  govuk-cache-public: {}
+
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::checks::smokey::environment: 'integration'
 monitoring::uptime_collector::environment: 'integration'
