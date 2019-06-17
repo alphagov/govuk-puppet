@@ -12,7 +12,7 @@ class govuk_jenkins::jobs::search_test_spelling_suggestions (
   $app_domain = hiera('app_domain')
 
   if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
+    $app_domain = hiera('app_domain_internal')
   }
 
   $test_type = 'suggestions'

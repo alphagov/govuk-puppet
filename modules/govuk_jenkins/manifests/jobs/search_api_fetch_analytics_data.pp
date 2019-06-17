@@ -4,10 +4,16 @@
 #
 class govuk_jenkins::jobs::search_api_fetch_analytics_data (
   $ga_auth_password = undef,
-  $app_domain = hiera('app_domain'),
+
   $skip_page_traffic_load = false,
   $cron_schedule = '5 4 * * *',
 ) {
+
+  $app_domain = hiera('app_domain')
+
+  if $::aws_migration {
+    $app_domain = hiera('app_domain_internal')
+  }
 
   $job_name = 'search-api-fetch-analytics-data'
   $check_name = 'search-api-fetch-analytics-data'
