@@ -177,7 +177,7 @@ govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-product
 govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.production.govuk.digital'
 
 govuk_crawler::seed_enable: true
-govuk_crawler::days: 'FRI'
+govuk_crawler::days: '*'
 govuk_crawler::start_hour: 20
 govuk_crawler::sync_enable: true
 govuk_crawler::site_root: 'https://www.gov.uk'
