@@ -9,6 +9,7 @@
 
 - job:
     name: Smokey
+    description: Task to run the smoke tests after each deploy.
     display-name: Smokey
     project-type: freestyle
     scm:
@@ -32,7 +33,7 @@
           notify-unstable: false
           notify-failure: true
           notify-backtonormal: true
-          notify-repeatedfailure: false
+          notify-repeatedfailure: true
           include-test-summary: false
           room: <%= @slack_room %>
           include-custom-message: true
