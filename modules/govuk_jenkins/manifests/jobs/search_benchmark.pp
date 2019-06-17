@@ -9,10 +9,10 @@ class govuk_jenkins::jobs::search_benchmark (
   $cron_schedule = '30 4 * * *'
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if $::aws_migration {
     $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
   }
 
   $test_type = 'results'

@@ -9,10 +9,10 @@ class govuk_jenkins::jobs::search_api_fetch_analytics_data (
   $cron_schedule = '5 4 * * *',
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if $::aws_migration {
     $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
   }
 
   $job_name = 'search-api-fetch-analytics-data'
