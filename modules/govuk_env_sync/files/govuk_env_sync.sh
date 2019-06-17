@@ -16,15 +16,15 @@ set -o errtrace
 #   D) dbms
 
 #     Database management system / data source (One of: mongo,
-#     elasticsearch5,postgresql,mysql)
+#     elasticsearch,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
-#     If dbms is elasticsearch5, storagebackend must be es_snapshot
+#     If dbms is elasticsearch, storagebackend must be elasticsearch
 
 #
 #   S) storagebackend
-#     Storage backend (One of: s3,es_snapshot)
+#     Storage backend (One of: s3,elasticsearch)
 #     This is used to construct script names called, e.g. push_s3
-#     If storagebackend is es_snapshot, dbms must be elasticsearch5
+#     If storagebackend is elasticsearch, dbms must be elasticsearch
 #
 #   T) temppath
 #     Path to create temporary directory in. Directory will be created if
@@ -32,15 +32,15 @@ set -o errtrace
 #
 #   d) database
 #     Name of the database to be copied/sync'd, if dbms is "files", this is the path
-#     to the directory to copy/sync.
+#     to the directory to copy/sync, if dbms is "elasticsearch", this is the hostname
+#     of the domain.
 #
 #   u) url
 #     URL of storage backend, bucket name in case of S3, repository name in case of
-#     es_snapshot
+#     elasticsearch
 #
 #   p) path
-#     Path to use on storage backend, prefix in case of S3, repository name in case
-#     of es_snapshot
+#     Path to use on storage backend, prefix in case of S3.
 #
 #   t) timestamp
 #     Optional provide specific timestamp to restore.
@@ -156,7 +156,7 @@ function is_writable_mongo {
   mongo --quiet --eval "print(db.isMaster()[\"ismaster\"]);" "localhost/$database"
 }
 
-function is_writable_elasticsearch5 {
+function is_writable_elasticsearch {
 # We don't want to run the restore on multiple nodes, so we need to
 # pick a unique one.  Pick the one in availability zone 'a'.  The
 # elasticsearch data sync is non-critical, so if it fails due to the
@@ -218,20 +218,20 @@ function restore_files {
   tar --extract --gzip --force-local --file "${tempdir}/${filename}"
 }
 
-function dump_elasticsearch5 {
+function dump_elasticsearch {
   snapshot_name="$(echo "$filename" | sed 's/.gz//' | tr "[:upper:]" "[:lower:]")"
   # attempting to start multiple snapshots at once (which happens
   # because this script runs on three machines at the same time)
   # throws an error - so unconditionally ignore curl errors, but check
   # that there is a snapshot being created.
-  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://elasticsearch5/_snapshot/${url}/${snapshot_name}" || true
-  /usr/bin/curl "http://elasticsearch5/_snapshot/${url}/_all" | grep -q "IN_PROGRESS"
+  /usr/bin/curl --connect-timeout 10 -sSf -XPUT "http://${database}/_snapshot/${url}/${snapshot_name}" || true
+  /usr/bin/curl "http://${database}/_snapshot/${url}/_all" | grep -q "IN_PROGRESS"
 }
 
-function restore_elasticsearch5 {
+function restore_elasticsearch {
   snapshot_name="${filename//.gz/}"
-  curl -XDELETE 'http://elasticsearch5/_all'
-  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://elasticsearch5/_snapshot/${url}/${snapshot_name}/_restore"
+  curl -XDELETE "http://${database}/_all"
+  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_snapshot/${url}/${snapshot_name}/_restore"
 }
 
 function  dump_postgresql {
@@ -347,18 +347,18 @@ function get_timestamp_rsync {
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
-function push_es_snapshot {
+function push_elasticsearch {
   # there is no file to push
   true
 }
 
-function pull_es_snapshot {
+function pull_elasticsearch {
   # there is no file to pull
   true
 }
 
-function get_timestamp_es_snapshot {
-  timestamp="$(/usr/bin/curl -XGET "http://elasticsearch5/_snapshot/${url}/_all" | \
+function get_timestamp_elasticsearch {
+  timestamp="$(/usr/bin/curl -XGET "http://${database}/_snapshot/${url}/_all" | \
   /usr/bin/jq -r '.snapshots | .[] | .snapshot' | \
   grep "\\-${database}" | \
   sort | \
@@ -498,11 +498,11 @@ done
 : "${url?"No storage url specified (pass -u option)"}"
 : "${path?"No storage path specified (pass -p option)"}"
 
-if [[ "$dbms" == "elasticsearch5" ]] && [[ "$storagebackend" != "es_snapshot" ]]; then
-  echo "$dbms is only compatible with the es_snapshot storage backend"
+if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
+  echo "$dbms is only compatible with the elasticsearch storage backend"
   exit 1
 fi
-if [[ "$storagebackend" == "es_snapshot" ]] && [[ "$dbms" != "elasticsearch5" ]]; then
+if [[ "$storagebackend" == "elasticsearch" ]] && [[ "$dbms" != "elasticsearch" ]]; then
   echo "$dbms is not compatible with the $storagebackend storage backend"
   exit 1
 fi
