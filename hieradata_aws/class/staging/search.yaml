@@ -24,8 +24,20 @@ govuk_env_sync::tasks:
     temppath: "/tmp/elasticsearch_everything"
     url: "govuk-staging"
     path: "elasticsearch5"
+  "push_es6_daily":
+    ensure: "present"
+    hour: "2"
+    minute: "24"
+    action: "push"
+    dbms: "elasticsearch"
+    storagebackend: "elasticsearch"
+    database: "elasticsearch6"
+    temppath: "/tmp/elasticsearch_everything"
+    url: "govuk-staging"
+    path: "elasticsearch6"
 
 logrotate::conf::days_to_keep: 7
 nginx::logging::days_to_keep: 7
 
 govuk_search::prune::es_repo: "govuk-staging"
+govuk_search::prune::es6_address: "elasticsearch6:80"
