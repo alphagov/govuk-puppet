@@ -303,6 +303,8 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::checks::datagovuk_publish::ensure
     monitoring::checks::datagovuk_publish::host
     monitoring::checks::cache::servers
+    monitoring::checks::lb::region
+    monitoring::checks::lb::loadbalancers
     monitoring::checks::rds::servers
     monitoring::client::alert_hostname
     monitoring::client::graphite_hostname
