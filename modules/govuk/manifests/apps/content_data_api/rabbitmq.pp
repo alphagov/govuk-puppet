@@ -129,4 +129,13 @@ class govuk::apps::content_data_api::rabbitmq (
     write_permission     => "^\$",
     configure_permission => "^\$",
   }
+
+  govuk_rabbitmq::monitor_messages {"${amqp_dead_letter_queue}_message_monitoring":
+    ensure             => 'present',
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $amqp_dead_letter_queue,
+    critical_threshold => 100,
+    warning_threshold  => 10,
+    require            => Govuk_rabbitmq::Queue_with_binding[$amqp_dead_letter_queue],
+  }
 }
