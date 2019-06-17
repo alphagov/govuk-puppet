@@ -39,6 +39,7 @@ class monitoring::checks (
   include monitoring::checks::smokey
   include monitoring::checks::cache
   include monitoring::checks::rds
+  include monitoring::checks::lb
 
   $app_domain = hiera('app_domain')
 

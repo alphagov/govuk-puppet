@@ -1,0 +1,202 @@
+#!/usr/bin/env python3
+
+#
+# ELB/ALB health status
+#
+# Nagios style script that verifies if the number of healthy instances
+# behind an ALB or ELB are above the given thresholds
+#
+import argparse
+import sys
+import boto3
+from botocore.exceptions import ClientError
+
+STATE_OK = 0
+STATE_WARNING = 1
+STATE_CRITICAL = 2
+STATE_UNKNOWN = 3
+
+
+def validate_options(options):
+    if options.region is None:
+        print('UNKNOWN: You have not supplied a region to connect to')
+        sys.exit(STATE_UNKNOWN)
+
+    if options.lb_name is None:
+        print('UNKNOWN: You have not defined a Load Balancer name')
+        sys.exit(STATE_UNKNOWN)
+
+    for opt_int in ('warning', options.warning), ('critical', options.critical):
+        try:
+            int(opt_int[1])
+        except ValueError:
+            print('UNKNOWN: Argument error: "{}" is not numeric'.format(opt_int[0]))
+            sys.exit(STATE_UNKNOWN)
+
+    if options.warning < options.critical:
+        print('UNKNOWN: Argument error: "warning" value is less than "critical"')
+        sys.exit(STATE_UNKNOWN)
+
+
+#
+# Check if an Application/Network LoadBalancer (ELBv2) exists with the given name
+#
+def alb_exist(lb_name, client):
+    try:
+        lb_list = client.describe_load_balancers(Names=[lb_name])
+        if len(lb_list['LoadBalancers']) != 1:
+            return False
+        return True
+    except ClientError as err:
+        if 'LoadBalancerNotFound' in err.response['Error']['Code']:
+            return False
+        raise
+
+
+#
+# Check if a Classic ElasticLoadBalancer (ELB) exists with the given name
+#
+def elb_exist(lb_name, client):
+    try:
+        lb_list = client.describe_load_balancers(LoadBalancerNames=[lb_name])
+        if len(lb_list['LoadBalancerDescriptions']) != 1:
+            return False
+        return True
+    except ClientError as err:
+        if 'LoadBalancerNotFound' in err.response['Error']['Code']:
+            return False
+        raise
+
+
+#
+# Check the status of the instances behind all the Target Groups associated
+# with a LoadBalancer (ELBv2)
+#
+def get_target_groups_health(lb_name, client, warning, critical, ignore):
+    check_long_output = []
+    status = STATE_UNKNOWN
+    check_warning = False
+    check_critical = False
+
+    lb_arn = client.describe_load_balancers(Names=[lb_name])['LoadBalancers'][0]['LoadBalancerArn']
+    target_groups = client.describe_target_groups(LoadBalancerArn=lb_arn)
+
+    for target_group in target_groups['TargetGroups']:
+        skip = False
+        healthy_count = 0
+
+        target_group_name = target_group['TargetGroupName']
+        target_group_arn = target_group['TargetGroupArn']
+
+        for i in ignore:
+            if i == target_group_name:
+                check_long_output.append('{} Target Group NOT CHECKED: "{}" ignored by the user.'.format(lb_name, target_group_name))
+                skip = True
+
+        if skip:
+            continue
+
+        targets = client.describe_target_health(TargetGroupArn=target_group_arn)
+
+        for target in targets['TargetHealthDescriptions']:
+            if target['TargetHealth']['State'] == "healthy":
+                healthy_count = healthy_count+1
+
+        if int(healthy_count) > int(warning):
+            check_long_output.append('{} Target Group OK: "{}" contains {} healthy targets.'.format(lb_name, target_group_name, healthy_count))
+        elif int(healthy_count) <= int(critical):
+            check_long_output.append('{} Target Group CRITICAL: "{}" contains {} healthy targets.'.format(lb_name, target_group_name, healthy_count))
+            check_critical = True
+        else:
+            check_long_output.append('{} Target Group WARNING: "{}" contains {} healthy targets.'.format(lb_name, target_group_name, healthy_count))
+            check_warning = True
+
+    if check_critical:
+        status = STATE_CRITICAL
+    elif check_warning:
+        status = STATE_WARNING
+    else:
+        status = STATE_OK
+
+    return(status, check_long_output)
+
+
+#
+# Check the state of the instances attached to a ELB
+#
+def get_instance_health(lb_name, client, warning, critical):
+    check_long_output = []
+    status = STATE_UNKNOWN
+    check_warning = False
+    check_critical = False
+    healthy_count = 0
+
+    instances = client.describe_instance_health(LoadBalancerName=lb_name)
+    for instance_state in instances['InstanceStates']:
+        if instance_state['State'] == "InService":
+            healthy_count = healthy_count+1
+
+    if int(healthy_count) > int(warning):
+        check_long_output.append('{} Instance States OK: {} instances InService'.format(lb_name, healthy_count))
+    elif int(healthy_count) <= int(critical):
+        check_long_output.append('{} Instance States CRITICAL: {} instances InService'.format(lb_name, healthy_count))
+        check_critical = True
+    else:
+        check_long_output.append('{} Instance States WARNING: {} instances InService'.format(lb_name, healthy_count))
+        check_warning = True
+
+    if check_critical:
+        status = STATE_CRITICAL
+    elif check_warning:
+        status = STATE_WARNING
+    else:
+        status = STATE_OK
+
+    return(status, check_long_output)
+
+
+def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument("-r", "--region", type=str, choices=['us-east-1', 'eu-west-1', 'eu-west-2'], help="AWS region to connect to")
+    parser.add_argument("-w", "--warning", type=int, help="Number of healthy hosts to raise a warning alert (1)", default=1)
+    parser.add_argument("-c", "--critical", type=int, help="Number of healthy hosts to raise a critical alert (0)", default=0)
+    parser.add_argument("-n", "--lb_name", type=str, help="LoadBalancer Name")
+    parser.add_argument("-i", "--ignore", type=str, help="Ignore Target Groups", action='append', default=[])
+    options = parser.parse_args()
+    validate_options(options)
+
+    lb_name = options.lb_name
+    warning = options.warning
+    critical = options.critical
+    region = options.region
+    ignore = options.ignore
+
+    try:
+        client = boto3.client('elbv2', region)
+        if alb_exist(lb_name, client):
+            (status, message) = get_target_groups_health(lb_name, client, warning, critical, ignore)
+        else:
+            client = boto3.client('elb', region)
+            if elb_exist(lb_name, client):
+                (status, message) = get_instance_health(lb_name, client, warning, critical)
+            else:
+                print('Could not find specified LoadBalancer: {}'.format(lb_name))
+                sys.exit(STATE_UNKNOWN)
+
+    except ClientError as err:
+        print("Aws Error: {}".format(err))
+        sys.exit(STATE_UNKNOWN)
+
+    if status == STATE_CRITICAL:
+        print('CRITICAL: One or more {} Target Groups/Instances are not healthy'.format(lb_name))
+    elif status == STATE_WARNING:
+        print('WARNING: One or more {} Target Groups/Instances are not healthy'.format(lb_name))
+    else:
+        print('OK: {} All Target Groups/Instances are healthy'.format(lb_name))
+
+    print("\n".join(message))
+    sys.exit(status)
+
+
+if __name__ == '__main__':
+    main()
