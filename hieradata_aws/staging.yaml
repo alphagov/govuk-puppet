@@ -241,6 +241,41 @@ monitoring::checks::datagovuk_publish::host: 'publish-data-beta-staging.cloudapp
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
+
+monitoring::checks::lb::region: 'eu-west-1'
+monitoring::checks::lb::loadbalancers:
+  blue-calculators-frontend-int: {}
+  blue-draft-frontend-internal:
+    healthyhosts_ignore:
+      - draft-fron-draft-finder-frontend
+  blue-frontend-internal:
+    healthyhosts_ignore:
+      - frontend-i-designprinciples
+      - frontend-i-spotlight
+  govuk-backend-public:
+    healthyhosts_ignore:
+      - backend-collections-publisher
+      - backend-contacts-admin
+      - backend-content-api
+      - backend-content-audit-tool
+      - backend-content-performance-m
+      - backend-content-publisher
+      - backend-content-tagger
+      - backend-docs
+      - backend-hmrc-manuals-api
+      - backend-manuals-publisher
+      - backend-maslow
+      - backend-policy-publisher
+      - backend-publisher
+      - backend-release
+      - backend-search-admin
+      - backend-service-manual-publis
+      - backend-short-url-manager
+      - backend-signon
+      - backend-specialist-publisher
+      - backend-travel-advice-publish
+  govuk-cache-public: {}
+
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts-staging'
