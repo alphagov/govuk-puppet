@@ -19,7 +19,7 @@
 #
 # [*elasticsearch_uri*]
 #   The URL of the elasticsearch instance
-#   Default: http://elasticsearch5
+#   Default: http://elasticsearch6
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -33,7 +33,7 @@ class govuk::apps::licencefinder(
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',
-  $elasticsearch_uri = 'http://elasticsearch5',
+  $elasticsearch_uri = 'http://elasticsearch6',
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
 ) {
