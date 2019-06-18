@@ -15,7 +15,7 @@
 #
 class govuk_containers::memcached(
   $image_name = 'memcached',
-  $image_version = '1.4.36-alpine',
+  $image_version = '1.5.16-alpine',
   $max_memory    = 1024
 ) {
 
