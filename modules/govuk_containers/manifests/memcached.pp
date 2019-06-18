@@ -28,7 +28,6 @@ class govuk_containers::memcached(
   }
 
   ::docker::run { 'memcached':
-    net              => 'host',
     ports            => ['11211:11211'],
     image            => $image_name,
     require          => Docker::Image[$image_name],
