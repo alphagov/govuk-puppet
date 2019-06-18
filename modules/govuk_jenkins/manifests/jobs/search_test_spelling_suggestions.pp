@@ -9,10 +9,10 @@ class govuk_jenkins::jobs::search_test_spelling_suggestions (
   $cron_schedule = '0 5 * * *'
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if $::aws_migration {
     $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
   }
 
   $test_type = 'suggestions'

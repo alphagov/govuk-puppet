@@ -23,10 +23,10 @@ class govuk_jenkins::jobs::bouncer_cdn (
   $cdn_username = undef,
 ) {
 
-  $app_domain = hiera('app_domain')
-
   if $::aws_migration {
     $app_domain = hiera('app_domain_internal')
+  } else {
+    $app_domain = hiera('app_domain')
   }
 
   $check_name = 'bouncer-cdn-configuration'
