@@ -21,13 +21,8 @@ class govuk_jenkins::jobs::bouncer_cdn (
   $cdn_password_encrypted = undef,
   $cdn_service_id = undef,
   $cdn_username = undef,
+  $app_domain = hiera('app_domain'),
 ) {
-
-  if $::aws_migration {
-    $app_domain = hiera('app_domain_internal')
-  } else {
-    $app_domain = hiera('app_domain')
-  }
 
   $check_name = 'bouncer-cdn-configuration'
   $service_description = 'Configure Bouncer CDN service with transitioning sites'
