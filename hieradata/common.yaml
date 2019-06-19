@@ -1514,6 +1514,8 @@ monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{hiera('app_
 monitoring::checks::smokey::features:
   check_bouncer:
     feature: bouncer
+  check_cache:
+    feature: caching
   check_calendars:
     feature: calendars
   check_contacts:
