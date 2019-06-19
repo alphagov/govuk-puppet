@@ -163,6 +163,7 @@ deployable_applications: &deployable_applications
   router: {}
   router-api: {}
   search-admin: {}
+  search-api: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
