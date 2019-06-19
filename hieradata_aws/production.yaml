@@ -182,8 +182,6 @@ govuk_crawler::start_hour: 20
 govuk_crawler::sync_enable: true
 govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::targets:
-  - 'mirror-rsync@mirror0.mirror.provider1.production.govuk.service.gov.uk'
-  - 'mirror-rsync@mirror1.mirror.provider1.production.govuk.service.gov.uk'
   - 's3://govuk-production-mirror/'
 
 govuk::apps::govuk_crawler_worker::root_urls:

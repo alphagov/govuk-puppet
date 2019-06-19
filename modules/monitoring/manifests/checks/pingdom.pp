@@ -27,8 +27,10 @@ class monitoring::checks::pingdom (
       check_id => 489560;
     'specialist':
       check_id => 662460;
-    'mirror_provider1':
-      check_id => 1297462;
+    'mirror_S3':
+      check_id => 2777110;
+    'mirror_S3_replica':
+      check_id => 5291414;
   }
 
   if $enable {
@@ -69,11 +71,20 @@ class monitoring::checks::pingdom (
       service_description => 'Pingdom specialist guides check',
     }
 
-    icinga::check { 'check_pingdom_mirror_provider1':
-      check_command       => 'run_pingdom_mirror_provider1_check',
+    icinga::check { 'check_pingdom_mirror_S3':
+      check_command       => 'run_pingdom_mirror_S3_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
-      service_description => 'Pingdom mirror provider1 check',
+      service_description => 'Pingdom mirror S3 check',
+      notes_url           => monitoring_docs_url(pingdom-mirror-check),
+    }
+
+    icinga::check { 'check_pingdom_mirror_S3_replica':
+      check_command       => 'run_pingdom_mirror_S3_replica_check',
+      use                 => 'govuk_high_priority',
+      host_name           => $::fqdn,
+      service_description => 'Pingdom mirror S3 replica check',
+      notes_url           => monitoring_docs_url(pingdom-mirror-check),
     }
   }
 }
