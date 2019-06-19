@@ -148,11 +148,8 @@ draft-router-api:            govuk_setenv draft-router-api            ./run_in.s
 # grafana has reserved port 3204
 manuals-publisher:  govuk_setenv manuals-publisher  ./run_in.sh ../../manuals-publisher bundle exec rails server -p 3205
 manuals-publisher-worker: govuk_setenv manuals-publisher ./run_in.sh ../../manuals-publisher bundle exec sidekiq -C ./config/sidekiq.yml
-content-performance-manager:      govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec unicorn -c config/unicorn.rb -p 3235
+# content-performance-manager used port 3235
 # sidekiq-monitoring for content-performance-manager uses port 3207
-content-performance-manager-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
-content-performance-manager-bulk-import-publishing-api-consumer: govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:bulk_import_consumer
-content-performance-manager-sidekiq-default:  govuk_setenv content-performance-manager ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/default.yml
 # sidekiq-monitoring for link-checker-api-sidekiq uses port 3209
 link-checker-api:                     govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec rails server -p 3208
 link-checker-api-sidekiq:             govuk_setenv link-checker-api            ./run_in.sh ../../link-checker-api bundle exec sidekiq -C ./config/sidekiq.yml
@@ -183,11 +180,11 @@ search-api-publishing-listener:   govuk_setenv search-api ./run_in.sh ../../sear
 search-api-govuk-index-listener:  govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:insert_data_into_govuk
 search-api-bulk-reindex-listener: govuk_setenv search-api ./run_in.sh ../../search-api    bundle exec rake message_queue:bulk_insert_data_into_govuk
 # sidekiq-monitoring for search-api uses 3234
-content-data-api:      govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rails server -p 3235
+content-data-api:      govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec rails server -p 3235
 
-content-data-api-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:consumer
-content-data-api-bulk-import-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec rake publishing_api:bulk_import_consumer
-content-data-api-sidekiq-default:  govuk_setenv content-data-api ./run_in.sh ../../content-performance-manager bundle exec sidekiq -C ./config/sidekiq/default.yml
+content-data-api-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec rake publishing_api:consumer
+content-data-api-bulk-import-publishing-api-consumer: govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec rake publishing_api:bulk_import_consumer
+content-data-api-sidekiq-default:  govuk_setenv content-data-api ./run_in.sh ../../content-data-api bundle exec sidekiq -C ./config/sidekiq/default.yml
 # sidekiq-monitoring for content-publisher uses 3236
 # byebug web listener for content-publisher uses 3237
 # byebug sidekiq listener for content-publisher uses 3238
