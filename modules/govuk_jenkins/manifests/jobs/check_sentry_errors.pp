@@ -4,6 +4,7 @@
 #
 class govuk_jenkins::jobs::check_sentry_errors (
   $sentry_auth_token = undef,
+  $app_domain = hiera('app_domain'),
 ) {
   file { '/etc/jenkins_jobs/jobs/check_sentry_errors.yaml':
     ensure  => present,

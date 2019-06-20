@@ -3,7 +3,9 @@
 # Create a jenkins-job-builder config file for checking that Pingdom
 # IP ranges are configured correctly.
 #
-class govuk_jenkins::jobs::check_pingdom_ip_ranges {
+class govuk_jenkins::jobs::check_pingdom_ip_ranges(
+  $app_domain = hiera('app_domain'),
+) {
   file { '/etc/jenkins_jobs/jobs/check_pingdom_ip_ranges.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/check_pingdom_ip_ranges.yaml.erb'),

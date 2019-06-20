@@ -5,7 +5,9 @@
 #
 # === Parameters:
 #
-class govuk_jenkins::jobs::publishing_api_archive_events {
+class govuk_jenkins::jobs::publishing_api_archive_events(
+  $app_domain = hiera('app_domain'),
+) {
   file { '/etc/jenkins_jobs/jobs/publishing_api_archive_events.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/publishing_api_archive_events.yaml.erb'),

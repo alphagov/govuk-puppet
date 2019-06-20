@@ -8,6 +8,7 @@
 #
 class govuk_jenkins::jobs::validate_published_dns (
   $run_daily = false,
+  $app_domain = hiera('app_domain'),
 ){
   file { '/etc/jenkins_jobs/jobs/validate_published_dns.yaml':
     ensure  => present,
