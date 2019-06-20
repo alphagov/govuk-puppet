@@ -10,4 +10,15 @@ class govuk_jenkins::jobs::check_sentry_errors (
     content => template('govuk_jenkins/jobs/check_sentry_errors.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  $check_name = 'check_sentry_errors'
+  $service_description = 'Report the number of errors in Sentry to Graphite'
+  $job_url = "https://deploy.${app_domain}/job/Check_Sentry_Errors/"
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 104400,
+    action_url          => $job_url,
+  }
 }
