@@ -12,9 +12,6 @@
                 TARGET_APPLICATION=whitehall
                 MACHINE_CLASS=whitehall_backend
                 RAKE_TASK=publisher_notifications:send
-    publishers:
-        - email:
-            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
     triggers:
         - timed: |
             TZ=Europe/London

@@ -10,7 +10,7 @@
 
 - job:
     name: Check_GitHub_IP_Ranges
-    display-name: Check_GitHub_IP_Ranges
+    display-name: Check GitHub IP Ranges
     project-type: freestyle
     description: "This job compares the IP ranges that GitHub publishes against the ranges configured in govuk-provisioning and errors if they don't match."
     properties:
@@ -26,8 +26,17 @@
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec ./tools/github_ips.rb
     publishers:
-        - email:
-            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
     triggers:
         - timed: |
             TZ=Europe/London

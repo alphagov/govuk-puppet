@@ -46,8 +46,17 @@
             description: Set the zonefile to test
     <% if @run_daily %>
     publishers:
-        - email:
-            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
     triggers:
         - timed: '@midnight'
     <% end %>

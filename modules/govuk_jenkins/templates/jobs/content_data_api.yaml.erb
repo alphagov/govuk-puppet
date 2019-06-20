@@ -15,9 +15,6 @@
     wrappers:
       - ansicolor:
           colormap: xterm
-    publishers:
-      - email:
-          recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
   <% if @rake_etl_master_process_cron_schedule %>
     triggers:
       - timed: <%= @rake_etl_master_process_cron_schedule %>
@@ -37,4 +34,3 @@
                 NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                 NSCA_OUTPUT=<%= @service_description %> failed
                 NSCA_CODE=2
-

@@ -25,6 +25,3 @@
            ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
-    publishers:
-        - email:
-            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
