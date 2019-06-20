@@ -23,9 +23,6 @@
     builders:
         - shell: |
             ./vcloud/box/carrenza/jenkins.sh
-    publishers:
-        - email:
-            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
     parameters:
         - string:
             name: VCLOUD_USER
