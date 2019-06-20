@@ -15,9 +15,6 @@
     wrappers:
       - ansicolor:
           colormap: xterm
-    publishers:
-      - email:
-          recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
   <% if @rake_import_all_content_items_frequency %>
     triggers:
       - timed: <%= @rake_import_all_content_items_frequency %>
@@ -44,9 +41,6 @@
     wrappers:
       - ansicolor:
           colormap: xterm
-    publishers:
-      - email:
-          recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
   <% if @rake_import_all_ga_metrics_frequency %>
     triggers:
       - timed: <%= @rake_import_all_ga_metrics_frequency %>

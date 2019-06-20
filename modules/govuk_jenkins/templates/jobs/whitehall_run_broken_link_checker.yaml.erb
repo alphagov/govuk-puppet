@@ -24,8 +24,6 @@
         - ansicolor:
             colormap: xterm
     publishers:
-        - email:
-            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
         - trigger-parameterized-builds:
             - project: success_passive_check
               condition: 'SUCCESS'

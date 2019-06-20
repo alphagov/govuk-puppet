@@ -46,9 +46,6 @@
             regexp: "DOCKER TAG FAILED"
             also-check-console-output: true
             unstable-if-found: true
-        - email:
-            recipients: govuk-ci-notifications@digital.cabinet-office.gov.uk
-            send-to-individuals: true
     wrappers:
         - workspace-cleanup
         - ansicolor:
