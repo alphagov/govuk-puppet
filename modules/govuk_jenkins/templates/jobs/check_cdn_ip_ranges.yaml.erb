@@ -10,9 +10,9 @@
 
 - job:
     name: Check_CDN_IP_Ranges
-    display-name: Check_CDN_IP_Ranges
+    display-name: Check CDN IP Ranges
     project-type: freestyle
-    description: "This job compares the IP ranges that Fastly publishes against the ranges configured in govuk-provisioning and errors if they don't match."
+    description: "This job compares the IP ranges that Fastly publishes against the ranges configured in govuk-provisioning and errors if they don't match. Also see https://docs.publishing.service.gov.uk/manual/cdn.html#fastly39s-ip-ranges"
     properties:
         - build-discarder:
             days-to-keep: 30
@@ -26,8 +26,17 @@
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec ./tools/cdn_ips.rb production_carrenza
     publishers:
-        - email:
-            recipients: 2nd-line-support@digital.cabinet-office.gov.uk
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
     triggers:
         - timed: |
             TZ=Europe/London
