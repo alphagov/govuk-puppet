@@ -303,7 +303,12 @@ function restore_postgresql {
 }
 
 function  dump_mysql {
-  sudo -H mysqldump -u root --add-drop-database "${database}" | gzip > "${tempdir}/${filename}"
+  if [ "$AWS_DEFAULT_REGION" != '' ] ; then
+    DB_USER='aws_db_admin'
+  else
+    DB_USER='root'
+  fi
+  sudo -H mysqldump -u "$DB_USER" --add-drop-database "${database}" | gzip > "${tempdir}/${filename}"
 }
 
 function  restore_mysql {
