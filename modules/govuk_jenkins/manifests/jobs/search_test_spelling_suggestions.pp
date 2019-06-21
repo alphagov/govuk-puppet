@@ -6,13 +6,12 @@ class govuk_jenkins::jobs::search_test_spelling_suggestions (
   $auth_username = undef,
   $auth_password = undef,
   $rate_limit_token = undef,
+  $app_domain = hiera('app_domain'),
   $cron_schedule = '0 5 * * *'
 ) {
 
   if $::aws_migration {
-    $app_domain = hiera('app_domain_internal')
-  } else {
-    $app_domain = hiera('app_domain')
+    $app_domain_internal = hiera('app_domain_internal')
   }
 
   $test_type = 'suggestions'
