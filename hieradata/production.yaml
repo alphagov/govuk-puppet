@@ -568,7 +568,6 @@ licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
-monitoring::checks::mirror::enabled: true
 monitoring::checks::ses::region: us-east-1
 monitoring::checks::smokey::environment: 'production'
 monitoring::contacts::notify_graphite: true
