@@ -33,6 +33,9 @@
 #   Should this vhost be protected with HTTP Basic auth?
 #   Default: undef
 #
+# [*sentry_dsn*]
+#   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
+#
 class govuk::apps::ckan (
   $enabled                        = false,
   $port                           = '3220',
@@ -57,6 +60,7 @@ class govuk::apps::ckan (
   $s3_bucket_name                 = undef,
   $s3_aws_region_name             = undef,
   $vhost_protected                = undef,
+  $sentry_dsn                     = undef,
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"
@@ -75,6 +79,7 @@ class govuk::apps::ckan (
       collectd_process_regex => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
       nagios_memory_warning  => 2400,
       nagios_memory_critical => 2500,
+      sentry_dsn             => $sentry_dsn,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
