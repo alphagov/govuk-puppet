@@ -180,7 +180,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_postgresql::backup::auto_postgresql_backup_hour
     govuk_postgresql::backup::auto_postgresql_backup_minute
     hosts::production::releaseapp_host_org
-    monitoring::checks::mirror::enabled
   ]
 
   # Keys that are AWS-only
