@@ -177,7 +177,7 @@ class monitoring::checks (
     $keep_last_value_limit = '132'
 
     icinga::check::graphite { 'check_search_api_govuk_index_size_changed':
-      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.govuk_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.govuk_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.govuk_index.docs.total,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.govuk_index.docs.total,${keep_last_value_limit}), \"7d\")))",
       warning             => 3000,
       critical            => 10000,
       desc                => 'search-api govuk index size has significantly increased/decreased over the last 7 days',
@@ -191,7 +191,7 @@ class monitoring::checks (
 
     # Government is comparable to the govuk index.
     icinga::check::graphite { 'check_search_api_government_index_size_changed':
-      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.government_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.government_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.government_index.docs.total,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.government_index.docs.total,${keep_last_value_limit}), \"7d\")))",
       warning             => 2500,
       critical            => 8000,
       desc                => 'search-api government index size has significantly increased/decreased over the last 7 days',
@@ -205,7 +205,7 @@ class monitoring::checks (
 
     # Detailed is smaller than the other indexes (about 4500 documents)
     icinga::check::graphite { 'check_search_api_detailed_index_size_changed':
-      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.detailed_index.docs.count,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.detailed_index.docs.count,${keep_last_value_limit}), \"7d\")))",
+      target              => "absolute(diffSeries(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.detailed_index.docs.total,${keep_last_value_limit}), timeShift(keepLastValue(stats.gauges.govuk.app.search-api.cluster_A.detailed_index.docs.total,${keep_last_value_limit}), \"7d\")))",
       warning             => 100,
       critical            => 500,
       desc                => 'search-api detailed index size has significantly increased/decreased over the last 7 days',
