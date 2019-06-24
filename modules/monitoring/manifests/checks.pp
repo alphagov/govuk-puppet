@@ -130,15 +130,6 @@ class monitoring::checks (
     service_description => "check the STAR.${app_domain} TLS certificate is valid and not due to expire",
     notes_url           => monitoring_docs_url(renew-tls-certificate),
   }
-
-  # AWS cannot access mirror machines in Carrenza
-  unless $::aws_migration {
-    icinga::check { 'check_mirror_provider1_cert_valid':
-      check_command       => 'check_ssl_cert!www-origin.mirror.provider1.production.govuk.service.gov.uk!www-origin.mirror.provider1.production.govuk.service.gov.uk!30',
-      host_name           => $::fqdn,
-      service_description => 'check the provider1 mirror SSL certificate is valid and not due to expire',
-    }
-  }
   # END ssl certificate checks
 
   # START DNS checks
