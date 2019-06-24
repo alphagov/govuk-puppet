@@ -237,7 +237,7 @@ govuk_env_sync::tasks:
     action: "push"
     dbms: "mysql"
     storagebackend: "s3"
-    database: "search_admin_production"
+    database: "signon_production"
     temppath: "/tmp/signon_production"
     url: "govuk-integration-database-backups"
     path: "mysql-backend"
