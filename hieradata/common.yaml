@@ -938,7 +938,11 @@ govuk_jenkins::jobs::smokey::signon_password: "%{hiera('smokey_signon_password')
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
-govuk_jenkins::jobs::integration_deploy::applications: *deployable_applications
+govuk_jenkins::jobs::integration_deploy::applications:
+  <<: *deployable_applications
+  # Include applications that have been migrated to AWS
+  content-data-admin: {}
+  content-data-api: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
