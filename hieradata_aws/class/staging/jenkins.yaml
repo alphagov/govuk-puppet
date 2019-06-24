@@ -33,5 +33,3 @@ govuk_jenkins::job_builder::jobs:
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: false
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: false
 govuk_jenkins::jobs::smokey::enable_slack_notifications: false
-govuk_jenkins::jobs::transition_load_all_data::enable_slack_notifications: true
-govuk_jenkins::jobs::transition_load_site_config::enable_slack_notifications: true
