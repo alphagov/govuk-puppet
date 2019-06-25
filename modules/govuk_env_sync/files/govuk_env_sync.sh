@@ -303,7 +303,7 @@ function restore_postgresql {
 }
 
 function  dump_mysql {
-  if [ "$AWS_DEFAULT_REGION" != '' ] ; then
+  if [ ! -z "${AWS_DEFAULT_REGION:-}" ] ; then
     DB_USER='aws_db_admin'
   else
     DB_USER='root'
