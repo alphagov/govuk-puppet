@@ -1544,7 +1544,7 @@ monitoring::checks::smokey::features:
     feature: signon
   check_smartanswers:
     feature: smartanswers
-  check_static_mirrors:
+  check_static_mirrors:	
     feature: mirror
   check_travel_advice:
     feature: travel_advice
