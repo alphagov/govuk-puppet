@@ -45,7 +45,7 @@ task :yaml_syntax do
     end
   end
 
-  files = FileList["**/files/**/*.y{a,}ml"]
+  files = FileList["**/files/**/*.y{a,}ml"] + FileList["hieradata/**/*.y{a,}ml"]
   files.reject! { |f| File.directory?(f) }
   files = files.exclude(*PuppetSyntax.exclude_paths)
 
