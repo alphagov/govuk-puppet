@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_content_store_daily_training":
-    ensure: "present"
+    ensure: "disabled"
     hour: "1"
     minute: "16"
     action: "pull"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration-database-backups"
     path: "mongo-api"
   "pull_draft_content_store_daily_training":
-    ensure: "present"
+    ensure: "disabled"
     hour: "1"
     minute: "16"
     action: "pull"
