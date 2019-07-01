@@ -2,7 +2,6 @@
 govuk_jenkins::config::executors: '8'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::bouncer_cdn_redirect
   - govuk_jenkins::jobs::build_offsite_backup
   - govuk_jenkins::jobs::check_cdn_ip_ranges
   - govuk_jenkins::jobs::check_github_ip_ranges
@@ -45,8 +44,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
-  - govuk_jenkins::jobs::transition_load_all_data_redirect
-  - govuk_jenkins::jobs::transition_load_site_config_redirect
   - govuk_jenkins::jobs::trigger_data_sync_complete
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor

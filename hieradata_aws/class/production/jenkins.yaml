@@ -31,7 +31,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_import_dns
   - govuk_jenkins::jobs::transition_import_hits
-  - govuk_jenkins::jobs::transition_load_all_data
   - govuk_jenkins::jobs::transition_load_site_config
 
 
