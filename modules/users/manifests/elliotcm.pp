@@ -1,6 +1,7 @@
 # Creates elliotcm user
 class users::elliotcm {
   govuk_user { 'elliotcm':
+    ensure   => absent,
     fullname => 'Elliot CM',
     email    => 'elliot.cm@digital.cabinet-office.gov.uk',
     ssh_key  => [
