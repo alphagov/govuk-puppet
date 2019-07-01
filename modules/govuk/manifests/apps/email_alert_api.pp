@@ -105,6 +105,10 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 class govuk::apps::email_alert_api(
   $port = '3088',
   $enabled = false,
@@ -145,6 +149,7 @@ class govuk::apps::email_alert_api(
   $email_archive_s3_enabled = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $publishing_api_bearer_token = undef,
 ) {
 
   $ensure = $enabled ? {
@@ -250,6 +255,9 @@ class govuk::apps::email_alert_api(
     "${title}-EMAIL_ARCHIVE_S3_BUCKET":
         varname => 'EMAIL_ARCHIVE_S3_BUCKET',
         value   => $email_archive_s3_bucket;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
   }
 
   if $email_address_override_whitelist {
