@@ -21,7 +21,7 @@
         - string:
             name: BUCKET
             description: 'S3 bucket to fetch bouncer logs from'
-            default: 'govuk-production-transition-fastly-logs'
+            default: <%= @s3_bucket %>
     triggers:
         - timed: |
             TZ=Europe/London
