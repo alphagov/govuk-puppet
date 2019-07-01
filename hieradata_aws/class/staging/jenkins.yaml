@@ -25,13 +25,13 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::data_sync
-  - govuk_jenkins::jobs::transition_load_all_data_redirect
-  - govuk_jenkins::jobs::transition_load_site_config_redirect
+  - govuk_jenkins::jobs::transition_import_dns
+  - govuk_jenkins::jobs::transition_import_hits
+  - govuk_jenkins::jobs::transition_load_site_config
   - govuk_jenkins::jobs::bouncer_cdn_redirect
 
 
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: false
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: false
 govuk_jenkins::jobs::smokey::enable_slack_notifications: false
-govuk_jenkins::jobs::transition_load_all_data::enable_slack_notifications: true
-govuk_jenkins::jobs::transition_load_site_config::enable_slack_notifications: true
+govuk_jenkins::jobs::transition_import_hits::s3_bucket: govuk-staging-transition-fastly-logs

@@ -9,9 +9,14 @@
 
 - job:
     name: Transition_load_site_config
-    display-name: Transition_load_site_config
+    display-name: "Transition: load site config"
     project-type: freestyle
-    description: "<p>Loads site configuration into Transition/Bouncer from the release branch.</p>"
+    description: |
+      <p>
+        Updates the site configs in response to updates to the
+        <a href="https://github.com/alphagov/transition-config">transition-config</a>
+        release branch being updated.
+      </p>
     scm:
       - transition-config_Transition_load_site_config
     logrotate:
@@ -22,15 +27,13 @@
           artifact-num-to-keep: 5
     builders:
         - shell: |
-            <%- if scope.lookupvar('::aws_migration') %>
             HOSTNAME=$(govuk_node_list -c backend --single-node)
-            <%- else -%>
-            HOSTNAME="backend-1.backend"
-            <%- end -%>
             rsync --delete -avz -e ssh ./ deploy@$HOSTNAME:/var/apps/transition/data/transition-config
             ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all:orgs_sites_hosts"
     triggers:
-        - pollscm: '00 09-19 * * 1-5'
+        - pollscm: |
+            TZ=Europe/London
+            00 09-19 * * 1-5
     wrappers:
         - ansicolor:
             colormap: xterm

@@ -1,0 +1,28 @@
+---
+- job:
+    name: transition_import_hits
+    display-name: "Transition: daily hits import"
+    project-type: freestyle
+    description: "<p>Pulls daily hits from fastly logs and updates application statistics.</p>"
+    logrotate:
+      numToKeep: 30
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+        - shell: |
+            HOSTNAME=$(govuk_node_list -c backend --single-node)
+            ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:all:hits[$BUCKET]"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - string:
+            name: BUCKET
+            description: 'S3 bucket to fetch bouncer logs from'
+            default: <%= @s3_bucket %>
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            H 3 * * *

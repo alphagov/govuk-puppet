@@ -1,0 +1,23 @@
+---
+- job:
+    name: transition_import_dns
+    display-name: "Transition: daily DNS import"
+    project-type: freestyle
+    description: "<p>Performs a daily update on the DNS records for each transitioned domain name</p>"
+    logrotate:
+      numToKeep: 30
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+        - shell: |
+            HOSTNAME=$(govuk_node_list -c backend --single-node)
+            ssh deploy@$HOSTNAME "cd /var/apps/transition && govuk_setenv transition bundle exec rake import:dns_details"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            H 12 * * *
