@@ -1,0 +1,12 @@
+server {
+  server_name gatling.* gatling-origin.*;
+  root <%= @root_dir -%>;
+
+  access_log /var/log/nginx/gatling-access.log timed_combined;
+  access_log /var/log/nginx/gatling-json.event.access.log json_event;
+  error_log /var/log/nginx/gatling-error.log;
+
+  location / {
+    autoindex on;
+  }
+}
