@@ -18,6 +18,13 @@
 #   Additional contact groups to pass to the icinga::checks for this
 #   application.
 #
+# [*frame_options*]
+#   The value that the X-Frame-Options HTTP header should be set to.
+#   Defaults to 'deny', which disallows all framing of the app by
+#   compliant browsers. Can also be set to 'sameorigin' to allow
+#   framing by pages on the same hostname, or an empty string to allow
+#   all framing (not recommended).
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -87,7 +94,7 @@ define govuk::app::config (
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
   $additional_check_contact_groups = undef,
-  $deny_framing = false,
+  $frame_options = 'deny',
   $enable_nginx_vhost = true,
   $unicorn_herder_timeout = 'NOTSET',
   $nagios_memory_warning = 700,
@@ -277,7 +284,7 @@ define govuk::app::config (
       app_port                       => $port,
       ssl_only                       => $vhost_ssl_only,
       nginx_extra_config             => $nginx_extra_config,
-      deny_framing                   => $deny_framing,
+      frame_options                  => $frame_options,
       asset_pipeline                 => $asset_pipeline,
       asset_pipeline_prefix          => $asset_pipeline_prefix,
       hidden_paths                   => $hidden_paths,

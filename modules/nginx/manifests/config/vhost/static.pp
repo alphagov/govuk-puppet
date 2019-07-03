@@ -14,8 +14,12 @@
 # [*extra_config*]
 #   A string containing additional nginx config
 #
-# [*deny_framing*]
-#   Boolean, whether nginx should instruct browsers to not allow framing the page
+# [*frame_options*]
+#   The value that the X-Frame-Options HTTP header should be set to.
+#   Defaults to 'deny', which disallows all framing of the app by
+#   compliant browsers. Can also be set to 'sameorigin' to allow
+#   framing by pages on the same hostname, or an empty string to allow
+#   all framing (not recommended).
 #
 # [*deny_crawlers*]
 #   Boolean, whether Nginx should serve a robots.txt that
@@ -38,7 +42,7 @@ define nginx::config::vhost::static(
   $aliases = [],
   $locations = {},
   $extra_config = '',
-  $deny_framing = false,
+  $frame_options = 'deny',
   $deny_crawlers = false,
   $logstream = present,
   $is_default_vhost = false,

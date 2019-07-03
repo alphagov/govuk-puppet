@@ -137,17 +137,31 @@ describe 'nginx::config::vhost::proxy', :type => :define do
 
   end
 
-  context 'with deny_framing true' do
+  context 'with frame_options set to "deny"' do
     let(:params) do
       {
         :to => ['a.internal'],
-        :deny_framing => true,
+        :frame_options => 'deny',
       }
     end
 
-    it 'should add the X-Frame-Options header' do
+    it 'should add the X-Frame-Options header with the DENY value' do
       is_expected.to contain_nginx__config__site('rabbit')
-        .with_content(/add_header X-Frame-Options/)
+        .with_content(/add_header X-Frame-Options DENY/)
+    end
+  end
+
+  context 'with frame_options set to "sameorigin"' do
+    let(:params) do
+      {
+        :to => ['a.internal'],
+        :frame_options => 'sameorigin',
+      }
+    end
+
+    it 'should add the X-Frame-Options header with the SAMEORIGIN value' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/add_header X-Frame-Options SAMEORIGIN/)
     end
   end
 

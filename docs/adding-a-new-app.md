@@ -77,7 +77,7 @@ class govuk::apps::myapp (
     sentry_dsn        => $sentry_dsn,
     vhost_ssl_only    => true,
     health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing      => true,
+    frame_options     => 'deny',
     asset_pipeline    => true,
   }
 

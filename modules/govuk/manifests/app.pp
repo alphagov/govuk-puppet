@@ -92,12 +92,12 @@
 #   Additional contact groups to pass to the icinga::checks for this
 #   application.
 #
-# [*deny_framing*]
-# should we allow this app to be framed
-#
-# If set to true, the nginx fronting the app will set the X-Frame-Options
-# header in such a way as to deny framing in clients that support the header.
-#
+# [*frame_options*]
+#   The value that the X-Frame-Options HTTP header should be set to.
+#   Defaults to 'deny', which disallows all framing of the app by
+#   compliant browsers. Can also be set to 'sameorigin' to allow
+#   framing by pages on the same hostname, or an empty string to allow
+#   all framing (not recommended).
 #
 # [*enable_nginx_vhost*]
 # should this app be fronted by nginx?
@@ -280,7 +280,7 @@ define govuk::app (
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
   $additional_check_contact_groups = undef,
-  $deny_framing = false,
+  $frame_options = 'deny',
   $enable_nginx_vhost = true,
   $vhost = undef,
   $vhost_aliases = [],
@@ -370,7 +370,7 @@ define govuk::app (
     health_check_service_template       => $health_check_service_template,
     health_check_notification_period    => $health_check_notification_period,
     additional_check_contact_groups     => $additional_check_contact_groups,
-    deny_framing                        => $deny_framing,
+    frame_options                       => $frame_options,
     enable_nginx_vhost                  => $enable_nginx_vhost,
     nagios_memory_warning               => $nagios_memory_warning,
     nagios_memory_critical              => $nagios_memory_critical,

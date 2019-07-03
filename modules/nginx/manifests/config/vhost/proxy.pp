@@ -20,8 +20,12 @@
 # [*extra_app_config*]
 #   A string containing additional nginx config for the `app` location block
 #
-# [*deny_framing*]
-#   Boolean, whether nginx should instruct browsers to not allow framing the page
+# [*frame_options*]
+#   The value that the X-Frame-Options HTTP header should be set to.
+#   Defaults to 'deny', which disallows all framing of the app by
+#   compliant browsers. Can also be set to 'sameorigin' to allow
+#   framing by pages on the same hostname, or an empty string to allow
+#   all framing (not recommended).
 #
 # [*protected*]
 #   Boolean, whether or not the vhost should be protected with basic auth
@@ -79,7 +83,7 @@ define nginx::config::vhost::proxy(
   $aliases = [],
   $extra_config = '',
   $extra_app_config = '',
-  $deny_framing = false,
+  $frame_options = 'deny',
   $protected = true,
   $protected_location = '/',
   $root = "/data/vhost/${title}/current/public",

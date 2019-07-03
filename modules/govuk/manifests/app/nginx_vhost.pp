@@ -25,8 +25,12 @@
 # [*nginx_extra_config*]
 #   A string containing additional nginx config
 #
-# [*deny_framing*]
-#   Boolean, whether nginx should instruct browsers to not allow framing the page
+# [*frame_options*]
+#   The value that the X-Frame-Options HTTP header should be set to.
+#   Defaults to 'deny', which disallows all framing of the app by
+#   compliant browsers. Can also be set to 'sameorigin' to allow
+#   framing by pages on the same hostname, or an empty string to allow
+#   all framing (not recommended).
 #
 # [*deny_crawlers*]
 #   Boolean, whether nginx should serve robots.txt
@@ -70,7 +74,7 @@ define govuk::app::nginx_vhost (
   $protected_location = '/',
   $ssl_only = false,
   $nginx_extra_config = '',
-  $deny_framing = false,
+  $frame_options = 'deny',
   $deny_crawlers = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
@@ -106,7 +110,7 @@ define govuk::app::nginx_vhost (
     protected_location             => $protected_location,
     ssl_only                       => $ssl_only,
     extra_config                   => $nginx_extra_config_real,
-    deny_framing                   => $deny_framing,
+    frame_options                  => $frame_options,
     deny_crawlers                  => $deny_crawlers,
     is_default_vhost               => $is_default_vhost,
     hidden_paths                   => $hidden_paths,
