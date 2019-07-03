@@ -84,7 +84,7 @@ class govuk::apps::asset_manager(
 
     # The X-Frame-Options response header is set explicitly in the
     # relevant location blocks.
-    $deny_framing = false
+    $frame_options = 'deny'
 
     govuk::app { $app_name:
       app_type                 => 'rack',
@@ -93,7 +93,7 @@ class govuk::apps::asset_manager(
       vhost_ssl_only           => true,
       health_check_path        => '/healthcheck',
       log_format_is_json       => true,
-      deny_framing             => $deny_framing,
+      frame_options            => $frame_options,
       depends_on_nfs           => true,
       nginx_extra_config       => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
       unicorn_worker_processes => $unicorn_worker_processes,

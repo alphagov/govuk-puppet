@@ -141,7 +141,6 @@ class govuk::apps::content_publisher (
     sentry_dsn         => $sentry_dsn,
     vhost_ssl_only     => true,
     health_check_path  => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing       => true,
     asset_pipeline     => true,
     nginx_extra_config => 'client_max_body_size 500m;',
   }

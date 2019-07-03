@@ -94,7 +94,6 @@ class govuk::apps::travel_advice_publisher(
     json_health_check  => true,
     log_format_is_json => true,
     asset_pipeline     => true,
-    deny_framing       => true,
   }
 
   Govuk::App::Envvar {

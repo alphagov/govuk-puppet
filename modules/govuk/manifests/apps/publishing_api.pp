@@ -172,7 +172,6 @@ class govuk::apps::publishing_api(
     unicorn_worker_processes         => $unicorn_worker_processes,
     json_health_check                => true,
     log_format_is_json               => true,
-    deny_framing                     => true,
     nagios_memory_warning            => $nagios_memory_warning,
     nagios_memory_critical           => $nagios_memory_critical,
   }

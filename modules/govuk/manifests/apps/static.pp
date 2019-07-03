@@ -83,6 +83,7 @@ class govuk::apps::static(
     unicorn_worker_processes => $unicorn_worker_processes,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
+    frame_options            => 'sameorigin',
   }
 
   Govuk::App::Envvar {

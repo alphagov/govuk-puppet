@@ -118,7 +118,6 @@ class govuk::apps::publisher(
     json_health_check   => true,
     log_format_is_json  => true,
     asset_pipeline      => true,
-    deny_framing        => true,
     nginx_extra_config  => '
     proxy_set_header X-Sendfile-Type X-Accel-Redirect;
     proxy_set_header X-Accel-Mapping /var/apps/publisher/reports/=/raw/;

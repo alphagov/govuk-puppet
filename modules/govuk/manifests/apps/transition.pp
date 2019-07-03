@@ -95,7 +95,6 @@ class govuk::apps::transition(
     vhost_ssl_only     => true,
     health_check_path  => '/',
     log_format_is_json => true,
-    deny_framing       => true,
     asset_pipeline     => true,
   }
 

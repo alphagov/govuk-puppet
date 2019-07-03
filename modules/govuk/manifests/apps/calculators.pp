@@ -33,6 +33,7 @@ class govuk::apps::calculators(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => 'calculators',
+    frame_options         => 'sameorigin',
   }
 
   Govuk::App::Envvar {

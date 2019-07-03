@@ -50,6 +50,7 @@ class govuk::apps::collections(
     nagios_memory_warning  => $nagios_memory_warning,
     nagios_memory_critical => $nagios_memory_critical,
     sentry_dsn             => $sentry_dsn,
+    frame_options          => 'sameorigin',
   }
 
   Govuk::App::Envvar {

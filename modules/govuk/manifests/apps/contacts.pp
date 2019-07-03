@@ -101,6 +101,7 @@ class govuk::apps::contacts(
       vhost_protected       => $vhost_protected,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'contacts-assets',
+      frame_options         => 'sameorigin',
       vhost_aliases         => $extra_aliases,
       repo_name             => 'contacts-admin',
       nginx_extra_config    => '

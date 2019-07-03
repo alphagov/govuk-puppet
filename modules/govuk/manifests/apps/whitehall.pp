@@ -261,7 +261,6 @@ class govuk::apps::whitehall(
       app_port              => $port,
       protected             => $vhost_protected,
       protected_location    => '/government/admin/fact_check_requests/',
-      deny_framing          => true,
       deny_crawlers         => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',

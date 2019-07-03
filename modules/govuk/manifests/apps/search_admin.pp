@@ -70,7 +70,6 @@ class govuk::apps::search_admin(
     health_check_path        => '/queries',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    deny_framing             => true,
     override_search_location => $override_search_location,
   }
 

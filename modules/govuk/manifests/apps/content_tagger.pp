@@ -92,7 +92,6 @@ class govuk::apps::content_tagger(
     health_check_path        => '/healthcheck',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    deny_framing             => false,
     sentry_dsn               => $sentry_dsn,
     override_search_location => $override_search_location,
   }

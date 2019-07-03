@@ -85,7 +85,6 @@ class govuk::apps::collections_publisher(
     health_check_path  => '/',
     log_format_is_json => true,
     asset_pipeline     => true,
-    deny_framing       => true,
   }
 
   Govuk::App::Envvar {

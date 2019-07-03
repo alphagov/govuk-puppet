@@ -46,6 +46,7 @@ class govuk::apps::feedback(
     log_format_is_json    => true,
     asset_pipeline        => true,
     asset_pipeline_prefix => $app_name,
+    frame_options         => 'sameorigin',
   }
 
   Govuk::App::Envvar {

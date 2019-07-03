@@ -69,5 +69,6 @@ class govuk::apps::government_frontend(
     cpu_critical             => $cpu_critical,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
+    frame_options            => 'sameorigin',
   }
 }

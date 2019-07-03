@@ -98,7 +98,6 @@ class govuk::apps::signon(
     health_check_path        => '/healthcheck',
     json_health_check        => true,
     asset_pipeline           => true,
-    deny_framing             => true,
     log_format_is_json       => true,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,

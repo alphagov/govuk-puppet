@@ -38,6 +38,7 @@ class govuk::apps::manuals_frontend(
     vhost                 => $vhost,
     health_check_path     => '/healthcheck',
     json_health_check     => true,
+    frame_options         => 'sameorigin',
   }
 
   Govuk::App::Envvar {

@@ -98,5 +98,6 @@ class govuk::apps::smartanswers(
     alert_5xx_critical_rate  => 0.005,
     repo_name                => 'smart-answers',
     unicorn_worker_processes => $unicorn_worker_processes,
+    frame_options            => 'sameorigin',
   }
 }

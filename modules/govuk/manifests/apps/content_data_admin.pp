@@ -115,7 +115,6 @@ class govuk::apps::content_data_admin (
     vhost                           => 'content-data',
     vhost_ssl_only                  => true,
     health_check_path               => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing                    => true,
     asset_pipeline                  => true,
     read_timeout                    => 60,
     additional_check_contact_groups => ['slack-channel-data-informed'],

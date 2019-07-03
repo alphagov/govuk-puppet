@@ -44,6 +44,7 @@ class govuk::apps::service_manual_frontend(
       asset_pipeline        => true,
       asset_pipeline_prefix => 'service-manual-frontend',
       vhost                 => $vhost,
+      frame_options         => 'sameorigin',
     }
 
     govuk::app::envvar {

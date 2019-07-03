@@ -43,6 +43,7 @@ class govuk::apps::info_frontend(
     asset_pipeline_prefix => 'info-frontend',
     health_check_path     => '/healthcheck',
     json_health_check     => true,
+    frame_options         => 'sameorigin',
   }
 
   Govuk::App::Envvar {

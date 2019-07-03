@@ -104,6 +104,7 @@ class govuk::apps::support(
         deny    all;
       }',
     asset_pipeline     => true,
+    frame_options      => 'sameorigin',
   }
 
   govuk::procfile::worker { $app_name:
