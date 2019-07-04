@@ -50,10 +50,6 @@ class govuk::node::s_apt (
       location => 'https://artifacts.elastic.co/packages/5.x/apt',
       release  => 'stable',
       key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
-    'govuk-ppa-precise':
-      location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
-      release  => 'precise',
-      key      => '914D5813';
     'govuk-ppa-trusty':
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'trusty',
@@ -74,10 +70,6 @@ class govuk::node::s_apt (
       location => 'https://nginx.org/packages/ubuntu/',
       release  => 'trusty',
       key      => 'ABF5BD827BD9BF62';
-    'nginx-precise':
-      location => 'https://nginx.org/packages/ubuntu/',
-      release  => 'precise',
-      key      => 'ABF5BD827BD9BF62';
     'nodejs':
       location => 'https://deb.nodesource.com/node_6.x',
       release  => 'trusty',
@@ -95,11 +87,6 @@ class govuk::node::s_apt (
       location => 'http://apt.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
-    'puppetlabs-precise':
-      location => 'http://apt.puppetlabs.com/',
-      repos    => ['main', 'dependencies'],
-      release  => 'precise',
-      key      => 'EF8D349F';
     'puppetlabs-trusty':
       location => 'http://apt.puppetlabs.com/',
       repos    => ['main', 'dependencies'],
