@@ -12,7 +12,7 @@ class govuk_ci::agent::docker {
   }
 
   class { '::docker::compose':
-    version => '1.17.1',
+    version => '1.22.0',
   }
 
   cron::crondotdee { 'docker_system_prune_dangling' :
