@@ -210,7 +210,7 @@ class govuk::node::s_asset_base (
   if $s3_bucket {
 
     package { 's3cmd':
-      ensure   => 'present',
+      ensure   => '2.0',
       provider => 'pip',
     }
 
