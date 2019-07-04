@@ -28,15 +28,12 @@ class base (
   include govuk::deploy
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
+  include govuk_awscli
   include govuk_envsys
   include govuk_scripts
   include govuk_sshkeys
   include govuk_sudo
   include govuk_unattended_reboot
-
-  unless $::lsbdistcodename == 'precise' {
-    include govuk_awscli
-  }
 
   include logrotate
   include ntp
