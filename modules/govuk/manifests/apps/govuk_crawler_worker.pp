@@ -41,6 +41,12 @@
 #   Sets the header "Rate-Limit-Token" which ensures that the crawler is
 #   whitelisted by the rate limiting function (receiving 429 status)
 #
+# [*nagios_memory_warning*]
+#   Memory use at which Nagios should generate a warning.
+#
+# [*nagios_memory_critical*]
+#   Memory use at which Nagios should generate a critical alert.
+#
 class govuk::apps::govuk_crawler_worker (
   $airbrake_api_key = '',
   $airbrake_endpoint = '',
@@ -54,6 +60,8 @@ class govuk::apps::govuk_crawler_worker (
   $port = '3074',
   $root_urls = [],
   $rate_limit_token = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   validate_array($blacklist_paths, $root_urls)
 
@@ -103,11 +111,13 @@ class govuk::apps::govuk_crawler_worker (
     }
 
     govuk::app { 'govuk_crawler_worker':
-      app_type           => 'bare',
-      log_format_is_json => true,
-      port               => $port,
-      command            => './govuk_crawler_worker -json',
-      health_check_path  => '/healthcheck',
+      app_type               => 'bare',
+      log_format_is_json     => true,
+      port                   => $port,
+      command                => './govuk_crawler_worker -json',
+      health_check_path      => '/healthcheck',
+      nagios_memory_warning  => $nagios_memory_warning,
+      nagios_memory_critical => $nagios_memory_critical,
     }
 
     include govuk::apps::govuk_crawler_worker::rabbitmq

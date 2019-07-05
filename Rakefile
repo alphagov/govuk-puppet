@@ -224,6 +224,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
     govuk::apps::content_tagger::db::rds
+    govuk::apps::govuk_crawler_worker::nagios_memory_critical
+    govuk::apps::govuk_crawler_worker::nagios_memory_warning
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
