@@ -22,6 +22,7 @@ class hosts::purge {
     'mongo-api-1',
     'prometheus-1',
     'search-1',
+    'gatling-1',
   ]
 
   if ! ($::hostname in $whitelist) {

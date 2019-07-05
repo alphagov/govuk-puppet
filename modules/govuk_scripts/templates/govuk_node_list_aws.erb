@@ -21,7 +21,7 @@ def ec2_nodes(stackname, nodeclass=None):
     if nodeclass:
         response = client.describe_instances(
                    Filters=[
-                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname, 'govuk']},
                           {'Name': 'tag:aws_migration', 'Values': [nodeclass]},
                           {'Name': 'instance-state-name', 'Values': ['running']}
                    ]
@@ -29,7 +29,7 @@ def ec2_nodes(stackname, nodeclass=None):
     else:
         response = client.describe_instances(
                    Filters=[
-                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname, 'govuk']},
                           {'Name': 'instance-state-name','Values': ['running']}
                    ]
                )
@@ -47,7 +47,7 @@ def ec2_nodes_list_with_puppet_class(stackname):
 
     response = client.describe_instances(
                    Filters=[
-                          {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+                          {'Name': 'tag:aws_stackname', 'Values': [stackname, 'govuk']},
                           {'Name': 'instance-state-name','Values': ['running']}
                    ]
                )
@@ -72,7 +72,7 @@ def ec2_classes(stackname):
 
     response = client.describe_instances(
            Filters=[
-              {'Name': 'tag:aws_stackname', 'Values': [stackname]},
+              {'Name': 'tag:aws_stackname', 'Values': [stackname, 'govuk']},
               {'Name': 'instance-state-name','Values': ['running']}
            ]
        )
