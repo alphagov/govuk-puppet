@@ -1,6 +1,7 @@
 require_relative '../../../../spec_helper'
 
 describe 'postfix::config', :type => :class do
+  let(:pre_condition) { 'package { "postfix": }' }
   let(:mailname)    { '/etc/mailname' }
   let(:main_cf)     { '/etc/postfix/main.cf' }
   let(:sasl_passwd) { '/etc/postfix/sasl_passwd' }
