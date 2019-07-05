@@ -553,6 +553,9 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - "https://assets.%{hiera('app_domain')}"
   - "https://www.%{hiera('app_domain')}"
 
+govuk::apps::govuk_crawler_worker::nagios_memory_critical: 1750
+govuk::apps::govuk_crawler_worker::nagios_memory_warning: 1500
+
 govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
