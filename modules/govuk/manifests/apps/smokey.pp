@@ -44,12 +44,13 @@ class govuk::apps::smokey (
   }
 
   govuk::app::envvar {
-    'AUTH_PASSWORD':    value => $http_password;
-    'AUTH_USERNAME':    value => $http_username;
-    'BEARER_TOKEN':     value => $smokey_bearer_token;
-    'RATE_LIMIT_TOKEN': value => $rate_limit_token;
-    'SIGNON_EMAIL':     value => $smokey_signon_email;
-    'SIGNON_PASSWORD':  value => $smokey_signon_password;
+    'AUTH_PASSWORD':            value => $http_password;
+    'AUTH_USERNAME':            value => $http_username;
+    'BEARER_TOKEN':             value => $smokey_bearer_token;
+    'RATE_LIMIT_TOKEN':         value => $rate_limit_token;
+    'SIGNON_EMAIL':             value => $smokey_signon_email;
+    'SIGNON_PASSWORD':          value => $smokey_signon_password;
+    'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
   }
 
   if $::aws_migration {
