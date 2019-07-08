@@ -3,8 +3,7 @@ require_relative '../../../../spec_helper'
 describe "collectd::plugin::cdn_fastly", :type => :class do
   let(:pre_condition) { 'Collectd::Plugin <||>' }
   let(:params) {{
-    :username => 'Patrica',
-    :password => 'drowssap',
+    :api_key => 'Patrica',
     :services => {
       'test' => 1,
       'another_val' => 'some string',
@@ -26,8 +25,7 @@ describe "collectd::plugin::cdn_fastly", :type => :class do
   Import "collectd_cdn.fastly"
 
   <Module "collectd_cdn.fastly">
-    ApiUser "Patrica"
-    ApiPass "drowssap"
+    ApiKey "Patrica"
 
     <Service>
       Name "test"
