@@ -6,8 +6,7 @@
   Import "collectd_cdn.fastly"
 
   <Module "collectd_cdn.fastly">
-    ApiUser "<%= username -%>"
-    ApiPass "<%= password -%>"
+    ApiKey "<%= api_key -%>"
 
 <% @services.each_pair do |name, id| -%>
     <Service>
