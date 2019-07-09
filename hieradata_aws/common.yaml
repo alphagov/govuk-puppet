@@ -170,8 +170,6 @@ deployable_applications: &deployable_applications
   hmrc-manuals-api: {}
   imminence: {}
   info-frontend: {}
-  kibana:
-    repository: 'kibana-gds'
   licencefinder:
     repository: 'licence-finder'
   link-checker-api: {}
