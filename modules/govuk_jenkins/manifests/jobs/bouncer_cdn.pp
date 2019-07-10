@@ -4,23 +4,18 @@
 #
 # === Parameters
 #
-# [*cdn_password_encrypted*]
-#   Password for the `$cdn_username` account. This password
-#   must be encrypted by Jenkins before passing it in as a
-#   parameter. You can do this by taking the plaintext password,
+# [*api_key*]
+#   API key for our account. This must be encrypted by Jenkins before passing
+#   it in as a parameter. You can do this by taking the plaintext password,
 #   adding it as a password parameter in Jenkins and taking the
 #   result from the `config.xml` file.
 #
-# [*cdn_service_id*]
+# [*service_id*]
 #   CDN service ID.
 #
-# [*cdn_username*]
-#   Username for an account with our CDN provider.
-#
 class govuk_jenkins::jobs::bouncer_cdn (
-  $cdn_password_encrypted = undef,
-  $cdn_service_id = undef,
-  $cdn_username = undef,
+  $api_key = undef,
+  $service_id = undef,
   $app_domain = hiera('app_domain'),
 ) {
 
