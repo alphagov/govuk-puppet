@@ -35,7 +35,9 @@ node {
     }
 
     stage("Spec tests") {
-      govuk.runRakeTask('all_but_lint')
+      lock("govuk-puppet-$NODE_NAME-test") {
+        govuk.runRakeTask('all_but_lint')
+      }
     }
 
     stage("Lint check") {
