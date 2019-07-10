@@ -24,8 +24,7 @@
         numToKeep: 20
     builders:
         - shell: |
-            export FASTLY_USER=<%= @cdn_username %>
-            export FASTLY_SERVICE_ID=<%= @cdn_service_id %>
+            export FASTLY_SERVICE_ID=<%= @service_id %>
             FASTLY_DEBUG=TRUE ./deploy-bouncer.sh
     publishers:
         - trigger-parameterized-builds:
@@ -47,10 +46,10 @@
             colormap: xterm
     parameters:
         - password:
-            name: FASTLY_PASS
-            description: Password for an account with our CDN provider
-            <%- if @cdn_password_encrypted -%>
-            default: <%= @cdn_password_encrypted %>
+            name: FASTLY_API_KEY
+            description: API key for an account with our CDN provider
+            <%- if @api_key -%>
+            default: <%= @api_key %>
             <%- end -%>
         - string:
             name: APP_DOMAIN
