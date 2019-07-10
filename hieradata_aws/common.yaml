@@ -45,6 +45,8 @@ node_class: &node_class
       - support_api_csv_env_sync
       - transition
       - travel-advice-publisher
+    non_apps:
+      - govuk-content-schemas
   bouncer:
     apps:
       - bouncer
@@ -107,6 +109,8 @@ node_class: &node_class
   publishing_api:
     apps:
       - publishing-api
+    non_apps:
+      - govuk-content-schemas
   router_backend:
     apps:
       - router-api
@@ -129,7 +133,6 @@ govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
-
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we

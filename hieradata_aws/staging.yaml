@@ -30,6 +30,8 @@ node_class: &node_class
       - support
       - support-api
       - support_api_csv_env_sync
+    non_apps:
+      - govuk-content-schemas
   bouncer:
     apps:
       - bouncer

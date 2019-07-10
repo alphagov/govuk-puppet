@@ -11,18 +11,23 @@
 # [*user*]
 #   User that Jenkins runs as.
 #
-# [*apps_to_deploy*]
+# [*apps*]
 #   An array of apps to deploy for a given node.
+#
+# [*non_apps*]
+#   An array of non-apps to deploy for a given node.
 #
 define govuk_jenkins::node_app_deploy (
   $project_dir,
   $user = 'jenkins',
   $apps = [],
+  $non_apps = [],
   $environment = 'development',
   $auth_token = '',
 ) {
 
   validate_array($apps)
+  validate_array($non_apps)
 
   # FIXME: These are apps which are only created by Puppet rather than
   # deployed through Jenkins. They should be moved elsewhere in the future
@@ -34,7 +39,8 @@ define govuk_jenkins::node_app_deploy (
     'support_api_csv_env_sync',
   ]
 
-  unless empty($apps) {
+
+  unless empty($apps) and empty($non_apps) {
     File {
       owner => $user,
       group => $user,

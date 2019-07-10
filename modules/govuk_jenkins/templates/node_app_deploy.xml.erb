@@ -21,8 +21,7 @@
   <builders>
     <hudson.plugins.parameterizedtrigger.TriggerBuilder plugin="parameterized-trigger@2.35.1">
       <configs>
-        <%- @apps.each do |app| -%>
-        <%- next if @blacklist.include?(app) -%>
+        <%- (@apps + @non_apps - @blacklist).each do |app| -%>
         <hudson.plugins.parameterizedtrigger.BlockableBuildTriggerConfig>
           <configs>
             <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>

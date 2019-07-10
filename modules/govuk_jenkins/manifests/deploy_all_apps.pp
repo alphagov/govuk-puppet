@@ -14,8 +14,8 @@
 # [*user*]
 #   Which user Jenkins runs as.
 #
-# [*apps_on_nodes*]
-#   A hash containing the node classes, and which apps run on them.
+# [*deploys_on_nodes*]
+#   A hash containing the node classes, and which deploys to run on them.
 #
 # [*deploy_environment*]
 #   The environment to deploy to. This is important as we use it to find out
