@@ -18,3 +18,5 @@ logrotate::conf::days_to_keep: 7
 nginx::logging::days_to_keep: 7
 
 govuk_search::prune::es_repo: "govuk-training"
+
+govuk::apps::search_api::elasticsearch_b_uri: "null"

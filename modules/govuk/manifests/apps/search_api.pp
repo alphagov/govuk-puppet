@@ -190,9 +190,11 @@ class govuk::apps::search_api(
     value   => $elasticsearch_hosts,
   }
 
-  govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
-    varname => 'ELASTICSEARCH_B_URI',
-    value   => $elasticsearch_b_uri,
+  if $elasticsearch_b_uri != 'null' {
+    govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
+      varname => 'ELASTICSEARCH_B_URI',
+      value   => $elasticsearch_b_uri,
+    }
   }
 
   govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
