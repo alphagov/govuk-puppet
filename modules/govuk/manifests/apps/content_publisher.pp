@@ -49,6 +49,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*whitehall_bearer_token*]
+#   The bearer token to use when communicating with Whitehall.
+#   Default: undef
+#
 # [*aws_access_key_id*]
 #   An access key that can be use with Amazon Web Services
 #
@@ -110,6 +114,7 @@ class govuk::apps::content_publisher (
   $db_allow_prepared_statements = undef,
   $db_name = 'content_publisher_production',
   $publishing_api_bearer_token = undef,
+  $whitehall_bearer_token = undef,
   $jwt_auth_secret = undef,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
@@ -165,6 +170,9 @@ class govuk::apps::content_publisher (
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-WHITEHALL_BEARER_TOKEN":
+      varname => 'WHITEHALL_BEARER_TOKEN',
+      value   => $whitehall_bearer_token;
     "${title}-JWT_AUTH_SECRET":
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret;
