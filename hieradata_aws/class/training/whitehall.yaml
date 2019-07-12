@@ -1,0 +1,2 @@
+---
+govuk::apps::whitehall::procfile_worker_process_count: 1
