@@ -22,7 +22,6 @@ class govuk_rbenv::all (
   }
 
   $ruby_versions = [
-    '2.4.4',
     '2.4.5',
     '2.5.1',
     '2.5.3',
