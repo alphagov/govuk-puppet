@@ -32,7 +32,6 @@ class govuk_jenkins::jobs::bouncer_cdn (
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 104400,
     action_url          => $job_url,
   }
 }
