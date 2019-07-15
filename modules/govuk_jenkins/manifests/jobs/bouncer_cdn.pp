@@ -18,16 +18,18 @@ class govuk_jenkins::jobs::bouncer_cdn (
   $service_id = undef,
   $app_domain = hiera('app_domain'),
 ) {
-
-  $check_name = 'bouncer-cdn-configuration'
   $service_description = 'Configure Bouncer CDN service with transitioning sites'
-  $job_url = "https://deploy.${app_domain}/job/Bouncer_CDN/"
 
   file { '/etc/jenkins_jobs/jobs/bouncer_cdn.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/bouncer_cdn.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
+
+  $check_name = 'bouncer-cdn-configuration'
+
+  # FIXME: go back to using $app_domain once we have a single Icinga instance in AWS
+  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/Bouncer_CDN/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
