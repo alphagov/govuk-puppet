@@ -126,6 +126,17 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+# [*frontend_unicorn_worker_processes*]
+#   The number of unicorn work processes on the frontend when
+#   `configure_frontend` is enabled.
+#   Default: 8
+#
+# [*backend_unicorn_worker_processes*]
+#   The number of unicorn work processes on the backend when
+#   `configure_frontend` is disabled.
+#   Default: 4
+#
+
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -165,6 +176,8 @@ class govuk::apps::whitehall(
   $cpu_critical = 200,
   $rummager_bearer_token = undef,
   $override_search_location = undef,
+  $frontend_unicorn_worker_processes = 8,
+  $backend_unicorn_worker_processes = 4,
 ) {
 
   $app_name = 'whitehall'
@@ -174,9 +187,9 @@ class govuk::apps::whitehall(
 
   # The number of worker processes differs for frontend vs. backend configs.
   if $configure_frontend {
-    $unicorn_worker_processes = 8
+    $unicorn_worker_processes = $frontend_unicorn_worker_processes
   } else {
-    $unicorn_worker_processes = 4
+    $unicorn_worker_processes = $backend_unicorn_worker_processes
   }
 
   validate_bool($prevent_single_host)
