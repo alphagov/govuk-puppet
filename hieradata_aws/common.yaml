@@ -1135,6 +1135,8 @@ monitoring::checks::smokey::features:
     feature: mirror
   check_travel_advice:
     feature: travel_advice
+  check_web_application_firewall:
+    feature: waf
   check_whitehall:
     feature: whitehall
 
