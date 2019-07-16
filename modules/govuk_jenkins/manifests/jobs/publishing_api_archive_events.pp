@@ -21,7 +21,7 @@ class govuk_jenkins::jobs::publishing_api_archive_events(
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
     host_name           => $::fqdn,
-    freshness_threshold => 104400,
+    freshness_threshold => (1 + (7 * 24)) * 60 * 60, # one week plus 1 hour
     action_url          => $job_url,
   }
 }
