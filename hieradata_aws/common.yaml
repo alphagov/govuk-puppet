@@ -1143,6 +1143,8 @@ monitoring::checks::smokey::features:
     feature: licensing
   check_publishing:
     feature: mainstream_publishing_tools
+  check_manuals_frontend:
+    feature: manuals_frontend
   check_router:
     feature: router
   check_search:
