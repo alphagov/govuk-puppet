@@ -1105,8 +1105,6 @@ monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_envir
 monitoring::checks::smokey::features:
   check_assets:
     feature: assets
-  check_bouncer:
-    feature: bouncer
   check_cache:
     feature: caching
   check_calendars:
