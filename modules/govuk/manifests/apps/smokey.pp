@@ -53,7 +53,7 @@ class govuk::apps::smokey (
     'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
   }
 
-  if $::aws_migration {
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
     govuk::app::envvar {
       'PLEK_SERVICE_ASSET_MANAGER_URI': value => "https://asset-manager.${app_domain}";
     }
