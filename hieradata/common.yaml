@@ -1542,6 +1542,8 @@ monitoring::checks::smokey::features:
     feature: router
   check_search:
     feature: search
+  check_service_manual:
+    feature: service_manual
   check_signon:
     feature: signon
   check_smartanswers:
