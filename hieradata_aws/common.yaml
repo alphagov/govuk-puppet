@@ -1147,6 +1147,8 @@ monitoring::checks::smokey::features:
     feature: manuals_frontend
   check_public_api:
     feature: public_api
+  check_publishing_tools:
+    feature: publishing_tools
   check_router:
     feature: router
   check_search:
