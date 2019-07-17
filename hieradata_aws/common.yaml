@@ -1103,6 +1103,8 @@ monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{::aws_enviro
 monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_environment}.govuk.digital/cgi-bin/icinga/status.cgi"
 
 monitoring::checks::smokey::features:
+  check_ab_testing:
+    feature: ab_testing
   check_assets:
     feature: assets
   check_cache:
