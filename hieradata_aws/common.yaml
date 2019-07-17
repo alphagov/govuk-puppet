@@ -113,6 +113,9 @@ node_class: &node_class
   search:
     apps:
       - search-api
+  transition:
+    apps:
+      - transition
   whitehall_backend:
     apps:
       - whitehall
