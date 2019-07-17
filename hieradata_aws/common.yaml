@@ -1135,6 +1135,8 @@ monitoring::checks::smokey::features:
     feature: govuk_redirect
   check_govuk:
     feature: govuk
+  check_info_frontend:
+    feature: info_frontend
   check_licencefinder:
     feature: licencefinder
   check_licensing:
