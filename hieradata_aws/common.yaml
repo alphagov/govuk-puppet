@@ -1129,6 +1129,8 @@ monitoring::checks::smokey::features:
     feature: finder_frontend
   check_feedback:
     feature: feedback
+  check_foreign_travel_advice:
+    feature: foreign_travel_advice
   check_frontend:
     feature: frontend
   check_government_frontend:
