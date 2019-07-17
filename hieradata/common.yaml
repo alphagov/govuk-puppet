@@ -1524,6 +1524,8 @@ monitoring::checks::smokey::features:
     feature: calendars
   check_contacts:
     feature: contacts
+  check_csv_preview:
+    feature: csv_preview
   check_draft_environment:
     feature: draft_environment
   check_frontend:
