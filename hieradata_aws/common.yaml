@@ -1111,6 +1111,8 @@ monitoring::checks::smokey::features:
     feature: calculators
   check_calendars:
     feature: calendars
+  check_collections:
+    feature: collections
   check_contacts:
     feature: contacts
   check_content_data_admin:
