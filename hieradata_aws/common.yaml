@@ -1159,6 +1159,8 @@ monitoring::checks::smokey::features:
     feature: smartanswers
   check_static_mirrors:
     feature: mirror
+  check_transition:
+    feature: transition
   check_travel_advice:
     feature: travel_advice
   check_web_application_firewall:
