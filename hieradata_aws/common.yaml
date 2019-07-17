@@ -1123,6 +1123,8 @@ monitoring::checks::smokey::features:
     feature: draft_environment
   check_email_signup:
     feature: email_signup
+  check_finder_frontend:
+    feature: finder_frontend
   check_feedback:
     feature: feedback
   check_frontend:
