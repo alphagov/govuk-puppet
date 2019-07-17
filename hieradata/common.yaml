@@ -942,6 +942,7 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::integration_deploy::applications:
   <<: *deployable_applications
   # Include applications that have been migrated to AWS
+  cache-clearing-service: {}
   content-data-admin: {}
   content-data-api: {}
 
