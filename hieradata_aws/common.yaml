@@ -1109,6 +1109,8 @@ monitoring::checks::smokey::features:
     feature: assets
   check_cache:
     feature: caching
+  check_benchmarking:
+    feature: benchmarking
   check_calculators:
     feature: calculators
   check_calendars:
@@ -1149,6 +1151,8 @@ monitoring::checks::smokey::features:
     feature: mainstream_publishing_tools
   check_manuals_frontend:
     feature: manuals_frontend
+  check_performance_platform:
+    feature: performance_platform
   check_public_api:
     feature: public_api
   check_publishing_tools:
