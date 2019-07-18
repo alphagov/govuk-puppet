@@ -1109,6 +1109,8 @@ monitoring::checks::smokey::features:
     feature: assets
   check_cache:
     feature: caching
+  check_benchmarking:
+    feature: benchmarking
   check_calculators:
     feature: calculators
   check_calendars:
