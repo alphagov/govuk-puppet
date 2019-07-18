@@ -1103,14 +1103,18 @@ monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{::aws_enviro
 monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_environment}.govuk.digital/cgi-bin/icinga/status.cgi"
 
 monitoring::checks::smokey::features:
+  check_ab_testing:
+    feature: ab_testing
   check_assets:
     feature: assets
-  check_bouncer:
-    feature: bouncer
   check_cache:
     feature: caching
+  check_calculators:
+    feature: calculators
   check_calendars:
     feature: calendars
+  check_collections:
+    feature: collections
   check_contacts:
     feature: contacts
   check_content_data_admin:
@@ -1121,16 +1125,34 @@ monitoring::checks::smokey::features:
     feature: draft_environment
   check_email_signup:
     feature: email_signup
+  check_finder_frontend:
+    feature: finder_frontend
+  check_feedback:
+    feature: feedback
+  check_foreign_travel_advice:
+    feature: foreign_travel_advice
   check_frontend:
     feature: frontend
   check_government_frontend:
     feature: government_frontend
+  check_govuk_redirect:
+    feature: govuk_redirect
+  check_govuk:
+    feature: govuk
+  check_info_frontend:
+    feature: info_frontend
   check_licencefinder:
     feature: licencefinder
   check_licensing:
     feature: licensing
   check_publishing:
     feature: mainstream_publishing_tools
+  check_manuals_frontend:
+    feature: manuals_frontend
+  check_public_api:
+    feature: public_api
+  check_publishing_tools:
+    feature: publishing_tools
   check_router:
     feature: router
   check_search:
@@ -1141,6 +1163,8 @@ monitoring::checks::smokey::features:
     feature: smartanswers
   check_static_mirrors:
     feature: mirror
+  check_transition:
+    feature: transition
   check_travel_advice:
     feature: travel_advice
   check_web_application_firewall:
