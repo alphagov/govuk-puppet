@@ -1,0 +1,4 @@
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'postgresql'
