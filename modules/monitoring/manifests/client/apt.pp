@@ -13,7 +13,7 @@ class monitoring::client::apt {
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
     check_interval             => 60, # Save cycles, apt-get update only runs every 30m
     retry_interval             => 60,
-    notes_url                  => monitoring_docs_url(outstanding-security-updates),
+    notes_url                  => monitoring_docs_url(rebooting-machines),
   }
 
   @icinga::nrpe_config { 'check_reboot_required':
