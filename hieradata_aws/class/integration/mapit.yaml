@@ -1,3 +1,5 @@
+postgresql::globals::postgis_version: '2.2'
+
 lv:
   data:
     pv: '/dev/nvme1n1'
