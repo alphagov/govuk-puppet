@@ -9,10 +9,25 @@
 #
 class govuk_jenkins::jobs::transition_import_hits(
   $s3_bucket = '',
+  $app_domain = hiera('app_domain'),
 ) {
+  $service_description = 'Import daily hits into Transition'
+
   file { '/etc/jenkins_jobs/jobs/transition_import_hits.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/transition_import_hits.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
+  }
+
+  $check_name = 'transition-import-hits'
+
+  # FIXME: go back to using $app_domain once we have a single Icinga instance in AWS
+  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/transition_import_hits/"
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 25 * 60 * 60, # one day plus one hour
+    action_url          => $job_url,
   }
 }
