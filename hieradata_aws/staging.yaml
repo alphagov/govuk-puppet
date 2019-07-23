@@ -21,6 +21,7 @@ node_class: &node_class
       - canary-backend
       - content-data-admin
       - content-data-api
+      - govuk-content-schemas
       - transition
       - imminence
       - kibana

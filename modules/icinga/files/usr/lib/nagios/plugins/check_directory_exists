@@ -1,0 +1,20 @@
+#!/bin/bash
+#
+# Desc : Plugin to verify a directory dxists
+
+PROGNAME="$(basename "$0")"
+
+if [ "$1" = "" ]
+then
+  echo -e " Use : $PROGNAME <directory_name> -- Ex : $PROGNAME /etc \n "
+  exit 3
+fi
+
+if [ -d "$1" ]
+then
+  echo "OK - Directory $1 does exist"
+  exit 0
+else
+  echo "CRITICAL : Directory $1 does not exist"
+  exit 2
+fi

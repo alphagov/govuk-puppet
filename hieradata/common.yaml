@@ -24,6 +24,7 @@ node_class: &node_class
       - content-audit-tool
       - content-publisher
       - content-tagger
+      - govuk-content-schemas
       - hmrc-manuals-api
       - imminence
       - kibana
@@ -101,6 +102,7 @@ node_class: &node_class
       - govuk-crawler-worker
   publishing_api:
     apps:
+      - govuk-content-schemas
       - publishing-api
   router_backend:
     apps:
