@@ -1,0 +1,4 @@
+---
+govuk::apps::govuk_crawler_worker::enabled: true
+govuk_crawler::seed_enable: false
+govuk_crawler::sync_enable: false
