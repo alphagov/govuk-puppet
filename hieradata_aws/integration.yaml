@@ -355,8 +355,8 @@ monitoring::checks::smokey::features:
     feature: data_gov_uk
   check_draft_environment:
     feature: draft_environment
-  check_email_signup:
-    feature: email_signup
+  check_email_sign_up:
+    feature: email_sign_up
   check_feedback:
     feature: feedback
   check_finder_frontend:
@@ -365,24 +365,18 @@ monitoring::checks::smokey::features:
     feature: foreign_travel_advice
   check_frontend:
     feature: frontend
-  check_govuk:
-    feature: govuk
-  check_govuk_redirect:
-    feature: govuk_redirect
+  check_gov_uk:
+    feature: gov_uk
+  check_gov_uk_redirect:
+    feature: gov_uk_redirect
   check_government_frontend:
     feature: government_frontend
   check_info_frontend:
     feature: info_frontend
   check_licence_finder:
     feature: licence_finder
-  check_licensing:
-    feature: licensing
   check_manuals_frontend:
     feature: manuals_frontend
-  check_mirror:
-    feature: mirror
-  check_performance_platform:
-    feature: performance_platform
   check_public_api:
     feature: public_api
   check_publishing_tools:
