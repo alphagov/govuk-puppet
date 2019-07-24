@@ -1595,6 +1595,8 @@ monitoring::vpn_gateways::endpoints:
     address: "%{hiera('environment_ip_prefix')}.12.1"
   vpn_gateway_backend_dr:
     address: "%{hiera('environment_ip_prefix')}.11.1"
+  vpn_gateway_licensify:
+    address: "10.5.0.1"
   vpn_gateway_redirector_dr:
     address: "%{hiera('environment_ip_prefix')}.13.1"
   vpn_gateway_router_dr:
