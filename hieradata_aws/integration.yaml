@@ -365,10 +365,10 @@ monitoring::checks::smokey::features:
     feature: foreign_travel_advice
   check_frontend:
     feature: frontend
-  check_govuk:
-    feature: govuk
-  check_govuk_redirect:
-    feature: govuk_redirect
+  check_gov_uk:
+    feature: gov_uk
+  check_gov_uk_redirect:
+    feature: gov_uk_redirect
   check_government_frontend:
     feature: government_frontend
   check_info_frontend:
