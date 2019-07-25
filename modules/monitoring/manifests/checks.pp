@@ -40,6 +40,7 @@ class monitoring::checks (
   include monitoring::checks::cache
   include monitoring::checks::rds
   include monitoring::checks::lb
+  include monitoring::checks::cloudwatch
 
   $app_domain = hiera('app_domain')
 
@@ -137,6 +138,15 @@ class monitoring::checks (
     host_name           => $::fqdn,
     service_description => 'check www.gov.uk DNS record',
     require             => Icinga::Check_config['check_dig_cloudflare'],
+  }
+
+  icinga::check { 'check_ddos_detected':
+    check_command       => 'check_cloudwatch!DDoSProtection!eu-west-1!DDoSDetected!1!1' ,
+    host_name           => $::fqdn,
+    service_description => 'check AWS DDOS report',
+    notes_url           => monitoring_docs_url(ddosdetected),
+    check_interval      => 30,
+    retry_interval      => 30,
   }
 
   # In AWS this is liable to happen more often as machines come and go
