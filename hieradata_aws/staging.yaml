@@ -291,8 +291,6 @@ monitoring::checks::smokey::features:
     feature: frontend
   check_government_frontend:
     feature: government_frontend
-  check_mirror:
-    feature: mirror
   check_router:
     feature: router
   check_search:
