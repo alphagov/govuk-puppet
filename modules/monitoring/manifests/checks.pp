@@ -145,6 +145,8 @@ class monitoring::checks (
     host_name           => $::fqdn,
     service_description => 'check AWS DDOS report',
     notes_url           => monitoring_docs_url(ddosdetected),
+    check_interval      => 30,
+    retry_interval      => 30,
   }
 
   # In AWS this is liable to happen more often as machines come and go
