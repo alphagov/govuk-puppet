@@ -532,6 +532,52 @@ monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts-staging'
 monitoring::contacts::slack_username: 'Staging (Carrenza)'
 
+monitoring::checks::smokey::features:
+  check_ab_testing:
+    feature: ab_testing
+  check_assets:
+    feature: assets
+  check_benchmarking:
+    feature: benchmarking
+  check_collections:
+    feature: collections
+  check_content_data_admin:
+    feature: content_data_admin
+  check_csv_preview:
+    feature: csv_preview
+  check_draft_environment:
+    feature: draft_environment
+  check_email_sign_up:
+    feature: email_sign_up
+  check_feedback:
+    feature: feedback
+  check_finder_frontend:
+    feature: finder_frontend
+  check_foreign_travel_advice:
+    feature: foreign_travel_advice
+  check_gov_uk:
+    feature: gov_uk
+  check_gov_uk_redirect:
+    feature: gov_uk_redirect
+  check_licence_finder:
+    feature: licence_finder
+  check_licensing:
+    feature: licensing
+  check_manuals_frontend:
+    feature: manuals_frontend
+  check_performance_platform:
+    feature: performance_platform
+  check_public_api:
+    feature: public_api
+  check_publishing_tools:
+    feature: publishing_tools
+  check_service_manual:
+    feature: service_manual
+  check_signon:
+    feature: signon
+  check_transition:
+    feature: transition
+
 postfix::smarthost:
   - 'email-smtp.us-east-1.amazonaws.com:587'
   - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'

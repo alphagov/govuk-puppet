@@ -280,6 +280,29 @@ monitoring::checks::rds::servers:
 
 
 monitoring::checks::smokey::environment: 'staging_aws'
+monitoring::checks::smokey::features:
+  check_caching:
+    feature: caching
+  check_calendars:
+    feature: calendars
+  check_contacts:
+    feature: contacts
+  check_frontend:
+    feature: frontend
+  check_government_frontend:
+    feature: government_frontend
+  check_mirror:
+    feature: mirror
+  check_router:
+    feature: router
+  check_search:
+    feature: search
+  check_smartanswers:
+    feature: smartanswers
+  check_waf:
+    feature: waf
+  check_whitehall:
+    feature: whitehall
 
 monitoring::uptime_collector::environment: 'staging'
 
