@@ -4,6 +4,7 @@
 #
 class govuk_jenkins::jobs::update_cdn_dictionaries(
   $app_domain = hiera('app_domain'),
+  $allow_deploy_to_mirror = true,
 ) {
 
   $environment_variables = $govuk_jenkins::environment_variables

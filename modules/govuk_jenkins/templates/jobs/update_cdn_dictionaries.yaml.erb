@@ -57,7 +57,9 @@
             choices:
                 - PLEASE CHOOSE ONE
                 - www
+                <% if @allow_deploy_to_mirror %>
                 - mirror
+                <% end %>
         - string:
             name: FASTLY_API_KEY
             default: false
