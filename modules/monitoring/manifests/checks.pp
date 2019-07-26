@@ -19,6 +19,10 @@ class monitoring::checks (
   $http_password     = 'UNSET',
 ) {
 
+  package { 'jq':
+    ensure  => 'latest',
+  }
+
   exec { 'install_boto':
         path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
         command => '/opt/python2.7/bin/pip install boto',
@@ -147,6 +151,7 @@ class monitoring::checks (
     notes_url           => monitoring_docs_url(ddosdetected),
     check_interval      => 30,
     retry_interval      => 30,
+    require             => Package['jq'],
   }
 
   # In AWS this is liable to happen more often as machines come and go
