@@ -144,14 +144,16 @@ class monitoring::checks (
     require             => Icinga::Check_config['check_dig_cloudflare'],
   }
 
-  icinga::check { 'check_ddos_detected':
-    check_command       => 'check_cloudwatch!DDoSProtection!eu-west-1!DDoSDetected!1!1' ,
-    host_name           => $::fqdn,
-    service_description => 'check AWS DDOS report',
-    notes_url           => monitoring_docs_url(ddosdetected),
-    check_interval      => 30,
-    retry_interval      => 30,
-    require             => Package['jq'],
+  if $::aws_migration {
+    icinga::check { 'check_ddos_detected':
+      check_command       => 'check_cloudwatch!DDoSProtection!eu-west-1!DDoSDetected!1!1' ,
+      host_name           => $::fqdn,
+      service_description => 'check AWS DDOS report',
+      notes_url           => monitoring_docs_url(ddosdetected),
+      check_interval      => 30,
+      retry_interval      => 30,
+      require             => Package['jq'],
+    }
   }
 
   # In AWS this is liable to happen more often as machines come and go
