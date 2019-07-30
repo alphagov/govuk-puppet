@@ -38,7 +38,7 @@ class icinga::package {
   Package['nagios-nrpe-plugin'] -> Class['nagios::remove']
 
   package { 'check_graphite':
-    ensure   => '0.2.2',
+    ensure   => '0.2.5',
     provider => 'system_gem',
   }
 
