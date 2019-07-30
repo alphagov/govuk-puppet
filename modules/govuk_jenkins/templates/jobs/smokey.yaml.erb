@@ -2,10 +2,9 @@
 - scm:
     name: smokey_Smokey
     scm:
-        - git:
-            url: git@github.com:alphagov/smokey.git
-            branches:
-              - master
+      - git:
+          url: git@github.com:alphagov/smokey.git
+          branches: [master]
 
 - job:
     name: Smokey
@@ -39,14 +38,13 @@
           include-custom-message: true
           custom-message: ':govuk-<%= @environment %>:'
     <% end %>
-
     builders:
-        - shell: |
-            set +x
-            export TARGET_PLATFORM=<%= @environment %>
-            export MYTASK=<%= @smokey_task %>
-            set -x
-            ./jenkins.sh
+      - shell: |
+          set +x
+          export TARGET_PLATFORM=<%= @environment %>
+          export MYTASK=<%= @smokey_task %>
+          set -x
+          ./jenkins.sh
     wrappers:
-        - ansicolor:
-            colormap: xterm
+      - ansicolor:
+          colormap: xterm
