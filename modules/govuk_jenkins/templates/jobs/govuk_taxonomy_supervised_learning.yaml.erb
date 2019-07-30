@@ -17,10 +17,6 @@
       numToKeep: 20
     scm:
       - govuk-taxonomy-supervised-learning
-    triggers:
-        - timed: |
-            TZ=Europe/London
-            H 2 * * 1-5
     properties:
         - build-discarder:
             days-to-keep: 30
