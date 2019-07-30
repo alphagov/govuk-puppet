@@ -17,27 +17,38 @@
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
-    <% if @enable_slack_notifications %>
     publishers:
-      - slack:
-          team-domain: <%= @slack_team_domain %>
-          auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
-          auth-token-id: slack-token
-          auth-token-credential-id: slack-token
-          build-server-url: <%= @slack_build_server_url %>
-          notify-start: false
-          notify-success: false
-          notify-aborted: true
-          notify-not-built: true
-          notify-unstable: false
-          notify-failure: true
-          notify-back-to-normal: true
-          notify-repeated-failure: true
-          include-test-summary: false
-          room: <%= @slack_room %>
-          include-custom-message: true
-          custom-message: ':govuk-<%= @environment %>:'
-    <% end %>
+      <% if @enable_slack_notifications %>
+        - slack:
+            team-domain: <%= @slack_team_domain %>
+            auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
+            auth-token-id: slack-token
+            auth-token-credential-id: slack-token
+            build-server-url: <%= @slack_build_server_url %>
+            notify-start: false
+            notify-success: false
+            notify-aborted: true
+            notify-not-built: true
+            notify-unstable: false
+            notify-failure: true
+            notify-back-to-normal: true
+            notify-repeated-failure: true
+            include-test-summary: false
+            room: <%= @slack_room %>
+            include-custom-message: true
+            custom-message: ':govuk-<%= @environment %>:'
+      <% end %>
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: SUCCESS
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: FAILED
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
     builders:
       - shell: |
           set +x
