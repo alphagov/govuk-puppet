@@ -173,6 +173,7 @@ class router::nginx (
 
   @@icinga::check::graphite { "check_nginx_429_www_on_${::hostname}":
     target              => $graphite_429_target,
+    args                => '--ignore-missing',
     warning             => 3,
     critical            => 5,
     from                => '5minutes',
