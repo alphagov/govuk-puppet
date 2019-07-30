@@ -9,26 +9,6 @@
 class monitoring::checks::sidekiq (
   $enable_support_check = true,
 ) {
-
-  if $::aws_migration {
-    icinga::check::graphite { 'check_search_api_queue_latency':
-      target              => 'transformNull(keepLastValue(maxSeries(stats.gauges.govuk.app.search-api.*.workers.queues.default.latency)), 0)',
-      warning             => 2.5,
-      critical            => 15,
-      use                 => 'govuk_normal_priority',
-      # Use data from the last 24 hours, to avoid not getting any
-      # datapoints back.
-      from                => '24hours',
-      # Take an average over the most recent 36 datapoints, which at 5
-      # seconds per datapoint is the last 3 minutes
-      args                => '--dropfirst -36',
-      host_name           => $::fqdn,
-      desc                => 'Search API Sidekiq queue latency',
-      notification_period => 'inoffice',
-      notes_url           => monitoring_docs_url(search-api-queue-latency),
-    }
-  }
-
   icinga::check::graphite { 'check_signon_queue_sizes':
     # Check signon background worker average queue sizes
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued), 0)',
