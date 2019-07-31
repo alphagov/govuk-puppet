@@ -47,8 +47,8 @@ class govuk_jenkins::job_builder (
 #  }
 
   package { 'jenkins-job-builder':
-    ensure   => '2.0.3',
-    provider => pip,
+    ensure   => '3.0.1',
+    provider => pip3,
   }
 
   file { '/etc/jenkins_jobs':
