@@ -198,7 +198,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration-database-backups"
     path: "mysql-backend"
   "push_performance_schema_integration_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "30"
     action: "push"
