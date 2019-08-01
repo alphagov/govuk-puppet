@@ -303,7 +303,9 @@ function restore_postgresql {
 }
 
 function  dump_mysql {
-  if [ ! -z "${AWS_REGION:-}" ] ; then
+  # If the AWS_ACCESS_KEY_ID is unset, then we're running in
+  # AWS. Otherwise, we're running in Carrenza.
+  if [ -z "${AWS_ACCESS_KEY_ID:-}" ] ; then
     DB_USER='aws_db_admin'
   else
     DB_USER='root'
