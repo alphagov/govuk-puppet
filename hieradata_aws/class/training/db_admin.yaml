@@ -186,17 +186,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/contacts_production"
     url: "govuk-integration-database-backups"
     path: "mysql-backend"
-  "pull_performance_schema_training_daily":
-    ensure: "absent"
-    hour: "1"
-    minute: "30"
-    action: "pull"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "performance_schema"
-    temppath: "/tmp/performance_schema"
-    url: "govuk-integration-database-backups"
-    path: "mysql-backend"
   "pull_release_training_daily":
     ensure: "present"
     hour: "2"
