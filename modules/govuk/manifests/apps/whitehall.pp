@@ -126,6 +126,10 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+#[*monitoring_ip]
+#   Monitoring machine IP to allow access to healthcheck endpoint
+#   Default: 10.3.0.20
+#
 class govuk::apps::whitehall(
   $admin_db_name = undef,
   $admin_db_hostname = undef,
@@ -165,6 +169,7 @@ class govuk::apps::whitehall(
   $cpu_critical = 200,
   $rummager_bearer_token = undef,
   $override_search_location = undef,
+  $monitoring_ip = '10.3.0.20'
 ) {
 
   $app_name = 'whitehall'
@@ -252,8 +257,10 @@ class govuk::apps::whitehall(
 
     if $::aws_migration {
       $whitehall_admin_vhost_ = 'whitehall-admin'
+      $hidden_paths = [$health_check_path]
     } else {
       $whitehall_admin_vhost_ = "whitehall-admin.${app_domain}"
+      $hidden_paths = []
     }
 
     govuk::app::nginx_vhost { 'whitehall-admin':
@@ -265,37 +272,45 @@ class govuk::apps::whitehall(
       deny_crawlers         => true,
       asset_pipeline        => true,
       asset_pipeline_prefix => 'government/assets',
-      hidden_paths          => [$health_check_path],
-      nginx_extra_config    => '
+      hidden_paths          => $hidden_paths,
+      nginx_extra_config    => "
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
 
       client_max_body_size 500m;
 
-      # Don\'t ask for basic auth on API pages so internal apps can hit them
+      # Don't ask for basic auth on API pages so internal apps can hit them
       # more easily.
       location /api {
         auth_basic off;
-        try_files $uri @app;
+        try_files \$uri @app;
       }
       location /government/admin/api {
         auth_basic off;
-        try_files $uri @app;
+        try_files \$uri @app;
       }
 
-      # Don\'t ask for basic auth on SSO API pages so we can sync
+      # Don't ask for basic auth on SSO API pages so we can sync
       # permissions.
       location /auth/gds {
         auth_basic off;
-        try_files $uri @app;
+        try_files \$uri @app;
       }
 
-      # Don\'t block access to the overdue healthcheck page.  Icinga needs to be
-      # able to access this from the monitoring machine.
-      # This is necessary because "/healthcheck*" is blocked by the hidden_paths option above.
-      location /healthcheck/overdue {
-        try_files $uri @app;
+      # Restrict access to the healthcheck page. Grafana needs to be
+      # able to access this from the monitoring machine. All other requests are blocked.
+      # This is only useful for Carrenza, as AWS will not provide static IPs.
+      location ${health_check_path} {
+        allow ${monitoring_ip};
+        deny all;
       }
-    ',
+
+      # Don't block access to the overdue healthcheck page.  Icinga needs to be
+      # able to access this from the monitoring machine.
+      # This is necessary because '/healthcheck*' is blocked by the rule above.
+      location /healthcheck/overdue {
+        try_files \$uri @app;
+      }
+    ",
     }
 
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':

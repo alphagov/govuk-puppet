@@ -98,6 +98,8 @@ hosts::production::backend::hosts:
   whitehall-backend-1:
     ip: '10.3.0.25'
 hosts::production::management::hosts:
+  monitoring-1:
+    ip: '10.3.0.20'
   apt-1:
     ip: '10.1.0.75'
   cache-1:
