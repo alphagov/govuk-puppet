@@ -54,6 +54,14 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*google_client_email*]
+#   Google authentication email
+#   Default: undef
+#
+# [*google_private_key*]
+#   Google authentication private key
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -85,6 +93,11 @@ class govuk::apps::search_api(
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
+  $google_client_email = undef,
+  $google_private_key = undef,
+  $google_export_account_id = undef,
+  $google_export_web_property_id = undef,
+  $google_export_custom_data_source_id = undef,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_password = 'search-api',
   $redis_host = undef,
@@ -183,6 +196,24 @@ class govuk::apps::search_api(
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
       varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
       value   => $email_alert_api_bearer_token;
+  }
+
+  govuk::app::envvar {
+    "${title}-GOOGLE_CLIENT_EMAIL":
+      varname => 'GOOGLE_CLIENT_EMAIL',
+      value   => $google_client_email;
+    "${title}-GOOGLE_PRIVATE_KEY":
+      varname => 'GOOGLE_PRIVATE_KEY',
+      value   => $google_private_key;
+    "${title}-GOOGLE_EXPORT_ACCOUNT_ID":
+      varname => 'GOOGLE_EXPORT_ACCOUNT_ID',
+      value   => $google_export_account_id;
+    "${title}-GOOGLE_EXPORT_CUSTOM_DATA_SOURCE_ID":
+      varname => 'GOOGLE_EXPORT_CUSTOM_DATA_SOURCE_ID',
+      value   => $google_export_custom_data_source_id;
+    "${title}-GOOGLE_EXPORT_WEB_PROPERTY_ID":
+      varname => 'GOOGLE_EXPORT_WEB_PROPERTY_ID',
+      value   => $google_export_web_property_id;
   }
 
   govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
