@@ -7,7 +7,7 @@ class chromedriver {
 
   archive { '/tmp/chromedriver_linux64.zip':
     ensure       => 'present',
-    source       => 'https://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip',
+    source       => 'https://chromedriver.storage.googleapis.com/76.0.3809.68/chromedriver_linux64.zip',
     extract      => true,
     extract_path => '/usr/local/bin',
     cleanup      => true,
