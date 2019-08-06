@@ -4,6 +4,7 @@
 #
 class govuk::node::s_licensing_mongo inherits govuk::node::s_base {
   include mongodb::server
+  include govuk_env_sync
 
   collectd::plugin::tcpconn { 'mongo':
     incoming => 27017,
