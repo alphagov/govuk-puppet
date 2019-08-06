@@ -3,7 +3,7 @@ govuk_env_sync::tasks:
     ensure: present
     hour: '5'
     minute: '0'
-    action: push
+    action: pull
     dbms: mongo
     storagebackend: s3
     database: licensify
