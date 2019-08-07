@@ -18,23 +18,3 @@ govuk_env_sync::tasks:
   push_licensify_refdata:
     <<: *push_licensify
     database: licensify-refdata
-
-  pull_licensify: &pull_licensify
-    ensure: present
-    hour: '5'
-    minute: '0'
-    action: pull
-    dbms: mongo
-    storagebackend: s3
-    database: licensify
-    temppath: /var/lib/mongodb/.dumps
-    url: govuk-staging-database-backups
-    path: mongo-licensing
-
-  pull_licensify_audit:
-    <<: *pull_licensify
-    database: licensify-audit
-
-  pull_licensify_refdata:
-    <<: *pull_licensify
-    database: licensify-refdata
