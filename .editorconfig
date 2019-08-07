@@ -1,0 +1,16 @@
+# end the whitespace wars: https://editorconfig.org/
+
+[*]
+charset = utf-8
+end_of_line = lf
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+[*.pp]
+indent_style = space
+indent_size = 2
+
+[*.{rb,erb}]
+indent_style = space
+indent_size = 2
+
