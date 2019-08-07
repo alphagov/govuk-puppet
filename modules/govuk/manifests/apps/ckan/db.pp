@@ -37,4 +37,15 @@ class govuk::apps::ckan::db (
     rds                     => $rds,
     extensions              => ['postgis'],
   }
+
+  govuk_postgresql::db { 'ckan_pycsw_production':
+    user                    => 'ckan',
+    password                => $password,
+    allow_auth_from_backend => true,
+    backend_ip_range        => $backend_ip_range,
+    allow_auth_from_lb      => $allow_auth_from_lb,
+    lb_ip_range             => $lb_ip_range,
+    rds                     => $rds,
+    extensions              => ['postgis'],
+  }
 }
