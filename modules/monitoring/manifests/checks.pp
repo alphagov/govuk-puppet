@@ -19,9 +19,7 @@ class monitoring::checks (
   $http_password     = 'UNSET',
 ) {
 
-  package { 'jq':
-    ensure  => 'latest',
-  }
+  ensure_packages(['jq'])
 
   exec { 'install_boto':
         path    => ['/opt/python2.7/bin', '/usr/bin', '/usr/sbin'],
