@@ -46,6 +46,9 @@ class govuk_unattended_reboot (
   $config_directory = '/etc/unattended-reboot'
   $check_scripts_directory = "${config_directory}/check"
 
+  $app_domain_internal = hiera('app_domain_internal','')
+  $fqdn = $::fqdn
+
   $node_class_search_phrase = regsubst($::govuk_node_class, '_', '-')
   $icinga_url = "https://${alert_hostname}/cgi-bin/icinga/status.cgi?search_string=%5E${node_class_search_phrase}-[0-9]&allunhandledproblems&jsonoutput"
 
@@ -93,6 +96,15 @@ class govuk_unattended_reboot (
     owner   => 'root',
     group   => 'root',
     content => template('govuk_unattended_reboot/03_no_reboot.erb'),
+  }
+
+  file { '/usr/local/bin/with_reboot_lock':
+    ensure  => $file_ensure,
+    path    => '/usr/local/bin/with_reboot_lock',
+    mode    => '0755',
+    owner   => 'root',
+    group   => 'root',
+    content => template('govuk_unattended_reboot/usr/local/bin/with_reboot_lock.erb'),
   }
 
   file { '/usr/local/bin/check_icinga':
