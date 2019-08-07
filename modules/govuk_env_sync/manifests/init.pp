@@ -10,9 +10,7 @@ class govuk_env_sync(
 
   include govuk_env_sync::lock_file
 
-  package { 'jq':
-    ensure => installed,
-  }
+  ensure_packages(['jq'])
 
   file { $conf_dir:
     ensure  => 'directory',
