@@ -299,6 +299,7 @@ class govuk::apps::whitehall(
       # Restrict access to the healthcheck page. Grafana needs to be
       # able to access this from the monitoring machine. All other requests are blocked.
       # This is only useful for Carrenza, as AWS will not provide static IPs.
+      # Updated version
       location ${health_check_path} {
         allow ${monitoring_ip};
         deny all;
