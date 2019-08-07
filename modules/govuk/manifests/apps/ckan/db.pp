@@ -17,6 +17,7 @@
 #   Network range for the load balancer.
 #
 class govuk::apps::ckan::db (
+  $user = 'ckan',
   $password,
   $backend_ip_range = '10.3.0.0/16',
   $allow_auth_from_lb = false,
@@ -28,7 +29,7 @@ class govuk::apps::ckan::db (
   }
 
   govuk_postgresql::db { 'ckan_production':
-    user                    => 'ckan',
+    user                    => $user,
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
@@ -39,7 +40,7 @@ class govuk::apps::ckan::db (
   }
 
   govuk_postgresql::db { 'ckan_pycsw_production':
-    user                    => 'ckan',
+    user                    => $user,
     password                => $password,
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
