@@ -102,11 +102,13 @@ define govuk_postgresql::db (
     }
 
     if $rds {
-      @govuk_postgresql::rds_sql { $user:
-        rds_root_user => $rds_root_user,
-        tag           => 'govuk_postgresql::server::not_slave',
-        before        => Postgresql::Server::Db[$db_name],
-        require       => Postgresql::Server::Role[$user],
+      if ! defined(Govuk_postgresql::Rds_sql[$user]) {
+        @govuk_postgresql::rds_sql { $user:
+          rds_root_user => $rds_root_user,
+          tag           => 'govuk_postgresql::server::not_slave',
+          before        => Postgresql::Server::Db[$db_name],
+          require       => Postgresql::Server::Role[$user],
+        }
       }
     }
 
