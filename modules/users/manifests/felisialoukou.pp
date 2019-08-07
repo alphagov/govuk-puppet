@@ -3,7 +3,7 @@ class users::felisialoukou { govuk_user { 'felisialoukou':
     fullname => 'Felisia Loukou',
     email    => 'felisia.loukou@digital.cabinet-office.gov.uk',
     ssh_key  => [
-        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDlxJNWiWOVbtSwe5DNNzN8csunIvCX6XUIAT141EjGZpOaEjK3yFtvv96OukdWTXPQXnWBDOIWg+fNJWc4LsfqnCV5CrHftykTqHeKakEcVX2aW5UrWvlOWHoTdkbFv+L67MaT2xIT/KWLYPliyZJOmwwF+W1kiFq3xVtI5qgMha7s2I3thuBo8lgLXsmxdVcYoa32MBKabNyknvZaF/l2l/D/wssbC/3N5zeLupJJXDRA4BWw6nqAW97AOceVH04twCG6+B5qL/M56D/YW8kMIx/XSSIAde4+yXCX0gLr5p4L6pNvD2vn/nJSY/rMDtO5rPX+XQjmM7eti50FvkflvGzuaUoSXb1sP+rwOtGMVQBn4pnB1whd8jZSQC+SRsXAgj7TgQfKLux/T00cq+pC09HrBPLag1TUcueJE65FM6mi2uyi+sYYOnVfr4ZhgiEBY+uFoOWl/TwnKuIAXXXD4aL9BXpOTdy3XxxEwHeobfv2AOa8QH8rGQXuXExTjaMXQEbQ6rnhUEmccu1fSTZt4rEUlv2a61Bp2XKcjvKNodNHqQwFXWbX+qmKpGTurPQZG9wqJzejUer1YYSuraxezQtSpM0ZREFhIQMSA5F137bCPVwLanJ3A/XN+1aEwjynrDALOmYOyJw/eblYCUX84At55tbDt+XdmIXiVeg0eQ== felisia.loukou@digital.cabinet-office.gov.uk',
+        'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQD0RZYA86wECi/ytHcoyXmphk8TK7YvEC61x2czb67NBgfYbE3gtOfKfuEnK5khEBPga2ch93B5+F5Kv17RwEz9s/CUyWDYixkhzrUvwEGRIu8rqpwohF0TueK8OwYfDb4JH9vigcTWBnZqxZJ98KSSClfbOzlzx2mRtPMtVAD2TvVZH6c4zUcpxicfOzbnaTCQK05RF/EEe3AXzJ42yeli6+kUkqUlPeZJS6jA2BYeWmkrkDT3e+xiH3uc2XFC5lq45F++IDiVFeL8m1O0KshUm286ipxX+q+MDk4lRJ8h3yJ2n37LmJmi1sJr9rBkR64stD8mcBhMHAxcjxkDbejJxCYMJTwGTBotW9XQU/FMC+eV+XsExQgV2nf7SBsLow8zcrLGn25BkP2vqaEt2xSyDi4e5qtZyfyer5P61liSFmHae/t4YzxZ2Vyz1MYMyjmrs/xaZiO/rqpW1ve5hAMR/dgSaP3hnY7x/LHCVfbKbLTrniHICStk0VYeTkAi7X9BdVQSxP8v0gTd20NjQIwKuUnN9HWE+3mBXaVydNs+i+PW+3/bzwswOAy5Shgqg4OzQH7wJczk7efncxrUGQGRxY1DswUheGYRb35TLqC6yzrTTZwJjk+OtnWI3dIA3OVVDTxxpgdZX+OXN9isNNjyMJmRSnnvGnBAHPRpdho4OQ== felisia.loukou@digital.cabinet-office.gov.uk',
     ],
   }
 }
