@@ -182,8 +182,8 @@ function is_writable_mysql {
 }
 
 function dump_mongo {
-  IFS=',' read -r -a collections <<< \
-          "$(mongo --quiet --eval 'rs.slaveOk(); db.getCollectionNames();' "localhost/$database")"
+  readarray -t collections < \
+    <(mongo --quiet --eval 'rs.slaveOk(); printjson(db.getCollectionNames());' "localhost/$database" | jq -r '.[]')
 
   for collection in "${collections[@]}"
   do
