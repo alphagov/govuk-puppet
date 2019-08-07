@@ -158,9 +158,13 @@ define govuk_postgresql::db (
     }
   } else {
     if (!empty($extensions)) {
-      postgresql::server::extension { $extensions:
-        ensure   => present,
-        database => $db_name,
+      # this only checks the first extension which is sufficient for 
+      # ckan_pycsw_production as its only got 1 extension
+      if ! defined(Postgresql::Server::Extension[$extensions[0]]) {
+        postgresql::server::extension { $extensions:
+          ensure   => present,
+          database => $db_name,
+        }
       }
     }
   }
