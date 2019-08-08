@@ -331,7 +331,7 @@ function pull_s3 {
 
 function get_timestamp_s3 {
   timestamp="$(aws s3 ls "s3://${url}/${path}/" \
-  | grep "\\-${database}" | tail -1 \
+  | grep "\\-${database}\." | tail -1 \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
