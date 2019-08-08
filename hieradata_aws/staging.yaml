@@ -1111,3 +1111,5 @@ hosts::backend_migration::hosts:
     host_aliases:
       - ckan-1.backend
       - ckan-1
+
+unattended_reboot::cron_hour: "*"

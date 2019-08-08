@@ -82,7 +82,7 @@ define govuk_env_sync::task(
 
   $synccommand = shellquote([
     '/usr/bin/ionice','-c','2','-n','6',
-    '/usr/bin/setlock','/etc/unattended-reboot/no-reboot/govuk_env_sync',
+    '/usr/local/bin/with_reboot_lock',
     '/usr/bin/envdir',"${govuk_env_sync::conf_dir}/env.d",
     '/usr/local/bin/govuk_env_sync.sh','-f',"${govuk_env_sync::conf_dir}/${title}.cfg",
     ])

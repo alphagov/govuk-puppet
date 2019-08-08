@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+
+set -eu
+
+lock_file="<%= @lock_dir %>/reboot_lock"
+
+function lock() {
+  while [ -f $lock_file ]; do
+    sleep 30
+    echo "waiting for $lock_file to be released..."
+  done
+  touch $lock_file
+}
+
+function unlock() {
+  rm -f $lock_file
+}
+
+lock
+trap "unlock" EXIT
+
+"${@}"
