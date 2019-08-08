@@ -198,7 +198,6 @@ class govuk::apps::whitehall(
     sentry_dsn               => $sentry_dsn,
     log_format_is_json       => true,
     health_check_path        => $health_check_path,
-    expose_health_check      => false,
     json_health_check        => true,
     depends_on_nfs           => true,
     enable_nginx_vhost       => false,
@@ -238,6 +237,7 @@ class govuk::apps::whitehall(
       protected             => $vhost_protected,
       app_port              => $port,
       asset_pipeline        => true,
+      hidden_paths          => [$health_check_path],
       asset_pipeline_prefix => 'government/assets',
     }
 
@@ -301,7 +301,7 @@ class govuk::apps::whitehall(
       # This is only useful for Carrenza, as AWS will not provide static IPs.
       # Updated version
       location ${health_check_path} {
-        allow ${monitoring_ip};
+        allow 10.2.0.20;
         deny all;
       }
 
