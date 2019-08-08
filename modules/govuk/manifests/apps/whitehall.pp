@@ -303,6 +303,7 @@ class govuk::apps::whitehall(
       location ${health_check_path} {
         allow 10.2.0.20;
         deny all;
+        try_files \$uri @app;
       }
 
       # Don't block access to the overdue healthcheck page.  Icinga needs to be
