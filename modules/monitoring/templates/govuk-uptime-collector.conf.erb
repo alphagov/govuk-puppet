@@ -6,4 +6,4 @@ respawn
 env RBENV_VERSION=2.6
 env PATH=/usr/lib/rbenv/shims:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
 
-exec govuk_uptime_collector <%= @environment %> <%= @aws %> content-store hmrc-manuals-api link-checker-api manuals-publisher publishing-api specialist-publisher travel-advice-publisher
+exec govuk_uptime_collector <%= @environment %> <%= @aws %> content-store hmrc-manuals-api link-checker-api manuals-publisher publishing-api specialist-publisher travel-advice-publisher whitehall-admin:healthcheck/overdue
