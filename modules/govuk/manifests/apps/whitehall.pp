@@ -302,6 +302,7 @@ class govuk::apps::whitehall(
       # Updated version
       location ${health_check_path} {
         allow 10.2.0.20;
+        allow 172.17.0.1;
         deny all;
         try_files \$uri @app;
       }
