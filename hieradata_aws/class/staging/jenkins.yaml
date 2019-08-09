@@ -14,6 +14,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::data_sync
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_emergency_banner
+  - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::mongo_data_sync
   - govuk_jenkins::jobs::passive_checks
