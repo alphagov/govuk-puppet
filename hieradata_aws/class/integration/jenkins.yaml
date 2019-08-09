@@ -17,6 +17,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_dns
   - govuk_jenkins::jobs::deploy_emergency_banner
+  - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
