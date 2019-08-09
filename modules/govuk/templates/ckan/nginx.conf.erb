@@ -35,3 +35,23 @@ location /api/action/organization_list {
 location /api/action/package_list {
   try_files $uri @app;
 }
+
+location /csw {
+  <%- if @protected -%>
+  deny all;
+  auth_basic            "Enter the GOV.UK username/password (not your personal username/password)";
+  auth_basic_user_file  /etc/govuk.htpasswd;
+  satisfy any;
+  <%- end -%>
+
+  proxy_pass            http://localhost:<%= @pycsw_port %>;
+  proxy_set_header      Host             $host;
+  proxy_set_header      X-Real-IP        $remote_addr;
+  proxy_set_header      X-Forwarded-For  $proxy_add_x_forwarded_for;
+  proxy_set_header      X-Client-Verify  SUCCESS;
+  proxy_set_header      X-Client-DN      $ssl_client_s_dn;
+  proxy_set_header      X-SSL-Subject    $ssl_client_s_dn;
+  proxy_set_header      X-SSL-Issuer     $ssl_client_i_dn;
+  proxy_read_timeout    1800;
+  proxy_connect_timeout 1800;
+}
