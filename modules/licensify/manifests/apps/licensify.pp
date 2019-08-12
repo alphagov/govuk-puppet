@@ -37,8 +37,16 @@ class licensify::apps::licensify (
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
   $counter_basename = "${::fqdn_metrics}.nginx_logs.${vhost_escaped}"
 
+  if $::aws_migration {
+    # On AWS, we terminate TLS at the load balancer instead of at the app's
+    # nginx. licensify-upload-vhost-aws.conf avoids referring to nonexistent
+    # certificate files when running on AWS.
+    $licensify_upload_vhost_conf = 'licensify/licensify-upload-vhost-aws.conf'
+  } else {
+    $licensify_upload_vhost_conf = 'licensify/licensify-upload-vhost.conf'
+  }
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_publishing' }
-  nginx::config::site { $vhost_name: content => template('licensify/licensify-upload-vhost.conf') }
+  nginx::config::site { $vhost_name: content => template($licensify_upload_vhost_conf) }
   nginx::log {
     "${vhost_name}-json.event.access.log":
       json          => true,
