@@ -23,7 +23,7 @@
             cd "$WORKSPACE"
             curl -X POST -H 'Content-type: application/json' --data "{'text': ':govuk-${ORGANISATION}::mega: Build \`${BUILD_DISPLAY_NAME}\` of <https://github.com/alphagov/licensify|licensify> is being deployed to *${ORGANISATION}*', 'channel': '#govuk-deploy', 'link_names': 1, 'username': 'Badger', 'icon_emoji': ':badger:'}" "${BADGER_SLACK_WEBHOOK_URL}"
             echo "Grabbing Build ${artefact_number} Artifacts from Jenkins"
-            CI_BASE_URL="https://licensify:<%= @ci_new_jenkins_api_key -%>@ci.dev.publishing.service.gov.uk/job/${CI_JOB_NAME}/${artefact_number}/artifact"
+            CI_BASE_URL="https://ci_alphagov:<%= @ci_deploy_jenkins_api_key -%>@ci.integration.publishing.service.gov.uk/job/licensify/job/${CI_JOB_NAME}/${artefact_number}/artifact"
             curl -O -k "${CI_BASE_URL}/backend/${ARTIFACT_PATH}/backend-${app_version}.zip"
             curl -O -k "${CI_BASE_URL}/feed/${ARTIFACT_PATH}/feed-${app_version}.zip"
             curl -O -k "${CI_BASE_URL}/frontend/${ARTIFACT_PATH}/frontend-${app_version}.zip"
@@ -40,12 +40,10 @@
         - build-name:
             name: '${BUILD_NUMBER}/${ENV,var="CI_JOB_NAME"}/${ENV,var="artefact_number"}'
     parameters:
-        - choice:
+        - string:
             name: CI_JOB_NAME
-            choices:
-                - 'Licensify'
-                - 'Licensify_Branches'
-            description: Which job on CI Jenkins to fetch the artifact from
+            default: 'master'
+            description: Which job (i.e. branch name) on CI Jenkins to fetch the artifact from
         - string:
             name: artefact_number
             description: This is the build number from CI Jenkins

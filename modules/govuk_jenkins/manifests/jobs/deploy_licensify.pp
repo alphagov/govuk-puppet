@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*ci_new_jenkins_api_key*]
+# [*ci_deploy_jenkins_api_key*]
 #   API key to download build artefacts from CI servers
 #
 class govuk_jenkins::jobs::deploy_licensify (
-  $ci_new_jenkins_api_key = undef,
+  $ci_deploy_jenkins_api_key = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_licensify.yaml':
     ensure  => present,
