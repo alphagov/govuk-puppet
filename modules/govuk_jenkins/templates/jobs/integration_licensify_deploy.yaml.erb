@@ -10,10 +10,18 @@
           artifact-num-to-keep: 5
     builders:
       - shell: |
-          JSON="{\"parameter\": [{\"name\": \"BETA_PAYMENT_ACCOUNTS\", \"value\": \"false\"}, {\"name\": \"artefact_number\", \"value\": \"$artefact_number\"}, {\"name\": \"app_version\", \"value\": \"$appVersion\"}, {\"name\": \"CI_JOB_NAME\", \"value\": \"Licensify\"}, {\"name\": \"ARTIFACT_PATH\", \"value\": \"target/universal\"}], \"\": \"\"}"
+          JSON="{\"parameter\": [{\"name\": \"BETA_PAYMENT_ACCOUNTS\", \"value\": \"false\"}, {\"name\": \"artefact_number\", \"value\": \"$artefact_number\"}, {\"name\": \"app_version\", \"value\": \"$app_version\"}, {\"name\": \"CI_JOB_NAME\", \"value\": \"Licensify\"}, {\"name\": \"ARTIFACT_PATH\", \"value\": \"target/universal\"}], \"\": \"\"}"
 
           # Deploy to integration environment
-          echo curl -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@deploy.integration.publishing.service.gov.uk/job/Licensify_Deploy/build --data-urlencode json="$JSON"
+          curl -v -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@ci-deploy.integration.publishing.service.gov.uk/job/Licensify_Deploy/build --data-urlencode json="$JSON"
     wrappers:
         - ansicolor:
             colormap: xterm
+    parameters:
+        - string:
+            name: artefact_number
+            description: artefact number as provided by the CI after successful build
+        - string:
+            name: app_version
+            description: version of the app to be deployed
+            default: '1.1.1'
