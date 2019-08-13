@@ -339,15 +339,16 @@ define govuk::app::config (
       contact_groups => $additional_check_contact_groups,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-      ensure         => $ensure,
-      target         => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
-      warning        => $nagios_memory_warning_real,
-      critical       => $nagios_memory_critical_real,
-      desc           => "high memory for ${title} app",
-      host_name      => $::fqdn,
-      event_handler  => "govuk_app_high_memory!${title}",
-      notes_url      => monitoring_docs_url(high-memory-for-application),
-      contact_groups => $additional_check_contact_groups,
+      ensure                     => $ensure,
+      target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
+      warning                    => $nagios_memory_warning_real,
+      critical                   => $nagios_memory_critical_real,
+      desc                       => "high memory for ${title} app",
+      host_name                  => $::fqdn,
+      event_handler              => "govuk_app_high_memory!${title}",
+      notes_url                  => monitoring_docs_url(high-memory-for-application),
+      attempts_before_hard_state => 2,
+      contact_groups             => $additional_check_contact_groups,
     }
     @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
       ensure         => $ensure,
