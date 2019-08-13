@@ -27,7 +27,7 @@ class govuk_aws_xray_daemon (
   if $purge {
     $ensure = 'absent'
     $ensure_package = 'absent'
-    $ensure_service = 'absent'
+    $ensure_service = 'stopped'
   } else {
     $ensure = 'present'
     $ensure_package = 'latest'
