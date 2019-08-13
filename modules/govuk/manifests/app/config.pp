@@ -346,6 +346,15 @@ define govuk::app::config (
       notes_url      => monitoring_docs_url(high-memory-for-application),
       contact_groups => $additional_check_contact_groups,
     }
+    @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
+      ensure         => $ensure,
+      target         => "summarize(stats_counts.govuk.app.${title}.memory_restarts, '1d', 'sum', false)",
+      warning        => 4,
+      critical       => 6,
+      desc           => 'Restarts per day due to excessive memory usage',
+      host_name      => $::fqdn,
+      contact_groups => $additional_check_contact_groups,
+    }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
         ensure         => $ensure,
