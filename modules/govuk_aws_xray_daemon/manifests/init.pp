@@ -56,10 +56,9 @@ class govuk_aws_xray_daemon (
       ensure  => purge,
       recurse => true,
       force   => true,
-      owner   => 'xray',
-      group   => 'xray',
+      owner   => 'nobody',
+      group   => 'nogroup',
       mode    => '0750',
-      require => User['xray'],
     }
   } else {
     file { '/home/xray':
