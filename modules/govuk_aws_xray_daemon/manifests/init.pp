@@ -53,7 +53,7 @@ class govuk_aws_xray_daemon (
 
   if $purge {
     file { '/home/xray':
-      ensure  => purge,
+      ensure  => absent,
       recurse => true,
       force   => true,
       owner   => 'nobody',
