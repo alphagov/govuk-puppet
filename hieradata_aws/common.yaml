@@ -131,7 +131,13 @@ govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
-
+  licensing_frontend:
+    apps:
+      - licensify
+  licensing_backend:
+    apps:
+      - licensify-admin
+      - licensify-feed
 
 # If the repository name is the same as the application name
 # we don't need to explicitly declare the repository, but we
