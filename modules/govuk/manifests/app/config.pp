@@ -352,7 +352,7 @@ define govuk::app::config (
     }
     @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
       ensure         => $ensure,
-      target         => "summarize(stats_counts.govuk.app.${title}.memory_restarts,\"1d\",\"sum\",false)",
+      target         => "summarize(transformNull(stats_counts.govuk.app.${title}.memory_restarts,0),\"1d\",\"sum\",false)",
       args           => '--ignore-missing',
       from           => '2days',
       warning        => 4,
