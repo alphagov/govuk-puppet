@@ -180,6 +180,9 @@ deployable_applications: &deployable_applications
   info-frontend: {}
   licencefinder:
     repository: 'licence-finder'
+  licensify: {}
+  licensify-admin: {}
+  licensify-feed: {}
   link-checker-api: {}
   local-links-manager: {}
   manuals-frontend: {}
