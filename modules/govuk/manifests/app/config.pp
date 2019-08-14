@@ -355,7 +355,7 @@ define govuk::app::config (
       target         => "summarize(stats_counts.govuk.app.${title}.memory_restarts, '1d', 'sum', false)",
       args           => '--ignore-missing',
       warning        => 4,
-      critical       => 6,
+      critical       => 10 ,
       desc           => 'Restarts per day due to excessive memory usage',
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
