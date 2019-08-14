@@ -577,6 +577,8 @@ govuk::apps::local_links_manager::db::lb_ip_range: "%{hiera('environment_ip_pref
 govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::local_links_manager::unicorn_worker_processes: "4"
+govuk::apps::local_links_manager::nagios_memory_warning: 1000
+govuk::apps::local_links_manager::nagios_memory_critical: 1500
 
 govuk::apps::mapit::enabled: true
 
