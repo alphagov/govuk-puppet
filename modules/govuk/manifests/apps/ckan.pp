@@ -146,16 +146,6 @@ class govuk::apps::ckan (
         value   => $bulk_worker_processes;
     }
 
-    govuk::app { 'ckan':
-      enable_nginx_vhost => false,
-    }
-
-    govuk::app::nginx_vhost { 'ckan':
-      vhost       => 'ckan',
-      app_port    => $port,
-      hidden_path => ['/api/3/action/user_list'],
-    }
-
     file { $ckan_home:
       ensure => directory,
       owner  => 'deploy',
