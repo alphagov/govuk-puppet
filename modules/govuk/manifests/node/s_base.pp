@@ -118,4 +118,12 @@ class govuk::node::s_base (
   user { 'ubuntu':
     ensure => absent,
   }
+
+  file { '/etc/ssl/certs/rds_cacert.pem':
+    ensure  => present,
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
+    content => template('govuk/etc/ssl/certs/rds_cacert.pem'),
+  }
 }
