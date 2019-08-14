@@ -356,7 +356,7 @@ define govuk::app::config (
       args           => '--ignore-missing',
       from           => '2days',
       warning        => 4,
-      critical       => 6,
+      critical       => 10 ,
       desc           => 'Restarts per day due to excessive memory usage',
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
