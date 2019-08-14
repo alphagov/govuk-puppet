@@ -13,6 +13,10 @@
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
+    triggers:
+      - timed: |
+            TZ=Europe/London
+            H 7 * * 1-5
     builders:
        - shell: |
            # Clear the Sidekiq queues to stop any residual 'stale' jobs running
