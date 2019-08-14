@@ -44,6 +44,9 @@ class govuk::apps::router_api(
   $port = '3056',
   $mongodb_name,
   $mongodb_nodes,
+  $mongodb_username = '',
+  $mongodb_password = '',
+  $mongodb_params = '',
   $router_nodes = [],
   $vhost = 'router-api',
   $secret_key_base = undef,
@@ -85,6 +88,9 @@ class govuk::apps::router_api(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
+    params   => $mongodb_params,
   }
 
   if $router_nodes != [] {
