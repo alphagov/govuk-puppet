@@ -237,6 +237,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::local_links_manager::db::allow_auth_from_lb
     govuk::apps::local_links_manager::db::lb_ip_range
     govuk::apps::local_links_manager::db::rds
+    govuk::apps::local_links_manager::nagios_memory_critical
+    govuk::apps::local_links_manager::nagios_memory_warning
     govuk::apps::publisher::alert_hostname
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::lb_ip_range
