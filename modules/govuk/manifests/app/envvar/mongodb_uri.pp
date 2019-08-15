@@ -11,9 +11,21 @@
 # [*database*]
 #   The database name.
 #
+# [*username*]
+#   Username used in connection string
+#
+# [*password*]
+#   Password used in connection string
+#
+# [*params*]
+#   URL encoded arguments for connection string ie 'ssl=true&ssl_verify=false'
 define govuk::app::envvar::mongodb_uri (
   $hosts,
   $database,
+  $username = '',
+  $password = '',
+  $params = '',
+  $varname = 'MONGODB_URI',
 ) {
 
   validate_array($hosts)
@@ -22,9 +34,19 @@ define govuk::app::envvar::mongodb_uri (
   }
 
   $hosts_string = join($hosts, ',')
+
+  $auth = ''
+  if ($username != '') {
+    $auth = "${username}:${password}@"
+  }
+
+  if ($params != '') {
+    $args = "?${args}"
+  }
+
   govuk::app::envvar { "${title}-MONGODB_URI":
     app     => $title,
-    varname => 'MONGODB_URI',
-    value   => "mongodb://${hosts_string}/${database}",
+    varname => $varname,
+    value   => "mongodb://${auth}${hosts_string}/${database}${args}",
   }
 }

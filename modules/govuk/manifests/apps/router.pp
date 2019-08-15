@@ -6,17 +6,31 @@ class govuk::apps::router (
   $error_log = '/var/log/router/errors.json.log',
   $mongodb_name,
   $mongodb_nodes,
+  $mongodb_username = '',
+  $mongodb_password = '',
+  $mongodb_params = '',
 
   # These are only overridden in the dev VM to allow www.dev.gov.uk to go through the router.
   $enable_nginx_vhost = false,
   $vhost_aliases = [],
 ) {
+  $app_name = 'router'
+
   @ufw::allow { 'allow-router-reload-from-all':
     port => $api_port,
   }
 
   Govuk::App::Envvar {
     app => 'router',
+  }
+
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
+    params   => $mongodb_params,
+    varname  => 'ROUTER_MONGO_URL',
   }
 
   govuk::app::envvar {
@@ -29,9 +43,6 @@ class govuk::apps::router (
     "${title}-ROUTER_MONGO_DB":
       value   => $mongodb_name,
       varname => 'ROUTER_MONGO_DB';
-    "${title}-ROUTER_MONGO_URL":
-      value   => join($mongodb_nodes, ','),
-      varname => 'ROUTER_MONGO_URL';
     "${title}-ROUTER_ERROR_LOG":
       value   => $error_log,
       varname => 'ROUTER_ERROR_LOG';
