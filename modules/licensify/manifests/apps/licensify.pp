@@ -1,4 +1,39 @@
-# FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+# == Class: licensify::apps::licensify
+#
+# Application which serves the Licensify frontend (www.gov.uk/apply-for-a-licence,
+# licensify.publishing and uploadlicence.publishing).
+#
+# === Parameters
+#
+# [*port*]
+#   The TCP port which the app should listen on.
+#
+# [*aws_ses_access_key*]
+#   The access key to authenticate the app to Amazon Simple Email Service.
+#
+# [*aws_ses_secret_key*]
+#   The secret key to authenticate the app to Amazon Simple Email Service.
+#
+# [*aws_application_form_access_key*]
+#   The access key to authenticate the app to Amazon S3.
+#
+# [*aws_application_form_secret_key*]
+#   The secret key to authenticate the app to Amazon S3.
+#
+# [*environment*]
+#   The name of the app's environment, for example 'production', 'staging' or
+#   'integration'. This is used to construct the S3 bucket name for PDF
+#   storage. (See envvars.pp.)
+#
+# [*application_secret*]
+#   Key for cryptographic functions within the app. See
+#   https://github.com/alphagov/licensify/tree/master/backend/app/uk/gov/gds/licensing/admin/controllers/Secured.scala
+#
+# [*ws_accept_any_certificate*]
+#   If true, the app will accept any TLS cert when it connects to the Apto PDF
+#   processing server. This is to facilitate connecting to the test PDF
+#   processing server, which has a self-signed cert.
+#
 class licensify::apps::licensify (
   $port = 9000,
   $aws_ses_access_key = '',
@@ -6,6 +41,8 @@ class licensify::apps::licensify (
   $aws_application_form_access_key = '',
   $aws_application_form_secret_key = '',
   $environment = '',
+  $application_secret = undef,
+  $ws_accept_any_certificate = false,
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify':
@@ -31,6 +68,20 @@ class licensify::apps::licensify (
   }
 
   licensify::build_clean { 'licensify': }
+
+  if $::aws_migration {
+    # On AWS we need Puppet to create the app's config files (whereas on
+    # Carrenza/UKCloud the deploy.sh script copies them verbatim from the
+    # legacy alphagov-deployments private repo).
+    include licensify::apps::configfile
+    file { '/etc/licensing/gds-licensify-config.conf':
+      ensure  => file,
+      content => template('licensify/gds-licensify-config.conf.erb'),
+      mode    => '0644',
+      owner   => 'deploy',
+      group   => 'deploy',
+    }
+  }
 
   $app_domain = hiera('app_domain')
   $vhost_name = "uploadlicence.${app_domain}"

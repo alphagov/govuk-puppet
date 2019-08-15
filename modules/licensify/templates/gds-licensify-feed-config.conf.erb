@@ -1,0 +1,18 @@
+# This is the main configuration file for the application.
+# ~~~~~
+
+# First, include the base config file which we'll then override later in this file.
+include "application"
+
+# Secret key
+# ~~~~~
+# The secret key is used to secure cryptographics functions.
+# If you deploy your application to several instances be sure to use the same key!
+application.secret="<%= @application_secret %>"
+
+# Set session cookies to https only (not set in dev)
+session.secure=true
+
+# In integration, disable TLS cert validation as the test PDF processing server
+# has a self-signed cert.
+ws.acceptAnyCertificate=<%= @ws_accept_any_certificate %>
