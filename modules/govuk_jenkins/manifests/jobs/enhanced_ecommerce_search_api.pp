@@ -7,11 +7,11 @@ class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
   $auth_username = undef,
   $auth_password = undef,
   $rate_limit_token = undef,
-  $cron_schedule = '0 5 * * *'
+  $cron_schedule = undef
 ) {
 
   $job_name = 'enhanced_ecommerce_search_api'
-  $service_description = 'Export Enhanced Ecommerce data from Search API'
+  $service_description = 'Enhanced Ecommerce ETL from Search API to Google Analytics'
   $job_url = "https://deploy.${app_domain}/job/enhanced_ecommerce_search_api/"
   $target_application = 'search-api'
 

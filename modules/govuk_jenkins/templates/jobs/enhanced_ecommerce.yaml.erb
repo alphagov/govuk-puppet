@@ -15,13 +15,7 @@
             predefined-parameters: |
               TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
-              RAKE_TASK="analytics:create_data_import_csv[/data/export/enhanced_ecommerce]"
-          - project: run-rake-task
-            block: true
-            predefined-parameters: |
-              TARGET_APPLICATION=<%= @target_application %>
-              MACHINE_CLASS=search
-              RAKE_TASK="analytics:delete_old_files[/data/export/enhanced_ecommerce,10]"
+              RAKE_TASK=analytics:export_indexed_pages_to_google_analytics
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:
