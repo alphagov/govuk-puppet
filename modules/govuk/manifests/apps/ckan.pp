@@ -80,6 +80,7 @@ class govuk::apps::ckan (
       nagios_memory_warning  => 2400,
       nagios_memory_critical => 2500,
       sentry_dsn             => $sentry_dsn,
+      enable_nginx_vhost     => false,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
@@ -144,10 +145,6 @@ class govuk::apps::ckan (
       "${title}-BULK_WORKER_PROCESSES":
         varname => 'BULK_WORKER_PROCESSES',
         value   => $bulk_worker_processes;
-    }
-
-    govuk::app { 'ckan':
-      enable_nginx_vhost => false,
     }
 
     govuk::app::nginx_vhost { 'ckan':
