@@ -157,6 +157,12 @@ class govuk::apps::ckan (
         # Some API paths are required by other apps though, so
         # safe list them on a case by case basis
 
+        # Used by: ckan.publishing.service.gov.uk
+        # Used for: internationalisation of form controls
+        location /api/i18n {
+          try_files $uri @app;
+        }
+
         # Used by: datagovuk_publish
         # Used for: ckan_v26_ckan_org_sync
         location /api/3/action/organization_list {
