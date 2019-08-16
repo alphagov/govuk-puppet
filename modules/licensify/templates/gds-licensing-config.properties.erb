@@ -1,0 +1,53 @@
+# This config file is common to all three Licensify apps within a given
+# environment. It gets included in each app's individual config file.
+
+mongo.database.hosts=<%= @mongo_database_hosts %>
+mongo.database.reference.name=<%= @mongo_database_reference_name %>
+mongo.database.audit.name=<%= @mongo_database_audit_name %>
+
+mongo.database.slaveok=<%= @mongo_database_slaveok %>
+places.api.url=<%= @places_api_url %>
+feedActor=<%= @feed_actor %>
+
+oauth_callback_url_override=<%= @oauth_callback_url_override %>
+
+uploadUrlBase=<%= @upload_url_base %>
+
+elms.frontend.host=<%= @elms_frontend_host %>
+elms.admin.host=<%= @elms_admin_host %>
+
+elms.pdf.apihost=<%= @elms_pdf_apihost %>
+
+elms.max.appProcessAttemptCount=<%= @elms_max_app_process_attempt_count %>
+
+access_token_url=<%= @access_token_url %>
+authorization_url=<%= @authorization_url %>
+user_details_url=<%= @user_details_url %>
+client_id=<%= @client_id %>
+client_secret=<%= @client_secret %>
+
+googleAnalytics.account.admin=<%= @google_analytics_account_admin %>
+googleAnalytics.domain.admin=<%= @google_analytics_domain_admin %>
+googleAnalytics.account.frontend=<%= @google_analytics_account_frontend %>
+googleAnalytics.domain.frontend=<%= @google_analytics_domain_frontend %>
+
+signon.url=<%= @signon_url %>
+
+worldpay.redirectUrl=<%= @worldpay_redirect_url %>
+worldpay.cancelled.redirectUrl=<%= @worldpay_cancelled_redirect_url %>
+
+paymentsTestMode=<%= @payments_test_mode %>
+noReplyMailAddress=<%= @no_reply_mail_address %>
+
+govuk.url=<%= @govuk_url %>
+licenceFinderUrl=<%= @licence_finder_url %>
+
+scheduled.virus.scan.cron.expression=<%= @scheduled_virus_scan_cron_expression %>
+performance.platform.bearer.token=<%= @performance_platform_bearer_token %>
+performance.data.sender.cron.expression=<%= @performance_data_sender_cron_expression %>
+performance.platform.service.url=<%= @performance_platform_service_url %>
+
+notify.key.api=<%= @notify_key_api %>
+
+is.master.node=<%= @is_master_node %>
+

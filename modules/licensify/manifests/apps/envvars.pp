@@ -1,6 +1,6 @@
-# == Define: licensify
+# == Define: licensify::apps::envvars
 #
-# Installs and manages the licensify application and dependant resources
+# Defines environment variables which are common to all three Licensify applications.
 #
 # === Parameters
 #
