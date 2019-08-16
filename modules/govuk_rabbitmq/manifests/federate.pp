@@ -13,6 +13,9 @@
 # [*upstream_servers*]
 #   The upstream rabbitmq servers to federate to.
 #
+# [*upstream_name*]
+#   Designation of the upstream rabbitmq cluster to federate to.
+#
 # [*federation_exchange*]
 #   The exchange to federate.
 #
@@ -24,6 +27,7 @@ class govuk_rabbitmq::federate (
   $federation_user,
   $federation_pass,
   $upstream_servers,
+  $upstream_name,
   $federation_exchange,
   $max_hops = 1,
 ) {
@@ -34,7 +38,7 @@ class govuk_rabbitmq::federate (
       ensure => present,
     }
     exec { 'rabbitmq parameters':
-      command => "rabbitmqctl set_parameter federation-upstream carrenza '{\"uri\": [ \"amqp://${federation_user}:${federation_pass}@${upstream_servers[0]}\", \"amqp://${federation_user}:${federation_pass}@${upstream_servers[1]}\",\"amqp://${federation_user}:${federation_pass}@${upstream_servers[2]}\" ], \"max-hops\": ${max_hops}}'",
+      command => "rabbitmqctl set_parameter federation-upstream ${upstream_name} '{\"uri\": [ \"amqp://${federation_user}:${federation_pass}@${upstream_servers[0]}\", \"amqp://${federation_user}:${federation_pass}@${upstream_servers[1]}\",\"amqp://${federation_user}:${federation_pass}@${upstream_servers[2]}\" ], \"max-hops\": ${max_hops}}'",
       unless  => 'rabbitmqctl list_parameters | grep -qE federation',
       path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
       require => Rabbitmq_plugin['rabbitmq_federation'],

@@ -51,7 +51,9 @@ class govuk_rabbitmq (
       ensure => present,
     }
 
-  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+  }
+
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') or ($::environment == 'staging') or ($::environment == 'production'){
 
     # Temporary federation setup for the duration of the migration to AWS
     # Remove once the migration is over
@@ -61,7 +63,6 @@ class govuk_rabbitmq (
     include govuk_rabbitmq::purge_queues
   }
 
-  }
   rabbitmq_user { 'root':
     admin    => true,
     password => $root_password,
