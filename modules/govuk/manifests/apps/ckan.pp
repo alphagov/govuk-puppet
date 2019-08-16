@@ -149,8 +149,11 @@ class govuk::apps::ckan (
 
     govuk::app::nginx_vhost { 'ckan':
       vhost              => 'ckan',
+      protected          => $vhost_protected,
+      ssl_only           => true,
       app_port           => $port,
       hidden_paths       => ['/api/'],
+      read_timeout       => $request_timeout,
       nginx_extra_config => template('govuk/ckan/nginx.conf.erb'),
     }
 
