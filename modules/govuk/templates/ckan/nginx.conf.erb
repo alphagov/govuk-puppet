@@ -1,0 +1,48 @@
+# Some API paths expose PII, so we block access by default. We allow access to
+# specific paths required by other apps which do not expose PII.
+
+# Used by: ckan.publishing.service.gov.uk
+# Used for: internationalisation of form controls
+location /api/i18n {
+  try_files $uri @app;
+}
+
+# Used by: datagovuk_publish
+# Used for: ckan_v26_ckan_org_sync
+location /api/3/action/organization_list {
+  try_files $uri @app;
+}
+
+# Used by: datagovuk_publish
+# Used for: ckan_v26_ckan_org_sync
+location /api/3/action/organization_show {
+try_files $uri @app;
+}
+
+# Used by: datagovuk_publish
+# Used for: ckan_v26_package_sync job
+location /api/3/search/dataset {
+  try_files $uri @app;
+}
+
+# Used by: datagovuk_publish
+# Used for: ckan_v26_package_sync job
+location /api/3/action/package_show {
+  try_files $uri @app;
+}
+
+# Additional endpoints advertised in data.gov.uk API docs
+
+# Duplicates above but does not include api version
+location /api/action/organization_list {
+  try_files $uri @app;
+}
+
+# Duplicates above but does not include api version
+location /api/action/organization_show {
+  try_files $uri @app;
+}
+
+location /api/action/package_list {
+  try_files $uri @app;
+}
