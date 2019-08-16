@@ -14,12 +14,6 @@ location /api/3/action/organization_list {
 }
 
 # Used by: datagovuk_publish
-# Used for: ckan_v26_ckan_org_sync
-location /api/3/action/organization_show {
-try_files $uri @app;
-}
-
-# Used by: datagovuk_publish
 # Used for: ckan_v26_package_sync job
 location /api/3/search/dataset {
   try_files $uri @app;
