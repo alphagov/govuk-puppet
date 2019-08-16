@@ -150,59 +150,8 @@ class govuk::apps::ckan (
     govuk::app::nginx_vhost { 'ckan':
       vhost              => 'ckan',
       app_port           => $port,
-      # Some API paths expose PII, so we block access by default
       hidden_paths       => ['/api/'],
-      nginx_extra_config => '
-
-        # Some API paths are required by other apps though, so
-        # safe list them on a case by case basis
-
-        # Used by: ckan.publishing.service.gov.uk
-        # Used for: internationalisation of form controls
-        location /api/i18n {
-          try_files $uri @app;
-        }
-
-        # Used by: datagovuk_publish
-        # Used for: ckan_v26_ckan_org_sync
-        location /api/3/action/organization_list {
-          try_files $uri @app;
-        }
-
-        # Used by: datagovuk_publish
-        # Used for: ckan_v26_ckan_org_sync
-        location /api/3/action/organization_show {
-        try_files $uri @app;
-        }
-
-        # Used by: datagovuk_publish
-        # Used for: ckan_v26_package_sync job
-        location /api/3/search/dataset {
-          try_files $uri @app;
-        }
-
-        # Used by: datagovuk_publish
-        # Used for: ckan_v26_package_sync job
-        location /api/3/action/package_show {
-          try_files $uri @app;
-        }
-
-        # Additional endpoints advertised in data.gov.uk API docs
-
-        # Duplicates above but does not include api version
-        location /api/action/organization_list {
-          try_files $uri @app;
-        }
-
-        # Duplicates above but does not include api version
-        location /api/action/organization_show {
-          try_files $uri @app;
-        }
-
-        location /api/action/package_list {
-          try_files $uri @app;
-        }
-      ',
+      nginx_extra_config => template('govuk/ckan/nginx.conf.erb'),
     }
 
     file { $ckan_home:
