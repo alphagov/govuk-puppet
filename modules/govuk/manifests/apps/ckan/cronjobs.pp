@@ -30,7 +30,7 @@ class govuk::apps::ckan::cronjobs(
     ensure         => $ensure_solr_reindex,
     paster_command => 'search-index rebuild -o',
     plugin         => 'ckan',
-    hour           => '7',
+    hour           => '4',
     minute         => '0',
   }
 
