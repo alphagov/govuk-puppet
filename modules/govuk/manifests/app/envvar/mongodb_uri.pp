@@ -35,13 +35,12 @@ define govuk::app::envvar::mongodb_uri (
 
   $hosts_string = join($hosts, ',')
 
-  $auth = ''
   if ($username != '') {
     $auth = "${username}:${password}@"
   }
 
   if ($params != '') {
-    $args = "?${args}"
+    $args = "?${params}"
   }
 
   govuk::app::envvar { "${title}-MONGODB_URI":
