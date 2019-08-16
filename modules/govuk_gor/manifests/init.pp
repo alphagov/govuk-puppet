@@ -41,10 +41,26 @@ class govuk_gor(
 
   validate_bool($enable)
 
-  file { '/etc/govuk/env.d/FACTER_data_sync_in_progress':
+  $data_sync_fact_path = '/etc/govuk/env.d/FACTER_data_sync_in_progress'
+
+  file { $data_sync_fact_path:
     ensure  => present,
     owner   => 'deploy',
     require => Class['govuk::deploy'],
+  }
+
+  cron { 'stop_gor':
+    command => "echo 'true' > ${data_sync_fact_path}; sudo initctl stop gor",
+    user    => 'deploy',
+    hour    => 23,
+    minute  => 0,
+  }
+
+  cron { 'start_gor':
+    command => "echo '' > ${$data_sync_fact_path}; sudo initctl start gor;",
+    user    => 'deploy',
+    hour    => 5,
+    minute  => 45,
   }
 
   if $enable and ! $::data_sync_in_progress {
