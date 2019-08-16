@@ -177,7 +177,7 @@ class govuk::apps::ckan (
       owner   => 'deploy',
       group   => 'deploy',
       notify  => Service['ckan'],
-    }
+    } ->
 
     file { "${ckan_home}/default":
       ensure => directory,
