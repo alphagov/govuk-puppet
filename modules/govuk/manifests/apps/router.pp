@@ -1,4 +1,9 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
+
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
+
 class govuk::apps::router (
   $port = '3054',
   $api_port = 3055,
@@ -9,6 +14,7 @@ class govuk::apps::router (
   $mongodb_username = '',
   $mongodb_password = '',
   $mongodb_params = '',
+  $sentry_dsn = undef,
 
   # These are only overridden in the dev VM to allow www.dev.gov.uk to go through the router.
   $enable_nginx_vhost = false,
@@ -59,6 +65,7 @@ class govuk::apps::router (
     vhost_aliases                       => $vhost_aliases,
     nagios_memory_warning               => 900,
     nagios_memory_critical              => 1100,
+    sentry_dsn                          => $sentry_dsn,
     local_tcpconns_established_warning  => 150,
     local_tcpconns_established_critical => 200,
   }
