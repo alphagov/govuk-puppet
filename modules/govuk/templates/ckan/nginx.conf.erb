@@ -32,11 +32,6 @@ location /api/action/organization_list {
   try_files $uri @app;
 }
 
-# Duplicates above but does not include api version
-location /api/action/organization_show {
-  try_files $uri @app;
-}
-
 location /api/action/package_list {
   try_files $uri @app;
 }
