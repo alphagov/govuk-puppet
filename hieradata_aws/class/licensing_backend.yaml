@@ -1,0 +1,8 @@
+---
+licensify::apps::certs::services_to_notify:
+  - licensify-admin
+  - licensify-feed
+
+licensify::apps::configfile::services_to_notify:
+  - licensify-admin
+  - licensify-feed

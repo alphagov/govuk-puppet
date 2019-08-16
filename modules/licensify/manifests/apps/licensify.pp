@@ -73,13 +73,17 @@ class licensify::apps::licensify (
     # On AWS we need Puppet to create the app's config files (whereas on
     # Carrenza/UKCloud the deploy.sh script copies them verbatim from the
     # legacy alphagov-deployments private repo).
+
     include licensify::apps::configfile
+    include licensify::apps::certs
+
     file { '/etc/licensing/gds-licensify-config.conf':
       ensure  => file,
       content => template('licensify/gds-licensify-config.conf.erb'),
       mode    => '0644',
       owner   => 'deploy',
       group   => 'deploy',
+      notify  => Service['licensify'],
     }
   }
 

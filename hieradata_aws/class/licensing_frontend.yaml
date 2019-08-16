@@ -1,0 +1,6 @@
+---
+licensify::apps::certs::services_to_notify:
+  - licensify
+
+licensify::apps::configfile::services_to_notify:
+  - licensify
