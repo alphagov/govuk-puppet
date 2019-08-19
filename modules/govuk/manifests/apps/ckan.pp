@@ -8,6 +8,9 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*pycsw_port*]
+#   What port should the PyCSW companion app run on?
+#
 # [*db_hostname*]
 #   The postgres instance for CKAN to connect to
 #
@@ -39,6 +42,7 @@
 class govuk::apps::ckan (
   $enabled                        = false,
   $port                           = '3220',
+  $pycsw_port                     = '3221',
   $db_hostname                    = undef,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
@@ -64,6 +68,7 @@ class govuk::apps::ckan (
 ) {
   $ckan_home = '/var/ckan'
   $ckan_ini  = "${ckan_home}/ckan.ini"
+  $pycsw_config = "${ckan_home}/pycsw.cfg"
 
   $request_timeout = 60
 
@@ -120,7 +125,18 @@ class govuk::apps::ckan (
       process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer',
     }
 
-    include govuk::apps::ckan::cronjobs
+    govuk::procfile::worker { 'pycsw_web':
+      ensure         => present,
+      setenv_as      => 'ckan',
+      enable_service => running,
+      process_type   => 'pycsw_web',
+      process_regex  => 'pycsw_wsgi',
+    }
+
+    class { 'cronjobs':
+      ckan_port    => $port,
+      pycsw_config => $pycsw_config,
+    }
 
     Govuk::App::Envvar {
       app => 'ckan',
@@ -145,6 +161,12 @@ class govuk::apps::ckan (
       "${title}-BULK_WORKER_PROCESSES":
         varname => 'BULK_WORKER_PROCESSES',
         value   => $bulk_worker_processes;
+      "${title}-PYCSW_PORT":
+        varname => 'PYCSW_PORT',
+        value   => $pycsw_port;
+      "${title}-PYCSW_CONFIG":
+        varname => 'PYCSW_CONFIG',
+        value   => $pycsw_config;
     }
 
     govuk::app::nginx_vhost { 'ckan':
@@ -177,12 +199,27 @@ class govuk::apps::ckan (
       owner   => 'deploy',
       group   => 'deploy',
       notify  => Service['ckan'],
-    }
+    } ->
 
     file { "${ckan_home}/default":
       ensure => directory,
       owner  => 'deploy',
       group  => 'deploy',
+    } ->
+
+    file { $pycsw_config:
+      ensure  => file,
+      content => template('govuk/ckan/pycsw.cfg.erb'),
+      owner   => 'deploy',
+      group   => 'deploy',
+    }
+
+    $ckan_bin = '/var/apps/ckan/venv/bin'
+    $pycsw_tables_created = "${ckan_home}/pycsw_tables_created.tmp"
+
+    exec { 'setup_pycsw_tables':
+      command => "${ckan_bin}/paster --plugin=ckanext-spatial ckan-pycsw setup -p ${pycsw_config} && sudo touch ${pycsw_tables_created}",
+      creates => $pycsw_tables_created,
     }
   }
 }

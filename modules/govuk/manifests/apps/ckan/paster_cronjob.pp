@@ -26,13 +26,19 @@ define govuk::apps::ckan::paster_cronjob (
   $weekday = undef,
   $plugin = undef,
   $paster_command = undef,
+  $ckan_ini = '/var/ckan/ckan.ini',
 ) {
-
   validate_string($plugin, $paster_command)
+
+  if $ckan_ini {
+    $ckan_config_arg = "--config=${ckan_ini}"
+  } else {
+    $ckan_config_arg = ''
+  }
 
   cron { $title:
     ensure   => $ensure,
-    command  => "cd /var/apps/ckan; ./venv/bin/paster --plugin=${plugin} ${paster_command} --config=/var/ckan/ckan.ini",
+    command  => "cd /var/apps/ckan; ./venv/bin/paster --plugin=${plugin} ${paster_command} ${ckan_config_arg}",
     user     => 'deploy',
     hour     => $hour,
     minute   => $minute,
