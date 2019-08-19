@@ -17,6 +17,39 @@ describe 'govuk::app::envvar::mongodb_uri', :type => :define do
     end
   end
 
+  context "with username and password" do
+    let(:params) {{
+      :hosts => ["db-1.example.com", "db-2.example.com"],
+      :database => "foo_production",
+      :username => "jeff",
+      :password => "secret",
+    }}
+
+    it "constructs a MONGODB_URI env var with authentication" do
+      expect(subject).to contain_govuk__app__envvar('giraffe-MONGODB_URI')
+        .with_app('giraffe')
+        .with_varname('MONGODB_URI')
+        .with_value('mongodb://jeff:secret@db-1.example.com,db-2.example.com/foo_production')
+    end
+  end
+
+  context "with params" do
+    let(:params) {{
+      :hosts => ["db-1.example.com", "db-2.example.com"],
+      :database => "foo_production",
+      :username => "jeff",
+      :password => "secret",
+      :params => "ssl=true"
+    }}
+
+    it "constructs a MONGODB_URI env var with auth and ssl param" do
+      expect(subject).to contain_govuk__app__envvar('giraffe-MONGODB_URI')
+        .with_app('giraffe')
+        .with_varname('MONGODB_URI')
+        .with_value('mongodb://jeff:secret@db-1.example.com,db-2.example.com/foo_production?ssl=true')
+    end
+  end
+
   context "validating hosts" do
     let(:params) {{
       :database => "foo_production",
