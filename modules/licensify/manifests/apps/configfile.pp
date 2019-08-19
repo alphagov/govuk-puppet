@@ -37,6 +37,7 @@ class licensify::apps::configfile(
   $performance_platform_service_url = undef,
   $notify_key_api = undef,
   $is_master_node = true,
+  $services_to_notify = [],
 ) {
   file { '/etc/licensing/gds-licensing-config.properties':
     ensure  => file,
@@ -44,5 +45,6 @@ class licensify::apps::configfile(
     mode    => '0644',
     owner   => 'deploy',
     group   => 'deploy',
+    notify  => Service[$services_to_notify],
   }
 }
