@@ -157,18 +157,7 @@ function is_writable_mongo {
 }
 
 function is_writable_elasticsearch {
-# We don't want to run the restore on multiple nodes, so we need to
-# pick a unique one.  Pick the one in availability zone 'a'.  The
-# elasticsearch data sync is non-critical, so if it fails due to the
-# ec2 instance in zone a being down when the script is due to run,
-# it's not a big deal.
-  AZ=$(curl http://169.254.169.254/latest/meta-data/placement/availability-zone | sed 's/.*\(.\)/\1/')
-  if [ "$AZ" == "a" ]
-  then
-    echo "true"
-  else
-    echo "false"
-  fi
+  echo "true"
 }
 
 function is_writable_postgresql {
@@ -231,7 +220,9 @@ function dump_elasticsearch {
 function restore_elasticsearch {
   snapshot_name="${filename//.gz/}"
   curl -XDELETE "http://${database}/_all"
-  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_snapshot/${url}/${snapshot_name}/_restore"
+  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_snapshot/${url}/${snapshot_name}/_restore" || true
+  /bin/sleep 1
+  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_cat/recovery" | grep -q "${snapshot_name}"
 }
 
 function  dump_postgresql {
