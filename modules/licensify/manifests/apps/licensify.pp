@@ -43,6 +43,8 @@ class licensify::apps::licensify (
   $environment = '',
   $application_secret = undef,
   $ws_accept_any_certificate = false,
+  $alert_5xx_warning_rate = 0.05,
+  $alert_5xx_critical_rate = 0.1,
 ) inherits licensify::apps::base {
 
   govuk::app { 'licensify':
@@ -56,6 +58,8 @@ class licensify::apps::licensify (
     collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*',
     nagios_memory_warning          => 1350,
     nagios_memory_critical         => 1500,
+    alert_5xx_warning_rate         => $alert_5xx_warning_rate,
+    alert_5xx_critical_rate        => $alert_5xx_critical_rate,
   }
 
   licensify::apps::envvars { 'licensify':
