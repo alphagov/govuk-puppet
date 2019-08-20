@@ -37,6 +37,22 @@ class govuk::node::s_db_admin(
     $ensure = 'absent'
   }
 
+  apt::source { 'mongodb32':
+    location     => "http://${apt_mirror_hostname}/mongodb3.2",
+    release      => 'trusty-mongodb-org-3.2',
+    architecture => $::architecture,
+    repos        => 'multiverse',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
+
+  package { 'mongodb-org-shell':
+    ensure  => latest,
+  }
+
+  package { 'mongodb-org-tools':
+    ensure  => latest,
+  }
+
   apt::source { 'gof3r':
     ensure       => $ensure,
     location     => "http://${apt_mirror_hostname}/gof3r",

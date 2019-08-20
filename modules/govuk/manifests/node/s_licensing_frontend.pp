@@ -2,7 +2,14 @@
 #
 # Sets up app servers for the licensing frontend
 #
-class govuk::node::s_licensing_frontend inherits govuk::node::s_base {
+# === Parameters:
+#
+# [*apt_mirror_hostname*]
+#   The hostname of the local aptly mirror.
+#
+class govuk::node::s_licensing_frontend (
+  $apt_mirror_hostname,
+) inherits govuk::node::s_base {
   include clamav
 
   include govuk_java::openjdk8::jdk
@@ -22,4 +29,20 @@ class govuk::node::s_licensing_frontend inherits govuk::node::s_base {
   }
 
   include nginx
+
+  apt::source { 'mongodb32':
+    location     => "http://${apt_mirror_hostname}/mongodb3.2",
+    release      => 'trusty-mongodb-org-3.2',
+    architecture => $::architecture,
+    repos        => 'multiverse',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
+
+  package { 'mongodb-org-shell':
+    ensure  => latest,
+  }
+
+  package { 'mongodb-org-tools':
+    ensure  => latest,
+  }
 }
