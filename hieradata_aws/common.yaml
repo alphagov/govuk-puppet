@@ -829,6 +829,10 @@ govuk::node::s_gatling::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+govuk::node::s_licensing_backend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
+govuk::node::s_licensing_frontend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+
 govuk::node::s_licensify_lb::backend_app_servers:
   - 'licensing-backend'
   - 'licensing-backend'
