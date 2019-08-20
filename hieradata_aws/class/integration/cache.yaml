@@ -1,8 +1,3 @@
 ---
 logrotate::conf::days_to_keep: 7
 nginx::logging::days_to_keep: 7
-
-govuk::apps::router::mongodb_username: "master"
-govuk::apps::router::mongodb_params: "ssl=true"
-govuk::apps::router::mongodb_nodes:
-  - 'documentdb-integration.cluster-ceu7s3y9xx35.eu-west-1.docdb.amazonaws.com'
