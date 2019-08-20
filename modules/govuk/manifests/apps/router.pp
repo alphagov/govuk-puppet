@@ -3,6 +3,9 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*sentry_environment*]
+#   The environment to be sent with Sentry exceptions
+#
 
 class govuk::apps::router (
   $port = '3054',
@@ -15,6 +18,7 @@ class govuk::apps::router (
   $mongodb_password = '',
   $mongodb_params = '',
   $sentry_dsn = undef,
+  $sentry_environment = undef,
 
   # These are only overridden in the dev VM to allow www.dev.gov.uk to go through the router.
   $enable_nginx_vhost = false,
@@ -55,6 +59,9 @@ class govuk::apps::router (
     "${title}-ROUTER_BACKEND_HEADER_TIMEOUT":
       value   => '20s',
       varname => 'ROUTER_BACKEND_HEADER_TIMEOUT';
+    "${title}-ROUTER_BACKEND_SENTRY_ENVIRONMENT":
+      value   => $sentry_environment,
+      varname => 'SENTRY_ENVIRONMENT';
   }
 
   govuk::app { 'router':
