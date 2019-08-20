@@ -137,6 +137,7 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
+govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
