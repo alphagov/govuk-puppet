@@ -13,6 +13,7 @@ class govuk_jenkins::jobs::copy_data_to_staging (
 ) {
 
   $check_name = 'copy_data_to_staging'
+  $environment_variables = $govuk_jenkins::environment_variables
   $service_description = 'Copy Data to Staging'
   $job_url = "https://deploy.${app_domain}/job/copy_data_to_staging/"
 

@@ -19,6 +19,8 @@ class nginx::package(
   $nginx_module_perl_version = 'present',
 ) {
 
+  include nginx::restart
+
   apt::source { 'nginx':
     location     => "http://${apt_mirror_hostname}/nginx",
     release      => $::lsbdistcodename,

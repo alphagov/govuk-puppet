@@ -1,30 +1,16 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class icinga {
 
-  anchor { 'icinga::begin':
-    before => Class['icinga::package'],
-    notify => Class['icinga::service'];
-  }
+  contain icinga::package
+  contain icinga::config
+  contain icinga::service
+  include icinga::nginx
 
-  class { 'icinga::package':
-    require => Class['nginx'],
-    notify  => Class['icinga::service'];
-  }
+  Class['icinga::package']
+  -> Class['icinga::config']
+  ~> Class['icinga::service']
 
-  class { 'icinga::config':
-    require => Class['icinga::package'],
-    notify  => Class['icinga::service'];
-  }
-
-  class { 'icinga::service': }
-  class { 'icinga::nginx': }
-
-  anchor { 'icinga::end':
-    require => Class[
-      'icinga::service',
-      'icinga::nginx'
-    ],
-  }
+  Class['icinga::package'] ~> Class['icinga::service']
 
   Icinga::Host            <<||>> { notify => Class['icinga::service'] }
   Icinga::Check           <<||>> { notify => Class['icinga::service'] }

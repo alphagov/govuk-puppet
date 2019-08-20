@@ -10,6 +10,7 @@
 class govuk_jenkins::jobs::smokey (
   $environment = 'production',
 ) {
+  $environment_variables = $govuk_jenkins::environment_variables
   $smokey_task = "test:${environment}"
   $app_domain = hiera('app_domain')
 

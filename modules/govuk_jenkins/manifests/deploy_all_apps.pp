@@ -30,6 +30,7 @@ class govuk_jenkins::deploy_all_apps (
   $auth_token = '',
 ) {
 
+  $environment_variables = $govuk_jenkins::environment_variables
   $project_directory = "${jobs_directory}/${project_name}"
 
   File {
