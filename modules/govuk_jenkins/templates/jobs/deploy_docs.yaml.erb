@@ -27,7 +27,7 @@
           artifact-num-to-keep: 5
     builders:
       - shell: |
-        ./bin/deploy-to-s3
+          ./bin/deploy-to-s3
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
