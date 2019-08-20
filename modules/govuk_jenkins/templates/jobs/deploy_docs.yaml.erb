@@ -1,0 +1,55 @@
+---
+- scm:
+    name: govuk-developer-docs-repo
+    scm:
+      - git:
+          url: git@github.com:alphagov/govuk-developer-docs.git
+          basedir: govuk-developer-docs
+          branches:
+            - master
+- job:
+    name: deploy-developer-docs
+    display-name: Deploy GOV.UK developer docs
+    project-type: freestyle
+    description: |
+      Builds and publishes the GOV.UK developer docs. Does so every hour so
+      that changes in other repos are picked up.
+    scm:
+      - govuk-developer-docs-repo
+    logrotate:
+      numToKeep: 10
+      artifactDaysToKeep: 3
+    triggers:
+      - timed: '0 9-19 * * 1-5' # Between 9am and 7pm on weekdays
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - shell: |
+        ./bin/deploy-to-s3
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+      - inject-passwords:
+          global: false
+          mask-password-params: true
+          job-passwords:
+            - name: GITHUB_TOKEN
+              password: '<%= @github_token %>'
+            - name: AWS_ACCESS_KEY_ID
+              password: '<%= @aws_access_key_id %>'
+            - name: AWS_SECRET_ACCESS_KEY
+              password: '<%= @aws_secret_access_key %>'
