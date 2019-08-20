@@ -18,6 +18,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_dns
+  - govuk_jenkins::jobs::deploy_docs
   - govuk_jenkins::jobs::deploy_lambda_app
   - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
