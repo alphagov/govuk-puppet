@@ -52,7 +52,7 @@ class govuk_gor(
   cron { 'stop_gor':
     command => "echo 'true' > ${data_sync_fact_path}; sudo initctl stop gor",
     user    => 'deploy',
-    hour    => 23,
+    hour    => 22,
     minute  => 0,
   }
 
