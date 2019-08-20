@@ -21,9 +21,3 @@ govuk_env_sync::tasks:
     temppath: "/tmp/.dumps"
     url: "govuk-integration-database-backups"
     path: "mongo-router"
-
-govuk::apps::router_api::mongodb_password: "%{hiera('govuk::apps::router::mongodb_password')}"
-govuk::apps::router_api::mongodb_username: "master"
-govuk::apps::router_api::mongodb_params: "ssl=true"
-govuk::apps::router_api::mongodb_nodes:
-  - 'documentdb-integration.cluster-ceu7s3y9xx35.eu-west-1.docdb.amazonaws.com'
