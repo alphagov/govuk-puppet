@@ -1,6 +1,51 @@
 {
   "annotations": {
-    "list": []
+    "list": [
+      {
+        "datasource": "Graphite",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgba(255, 96, 96, 1)",
+        "limit": 100,
+        "name": "Email Alert API Deploys",
+        "showIn": 0,
+        "tags": "deploys email-alert-api",
+        "type": "alert"
+      },
+      {
+        "datasource": "Graphite",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgb(231, 255, 96)",
+        "limit": 100,
+        "name": "Email Alert API Restarts",
+        "showIn": 0,
+        "target": "substr(stats.govuk.app.email-alert-api.restarts,3,5)",
+        "type": "alert"
+      },
+      {
+        "datasource": "Graphite",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgb(96, 177, 255)",
+        "limit": 100,
+        "name": "Email Alert Service Deploys",
+        "showIn": 0,
+        "tags": "deploys email-alert-service",
+        "type": "alert"
+      },
+      {
+        "datasource": "Graphite",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgb(96, 255, 107)",
+        "limit": 100,
+        "name": "Email Alert Service Restarts",
+        "showIn": 0,
+        "target": "substr(stats.govuk.app.email-alert-service.restarts,3,5)",
+        "type": "alert"
+      }
+    ]
   },
   "editable": true,
   "gnetId": null,
