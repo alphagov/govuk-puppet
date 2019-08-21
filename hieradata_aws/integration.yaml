@@ -82,6 +82,8 @@ licensify::apps::configfile::scheduled_virus_scan_cron_expression: '0 0 16 * * ?
 licensify::apps::configfile::performance_data_sender_cron_expression: '0 0 1 * * ?'
 licensify::apps::configfile::performance_platform_service_url: 'https://www.integration.performance.service.gov.uk/data/licensing/application'
 licensify::apps::configfile::is_master_node: 'true'
+licensify::apps::licensify::alert_5xx_warning_rate: 0.1
+licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'elasticsearch5.blue.integration.govuk-internal.digital'
