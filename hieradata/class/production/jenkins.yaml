@@ -9,7 +9,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::content_audit_tool
   - govuk_jenkins::jobs::copy_attachments_to_integration
   - govuk_jenkins::jobs::copy_attachments_to_staging
-  - govuk_jenkins::jobs::copy_data_from_production_to_aws
   - govuk_jenkins::jobs::copy_data_to_integration
   - govuk_jenkins::jobs::copy_data_to_staging
   - govuk_jenkins::jobs::copy_licensify_data_to_staging
