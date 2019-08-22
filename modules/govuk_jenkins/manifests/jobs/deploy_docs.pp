@@ -20,7 +20,8 @@ class govuk_jenkins::jobs::deploy_docs (
     "deploy_developer_docs_${::hostname}":
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 5400, # 90 minutes
+      freshness_threshold => 54000, # 15 hours, as the job doesn't run
+                                    # overnight
       action_url          => "https://deploy.${app_domain}/job/deploy-developer-docs/";
   }
 }
