@@ -187,9 +187,6 @@ define govuk::app::config (
       "${title}-SENTRY_DSN":
         varname => 'SENTRY_DSN',
         value   => $sentry_dsn;
-      "${title}-GOVUK_APP_CONFIG_DISABLE_XRAY":
-        varname => 'GOVUK_APP_CONFIG_DISABLE_XRAY',
-        value   => '1';
     }
 
     if $override_search_location {

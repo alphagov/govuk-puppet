@@ -750,8 +750,6 @@ govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk::apps::content_audit_tool::db::rds: true
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
