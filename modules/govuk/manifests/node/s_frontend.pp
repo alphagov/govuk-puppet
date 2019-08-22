@@ -7,8 +7,6 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
 
   include govuk::node::s_app_server
 
-  include govuk_aws_xray_daemon
-
   include nginx
 
   if $::aws_migration {

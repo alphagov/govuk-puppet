@@ -13,7 +13,6 @@ class govuk::node::s_bouncer (
   $minimum_request_rate = 5,
 ) inherits govuk::node::s_base {
 
-  include govuk_aws_xray_daemon
   include govuk_bouncer::gor
   include govuk::node::s_app_server
   include nginx

@@ -36,10 +36,6 @@ govuk_mount::no_op: false
 
 govuk_app_enable_services: false
 
-govuk_aws_xray_daemon::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_aws_xray_daemon::aws_access_key_id: 'ABC'
-govuk_aws_xray_daemon::aws_secret_access_key: '123'
-
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_cdnlogs::govuk_monitoring_enabled: false

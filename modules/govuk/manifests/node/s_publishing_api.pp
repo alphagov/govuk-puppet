@@ -6,8 +6,6 @@
 class govuk::node::s_publishing_api inherits govuk::node::s_base {
   include ::govuk_rbenv::all
 
-  include govuk_aws_xray_daemon
-
   limits::limits { 'root_nofile':
     ensure     => present,
     user       => 'root',
