@@ -1,9 +1,12 @@
 # This config file is common to all three Licensify apps within a given
 # environment. It gets included in each app's individual config file.
 
-mongo.database.hosts=<%= @mongo_database_hosts %>
+mongo.database.hosts=<%= @mongo_database_hosts.join(',') %>
 mongo.database.reference.name=<%= @mongo_database_reference_name %>
 mongo.database.audit.name=<%= @mongo_database_audit_name %>
+mongo.database.auth.enabled=<%= @mongo_database_auth_enabled %>
+mongo.database.auth.username=<%= @mongo_database_auth_username %>
+mongo.database.auth.password=<%= @mongo_database_auth_password %>
 
 mongo.database.slaveok=<%= @mongo_database_slaveok %>
 places.api.url=<%= @places_api_url %>
@@ -50,4 +53,3 @@ performance.platform.service.url=<%= @performance_platform_service_url %>
 notify.key.api=<%= @notify_key_api %>
 
 is.master.node=<%= @is_master_node %>
-

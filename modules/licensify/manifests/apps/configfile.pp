@@ -2,11 +2,39 @@
 #
 # Creates the config file which is common to all three Licensify apps.
 #
+# TODO: document all the parameters
+#
+# # === Parameters
+#
+# [*mongo_database_hosts*]
+#   List of addresses for the Licencify Mongodb/DocumentdDB instances
+#   Type: array of string
+#   Default: []
+#
+# [*mongo_database_auth_enabled*]
+#   State whether to use a username and password to access the
+#   Mongodb/DocumentDB instances
+#   Type: boolean
+#   Default: false
+#
+# [*mongo_database_auth_username*]
+#   Username to access the Mongodb/DocumentDB instances
+#   Type: string
+#   Default: ''
+#
+# [*mongo_database_auth_password*]
+#   Password to access the Mongodb/DocumentDB instances
+#   Type: string
+#   Default: ''
+#
 class licensify::apps::configfile(
-  $mongo_database_hosts = undef,
+  $mongo_database_hosts = [],
   $mongo_database_reference_name = undef,
   $mongo_database_audit_name = undef,
   $mongo_database_slaveok = undef,
+  $mongo_database_auth_enabled = false,
+  $mongo_database_auth_username = '',
+  $mongo_database_auth_password = '',
   $places_api_url = undef,
   $feed_actor = undef,
   $oauth_callback_url_override = undef,
