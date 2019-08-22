@@ -222,7 +222,7 @@ function restore_elasticsearch {
   curl -XDELETE "http://${database}/_all"
   /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_snapshot/${url}/${snapshot_name}/_restore" || true
   /bin/sleep 1
-  /usr/bin/curl --connect-timeout 10 -sSf -XPOST "http://${database}/_cat/recovery" | grep -q "${snapshot_name}"
+  /usr/bin/curl --connect-timeout 10 -sSf -XGET "http://${database}/_cat/recovery" | grep -q "${snapshot_name}"
 }
 
 function  dump_postgresql {
