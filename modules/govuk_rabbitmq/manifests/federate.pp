@@ -40,12 +40,14 @@ class govuk_rabbitmq::federate (
     exec { 'rabbitmq parameters':
       command => "rabbitmqctl set_parameter federation-upstream ${upstream_name} '{\"uri\": [ \"amqp://${federation_user}:${federation_pass}@${upstream_servers[0]}\", \"amqp://${federation_user}:${federation_pass}@${upstream_servers[1]}\",\"amqp://${federation_user}:${federation_pass}@${upstream_servers[2]}\" ], \"max-hops\": ${max_hops}}'",
       unless  => 'rabbitmqctl list_parameters | grep -qE federation',
+      onlyif  => 'rabbitmqctl cluster_status | grep -qE "{partitions,\[\]}"',
       path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
       require => Rabbitmq_plugin['rabbitmq_federation'],
     }
     exec { 'rabbitmq policy: federation':
       command => "rabbitmqctl set_policy --apply-to exchanges federation ${federation_exchange} '{\"federation-upstream-set\":\"all\"}'",
       unless  => 'rabbitmqctl list_policies | grep -qE federation',
+      onlyif  => 'rabbitmqctl cluster_status | grep -qE "{partitions,\[\]}"',
       path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
       require => Exec['rabbitmq parameters'],
     }
