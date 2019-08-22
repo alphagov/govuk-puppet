@@ -8,8 +8,6 @@
 class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
   include govuk::node::s_frontend
 
-  include govuk_aws_xray_daemon
-
   $app_domain = hiera('app_domain')
 
   if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {

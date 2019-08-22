@@ -5,8 +5,6 @@ class govuk::node::s_whitehall_backend (
 
   include govuk::node::s_app_server
 
-  include govuk_aws_xray_daemon
-
   include nginx
 
   include imagemagick
