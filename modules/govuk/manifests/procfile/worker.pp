@@ -93,7 +93,7 @@ define govuk::procfile::worker (
         warning   => '@0', # WARN if there are 0 processes
         critical  => '@-1', # Don't use the CRITICAL status for now
                             # (less than -1 processes)
-        desc      => "No processes found for ${title_underscore}",
+        desc      => "No processes found for ${service_name}",
         host_name => $::fqdn,
         from      => '30seconds',
       }
@@ -103,7 +103,7 @@ define govuk::procfile::worker (
           target    => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.threads",
           warning   => $alert_when_threads_exceed,
           critical  => $alert_when_threads_exceed,
-          desc      => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+          desc      => "Thread count for ${service_name} exceeds ${alert_when_threads_exceed}",
           host_name => $::fqdn,
         }
       }
