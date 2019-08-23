@@ -38,8 +38,17 @@ class govuk::node::s_db_admin(
   }
 
   apt::source { 'mongodb32':
+    ensure       => 'absent',
     location     => "http://${apt_mirror_hostname}/mongodb3.2",
     release      => 'trusty-mongodb-org-3.2',
+    architecture => $::architecture,
+    repos        => 'multiverse',
+    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+  }
+
+  apt::source { 'mongodb41':
+    location     => "http://${apt_mirror_hostname}/mongodb4.1",
+    release      => 'trusty-mongodb-org-4.1',
     architecture => $::architecture,
     repos        => 'multiverse',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
