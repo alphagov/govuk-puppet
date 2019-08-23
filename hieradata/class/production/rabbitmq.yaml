@@ -2,6 +2,6 @@
 
 govuk_rabbitmq::federate::federation_user: 'root'
 govuk_rabbitmq::federate::federation_pass: "%{hiera('govuk_rabbitmq::root_password')}"
-govuk_rabbitmq::federate::upstream_servers: ['10.3.3.70', '10.3.3.71', '10.3.3.72']
-govuk_rabbitmq::federate::upstream_name: 'carrenza'
+govuk_rabbitmq::federate::upstream_servers: ['10.13.13.20', '10.13.14.20', '10.13.15.20']
+govuk_rabbitmq::federate::upstream_name: 'aws'
 govuk_rabbitmq::federate::federation_exchange: 'published_documents'
