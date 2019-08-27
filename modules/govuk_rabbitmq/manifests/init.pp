@@ -3,6 +3,7 @@ class govuk_rabbitmq (
   $monitoring_password,
   $root_password,
   $aws_clustering = false,
+  $federation = false,
 ) {
   $root_vhost = '/'
   $monitoring_user = 'monitoring'
@@ -53,7 +54,7 @@ class govuk_rabbitmq (
 
   }
 
-  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') or ($::environment == 'staging') or ($::environment == 'production'){
+  if $federation {
 
     # Temporary federation setup for the duration of the migration to AWS
     # Remove once the migration is over
