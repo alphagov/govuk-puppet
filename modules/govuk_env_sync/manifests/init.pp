@@ -6,6 +6,7 @@ class govuk_env_sync(
   $user = 'govuk-backup',
   $conf_dir = '/etc/govuk_env_sync',
   $aws_region = 'eu-west-1',
+  $document_db_credentials = undef,
 ) {
 
   include govuk_env_sync::lock_file
@@ -23,4 +24,8 @@ class govuk_env_sync(
   }
 
   create_resources(govuk_env_sync::task, $tasks)
+
+  if $document_db_credentials {
+    create_resources(govuk_env_sync::documentdb_auth, $document_db_credentials)
+  }
 }

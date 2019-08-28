@@ -241,3 +241,20 @@ govuk_env_sync::tasks:
     temppath: "/tmp/whitehall_production"
     url: "govuk-integration-database-backups"
     path: "mysql-backend"
+  "pull_licensify_integration_daily": &pull_licensify
+    ensure: absent
+    hour: '4'
+    minute: '0'
+    action: pull
+    dbms: documentdb
+    storagebackend: s3
+    database: licensify
+    temppath: /var/lib/documentdb/.dumps
+    url: govuk-staging-database-backups
+    path: mongo-licensing
+  "pull_licensify_audit_integration_daily":
+    <<: *pull_licensify
+    database: licensify-audit
+  "pull_licensify_refdata_integration_daily":
+    <<: *pull_licensify
+    database: licensify-refdata

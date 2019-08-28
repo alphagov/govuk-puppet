@@ -156,6 +156,32 @@ function is_writable_mongo {
   mongo --quiet --eval "print(db.isMaster()[\"ismaster\"]);" "localhost/$database"
 }
 
+function normalize_documentdb_database_name {
+  echo "${database//-/_}" | awk '{ print toupper($0) }'
+}
+
+function setup_documentdb_credentials {
+  database_normalized=$(normalize_documentdb_database_name)
+
+  local documentdb_host_env_var_name="${database_normalized}_DOCUMENTDB_HOST"
+  DOCUMENTDB_HOST="${!documentdb_host_env_var_name}"
+
+  local documentdb_passwd_env_var_name="${database_normalized}_DOCUMENTDB_PASSWD"
+  DOCUMENTDB_PASSWD="${!documentdb_passwd_env_var_name}"
+}
+
+function is_writable_documentdb {
+  setup_documentdb_credentials
+  database_normalized=$(normalize_documentdb_database_name)
+
+  mongo --quiet \
+        --host "${DOCUMENTDB_HOST}" \
+        --username "master" \
+        --password "${DOCUMENTDB_PASSWD}" \
+        "$database" \
+        --eval "print(db.isMaster()[\"ismaster\"]);"
+}
+
 function is_writable_elasticsearch {
   echo "true"
 }
@@ -195,6 +221,59 @@ function restore_mongo {
   mongorestore --drop \
     --db "${database}" \
     "${tempdir}/${database}"
+}
+
+function dump_documentdb {
+  setup_documentdb_credentials
+  database_normalized=$(normalize_documentdb_database_name)
+
+  readarray -t collections < \
+    <(mongo --quiet \
+       --host "${DOCUMENTDB_HOST}" \
+       --username "master" \
+       --password "${DOCUMENTDB_PASSWD}" \
+       "$database" \
+       --eval 'rs.slaveOk(); printjson(db.getCollectionNames());' | jq -r '.[]')
+
+  for collection in "${collections[@]}"
+  do
+    mongodump \
+      --host "${DOCUMENTDB_HOST}" \
+      --username "master" \
+      --password "${DOCUMENTDB_PASSWD}" \
+      --db "${database}" \
+      --collection "${collection}" \
+      --out "${tempdir}"
+  done
+
+  cd "${tempdir}" || exit 1
+  tar --create --gzip --force-local --file "${filename}" "${database}"
+}
+
+function restore_documentdb {
+  cd "${tempdir}" || exit 1
+  tar --extract --gzip --force-local --file "${filename}"
+
+  setup_documentdb_credentials
+  database_normalized=$(normalize_documentdb_database_name)
+
+  for bson_file_path in ${tempdir}/${database}/*.bson
+  do
+    filename=$(basename -- "$bson_file_path")
+    collection_name="${filename%.*}"
+
+    if [ "${collection_name}" == "system.profile" ]; then
+      continue
+    fi
+
+    mongorestore --drop \
+      --host "${DOCUMENTDB_HOST}" \
+      --username "master" \
+      --password "${DOCUMENTDB_PASSWD}" \
+      --db "${database}" \
+      --collection "${collection_name}" \
+      "${tempdir}/${database}/${collection_name}.bson"
+  done
 }
 
 function dump_files {

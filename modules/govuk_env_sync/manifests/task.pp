@@ -1,6 +1,6 @@
 # == Custom resource type: govuk_env_sync::task
 #
-# Creates a configuration file and cron-job, parameterising the govuk_env_sync.sh 
+# Creates a configuration file and cron-job, parameterising the govuk_env_sync.sh
 # from data provided in hieradata govuk_env_sync::tasks:
 #
 # [*hour*]
