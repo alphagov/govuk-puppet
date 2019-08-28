@@ -30,18 +30,18 @@ class govuk::node::s_licensing_frontend (
 
   include nginx
 
-  apt::source { 'mongodb32':
+  apt::source { 'mongodb41':
     ensure       => 'absent',
-    location     => "http://${apt_mirror_hostname}/mongodb3.2",
-    release      => 'trusty-mongodb-org-3.2',
+    location     => "http://${apt_mirror_hostname}/mongodb4.1",
+    release      => 'trusty-mongodb-org-4.1',
     architecture => $::architecture,
     repos        => 'multiverse',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
 
-  apt::source { 'mongodb41':
-    location     => "http://${apt_mirror_hostname}/mongodb4.1",
-    release      => 'trusty-mongodb-org-4.1',
+  apt::source { 'mongodb36':
+    location     => "http://${apt_mirror_hostname}/mongodb3.6",
+    release      => 'trusty-mongodb-org-3.6',
     architecture => $::architecture,
     repos        => 'multiverse',
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
