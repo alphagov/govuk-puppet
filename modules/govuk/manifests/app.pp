@@ -170,6 +170,9 @@
 # [*alert_5xx_critical_rate*]
 # the 5xx error percentage that should generate a critical
 #
+# [*alert_notification_period*]
+#   The notification period of the alert, passed to govuk::app::config.
+#
 # [*unicorn_herder_timeout*]
 # the timeout (in seconds) period to wait for
 #
@@ -289,6 +292,7 @@ define govuk::app (
   $nginx_extra_config = '',
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
+  $alert_notification_period = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
@@ -376,6 +380,7 @@ define govuk::app (
     nagios_memory_critical              => $nagios_memory_critical,
     alert_5xx_warning_rate              => $alert_5xx_warning_rate,
     alert_5xx_critical_rate             => $alert_5xx_critical_rate,
+    alert_notification_period           => $alert_notification_period,
     unicorn_herder_timeout              => $unicorn_herder_timeout,
     asset_pipeline                      => $asset_pipeline,
     asset_pipeline_prefix               => $asset_pipeline_prefix,
