@@ -471,6 +471,7 @@ govuk::apps::email_alert_api::unicorn_worker_processes: '8'
 # This list should be kept in sync with https://www.notifications.service.gov.uk/services/ecfc7e2f-5145-45a6-9413-5d9b6e813ea9/users
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
+  - andy.maidment@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - deborah.chua@digital.cabinet-office.gov.uk
