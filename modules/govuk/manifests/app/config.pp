@@ -27,6 +27,9 @@
 # [*nagios_memory_critical*]
 #   Memory use, in MB, at which Nagios should generate a critical alert.
 #
+# [*alert_notification_period*]
+#   The notification period of the alert, passed to govuk::app::nginx_vhost.
+#
 # [*proxy_http_version_1_1_enabled*]
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
@@ -94,6 +97,7 @@ define govuk::app::config (
   $nagios_memory_critical = 800,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
+  $alert_notification_period = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
@@ -284,6 +288,7 @@ define govuk::app::config (
       read_timeout                   => $read_timeout,
       alert_5xx_warning_rate         => $alert_5xx_warning_rate,
       alert_5xx_critical_rate        => $alert_5xx_critical_rate,
+      alert_notification_period      => $alert_notification_period,
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
 
