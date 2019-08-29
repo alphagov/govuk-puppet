@@ -65,15 +65,15 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_admin_production_push"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
-  "pull_publishing-api_production_daily":
+  "pull_publishing_api_production_daily":
     ensure: "present"
     hour: "3"
     minute: "45"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
-    database: "publishing-api_production"
-    temppath: "/tmp/publishing-api_production"
+    database: "publishing_api_production"
+    temppath: "/tmp/publishing_api_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_support_contacts_production_daily":
