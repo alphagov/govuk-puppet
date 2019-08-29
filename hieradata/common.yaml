@@ -384,11 +384,17 @@ govuk::apps::email_alert_api::unicorn_worker_processes: '8'
 # This list should be kept in sync with https://www.notifications.service.gov.uk/services/ecfc7e2f-5145-45a6-9413-5d9b6e813ea9/users
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
+  - andy.maidment@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - deborah.chua@digital.cabinet-office.gov.uk
   - edward.kerry@digital.cabinet-office.gov.uk
+  - jennifer.allum@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
+  - leanne.cummings@digital.cabinet-office.gov.uk
+  - ruth.morris@digital.cabinet-office.gov.uk
+  - steve.messer@digital.cabinet-office.gov.uk
+  - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
