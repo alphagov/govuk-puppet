@@ -58,6 +58,9 @@
 # [*alert_5xx_critical_rate*]
 #   The error percentage that triggers a critical alert
 #
+# [*alert_notification_period*]
+#   The notification period of the alert, passed to nginx::config::vhost::proxy.
+#
 # [*proxy_http_version_1_1_enabled*]
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
@@ -81,6 +84,7 @@ define govuk::app::nginx_vhost (
   $ensure = 'present',
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
+  $alert_notification_period = undef,
   $proxy_http_version_1_1_enabled = false,
 ) {
 
@@ -114,6 +118,7 @@ define govuk::app::nginx_vhost (
     read_timeout                   => $read_timeout,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
+    alert_notification_period      => $alert_notification_period,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
   }
 }
