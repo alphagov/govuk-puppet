@@ -767,6 +767,9 @@ govuk::apps::service_manual_publisher::db::rds: true
 govuk::apps::support_api::db::rds: true
 govuk::apps::transition::postgresql_db::rds: true
 
+govuk_pgbouncer::admin::rds: true
+govuk_pgbouncer::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

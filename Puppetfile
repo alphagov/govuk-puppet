@@ -27,6 +27,7 @@ mod 'saz/ntp', '2.3.2'
 mod 'saz/rsyslog', '3.2.0'
 mod 'saz/sudo', '3.1.0'
 mod 'saz/timezone'
+mod 'covermymeds-pgbouncer', '0.3.3'
 
 # Installing from GitHub because we need this revision
 # which will probably be released as version 0.0.7
