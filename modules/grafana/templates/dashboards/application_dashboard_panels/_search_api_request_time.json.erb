@@ -1,76 +1,72 @@
 {
+  "aliasColors": {},
+  "bars": false,
+  "dashLength": 10,
+  "dashes": false,
+  "datasource": "Graphite",
+  "fill": 1,
   "id": 4,
-  "title": "Search API Request Time",
+  "legend": {
+    "avg": false,
+    "current": false,
+    "max": false,
+    "min": false,
+    "show": true,
+    "total": false,
+    "values": false
+  },
+  "lines": true,
+  "linewidth": 1,
+  "links": [],
+  "nullPointMode": "connected",
+  "percentage": false,
+  "pointradius": 1,
+  "points": true,
+  "renderer": "flot",
+  "seriesOverrides": [],
+  "spaceLength": 10,
   "span": 4,
-  "type": "graph",
+  "stack": false,
+  "steppedLine": false,
   "targets": [
     {
       "refId": "A",
-      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_search.upper_90), 'Single search')"
-    },
-    {
-      "refId": "B",
-      "target": "alias(maxSeries(stats.timers.govuk.app.<%= @app_name %>.*.rummager.finder_batch_search.upper_90), 'Batch search')"
+      "target": "alias(maxSeries(stats.timers.govuk.app.finder-frontend.*.rummager.finder_search.upper_90), 'Single search')"
     }
   ],
-  "datasource": "Graphite",
-  "renderer": "flot",
-  "yaxes": [
-    {
-      "label": null,
-      "show": true,
-      "logBase": 1,
-      "min": null,
-      "max": null,
-      "format": "ms"
-    },
-    {
-      "label": null,
-      "show": true,
-      "logBase": 1,
-      "min": null,
-      "max": null,
-      "format": "short"
-    }
-  ],
-  "xaxis": {
-    "show": true,
-    "mode": "time",
-    "name": null,
-    "values": [],
-    "buckets": null
-  },
-  "lines": false,
-  "fill": 1,
-  "linewidth": 1,
-  "dashes": false,
-  "dashLength": 10,
-  "spaceLength": 10,
-  "points": true,
-  "pointradius": 1,
-  "bars": true,
-  "stack": false,
-  "percentage": false,
-  "legend": {
-    "show": true,
-    "values": false,
-    "min": false,
-    "max": false,
-    "current": false,
-    "total": false,
-    "avg": false
-  },
-  "nullPointMode": "null",
-  "steppedLine": false,
-  "tooltip": {
-    "value_type": "individual",
-    "shared": true,
-    "sort": 0
-  },
+  "thresholds": [],
   "timeFrom": null,
   "timeShift": null,
-  "aliasColors": {},
-  "seriesOverrides": [],
-  "thresholds": [],
-  "links": []
+  "title": "Search API Request Time",
+  "tooltip": {
+    "shared": true,
+    "sort": 0,
+    "value_type": "individual"
+  },
+  "type": "graph",
+  "xaxis": {
+    "buckets": null,
+    "mode": "time",
+    "name": null,
+    "show": true,
+    "values": []
+  },
+  "yaxes": [
+    {
+      "format": "ms",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": true
+    },
+    {
+      "format": "short",
+      "label": null,
+      "logBase": 1,
+      "max": null,
+      "min": null,
+      "show": true
+    }
+  ]
 }
