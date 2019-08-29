@@ -55,10 +55,11 @@ class puppet::puppetdb (
   }
 
   govuk_postgresql::db { 'puppetdb':
-    user     => 'puppetdb',
-    password => $database_password,
-    encoding => 'SQL_ASCII',
-    before   => Service['puppetdb'],
+    user                => 'puppetdb',
+    password            => $database_password,
+    encoding            => 'SQL_ASCII',
+    enable_in_pgbouncer => false,
+    before              => Service['puppetdb'],
   }
 
   govuk_postgresql::extension { 'puppetdb:pg_trgm':

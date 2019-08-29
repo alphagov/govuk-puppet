@@ -38,9 +38,10 @@ class govuk::apps::mapit (
     }
 
     govuk_postgresql::db { 'mapit':
-      user       => 'mapit',
-      password   => $db_password,
-      extensions => ['plpgsql', 'postgis'],
+      user                => 'mapit',
+      password            => $db_password,
+      extensions          => ['plpgsql', 'postgis'],
+      enable_in_pgbouncer => false,
     }
 
     class { 'postgresql::server::postgis': }
