@@ -1,5 +1,24 @@
 #!/bin/bash
 OUTPUT=`/usr/lib/nagios/plugins/check_puppet_agent`
 CODE=$?
-printf "<%= @ipaddress_eth0 %>\tpuppet last run errors\t$CODE\t$OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %>
-exit $?
+
+max_retries=10
+retries_count=0
+
+while [ $retries_count -lt $max_retries ]
+do
+
+  printf "<%= @ipaddress_eth0 %>\tpuppet last run errors\t$CODE\t$OUTPUT\n" | \
+    /usr/sbin/send_nsca -H <%= @alert_hostname %> || \
+    restore_failed=$?
+
+  if [ -z "${restore_failed:-}" ]; then
+    exit 0
+  fi
+
+  retries_count=$((retries_count+1))
+  sleep $((retries_count * 20))
+
+done
+
+exit "${restore_failed}"
