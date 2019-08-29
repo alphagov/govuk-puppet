@@ -50,7 +50,8 @@
 # Network range for the load balancer.
 #
 # [*enable_in_pgbouncer*]
-# Whether to allow access to this database from pgbouncer.
+# Whether to allow access to this database from pgbouncer.  This is always
+# overridden to false if using RDS.
 # Default: true
 #
 # [*ssl_only*]
@@ -169,13 +170,7 @@ define govuk_postgresql::db (
     }
   }
 
-  if $enable_in_pgbouncer {
-    if $rds {
-      $host = $postgresql::server::default_connect_settings['PGHOST']
-    } else {
-      $host = '127.0.0.1'
-    }
-
+  if $enable_in_pgbouncer and ! $rds {
     govuk_pgbouncer::db { $title:
       user                    => $user,
       password_hash           => $password_hash,
@@ -185,7 +180,7 @@ define govuk_postgresql::db (
       allow_auth_from_lb      => $allow_auth_from_lb,
       lb_ip_range             => $lb_ip_range,
       hba_type                => $hba_type,
-      host                    => $host,
+      host                    => '127.0.0.1',
     }
   }
 }
