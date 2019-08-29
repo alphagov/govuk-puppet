@@ -47,6 +47,12 @@ class licensify::apps::licensify (
   $alert_5xx_critical_rate = 0.1,
 ) inherits licensify::apps::base {
 
+  if $::aws_migration {
+    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\/.*'
+  } else {
+    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*'
+  }
+
   govuk::app { 'licensify':
     app_type                       => 'procfile',
     port                           => $port,
@@ -55,7 +61,7 @@ class licensify::apps::licensify (
     require                        => File['/etc/licensing'],
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
-    collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*',
+    collectd_process_regex         => $collectd_process_regex,
     nagios_memory_warning          => 1350,
     nagios_memory_critical         => 1500,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,

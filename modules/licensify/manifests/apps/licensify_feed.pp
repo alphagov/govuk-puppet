@@ -44,6 +44,12 @@ class licensify::apps::licensify_feed(
   $ws_accept_any_certificate = false,
 ) inherits licensify::apps::base {
 
+  if $::aws_migration {
+    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-feed\/.*'
+  } else {
+    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-feed\..*publishing\.service\.gov\.uk\/licensify-feed-.*'
+  }
+
   govuk::app { 'licensify-feed':
     app_type                       => 'procfile',
     port                           => $port,
@@ -52,7 +58,7 @@ class licensify::apps::licensify_feed(
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
     health_check_path              => '/licence-management/feed/process-applications',
-    collectd_process_regex         => 'java -Duser.dir=\/data\/vhost\/licensify-feed\..*publishing\.service\.gov\.uk\/licensify-feed-.*',
+    collectd_process_regex         => $collectd_process_regex,
     nagios_memory_warning          => 1400,
     nagios_memory_critical         => 1500,
   }
