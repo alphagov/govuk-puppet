@@ -40,16 +40,17 @@ class govuk::apps::collections(
   $email_alert_api_bearer_token = undef,
 ) {
   govuk::app { 'collections':
-    app_type               => 'rack',
-    port                   => $port,
-    health_check_path      => '/topic/oil-and-gas',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'collections',
-    vhost                  => $vhost,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    sentry_dsn             => $sentry_dsn,
+    app_type                  => 'rack',
+    port                      => $port,
+    health_check_path         => '/topic/oil-and-gas',
+    log_format_is_json        => true,
+    asset_pipeline            => true,
+    asset_pipeline_prefix     => 'collections',
+    vhost                     => $vhost,
+    nagios_memory_warning     => $nagios_memory_warning,
+    nagios_memory_critical    => $nagios_memory_critical,
+    sentry_dsn                => $sentry_dsn,
+    alert_notification_period => '24x7',
   }
 
   Govuk::App::Envvar {
