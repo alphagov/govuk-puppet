@@ -78,8 +78,6 @@ class govuk::node::s_publishing_api_db_admin(
   # Ensure the client class is installed
   class { '::govuk_postgresql::client': } ->
 
-  class { '::govuk_pgbouncer': } ->
-
   # include all PostgreSQL classes that create databases and users
   class { '::govuk::apps::publishing_api::db': }
 
