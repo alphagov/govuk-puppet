@@ -539,8 +539,11 @@ function postprocess_router {
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
     db.backends.save(b); } ); "
 
-  licensify_domain="${unmigrated_source_domain}"
-  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+  # licensify has been migrated in only integration so far
+  if [ "${aws_environment}" != "integration" ]; then
+    licensify_domain="${unmigrated_source_domain}"
+    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+  fi
 
   whitehall_domain="${unmigrated_source_domain}"
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
