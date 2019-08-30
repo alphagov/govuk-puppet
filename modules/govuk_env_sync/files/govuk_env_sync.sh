@@ -257,8 +257,10 @@ function restore_documentdb {
   setup_documentdb_credentials
   database_normalized=$(normalize_documentdb_database_name)
 
+
   for bson_file_path in ${tempdir}/${database}/*.bson
   do
+
     filename=$(basename -- "$bson_file_path")
     collection_name="${filename%.*}"
 
@@ -266,13 +268,27 @@ function restore_documentdb {
       continue
     fi
 
-    mongorestore --drop \
-      --host "${DOCUMENTDB_HOST}" \
-      --username "master" \
-      --password "${DOCUMENTDB_PASSWD}" \
-      --db "${database}" \
-      --collection "${collection_name}" \
-      "${tempdir}/${database}/${collection_name}.bson"
+    max_retries=5
+    retries_count=0
+
+    while [ $retries_count -lt $max_retries ]
+    do
+
+      mongorestore --drop \
+        --host "${DOCUMENTDB_HOST}" \
+        --username "master" \
+        --password "${DOCUMENTDB_PASSWD}" \
+        --db "${database}" \
+        --collection "${collection_name}" \
+        "${tempdir}/${database}/${collection_name}.bson" || restore_failed=$?
+
+      if [ -z "${restore_failed:-}" ]; then
+        break
+      fi
+
+      retries_count=$((retries_count+1))
+      sleep $((retries_count * 2))
+    done
   done
 }
 
