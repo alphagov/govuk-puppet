@@ -979,6 +979,8 @@ govuk_jenkins::jobs::integration_deploy::applications:
   cache-clearing-service: {}
   calculators: {}
   calendars: {}
+  ckan:
+    repository: 'ckanext-datagovuk'
   collections: {}
   content-store: {}
   email-alert-frontend: {}
