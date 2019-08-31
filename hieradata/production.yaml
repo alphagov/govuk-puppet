@@ -66,6 +66,11 @@ govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
+
+govuk::apps::finder_frontend::nagios_memory_warning: 4000
+govuk::apps::finder_frontend::nagios_memory_critical: 5000
+govuk::apps::finder_frontend::unicorn_worker_processes: "12"
+
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
