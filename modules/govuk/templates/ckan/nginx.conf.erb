@@ -36,6 +36,18 @@ location /api/action/package_list {
   try_files $uri @app;
 }
 
+# Additional endpoints requested by users
+
+location /api/action/package_search {
+  try_files $uri @app;
+}
+
+location /api/3/action/package_search {
+  try_files $uri @app;
+}
+
+# CSW endpoint
+
 location /csw {
   <%- if @protected -%>
   deny all;
