@@ -56,16 +56,29 @@ class govuk::node::s_gatling (
       group   => 'gatling',
       require => User['gatling'],
     }
+
+    # repository where GOV.UK stores its load tests
+    vcsrepo { '/home/gatling/govuk-load-testing':
+      ensure   => present,
+      provider => git,
+      source   => $repo,
+      revision => $commit,
+      force    => true,
+      user     => 'gatling',
+      require  => File['/home/gatling/.ssh/id_rsa'],
+    }
+  } else {
+    # repository where GOV.UK stores its load tests
+    vcsrepo { '/home/gatling/govuk-load-testing':
+      ensure   => present,
+      provider => git,
+      source   => $repo,
+      revision => $commit,
+      force    => true,
+    }
   }
 
-  # repository where GOV.UK stores its load tests
-  vcsrepo { '/home/gatling/govuk-load-testing':
-    ensure   => present,
-    provider => git,
-    source   => $repo,
-    revision => $commit,
-    force    => true,
-  }
+
 
   # install the JRE and JDK on the Gatling instance
   include ::govuk_java::openjdk8::jre
