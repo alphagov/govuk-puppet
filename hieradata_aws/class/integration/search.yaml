@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_es_everything_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "24"
     action: "pull"
@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration"
     path: "elasticsearch5"
   "pull_es6_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "24"
     action: "pull"

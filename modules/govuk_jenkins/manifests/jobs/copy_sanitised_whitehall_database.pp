@@ -13,7 +13,7 @@ class govuk_jenkins::jobs::copy_sanitised_whitehall_database (
   $job_url = "https://deploy.${app_domain}/job/copy_sanitised_whitehall_database"
 
   file { '/etc/jenkins_jobs/jobs/copy_sanitised_whitehall_database.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/copy_sanitised_whitehall_database.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
