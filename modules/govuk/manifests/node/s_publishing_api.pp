@@ -32,6 +32,16 @@ class govuk::node::s_publishing_api inherits govuk::node::s_base {
     $extra_config = ''
   }
 
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    # For AWS staging and production, use the external domain name when
+    # constructing the URI for talking to Signon. This is needed while Signon
+    # is still in Carrenza.
+    $app_domain = hiera('app_domain')
+    govuk_envvar {
+      'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
+    }
+  }
+
   # If we miss all the apps, throw a 500 to be caught by the cache nginx
   nginx::config::vhost::default { 'default':
     extra_config => $extra_config,
