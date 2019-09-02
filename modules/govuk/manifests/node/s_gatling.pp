@@ -16,13 +16,21 @@
 #  The version of the repository where GOV.UK defines its load tests
 #  Default = 'master'
 #
+# [*ssh_public_key*]
+#  ssh public key of user which has access to govuk-load-testing repo
+#  Default = undef
 #
+# [*ssh_private_key*]
+#  ssh private key of user which has access to govuk-load-testing repo
+#  Default = undef
 #
 class govuk::node::s_gatling (
   $root_dir            = '/usr/local/bin/gatling/results',
   $repo                = 'https://github.com/alphagov/govuk-load-testing.git',
   $commit              = 'master',
   $apt_mirror_hostname = undef,
+  $ssh_public_key      = undef,
+  $ssh_private_key     = undef,
 ) inherits govuk::node::s_base {
 
   # User used to run Gatling
@@ -30,6 +38,24 @@ class govuk::node::s_gatling (
     fullname => 'GOV.UK Gatling',
     email    => 'webops@digital.cabinet-office.gov.uk',
     groups   => ['admin', 'deploy', 'adm', 'www-data' ],
+  }
+
+  if $ssh_private_key and $ssh_public_key {
+    file { '/home/gatling/.ssh/id_rsa.pub':
+      content => "ssh-rsa ${ssh_public_key}",
+      mode    => '0644',
+      owner   => 'gatling',
+      group   => 'gatling',
+      require => User['gatling'],
+    }
+
+    file { '/home/gatling/.ssh/id_rsa':
+      content => $ssh_private_key,
+      mode    => '0600',
+      owner   => 'gatling',
+      group   => 'gatling',
+      require => User['gatling'],
+    }
   }
 
   # repository where GOV.UK stores its load tests

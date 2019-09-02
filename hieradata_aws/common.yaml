@@ -830,6 +830,9 @@ govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mir
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_gatling::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_gatling::repo: 'git@github.com:alphagov/govuk-load-testing.git'
+govuk::node::s_gatling::ssh_public_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+govuk::node::s_gatling::ssh_private_key: "%{hiera('govuk_jenkins::ssh_key::private_key')}"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
