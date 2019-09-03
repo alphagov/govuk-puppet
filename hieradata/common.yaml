@@ -385,6 +385,7 @@ govuk::apps::email_alert_api::unicorn_worker_processes: '8'
 govuk::apps::email_alert_api::email_address_override_whitelist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
   - andy.maidment@digital.cabinet-office.gov.uk
+  - ben.thorner@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - conor.delahunty@digital.cabinet-office.gov.uk
