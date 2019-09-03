@@ -504,7 +504,10 @@ function mongo_backend_domain_manipulator {
 
  domain_to_replace="${local_domain}"
  aws_environment="$(get_aws_environment)"
- if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
+
+ if [ "${aws_environment}" = "integration" ]; then
+     domain_to_replace="staging.${ORIGINAL_DOMAIN}"
+ else
      domain_to_replace="${ORIGINAL_DOMAIN}"
  fi
 
@@ -540,7 +543,10 @@ function postprocess_router {
     db.backends.save(b); } ); "
 
   # licensify has been migrated in only integration so far
-  if [ "${aws_environment}" != "integration" ]; then
+  if [ "${aws_environment}" == "integration" ]; then
+    licensify_domain="${local_domain}"
+    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+  else
     licensify_domain="${unmigrated_source_domain}"
     mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
   fi
