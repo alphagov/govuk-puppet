@@ -345,6 +345,23 @@ function  dump_postgresql {
   fi
 }
 
+# Translate the binary dump file into text (SQL DDL/DML), filter out extension
+# comments (which would cause the restore to fail) and pipe the output into
+# psql to do the actual restore.
+function filtered_postgresql_restore {
+  local single_transaction
+  if [ "${database}" == 'ckan_production' ]; then
+    single_transaction=''
+  else
+    single_transaction='-1'
+  fi
+
+  pg_restore "${tempdir}/${filename}" \
+      | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' \
+      | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
+          --no-password -d "${database}" 2>&1
+}
+
 function restore_postgresql {
   # Check which postgres instance the database needs to restore into
   # (content-data-api, transition, or postgresql).
@@ -357,8 +374,6 @@ function restore_postgresql {
   else
     db_hostname='postgresql-primary'
   fi
-
-  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
 
 # Checking if the database already exist
 # If it does we will drop the database
@@ -374,13 +389,7 @@ function restore_postgresql {
 
   sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
 
-  single_transaction='-1'
-  if [ "${database}" == 'ckan_production' ]; then
-    single_transaction=''
-  fi
-
-  pg_stderr=$(zcat "${tempdir}/${filename}.dump" | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" --no-password -d "${database}" 2>&1)
-  rm "${tempdir}/${filename}.dump"
+  pg_stderr=$(filtered_postgresql_restore)
 
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
