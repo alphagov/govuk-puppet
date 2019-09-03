@@ -17,7 +17,6 @@ class hosts::purge {
   $whitelist = [
     'db-admin-1',
     'email-alert-api-postgresql',
-    'publishing-api-db-admin-1',
     'publishing-api-postgresql-1',
     'mongo-api-1',
     'prometheus-1',

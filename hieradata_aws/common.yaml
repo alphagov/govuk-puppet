@@ -853,8 +853,6 @@ govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_back
 
 govuk::node::s_postgresql_primary::alert_hostname: 'alert'
 
-govuk::node::s_publishing_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
