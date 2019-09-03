@@ -74,7 +74,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "publishing_api_production"
     temppath: "/tmp/publishing_api_production"
-    url: "govuk-integration-database-backups"
+    url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "pull_support_contacts_production_daily":
     ensure: "present"
