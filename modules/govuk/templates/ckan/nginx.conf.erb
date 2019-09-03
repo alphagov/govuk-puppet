@@ -48,6 +48,12 @@ location /api/3/action/package_search {
 
 # CSW endpoint
 
+# Used by: pycsw data load in ckanext-spatial
+# Used for: syncing csw with ckan database
+location /api/search/dataset {
+  try_files $uri @app;
+}
+
 location /csw {
   <%- if @protected -%>
   deny all;
