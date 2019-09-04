@@ -1,68 +1,41 @@
 # Some API paths expose PII, so we block access by default. We allow access to
 # specific paths required by other apps which do not expose PII.
 
-# Used by: ckan.publishing.service.gov.uk
-# Used for: internationalisation of form controls
-location /api/i18n {
+<%-
+  allowed_paths = [
+    # Used by: ckan.publishing.service.gov.uk
+    # Used for: internationalisation of form controls
+    "/i18n",
+
+    # Used by: datagovuk_publish
+    # Used for: ckan_v26_ckan_org_sync
+    "/action/organization_list",
+    "/action/organization_show",
+
+    # Used by: datagovuk_publish
+    # Used for: ckan_v26_package_sync job
+    # Used by: pycsw data load in ckanext-spatial
+    # Used for: syncing csw with ckan database
+    "/search/dataset",
+
+    # Used by: datagovuk_publish
+    # Used for: ckan_v26_package_sync job
+    "/action/package_show",
+
+    # Additional endpoints requested by users
+    "/action/package_search",
+  ]
+-%>
+
+<% allowed_paths.each do |path| %>
+location /api<%= path %> {
   try_files $uri @app;
 }
 
-# Used by: datagovuk_publish
-# Used for: ckan_v26_ckan_org_sync
-location /api/3/action/organization_list {
+location /api/3<%= path %> {
   try_files $uri @app;
 }
-
-# Used by: datagovuk_publish
-# Used for: ckan_v26_ckan_org_sync
-location /api/3/action/organization_show {
-  try_files $uri @app;
-}
-
-# Used by: datagovuk_publish
-# Used for: ckan_v26_package_sync job
-location /api/3/search/dataset {
-  try_files $uri @app;
-}
-
-# Used by: datagovuk_publish
-# Used for: ckan_v26_package_sync job
-location /api/3/action/package_show {
-  try_files $uri @app;
-}
-
-# Additional endpoints advertised in data.gov.uk API docs
-
-# Duplicates above but does not include api version
-location /api/action/organization_list {
-  try_files $uri @app;
-}
-
-location /api/action/package_list {
-  try_files $uri @app;
-}
-
-location /api/action/organization_show {
-  try_files $uri @app;
-}
-
-# Additional endpoints requested by users
-
-location /api/action/package_search {
-  try_files $uri @app;
-}
-
-location /api/3/action/package_search {
-  try_files $uri @app;
-}
-
-# CSW endpoint
-
-# Used by: pycsw data load in ckanext-spatial
-# Used for: syncing csw with ckan database
-location /api/search/dataset {
-  try_files $uri @app;
-}
+<% end %>
 
 location /csw {
   <%- if @protected -%>
