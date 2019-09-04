@@ -19,6 +19,7 @@
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
+            export TARGET_MACHINES="$TARGET_MACHINES"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
             export GRAPHITE_HOST="<%= @graphite_host -%>"
@@ -81,6 +82,10 @@
                 - app:migrate
                 - app:hard_restart
                 - app:migrate_and_hard_restart
+        - string:
+            name: TARGET_MACHINES
+            description: Comma-delimited list of FQDN of the servers to deploy the app to.
+            default: all
         - string:
             name: TAG
             description: Git commit-ish (tag, branch name, commit hash) to deploy.

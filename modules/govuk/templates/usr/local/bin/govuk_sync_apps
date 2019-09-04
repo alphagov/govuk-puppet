@@ -2,4 +2,4 @@
 
 set -euo pipefail
 sleep 180
-curl 'https://<%= @jenkins_domain -%>/buildByToken/build?job=Deploy_Node_Apps/<%= @aws_migration %>&token=<%= @auth_token %>'
+curl 'https://<%= @jenkins_domain -%>/buildByToken/buildWithParameters/build?job=Deploy_Node_Apps/<%= @aws_migration %>&token=<%= @auth_token %>&TARGET_MACHINES=<%= @fqdn %>'
