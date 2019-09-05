@@ -46,6 +46,6 @@ class govuk::apps::ckan::cronjobs(
     plugin         => 'ckanext-spatial',
     hour           => '6',
     minute         => '0',
-    ckan_ini       => undef,
+    ckan_ini       => false,
   }
 }
