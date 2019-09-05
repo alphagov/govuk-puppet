@@ -84,7 +84,9 @@
                 - app:migrate_and_hard_restart
         - string:
             name: TARGET_MACHINES
-            description: Comma-delimited list of FQDN of the servers to deploy the app to.
+            description: >
+              Use "all" to target all eligible servers or
+              provide a comma-delimited list of FQDN of the servers to deploy to.
             default: all
         - string:
             name: TAG
