@@ -113,4 +113,12 @@ class govuk::node::s_gatling (
   nginx::config::site { 'gatling_service':
     content => template('govuk/node/s_gatling/gatling_cluster_vhost.conf.erb'),
   }
+
+  file { "${home}/.bashrc":
+    content => template('govuk/node/s_gatling/bashrc.erb'),
+    mode    => '0644',
+    owner   => 'gatling',
+    group   => 'gatling',
+    require => User['gatling'],
+  }
 }
