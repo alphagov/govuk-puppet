@@ -80,8 +80,6 @@ class govuk::node::s_gatling (
     }
   }
 
-
-
   # install the JRE and JDK on the Gatling instance
   include ::govuk_java::openjdk8::jre
   include ::govuk_java::openjdk8::jdk
