@@ -1,6 +1,7 @@
 ---
 - job:
     name: Deploy_App
+    concurrent: true
     display-name: Deploy_App
     project-type: freestyle
     description: "<% if @environment != 'integration' %><a href=\"http://www.flickr.com/photos/fatty/9158066939/\">\r\n  <img src=\"https://farm3.staticflickr.com/2835/9158066939_374360ed56_n.jpg\">\r\n</a>\r\n<% end %><h2>You can monitor the application health using the <a href=\"https://grafana.<%= @app_domain %>/#/dashboard/file/application_http_error_codes.json\">4XX and 5XX status dashboard</a></h2>\r\n"
