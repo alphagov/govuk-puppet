@@ -34,11 +34,13 @@ def ec2_nodes(stackname, nodeclass=None):
                    ]
                )
 
-    nodes = response['Reservations']
-
     hosts = []
-    for instance in nodes:
-        hosts.append((instance['Instances'][0]['PrivateDnsName']))
+
+    reservations = response['Reservations']
+    for reservation in reservations:
+        instances = reservation['Instances']
+        for instance in instances:
+            hosts.append((instance['PrivateDnsName']))
 
     return(hosts)
 
@@ -52,19 +54,21 @@ def ec2_nodes_list_with_puppet_class(stackname):
                    ]
                )
 
-    nodes = response['Reservations']
+    reservations = response['Reservations']
+    for reservation in reservations:
+        instances = reservation['Instances']
 
     return [
         "%s:%s" % (
-            instance['Instances'][0]['PrivateDnsName'],
+            instance['PrivateDnsName'],
             next(
                 filter(
                     lambda t: t['Key'] == 'aws_hostname',
-                    instance['Instances'][0]['Tags']
+                    instance['Tags']
                 )
             )['Value']
         )
-        for instance in list(nodes)
+        for instance in list(instances)
     ]
 
 def ec2_classes(stackname):
@@ -77,11 +81,13 @@ def ec2_classes(stackname):
            ]
        )
 
-    nodes = response['Reservations']
-
     classes = []
-    for instance in nodes:
-        classes.append(list(filter(lambda t: t['Key'] == 'aws_migration', instance['Instances'][0]['Tags']))[0]['Value'])
+
+    reservations = response['Reservations']
+    for reservation in reservations:
+        instances = reservation['Instances']
+        for instance in instances:
+            classes.append(list(filter(lambda t: t['Key'] == 'aws_migration', instance['Tags']))[0]['Value'])
 
     return(sorted(set(classes)))
 
@@ -90,6 +96,7 @@ def get_hostname_by_id(instance_id):
     response = client.describe_instances(InstanceIds=[instance_id])
     key = 'PrivateDnsName'
     host = response['Reservations'][0]['Instances'][0]['NetworkInterfaces'][0]
+
     if not key in host:
         print("The instance attribute {} does not exist".format(key))
         exit(1)
