@@ -545,18 +545,28 @@ function postprocess_router {
   # licensify has been migrated in only integration so far
   if [ "${aws_environment}" == "integration" ]; then
     licensify_domain="${local_domain}"
-    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
   else
     licensify_domain="${unmigrated_source_domain}"
-    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
   fi
+  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
 
-  whitehall_domain="${unmigrated_source_domain}"
+  # whitehall has been migrated in only integration so far
+  if [ "${aws_environment}" == "integration" ]; then
+    whitehall_domain="${local_domain}"
+  else
+    whitehall_domain="${unmigrated_source_domain}"
+  fi
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 
-  spotlight_proxy_domain="${unmigrated_source_domain}"
+  # spotlight has been migrated in only integration so far
+  if [ "${aws_environment}" == "integration" ]; then
+    spotlight_proxy_domain="${local_domain}"
+  else
+    spotlight_proxy_domain="${unmigrated_source_domain}"
+  fi
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
+  
 }
 
 function postprocess_database {
