@@ -60,7 +60,7 @@ class govuk::apps::government_frontend(
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
     vhost_ssl_only           => true,
-    health_check_path        => '/government/case-studies/example-case-studies-eu-citizens-rights-in-the-uk',
+    health_check_path        => '/healthcheck',
     asset_pipeline           => true,
     asset_pipeline_prefix    => 'government-frontend',
     vhost                    => $vhost,
