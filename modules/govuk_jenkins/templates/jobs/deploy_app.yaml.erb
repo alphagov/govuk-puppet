@@ -84,15 +84,15 @@
                 - app:hard_restart
                 - app:migrate_and_hard_restart
         - string:
+            name: TAG
+            description: Git commit-ish (tag, branch name, commit hash) to deploy.
+            default: release
+        - string:
             name: TARGET_MACHINES
             description: >
               Use "all" to target all eligible servers or
               provide a comma-delimited list of FQDN of the servers to deploy to.
             default: all
-        - string:
-            name: TAG
-            description: Git commit-ish (tag, branch name, commit hash) to deploy.
-            default: release
         - bool:
             name: DEPLOY_FROM_AWS_CODECOMMIT
             default: false
