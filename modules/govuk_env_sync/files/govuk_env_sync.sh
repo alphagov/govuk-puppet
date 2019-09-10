@@ -358,7 +358,13 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
-  pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
+  if [ "${database}" == 'publishing_api_production' ]; then
+    pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' \
+      | sed -r 's/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g' \
+      | gzip > "${tempdir}/${filename}.dump"
+  else
+    pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
+  fi
 
 # Checking if the database already exist
 # If it does we will drop the database
@@ -566,7 +572,7 @@ function postprocess_router {
     spotlight_proxy_domain="${unmigrated_source_domain}"
   fi
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
-  
+
 }
 
 function postprocess_database {
