@@ -103,10 +103,6 @@ class govuk::node::s_graphite (
   if $::aws_migration {
     $remove_old_whisper_data_bin = '/usr/local/bin/remove-old-whisper-data'
 
-    file { '/etc/cron.daily/remove_old_whisper_data':
-      ensure  => absent,
-    }
-
     file { $remove_old_whisper_data_bin:
       ensure  => present,
       content => template('govuk/node/s_graphite/remove_old_whisper_data.erb'),
