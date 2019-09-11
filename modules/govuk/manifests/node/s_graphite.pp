@@ -99,22 +99,19 @@ class govuk::node::s_graphite (
     extra_config => $cors_headers,
   }
 
-  ## The way we generate graphite data with changing hostnames in AWS require a bit of clean up
-  if $::aws_migration {
-    $remove_old_whisper_data_bin = '/usr/local/bin/remove-old-whisper-data'
+  $remove_old_whisper_data_bin = '/usr/local/bin/remove-old-whisper-data'
 
-    file { $remove_old_whisper_data_bin:
-      ensure  => present,
-      content => template('govuk/node/s_graphite/remove_old_whisper_data.erb'),
-      mode    => '0755',
-    }
+  file { $remove_old_whisper_data_bin:
+    ensure  => present,
+    content => template('govuk/node/s_graphite/remove_old_whisper_data.erb'),
+    mode    => '0755',
+  }
 
-    cron::crondotdee { 'remove-old-whisper-data':
-      command => $remove_old_whisper_data_bin,
-      hour    => 2,
-      minute  => 0,
-      require => File[$remove_old_whisper_data_bin],
-    }
+  cron::crondotdee { 'remove-old-whisper-data':
+    command => $remove_old_whisper_data_bin,
+    hour    => 2,
+    minute  => 0,
+    require => File[$remove_old_whisper_data_bin],
   }
 
   ## Backing up whisper database directly to S3 using the whisper-backup script
