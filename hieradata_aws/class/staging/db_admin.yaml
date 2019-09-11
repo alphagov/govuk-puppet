@@ -87,3 +87,22 @@ govuk_env_sync::tasks:
     temppath: "/tmp/support_contacts_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  "pull_licensify_production_daily": &pull_licensify
+    ensure: "present"
+    hour: "4"
+    minute: "45"
+    action: "pull"
+    dbms: "documentdb"
+    storagebackend: "s3"
+    database: "licensify"
+    temppath: "/tmp/licensify_production"
+    url: "govuk-production-database-backups"
+    path: "mongo-licensing"
+  "pull_licensify_audit_production_daily":
+    <<: *pull_licensify
+    database: "licensify-audit"
+    hour: "5"
+    minute: "0"
+  "pull_licensify_refdata_production_daily":
+    <<: *pull_licensify
+    database: "licensify-refdata"
