@@ -136,7 +136,6 @@ govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::kibana::logit_environment: b13bfb70-e07a-473b-9903-02e806ebd045
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
