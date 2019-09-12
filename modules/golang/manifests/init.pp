@@ -11,7 +11,7 @@ class golang {
     require        => Class['govuk_ppa'],
   }
 
-  goenv::version { ['1.7.1', '1.9.1', '1.12.1', '1.12.9']: }
+  goenv::version { ['1.7.1', '1.9.1', '1.11.13', '1.12.1', '1.12.9', '1.13']: }
 
   package { ['godep']:
     ensure  => latest,
