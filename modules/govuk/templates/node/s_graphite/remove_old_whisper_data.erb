@@ -1,11 +1,20 @@
 #!/bin/bash
 
-WHISPER_DIR='<%= @graphite_path %>/storage/whisper'
+whisper_dir='<%= @graphite_path %>/storage/whisper'
 
-for dir in $(ls $WHISPER_DIR); do
-  if [[ -z "$(find $WHISPER_DIR/$dir -mtime -14 )" && $? -eq 0 ]] ; then
-    if [[ ! -z $WHISPER_DIR && ! -z $dir ]] ; then
-      rm -fr $WHISPER_DIR/$dir;
-    fi
+# Delete files which haven't been modified in over 2 years
+find $whisper_dir -type f -mtime +730 -delete
+
+<%- if scope.lookupvar('::aws_migration') %>
+# Delete directories where none of the files inside have been modified in the
+# last 14 days. This effectively removes stats about machines which no longer
+# exist.
+for dir in $whisper_dir/*; do
+  if [[ ! -z $dir && -z "$(find $dir -mtime -14)" && $? -eq 0 ]]; then
+    rm -rf $dir;
   fi
 done
+<% end -%>
+
+# Delete empty directories
+find $whisper_dir -type d -empty -delete
