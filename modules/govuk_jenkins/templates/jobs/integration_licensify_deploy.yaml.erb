@@ -3,25 +3,39 @@
     name: integration-licensify-deploy
     display-name: integration-licensify-deploy
     project-type: freestyle
-    description: "Kicks off a Licensify deploy in the Integration environment"
+    description: 'Kicks off a Licensify deploy in the Integration environment'
     properties:
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
       - shell: |
-          JSON="{\"parameter\": [{\"name\": \"BETA_PAYMENT_ACCOUNTS\", \"value\": \"false\"}, {\"name\": \"artefact_number\", \"value\": \"$artefact_number\"}, {\"name\": \"app_version\", \"value\": \"$app_version\"}, {\"name\": \"CI_JOB_NAME\", \"value\": \"master\"}, {\"name\": \"ARTIFACT_PATH\", \"value\": \"target/universal\"}], \"\": \"\"}"
+          #!/bin/bash
 
-          # Deploy to integration environment
-          curl -v -f -XPOST https://<%= @jenkins_integration_api_user %>:<%= @jenkins_integration_api_password %>@ci-deploy.integration.publishing.service.gov.uk/job/Licensify_Deploy/build --data-urlencode json="$JSON"
+          # Deploy TARGET_APPLICATION to the AWS Integration environment.
+          function deploy {
+            read -rd '' JSON <<-EOF
+              {"parameter": [
+                {"name": "TAG", "value": "$TAG"},
+                {"name": "TARGET_APPLICATION", "value": "$TARGET_APPLICATION"},
+                {"name": "DEPLOY_TASK", "value": "deploy"},
+              ]}
+          EOF
+
+            CRUMB=$(curl https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+
+            curl -fX POST -H "Jenkins-Crumb:$CRUMB" -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON" https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/job/Deploy_App/build
+          }
+
+          # Deploy each Licensify app (licensify, licensify-admin, licensify-feed).
+          TARGET_APPLICATION=licensify deploy
+          TARGET_APPLICATION=licensify-admin deploy
+          TARGET_APPLICATION=licensify-feed deploy
     wrappers:
         - ansicolor:
             colormap: xterm
     parameters:
         - string:
-            name: artefact_number
-            description: artefact number as provided by the CI after successful build
-        - string:
-            name: app_version
-            description: version of the app to be deployed
-            default: '1.1.1'
+            name: TAG
+            description: 'Git tag/committish to deploy'
+            default: release
