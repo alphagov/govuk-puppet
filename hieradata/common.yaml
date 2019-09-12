@@ -424,8 +424,6 @@ govuk::apps::government_frontend::nagios_memory_warning: 2500
 govuk::apps::government_frontend::nagios_memory_critical: 2800
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
-govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
-
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db_port: 6432
 govuk::apps::link_checker_api::db_allow_prepared_statements: false

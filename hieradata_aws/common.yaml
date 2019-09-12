@@ -584,8 +584,6 @@ govuk::apps::imminence::unicorn_worker_processes: "4"
 
 govuk::apps::info_frontend::enabled: true
 
-govuk::apps::kibana::logit_account: 1c6b2316-16e2-4ca5-a3df-ff18631b0e74
-
 govuk::apps::local_links_manager::db_hostname: "postgresql-primary"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::local_links_manager::db::allow_auth_from_lb: true
