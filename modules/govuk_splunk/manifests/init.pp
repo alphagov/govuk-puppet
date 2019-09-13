@@ -52,6 +52,14 @@ class govuk_splunk(
     require => Apt::Source['splunk'],
   }
 
+  file {'/opt/splunkforwarder/var':
+    ensure  => directory,
+    owner   => 'splunk',
+    group   => 'splunk',
+    mode    => '0710',
+    require => Package['splunkforwarder'],
+  }
+
   package { 'acl':
     ensure  => latest,
   }
