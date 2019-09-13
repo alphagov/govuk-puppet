@@ -22,9 +22,11 @@
               ]}
           EOF
 
-            CRUMB=$(curl https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+            echo "Fetching CSRF crumb from Jenkins..."
+            CRUMB=$(curl --progress-bar https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
 
-            curl -fX POST -H "Jenkins-Crumb:$CRUMB" -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON" https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/job/Deploy_App/build
+            echo "Starting Deploy_App job with params: $JSON"
+            curl --progress-bar -fX POST -H "Jenkins-Crumb:$CRUMB" -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON" https://<%= @jenkins_integration_aws_api_user %>:<%= @jenkins_integration_aws_api_password %>@<%= @aws_deploy_url %>/job/Deploy_App/build
           }
 
           # Deploy each Licensify app (licensify, licensify-admin, licensify-feed).
