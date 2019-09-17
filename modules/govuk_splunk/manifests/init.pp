@@ -57,6 +57,7 @@ class govuk_splunk(
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0710',
+    recurse => true,
     require => Package['splunkforwarder'],
   }
 
