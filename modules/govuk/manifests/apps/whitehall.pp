@@ -318,9 +318,11 @@ class govuk::apps::whitehall(
     }
 
     govuk::procfile::worker { 'whitehall-admin':
-      setenv_as      => $app_name,
-      enable_service => $enable_procfile_worker,
-      process_count  => $procfile_worker_process_count,
+      setenv_as                 => $app_name,
+      enable_service            => $enable_procfile_worker,
+      process_count             => $procfile_worker_process_count,
+      memory_warning_threshold  => 2000,
+      memory_critical_threshold => 14000,
     }
 
     # NOTE. The GOVUK_ASSET_ROOT environment variable uses a protocol relative
