@@ -548,6 +548,13 @@ function postprocess_router {
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
     db.backends.save(b); } ); "
 
+  # licensify has been migrated in only integration and staging so far,
+  # remove this once production is migrated too.
+  if [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "staging" ]; then
+    licensify_domain="${local_domain}"
+  fi
+  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
+
   # whitehall has been migrated in only integration so far
   if [ "${aws_environment}" == "integration" ]; then
     whitehall_domain="${local_domain}"
