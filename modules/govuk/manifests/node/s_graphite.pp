@@ -96,6 +96,7 @@ class govuk::node::s_graphite (
     root         => "${graphite_path}/webapp",
     aliases      => $graphite_aliases,
     protected    => false,
+    read_timeout => 30,
     extra_config => $cors_headers,
   }
 
