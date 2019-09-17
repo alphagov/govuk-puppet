@@ -191,11 +191,6 @@ hosts::production::ip_backend_lb: '10.2.3.254'
 hosts::production::ip_bouncer: '37.26.91.5'
 hosts::production::ip_draft_api_lb: '10.2.4.253'
 hosts::production::ip_frontend_lb: '10.2.2.254'
-hosts::production::licensify_hosts:
-  licensify.staging.publishing.service.gov.uk:
-    ip: '37.26.91.8'
-  licensify-admin.staging.publishing.service.gov.uk:
-    ip: '37.26.91.8'
 
 hosts::production::api::hosts:
   api-1:
