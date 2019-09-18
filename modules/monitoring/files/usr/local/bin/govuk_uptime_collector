@@ -50,6 +50,7 @@ private
     http.read_timeout = 20
 
     request = Net::HTTP::Head.new(healthcheck_uri.request_uri)
+    request['User-Agent'] = 'govuk_uptime_collector'
     res = http.request(request)
 
     status_code = res.code.to_i
