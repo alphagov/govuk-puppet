@@ -1,3 +1,7 @@
 ---
 govuk_containers::elasticsearch::primary::enable: false
 govuk_containers::elasticsearch::secondary::enable: false
+
+# prevents puppet stopping the service which is does by default as
+# clamav::use_service is set to false for it
+clamav::service::puppet_lifecycle_enable: false
