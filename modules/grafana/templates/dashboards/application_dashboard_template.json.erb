@@ -83,7 +83,7 @@
         "limit": 100,
         "name": "Healthchecks",
         "showIn": 0,
-        "target": "aliasSub(aliasSub(stats.icinga.service_alert.<%= @instance_prefix %>*.<%= @app_name %>_app_healthcheck.{critical,warning}, \"stats.icinga.service_alert.<%= @instance_prefix %>_\", \"Health on \"), \".<%= @app_name %>_app_healthcheck.\", \": \")",
+        "target": "aliasSub(aliasSub(stats.icinga.service_alert.*.<%= @app_name %>_app_healthcheck.{critical,warning}, \"stats.icinga.service_alert.\", \"Health on \"), \".<%= @app_name %>_app_healthcheck.\", \": \")",
         "type": "alert"
       }
     ]
