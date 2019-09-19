@@ -120,6 +120,7 @@ define govuk::procfile::worker (
       $memory_critical_threshold_bytes = $memory_critical_threshold * $si_megabyte
 
       @@icinga::check::graphite { "check_${title_underscore}_app_worker_mem_usage${::hostname}":
+        ensure                     => absent, # TODO The event handler isn't working properly yet
         target                     => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_rss",
         warning                    => $memory_warning_threshold_bytes,
         critical                   => $memory_critical_threshold_bytes,
