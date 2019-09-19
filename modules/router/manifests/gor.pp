@@ -11,6 +11,13 @@
 #   Whether to add the target IP to the hosts file or not.
 #   Default: true
 #
+# [*http_disallow_url*]
+#   List of regular expressions for excluding URLs from traffic replay. These
+#   are partial matches (that is, the regexs are not implicitly anchored to the
+#   start and end of the string) and are matched against the full URL including
+#   the domain. For example, ["/foo", "/bar"] would exclude "gov.uk/blah/foo/x"
+#   and "gov.uk/bars/".
+#
 class router::gor (
   $replay_targets = {},
   $add_hosts = true,
