@@ -357,6 +357,7 @@ function filtered_postgresql_restore {
     single_transaction='-1'
   fi
 
+  local sed_commands
   sed_commands='/^COMMENT ON EXTENSION plpgsql/d'
   if [ "${database}" == 'publishing_api_production' ]; then
     sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
