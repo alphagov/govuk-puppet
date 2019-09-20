@@ -347,7 +347,7 @@ function  dump_postgresql {
 
 # Translate the binary dump file into text (SQL DDL/DML), filter out extension
 # comments (which would cause the restore to fail), fix up references to the
-# `postgres` user (which is differs between actual Postgres and RDS), then pipe
+# `postgres` user (which differs between actual Postgres and RDS), then pipe
 # the output into psql to do the actual restore.
 function filtered_postgresql_restore {
   local single_transaction
