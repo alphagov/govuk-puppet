@@ -37,9 +37,18 @@ class govuk::node::s_monitoring (
   }
 
   if ! $::aws_migration {
-    nginx::config::vhost::proxy { 'graphite':
+    nginx::config::vhost::proxy { 'graphite-proxy':
       to           => ['graphite.cluster'],
-      aliases      => ['graphite.*', 'grafana', 'grafana.*'],
+      aliases      => ['graphite.*'],
+      ssl_only     => true,
+      ssl_certtype => 'wildcard_publishing',
+      protected    => false,
+      root         => '/dev/null',
+    }
+
+    nginx::config::vhost::proxy { 'grafana-proxy':
+      to           => ['graphite.cluster'],
+      aliases      => ['grafana', 'grafana.*'],
       ssl_only     => true,
       ssl_certtype => 'wildcard_publishing',
       protected    => false,
