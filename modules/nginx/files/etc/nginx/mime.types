@@ -33,7 +33,6 @@ types {
 	application/vnd.google-earth.kmz	kmz;
 	application/x-7z-compressed		7z;
 	application/x-cocoa			cco;
-	application/x-font-woff    		woff;
 	application/x-java-archive-diff		jardiff;
 	application/x-java-jnlp-file		jnlp;
 	application/x-makeself			run;
@@ -75,6 +74,9 @@ types {
 	audio/ogg				oga ogg spx;
 	audio/x-realaudio			ra;
 	audio/webm				weba;
+	
+	font/woff    		                woff;
+	font/woff2                              woff2;
 
 	video/3gpp				3gpp 3gp;
 	video/mp4				mp4;

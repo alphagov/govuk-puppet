@@ -37,7 +37,6 @@ govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
-govuk::apps::kibana::logit_environment: 2694f14b-6519-4607-81f2-8a2130e5aaec
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
@@ -84,6 +83,10 @@ licensify::apps::configfile::performance_platform_service_url: 'https://www.inte
 licensify::apps::configfile::is_master_node: 'true'
 licensify::apps::licensify::alert_5xx_warning_rate: 0.1
 licensify::apps::licensify::alert_5xx_critical_rate: 0.15
+licensify::apps::licensify::environment: 'integration'
+licensify::apps::licensify_admin::environment: 'integration'
+licensify::apps::licensify_feed::environment: 'integration'
+
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'elasticsearch5.blue.integration.govuk-internal.digital'
@@ -454,7 +457,6 @@ users::usernames:
   - deanwilson
   - deborahchua
   - dilwoarhussain
-  - eamonnmcelroy
   - edwardkerry
   - emmabeynon
   - erinrajstaniland

@@ -7,6 +7,16 @@
       <autoRebuild>false</autoRebuild>
       <rebuildDisabled>false</rebuildDisabled>
     </com.sonyericsson.rebuild.RebuildSettings>
+    <hudson.model.ParametersDefinitionProperty>
+      <parameterDefinitions>
+        <hudson.model.StringParameterDefinition>
+          <name>TARGET_MACHINES</name>
+          <description> Use "all" to target all eligible servers or
+            provide a comma-delimited list of FQDN of the servers to deploy to.</description>
+          <defaultValue>all</defaultValue>
+        </hudson.model.StringParameterDefinition>
+      </parameterDefinitions>
+    </hudson.model.ParametersDefinitionProperty>
   </properties>
   <scm class="hudson.scm.NullSCM"/>
   <canRoam>true</canRoam>
@@ -28,6 +38,7 @@
             <hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
               <properties>TARGET_APPLICATION=<%= app %>
 DEPLOY_TASK=deploy:without_migrations
+TARGET_MACHINES=${TARGET_MACHINES}
 TAG=deployed-to-<%= @environment -%></properties>
             </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
           </configs>

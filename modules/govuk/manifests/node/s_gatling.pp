@@ -40,8 +40,10 @@ class govuk::node::s_gatling (
     groups   => ['admin', 'deploy', 'adm', 'www-data' ],
   }
 
+  $home = '/home/gatling'
+
   if $ssh_private_key and $ssh_public_key {
-    file { '/home/gatling/.ssh/id_rsa.pub':
+    file { "${home}/.ssh/id_rsa.pub":
       content => "ssh-rsa ${ssh_public_key}",
       mode    => '0644',
       owner   => 'gatling',
@@ -49,7 +51,7 @@ class govuk::node::s_gatling (
       require => User['gatling'],
     }
 
-    file { '/home/gatling/.ssh/id_rsa':
+    file { "${home}/.ssh/id_rsa":
       content => $ssh_private_key,
       mode    => '0600',
       owner   => 'gatling',
@@ -58,7 +60,7 @@ class govuk::node::s_gatling (
     }
 
     # repository where GOV.UK stores its load tests
-    vcsrepo { '/home/gatling/govuk-load-testing':
+    vcsrepo { "${home}/govuk-load-testing":
       ensure   => present,
       provider => git,
       source   => $repo,
@@ -69,7 +71,7 @@ class govuk::node::s_gatling (
     }
   } else {
     # repository where GOV.UK stores its load tests
-    vcsrepo { '/home/gatling/govuk-load-testing':
+    vcsrepo { "${home}/govuk-load-testing":
       ensure   => present,
       provider => git,
       source   => $repo,
@@ -77,8 +79,6 @@ class govuk::node::s_gatling (
       force    => true,
     }
   }
-
-
 
   # install the JRE and JDK on the Gatling instance
   include ::govuk_java::openjdk8::jre
@@ -112,5 +112,13 @@ class govuk::node::s_gatling (
   include nginx
   nginx::config::site { 'gatling_service':
     content => template('govuk/node/s_gatling/gatling_cluster_vhost.conf.erb'),
+  }
+
+  file { "${home}/.bashrc":
+    content => template('govuk/node/s_gatling/bashrc.erb'),
+    mode    => '0644',
+    owner   => 'gatling',
+    group   => 'gatling',
+    require => User['gatling'],
   }
 }

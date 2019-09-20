@@ -74,6 +74,17 @@
         "iconColor": "rgb(225, 251, 0)",
         "name": "Restarts",
         "target": "substr(stats.govuk.app.<%= @app_name %>.restarts,3,5)"
+      },
+      {
+        "datasource": "Graphite",
+        "enable": true,
+        "hide": false,
+        "iconColor": "rgb(255, 0, 224)",
+        "limit": 100,
+        "name": "Healthchecks",
+        "showIn": 0,
+        "target": "aliasSub(aliasSub(stats.icinga.service_alert.*.<%= @app_name %>_app_healthcheck.{critical,warning}, \"stats.icinga.service_alert.\", \"Health on \"), \".<%= @app_name %>_app_healthcheck.\", \": \")",
+        "type": "alert"
       }
     ]
   },

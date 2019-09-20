@@ -11,6 +11,7 @@ describe 'router::gor', :type => :class do
     '-input-raw'          => '127.0.0.1:7999',
     '-http-allow-method'  => %w{GET HEAD OPTIONS},
     '-http-set-header'    => 'X-Forwarded-Host:',
+    '-http-disallow-url'  => [],
   }}
 
   context 'no targets defined (disabled)' do

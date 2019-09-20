@@ -152,11 +152,6 @@ hosts::production::ip_backend_lb: '10.1.3.254'
 hosts::production::ip_bouncer: '31.210.245.101'
 hosts::production::ip_draft_api_lb: '10.1.4.253'
 hosts::production::ip_frontend_lb: '10.1.2.254'
-hosts::production::licensify_hosts:
-  licensify.integration.publishing.service.gov.uk:
-    ip: '31.210.245.116'
-  licensify-admin.integration.publishing.service.gov.uk:
-    ip: '31.210.245.117'
 
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
@@ -232,7 +227,6 @@ users::usernames:
   - deanwilson
   - deborahchua
   - dilwoarhussain
-  - eamonnmcelroy
   - edwardkerry
   - emmabeynon
   - erinrajstaniland

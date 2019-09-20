@@ -70,7 +70,6 @@ govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::imminence::ensure: 'absent'
-govuk::apps::kibana::logit_environment: 0ea55710-075b-4eab-bfc3-475f28cdd0c3
 govuk::apps::link_checker_api::ensure: 'absent'
 govuk::apps::local_links_manager::ensure: 'absent'
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true

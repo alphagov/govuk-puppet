@@ -1,55 +1,165 @@
 # This config file is common to all three Licensify apps within a given
 # environment. It gets included in each app's individual config file.
 
+<%- unless @mongo_database_hosts.nil? || @mongo_database_hosts.empty? -%>
 mongo.database.hosts=<%= @mongo_database_hosts.join(',') %>
+<%- end -%>
+<%- unless @mongo_database_reference_name.nil? || @mongo_database_reference_name.empty? -%>
 mongo.database.reference.name=<%= @mongo_database_reference_name %>
+<%- end -%>
+<%- unless @mongo_database_audit_name.nil? || @mongo_database_audit_name.empty? -%>
 mongo.database.audit.name=<%= @mongo_database_audit_name %>
+<%- end -%>
+<%- unless @mongo_database_auth_enabled.nil? || @mongo_database_auth_enabled.to_s.empty? -%>
 mongo.database.auth.enabled=<%= @mongo_database_auth_enabled %>
+<%- end -%>
+<%- unless @mongo_database_auth_username.nil? || @mongo_database_auth_username.empty? -%>
 mongo.database.auth.username=<%= @mongo_database_auth_username %>
+<%- end -%>
+<%- unless @mongo_database_auth_password.nil? || @mongo_database_auth_password.empty? -%>
 mongo.database.auth.password=<%= @mongo_database_auth_password %>
-
+<%- end -%>
+<%- unless @mongo_database_slaveok.nil? || @mongo_database_slaveok.empty? -%>
 mongo.database.slaveok=<%= @mongo_database_slaveok %>
+<%- end -%>
+<%- unless @places_api_url.nil? || @places_api_url.empty? -%>
 places.api.url=<%= @places_api_url %>
+<%- end -%>
+<%- unless @feed_actor.nil? || @feed_actor.empty? -%>
 feedActor=<%= @feed_actor %>
-
+<%- end -%>
+<%- unless @oauth_callback_url_override.nil? || @oauth_callback_url_override.empty? -%>
 oauth_callback_url_override=<%= @oauth_callback_url_override %>
-
+<%- end -%>
+<%- unless @upload_url_base.nil? || @upload_url_base.empty? -%>
 uploadUrlBase=<%= @upload_url_base %>
-
+<%- end -%>
+<%- unless @elms_frontend_host.nil? || @elms_frontend_host.empty? -%>
 elms.frontend.host=<%= @elms_frontend_host %>
+<%- end -%>
+<%- unless @elms_admin_host.nil? || @elms_admin_host.empty? -%>
 elms.admin.host=<%= @elms_admin_host %>
-
+<%- end -%>
+<%- unless @elms_pdf_apihost.nil? || @elms_pdf_apihost.empty? -%>
 elms.pdf.apihost=<%= @elms_pdf_apihost %>
-
+<%- end -%>
+<%- unless @elms_max_app_process_attempt_count.nil? || @elms_max_app_process_attempt_count.empty? -%>
 elms.max.appProcessAttemptCount=<%= @elms_max_app_process_attempt_count %>
-
+<%- end -%>
+<%- unless @access_token_url.nil? || @access_token_url.empty? -%>
 access_token_url=<%= @access_token_url %>
+<%- end -%>
+<%- unless @authorization_url.nil? || @authorization_url.empty? -%>
 authorization_url=<%= @authorization_url %>
+<%- end -%>
+<%- unless @user_details_url.nil? || @user_details_url.empty? -%>
 user_details_url=<%= @user_details_url %>
+<%- end -%>
+<%- unless @client_id.nil? || @client_id.empty? -%>
 client_id=<%= @client_id %>
+<%- end -%>
+<%- unless @client_secret.nil? || @client_secret.empty? -%>
 client_secret=<%= @client_secret %>
-
+<%- end -%>
+<%- unless @google_analytics_account_admin.nil? || @google_analytics_account_admin.empty? -%>
 googleAnalytics.account.admin=<%= @google_analytics_account_admin %>
+<%- end -%>
+<%- unless @google_analytics_domain_admin.nil? || @google_analytics_domain_admin.empty? -%>
 googleAnalytics.domain.admin=<%= @google_analytics_domain_admin %>
+<%- end -%>
+<%- unless @google_analytics_account_frontend.nil? || @google_analytics_account_frontend.empty? -%>
 googleAnalytics.account.frontend=<%= @google_analytics_account_frontend %>
+<%- end -%>
+<%- unless @google_analytics_domain_frontend.nil? || @google_analytics_domain_frontend.empty? -%>
 googleAnalytics.domain.frontend=<%= @google_analytics_domain_frontend %>
-
+<%- end -%>
+<%- unless @signon_url.nil? || @signon_url.empty? -%>
 signon.url=<%= @signon_url %>
-
+<%- end -%>
+<%- unless @worldpay_redirect_url.nil? || @worldpay_redirect_url.empty? -%>
 worldpay.redirectUrl=<%= @worldpay_redirect_url %>
+<%- end -%>
+<%- unless @worldpay_cancelled_redirect_url.nil? || @worldpay_cancelled_redirect_url.empty? -%>
 worldpay.cancelled.redirectUrl=<%= @worldpay_cancelled_redirect_url %>
-
+<%- end -%>
+<%- unless @payments_test_mode.nil? || @payments_test_mode.empty? -%>
 paymentsTestMode=<%= @payments_test_mode %>
+<%- end -%>
+<%- unless @no_reply_mail_address.nil? || @no_reply_mail_address.empty? -%>
 noReplyMailAddress=<%= @no_reply_mail_address %>
-
+<%- end -%>
+<%- unless @govuk_url.nil? || @govuk_url.empty? -%>
 govuk.url=<%= @govuk_url %>
+<%- end -%>
+<%- unless @licence_finder_url.nil? || @licence_finder_url.empty? -%>
 licenceFinderUrl=<%= @licence_finder_url %>
-
+<%- end -%>
+<%- unless @scheduled_virus_scan_cron_expression.nil? || @scheduled_virus_scan_cron_expression.empty? -%>
 scheduled.virus.scan.cron.expression=<%= @scheduled_virus_scan_cron_expression %>
+<%- end -%>
+<%- unless @performance_platform_bearer_token.nil? || @performance_platform_bearer_token.empty? -%>
 performance.platform.bearer.token=<%= @performance_platform_bearer_token %>
+<%- end -%>
+<%- unless @performance_data_sender_cron_expression.nil? || @performance_data_sender_cron_expression.empty? -%>
 performance.data.sender.cron.expression=<%= @performance_data_sender_cron_expression %>
+<%- end -%>
+<%- unless @performance_platform_service_url.nil? || @performance_platform_service_url.empty? -%>
 performance.platform.service.url=<%= @performance_platform_service_url %>
-
+<%- end -%>
+<%- unless @notify_key_api.nil? || @notify_key_api.empty? -%>
 notify.key.api=<%= @notify_key_api %>
-
+<%- end -%>
+<%- unless @is_master_node.nil? || @is_master_node.to_s.empty? -%>
 is.master.node=<%= @is_master_node %>
+<%- end -%>
+<%- unless @email_override_recipient.nil? || @email_override_recipient.empty? -%>
+email.override.recipient=<%= @email_override_recipient %>
+<%- end -%>
+<%- unless @email_periodic_enabled.nil? || @email_periodic_enabled.empty? -%>
+email.periodic.enabled=<%= @email_periodic_enabled %>
+<%- end -%>
+<%- unless @licenceApplication_expirationPeriod.nil? || @licenceApplication_expirationPeriod.empty? -%>
+licenceApplication.expirationPeriod=<%= @licenceApplication_expirationPeriod %>
+<%- end -%>
+<%- unless @notify_periodic_email_cron.nil? || @notify_periodic_email_cron.empty? -%>
+notify.periodic.email.cron=<%= @notify_periodic_email_cron %>
+<%- end -%>
+<%- unless @notify_template_applicant_none.nil? || @notify_template_applicant_none.empty? -%>
+notify.template.applicant.none=<%= @notify_template_applicant_none %>
+<%- end -%>
+<%- unless @notify_template_applicant_offline.nil? || @notify_template_applicant_offline.empty? -%>
+notify.template.applicant.offline=<%= @notify_template_applicant_offline %>
+<%- end -%>
+<%- unless @notify_template_applicant_online.nil? || @notify_template_applicant_online.empty? -%>
+notify.template.applicant.online=<%= @notify_template_applicant_online %>
+<%- end -%>
+<%- unless @notify_template_authority.nil? || @notify_template_authority.empty? -%>
+notify.template.authority=<%= @notify_template_authority %>
+<%- end -%>
+<%- unless @notify_template_periodic.nil? || @notify_template_periodic.empty? -%>
+notify.template.periodic=<%= @notify_template_periodic %>
+<%- end -%>
+<%- unless @payment_bibit_formUrl.nil? || @payment_bibit_formUrl.empty? -%>
+payment.bibit.formUrl=<%= @payment_bibit_formUrl %>
+<%- end -%>
+<%- unless @payment_capita_formUrl.nil? || @payment_capita_formUrl.empty? -%>
+payment.capita.formUrl=<%= @payment_capita_formUrl %>
+<%- end -%>
+<%- unless @payment_northgate_callback_override.nil? || @payment_northgate_callback_override.empty? -%>
+payment.northgate.callback.override=<%= @payment_northgate_callback_override %>
+<%- end -%>
+<%- unless @payment_worldpay_formUrl.nil? || @payment_worldpay_formUrl.empty? -%>
+payment.worldpay.formUrl=<%= @payment_worldpay_formUrl %>
+<%- end -%>
+<%- unless @uncollected_expiry_cron.nil? || @uncollected_expiry_cron.empty? -%>
+uncollected.expiry.cron=<%= @uncollected_expiry_cron %>
+<%- end -%>
+<%- unless @uncollected_expiry_enabled.nil? || @uncollected_expiry_enabled.empty? -%>
+uncollected.expiry.enabled=<%= @uncollected_expiry_enabled %>
+<%- end -%>
+<%- unless @uncollected_expiry_purge_days.nil? || @uncollected_expiry_purge_days.empty? -%>
+uncollected.expiry.purge.days=<%= @uncollected_expiry_purge_days %>
+<%- end -%>
+<%- unless @uncollected_expiry_start_days.nil? || @uncollected_expiry_start_days.empty? -%>
+uncollected.expiry.start.days=<%= @uncollected_expiry_start_days %>
+<%- end -%>

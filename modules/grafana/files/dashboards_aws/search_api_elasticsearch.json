@@ -170,7 +170,7 @@
           "targets": [
             {
               "refId": "D",
-              "target": "alias(maxSeries(stats.timers.govuk.app.finder-frontend.*.rummager.finder_batch_search.upper_90), 'Finder Frontend <-> Search API round-trip time')",
+              "target": "alias(maxSeries(stats.timers.govuk.app.finder-frontend.*.rummager.finder_search.upper_90), 'Finder Frontend <-> Search API round-trip time')",
               "textEditor": true
             },
             {

@@ -8,13 +8,22 @@
 #   Boolean indicating whether ClamAV should be set up
 #   with service resources and service monitoring.
 #
+# [*puppet_lifecycle_enable*]
+#   Boolean indicating whether ClamAV lifecycle: start, stop,
+#   restart is managed via puppet. Some instances do not need
+#   clamav to be running all the time.
+#   Default: true
+#
 class clamav::service (
-    $use_service
+    $use_service,
+    $puppet_lifecycle_enable = true
   ) {
 
-  service { ['clamav-freshclam', 'clamav-daemon']:
-    ensure => $use_service,
-    enable => $use_service,
+  if $puppet_lifecycle_enable {
+    service { ['clamav-freshclam', 'clamav-daemon']:
+      ensure => $use_service,
+      enable => $use_service,
+    }
   }
 
   if $use_service {

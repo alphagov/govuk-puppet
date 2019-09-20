@@ -2,7 +2,6 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'adrien/alternatives'
 mod 'attachmentgenie/ufw', '1.0.3'
-mod 'benjamin/ramdisk', '0.0.1'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'fsalum/redis'
 mod 'jamesnetherton/google_chrome', '0.4.0'

@@ -35,7 +35,6 @@ govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::imminence::ensure: 'absent'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
-govuk::apps::kibana::logit_environment: d414187a-2796-4ea7-9b9a-d40c341646d6
 govuk::apps::link_checker_api::ensure: 'absent'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::local_links_manager::ensure: 'absent'
@@ -192,11 +191,6 @@ hosts::production::ip_backend_lb: '10.2.3.254'
 hosts::production::ip_bouncer: '37.26.91.5'
 hosts::production::ip_draft_api_lb: '10.2.4.253'
 hosts::production::ip_frontend_lb: '10.2.2.254'
-hosts::production::licensify_hosts:
-  licensify.staging.publishing.service.gov.uk:
-    ip: '37.26.91.8'
-  licensify-admin.staging.publishing.service.gov.uk:
-    ip: '37.26.91.8'
 
 hosts::production::api::hosts:
   api-1:

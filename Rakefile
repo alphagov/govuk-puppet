@@ -369,6 +369,40 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_crawler::start_hour
     govuk_crawler::days
     govuk::apps::govuk_crawler_worker::crawler_threads
+    licensify::apps::configfile::access_token_url
+    licensify::apps::configfile::authorization_url
+    licensify::apps::configfile::elms_admin_host
+    licensify::apps::configfile::elms_frontend_host
+    licensify::apps::configfile::elms_max_app_process_attempt_count
+    licensify::apps::configfile::email_override_recipient
+    licensify::apps::configfile::email_periodic_enabled
+    licensify::apps::configfile::feed_actor
+    licensify::apps::configfile::google_analytics_account_admin
+    licensify::apps::configfile::google_analytics_account_frontend
+    licensify::apps::configfile::google_analytics_domain_admin
+    licensify::apps::configfile::google_analytics_domain_frontend
+    licensify::apps::configfile::is_master_node
+    licensify::apps::configfile::licenceApplication_expirationPeriod
+    licensify::apps::configfile::mongo_database_audit_name
+    licensify::apps::configfile::mongo_database_auth_enabled
+    licensify::apps::configfile::mongo_database_reference_name
+    licensify::apps::configfile::mongo_database_slaveok
+    licensify::apps::configfile::no_reply_mail_address
+    licensify::apps::configfile::notify_periodic_email_cron
+    licensify::apps::configfile::notify_template_applicant_none
+    licensify::apps::configfile::notify_template_applicant_offline
+    licensify::apps::configfile::notify_template_applicant_online
+    licensify::apps::configfile::notify_template_authority
+    licensify::apps::configfile::notify_template_periodic
+    licensify::apps::configfile::oauth_callback_url_override
+    licensify::apps::configfile::performance_data_sender_cron_expression
+    licensify::apps::configfile::performance_platform_service_url
+    licensify::apps::configfile::uncollected_expiry_cron
+    licensify::apps::configfile::uncollected_expiry_enabled
+    licensify::apps::configfile::uncollected_expiry_purge_days
+    licensify::apps::configfile::uncollected_expiry_start_days
+    licensify::apps::configfile::upload_url_base
+    licensify::apps::configfile::user_details_url
   ]
 
   failed = false

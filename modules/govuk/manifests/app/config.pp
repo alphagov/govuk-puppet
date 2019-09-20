@@ -351,10 +351,10 @@ define govuk::app::config (
       ensure         => $ensure,
       target         => "summarize(transformNull(stats_counts.govuk.app.${title}.memory_restarts,0),\"1d\",\"sum\",false)",
       args           => '--ignore-missing',
-      from           => '2days',
+      from           => '3hours',
       warning        => 4,
       critical       => 10 ,
-      desc           => 'Restarts per day due to excessive memory usage',
+      desc           => "${title} restarts per day due to memory usage",
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
     }

@@ -346,8 +346,9 @@ function  dump_postgresql {
 }
 
 # Translate the binary dump file into text (SQL DDL/DML), filter out extension
-# comments (which would cause the restore to fail) and pipe the output into
-# psql to do the actual restore.
+# comments (which would cause the restore to fail), fix up references to the
+# `postgres` user (which is differs between actual Postgres and RDS), then pipe
+# the output into psql to do the actual restore.
 function filtered_postgresql_restore {
   local single_transaction
   if [ "${database}" == 'ckan_production' ]; then
@@ -356,10 +357,15 @@ function filtered_postgresql_restore {
     single_transaction='-1'
   fi
 
+  sed_commands='/^COMMENT ON EXTENSION plpgsql/d'
+  if [ "${database}" == 'publishing_api_production' ]; then
+    sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
+  fi
+
   pg_restore "${tempdir}/${filename}" \
-      | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' \
-      | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
-          --no-password -d "${database}" 2>&1
+    | sed -r "${sed_commands}" \
+    | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
+      --no-password -d "${database}" 2>&1
 }
 
 function restore_postgresql {
@@ -551,21 +557,30 @@ function postprocess_router {
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
     db.backends.save(b); } ); "
 
-  # licensify has been migrated in only integration so far
-  if [ "${aws_environment}" == "integration" ]; then
+  # licensify has been migrated in only integration and staging so far,
+  # remove this once production is migrated too.
+  if [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "staging" ]; then
     licensify_domain="${local_domain}"
-    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
-  else
-    licensify_domain="${unmigrated_source_domain}"
-    mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
   fi
+  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
 
-  whitehall_domain="${unmigrated_source_domain}"
+  # whitehall has been migrated in only integration so far
+  if [ "${aws_environment}" == "integration" ]; then
+    whitehall_domain="${local_domain}"
+  else
+    whitehall_domain="${unmigrated_source_domain}"
+  fi
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 
-  spotlight_proxy_domain="${unmigrated_source_domain}"
+  # spotlight has been migrated in only integration so far
+  if [ "${aws_environment}" == "integration" ]; then
+    spotlight_proxy_domain="${local_domain}"
+  else
+    spotlight_proxy_domain="${unmigrated_source_domain}"
+  fi
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
+
 }
 
 function postprocess_database {

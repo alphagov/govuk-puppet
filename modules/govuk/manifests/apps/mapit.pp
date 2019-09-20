@@ -27,14 +27,16 @@ class govuk::apps::mapit (
 ) {
   if $enabled {
     govuk::app { 'mapit':
-      app_type              => 'procfile',
-      create_pidfile        => false,
-      port                  => $port,
-      vhost_ssl_only        => true,
-      health_check_path     => '/',
-      log_format_is_json    => false,
-      sentry_dsn            => $sentry_dsn,
-      monitor_unicornherder => true,
+      app_type               => 'procfile',
+      create_pidfile         => false,
+      port                   => $port,
+      vhost_ssl_only         => true,
+      health_check_path      => '/',
+      nagios_memory_warning  => 1200,
+      nagios_memory_critical => 2000,
+      log_format_is_json     => false,
+      sentry_dsn             => $sentry_dsn,
+      monitor_unicornherder  => true,
     }
 
     govuk_postgresql::db { 'mapit':
