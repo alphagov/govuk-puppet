@@ -1,0 +1,39 @@
+---
+- job:
+    name: <%= @job_slug %>
+    display-name: <%= @job_slug %>
+    project-type: freestyle
+    description: <%= @service_description %>
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=search-api
+              MACHINE_CLASS=search
+              RAKE_TASK=sitemap:generate_and_upload
+    triggers:
+        - timed: |
+            TZ=Europe/London
+            0 2 * * *
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    publishers:
+        - trigger-parameterized-builds:
+            - project: success_passive_check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> successful
+            - project: failure_passive_check
+              condition: 'FAILED'
+              predefined-parameters: |
+                  NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                  NSCA_OUTPUT=<%= @service_description %> failed
+    logrotate:
+        numToKeep: 10
