@@ -83,6 +83,9 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
+# [*bucket_name*]
+#   The S3 bucket to serve sitemaps from and store them in
+#
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port = '3233',
@@ -111,6 +114,7 @@ class govuk::apps::search_api(
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
+  $bucket_name = undef,
 ) {
   $app_name = 'search-api'
 
@@ -245,6 +249,12 @@ class govuk::apps::search_api(
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
+  }
+
+  govuk::app::envvar {
+    "${title}-AWS_S3_BUCKET_NAME":
+      varname => 'AWS_S3_BUCKET_NAME',
+      value   => $bucket_name;
   }
 
 }

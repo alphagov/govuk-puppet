@@ -41,6 +41,7 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-training'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::router::sentry_environment: 'training'
+govuk::apps::search_api::bucket_name: 'govuk-training-sitemaps'
 govuk::apps::short_url_manager::instance_name: 'training'
 govuk::apps::signon::instance_name: 'training'
 govuk::apps::smartanswers::expose_govspeak: true
