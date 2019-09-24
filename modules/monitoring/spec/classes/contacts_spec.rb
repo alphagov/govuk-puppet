@@ -17,9 +17,9 @@ describe 'monitoring::contacts', :type => :class do
     it { is_expected.not_to contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
-      [],
-      [],
-      []
+      ['graphite_notification'],
+      ['graphite_notification'],
+      ['graphite_notification']
   end
 
   context 'notify_pager => true' do
@@ -30,9 +30,9 @@ describe 'monitoring::contacts', :type => :class do
     it { is_expected.not_to contain_icinga__slack_contact('slack_notification') }
 
     it_should_behave_like 'configured contact groups',
-      ['pagerduty_24x7'],
-      [],
-      []
+      ['graphite_notification', 'pagerduty_24x7'],
+      ['graphite_notification'],
+      ['graphite_notification']
   end
 
   context 'notify_pager => true, notify_slack => true, slack creds' do
@@ -49,21 +49,21 @@ describe 'monitoring::contacts', :type => :class do
     )}
 
     it_should_behave_like 'configured contact groups',
-      ['slack_notification', 'pagerduty_24x7'],
-      ['slack_notification'],
-      ['slack_notification']
+      ['graphite_notification', 'slack_notification', 'pagerduty_24x7'],
+      ['graphite_notification', 'slack_notification'],
+      ['graphite_notification', 'slack_notification']
   end
 
-  context 'notify_graphite => true' do
+  context 'notify_graphite => false' do
     let(:params) {{
-      :notify_graphite => true,
+      :notify_graphite => false,
     }}
 
-    it { is_expected.to contain_icinga__graphite_contact('graphite_notification') }
+    it { is_expected.to_not contain_icinga__graphite_contact('graphite_notification') }
 
     it_should_behave_like 'configured contact groups',
-      ['graphite_notification'],
-      ['graphite_notification'],
-      ['graphite_notification']
+      [],
+      [],
+      []
   end
 end

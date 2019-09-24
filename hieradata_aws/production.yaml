@@ -330,7 +330,6 @@ monitoring::checks::lb::loadbalancers:
   govuk-cache-public: {}
 
 monitoring::checks::cache::region: 'eu-west-1'
-monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts'

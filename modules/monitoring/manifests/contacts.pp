@@ -40,7 +40,7 @@ class monitoring::contacts (
   $pagerduty_servicekey = '',
   $notify_pager = false,
   $notify_slack = false,
-  $notify_graphite = false,
+  $notify_graphite = true,
   $slack_channel = undef,
   $slack_username = 'Icinga',
   $slack_webhook_url = undef,

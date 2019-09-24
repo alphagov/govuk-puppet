@@ -15,7 +15,6 @@ govuk::deploy::config::website_root: 'https://www.gov.uk'
 # Remove `router::nginx::robotstxt` from staging config
 
 monitoring::checks::ses::region: us-east-1
-monitoring::contacts::notify_graphite: true
 monitoring::contacts::notify_pager: true
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
