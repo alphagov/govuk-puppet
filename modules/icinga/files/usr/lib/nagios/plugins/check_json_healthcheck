@@ -155,7 +155,7 @@ if __name__ == "__main__":
 
     try:
         with closing(urlopen(json_request(check_url), timeout=20)) as response:
-            healthcheck_info = HealthCheckInfo(json.load(response))
+            healthcheck_info = HealthCheckInfo(json.loads(response.read().decode('UTF-8')))
     except HTTPError as e:
         report_error("healthcheck returned HTTP error %d" % (e.code,))
     except timeout:
