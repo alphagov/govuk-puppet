@@ -52,8 +52,12 @@ class Statsd
     # Log timing information
     # > require 'ruby_example'
     # > Statsd.timing('some.time', 500)
-    stats = {}
-    stats[stat] = "#{time}|ms"
+    stats = { stat => "#{time}|ms" }
+    Statsd.send(stats, sample_rate)
+  end
+
+  def self.gauge(stat, value, sample_rate = 1)
+    stats = { stat => "#{value}|g" }
     Statsd.send(stats, sample_rate)
   end
 
@@ -121,10 +125,27 @@ Statsd.configure(
   options.fetch(:statsd_port, 8125),
 )
 
-namespace = if options[:command_type] == "host"
-              "icinga.host_alert.#{options[:host_display_name]}.#{options[:host_state]}"
-            else
-              "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}.#{options[:service_state]}"
-            end
+state = options[:command_type] == "host" ? options[:host_state] : options[:service_state]
 
-Statsd.increment(namespace)
+count_namespace = if options[:command_type] == "host"
+                    "icinga.host_alert.#{options[:host_display_name]}.#{state}"
+                  else
+                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}.#{state}"
+                  end
+
+Statsd.increment(count_namespace)
+
+state_namespace = if options[:command_type] == "host"
+                    "icinga.host_alert.#{options[:host_display_name]}"
+                  else
+                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}"
+                  end
+
+STATE_GAUGE_VALUES = {
+  "ok" => 0,
+  "unknown" => 1,
+  "warning" => 2,
+  "critical" => 3,
+}
+
+Statsd.gauge(state_namespace, STATE_GAUGE_VALUES.fetch(state))
