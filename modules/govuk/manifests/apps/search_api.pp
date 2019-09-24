@@ -86,6 +86,10 @@
 # [*bucket_name*]
 #   The S3 bucket to serve sitemaps from and store them in
 #
+# [*aws_region*]
+#   The AWS region of the S3 bucket.
+#   Default: eu-west-1
+#
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port = '3233',
@@ -115,6 +119,7 @@ class govuk::apps::search_api(
   $oauth_id = undef,
   $oauth_secret = undef,
   $bucket_name = undef,
+  $aws_region = 'eu-west-1',
 ) {
   $app_name = 'search-api'
 
@@ -255,6 +260,9 @@ class govuk::apps::search_api(
     "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
       value   => $bucket_name;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
   }
 
 }
