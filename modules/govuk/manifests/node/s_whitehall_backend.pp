@@ -12,7 +12,7 @@ class govuk::node::s_whitehall_backend (
   # Package required in order to use PDFKit
   ensure_packages(['wkhtmltopdf'])
 
-  # If we miss all the apps, throw a 500 to be caught by the cache nginx
+  # The catchall vhost throws a 500, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
 
   if $sync_mirror {
