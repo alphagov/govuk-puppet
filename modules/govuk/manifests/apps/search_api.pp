@@ -71,9 +71,6 @@
 # [*spelling_dependencies*]
 #   Install the spelling package dependencies
 #
-# [*sitemap_generation_time*]
-#   A time of day in a format supported by https://github.com/javan/whenever
-#
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
@@ -114,7 +111,6 @@ class govuk::apps::search_api(
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
   $elasticsearch_b_uri = undef,
-  $sitemap_generation_time = '1.10am',
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -240,11 +236,6 @@ class govuk::apps::search_api(
   govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
     varname => 'ELASTICSEARCH_HOSTS',
     value   => $elasticsearch_hosts,
-  }
-
-  govuk::app::envvar { "${title}-SITEMAP_GENERATION_TIME":
-    varname => 'SITEMAP_GENERATION_TIME',
-    value   => $sitemap_generation_time,
   }
 
   govuk::app::envvar {
