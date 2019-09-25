@@ -1,89 +1,93 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
-require 'socket'
+require "optparse"
+require "socket"
 
 options = {}
 
 OptionParser.new do |opt|
-  opt.banner = 'Send Icinga alert metrics to StatsD'
-  opt.separator 'Options'
+  opt.banner = "Send Icinga alert metrics to StatsD"
+  opt.separator "Options"
 
-  opt.on('-h', '--hostname Hostname', 'Host display name') do |host_display_name|
+  opt.on("-h", "--hostname Hostname", "Host display name") do |host_display_name|
     options[:host_display_name] = host_display_name
   end
 
-  opt.on('-s', '--hoststate Hoststate', 'Host state') do |host_state|
+  opt.on("-s", "--hoststate Hoststate", "Host state") do |host_state|
     options[:host_state] = host_state
   end
 
-  opt.on('-d', '--service-desc Servicedesc', 'Service description') do |service_desc|
+  opt.on("-d", "--service-desc Servicedesc", "Service description") do |service_desc|
     options[:service_desc] = service_desc
   end
 
-  opt.on('-n', '--service-state Servicestate', 'Service state') do |service_state|
+  opt.on("-n", "--service-state Servicestate", "Service state") do |service_state|
     options[:service_state] = service_state
   end
 
-  opt.on('-c', '--command-type Commandtype', 'Command type (host/service)') do |command_type|
+  opt.on("-c", "--command-type Commandtype", "Command type (host/service)") do |command_type|
     options[:command_type] = command_type
   end
 
-  opt.on('-z', '--statsd-host Statsdhost', 'StatsD host') do |statsd_host|
+  opt.on("-z", "--statsd-host Statsdhost", "StatsD host") do |statsd_host|
     options[:statsd_host] = statsd_host
   end
 
-  opt.on('-p', '--statsd-port Statsdport', 'StatsD port') do |statsd_port|
+  opt.on("-p", "--statsd-port Statsdport", "StatsD port") do |statsd_port|
     options[:statsd_port] = statsd_port
   end
 end.parse!
 
 class Statsd
   @@config = {}
+
   def self.configure(host, port)
     @@config = {
-      :host => host,
-      :port => port
+      host: host,
+      port: port,
     }
   end
 
-  def self.timing(stat, time, sample_rate=1)
+  def self.timing(stat, time, sample_rate = 1)
     # Log timing information
     # > require 'ruby_example'
     # > Statsd.timing('some.time', 500)
-    stats = {}
-    stats[stat] = "#{time}|ms"
+    stats = { stat => "#{time}|ms" }
     Statsd.send(stats, sample_rate)
   end
 
-  def self.increment(stats, sample_rate=1)
+  def self.gauge(stat, value, sample_rate = 1)
+    stats = { stat => "#{value}|g" }
+    Statsd.send(stats, sample_rate)
+  end
+
+  def self.increment(stats, sample_rate = 1)
     # Increments one or more stats counters
     # > Statsd.increment('some.int')
     # > Statsd.increment('some.int',0.5)
     Statsd.update_stats(stats, 1, sample_rate)
   end
 
-  def self.decrement(stats, sample_rate=1)
+  def self.decrement(stats, sample_rate = 1)
     # Decrements one or more stats counters
     # > Statsd.decrement('some.int')
     Statsd.update_stats(stats, -1, sample_rate)
   end
 
-  def self.update_stats(stats, delta=1, sampleRate=1)
+  def self.update_stats(stats, delta = 1, sample_rate = 1)
     # Updates one or more stats counters by arbitrary amounts
     # > Statsd.update_stats('some.int',10)
-    stats = [stats] unless stats.kind_of?(Array)
+    stats = [stats] unless stats.is_a?(Array)
 
     data = {}
     stats.each do |stat|
       data[stat] = "#{delta}|c"
     end
 
-    Statsd.send(data, sampleRate)
+    Statsd.send(data, sample_rate)
   end
 
-
-  def self.send(data, sample_rate=1)
+  def self.send(data, sample_rate = 1)
     # Squirt the metrics over UDP
     if @@config[:host].nil? || @@config[:port].nil?
       raise ArgumentError.new("No configuration was specified")
@@ -113,18 +117,35 @@ end
 
 # Sanitize namespacing for Graphite
 options.each do |k, v|
-  options[k] = v.gsub(' ', '_').gsub('.', '_').downcase
+  options[k] = v.gsub(" ", "_").gsub(".", "_").downcase
 end
 
 Statsd.configure(
-  options.fetch(:statsd_host, 'localhost'),
-  options.fetch(:statsd_port, 8125)
+  options.fetch(:statsd_host, "localhost"),
+  options.fetch(:statsd_port, 8125),
 )
 
-if options[:command_type] == 'host'
-  namespace = "icinga.host_alert.#{options[:host_display_name]}.#{options[:host_state]}"
-else
-  namespace = "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}.#{options[:service_state]}"
-end
+state = options[:command_type] == "host" ? options[:host_state] : options[:service_state]
 
-Statsd.increment(namespace)
+count_namespace = if options[:command_type] == "host"
+                    "icinga.host_alert.#{options[:host_display_name]}.#{state}"
+                  else
+                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}.#{state}"
+                  end
+
+Statsd.increment(count_namespace)
+
+state_namespace = if options[:command_type] == "host"
+                    "icinga.host_alert.#{options[:host_display_name]}"
+                  else
+                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}"
+                  end
+
+STATE_GAUGE_VALUES = {
+  "ok" => 0,
+  "unknown" => 1,
+  "warning" => 2,
+  "critical" => 3,
+}
+
+Statsd.gauge(state_namespace, STATE_GAUGE_VALUES.fetch(state))
