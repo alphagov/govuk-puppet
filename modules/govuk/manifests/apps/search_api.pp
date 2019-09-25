@@ -136,15 +136,6 @@ class govuk::apps::search_api(
     log_format_is_json       => true,
     nginx_extra_config       => '
     client_max_body_size 500m;
-
-    location ^~ /sitemap.xml {
-      expires 1d;
-      add_header Cache-Control public;
-    }
-    location ^~ /sitemaps/ {
-      expires 1d;
-      add_header Cache-Control public;
-    }
     ',
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
