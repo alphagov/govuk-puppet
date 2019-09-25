@@ -121,4 +121,8 @@ server {
     proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
     <%- end %>
   }
+
+  location /googlec908b3bc32386239.html {
+    return 200 'google-site-verification: googlec908b3bc32386239.html';
+  }
 }
