@@ -154,16 +154,19 @@ class monitoring::checks (
     }
   }
 
-  icinga::check_config { 'check_puppetdb_ssh_host_keys':
-    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_puppetdb_ssh_host_keys.cfg',
-    require => Class['monitoring::client'],
-  }
+  # In AWS this is liable to happen more often as machines come and go
+  unless $::aws_migration {
+    icinga::check_config { 'check_puppetdb_ssh_host_keys':
+      source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_puppetdb_ssh_host_keys.cfg',
+      require => Class['monitoring::client'],
+    }
 
-  icinga::check { "check_puppetdb_ssh_host_keys_from_${::hostname}":
-    check_command       => 'check_puppetdb_ssh_host_keys',
-    service_description => 'duplicate SSH host keys',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(duplicate-ssh-host-keys),
-    require             => Icinga::Check_config['check_puppetdb_ssh_host_keys'],
+    icinga::check { "check_puppetdb_ssh_host_keys_from_${::hostname}":
+      check_command       => 'check_puppetdb_ssh_host_keys',
+      service_description => 'duplicate SSH host keys',
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(duplicate-ssh-host-keys),
+      require             => Icinga::Check_config['check_puppetdb_ssh_host_keys'],
+    }
   }
 }
