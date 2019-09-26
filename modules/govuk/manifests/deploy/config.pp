@@ -119,9 +119,16 @@ class govuk::deploy::config(
       # By default traffic should route internally
       'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
       'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
-      # We do not host Licensify in AWS, so need to redirect to
-      # it's external domain
-      'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
+    }
+
+    # Licensify Production is in UKCloud, so Production apps in AWS must use
+    # the external domain name to connect to Licensify. Licensify Staging and
+    # Integration are in AWS, so Plek already does the right thing by default
+    # in those environments.
+    if $::aws_environment == 'production' {
+      govuk_envvar {
+        'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
+      }
     }
   } else {
     govuk_envvar {
