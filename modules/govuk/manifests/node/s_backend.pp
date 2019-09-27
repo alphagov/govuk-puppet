@@ -37,20 +37,8 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   include nginx
 
-  if $::aws_migration {
-    concat { '/etc/nginx/lb_healthchecks.conf':
-      ensure => present,
-      before => Nginx::Config::Vhost::Default['default'],
-    }
-    $extra_config = 'include /etc/nginx/lb_healthchecks.conf;'
-  } else {
-    $extra_config = ''
-  }
-
-  # If we miss all the apps, throw a 500 to be caught by the cache nginx
-  nginx::config::vhost::default { 'default':
-    extra_config => $extra_config,
-  }
+  # The catchall vhost throws a 500, except for healthcheck requests.
+  nginx::config::vhost::default { 'default': }
 
   if $::aws_migration {
     include icinga::client::check_pings
