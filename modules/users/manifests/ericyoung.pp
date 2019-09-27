@@ -1,3 +1,4 @@
+# Creates the ericyoung user
 class users::ericyoung {
   govuk_user { 'ericyoung':
     fullname => 'Eric Young',
