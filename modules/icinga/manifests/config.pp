@@ -53,7 +53,8 @@ class icinga::config (
   file { '/var/lib/icinga/retention.dat':
     ensure => present,
     owner  => 'nagios',
-    group  => 'www-data',
+    group  => undef,
+    mode   => undef,
   }
 
   if $::aws_migration {
