@@ -477,6 +477,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - complaint@simulator.amazonses.com
   - conor.delahunty@digital.cabinet-office.gov.uk
   - deborah.chua@digital.cabinet-office.gov.uk
+  - dilwoar.hussain@digital.cabinet-office.gov.uk
   - edward.kerry@digital.cabinet-office.gov.uk
   - jennifer.allum@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
