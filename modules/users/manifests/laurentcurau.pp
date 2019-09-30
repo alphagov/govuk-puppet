@@ -1,4 +1,5 @@
-class users::laurentcurau{
+# Create the laurentcurau user
+class users::laurentcurau {
   govuk_user { 'laurentcurau':
     fullname => 'Laurent Curau',
     email    => 'laurent.curau@digital.cabinet-office.gov.uk',
