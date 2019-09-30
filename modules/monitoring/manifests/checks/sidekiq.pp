@@ -2,31 +2,37 @@
 #
 # Nagios alerts for sidekiq queue latency
 #
+# [*enable_signon_check*]
+#   Enable monitoring for check_signon_queue_sizes
+#
 # [*enable_support_check*]
 #   Enable monitoring for check_support_default_queue_size
 #
 #
 class monitoring::checks::sidekiq (
+  $enable_signon_check = true,
   $enable_support_check = true,
 ) {
-  icinga::check::graphite { 'check_signon_queue_sizes':
-    # Check signon background worker average queue sizes
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued), 0)',
-    warning   => 30,
-    critical  => 50,
-    desc      => 'signon background worker queue size unexpectedly large',
-    host_name => $::fqdn,
-    # Get the data over a 5 day period. As the sidekiq middleware
-    # only reports values when jobs come through, there can be large
-    # periods of empty data. Setting this to 5 days should avoid too
-    # many false positives from not much activity, while also ensuring
-    # that if there is no data for longer than 5 days, the alert
-    # will fire with UNKNOWN.
-    from      => '5days',
-    # Drop all but the last 60 datapoints (at 5 seconds per datapoint,
-    # this is 5 minutes), so that this alert reflects what is going on
-    # currently.
-    args      => '--dropfirst -60',
+  if $enable_signon_check {
+    icinga::check::graphite { 'check_signon_queue_sizes':
+      # Check signon background worker average queue sizes
+      target    => 'transformNull(keepLastValue(stats.gauges.govuk.app.signon.*.workers.queues.*.enqueued), 0)',
+      warning   => 30,
+      critical  => 50,
+      desc      => 'signon background worker queue size unexpectedly large',
+      host_name => $::fqdn,
+      # Get the data over a 5 day period. As the sidekiq middleware
+      # only reports values when jobs come through, there can be large
+      # periods of empty data. Setting this to 5 days should avoid too
+      # many false positives from not much activity, while also ensuring
+      # that if there is no data for longer than 5 days, the alert
+      # will fire with UNKNOWN.
+      from      => '5days',
+      # Drop all but the last 60 datapoints (at 5 seconds per datapoint,
+      # this is 5 minutes), so that this alert reflects what is going on
+      # currently.
+      args      => '--dropfirst -60',
+    }
   }
 
   if $enable_support_check {
