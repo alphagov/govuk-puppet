@@ -9,10 +9,6 @@
 # [*es_repo*]
 #   The Elasticsearch snapshot repository.
 #
-# [*es5_address*]
-#   Hostname and port of the Elasticsearch 5 server.
-#   Default: elasticsearch5:80
-#
 # [*es6_address*]
 #   Hostname and port of the Elasticsearch 6 server.
 #
@@ -30,7 +26,6 @@
 #
 class govuk_search::prune (
   $es_repo = undef,
-  $es5_address = 'elasticsearch5:80',
   $es6_address = undef,
   $cron_hour = 6,
   $cron_minute = 0,
@@ -38,11 +33,6 @@ class govuk_search::prune (
 ){
 
   if $es_repo {
-    if $es5_address {
-      $es5_ensure = 'present'
-    } else {
-      $es5_ensure = 'absent'
-    }
     if $es6_address {
       $es6_ensure = 'present'
     } else {
@@ -51,7 +41,6 @@ class govuk_search::prune (
 
     ensure_packages(['jq'])
   } else {
-    $es5_ensure = 'absent'
     $es6_ensure = 'absent'
   }
 
@@ -69,7 +58,7 @@ class govuk_search::prune (
   }
 
   file { '/usr/local/bin/es5-prune-snapshots':
-    ensure  => $es5_ensure,
+    ensure  => 'absent',
     content => template('govuk_search/es5-prune-snapshots.erb'),
     mode    => '0755',
   }
@@ -81,7 +70,7 @@ class govuk_search::prune (
   }
 
   cron::crondotdee { 'es5-prune-snapshots':
-    ensure  => $es5_ensure,
+    ensure  => 'absent',
     command => '/usr/local/bin/es5-prune-snapshots',
     hour    => $cron_hour,
     minute  => $cron_minute,
