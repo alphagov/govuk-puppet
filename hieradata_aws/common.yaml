@@ -507,8 +507,8 @@ govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::frontend::unicorn_worker_processes: "4"
 
-govuk::apps::government_frontend::nagios_memory_warning: 2500
-govuk::apps::government_frontend::nagios_memory_critical: 2800
+govuk::apps::government_frontend::nagios_memory_warning: 3600
+govuk::apps::government_frontend::nagios_memory_critical: 4000
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
