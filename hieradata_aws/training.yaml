@@ -56,7 +56,7 @@ govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hie
 govuk::apps::whitehall::highlight_words_to_avoid: true
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch5.training.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'elasticsearch6.training.govuk-internal.digital'
 
 govuk::apps::content_store::plek_service_rummager_uri: 'https://search-api.training.govuk-internal.digital'
 govuk::apps::collections::override_search_location: 'https://search-api.training.govuk-internal.digital'

@@ -151,7 +151,7 @@ govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch5.blue.production.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'elasticsearch6.blue.production.govuk-internal.digital'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'

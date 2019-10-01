@@ -3,7 +3,7 @@
 # than integration being a day behind).
 govuk_env_sync::tasks:
   "pull_es_everything_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "24"
     action: "pull"
@@ -14,7 +14,7 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch5"
   "push_es_everything_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "24"
     action: "push"
