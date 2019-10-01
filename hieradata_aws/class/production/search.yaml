@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_es_everything_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"

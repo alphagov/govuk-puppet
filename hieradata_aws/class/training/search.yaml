@@ -3,7 +3,7 @@
 # than integration being a day behind).
 govuk_env_sync::tasks:
   "pull_es_everything_daily_integration":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "24"
     action: "pull"
