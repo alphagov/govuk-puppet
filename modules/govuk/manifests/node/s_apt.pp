@@ -46,10 +46,6 @@ class govuk::node::s_apt (
       release  => 'trusty',
       repos    => ['stable'],
       key      => '9DC858229FC7DD38854AE2D88D81803C0EBFCD88';
-    'elasticsearch-5.x':
-      location => 'https://artifacts.elastic.co/packages/5.x/apt',
-      release  => 'stable',
-      key      => '46095ACC8548582C1A2699A9D27D666CD88E42B4';
     'govuk-ppa-trusty':
       location => 'http://ppa.launchpad.net/gds/govuk/ubuntu',
       release  => 'trusty',
