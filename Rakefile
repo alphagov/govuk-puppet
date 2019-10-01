@@ -316,6 +316,7 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::checks::lb::loadbalancers
     monitoring::checks::rds::servers
     monitoring::client::alert_hostname
+    monitoring::checks::sidekiq::enable_signon_check
     monitoring::client::graphite_hostname
     monitoring::uptime_collector::aws
     nginx_enable_ssl
