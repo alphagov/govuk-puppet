@@ -13,7 +13,7 @@
 class govuk_containers::elasticsearch::primary(
   $version = '5.6.15',
   $port    = '9200',
-  $ensure  = 'present',
+  $ensure  = 'absent',
   $enable  = true,
 ) {
   # todo: remove absent things
