@@ -130,7 +130,7 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => running,
       process_type   => 'pycsw_web',
-      process_regex  => 'pycsw_wsgi',
+      process_regex  => 'pycsw\.wsgi',
     }
 
     class { 'cronjobs':
