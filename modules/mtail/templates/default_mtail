@@ -1,8 +1,0 @@
-ENABLED=<%= @enabled %>
-LOGS="<%= @logs %>"
-PORT=<%= @port %>
-COLLECTD_SOCKETPATH="<%= @collectd_socketpath %>"
-GRAPHITE_HOST_PORT="<%= @graphite_host_port %>"
-STATSD_HOSTPORT="<%= @statsd_hostport %>"
-METRIC_PUSH_INTERVAL=<%= @metric_push_interval %>
-EXTRA_ARGS="<%= @extra_args %>"
