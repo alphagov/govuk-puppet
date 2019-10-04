@@ -867,16 +867,16 @@ govuk_ci::master::pipeline_jobs:
 govuk_ci::master::ci_agents:
   ci-agent-1:
     agent_hostname: 'ci-agent-1.ci'
-    labels: 'mongodb-2.4 ci-agent-1 elasticsearch-5.6 elasticsearch-6.7 terraform postgresql-9.3'
+    labels: 'mongodb-2.4 ci-agent-1 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-2:
     agent_hostname: 'ci-agent-2.ci'
-    labels: 'mongodb-2.4 ci-agent-2 elasticsearch-5.6 elasticsearch-6.7 terraform postgresql-9.3'
+    labels: 'mongodb-2.4 ci-agent-2 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-3:
     agent_hostname: 'ci-agent-3.ci'
-    labels: 'mongodb-2.4 ci-agent-3 elasticsearch-5.6 elasticsearch-6.7 terraform postgresql-9.3'
+    labels: 'mongodb-2.4 ci-agent-3 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-4:
     agent_hostname: 'ci-agent-4.ci'
-    labels: 'mongodb-3.2 ci-agent-4 elasticsearch-5.6 elasticsearch-6.7 terraform postgresql-9.6'
+    labels: 'mongodb-3.2 ci-agent-4 elasticsearch-6.7 terraform postgresql-9.6'
   ci-agent-5:
     agent_hostname: 'ci-agent-5.ci'
     exclusive: true

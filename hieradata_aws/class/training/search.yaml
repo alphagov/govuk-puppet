@@ -13,6 +13,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/elasticsearch_everything"
     url: "govuk-integration"
     path: "elasticsearch5"
+  "pull_es6_daily":
+    ensure: "present"
+    hour: "1"
+    minute: "24"
+    action: "pull"
+    dbms: "elasticsearch"
+    storagebackend: "elasticsearch"
+    database: "elasticsearch6"
+    temppath: "/tmp/elasticsearch_everything"
+    url: "govuk-production"
+    path: "elasticsearch6"
 
 logrotate::conf::days_to_keep: 7
 nginx::logging::days_to_keep: 7
