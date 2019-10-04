@@ -427,9 +427,6 @@ govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::link_checker_api::db_port: 6432
 govuk::apps::link_checker_api::db_allow_prepared_statements: false
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-# Hardcoded to redis-2 to improve performance
-# This setting is overridden in `development.yaml`
-govuk::apps::link_checker_api::redis_host: "redis-2.backend"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
