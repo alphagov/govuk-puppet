@@ -11,9 +11,9 @@
 #   The port (outside the container) to use for elasticsearch.
 #
 class govuk_containers::elasticsearch::primary(
-  $version = '5.6.15',
+  $version = '6.7.2',
   $port    = '9200',
-  $ensure  = 'absent',
+  $ensure  = 'present',
   $enable  = true,
 ) {
   if $enable {
