@@ -16,12 +16,6 @@ class govuk_containers::elasticsearch::primary(
   $ensure  = 'absent',
   $enable  = true,
 ) {
-  # todo: remove absent things
-  ::docker::run { 'elasticsearch':
-    ensure => 'absent',
-    image  => "elasticsearch:${version}",
-  }
-
   if $enable {
     ::govuk_containers::elasticsearch { 'primary':
       ensure             => $ensure,
