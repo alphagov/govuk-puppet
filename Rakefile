@@ -108,7 +108,6 @@ task :check_consistency_between_aws_and_carrenza do
     router::draft_assets::vhost_name
 
     govuk::apps::imminence::ensure
-    govuk::apps::link_checker_api::ensure
     govuk::apps::local_links_manager::ensure
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning

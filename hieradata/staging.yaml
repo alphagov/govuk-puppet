@@ -35,7 +35,6 @@ govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::imminence::ensure: 'absent'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
-govuk::apps::link_checker_api::ensure: 'absent'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::local_links_manager::ensure: 'absent'
 govuk::apps::publisher::run_fact_check_fetcher: false
