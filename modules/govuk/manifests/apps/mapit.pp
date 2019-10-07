@@ -81,4 +81,18 @@ class govuk::apps::mapit (
         varname => 'DJANGO_SECRET_KEY',
         value   => $django_secret_key;
   }
+
+  if ($::mapit_data_present == '0') {
+
+
+    file { '/etc/govuk/import_mapit_data.sh':
+      ensure => file,
+      source => 'puppet:///modules/govuk/etc/govuk/import_mapit_data.sh',
+
+    }
+    exec { 'populate mapit database':
+      command => '/bin/bash /etc/govuk/import_mapit_data.sh 2>&1 | logger',
+    }
+  }
+
 }
