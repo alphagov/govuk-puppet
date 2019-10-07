@@ -36,7 +36,11 @@ machines_names_hash = create_machines_hash
 unchecked_machines = all_machines - (unsafe_machines + safe_machines)
 
 if unchecked_machines.length > 0
-  puts "Some machines have a 'safe to reboot' class which isn't in check_reboots_required"
+  puts "Some machines have an unknown `govuk_safe_to_reboot` value (should be one of `careful`, `no`, `yes` or `overnight`):"
+  puts
+  unchecked_machines.each do |machine|
+    puts "- #{machine}"
+  end
   exit 3
 end
 
