@@ -909,11 +909,6 @@ hosts::backend_migration::hosts:
   #   host_aliases:
   #     - api-mongo-3.api
   #     - api-mongo-3
-  #api-redis-1.api.staging.publishing.service.gov.uk:
-  #   ip: 10.2.4.29
-  #   host_aliases:
-  #     - api-redis-1.api
-  #     - api-redis-1
   whitehall-backend-3.backend.staging.publishing.service.gov.uk:
     ip: 10.2.3.27
     host_aliases:
