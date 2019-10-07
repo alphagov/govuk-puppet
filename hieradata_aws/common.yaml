@@ -1179,6 +1179,7 @@ postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
 
 puppet::puppetserver::puppetdb_version: '2.0.0-1puppetlabs1'
+puppet::puppetdb::database_password: ''
 
 puppet::monitoring::alert_hostname: 'alert'
 
