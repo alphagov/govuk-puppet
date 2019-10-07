@@ -2,17 +2,6 @@
 # and staging will be based on the same production snapshot (rather
 # than integration being a day behind).
 govuk_env_sync::tasks:
-  "pull_es_everything_daily_integration":
-    ensure: "absent"
-    hour: "3"
-    minute: "24"
-    action: "pull"
-    dbms: "elasticsearch"
-    storagebackend: "elasticsearch"
-    database: "elasticsearch5"
-    temppath: "/tmp/elasticsearch_everything"
-    url: "govuk-integration"
-    path: "elasticsearch5"
   "pull_es6_daily":
     ensure: "present"
     hour: "1"
