@@ -1181,8 +1181,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.23'
   api-mongo-4:
     ip: '10.1.12.21'
-  api-redis-1:
-    ip: '10.1.4.29'
   content-store-1:
     ip: '10.1.4.11'
   content-store-2:
