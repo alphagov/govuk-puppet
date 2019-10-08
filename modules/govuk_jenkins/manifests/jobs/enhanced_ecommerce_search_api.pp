@@ -21,7 +21,13 @@ class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
     notify  => Exec['jenkins_jobs_update'],
   }
 
+  $check_ensure = $cron_schedule ? {
+    undef   => absent,
+    default => present,
+  }
+
   @@icinga::passive_check { "${job_name}_${::hostname}":
+    ensure              => $check_ensure,
     service_description => $service_description,
     host_name           => $::fqdn,
     freshness_threshold => 104400,
