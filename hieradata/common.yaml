@@ -28,7 +28,6 @@ node_class: &node_class
       - hmrc-manuals-api
       - imminence
       - kibana
-      - link-checker-api
       - local-links-manager
       - manuals-publisher
       - maslow
@@ -424,15 +423,6 @@ govuk::apps::government_frontend::nagios_memory_warning: 2500
 govuk::apps::government_frontend::nagios_memory_critical: 2800
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
-govuk::apps::link_checker_api::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::link_checker_api::db_port: 6432
-govuk::apps::link_checker_api::db_allow_prepared_statements: false
-govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-# Hardcoded to redis-2 to improve performance
-# This setting is overridden in `development.yaml`
-govuk::apps::link_checker_api::redis_host: "redis-2.backend"
-govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
-
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -567,8 +557,6 @@ govuk::apps::sidekiq_monitoring::email_alert_api_redis_host: "%{hiera('govuk::ap
 govuk::apps::sidekiq_monitoring::email_alert_api_redis_port: "%{hiera('govuk::apps::email_alert_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::imminence_redis_host: "%{hiera('govuk::apps::imminence::redis_host')}"
 govuk::apps::sidekiq_monitoring::imminence_redis_port: "%{hiera('govuk::apps::imminence::redis_port')}"
-govuk::apps::sidekiq_monitoring::link_checker_api_redis_host: "%{hiera('govuk::apps::link_checker_api::redis_host')}"
-govuk::apps::sidekiq_monitoring::link_checker_api_redis_port: "%{hiera('govuk::apps::link_checker_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::manuals_publisher_redis_host: "%{hiera('govuk::apps::manuals_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::manuals_publisher_redis_port: "%{hiera('govuk::apps::manuals_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
@@ -1341,7 +1329,6 @@ hosts::production::backend::app_hostnames:
   - 'hmrc-manuals-api'
   - 'imminence'
   - 'kibana'
-  - 'link-checker-api'
   - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'

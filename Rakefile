@@ -39,8 +39,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db_allow_prepared_statements
     govuk::apps::email_alert_api::db_port
     govuk::apps::info_frontend::vhost_aliases
-    govuk::apps::link_checker_api::db_allow_prepared_statements
-    govuk::apps::link_checker_api::db_port
     govuk::apps::local_links_manager::db_allow_prepared_statements
     govuk::apps::local_links_manager::db_port
     govuk::apps::publisher::email_group_business
@@ -108,7 +106,6 @@ task :check_consistency_between_aws_and_carrenza do
     router::draft_assets::vhost_name
 
     govuk::apps::imminence::ensure
-    govuk::apps::link_checker_api::ensure
     govuk::apps::local_links_manager::ensure
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
@@ -234,6 +231,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds
+    govuk::apps::link_checker_api::db::backend_ip_range
+    govuk::apps::link_checker_api::db_hostname
+    govuk::apps::link_checker_api::redis_host
+    govuk::apps::link_checker_api::redis_port
     govuk::apps::local_links_manager::db::allow_auth_from_lb
     govuk::apps::local_links_manager::db::lb_ip_range
     govuk::apps::local_links_manager::db::rds
@@ -263,6 +264,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_port
     govuk::apps::sidekiq_monitoring::content_data_api_redis_host
     govuk::apps::sidekiq_monitoring::content_data_api_redis_port
+    govuk::apps::sidekiq_monitoring::link_checker_api_redis_host
+    govuk::apps::sidekiq_monitoring::link_checker_api_redis_port
     govuk::apps::sidekiq_monitoring::search_api_redis_host
     govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::search_api::elasticsearch_hosts
