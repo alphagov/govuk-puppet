@@ -14,6 +14,7 @@
 #  The database user to connect to the remote database as
 #
 class govuk::node::s_db_admin(
+  $apt_mirror_hostname,
   $backup_s3_bucket     = undef,
   $mysql_db_host        = undef,
   $mysql_db_password    = undef,
@@ -26,7 +27,6 @@ class govuk::node::s_db_admin(
   $postgres_port        = '5432',
   $postgres_backup_hour = 7,
   $postgres_backup_min  = 10,
-  $apt_mirror_hostname,
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync
@@ -95,15 +95,15 @@ class govuk::node::s_db_admin(
     owner   => 'root',
     group   => 'root',
     content => template('govuk/node/s_db_admin/.my.cnf.erb'),
-  } ->
+  }
   # include all the MySQL database classes that add users
-  class { '::govuk::apps::ckan::db': } ->
-  class { '::govuk::apps::collections_publisher::db': } ->
-  class { '::govuk::apps::contacts::db': } ->
-  class { '::govuk::apps::release::db': } ->
-  class { '::govuk::apps::search_admin::db': } ->
-  class { '::govuk::apps::signon::db': } ->
-  class { '::govuk::apps::whitehall::db': }
+  -> class { '::govuk::apps::ckan::db': }
+  -> class { '::govuk::apps::collections_publisher::db': }
+  -> class { '::govuk::apps::contacts::db': }
+  -> class { '::govuk::apps::release::db': }
+  -> class { '::govuk::apps::search_admin::db': }
+  -> class { '::govuk::apps::signon::db': }
+  -> class { '::govuk::apps::whitehall::db': }
 
   $mysql_backup_desc = 'RDS MySQL backup to S3'
 
@@ -151,15 +151,15 @@ class govuk::node::s_db_admin(
     release      => "${::lsbdistcodename}-pgdg",
     architecture => $::architecture,
     key          => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8',
-  } ->
+  }
 
-  class { '::postgresql::server':
+  -> class { '::postgresql::server':
     default_connect_settings => $default_connect_settings,
-  } ->
+  }
 
   # This allows easy administration of the PostgreSQL backend:
   # https://www.postgresql.org/docs/9.3/static/libpq-pgpass.html
-  file { '/root/.pgpass':
+  -> file { '/root/.pgpass':
     ensure  => present,
     mode    => '0600',
     content => "${postgres_host}:5432:*:${postgres_user}:${postgres_password}",
@@ -170,19 +170,19 @@ class govuk::node::s_db_admin(
   include ::govuk_postgresql::server::not_slave
 
   # Ensure the client class is installed
-  class { '::govuk_postgresql::client': } ->
+  class { '::govuk_postgresql::client': }
 
   # include all PostgreSQL classes that create databases and users
-  class { '::govuk::apps::content_audit_tool::db': } ->
-  class { '::govuk::apps::content_data_admin::db': } ->
-  class { '::govuk::apps::content_publisher::db': } ->
-  class { '::govuk::apps::content_tagger::db': } ->
-  class { '::govuk::apps::email_alert_api::db': } ->
-  class { '::govuk::apps::link_checker_api::db': } ->
-  class { '::govuk::apps::local_links_manager::db': } ->
-  class { '::govuk::apps::publishing_api::db': } ->
-  class { '::govuk::apps::service_manual_publisher::db': } ->
-  class { '::govuk::apps::support_api::db': }
+  -> class { '::govuk::apps::content_audit_tool::db': }
+  -> class { '::govuk::apps::content_data_admin::db': }
+  -> class { '::govuk::apps::content_publisher::db': }
+  -> class { '::govuk::apps::content_tagger::db': }
+  -> class { '::govuk::apps::email_alert_api::db': }
+  -> class { '::govuk::apps::link_checker_api::db': }
+  -> class { '::govuk::apps::local_links_manager::db': }
+  -> class { '::govuk::apps::publishing_api::db': }
+  -> class { '::govuk::apps::service_manual_publisher::db': }
+  -> class { '::govuk::apps::support_api::db': }
 
   $postgres_backup_desc = 'RDS PostgreSQL backup to S3'
 
@@ -211,6 +211,24 @@ class govuk::node::s_db_admin(
     minute  => $postgres_backup_min,
     command => '/usr/local/bin/rds-postgres-to-s3',
     require => File['/usr/local/bin/rds-postgres-to-s3'],
+  }
+
+  if $::aws_environment == 'integration' {
+
+    file { '/usr/local/bin/reboot_elasticache.py':
+      content => file('govuk/node/s_db_admin/reboot_elasticache.py'),
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0775',
+    }
+
+    cron::crondotdee { 'reboot-elasticache':
+      hour    => 11,
+      minute  => 0,
+      command => '/usr/bin/env python3 /usr/local/bin/reboot_elasticache.py',
+      require => [ File['/usr/local/bin/reboot_elasticache.py'], Package['boto3'],],
+    }
+
   }
 
   class { '::govuk_datascrubber': }
