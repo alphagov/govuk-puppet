@@ -166,7 +166,6 @@ hosts::production::backend::app_hostnames:
   - 'email-alert-api-public'
   - 'hmrc-manuals-api'
   - 'kibana'
-  - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
