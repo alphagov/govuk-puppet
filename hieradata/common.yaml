@@ -476,15 +476,7 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - "https://assets.%{hiera('app_domain')}"
   - "https://www.%{hiera('app_domain')}"
 
-govuk::apps::imminence::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-govuk::apps::imminence::redis_host: 'redis-1.backend'
 govuk::apps::imminence::redis_port: '6379'
-govuk::apps::imminence::nagios_memory_warning: 1200
-govuk::apps::imminence::nagios_memory_critical: 1400
-govuk::apps::imminence::unicorn_worker_processes: "4"
 
 govuk::apps::info_frontend::enabled: true
 govuk::apps::info_frontend::vhost_aliases:
