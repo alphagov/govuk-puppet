@@ -105,7 +105,6 @@ task :check_consistency_between_aws_and_carrenza do
     router::assets_origin::vhost_name
     router::draft_assets::vhost_name
 
-    govuk::apps::imminence::ensure
     govuk::apps::local_links_manager::ensure
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
@@ -228,6 +227,14 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db::rds
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::ensure
+    govuk::apps::imminence::mongodb_nodes
+    govuk::apps::imminence::nagios_memory_critical
+    govuk::apps::imminence::nagios_memory_warning
+    govuk::apps::imminence::redis_host
+    govuk::apps::imminence::redis_port
+    govuk::apps::imminence::unicorn_worker_processes
+    govuk::apps::sidekiq_monitoring::imminence_redis_host
+    govuk::apps::sidekiq_monitoring::imminence_redis_port
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds
