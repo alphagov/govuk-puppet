@@ -1,0 +1,12 @@
+---
+
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'prometheus'
+
+mount:
+  /data:
+    disk: '/dev/mapper/prometheus-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
