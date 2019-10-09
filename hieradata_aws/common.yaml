@@ -6,6 +6,7 @@ nginx_enable_ssl: false
 
 stackname: "%{::aws_stackname}"
 app_domain: "%{::aws_stackname}.govuk.internal"
+app_domain_internal: '%{::aws_stackname}.govuk-internal.digital'
 
 backup::mysql::alert_hostname: 'alert'
 
@@ -1178,6 +1179,7 @@ postgresql::lib::devel::link_pg_config: false
 postgresql::globals::version: '9.3'
 
 puppet::puppetserver::puppetdb_version: '2.0.0-1puppetlabs1'
+puppet::puppetdb::database_password: ''
 
 puppet::monitoring::alert_hostname: 'alert'
 
