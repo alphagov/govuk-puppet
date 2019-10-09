@@ -27,7 +27,6 @@ node_class: &node_class
       - govuk-content-schemas
       - hmrc-manuals-api
       - kibana
-      - local-links-manager
       - manuals-publisher
       - maslow
       - publisher
