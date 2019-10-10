@@ -69,9 +69,6 @@ govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::local_links_manager::ensure: 'absent'
-govuk::apps::local_links_manager::local_links_manager_passive_checks: true
-govuk::apps::local_links_manager::run_links_ga_export: true
 govuk::apps::publisher::run_fact_check_fetcher: true
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'

@@ -164,6 +164,14 @@ govuk::apps::link_checker_api::enable_procfile_worker: false
 govuk::apps::link_checker_api::enabled: true
 govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
 
+govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
+govuk::apps::local_links_manager::db_port: 6432
+govuk::apps::local_links_manager::db_allow_prepared_statements: false
+govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::local_links_manager::unicorn_worker_processes: "4"
+
 govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'

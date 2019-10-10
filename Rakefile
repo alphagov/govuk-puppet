@@ -39,8 +39,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db_allow_prepared_statements
     govuk::apps::email_alert_api::db_port
     govuk::apps::info_frontend::vhost_aliases
-    govuk::apps::local_links_manager::db_allow_prepared_statements
-    govuk::apps::local_links_manager::db_port
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
@@ -105,7 +103,6 @@ task :check_consistency_between_aws_and_carrenza do
     router::assets_origin::vhost_name
     router::draft_assets::vhost_name
 
-    govuk::apps::local_links_manager::ensure
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
     govuk::apps::support::ensure
@@ -156,8 +153,6 @@ task :check_consistency_between_aws_and_carrenza do
     backup::assets::backup_private_gpg_key_fingerprint
     backup::assets::jobs
     backup::offsite::jobs
-    govuk::apps::local_links_manager::local_links_manager_passive_checks
-    govuk::apps::local_links_manager::run_links_ga_export
     govuk::deploy::actionmailer_enable_delivery
     govuk::node::s_apt::real_ip_header
     govuk::node::s_backup::offsite_backups
@@ -243,10 +238,15 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::link_checker_api::redis_host
     govuk::apps::link_checker_api::redis_port
     govuk::apps::local_links_manager::db::allow_auth_from_lb
+    govuk::apps::local_links_manager::db::backend_ip_range
     govuk::apps::local_links_manager::db::lb_ip_range
     govuk::apps::local_links_manager::db::rds
+    govuk::apps::local_links_manager::db_hostname
     govuk::apps::local_links_manager::nagios_memory_critical
     govuk::apps::local_links_manager::nagios_memory_warning
+    govuk::apps::local_links_manager::redis_host
+    govuk::apps::local_links_manager::redis_port
+    govuk::apps::local_links_manager::unicorn_worker_processes
     govuk::apps::publisher::alert_hostname
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::lb_ip_range

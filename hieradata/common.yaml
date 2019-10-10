@@ -27,7 +27,6 @@ node_class: &node_class
       - govuk-content-schemas
       - hmrc-manuals-api
       - kibana
-      - local-links-manager
       - manuals-publisher
       - maslow
       - publisher
@@ -479,14 +478,6 @@ govuk::apps::govuk_crawler_worker::root_urls:
 govuk::apps::info_frontend::enabled: true
 govuk::apps::info_frontend::vhost_aliases:
   - 'info-frontend'
-
-govuk::apps::local_links_manager::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::local_links_manager::db_port: 6432
-govuk::apps::local_links_manager::db_allow_prepared_statements: false
-govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 
 govuk::apps::mapit::enabled: true
 
@@ -1315,7 +1306,6 @@ hosts::production::backend::app_hostnames:
   - 'email-alert-api-public'
   - 'hmrc-manuals-api'
   - 'kibana'
-  - 'local-links-manager'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
