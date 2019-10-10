@@ -42,8 +42,6 @@ govuk::apps::signon::instance_name: 'staging'
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::support::ensure: 'absent'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
-govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
-govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
