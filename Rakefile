@@ -46,8 +46,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db_port
     govuk::apps::service_manual_publisher::db_allow_prepared_statements
     govuk::apps::service_manual_publisher::db_port
-    govuk::apps::support_api::db_allow_prepared_statements
-    govuk::apps::support_api::db_port
     govuk::node::s_logging::apt_mirror_hostname
     govuk_ci::agent::master_ssh_key
     govuk_ci::master::ci_agents
@@ -285,9 +283,16 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db_hostname
     govuk::apps::support_api::aws_s3_bucket_name
     govuk::apps::support_api::db::allow_auth_from_lb
+    govuk::apps::support_api::db::backend_ip_range
     govuk::apps::support_api::db::lb_ip_range
     govuk::apps::support_api::db::rds
+    govuk::apps::support_api::db_hostname
+    govuk::apps::support_api::db_name
+    govuk::apps::support_api::db_password
+    govuk::apps::support_api::db_username
     govuk::apps::support_api::pp_data_url
+    govuk::apps::support_api::redis_host
+    govuk::apps::support_api::redis_port
     govuk::apps::support_api::zendesk_anonymous_ticket_email
     govuk::apps::transition::db_password
     govuk::apps::transition::postgresql_db::rds
