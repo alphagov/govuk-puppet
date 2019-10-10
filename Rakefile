@@ -242,10 +242,12 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::local_links_manager::db::lb_ip_range
     govuk::apps::local_links_manager::db::rds
     govuk::apps::local_links_manager::db_hostname
+    govuk::apps::local_links_manager::local_links_manager_passive_checks
     govuk::apps::local_links_manager::nagios_memory_critical
     govuk::apps::local_links_manager::nagios_memory_warning
     govuk::apps::local_links_manager::redis_host
     govuk::apps::local_links_manager::redis_port
+    govuk::apps::local_links_manager::run_links_ga_export
     govuk::apps::local_links_manager::unicorn_worker_processes
     govuk::apps::publisher::alert_hostname
     govuk::apps::publishing_api::db::allow_auth_from_lb
