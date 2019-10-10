@@ -84,7 +84,6 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { [
       'asset-manager',
       'canary-backend',
-      'support-api',
     ]:
       internal_only => true,
       servers       => $backend_servers,
