@@ -125,27 +125,23 @@ Statsd.configure(
   options.fetch(:statsd_port, 8125),
 )
 
-state = options[:command_type] == "host" ? options[:host_state] : options[:service_state]
+namespace = if options[:command_type] == "host"
+              "icinga.host_alert.#{options[:host_display_name]}"
+            else
+              "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}"
+            end
 
-count_namespace = if options[:command_type] == "host"
-                    "icinga.host_alert.#{options[:host_display_name]}.#{state}"
-                  else
-                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}.#{state}"
-                  end
+state = if options[:command_type] == "host"
+          options[:host_state]
+        else
+          options[:service_state]
+        end
 
-Statsd.increment(count_namespace)
-
-state_namespace = if options[:command_type] == "host"
-                    "icinga.host_alert.#{options[:host_display_name]}"
-                  else
-                    "icinga.service_alert.#{options[:host_display_name]}.#{options[:service_desc]}"
-                  end
-
-STATE_GAUGE_VALUES = {
+GAUGE_VALUES = {
   "ok" => 0,
   "unknown" => 1,
   "warning" => 2,
   "critical" => 3,
 }
 
-Statsd.gauge(state_namespace, STATE_GAUGE_VALUES.fetch(state))
+Statsd.gauge(namespace, GAUGE_VALUES.fetch(state))
