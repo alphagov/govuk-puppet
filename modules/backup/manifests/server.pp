@@ -35,6 +35,12 @@ class backup::server (
           '/data/backups/archived']:
     ensure => directory,
     owner  => 'govuk-backup',
+    mode   => '0711',
+  }
+
+  file {'/data/backups/whitehall':
+    ensure => directory,
+    owner  => 'deploy',
     mode   => '0700',
   }
 
