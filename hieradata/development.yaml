@@ -219,7 +219,12 @@ govuk::apps::specialist_publisher::enable_procfile_worker: false
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_development'
+
 govuk::apps::support::enable_procfile_worker: false
+govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
+govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::support_api::db_allow_prepared_statements: false
