@@ -103,7 +103,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
-    govuk::apps::support::ensure
     govuk::apps::whitehall::cpu_critical
     govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers

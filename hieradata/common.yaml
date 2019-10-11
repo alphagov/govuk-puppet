@@ -37,7 +37,6 @@ node_class: &node_class
       - sidekiq-monitoring
       - signon
       - specialist-publisher
-      - support
       - travel-advice-publisher
   bouncer:
     apps:
