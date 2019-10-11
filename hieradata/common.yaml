@@ -451,7 +451,6 @@ govuk::apps::whitehall::db_username: whitehall_fe
 govuk::apps::whitehall::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::whitehall::procfile_worker_process_count: 2
 
 govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
 
