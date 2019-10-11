@@ -38,7 +38,8 @@ http {
       '"$http_referer" "$http_user_agent" '
       '$request_time $upstream_response_time '
       '$gzip_ratio $sent_http_x_cache $sent_http_location $http_host '
-      '$ssl_protocol $ssl_cipher';
+      '$ssl_protocol $ssl_cipher '
+      '$http_x_forwarded_for';
 
     log_format json_event '{ "@timestamp": "$time_iso8601", '
                          '"remote_addr": "$remote_addr", '
@@ -66,7 +67,8 @@ http {
                          '"govuk_abtest_educationnavigation": "$http_govuk_abtest_educationnavigation", '
                          '"varnish_id": "$http_x_varnish", '
                          '"ssl_protocol": "$ssl_protocol", '
-                         '"ssl_cipher": "$ssl_cipher" }';
+			 '"ssl_cipher": "$ssl_cipher", '
+			 '"http_x_forwarded_for": "$http_x_forwarded_for" }';
 
     access_log  /var/log/nginx/access.log timed_combined;
     access_log  /var/log/nginx/json.event.access.log json_event;
