@@ -7,7 +7,7 @@ class govuk_jenkins::jobs::search_generate_sitemaps{
 
   $service_description = 'Runs a rake task on Search API that generates the sitemap files'
   $job_slug = 'search_generate_sitemaps'
-  $job_url = "https://deploy.${app_domain}/job/${job_slug}"
+  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/${job_slug}"
 
   file { '/etc/jenkins_jobs/jobs/search_generate_sitemaps.yaml':
     ensure  => present,
