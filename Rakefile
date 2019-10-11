@@ -46,8 +46,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::db_port
     govuk::apps::service_manual_publisher::db_allow_prepared_statements
     govuk::apps::service_manual_publisher::db_port
-    govuk::apps::support_api::db_allow_prepared_statements
-    govuk::apps::support_api::db_port
     govuk::node::s_logging::apt_mirror_hostname
     govuk_ci::agent::master_ssh_key
     govuk_ci::master::ci_agents
@@ -106,7 +104,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
     govuk::apps::support::ensure
-    govuk::apps::support_api::ensure
     govuk::apps::whitehall::cpu_critical
     govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers
@@ -277,14 +274,26 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::sidekiq_monitoring::link_checker_api_redis_port
     govuk::apps::sidekiq_monitoring::search_api_redis_host
     govuk::apps::sidekiq_monitoring::search_api_redis_port
+    govuk::apps::sidekiq_monitoring::support_api_redis_host
+    govuk::apps::sidekiq_monitoring::support_api_redis_port
     govuk::apps::search_api::elasticsearch_hosts
     govuk::apps::service_manual_publisher::db::allow_auth_from_lb
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::support_api::aws_s3_bucket_name
     govuk::apps::support_api::db::allow_auth_from_lb
+    govuk::apps::support_api::db::backend_ip_range
     govuk::apps::support_api::db::lb_ip_range
     govuk::apps::support_api::db::rds
+    govuk::apps::support_api::db_hostname
+    govuk::apps::support_api::db_name
+    govuk::apps::support_api::db_password
+    govuk::apps::support_api::db_username
+    govuk::apps::support_api::pp_data_url
+    govuk::apps::support_api::redis_host
+    govuk::apps::support_api::redis_port
+    govuk::apps::support_api::zendesk_anonymous_ticket_email
     govuk::apps::transition::db_password
     govuk::apps::transition::postgresql_db::rds
     govuk::deploy::setup::gemstash_server

@@ -220,7 +220,19 @@ govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::mongodb_nodes: ['localhost']
 govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_development'
 govuk::apps::support::enable_procfile_worker: false
+
+govuk::apps::support_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::support_api::db_allow_prepared_statements: false
+govuk::apps::support_api::db_hostname: 'postgresql-primary-1.backend'
+govuk::apps::support_api::db_name: 'support_contacts_production'
+govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
+govuk::apps::support_api::db_port: 6432
+govuk::apps::support_api::db_username: 'support_contacts'
 govuk::apps::support_api::enable_procfile_worker: false
+govuk::apps::support_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::support_api::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+
 govuk::apps::transition::enable_procfile_worker: false
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
