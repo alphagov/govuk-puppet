@@ -16,7 +16,7 @@ fi
 awk 'FNR==NR{ array[$0];next}
 { if ( $1 in array ) next
 print $1}
-' <(aws ec2 describe-instances --filters "Name=tag:aws_stackname,Values=${STACKNAME}" "Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped" --output=json | jq -r '.Reservations[] | .Instances[] | .InstanceId ') <(curl 'http://localhost:8080/v3/nodes' 2>/dev/null | grep name | awk '{print $3}' | tr -d '",') | while read NODE
+' <(aws ec2 describe-instances --filters "Name=tag:aws_stackname,Values=${STACKNAME}" "Name=instance-state-name,Values=pending,running,shutting-down,stopping,stopped" --output=json | jq -r '.Reservations[] | .Instances[] | .InstanceId ') <(curl 'http://localhost:8080/v3/nodes' 2>/dev/null | grep name | awk '{print $3}' | tr -d '",') | while read -r NODE
 do
   echo "[$(date '+%H:%M:%S %d-%m-%Y')] Preparing to delete: ${NODE}:"
   curl "http://localhost:8080/v3/nodes/${NODE}/facts/aws_migration"
