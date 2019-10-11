@@ -12,7 +12,7 @@ case "${SERVICESTATE}" in
     case "${SERVICESTATETYPE}" in
       SOFT)
         logger --tag govuk_icinga_event_handler "Publishing overdue Whitehall documents on ${HOSTADDRESS}"
-        /usr/lib/nagios/plugins/check_nrpe -H ${HOSTADDRESS} -c publish_overdue_whitehall
+        /usr/lib/nagios/plugins/check_nrpe -H "${HOSTADDRESS}" -c publish_overdue_whitehall
         ;;
     esac
     ;;
