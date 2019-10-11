@@ -9,6 +9,7 @@ class monitoring::event_handlers () {
   }
 
   include monitoring::event_handler::app_high_memory
+  include monitoring::event_handler::procfile_worker_high_memory
   include monitoring::event_handler::publish_overdue_whitehall
 
 }
