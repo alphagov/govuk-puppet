@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+#
+# Script that NRPE runs when it's notified by the monitoring machine
+# that an application has crossed the high memory threshold.
+#
+set -eu
+
+APPNAME=$1
+
+logger --tag govuk_icinga_event_handler "Restarting service ${APPNAME} because monitoring has detected it using too much memory"
+
+sudo /sbin/initctl restart ${APPNAME}
+
+echo "OK: Restarted ${APPNAME}"
+exit 0

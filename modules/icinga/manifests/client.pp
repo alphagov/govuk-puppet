@@ -76,4 +76,7 @@ class icinga::client (
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/reload_service',
   }
 
+  icinga::plugin { 'restart_service':
+    source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/restart_service',
+  }
 }
