@@ -1,6 +1,7 @@
 #!/bin/bash
 
-export AWS_DEFAULT_REGION=$(facter -p aws_region)
+AWS_DEFAULT_REGION=$(facter -p aws_region)
+export AWS_DEFAULT_REGION
 if [[ -z $AWS_DEFAULT_REGION ]] ; then
   echo "Error: aws_region is null"
   exit
