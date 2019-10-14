@@ -103,7 +103,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
-    govuk::apps::support::ensure
     govuk::apps::whitehall::cpu_critical
     govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers
@@ -281,6 +280,9 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::support::aws_s3_bucket_name
+    govuk::apps::support::redis_host
+    govuk::apps::support::redis_port
     govuk::apps::support_api::aws_s3_bucket_name
     govuk::apps::support_api::db::allow_auth_from_lb
     govuk::apps::support_api::db::backend_ip_range

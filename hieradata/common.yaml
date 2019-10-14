@@ -37,7 +37,6 @@ node_class: &node_class
       - sidekiq-monitoring
       - signon
       - specialist-publisher
-      - support
       - travel-advice-publisher
   bouncer:
     apps:
@@ -581,11 +580,6 @@ govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::static::unicorn_worker_processes: "8"
 govuk::apps::static::nagios_memory_warning: 1500
 govuk::apps::static::nagios_memory_critical: 1750
-
-govuk::apps::support::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::support::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
-govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::transition::db_hostname: "transition-postgresql-master-1.backend"
@@ -1301,7 +1295,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher'
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
-  - 'support'
   - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
