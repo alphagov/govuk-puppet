@@ -345,6 +345,30 @@ function  dump_postgresql {
   fi
 }
 
+# Translate the binary dump file into text (SQL DDL/DML), filter out extension
+# comments (which would cause the restore to fail), fix up references to the
+# `postgres` user (which differs between actual Postgres and RDS), then pipe
+# the output into psql to do the actual restore.
+function filtered_postgresql_restore {
+  local single_transaction
+  if [ "${database}" == 'ckan_production' ]; then
+    single_transaction=''
+  else
+    single_transaction='-1'
+  fi
+
+  local sed_commands
+  sed_commands='/^COMMENT ON EXTENSION plpgsql/d'
+  if [ "${database}" == 'publishing_api_production' ]; then
+    sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
+  fi
+
+  pg_restore "${tempdir}/${filename}" \
+    | sed -r "${sed_commands}" \
+    | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
+      --no-password -d "${database}" 2>&1
+}
+
 function restore_postgresql {
   # Check which postgres instance the database needs to restore into
   # (content-data-api, transition, or postgresql).
@@ -356,14 +380,6 @@ function restore_postgresql {
     db_hostname='content-data-api-postgresql-primary'
   else
     db_hostname='postgresql-primary'
-  fi
-
-  if [ "${database}" == 'publishing_api_production' ]; then
-    pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' \
-      | sed -r 's/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g' \
-      | gzip > "${tempdir}/${filename}.dump"
-  else
-    pg_restore "${tempdir}/${filename}" | sed '/^COMMENT\ ON\ EXTENSION\ plpgsql/d' | gzip > "${tempdir}/${filename}.dump"
   fi
 
 # Checking if the database already exist
@@ -380,13 +396,7 @@ function restore_postgresql {
 
   sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
 
-  single_transaction='-1'
-  if [ "${database}" == 'ckan_production' ]; then
-    single_transaction=''
-  fi
-
-  pg_stderr=$(zcat "${tempdir}/${filename}.dump" | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" --no-password -d "${database}" 2>&1)
-  rm "${tempdir}/${filename}.dump"
+  pg_stderr=$(filtered_postgresql_restore)
 
   if [ "$DB_OWNER" != '' ] ; then
      echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
