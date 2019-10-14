@@ -223,6 +223,7 @@ command[check_ntp_time]=/usr/lib/nagios/plugins/check_ntp_time -4 -q -H uk.pool.
 # make sure you read the SECURITY file before doing this.
 
 command[reload_service]=/usr/lib/nagios/plugins/reload_service $ARG1$
+command[restart_service]=/usr/lib/nagios/plugins/restart_service $ARG1$
 #command[check_users]=/usr/lib/nagios/plugins/check_users -w $ARG1$ -c $ARG2$
 #command[check_load]=/usr/lib/nagios/plugins/check_load -w $ARG1$ -c $ARG2$
 #command[check_disk]=/usr/lib/nagios/plugins/check_disk -w $ARG1$ -c $ARG2$ -p $ARG3$
