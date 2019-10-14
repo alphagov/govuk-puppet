@@ -127,7 +127,7 @@ define govuk::procfile::worker (
         host_name                  => $::fqdn,
         event_handler              => "govuk_procfile_worker_high_memory!${service_name}",
         notes_url                  => monitoring_docs_url(high-memory-for-application),
-        attempts_before_hard_state => 2,
+        attempts_before_hard_state => 10,
       }
 
       if $alert_when_threads_exceed {
