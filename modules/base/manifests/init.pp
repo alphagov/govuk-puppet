@@ -60,5 +60,10 @@ class base (
 
     include hosts::migration
     include govuk_prometheus_node_exporter
+
+    file { '/etc/profile.d/aws_config.sh':
+      ensure  => 'present',
+      content => template('base/aws_config.erb'),
+    }
   }
 }
