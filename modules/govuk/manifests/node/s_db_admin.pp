@@ -225,8 +225,18 @@ class govuk::node::s_db_admin(
     cron::crondotdee { 'reboot-elasticache':
       hour    => 11,
       minute  => 0,
-      command => '/usr/bin/env python3 /usr/local/bin/reboot_elasticache.py',
+      command => '/usr/bin/env python3 /usr/local/bin/reboot_elasticache.py >> /var/log/reboot_elasticache 2>&1',
       require => [ File['/usr/local/bin/reboot_elasticache.py'], Package['boto3'],],
+    }
+
+    @logrotate::conf { 'reboot-elasticache':
+      ensure        => 'present',
+      matches       => '/var/log/reboot_elasticache',
+      days_to_keep  => '7',
+      delaycompress => true,
+      copytruncate  => false,
+      create        => '644 root root',
+      maxsize       => '10M',
     }
 
   }
