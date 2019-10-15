@@ -17,7 +17,7 @@ class govuk_testing_tools {
   }
 
   package { 'brakeman':
-    ensure   => 'installed',
+    ensure   => '~> 4.6',
     provider => system_gem,
   }
 }
