@@ -963,6 +963,8 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/usr/bin/varnishadm'
   icinga_init_ctl:
     content: 'nagios ALL=NOPASSWD:/sbin/initctl reload *'
+  icinga_initctl_restart:
+    content: 'nagios ALL=NOPASSWD:/sbin/initctl restart *'
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
