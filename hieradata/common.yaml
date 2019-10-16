@@ -38,9 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  bouncer:
-    apps:
-      - bouncer
   cache:
     apps:
       - router
