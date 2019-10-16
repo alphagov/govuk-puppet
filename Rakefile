@@ -172,7 +172,11 @@ task :check_consistency_between_aws_and_carrenza do
   # Keys that are AWS-only
   AWS_ONLY_KEYS = %w[
     backup::mysql::alert_hostname
+    govuk::apps::bouncer::db_hostname
+    govuk::apps::bouncer::nagios_memory_critical
+    govuk::apps::bouncer::nagios_memory_warning
     govuk::apps::bouncer::postgresql_role::rds
+    govuk::apps::bouncer::unicorn_worker_processes
     govuk::apps::ckan::ckan_site_url
     govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
