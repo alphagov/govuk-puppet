@@ -1119,10 +1119,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.200'
   draft-content-store-2:
     ip: '10.1.4.201'
-  mapit-1:
-    ip: '10.1.4.60'
-  mapit-2:
-    ip: '10.1.4.61'
   performance-mongo-1:
     ip: '10.1.4.31'
   performance-mongo-2:
