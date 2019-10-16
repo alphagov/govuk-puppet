@@ -361,6 +361,7 @@ monitoring::checks::lb::loadbalancers:
 
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::checks::smokey::environment: 'integration'
+monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::uptime_collector::environment: 'integration'
 monitoring::contacts::slack_username: 'Integration'
 
