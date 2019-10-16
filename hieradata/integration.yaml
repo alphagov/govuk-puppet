@@ -92,9 +92,6 @@ govuk::node::s_api_lb::content_store_servers:
 govuk::node::s_api_lb::draft_content_store_servers:
   - "draft-content-store-1.api"
   - "draft-content-store-2.api"
-govuk::node::s_api_lb::mapit_servers:
-  - "mapit-1.api"
-  - "mapit-2.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
