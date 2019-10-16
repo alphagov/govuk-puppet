@@ -175,6 +175,10 @@ govuk::apps::local_links_manager::unicorn_worker_processes: "4"
 govuk::apps::manuals_publisher::enable_procfile_worker: false
 govuk::apps::manuals_publisher::mongodb_nodes: ['localhost']
 govuk::apps::manuals_publisher::mongodb_name: 'manuals_publisher_development'
+
+govuk::apps::mapit::enabled: true
+govuk::apps::mapit::gdal_version: "1.11.5"
+
 govuk::apps::maslow::mongodb_nodes: ['localhost']
 govuk::apps::maslow::mongodb_name: 'maslow_development'
 govuk::apps::publisher::enable_procfile_worker: false
