@@ -48,6 +48,8 @@
           "legend": {
             "avg": false,
             "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
             "max": false,
             "min": false,
             "show": true,
@@ -81,7 +83,7 @@
           "tooltip": {
             "msResolution": true,
             "shared": true,
-            "sort": 0,
+            "sort": 2,
             "value_type": "cumulative"
           },
           "type": "graph",
@@ -268,7 +270,7 @@
           "title": "Jobs processed (per hour)",
           "tooltip": {
             "shared": true,
-            "sort": 0,
+            "sort": 2,
             "value_type": "individual"
           },
           "type": "graph",
@@ -358,7 +360,7 @@
           "title": "Jobs processed (per second)",
           "tooltip": {
             "shared": true,
-            "sort": 0,
+            "sort": 2,
             "value_type": "individual"
           },
           "type": "graph",
@@ -412,6 +414,8 @@
             "alignAsTable": false,
             "avg": false,
             "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
             "max": false,
             "min": false,
             "rightSide": false,
@@ -444,7 +448,7 @@
           "title": "Queue Latency",
           "tooltip": {
             "shared": true,
-            "sort": 0,
+            "sort": 2,
             "value_type": "individual"
           },
           "type": "graph",
