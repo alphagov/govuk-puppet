@@ -21,7 +21,7 @@ class govuk_jenkins::jobs::search_test_spelling_suggestions (
 
   file { '/etc/jenkins_jobs/jobs/search_test_spelling.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/benchmark_search.yaml.erb'),
+    content => template('govuk_jenkins/jobs/spelling_search.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 
