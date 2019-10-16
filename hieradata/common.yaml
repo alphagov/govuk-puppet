@@ -85,9 +85,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  mapit:
-    apps:
-      - mapit
   mirrorer:
     apps:
       - govuk-crawler-worker
