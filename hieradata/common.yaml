@@ -299,11 +299,6 @@ govuk::apps::asset_manager::nagios_memory_critical: 2750
 
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
-govuk::apps::bouncer::db_hostname: "transition-postgresql-slave-1.backend"
-govuk::apps::bouncer::nagios_memory_warning: 1400
-govuk::apps::bouncer::nagios_memory_critical: 1500
-govuk::apps::bouncer::unicorn_worker_processes: "8"
-
 govuk::apps::cache_clearing_service::enabled: false
 govuk::apps::cache_clearing_service::nagios_memory_warning: 2750
 govuk::apps::cache_clearing_service::nagios_memory_critical: 3000
