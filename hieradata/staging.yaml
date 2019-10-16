@@ -366,7 +366,6 @@ hosts::production::backend::app_hostnames:
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
-  - 'publishing-api'
   - 'search-admin'
   - 'service-manual-publisher'
   - 'short-url-manager'
