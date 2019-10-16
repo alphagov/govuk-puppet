@@ -23,7 +23,7 @@ class govuk::apps::backdrop_read (
     govuk::app { $app_name:
       app_type           => 'bare',
       port               => $port,
-      command            => "./venv/bin/gunicorn backdrop.read.api:app --bind 127.0.0.1:${port} --workers 4 --timeout 30",
+      command            => "./venv/bin/gunicorn backdrop.read.api:app --bind 127.0.0.1:${port} --workers 8 --timeout 30",
       vhost_ssl_only     => true,
       health_check_path  => '/_status',
       log_format_is_json => true,
