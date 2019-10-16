@@ -886,9 +886,6 @@ govuk_jenkins::jobs::email_alert_check::email_addresses_to_check: >-
   ,
   gov.uk.email@notifications.service.gov.uk
 
-govuk_jenkins::jobs::search_benchmark::auth_username: "%{hiera('http_username')}"
-govuk_jenkins::jobs::search_benchmark::auth_password: "%{hiera('http_password')}"
-
 govuk_jenkins::jobs::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::jobs::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
 

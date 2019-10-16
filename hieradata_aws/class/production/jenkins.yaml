@@ -23,7 +23,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::publish_special_routes
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
-  - govuk_jenkins::jobs::search_benchmark
   - govuk_jenkins::jobs::search_test_spelling_suggestions
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_index_checks
