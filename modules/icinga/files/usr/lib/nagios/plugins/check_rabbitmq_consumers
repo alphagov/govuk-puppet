@@ -83,6 +83,7 @@ class RabbitMQCheck:
         return [
             details["channel_details"]["name"]
             for details in self.consumer_details_for_queue()
+            if "name" in details["channel_details"]
         ]
 
     def channel_idle_time(self, channel):
