@@ -10,6 +10,8 @@ class govuk_jenkins::jobs::search_benchmark (
   $cron_schedule = '30 4 * * *'
 ) {
 
+  # todo: delete this and relevant files/configuration
+
   if $::aws_migration {
     $app_domain_internal = hiera('app_domain_internal')
   }
@@ -20,7 +22,7 @@ class govuk_jenkins::jobs::search_benchmark (
   $job_url = "https://deploy.${app_domain}/job/search_benchmark/"
 
   file { '/etc/jenkins_jobs/jobs/search_benchmark.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/benchmark_search.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
