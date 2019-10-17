@@ -324,6 +324,7 @@ monitoring::checks::rds::servers:
 
 
 monitoring::checks::smokey::environment: 'staging_aws'
+monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::checks::smokey::features:
   check_caching:
     feature: caching
