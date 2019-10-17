@@ -85,9 +85,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  mapit:
-    apps:
-      - mapit
   mirrorer:
     apps:
       - govuk-crawler-worker
@@ -413,8 +410,6 @@ govuk::apps::government_frontend::unicorn_worker_processes: "8"
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::mapit::gdal_version: "1.11.5"
-
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
@@ -464,8 +459,6 @@ govuk::apps::govuk_crawler_worker::root_urls:
 govuk::apps::info_frontend::enabled: true
 govuk::apps::info_frontend::vhost_aliases:
   - 'info-frontend'
-
-govuk::apps::mapit::enabled: true
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
@@ -1126,10 +1119,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.200'
   draft-content-store-2:
     ip: '10.1.4.201'
-  mapit-1:
-    ip: '10.1.4.60'
-  mapit-2:
-    ip: '10.1.4.61'
   performance-mongo-1:
     ip: '10.1.4.31'
   performance-mongo-2:
