@@ -488,6 +488,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - steve.messer@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
+  - camille.descartes@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
