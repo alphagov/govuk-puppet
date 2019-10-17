@@ -8,7 +8,7 @@ clamav::use_service: false
 
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
 govuk_ci::agent::postgresql::email_alert_api_role_password: 'email-alert-api'
-govuk_ci::agent::gdal_version: "%{hiera('govuk::apps::mapit::gdal_version')}"
+govuk_ci::agent::gdal_version: "1.11.5"
 postgresql::globals::version: '9.3'
 govuk_postgresql::server::enable_collectd: false
 
