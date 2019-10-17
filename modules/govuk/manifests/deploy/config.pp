@@ -126,14 +126,11 @@ class govuk::deploy::config(
     # Integration are in AWS, so Plek already does the right thing by default
     # in those environments.
     #
-    # 2. Publishing API is still in Carrenza Production for now.
-    #
-    # 3. Signon is still in Carrenza for Staging and Production.
+    # 2. Signon is still in Carrenza for Staging and Production.
     #
     if $::aws_environment == 'production' {
       govuk_envvar {
         'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
-        'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
       }
     }
 
