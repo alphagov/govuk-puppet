@@ -3,7 +3,6 @@ class govuk::node::s_api_lb (
   $api_servers,
   $content_store_servers,
   $draft_content_store_servers,
-  $mapit_servers,
 ) {
   include govuk::node::s_base
   include loadbalancer
@@ -47,12 +46,5 @@ class govuk::node::s_api_lb (
   }
   @ufw::allow { 'allow-https-8443-from-any':
     port => 8443,
-  }
-
-  if !empty($mapit_servers) {
-    loadbalancer::balance { 'mapit':
-      servers       => $mapit_servers,
-      internal_only => true,
-    }
   }
 }
