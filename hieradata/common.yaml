@@ -38,9 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  cache:
-    apps:
-      - router
   content_store:
     apps:
       - content-store
@@ -51,11 +48,6 @@ node_class: &node_class
       - finder-frontend
       - licencefinder
       - smartanswers
-  draft_cache:
-    apps:
-      - authenticating-proxy
-      - router
-      - router-api
   draft_content_store:
     apps:
       - content-store
