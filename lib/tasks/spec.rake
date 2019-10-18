@@ -13,6 +13,7 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
   content_data_api_db_admin
   content_store
   db_admin
+  draft_cache
   draft_content_store
   draft_frontend
   email_alert_api_db_admin
