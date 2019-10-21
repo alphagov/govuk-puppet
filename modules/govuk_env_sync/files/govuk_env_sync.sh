@@ -359,9 +359,7 @@ function filtered_postgresql_restore {
 
   local sed_commands
   sed_commands='/^COMMENT ON EXTENSION/d'
-  if [ "${database}" == 'publishing_api_production' ]; then
-    sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
-  fi
+  sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
 
   pg_restore "${tempdir}/${filename}" \
     | sed -r "${sed_commands}" \
