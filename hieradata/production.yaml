@@ -508,16 +508,6 @@ hosts::production::redirector::hosts:
     ip: '10.3.13.6'
 
 hosts::production::router::hosts:
-  cache-1:
-    ip: '10.3.1.2'
-  cache-2:
-    ip: '10.3.1.3'
-  cache-3:
-    ip: '10.3.1.4'
-  draft-cache-1:
-    ip: '10.3.1.200'
-  draft-cache-2:
-    ip: '10.3.1.201'
   router-backend-1:
     ip: '10.3.1.10'
   router-backend-2:
@@ -526,21 +516,10 @@ hosts::production::router::hosts:
     ip: '10.3.1.12'
   router-backend-4:
     ip: '10.3.9.10'
-  cache:
-    ip: '10.3.1.254'
-    legacy_aliases:
-      - 'cache'
-    service_aliases:
-      - 'cache'
-      - 'router'
   router-backend-internal-lb:
     ip: '10.3.1.253'
     legacy_aliases:
       - "router-api.%{hiera('app_domain')}"
-  draft-cache-internal-lb:
-    ip: '10.3.1.252'
-    legacy_aliases:
-      - "draft-router-api.%{hiera('app_domain')}"
 
 licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
