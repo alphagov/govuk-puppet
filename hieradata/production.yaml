@@ -534,6 +534,17 @@ monitoring::contacts::slack_channel: '#govuk-alerts'
 monitoring::contacts::slack_username: 'Production (Carrenza)'
 monitoring::edge::enabled: true
 monitoring::uptime_collector::environment: 'production'
+monitoring::vpn_gateways::endpoints:
+  vpn_gateway_api_dr:
+    address: "%{hiera('environment_ip_prefix')}.12.1"
+  vpn_gateway_backend_dr:
+    address: "%{hiera('environment_ip_prefix')}.11.1"
+  vpn_gateway_licensify:
+    address: "10.5.0.1"
+  vpn_gateway_redirector_dr:
+    address: "%{hiera('environment_ip_prefix')}.13.1"
+  vpn_gateway_router_dr:
+    address: "%{hiera('environment_ip_prefix')}.9.1"
 
 postfix::smarthost:
   - 'email-smtp.us-east-1.amazonaws.com:587'
