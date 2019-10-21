@@ -3,6 +3,8 @@
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - content_data_api
   - cache_clearing_service
+  - publishing_api
+  - email_alert_service
   - search_api
 
 govuk_rabbitmq::aws_clustering: true
