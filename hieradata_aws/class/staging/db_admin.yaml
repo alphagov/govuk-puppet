@@ -65,6 +65,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_admin_production_push"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
+  "pull_email_alert_api_production_daily":
+    ensure: "present"
+    hour: "2"
+    minute: "35"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "email-alert-api_production"
+    temppath: "/tmp/email-alert-api_production"
+    url: "govuk-production-database-backups"
+    path: "postgresql-backend"
   "pull_publishing_api_production_daily":
     ensure: "present"
     hour: "3"
