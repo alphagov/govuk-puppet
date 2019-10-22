@@ -68,9 +68,6 @@ node_class: &node_class
     apps:
       - govuk-content-schemas
       - publishing-api
-  router_backend:
-    apps:
-      - router-api
   whitehall_backend:
     apps:
       - whitehall
