@@ -50,7 +50,7 @@ mod 'puppet/ext4mount',
 mod 'puppet/python',
   :git => 'git://github.com/voxpupuli/puppet-python.git',
   :ref => '1.9.8'
-mod 'gdsoperations/gor',
+mod 'alphagov/gor',
   :git => 'git://github.com/alphagov/puppet-gor.git',
   :ref => 'v0.4.0'
 mod 'alphagov/puppet-rcs',
