@@ -1095,14 +1095,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.23'
   api-mongo-4:
     ip: '10.1.12.21'
-  content-store-1:
-    ip: '10.1.4.11'
-  content-store-2:
-    ip: '10.1.4.12'
-  draft-content-store-1:
-    ip: '10.1.4.200'
-  draft-content-store-2:
-    ip: '10.1.4.201'
   performance-mongo-1:
     ip: '10.1.4.31'
   performance-mongo-2:
