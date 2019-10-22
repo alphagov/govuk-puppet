@@ -129,13 +129,6 @@ govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk::node::s_api_lb::api_servers:
   - "api-1.api"
   - "api-2.api"
-govuk::node::s_api_lb::content_store_servers:
-  - "content-store-1.api"
-  - "content-store-2.api"
-  - "content-store-3.api"
-govuk::node::s_api_lb::draft_content_store_servers:
-  - "draft-content-store-1.api"
-  - "draft-content-store-2.api"
 
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
 govuk::node::s_backend_lb::aws_egress_nat_ips:

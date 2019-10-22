@@ -106,8 +106,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::whitehall::cpu_critical
     govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers
-    govuk::node::s_api_lb::content_store_servers
-    govuk::node::s_api_lb::draft_content_store_servers
     govuk::node::s_backend_lb::backend_servers
     govuk::node::s_backend_lb::email_alert_api_backend_servers
     govuk::node::s_backend_lb::perfplat_public_app_domain

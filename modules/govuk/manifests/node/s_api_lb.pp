@@ -1,15 +1,11 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_api_lb (
   $api_servers,
-  $content_store_servers,
-  $draft_content_store_servers,
 ) {
   include govuk::node::s_base
   include loadbalancer
 
   validate_array($api_servers)
-  validate_array($content_store_servers)
-  validate_array($draft_content_store_servers)
 
   loadbalancer::balance {
     [
@@ -28,22 +24,6 @@ class govuk::node::s_api_lb (
       internal_only => true;
   }
 
-  loadbalancer::balance {
-    [
-      'content-store',
-    ]:
-      servers       => $content_store_servers,
-      internal_only => true;
-  }
-
-  loadbalancer::balance {
-    [
-      'draft-content-store',
-    ]:
-      servers       => $draft_content_store_servers,
-      internal_only => true,
-      https_port    => 8443,
-  }
   @ufw::allow { 'allow-https-8443-from-any':
     port => 8443,
   }
