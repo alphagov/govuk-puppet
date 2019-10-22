@@ -60,8 +60,6 @@ govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
-govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
@@ -129,13 +127,6 @@ govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk::node::s_api_lb::api_servers:
   - "api-1.api"
   - "api-2.api"
-govuk::node::s_api_lb::content_store_servers:
-  - "content-store-1.api"
-  - "content-store-2.api"
-  - "content-store-3.api"
-govuk::node::s_api_lb::draft_content_store_servers:
-  - "draft-content-store-1.api"
-  - "draft-content-store-2.api"
 
 govuk::node::s_apt::real_ip_header: 'True-Client-Ip'
 govuk::node::s_backend_lb::aws_egress_nat_ips:
@@ -242,16 +233,6 @@ hosts::production::api::hosts:
     ip: '10.3.4.23'
   api-mongo-4:
     ip: '10.3.12.21'
-  content-store-1:
-    ip: '10.3.4.11'
-  content-store-2:
-    ip: '10.3.4.12'
-  content-store-3:
-    ip: '10.3.4.13'
-  draft-content-store-1:
-    ip: '10.3.4.200'
-  draft-content-store-2:
-    ip: '10.3.4.201'
   performance-mongo-1:
     ip: '10.3.4.31'
   performance-mongo-2:

@@ -38,9 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  content_store:
-    apps:
-      - content-store
   calculators_frontend:
     apps:
       - calculators
@@ -48,9 +45,6 @@ node_class: &node_class
       - finder-frontend
       - licencefinder
       - smartanswers
-  draft_content_store:
-    apps:
-      - content-store
   draft_frontend:
     apps:
       - collections
@@ -332,10 +326,6 @@ govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::content_publisher::aws_region: "eu-west-1"
 govuk::apps::content_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_store::nagios_memory_warning: 2600
-govuk::apps::content_store::nagios_memory_critical: 2800
-govuk::apps::content_store::unicorn_worker_processes: "12"
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db_port: 6432
@@ -1101,14 +1091,6 @@ hosts::production::api::hosts:
     ip: '10.1.4.23'
   api-mongo-4:
     ip: '10.1.12.21'
-  content-store-1:
-    ip: '10.1.4.11'
-  content-store-2:
-    ip: '10.1.4.12'
-  draft-content-store-1:
-    ip: '10.1.4.200'
-  draft-content-store-2:
-    ip: '10.1.4.201'
   performance-mongo-1:
     ip: '10.1.4.31'
   performance-mongo-2:

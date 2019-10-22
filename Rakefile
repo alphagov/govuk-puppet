@@ -106,8 +106,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::whitehall::cpu_critical
     govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers
-    govuk::node::s_api_lb::content_store_servers
-    govuk::node::s_api_lb::draft_content_store_servers
     govuk::node::s_backend_lb::backend_servers
     govuk::node::s_backend_lb::email_alert_api_backend_servers
     govuk::node::s_backend_lb::perfplat_public_app_domain
@@ -210,7 +208,12 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::allow_auth_from_lb
     govuk::apps::content_publisher::db::lb_ip_range
     govuk::apps::content_publisher::db::rds
+    govuk::apps::content_store::nagios_memory_critical
+    govuk::apps::content_store::nagios_memory_warning
+    govuk::apps::content_store::performance_platform_big_screen_view_url
+    govuk::apps::content_store::performance_platform_spotlight_url
     govuk::apps::content_store::plek_service_whitehall_frontend_uri
+    govuk::apps::content_store::unicorn_worker_processes
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
     govuk::apps::content_tagger::db::rds

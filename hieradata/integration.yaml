@@ -86,12 +86,6 @@ govuk_mysql::server::slow_query_log: true
 govuk::node::s_api_lb::api_servers:
   - "api-1.api"
   - "api-2.api"
-govuk::node::s_api_lb::content_store_servers:
-  - "content-store-1.api"
-  - "content-store-2.api"
-govuk::node::s_api_lb::draft_content_store_servers:
-  - "draft-content-store-1.api"
-  - "draft-content-store-2.api"
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
