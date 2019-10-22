@@ -1,6 +1,5 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk::node::s_frontend_lb (
-  $calculators_frontend_servers,
   $draft_frontend_servers,
   $frontend_servers,
   $whitehall_frontend_servers,
@@ -38,14 +37,6 @@ class govuk::node::s_frontend_lb (
       'static',
     ]:
       servers       => $frontend_servers;
-    [
-      'calculators',
-      'calendars',
-      'finder-frontend',
-      'licencefinder',
-      'smartanswers',
-    ]:
-      servers       => $calculators_frontend_servers;
     [
       'whitehall-frontend',
       'draft-whitehall-frontend',
