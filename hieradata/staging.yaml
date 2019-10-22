@@ -405,8 +405,6 @@ hosts::production::management::hosts:
       - 'etcd'
   jumpbox-1:
     ip: '10.2.0.100'
-  mirrorer-1:
-    ip: '10.2.0.128'
   jumpbox-2:
     ip: '10.2.0.200'
 
