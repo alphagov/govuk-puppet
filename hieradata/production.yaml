@@ -194,12 +194,6 @@ govuk_crawler::ssh_keys:
   mirror1.mirror.provider1.production.govuk.service.gov.uk:
     key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
     type: 'ssh-rsa'
-
-govuk::apps::govuk_crawler_worker::root_urls:
-  - 'https://assets.digital.cabinet-office.gov.uk/'
-  - "https://assets.%{hiera('app_domain')}/"
-  - 'https://www.gov.uk/'
-
 hosts::production::ip_api_lb: '10.3.4.254'
 hosts::production::ip_backend_lb: '10.3.3.254'
 hosts::production::ip_bouncer: '37.26.90.219'

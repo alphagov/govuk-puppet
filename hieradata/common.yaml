@@ -409,26 +409,6 @@ govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
 
-# FIXME: The API can be crawled when https://github.com/alphagov/govuk_crawler_worker/issues/97 is fixed.
-govuk::apps::govuk_crawler_worker::blacklist_paths:
-  - '/api/'
-  - '/apply-for-a-licence'
-  - '/business-finance-support-finder'
-  - '/drug-device-alerts.atom'
-  - '/drug-safety-update.atom'
-  - '/foreign-travel-advice.atom'
-  - '/government/announcements.atom'
-  - '/government/publications.atom'
-  - '/government/statistics.atom'
-  - '/government/uploads'
-  - '/licence-finder'
-  - '/search'
-
-govuk::apps::govuk_crawler_worker::enabled: true
-govuk::apps::govuk_crawler_worker::root_urls:
-  - "https://assets.%{hiera('app_domain')}"
-  - "https://www.%{hiera('app_domain')}"
-
 govuk::apps::info_frontend::enabled: true
 govuk::apps::info_frontend::vhost_aliases:
   - 'info-frontend'
