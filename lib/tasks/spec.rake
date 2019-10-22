@@ -29,6 +29,7 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
 ]
 
 AWS_EXCLUDED_NODE_CLASSES = %w[
+  api_lb
   api_mongo
   api_redis
   ci_agent
