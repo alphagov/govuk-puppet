@@ -38,9 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  content_store:
-    apps:
-      - content-store
   calculators_frontend:
     apps:
       - calculators
@@ -48,9 +45,6 @@ node_class: &node_class
       - finder-frontend
       - licencefinder
       - smartanswers
-  draft_content_store:
-    apps:
-      - content-store
   draft_frontend:
     apps:
       - collections
