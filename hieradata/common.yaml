@@ -38,13 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  calculators_frontend:
-    apps:
-      - calculators
-      - calendars
-      - finder-frontend
-      - licencefinder
-      - smartanswers
   draft_frontend:
     apps:
       - collections
