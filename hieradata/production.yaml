@@ -397,12 +397,6 @@ hosts::production::backend::hosts:
     ip: '10.3.11.31'
 
 hosts::production::frontend::hosts:
-  calculators-frontend-1:
-    ip: '10.3.2.11'
-  calculators-frontend-2:
-    ip: '10.3.2.12'
-  calculators-frontend-3:
-    ip: '10.3.2.13'
   frontend-1:
     ip: '10.3.2.2'
   frontend-2:
