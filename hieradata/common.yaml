@@ -64,9 +64,6 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
-  mirrorer:
-    apps:
-      - govuk-crawler-worker
   publishing_api:
     apps:
       - govuk-content-schemas
