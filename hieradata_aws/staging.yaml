@@ -138,7 +138,7 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
-
+govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publisher::run_fact_check_fetcher: false

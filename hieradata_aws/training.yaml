@@ -35,6 +35,7 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
+govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"

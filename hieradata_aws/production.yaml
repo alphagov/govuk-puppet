@@ -140,6 +140,7 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-a
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
 govuk::apps::email_alert_api::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
+govuk::apps::frontend::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 
