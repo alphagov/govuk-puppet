@@ -128,6 +128,8 @@ class govuk::deploy::config(
     #
     # 2. Publishing API is still in Carrenza Production for now.
     #
+    # 3. Signon is still in Carrenza for Staging and Production.
+    #
     if $::aws_environment == 'production' {
       govuk_envvar {
         'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
@@ -137,10 +139,10 @@ class govuk::deploy::config(
 
     # email_alert_api and whitehall_admin are still in Carrenza staging and production.
     if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
-
       govuk_envvar {
         'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain}";
         'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
+        'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
       }
     }
 
