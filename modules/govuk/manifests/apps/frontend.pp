@@ -44,6 +44,12 @@
 #   The number of unicorn worker processes to run
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   API key for integration with GOV.UK Notify for sending emails
+#
+# [*govuk_notify_template_id*]
+#   Template ID for GOV.UK Notify
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -56,6 +62,8 @@ class govuk::apps::frontend(
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $unicorn_worker_processes = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   govuk::app { 'frontend':
@@ -86,6 +94,12 @@ class govuk::apps::frontend(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
   }
 
   if $secret_key_base != undef {
