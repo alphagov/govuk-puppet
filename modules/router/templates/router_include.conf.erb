@@ -30,7 +30,7 @@ error_log  /var/log/nginx/lb-error.log;
 # eg www.gov.uk/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
 # eg WWW.GOV.UK/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
 location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
-  rewrite ^(.*)$ <%= scope.lookupvar('::aws_migration') ? 'https' : '$scheme' %>://$host$uri_lowercase permanent;
+  rewrite ^(.*)$ https://$host$uri_lowercase permanent;
 }
 
 location ~ ^/apply-for-a-licence/? {

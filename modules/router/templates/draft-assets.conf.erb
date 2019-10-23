@@ -1,11 +1,7 @@
 server {
-  <%- if scope.lookupvar('::aws_migration') %>
   server_name <%= @vhost_name %> <%= @vhost_name %>.*;
   # Send the Strict-Transport-Security header
   include /etc/nginx/add-sts.conf;
-  <%- else %>
-  server_name <%= @vhost_name %>;
-  <%- end %>
 
   listen 80;
 <% if @enable_ssl -%>
@@ -49,24 +45,14 @@ server {
   location / {
     return 404;
   }
-  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
-  <%- end %>
   location /auth/ {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_asset_manager;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
-    <%- end %>
   }
 
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_asset_manager;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
-    <%- end %>
   }
   <%- end -%>
 }
