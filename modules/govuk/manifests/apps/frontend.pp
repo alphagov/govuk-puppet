@@ -44,6 +44,9 @@
 #   The number of unicorn worker processes to run
 #   Default: undef
 #
+# [*email_alert_api_bearer_token*]
+#   The bearer token used to communicate with email-alert-api.
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port = '3005',
@@ -56,8 +59,8 @@ class govuk::apps::frontend(
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $unicorn_worker_processes = undef,
+  $email_alert_api_bearer_token = undef,
 ) {
-
   govuk::app { 'frontend':
     app_type                 => 'rack',
     port                     => $port,
@@ -86,6 +89,9 @@ class govuk::apps::frontend(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
   }
 
   if $secret_key_base != undef {
