@@ -142,7 +142,15 @@ class govuk::deploy::config(
       govuk_envvar {
         'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain}";
         'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
-        'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
+      }
+      # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
+      # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
+      # signon URL with 'draft-'. We therefore mustn't override it here, otherwise
+      # we're duplicating the resource.
+      unless $::govuk_node_class == 'draft_content_store' {
+        govuk_envvar {
+          'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
+        }
       }
     }
 
