@@ -112,7 +112,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
     govuk::node::s_backend_lb::whitehall_frontend_servers
-    govuk::node::s_frontend_lb::calculators_frontend_servers
     govuk::node::s_frontend_lb::draft_frontend_servers
     govuk::node::s_frontend_lb::frontend_servers
     govuk::node::s_frontend_lb::whitehall_frontend_servers
@@ -232,6 +231,9 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::imminence::unicorn_worker_processes
     govuk::apps::sidekiq_monitoring::imminence_redis_host
     govuk::apps::sidekiq_monitoring::imminence_redis_port
+    govuk::apps::smartanswers::nagios_memory_critical
+    govuk::apps::smartanswers::nagios_memory_warning
+    govuk::apps::smartanswers::unicorn_worker_processes
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds

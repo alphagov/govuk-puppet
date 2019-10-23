@@ -38,13 +38,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  calculators_frontend:
-    apps:
-      - calculators
-      - calendars
-      - finder-frontend
-      - licencefinder
-      - smartanswers
   draft_frontend:
     apps:
       - collections
@@ -530,10 +523,6 @@ govuk::apps::specialist_publisher::nagios_memory_warning: 1100
 govuk::apps::specialist_publisher::nagios_memory_critical: 1200
 govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::smartanswers::nagios_memory_warning: 4000
-govuk::apps::smartanswers::nagios_memory_critical: 4500
-govuk::apps::smartanswers::unicorn_worker_processes: "4"
 
 govuk::apps::smokey::http_username: "%{hiera('http_username')}"
 govuk::apps::smokey::http_password: "%{hiera('http_password')}"
@@ -1276,14 +1265,6 @@ hosts::production::ci::hosts:
     ip: '10.1.6.28'
 
 hosts::production::frontend::hosts:
-  calculators-frontend-1:
-    ip: '10.1.2.11'
-  calculators-frontend-2:
-    ip: '10.1.2.12'
-  # FIXME: This machine doesn't exist, but this host entry
-  # is depended upon by s_api_elasticsearch. We should fix that.
-  calculators-frontend-3:
-    ip: '10.1.2.13'
   docker-frontend-1:
     ip: '10.1.2.31'
   docker-frontend-2:

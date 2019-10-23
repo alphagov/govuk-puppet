@@ -67,9 +67,6 @@ govuk::node::s_backend_lb::publishing_api_backend_servers:
 
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 
-govuk::node::s_frontend_lb::calculators_frontend_servers:
-  - 'calculators-frontend-1.frontend'
-  - 'calculators-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'
