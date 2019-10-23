@@ -52,13 +52,13 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(stats.gauges.sentry-error-count-last-hour.$Applications, '$TrendInterval', 'avg', false), 3)"
+              "target": "aliasByNode(summarize(stats.gauges.sentry-error-count-last-hour.$Applications, '$TrendInterval', 'sum', false), 3)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Trend (average over $TrendInterval)",
+          "title": "Trend (total each $TrendInterval)",
           "tooltip": {
             "shared": true,
             "sort": 2,
@@ -318,7 +318,7 @@
           "text": "auto",
           "value": "$__auto_interval"
         },
-        "hide": 2,
+        "hide": 0,
         "label": null,
         "name": "TrendInterval",
         "options": [
