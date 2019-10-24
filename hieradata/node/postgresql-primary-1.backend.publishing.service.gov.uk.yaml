@@ -10,7 +10,6 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/autopostgresqlbackup/email-alert-api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-govuk_env_sync::tasks:
   "push_publishing_api_production_daily":
     ensure: "present"
     hour: "2"
