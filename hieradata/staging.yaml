@@ -59,11 +59,6 @@ govuk_cdnlogs::bouncer_monitoring_enabled: false
 govuk_cdnlogs::warning_cdn_freshness: 86400   # 1 day
 govuk_cdnlogs::critical_cdn_freshness: 172800 # 2 days
 
-govuk_crawler::seed_enable: true
-govuk_crawler::sync_enable: true
-govuk_crawler::targets:
-  - 's3://govuk-mirror-staging/'
-
 govuk_jenkins::config::banner_colour_background: '#ffbf47'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza STAGING'
@@ -410,8 +405,6 @@ hosts::production::management::hosts:
       - 'etcd'
   jumpbox-1:
     ip: '10.2.0.100'
-  mirrorer-1:
-    ip: '10.2.0.128'
   jumpbox-2:
     ip: '10.2.0.200'
 

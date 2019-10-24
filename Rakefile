@@ -151,7 +151,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_monitoring::enable_fastly_metrics
     govuk_bouncer::gor::enabled
     govuk_bouncer::gor::target
-    govuk_crawler::ssh_keys
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
     govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
     govuk_jenkins::jobs::network_config_deploy::environments
@@ -216,6 +215,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_tagger::db::allow_auth_from_lb
     govuk::apps::content_tagger::db::lb_ip_range
     govuk::apps::content_tagger::db::rds
+    govuk::apps::govuk_crawler_worker::enabled
+    govuk::apps::govuk_crawler_worker::root_urls
     govuk::apps::govuk_crawler_worker::nagios_memory_critical
     govuk::apps::govuk_crawler_worker::nagios_memory_warning
     govuk::apps::email_alert_api::db::allow_auth_from_lb
@@ -325,6 +326,12 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars
     govuk_crawler::alert_hostname
+    govuk_crawler::amqp_host
+    govuk_crawler::seed_enable
+    govuk_crawler::site_root
+    govuk_crawler::ssh_keys
+    govuk_crawler::sync_enable
+    govuk_crawler::targets
     govuk_datascrubber::apt_mirror_hostname
     govuk_datascrubber::aws_region
     govuk_jenkins::deploy_all_apps::apps_on_nodes
