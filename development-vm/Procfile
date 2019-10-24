@@ -4,6 +4,7 @@ imminence:             govuk_setenv imminence             ./run_in.sh ../../immi
 # panopticon used port 3003
 # needotron used port 3004
 frontend:              govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec rails server -p 3005
+frontend-worker:       govuk_setenv frontend              ./run_in.sh ../../frontend       bundle exec sidekiq -C ./config/sidekiq.yml
 # planner used port 3007
 # rummager used port 3009
 smartanswers:          govuk_setenv smartanswers          ./run_in.sh ../../smart-answers  bundle exec rails server -p 3010
