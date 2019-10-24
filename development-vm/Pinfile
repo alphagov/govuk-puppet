@@ -37,7 +37,8 @@ process :'email-alert-frontend' => [:'content-store', :'email-alert-api', :stati
 process :'email-alert-service'
 process :feedback => [:static, :support, :'support-api']
 process :'finder-frontend' => [:static, :'search-api', :'content-store']
-process :frontend => [:static, :'content-store']
+process :frontend => [:static, :'content-store', :'frontend-worker']
+process :'frontend-worker'
 process :'government-frontend' => [:'content-store', :static]
 process :'hmrc-manuals-api' => [:'publishing-api', :'search-api']
 process :imminence => [:mapit]
