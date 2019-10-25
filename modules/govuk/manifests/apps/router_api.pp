@@ -102,22 +102,20 @@ class govuk::apps::router_api(
 
   # Set up a cron job which outputs the current nodes for a specific machine class.
   # The file can then be read in by router-api to publish routes for those nodes.
-  if $::aws_migration {
-    if $router_nodes_class {
-      $router_port = '3055'
-      $router_nodes_file = '/etc/router_nodes'
+  if $router_nodes_class {
+    $router_port = '3055'
+    $router_nodes_file = '/etc/router_nodes'
 
-      cron::crondotdee { 'update-router-nodes':
-        command => "/usr/local/bin/govuk_node_list -c ${router_nodes_class} | sed 's/$/:${router_port}/g' > ${router_nodes_file}",
-        hour    => '*',
-        minute  => '*/5',
-        mailto  => '""',
-      }
+    cron::crondotdee { 'update-router-nodes':
+      command => "/usr/local/bin/govuk_node_list -c ${router_nodes_class} | sed 's/$/:${router_port}/g' > ${router_nodes_file}",
+      hour    => '*',
+      minute  => '*/5',
+      mailto  => '""',
+    }
 
-      govuk::app::envvar { "${title}-ROUTER_NODES_FILE":
-        varname => 'ROUTER_NODES_FILE',
-        value   => $router_nodes_file,
-      }
+    govuk::app::envvar { "${title}-ROUTER_NODES_FILE":
+      varname => 'ROUTER_NODES_FILE',
+      value   => $router_nodes_file,
     }
   }
 }

@@ -67,11 +67,7 @@ class govuk::apps::bouncer(
 
   $app_domain = hiera('app_domain')
 
-  if $::aws_migration {
-    $vhost = 'bouncer'
-  } else {
-    $vhost = "bouncer.${app_domain}"
-  }
+  $vhost = 'bouncer'
 
   # Nginx proxy config with wildcard alias
   govuk::app::nginx_vhost { 'bouncer':

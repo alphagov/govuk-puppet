@@ -28,12 +28,4 @@ class govuk::node::s_draft_frontend() inherits govuk::node::s_base {
     'PLEK_SERVICE_MAPIT_URI': value => "https://mapit.${app_domain_internal}";
     'PLEK_SERVICE_SEARCH_URI': value => "https://search.${app_domain_internal}";
   }
-
-  unless $::aws_migration {
-    # This is set from govuk::deploy::config when using AWS, so only
-    # set this here if we are not using AWS
-    govuk_envvar {
-      'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${app_domain}";
-    }
-  }
 }
