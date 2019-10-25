@@ -232,6 +232,9 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::frontend::redis_host
     govuk::apps::frontend::redis_port
     govuk::apps::frontend::unicorn_worker_processes
+    govuk::apps::government_frontend::nagios_memory_critical
+    govuk::apps::government_frontend::nagios_memory_warning
+    govuk::apps::government_frontend::unicorn_worker_processes
     govuk::apps::imminence::mongodb_nodes
     govuk::apps::imminence::nagios_memory_critical
     govuk::apps::imminence::nagios_memory_warning
