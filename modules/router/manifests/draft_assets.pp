@@ -16,14 +16,9 @@ class router::draft_assets(
   $real_ip_header = '',
   $vhost_name = 'draft-assets',
 ) {
-  $enable_ssl = hiera('nginx_enable_ssl', true)
   $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
 
-  if $::aws_migration {
-    $upstream_ssl = true
-  } else {
-    $upstream_ssl = $enable_ssl
-  }
+  $upstream_ssl = true
 
   if $::aws_environment == 'integration'{
     $app_domain = hiera('app_domain_internal')

@@ -1,11 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define router::errorpage () {
-
-  if $::aws_migration {
-    $app_domain = hiera('app_domain_internal')
-  } else {
-    $app_domain = hiera('app_domain')
-  }
+  $app_domain = hiera('app_domain_internal')
 
   # Only triggers every 6h or if the file doesn't exist.
   $filename = "/usr/share/nginx/www/${title}.html"
