@@ -219,6 +219,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
+    govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::ensure
     govuk::apps::finder_frontend::enabled

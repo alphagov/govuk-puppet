@@ -28,7 +28,6 @@ govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c
 govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
-govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
