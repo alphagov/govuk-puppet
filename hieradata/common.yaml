@@ -265,9 +265,6 @@ govuk::apps::ckan::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::ckan::ckan_site_url: "http://ckan.dev.gov.uk"
 govuk::apps::ckan::gunicorn_worker_processes: "1"
 
-govuk::apps::collections::nagios_memory_warning: 900
-govuk::apps::collections::nagios_memory_critical: 1000
-
 govuk::apps::collections_publisher::db_hostname: "mysql-master-1.backend"
 govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
