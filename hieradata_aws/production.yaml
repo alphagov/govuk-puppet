@@ -152,6 +152,7 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@al
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
 govuk::apps::search_api::bucket_name: 'govuk-production-sitemaps'
+govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
 govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'

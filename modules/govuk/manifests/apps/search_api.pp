@@ -87,6 +87,10 @@
 #   The AWS region of the S3 bucket.
 #   Default: eu-west-1
 #
+# [*relevancy_bucket_name*]
+#   The S3 bucket for search relevancy data - e.g. relevancy judgements
+#
+
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port = '3233',
@@ -115,6 +119,7 @@ class govuk::apps::search_api(
   $oauth_id = undef,
   $oauth_secret = undef,
   $bucket_name = undef,
+  $relevancy_bucket_name = undef,
   $aws_region = 'eu-west-1',
 ) {
   $app_name = 'search-api'
@@ -247,4 +252,9 @@ class govuk::apps::search_api(
       value   => $aws_region;
   }
 
+  govuk::app::envvar {
+    "${title}-AWS_S3_RELEVANCY_BUCKET_NAME":
+      varname => 'AWS_S3_RELEVANCY_BUCKET_NAME',
+      value   => $relevancy_bucket_name;
+  }
 }
