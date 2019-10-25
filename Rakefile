@@ -38,7 +38,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_tagger::db_port
     govuk::apps::email_alert_api::db_allow_prepared_statements
     govuk::apps::email_alert_api::db_port
-    govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
@@ -234,6 +233,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::imminence::redis_host
     govuk::apps::imminence::redis_port
     govuk::apps::imminence::unicorn_worker_processes
+    govuk::apps::info_frontend::enabled
     govuk::apps::sidekiq_monitoring::imminence_redis_host
     govuk::apps::sidekiq_monitoring::imminence_redis_port
     govuk::apps::smartanswers::nagios_memory_critical

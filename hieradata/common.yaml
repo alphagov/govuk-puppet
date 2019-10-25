@@ -376,10 +376,6 @@ govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
 
-govuk::apps::info_frontend::enabled: true
-govuk::apps::info_frontend::vhost_aliases:
-  - 'info-frontend'
-
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
