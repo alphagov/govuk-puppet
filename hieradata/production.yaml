@@ -159,13 +159,6 @@ govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.
 govuk::node::s_backup::offsite_backups: true
 
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
-govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend-1.frontend'
-  - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend-1.frontend'
-  - 'frontend-2.frontend'
-  - 'frontend-3.frontend'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'

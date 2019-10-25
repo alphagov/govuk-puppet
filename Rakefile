@@ -111,8 +111,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
     govuk::node::s_backend_lb::whitehall_frontend_servers
-    govuk::node::s_frontend_lb::draft_frontend_servers
-    govuk::node::s_frontend_lb::frontend_servers
     govuk::node::s_frontend_lb::whitehall_frontend_servers
     govuk::node::s_mysql_backup::s3_bucket_name
     govuk::node::s_mysql_master::s3_bucket_name
