@@ -341,16 +341,6 @@ hosts::production::backend::app_hostnames:
   - 'whitehall-admin'
 
 hosts::production::frontend::hosts:
-  frontend-1:
-    ip: '10.2.2.2'
-  frontend-2:
-    ip: '10.2.2.3'
-  frontend-3:
-    ip: '10.2.2.4'
-  draft-frontend-1:
-    ip: '10.2.2.200'
-  draft-frontend-2:
-    ip: '10.2.2.201'
   whitehall-frontend-1:
     ip: '10.2.2.5'
   whitehall-frontend-2:
