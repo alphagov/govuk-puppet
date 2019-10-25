@@ -8,45 +8,22 @@ perl_set $uri_lowercase 'sub {
   return lc($r->uri);
 }';
 
-<%- unless scope.lookupvar('::aws_migration') %>
-server {
-  server_name www.gov.uk www.<%= @app_domain %> www-origin.<%= @app_domain %>;
-  listen 80;
-  rewrite ^/(.*) https://$host/$1 permanent;
-}
-<%- end %>
-
 # CDN preserves the Host header from original client request and always hits
 # this vhost instead of www-origin below.
 server {
   server_name         www.gov.uk;
-  <%- unless scope.lookupvar('::aws_migration') %>
-  listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/www.gov.uk.crt;
-  ssl_certificate_key /etc/nginx/ssl/www.gov.uk.key;
-  include             /etc/nginx/ssl.conf;
-  <%- else %>
   listen 80;
   # Send the Strict-Transport-Security header
   include             /etc/nginx/add-sts.conf;
-  <%- end %>
 
   include             /etc/nginx/router_include.conf;
 }
 
 server {
-  <%- if scope.lookupvar('::aws_migration') %>
   server_name         www.* www-origin.* draft-origin.*;
   listen 80;
   # Send the Strict-Transport-Security header
   include             /etc/nginx/add-sts.conf;
-  <%- else %>
-  server_name         www.<%= @app_domain %> www-origin.<%= @app_domain %> draft-origin.<%= @app_domain %>;
-  listen              443 ssl;
-  ssl_certificate     /etc/nginx/ssl/www.<%= @app_domain %>.crt;
-  ssl_certificate_key /etc/nginx/ssl/www.<%= @app_domain %>.key;
-  include             /etc/nginx/ssl.conf;
-  <%- end %>
 
   include             /etc/nginx/router_include.conf;
 }

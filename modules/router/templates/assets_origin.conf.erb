@@ -1,9 +1,5 @@
 server {
-  <%- if scope.lookupvar('::aws_migration') %>
   server_name <%= @vhost_name -%> <%= @vhost_name -%>.* <%= @vhost_aliases.join(' ') -%>;
-  <%- else %>
-  server_name <%= @vhost_name -%> <%= @vhost_aliases.join(' ') -%>;
-  <%- end %>
   listen 80;
 <% if @enable_ssl -%>
   rewrite ^/(.*) https://$host/$1 permanent;
@@ -48,21 +44,13 @@ server {
   }
 
   <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
-  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_<%= vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
-  <%- end %>
   location <%= alias_path %> {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_<%= vhost_name.delete "-" %>;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
-    <%- end %>
   }
   <%- end -%>
 
-  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
-  <%- end %>
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
     # Explicitly re-include Strict-Transport-Security header, this
@@ -74,52 +62,28 @@ server {
     add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
     add_header "Access-Control-Allow-Headers" "origin, authorization";
 
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_asset_manager;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
-    <%- end %>
   }
   <%- end -%>
 
-  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_whitehall <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
-  <%- end %>
   <%- @whitehall_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_whitehall;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
-    <%- end %>
   }
   <%- end -%>
 
-  <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-  <%- end %>
   location = /static/a {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_static;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-    <%- end %>
   }
 
   location /__canary__ {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_static;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-    <%- end %>
   }
 
   location / {
-    <%- if scope.lookupvar('::aws_migration') %>
     proxy_pass $upstream_static;
-    <%- else %>
-    proxy_pass <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-    <%- end %>
   }
 
   location /googlec908b3bc32386239.html {
