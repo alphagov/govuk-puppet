@@ -247,6 +247,12 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::smartanswers::nagios_memory_critical
     govuk::apps::smartanswers::nagios_memory_warning
     govuk::apps::smartanswers::unicorn_worker_processes
+    govuk::apps::static::ga_universal_id
+    govuk::apps::static::nagios_memory_critical
+    govuk::apps::static::nagios_memory_warning
+    govuk::apps::static::redis_host
+    govuk::apps::static::redis_port
+    govuk::apps::static::unicorn_worker_processes
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds

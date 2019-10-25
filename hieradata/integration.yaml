@@ -12,8 +12,6 @@ base::supported_kernel::enabled: true
 cron::weekly_dow: 1
 cron::daily_hour: 6
 
-govuk::apps::static::ga_universal_id: 'UA-26179049-22'
-
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'integration'
 govuk::deploy::setup::ssh_keys:
