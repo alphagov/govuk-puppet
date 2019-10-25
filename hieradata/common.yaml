@@ -1201,32 +1201,6 @@ hosts::production::frontend::hosts:
 
 hosts::production::external_licensify: true
 
-hosts::production::frontend::app_hostnames:
-  - 'calculators'
-  - 'canary-frontend'
-  - 'collections'
-  - 'draft-collections'
-  - 'draft-email-alert-frontend'
-  - 'draft-frontend'
-  - 'draft-government-frontend'
-  - 'draft-manuals-frontend'
-  - 'draft-service-manual-frontend'
-  - 'draft-smartanswers'
-  - 'draft-static'
-  - 'email-alert-frontend'
-  - 'feedback'
-  - 'finder-frontend'
-  - 'frontend'
-  - 'government-frontend'
-  - 'info-frontend'
-  - 'manuals-frontend'
-  - 'licencefinder'
-  - 'service-manual'
-  - 'service-manual-frontend'
-  - 'smartanswers'
-  - 'whitehall-frontend'
-  - 'draft-whitehall-frontend'
-
 hosts::production::licensify::hosts:
   licensify-lb-1:
     ip: '10.5.0.101'
