@@ -15,7 +15,5 @@ class govuk::node::s_search inherits govuk::node::s_base {
   nginx::config::vhost::default { 'default': }
 
   # Data sync for managed elasticsearch
-  if $::aws_migration {
-    include govuk_env_sync
-  }
+  include govuk_env_sync
 }
