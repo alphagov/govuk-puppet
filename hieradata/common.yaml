@@ -337,11 +337,6 @@ govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 
-govuk::apps::finder_frontend::enabled: true
-govuk::apps::finder_frontend::nagios_memory_warning: 2500
-govuk::apps::finder_frontend::nagios_memory_critical: 3500
-govuk::apps::finder_frontend::unicorn_worker_processes: "4"
-
 govuk::apps::frontend::nagios_memory_warning: 1200
 govuk::apps::frontend::nagios_memory_critical: 1400
 govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"

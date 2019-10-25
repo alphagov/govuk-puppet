@@ -223,6 +223,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db::rds
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::ensure
+    govuk::apps::finder_frontend::enabled
+    govuk::apps::finder_frontend::nagios_memory_critical
+    govuk::apps::finder_frontend::nagios_memory_warning
+    govuk::apps::finder_frontend::unicorn_worker_processes
     govuk::apps::frontend::govuk_notify_template_id
     govuk::apps::imminence::mongodb_nodes
     govuk::apps::imminence::nagios_memory_critical
