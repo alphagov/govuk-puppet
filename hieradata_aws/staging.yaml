@@ -146,6 +146,7 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alpha
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_api::bucket_name: 'govuk-staging-sitemaps'
+govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
