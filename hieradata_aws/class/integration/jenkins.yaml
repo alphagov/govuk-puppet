@@ -39,6 +39,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::search_test_spelling_suggestions
   - govuk_jenkins::jobs::search_generate_sitemaps
+  - govuk_jenkins::jobs::search_relevancy_rank_evaluation
   - govuk_jenkins::jobs::send_bulk_email
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::smokey

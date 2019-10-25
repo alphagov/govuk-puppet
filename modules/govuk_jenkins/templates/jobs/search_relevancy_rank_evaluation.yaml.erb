@@ -1,0 +1,37 @@
+---
+- job:
+    name: search_relevancy_rank_evaluation
+    display-name: Search Relevancy Rank Evaluation
+    project-type: freestyle
+    description: "<p>Runs a search-api rake task debug:rank_evaluation.</p>
+    <p>Get in touch with the search team for more details.</p>"
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=search-api
+              MACHINE_CLASS=search
+              RAKE_TASK='SEND_TO_GRAPHITE=true debug:ranking_evaluation'
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+  <% if @rake_etl_master_process_cron_schedule %>
+    triggers:
+      - timed: <%= @cron_schedule %>
+  <% end %>
+    logrotate:
+        numToKeep: 10
+    publishers:
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: 'SUCCESS'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: 'FAILED'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
+                NSCA_CODE=2
