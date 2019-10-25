@@ -79,19 +79,12 @@ class govuk::apps::cache_clearing_service (
     password => $rabbitmq_password,
   }
 
-  if $::aws_migration {
-    govuk::app::envvar {
-      "${title}-AWS_STACKNAME":
-        varname => 'AWS_STACKNAME',
-        value   => $::aws_stackname;
-      "${title}-AWS_REGION":
-        varname => 'AWS_REGION',
-        value   => $aws_region;
-    }
-  } else {
-    govuk::app::envvar { "${title}-PUPPETDB_NODE_URL":
-      varname => 'PUPPETDB_NODE_URL',
-      value   => $puppetdb_node_url;
-    }
+  govuk::app::envvar {
+    "${title}-AWS_STACKNAME":
+      varname => 'AWS_STACKNAME',
+      value   => $::aws_stackname;
+    "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
   }
 }
