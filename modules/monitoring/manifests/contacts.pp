@@ -206,4 +206,20 @@ class monitoring::contacts (
       members     => ['slack_data_informed'],
     }
   }
+
+  # Search Team
+  if $slack_webhook_url {
+    icinga::slack_contact { 'slack_search_team':
+      slack_webhook_url      => $slack_webhook_url,
+      slack_channel          => '#govuk-searchandnav',
+      slack_username         => $slack_username,
+      icinga_status_cgi_url  => $slack_icinga_status_cgi_url,
+      icinga_extinfo_cgi_url => $slack_icinga_extinfo_cgi_url,
+    }
+
+    icinga::contact_group { 'slack-channel-search-team':
+      group_alias => 'Contact #govuk-searchandnav',
+      members     => ['slack_search_team'],
+    }
+  }
 }
