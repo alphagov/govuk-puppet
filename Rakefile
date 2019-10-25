@@ -80,7 +80,6 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::licensify::hosts
     hosts::production::management::hosts
     hosts::production::redirector::hosts
-    hosts::production::router::hosts
     jenkins_admin_permission_list
     monitoring::vpn_gateways::endpoints
     postgresql_api_slave_addresses_dr
