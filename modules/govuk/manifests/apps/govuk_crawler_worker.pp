@@ -5,15 +5,6 @@
 #
 # === Parameters
 #
-# [*airbrake_api_key*]
-#   API key to use to connect to the exception notification service
-#
-# [*airbrake_endpoint*]
-#   Location to send exception notifications to over HTTP
-#
-# [*airbrake_env*]
-#   Environment to set for exception notification
-#
 # [*amqp_pass*]
 #   Password for the app to use to connect to a message queue exchange
 #
@@ -48,9 +39,6 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 class govuk::apps::govuk_crawler_worker (
-  $airbrake_api_key = '',
-  $airbrake_endpoint = '',
-  $airbrake_env = '',
   $amqp_host = 'localhost',
   $amqp_pass = 'guest',
   $blacklist_paths = [],
@@ -71,12 +59,6 @@ class govuk::apps::govuk_crawler_worker (
     }
 
     govuk::app::envvar {
-      'AIRBRAKE_API_KEY':
-        value => $airbrake_api_key;
-      'AIRBRAKE_ENDPOINT':
-        value => $airbrake_endpoint;
-      'AIRBRAKE_ENV':
-        value => $airbrake_env;
       'AMQP_ADDRESS':
         value => "amqp://govuk_crawler_worker:${amqp_pass}@${amqp_host}:5672/";
       'AMQP_EXCHANGE':
