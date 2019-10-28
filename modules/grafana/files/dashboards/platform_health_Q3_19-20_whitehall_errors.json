@@ -1,0 +1,172 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": null,
+  "links": [],
+  "refresh": false,
+  "rows": [
+    {
+      "collapse": false,
+      "height": "650px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 1,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "30 day average",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 6
+            },
+            {
+              "alias": "Last 30 day average - 50% (target)",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 4
+            },
+            {
+              "alias": "Target",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 4
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "alias(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', false), 'Errors per day')"
+            },
+            {
+              "refId": "B",
+              "target": "alias(summarize(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d', 'avg', true), '30 day average')"
+            },
+            {
+              "hide": true,
+              "refId": "C",
+              "target": "alias(timeShift(scale(summarize(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d', 'avg', false), 0.5), '30d'), 'Last 30 day average - 50% (target)')"
+            },
+            {
+              "refId": "D",
+              "target": "alias(constantLine(6000), 'Target')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Sentry error count per day",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "2019-10-06T23:00:00.000Z",
+    "to": "2019-11-30T00:00:00.000Z"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Platform Health: Q3 (19-20) Whitehall errors",
+  "version": 4
+}
