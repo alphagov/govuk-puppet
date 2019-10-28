@@ -316,6 +316,8 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - ben.thorner@digital.cabinet-office.gov.uk
   - bevan.loon@digital.cabinet-office.gov.uk
   - bruce.bolt@digital.cabinet-office.gov.uk
+  - camille.descartes@digital.cabinet-office.gov.uk
+  - chris.banks@digital.cabinet-office.gov.uk
   - complaint@simulator.amazonses.com
   - conor.delahunty@digital.cabinet-office.gov.uk
   - deborah.chua@digital.cabinet-office.gov.uk
@@ -328,7 +330,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - steve.messer@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
-  - camille.descartes@digital.cabinet-office.gov.uk
+  - tom.whitwell@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
