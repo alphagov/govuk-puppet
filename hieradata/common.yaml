@@ -1147,8 +1147,6 @@ hosts::production::backend::app_hostnames:
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'
-  - 'email-alert-api'
-  - 'email-alert-api-public'
   - 'hmrc-manuals-api'
   - 'kibana'
   - 'maslow'
