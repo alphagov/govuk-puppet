@@ -38,32 +38,10 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  draft_frontend:
-    apps:
-      - collections
-      - email-alert-frontend
-      - frontend
-      - government-frontend
-      - manuals-frontend
-      - service-manual-frontend
-      - smartanswers
-      - static
   email_alert_api:
     apps:
       - email-alert-api
       - email-alert-service
-  frontend:
-    apps:
-      - canary-frontend
-      - collections
-      - email-alert-frontend
-      - feedback
-      - frontend
-      - government-frontend
-      - info-frontend
-      - manuals-frontend
-      - service-manual-frontend
-      - static
   publishing_api:
     apps:
       - govuk-content-schemas
@@ -287,9 +265,6 @@ govuk::apps::ckan::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::ckan::ckan_site_url: "http://ckan.dev.gov.uk"
 govuk::apps::ckan::gunicorn_worker_processes: "1"
 
-govuk::apps::collections::nagios_memory_warning: 900
-govuk::apps::collections::nagios_memory_critical: 1000
-
 govuk::apps::collections_publisher::db_hostname: "mysql-master-1.backend"
 govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
@@ -365,21 +340,6 @@ govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
 govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 
-govuk::apps::finder_frontend::enabled: true
-govuk::apps::finder_frontend::nagios_memory_warning: 2500
-govuk::apps::finder_frontend::nagios_memory_critical: 3500
-govuk::apps::finder_frontend::unicorn_worker_processes: "4"
-
-govuk::apps::frontend::nagios_memory_warning: 1200
-govuk::apps::frontend::nagios_memory_critical: 1400
-govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::frontend::unicorn_worker_processes: "4"
-
-govuk::apps::government_frontend::nagios_memory_warning: 2500
-govuk::apps::government_frontend::nagios_memory_critical: 2800
-govuk::apps::government_frontend::unicorn_worker_processes: "8"
-
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -408,10 +368,6 @@ govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
-
-govuk::apps::info_frontend::enabled: true
-govuk::apps::info_frontend::vhost_aliases:
-  - 'info-frontend'
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
@@ -507,12 +463,6 @@ govuk::apps::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 govuk::apps::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
-
-govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::static::unicorn_worker_processes: "8"
-govuk::apps::static::nagios_memory_warning: 1500
-govuk::apps::static::nagios_memory_critical: 1750
 
 govuk::apps::transition::postgresql_db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::transition::db_hostname: "transition-postgresql-master-1.backend"
@@ -1243,14 +1193,6 @@ hosts::production::frontend::hosts:
     ip: '10.1.2.31'
   docker-frontend-2:
     ip: '10.1.2.32'
-  frontend-1:
-    ip: '10.1.2.2'
-  frontend-2:
-    ip: '10.1.2.3'
-  draft-frontend-1:
-    ip: '10.1.2.200'
-  draft-frontend-2:
-    ip: '10.1.2.201'
   whitehall-frontend-1:
     ip: '10.1.2.5'
   whitehall-frontend-2:
@@ -1261,32 +1203,6 @@ hosts::production::frontend::hosts:
     ip: '10.1.2.102'
 
 hosts::production::external_licensify: true
-
-hosts::production::frontend::app_hostnames:
-  - 'calculators'
-  - 'canary-frontend'
-  - 'collections'
-  - 'draft-collections'
-  - 'draft-email-alert-frontend'
-  - 'draft-frontend'
-  - 'draft-government-frontend'
-  - 'draft-manuals-frontend'
-  - 'draft-service-manual-frontend'
-  - 'draft-smartanswers'
-  - 'draft-static'
-  - 'email-alert-frontend'
-  - 'feedback'
-  - 'finder-frontend'
-  - 'frontend'
-  - 'government-frontend'
-  - 'info-frontend'
-  - 'manuals-frontend'
-  - 'licencefinder'
-  - 'service-manual'
-  - 'service-manual-frontend'
-  - 'smartanswers'
-  - 'whitehall-frontend'
-  - 'draft-whitehall-frontend'
 
 hosts::production::licensify::hosts:
   licensify-lb-1:

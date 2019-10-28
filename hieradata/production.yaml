@@ -73,7 +73,6 @@ govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.u
 govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
-govuk::apps::static::ga_universal_id: 'UA-26179049-1'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
@@ -159,13 +158,6 @@ govuk::node::s_backend_lb::perfplat_public_app_domain: 'performance.service.gov.
 govuk::node::s_backup::offsite_backups: true
 
 govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
-govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend-1.frontend'
-  - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend-1.frontend'
-  - 'frontend-2.frontend'
-  - 'frontend-3.frontend'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
@@ -372,16 +364,6 @@ hosts::production::backend::hosts:
     ip: '10.3.11.31'
 
 hosts::production::frontend::hosts:
-  frontend-1:
-    ip: '10.3.2.2'
-  frontend-2:
-    ip: '10.3.2.3'
-  frontend-3:
-    ip: '10.3.2.4'
-  draft-frontend-1:
-    ip: '10.3.2.200'
-  draft-frontend-2:
-    ip: '10.3.2.201'
   whitehall-frontend-1:
     ip: '10.3.2.5'
   whitehall-frontend-2:

@@ -28,10 +28,7 @@ govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c
 govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
-govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::government-frontend::cpu_warning: 200
-govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
@@ -130,13 +127,6 @@ govuk::node::s_backend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-2.frontend'
   - 'whitehall-frontend-3.frontend'
 govuk::node::s_backend_lb::perfplat_public_app_domain: 'staging.performance.service.gov.uk'
-govuk::node::s_frontend_lb::draft_frontend_servers:
-  - 'draft-frontend-1.frontend'
-  - 'draft-frontend-2.frontend'
-govuk::node::s_frontend_lb::frontend_servers:
-  - 'frontend-1.frontend'
-  - 'frontend-2.frontend'
-  - 'frontend-3.frontend'
 govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
@@ -341,16 +331,6 @@ hosts::production::backend::app_hostnames:
   - 'whitehall-admin'
 
 hosts::production::frontend::hosts:
-  frontend-1:
-    ip: '10.2.2.2'
-  frontend-2:
-    ip: '10.2.2.3'
-  frontend-3:
-    ip: '10.2.2.4'
-  draft-frontend-1:
-    ip: '10.2.2.200'
-  draft-frontend-2:
-    ip: '10.2.2.201'
   whitehall-frontend-1:
     ip: '10.2.2.5'
   whitehall-frontend-2:

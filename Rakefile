@@ -38,7 +38,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_tagger::db_port
     govuk::apps::email_alert_api::db_allow_prepared_statements
     govuk::apps::email_alert_api::db_port
-    govuk::apps::info_frontend::vhost_aliases
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
@@ -70,7 +69,6 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::backend::hosts
     hosts::production::ci::hosts
     hosts::production::external_licensify
-    hosts::production::frontend::app_hostnames
     hosts::production::frontend::hosts
     hosts::production::ip_api_lb
     hosts::production::ip_backend_lb
@@ -111,8 +109,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
     govuk::node::s_backend_lb::whitehall_frontend_servers
-    govuk::node::s_frontend_lb::draft_frontend_servers
-    govuk::node::s_frontend_lb::frontend_servers
     govuk::node::s_frontend_lb::whitehall_frontend_servers
     govuk::node::s_mysql_backup::s3_bucket_name
     govuk::node::s_mysql_master::s3_bucket_name
@@ -178,6 +174,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::ckan::db::rds
     govuk::apps::ckan::s3_aws_access_key_id
     govuk::apps::ckan::s3_aws_secret_access_key
+    govuk::apps::collections::nagios_memory_critical
+    govuk::apps::collections::nagios_memory_warning
     govuk::apps::content_audit_tool::db::allow_auth_from_lb
     govuk::apps::content_audit_tool::db::lb_ip_range
     govuk::apps::content_audit_tool::db::rds
@@ -221,20 +219,40 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
+    govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::ensure
+    govuk::apps::finder_frontend::enabled
+    govuk::apps::finder_frontend::nagios_memory_critical
+    govuk::apps::finder_frontend::nagios_memory_warning
+    govuk::apps::finder_frontend::unicorn_worker_processes
     govuk::apps::frontend::govuk_notify_template_id
+    govuk::apps::frontend::nagios_memory_critical
+    govuk::apps::frontend::nagios_memory_warning
+    govuk::apps::frontend::redis_host
+    govuk::apps::frontend::redis_port
+    govuk::apps::frontend::unicorn_worker_processes
+    govuk::apps::government_frontend::nagios_memory_critical
+    govuk::apps::government_frontend::nagios_memory_warning
+    govuk::apps::government_frontend::unicorn_worker_processes
     govuk::apps::imminence::mongodb_nodes
     govuk::apps::imminence::nagios_memory_critical
     govuk::apps::imminence::nagios_memory_warning
     govuk::apps::imminence::redis_host
     govuk::apps::imminence::redis_port
     govuk::apps::imminence::unicorn_worker_processes
+    govuk::apps::info_frontend::enabled
     govuk::apps::sidekiq_monitoring::imminence_redis_host
     govuk::apps::sidekiq_monitoring::imminence_redis_port
     govuk::apps::smartanswers::nagios_memory_critical
     govuk::apps::smartanswers::nagios_memory_warning
     govuk::apps::smartanswers::unicorn_worker_processes
+    govuk::apps::static::ga_universal_id
+    govuk::apps::static::nagios_memory_critical
+    govuk::apps::static::nagios_memory_warning
+    govuk::apps::static::redis_host
+    govuk::apps::static::redis_port
+    govuk::apps::static::unicorn_worker_processes
     govuk::apps::link_checker_api::db::allow_auth_from_lb
     govuk::apps::link_checker_api::db::lb_ip_range
     govuk::apps::link_checker_api::db::rds
