@@ -2,6 +2,7 @@
 define govuk::app::service (
   $ensure = running,
   $hasrestart = false,
+  $restart = undef,
 ) {
   $enable_services = hiera('govuk_app_enable_services', true)
 
@@ -25,6 +26,7 @@ define govuk::app::service (
       ensure     => $service_ensure,
       provider   => 'upstart',
       hasrestart => $hasrestart,
+      restart    => $restart,
     }
   }
 }

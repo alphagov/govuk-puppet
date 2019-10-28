@@ -200,6 +200,10 @@
 # specify if the app init script has a restart command
 # Default: false
 #
+# [*restart*]
+# override the command used to restart the service
+# Default: undef
+#
 # [*depends_on_nfs*]
 # Start the application after mounted filesystems. Some applications
 # depend on NFS shares for functionality. They should not start until the mounted
@@ -301,6 +305,7 @@ define govuk::app (
   $asset_pipeline_prefix = 'assets',
   $ensure = 'present',
   $hasrestart = false,
+  $restart = undef,
   $depends_on_nfs = false,
   $read_timeout = 15,
   $proxy_http_version_1_1_enabled = false,
@@ -404,6 +409,7 @@ define govuk::app (
   govuk::app::service { $title:
     ensure     => $ensure_service,
     hasrestart => $hasrestart,
+    restart    => $restart,
     subscribe  => Class['govuk::deploy'],
   }
 

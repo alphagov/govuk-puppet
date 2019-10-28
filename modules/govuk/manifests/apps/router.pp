@@ -75,6 +75,15 @@ class govuk::apps::router (
     sentry_dsn                          => $sentry_dsn,
     local_tcpconns_established_warning  => 150,
     local_tcpconns_established_critical => 200,
+
+    # We are overriding the restart command to use reload
+    # because the underlying application uses github.com/alext/tablecloth
+    # which re-execs the itself (the app, based on the path) when it receives a
+    # SIGHUP
+    #
+    # 'service $service reload' sends a SIGHUP instead of a SIGTERM which would
+    # cause downtime
+    restart => 'service router reload',
   }
 
   # We can't pass `health_check_path` to `govuk::app` because it has the
