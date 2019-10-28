@@ -268,6 +268,11 @@
 #   established TCP connections to $port.
 #   Default: undef
 #
+# [*enable_service*]
+#   Whether to include the service definition. Set this to false if you want
+#   to manage the service separately.
+#   Default: true
+#
 define govuk::app (
   $app_type,
   $port = 0,
@@ -311,6 +316,7 @@ define govuk::app (
   $monitor_unicornherder = undef,
   $local_tcpconns_established_warning = undef,
   $local_tcpconns_established_critical = undef,
+  $enable_service = true,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -395,10 +401,12 @@ define govuk::app (
     local_tcpconns_established_critical => $local_tcpconns_established_critical,
   }
 
-  govuk::app::service { $title:
-    ensure     => $ensure,
-    hasrestart => $hasrestart,
-    subscribe  => Class['govuk::deploy'],
+  if $enable_service {
+    govuk::app::service { $title:
+      ensure     => $ensure,
+      hasrestart => $hasrestart,
+      subscribe  => Class['govuk::deploy'],
+    }
   }
 
   @filebeat::prospector { "${title}-upstart-out":
