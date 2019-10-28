@@ -68,7 +68,7 @@ govuk_env_sync::tasks:
   "pull_email_alert_api_production_daily":
     ensure: "present"
     hour: "2"
-    minute: "35"
+    minute: "45"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
