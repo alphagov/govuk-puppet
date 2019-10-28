@@ -99,6 +99,12 @@ class govuk::apps::govuk_crawler_worker (
       group  => 'deploy',
     }
 
+    if $disable_during_data_sync and $::data_sync_in_progress {
+      $service_ensure = stopped
+    } else {
+      $service_ensure = running
+    }
+
     govuk::app { $app_name:
       app_type               => 'bare',
       log_format_is_json     => true,
@@ -107,28 +113,16 @@ class govuk::apps::govuk_crawler_worker (
       health_check_path      => '/healthcheck',
       nagios_memory_warning  => $nagios_memory_warning,
       nagios_memory_critical => $nagios_memory_critical,
-      enable_service         => false,
+      ensure_service         => $service_ensure,
     }
 
     include govuk::apps::govuk_crawler_worker::rabbitmq
-
-    if $disable_during_data_sync and $::data_sync_in_progress {
-      $service_ensure = stopped
-    } else {
-      $service_ensure = running
-    }
-
-    service { $app_name:
-      ensure   => $service_ensure,
-      provider => 'upstart',
-      require  => Govuk::App[$app_name],
-    }
 
     if $disable_during_data_sync {
       govuk_data_sync_in_progress { $app_name:
         start_command  => "sudo initctl stop ${app_name}",
         finish_command => "sudo initctl start ${app_name}",
-        require        => Service[$app_name],
+        require        => Govuk::App::Service[$app_name],
       }
     }
   }

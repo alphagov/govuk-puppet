@@ -1,10 +1,9 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 define govuk::app::service (
-  $ensure = 'present',
+  $ensure = running,
   $hasrestart = false,
 ) {
-
-  $enable_service = hiera('govuk_app_enable_services', true)
+  $enable_services = hiera('govuk_app_enable_services', true)
 
   if $ensure == 'absent' {
     # Stop the app if it's running.
@@ -16,15 +15,16 @@ define govuk::app::service (
       before  => File["/etc/init/${title}.conf"],
     }
   } else {
+    if $enable_services {
+      $service_ensure = $ensure
+    } else {
+      $service_ensure = stopped
+    }
+
     service { $title:
+      ensure     => $service_ensure,
       provider   => 'upstart',
       hasrestart => $hasrestart,
     }
-    if $enable_service {
-      Service[$title] {
-        ensure => running
-      }
-    }
   }
-
 }
