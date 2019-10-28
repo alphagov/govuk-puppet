@@ -53,9 +53,11 @@ class govuk::apps::govuk_crawler_worker (
 ) {
   validate_array($blacklist_paths, $root_urls)
 
+  $app_name = 'govuk_crawler_worker'
+
   if $enabled {
     Govuk::App::Envvar {
-      app => 'govuk_crawler_worker',
+      app => $app_name,
     }
 
     govuk::app::envvar {
@@ -92,7 +94,7 @@ class govuk::apps::govuk_crawler_worker (
       group  => 'deploy',
     }
 
-    govuk::app { 'govuk_crawler_worker':
+    govuk::app { $app_name:
       app_type               => 'bare',
       log_format_is_json     => true,
       port                   => $port,
