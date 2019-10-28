@@ -12,11 +12,11 @@
             predefined-parameters: |
               TARGET_APPLICATION=search-api
               MACHINE_CLASS=search
-              RAKE_TASK='SEND_TO_GRAPHITE=true debug:ranking_evaluation'
+              RAKE_TASK=debug:ranking_evaluation SEND_TO_GRAPHITE=true
     wrappers:
       - ansicolor:
           colormap: xterm
-  <% if @rake_etl_master_process_cron_schedule %>
+  <% if @cron_schedule %>
     triggers:
       - timed: <%= @cron_schedule %>
   <% end %>
