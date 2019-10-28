@@ -50,9 +50,9 @@ class monitoring::contacts (
   validate_bool($notify_pager, $notify_slack, $notify_graphite)
 
   $midnight_day_start = '00:00'
-  $office_day_start = '08:30'
-  $midday = '11:00'
-  $office_day_end = '16:30'
+  $office_day_start = '09:30'
+  $midday = '12:00'
+  $office_day_end = '17:30'
   $midnight_day_end = '24:00'
 
   $all_day = "${midnight_day_start}-${midnight_day_end}"
