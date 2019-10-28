@@ -5,15 +5,6 @@
 #
 # === Parameters
 #
-# [*airbrake_api_key*]
-#   API key to use to connect to the exception notification service
-#
-# [*airbrake_endpoint*]
-#   Location to send exception notifications to over HTTP
-#
-# [*airbrake_env*]
-#   Environment to set for exception notification
-#
 # [*amqp_pass*]
 #   Password for the app to use to connect to a message queue exchange
 #
@@ -47,10 +38,11 @@
 # [*nagios_memory_critical*]
 #   Memory use at which Nagios should generate a critical alert.
 #
+# [*disable_during_data_sync*]
+#   Whether to disable the crawler worker while the data sync is happening
+#   during the night.
+#
 class govuk::apps::govuk_crawler_worker (
-  $airbrake_api_key = '',
-  $airbrake_endpoint = '',
-  $airbrake_env = '',
   $amqp_host = 'localhost',
   $amqp_pass = 'guest',
   $blacklist_paths = [],
@@ -62,21 +54,18 @@ class govuk::apps::govuk_crawler_worker (
   $rate_limit_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $disable_during_data_sync = false,
 ) {
   validate_array($blacklist_paths, $root_urls)
 
+  $app_name = 'govuk_crawler_worker'
+
   if $enabled {
     Govuk::App::Envvar {
-      app => 'govuk_crawler_worker',
+      app => $app_name,
     }
 
     govuk::app::envvar {
-      'AIRBRAKE_API_KEY':
-        value => $airbrake_api_key;
-      'AIRBRAKE_ENDPOINT':
-        value => $airbrake_endpoint;
-      'AIRBRAKE_ENV':
-        value => $airbrake_env;
       'AMQP_ADDRESS':
         value => "amqp://govuk_crawler_worker:${amqp_pass}@${amqp_host}:5672/";
       'AMQP_EXCHANGE':
@@ -110,7 +99,7 @@ class govuk::apps::govuk_crawler_worker (
       group  => 'deploy',
     }
 
-    govuk::app { 'govuk_crawler_worker':
+    govuk::app { $app_name:
       app_type               => 'bare',
       log_format_is_json     => true,
       port                   => $port,
@@ -118,8 +107,29 @@ class govuk::apps::govuk_crawler_worker (
       health_check_path      => '/healthcheck',
       nagios_memory_warning  => $nagios_memory_warning,
       nagios_memory_critical => $nagios_memory_critical,
+      enable_service         => false,
     }
 
     include govuk::apps::govuk_crawler_worker::rabbitmq
+
+    if $disable_during_data_sync and $::data_sync_in_progress {
+      $service_ensure = stopped
+    } else {
+      $service_ensure = running
+    }
+
+    service { $app_name:
+      ensure   => $service_ensure,
+      provider => 'upstart',
+      require  => Govuk::App[$app_name],
+    }
+
+    if $disable_during_data_sync {
+      govuk_data_sync_in_progress { $app_name:
+        start_command  => "sudo initctl stop ${app_name}",
+        finish_command => "sudo initctl start ${app_name}",
+        require        => Service[$app_name],
+      }
+    }
   }
 }
