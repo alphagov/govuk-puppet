@@ -407,7 +407,6 @@ licensify::apps::licensify::alert_5xx_warning_rate: 0.1
 licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
-monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: eu-west-1
 monitoring::checks::smokey::environment: 'staging'
 monitoring::checks::smokey::disable_during_data_sync: true

@@ -79,6 +79,7 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::management::hosts
     hosts::production::redirector::hosts
     jenkins_admin_permission_list
+    monitoring::checks::sidekiq::enable_support_check
     monitoring::vpn_gateways::endpoints
     postgresql_api_slave_addresses_dr
     postgresql_api_slave_addresses_live
