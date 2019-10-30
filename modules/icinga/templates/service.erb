@@ -15,6 +15,9 @@ define service {
 <%- if @attempts_before_hard_state -%>
         max_check_attempts        <%= @attempts_before_hard_state %>
 <%- end -%>
+<%- if @check_period -%>
+        check_period              <%= @check_period %>
+<%- end -%>
 <%- if @notification_period -%>
         notification_period       <%= @notification_period %>
 <%- end -%>

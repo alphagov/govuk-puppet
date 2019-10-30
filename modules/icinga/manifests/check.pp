@@ -24,6 +24,10 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*check_period*]
+#   The title of a `Icinga::Timeperiod` resource describing when this
+#   service should be actively checked.
+#
 # [*notification_period*]
 #   The title of a `Icinga::Timeperiod` resource.
 #
@@ -59,6 +63,7 @@ define icinga::check (
   $ensure                     = 'present',
   $service_description        = undef,
   $check_command              = undef,
+  $check_period               = undef,
   $notification_period        = undef,
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
