@@ -1206,6 +1206,10 @@ hosts::production::frontend::hosts:
 
 hosts::production::external_licensify: true
 
+hosts::production::frontend::app_hostnames:
+  - 'whitehall-frontend'
+  - 'draft-whitehall-frontend'
+
 hosts::production::licensify::hosts:
   licensify-lb-1:
     ip: '10.5.0.101'
