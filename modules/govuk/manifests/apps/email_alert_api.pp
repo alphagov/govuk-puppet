@@ -260,17 +260,17 @@ class govuk::apps::email_alert_api(
       value   => $publishing_api_bearer_token;
   }
 
-  if $email_address_override_whitelist {
-    govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST":
-      varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
-      value   => join($email_address_override_whitelist, ',');
-    }
-  }
-
   if $email_address_override_whitelist_only {
     govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY":
       varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY',
       value   => 'yes';
+    }
+
+    if $email_address_override_whitelist {
+      govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST":
+        varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
+        value   => join($email_address_override_whitelist, ',');
+      }
     }
   }
 
