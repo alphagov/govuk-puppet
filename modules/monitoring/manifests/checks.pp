@@ -146,7 +146,7 @@ class monitoring::checks (
 
   if $::aws_migration {
     icinga::check { 'check_ddos_detected':
-      check_command       => 'check_cloudwatch!DDoSProtection!eu-west-1!DDoSDetected!1!1' ,
+      check_command       => 'check_cloudwatch!DDoSProtection!eu-west-1!DDoSDetected!0.99!0.99!--default=0',
       host_name           => $::fqdn,
       service_description => 'check AWS DDOS report',
       notes_url           => monitoring_docs_url(ddosdetected),
