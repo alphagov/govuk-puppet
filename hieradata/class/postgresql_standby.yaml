@@ -15,6 +15,7 @@ lv:
     pv:
       - '/dev/sdc1'
       - '/dev/sdd1'
+      - '/dev/sde1'
     vg: 'postgresql'
 
 mount:
