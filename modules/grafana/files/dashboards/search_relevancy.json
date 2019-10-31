@@ -6,9 +6,8 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 4,
+  "id": 5,
   "links": [],
-  "refresh": "10s",
   "rows": [
     {
       "collapse": false,
@@ -52,7 +51,7 @@
             {
               "refId": "A",
               "target": "alias(stats.gauges.govuk.app.search-api.relevancy.query.overall_score.rank_eval, 'Overall Rank Evaluation score')",
-              "textEditor": false
+              "textEditor": true
             }
           ],
           "thresholds": [],
@@ -134,17 +133,17 @@
             "show": true
           },
           "xBucketNumber": null,
-          "xBucketSize": null,
+          "xBucketSize": "3h",
           "yAxis": {
             "decimals": null,
             "format": "short",
             "logBase": 1,
-            "max": null,
+            "max": "1",
             "min": null,
             "show": true,
             "splitFactor": null
           },
-          "yBucketNumber": null,
+          "yBucketNumber": 10,
           "yBucketSize": null
         }
       ],
@@ -153,6 +152,331 @@
       "repeatRowId": null,
       "showTitle": true,
       "title": "Rank evaluation - how are we doing against our relevancy judgements?",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 0,
+          "id": 6,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": ""
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(stats.gauges.govuk.app.search-api.relevancy.query.top_1_ctr, 'Top 1 CTR')",
+              "textEditor": false
+            },
+            {
+              "refId": "B",
+              "target": "alias(stats.gauges.govuk.app.search-api.relevancy.query.top_3_ctr, 'Top 3 CTR')",
+              "textEditor": false
+            },
+            {
+              "refId": "C",
+              "target": "alias(stats.gauges.govuk.app.search-api.relevancy.query.top_5_ctr, 'Top 5 CTR')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Overall click through rates",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "cards": {
+            "cardPadding": null,
+            "cardRound": null
+          },
+          "color": {
+            "cardColor": "#b4ff00",
+            "colorScale": "sqrt",
+            "colorScheme": "interpolateGnBu",
+            "exponent": 0.5,
+            "min": null,
+            "mode": "spectrum"
+          },
+          "dataFormat": "timeseries",
+          "datasource": "Graphite",
+          "description": "Click-through-rate on the top 3 results (of the top 1,000 most popular queries).\nPopulated by Google Analytics.",
+          "heatmap": {},
+          "highlightCards": true,
+          "id": 7,
+          "legend": {
+            "show": false
+          },
+          "links": [],
+          "span": 6,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "stats.gauges.govuk.app.search-api.relevancy.query.*.top_3_ctr",
+              "textEditor": true
+            }
+          ],
+          "title": "Top 3 results CTR",
+          "tooltip": {
+            "show": true,
+            "showHistogram": false
+          },
+          "type": "heatmap",
+          "xAxis": {
+            "show": true
+          },
+          "xBucketNumber": null,
+          "xBucketSize": "6h",
+          "yAxis": {
+            "decimals": null,
+            "format": "short",
+            "logBase": 1,
+            "max": "105",
+            "min": "0",
+            "show": true,
+            "splitFactor": null
+          },
+          "yBucketNumber": 10,
+          "yBucketSize": null
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Click through rates",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "columns": [],
+          "datasource": "Graphite",
+          "fontSize": "100%",
+          "id": 3,
+          "links": [],
+          "pageSize": 200,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": false
+          },
+          "span": 4,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "link": false,
+              "pattern": "Time",
+              "type": "hidden"
+            },
+            {
+              "alias": "Top 1 CTR",
+              "colorMode": "value",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "Value",
+              "thresholds": [
+                "20",
+                "50"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_1_ctr, '1w', 'avg', false), 7)",
+              "textEditor": false
+            }
+          ],
+          "timeFrom": "12h",
+          "title": "Top result CTR",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        },
+        {
+          "columns": [],
+          "datasource": "Graphite",
+          "fontSize": "100%",
+          "hideTimeOverride": false,
+          "id": 4,
+          "links": [],
+          "maxDataPoints": "10000",
+          "pageSize": 10000,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": false
+          },
+          "span": 4,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "hidden"
+            },
+            {
+              "alias": "Top 3 CTR",
+              "colorMode": "value",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "Value",
+              "thresholds": [
+                "20",
+                "50"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_3_ctr, '1w', 'avg', false), 7)",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": "12h",
+          "title": "Top 3 CTR",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        },
+        {
+          "columns": [],
+          "datasource": "Graphite",
+          "fontSize": "100%",
+          "id": 5,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": false
+          },
+          "span": 4,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "hidden"
+            },
+            {
+              "alias": "Top 5 CTR",
+              "colorMode": "value",
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "decimals": 2,
+              "pattern": "Value",
+              "thresholds": [
+                "30",
+                "70"
+              ],
+              "type": "number",
+              "unit": "percent"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_5_ctr, '1w', 'avg', false), 7)",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": "12h",
+          "title": "Top 5 CTR",
+          "transform": "timeseries_to_rows",
+          "type": "table"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Click Through Rates (CTR) - what % of users click the top n results?",
       "titleSize": "h6"
     }
   ],
