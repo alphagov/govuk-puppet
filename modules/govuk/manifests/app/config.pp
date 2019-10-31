@@ -415,14 +415,6 @@ define govuk::app::config (
   }
 
   if $health_check_path != 'NOTSET' {
-    @@icinga::check { "check_app_${title}_up_on_${::hostname}":
-      ensure              => $ensure,
-      check_command       => "check_app_health!check_app_up!${port} ${health_check_path}",
-      service_description => "${title} app healthcheck",
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(app-healthcheck-failed),
-      contact_groups      => $additional_check_contact_groups,
-    }
     if $json_health_check {
       include icinga::client::check_json_healthcheck
 
@@ -437,6 +429,15 @@ define govuk::app::config (
         notification_period => $health_check_notification_period,
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url($healthcheck_opsmanual),
+        contact_groups      => $additional_check_contact_groups,
+      }
+    } else {
+      @@icinga::check { "check_app_${title}_up_on_${::hostname}":
+        ensure              => $ensure,
+        check_command       => "check_app_health!check_app_up!${port} ${health_check_path}",
+        service_description => "${title} app healthcheck",
+        host_name           => $::fqdn,
+        notes_url           => monitoring_docs_url(app-healthcheck-failed),
         contact_groups      => $additional_check_contact_groups,
       }
     }
