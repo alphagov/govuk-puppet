@@ -62,6 +62,10 @@
 #   Google authentication private key
 #   Default: undef
 #
+# [*google_analytics_govuk_view_id*]
+#   The view id of GOV.UK in Google Analytics
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -103,6 +107,7 @@ class govuk::apps::search_api(
   $email_alert_api_bearer_token = undef,
   $google_client_email = undef,
   $google_private_key = undef,
+  $google_analytics_govuk_view_id = undef,
   $google_export_account_id = undef,
   $google_export_web_property_id = undef,
   $google_export_custom_data_source_id = undef,
@@ -200,6 +205,9 @@ class govuk::apps::search_api(
   }
 
   govuk::app::envvar {
+    "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
+      varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
+      value   => $google_analytics_govuk_view_id;
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
