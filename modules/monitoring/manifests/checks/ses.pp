@@ -23,40 +23,31 @@
 #   What percentage usage should trigger a critical? Default:50
 #
 class monitoring::checks::ses (
-        $region = undef,
-        $access_key = undef,
-        $secret_key = undef,
-        $enabled = true,
-        $warning = 30,
-        $critical = 50,
-    ) {
-
-    #package {'boto':
-    #    ensure   => '2.24.0',
-    #    provider => pip,
-    #}
-
+  $region = undef,
+  $access_key = undef,
+  $secret_key = undef,
+  $enabled = true,
+  $warning = 30,
+  $critical = 50,
+) {
+  if $enabled {
     icinga::plugin { 'check_aws_quota':
-        source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
-        require => Exec['install_boto'],
+      source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
+      require => Exec['install_boto'],
     }
 
     icinga::check_config { 'check_aws_quota':
-        source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_aws_quota.cfg',
-        require => File['/usr/lib/nagios/plugins/check_aws_quota'],
+      content => template('icinga/check_http_icinga.cfg.erb'),
+      require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
 
-    if $enabled {
-
-        icinga::check { 'check_aws_quota':
-            check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",
-            use                 => 'govuk_urgent_priority',
-            host_name           => $::fqdn,
-            service_description => 'AWS SES quota usage higher than expected during last 24hrs',
-            notes_url           => monitoring_docs_url(aws-ses-email-quota),
-            require             => Icinga::Check_config['check_aws_quota'],
-        }
-
+    icinga::check { 'check_aws_quota':
+      check_command       => "check_aws_quota!${region}!${warning}!${critical}",
+      use                 => 'govuk_urgent_priority',
+      host_name           => $::fqdn,
+      service_description => 'AWS SES quota usage higher than expected during last 24hrs',
+      notes_url           => monitoring_docs_url(aws-ses-email-quota),
+      require             => Icinga::Check_config['check_aws_quota'],
     }
-
+  }
 }
