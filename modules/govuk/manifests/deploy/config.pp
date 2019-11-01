@@ -126,22 +126,18 @@ class govuk::deploy::config(
     # Integration are in AWS, so Plek already does the right thing by default
     # in those environments.
     #
-    # 2. Publishing API is still in Carrenza Production for now.
-    #
-    # 3. Signon is still in Carrenza for Staging and Production.
-    #
     if $::aws_environment == 'production' {
       govuk_envvar {
         'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
-        'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
       }
     }
 
-    # email_alert_api and whitehall_admin are still in Carrenza staging and production.
+    # publishing_api, email_alert_api and whitehall_admin are still in Carrenza staging and production.
     if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
       govuk_envvar {
         'PLEK_SERVICE_EMAIL_ALERT_API_URI': value  => "https://email-alert-api.${app_domain}";
         'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
+        'PLEK_SERVICE_PUBLISHING_API_URI': value  => "https://publishing-api.${app_domain}";
       }
       # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
       # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
