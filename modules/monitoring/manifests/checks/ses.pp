@@ -37,12 +37,12 @@ class monitoring::checks::ses (
     }
 
     icinga::check_config { 'check_aws_quota':
-      source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_aws_quota.cfg',
+      content => template('icinga/check_http_icinga.cfg.erb'),
       require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
 
     icinga::check { 'check_aws_quota':
-      check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",
+      check_command       => "check_aws_quota!${region}!${warning}!${critical}",
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
       service_description => 'AWS SES quota usage higher than expected during last 24hrs',
