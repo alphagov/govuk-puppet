@@ -25,7 +25,14 @@ class govuk_jenkins::jobs::smokey (
     require => Class['govuk::apps::smokey'],
   }
 
-  $job_url = "https://deploy.${app_domain}/job/smokey/"
+  if $::aws_migration {
+    $hosting_env_domain = "${::aws_environment}.govuk.digital"
+  }
+  else {
+    $hosting_env_domain = $app_domain
+  }
+
+  $job_url = "https://deploy.${hosting_env_domain}/job/smokey/"
 
   @@icinga::passive_check { "smokey_${::hostname}":
     service_description => $service_description,
