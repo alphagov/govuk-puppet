@@ -1,0 +1,39 @@
+---
+- job:
+    name: search_google_analytics_etl
+    display-name: Search Google Analytics ETL
+    project-type: freestyle
+    description: "<p>Runs a Search API rake task relevancy:send_ga_data_to_graphite.</p>
+    <p>The rake task extracts GA data and loads it into Graphite.</p>
+    <p>This is a monitoring task. It is safe to re-run in-hours.</p>
+    <p>Get in touch with the search team for more details.</p>"
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=search-api
+              MACHINE_CLASS=search
+              RAKE_TASK=relevancy:send_ga_data_to_graphite SEND_TO_GRAPHITE=true
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+  <% if @cron_schedule %>
+    triggers:
+      - timed: <%= @cron_schedule %>
+  <% end %>
+    logrotate:
+        numToKeep: 10
+    publishers:
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: 'SUCCESS'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: 'FAILED'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
+                NSCA_CODE=2
