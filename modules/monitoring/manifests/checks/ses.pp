@@ -30,17 +30,17 @@ class monitoring::checks::ses (
   $warning = 30,
   $critical = 50,
 ) {
-  icinga::plugin { 'check_aws_quota':
-    source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
-    require => Exec['install_boto'],
-  }
-
-  icinga::check_config { 'check_aws_quota':
-    source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_aws_quota.cfg',
-    require => File['/usr/lib/nagios/plugins/check_aws_quota'],
-  }
-
   if $enabled {
+    icinga::plugin { 'check_aws_quota':
+      source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_quota',
+      require => Exec['install_boto'],
+    }
+
+    icinga::check_config { 'check_aws_quota':
+      source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_aws_quota.cfg',
+      require => File['/usr/lib/nagios/plugins/check_aws_quota'],
+    }
+
     icinga::check { 'check_aws_quota':
       check_command       => "check_aws_quota!${region}!${access_key}!${secret_key}!${warning}!${critical}",
       use                 => 'govuk_urgent_priority',
