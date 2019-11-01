@@ -1,0 +1,108 @@
+#!/usr/bin/env ruby
+
+require 'aws-sdk-iam'
+require 'optparse'
+
+options = {
+  debug: false,
+  days: 90,
+  exceptions: []
+}
+
+config = {
+  region: 'eu-west-1'
+}
+
+opt_parser = OptionParser.new do |opt|
+  opt.on('--exceptions user_name[,user_name]', 'which user_names do you wish to exclude?') do |exceptions|
+    options[:exceptions] = exceptions.split(',')
+  end
+
+  opt.on('--days days', 'how many days old can a key be?') do |days|
+    options[:days] = days.to_i
+  end
+
+  opt.on('-k', '--key key', 'specify your AWS key ID') do |key|
+    config[:access_key_id] = key unless key.empty?
+  end
+
+  opt.on('-s', '--secret secret', 'specify your AWS secret') do |secret|
+    config[:secret_access_key] = secret unless secret.empty?
+  end
+
+  opt.on('--region region', 'specify your region defaults to eu-west-1') do |region|
+    config[:region] = region unless region.empty?
+  end
+
+  opt.on('--role_arn role_arn', 'specify your role_arn if you want to assume a role') do |role_arn|
+    config[:role_arn] = role_arn unless role_arn.empty?
+  end
+
+  opt.on('--mfa_serial mfa_serial', 'specify your mfa_serial if you want to assume a role') do |mfa_serial|
+    config[:mfa_serial] = mfa_serial unless mfa_serial.empty?
+  end
+
+  opt.on('--token_code token_code', 'specify your token_code if you want to assume a role') do |token_code|
+    config[:token_code] = token_code unless token_code.empty?
+  end
+
+  opt.on('--debug', 'enable debug mode') do
+    options[:debug] = true
+  end
+
+  opt.on('-h', '--help', 'help') do
+    puts opt_parser
+    exit
+  end
+end
+
+opt_parser.parse!
+
+if options[:debug]
+  puts 'Options: ' + options.inspect
+  puts 'Config: ' + config.inspect
+end
+
+begin
+  iam_options = { region: config[:region] }
+  if config.key?(:role_arn)
+    iam_options[:credentials] = Aws::AssumeRoleCredentials.new(
+      client: Aws::STS::Client.new(region: config[:region]),
+      role_arn: config[:role_arn],
+      serial_number: config[:mfa_serial],
+      token_code: config[:token_code],
+      role_session_name: 'session-name'
+    )
+  end
+
+  iam = Aws::IAM::Client.new(iam_options)
+
+  failed_keys = []
+
+  iam.list_users.users.each do |user|
+    next if options[:exceptions].include? user.user_name
+
+    puts user.user_name if options[:debug]
+    iam.list_access_keys(user_name: user.user_name).access_key_metadata.each do |key|
+      age = (Date.today - key.create_date.to_date).to_i
+      puts "#{key.access_key_id}: #{key.create_date.to_date}" if options[:debug]
+      if age >= options[:days]
+        failed_keys << [key.access_key_id, age, user.user_name].join(' ')
+      end
+    end
+  end
+
+  unless failed_keys.empty?
+    puts "There are #{failed_keys.length} active keys older than #{options[:days]} days: "
+    puts failed_keys.join("\n")
+    exit 1
+  end
+rescue SystemExit
+  raise
+rescue Exception => e
+  puts 'Unexpected error: ' + e.message + ' <' + e.backtrace[0] + '>'
+  exit 2
+end
+
+puts 'No users with outdated keys found.'
+exit 1

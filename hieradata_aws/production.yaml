@@ -307,6 +307,7 @@ monitoring::checks::datagovuk_publish::host: 'publish-data-beta-production.cloud
 monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
+monitoring::checks::aws_iam_key::region: 'eu-west-1'
 
 monitoring::checks::lb::region: 'eu-west-1'
 monitoring::checks::lb::loadbalancers:

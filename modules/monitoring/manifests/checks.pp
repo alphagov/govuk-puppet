@@ -44,6 +44,7 @@ class monitoring::checks (
   include monitoring::checks::rds
   include monitoring::checks::lb
   include monitoring::checks::cloudwatch
+  include monitoring::checks::aws_iam_key
 
   $app_domain = hiera('app_domain')
 
