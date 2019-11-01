@@ -344,7 +344,7 @@ define govuk::app::config (
       host_name                  => $::fqdn,
       event_handler              => "govuk_app_high_memory!${title}",
       notes_url                  => monitoring_docs_url(high-memory-for-application),
-      attempts_before_hard_state => 2,
+      attempts_before_hard_state => 3,
       contact_groups             => $additional_check_contact_groups,
     }
     @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
@@ -360,13 +360,14 @@ define govuk::app::config (
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
-        ensure         => $ensure,
-        target         => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
-        warning        => $alert_when_threads_exceed,
-        critical       => $alert_when_threads_exceed,
-        desc           => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
-        host_name      => $::fqdn,
-        contact_groups => $additional_check_contact_groups,
+        ensure                     => $ensure,
+        target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
+        warning                    => $alert_when_threads_exceed,
+        critical                   => $alert_when_threads_exceed,
+        desc                       => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+        host_name                  => $::fqdn,
+        attempts_before_hard_state => 3,
+        contact_groups             => $additional_check_contact_groups,
       }
     }
   }
