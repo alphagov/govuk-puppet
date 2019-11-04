@@ -14,9 +14,10 @@
 #   Password for $http_username
 #
 class monitoring::checks (
-  $aws_origin_domain = undef,
-  $http_username     = 'UNSET',
-  $http_password     = 'UNSET',
+  $aws_origin_domain              = undef,
+  $http_username                  = 'UNSET',
+  $http_password                  = 'UNSET',
+  $whitehall_overdue_check_period = undef,
 ) {
 
   ensure_packages(['jq'])
@@ -70,6 +71,7 @@ class monitoring::checks (
       notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
       action_url                 => "https://${whitehall_hostname}${whitehall_overdue_url}",
       event_handler              => 'publish_overdue_whitehall',
+      check_period               => $whitehall_overdue_check_period,
       attempts_before_hard_state => 2,
       retry_interval             => 10,
     }
