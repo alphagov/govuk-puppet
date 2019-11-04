@@ -23,7 +23,7 @@ class monitoring::checks::aws_iam_key (
   $enabled = true,
 ) {
   if $enabled and $::aws_migration {
-    $max_age = 90
+    $max_age = 365
 
     icinga::plugin { 'check_aws_iam_key_age':
       source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_iam_key_age',
