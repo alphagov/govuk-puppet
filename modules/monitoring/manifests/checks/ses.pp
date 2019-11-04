@@ -37,7 +37,7 @@ class monitoring::checks::ses (
     }
 
     icinga::check_config { 'check_aws_quota':
-      content => template('icinga/check_http_icinga.cfg.erb'),
+      content => template('monitoring/check_aws_quota.cfg.erb'),
       require => File['/usr/lib/nagios/plugins/check_aws_quota'],
     }
 
