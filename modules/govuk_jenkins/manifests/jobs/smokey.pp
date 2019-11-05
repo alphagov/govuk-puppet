@@ -25,8 +25,8 @@ class govuk_jenkins::jobs::smokey (
     require => Class['govuk::apps::smokey'],
   }
 
-  if $::aws_migration {
-    $hosting_env_domain = "${::aws_environment}.govuk.digital"
+  if $::aws_migration and ($::aws_environment != 'integration') {
+    $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
   }
   else {
     $hosting_env_domain = $app_domain
