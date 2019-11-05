@@ -5,11 +5,18 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether to enable the check.
+#   Default: present
+#
 # [*title*]
 #   The status of the delivery attempts to look for.
 #
-define govuk::apps::email_alert_api::delivery_attempt_status_check() {
+define govuk::apps::email_alert_api::delivery_attempt_status_check(
+  $ensure = present,
+) {
   @@icinga::check::graphite { "email-alert-api-delivery-attempt-${title}":
+    ensure    => $ensure,
     host_name => $::fqdn,
     target    => "sum(stats.govuk.app.email-alert-api.*.delivery_attempt.status.${title})",
     warning   => '0.5',

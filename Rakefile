@@ -219,6 +219,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::govuk_crawler_worker::nagios_memory_critical
     govuk::apps::govuk_crawler_worker::nagios_memory_warning
     govuk::apps::govuk_crawler_worker::disable_during_data_sync
+    govuk::apps::email_alert_api::checks::internal_failure
+    govuk::apps::email_alert_api::checks::technical_failure
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
