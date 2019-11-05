@@ -45,6 +45,8 @@ class monitoring::checks (
   include monitoring::checks::lb
   include monitoring::checks::cloudwatch
 
+  include govuk::apps::email_alert_api::checks
+
   $app_domain = hiera('app_domain')
 
   if $app_domain != 'integration.publishing.service.gov.uk' {
