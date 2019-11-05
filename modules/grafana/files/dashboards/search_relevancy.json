@@ -6,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 5,
+  "id": 6,
   "links": [],
   "rows": [
     {
@@ -21,12 +21,13 @@
           "datasource": "Graphite",
           "decimals": null,
           "description": "This shows how our rank evaluation score changes over time.\nIt uses the rank evaluation API and relevancy judgements stored in s3.",
-          "fill": 0,
+          "fill": 1,
           "id": 1,
           "legend": {
             "avg": true,
             "current": true,
             "hideEmpty": false,
+            "hideZero": false,
             "max": false,
             "min": false,
             "rightSide": false,
@@ -46,7 +47,7 @@
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
               "refId": "A",
@@ -164,7 +165,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 0,
+          "fill": 2,
           "id": 6,
           "legend": {
             "alignAsTable": false,
@@ -180,22 +181,18 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 1,
-          "points": true,
+          "pointradius": 2,
+          "points": false,
           "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": ""
-            }
-          ],
+          "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
               "refId": "A",
@@ -219,7 +216,7 @@
           "title": "Overall click through rates",
           "tooltip": {
             "shared": true,
-            "sort": 0,
+            "sort": 2,
             "value_type": "individual"
           },
           "type": "graph",
@@ -358,8 +355,8 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_1_ctr, '1w', 'avg', false), 7)",
-              "textEditor": false
+              "target": "aliasByNode(maximumBelow(transformNull(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_1_ctr, '1w', 'last', false), 200), 199), 7)",
+              "textEditor": true
             }
           ],
           "timeFrom": "12h",
@@ -411,7 +408,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_3_ctr, '1w', 'avg', false), 7)",
+              "target": "aliasByNode(maximumBelow(transformNull(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_3_ctr, '1w', 'last', false), 200), 199), 7)",
               "textEditor": true
             }
           ],
@@ -462,7 +459,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_5_ctr, '1w', 'avg', false), 7)",
+              "target": "aliasByNode(maximumBelow(transformNull(summarize(stats.gauges.govuk.app.search-api.relevancy.query.*.top_5_ctr, '1w', 'last', false), 200), 199), 7)",
               "textEditor": true
             }
           ],
@@ -487,7 +484,7 @@
     "list": []
   },
   "time": {
-    "from": "now-6h",
+    "from": "now-24h",
     "to": "now"
   },
   "timepicker": {
@@ -517,5 +514,5 @@
   },
   "timezone": "",
   "title": "Search Relevancy",
-  "version": 3
+  "version": 2
 }
