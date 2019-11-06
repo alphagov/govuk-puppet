@@ -15,10 +15,4 @@ class govuk::node::s_draft_content_store() inherits govuk::node::s_base {
     'PLEK_HOSTNAME_PREFIX': value => 'draft-';
     'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
   }
-
-  if $::aws_environment == 'production' {
-    include ::hosts::default
-    include ::hosts::backend_migration
-    include icinga::client::check_pings
-  }
 }
