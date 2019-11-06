@@ -25,8 +25,14 @@ class monitoring::checks::aws_iam_key (
   if $enabled and $::aws_migration {
     $max_age = 365
 
+    exec { 'install aws-sdk-iam into rbenv':
+      path    => ['/usr/lib/rbenv/shims', '/usr/local/bin', '/usr/bin', '/bin'],
+      command => 'gem install aws-sdk-iam',
+      unless  => 'gem list -i aws-sdk-iam',
+    }
+
     icinga::plugin { 'check_aws_iam_key_age':
-      source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_iam_key_age',
+      source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_aws_iam_key_age',
     }
 
     icinga::check_config { 'check_aws_iam_key_age':
