@@ -15,7 +15,6 @@
 #
 class govuk::node::s_db_admin(
   $apt_mirror_hostname,
-  $backup_s3_bucket     = undef,
   $mysql_db_host        = undef,
   $mysql_db_password    = undef,
   $mysql_db_user        = undef,
@@ -32,15 +31,9 @@ class govuk::node::s_db_admin(
   include govuk_env_sync
 
   # disable the backups of rds to s3 because these are not working, should use
-  # govuk_env_sync. We don't remove it in production in case of dependencies
-  # used by other tasks running on db_admin.
-  if ($::aws_environment != 'production') {
-    $ensure = 'absent'
-  } elsif ($backup_s3_bucket) {
-    $ensure = 'present'
-  } else {
-    $ensure = 'absent'
-  }
+  # govuk_env_sync.
+
+  $ensure = 'absent'
 
   apt::source { 'mongodb41':
     ensure       => 'absent',
