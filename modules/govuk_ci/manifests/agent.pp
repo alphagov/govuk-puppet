@@ -43,6 +43,7 @@ class govuk_ci::agent(
   include ::govuk_jenkins::pipeline
   include ::govuk_jenkins::user
   include ::govuk_rbenv::all
+  include ::govuk_python
   include ::govuk_sysdig
   include ::govuk_testing_tools
   include ::yarn
@@ -65,7 +66,6 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
-    'python3-dev', # govuk-taxonomy-supervised-learning
     'shellcheck',
   ]
 
