@@ -12,7 +12,7 @@ class govuk::node::s_content_store inherits govuk::node::s_base {
     nginx::config::vhost::default { 'default': }
   }
 
-  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+  if $::aws_environment == 'production' {
     include ::hosts::default
     include ::hosts::backend_migration
     include icinga::client::check_pings
