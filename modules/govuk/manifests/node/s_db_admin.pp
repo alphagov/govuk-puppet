@@ -24,16 +24,9 @@ class govuk::node::s_db_admin(
   $postgres_user        = undef,
   $postgres_password    = undef,
   $postgres_port        = '5432',
-  $postgres_backup_hour = 7,
-  $postgres_backup_min  = 10,
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync
-
-  # disable the backups of rds to s3 because these are not working, should use
-  # govuk_env_sync.
-
-  $ensure = 'absent'
 
   apt::source { 'mongodb41':
     ensure       => 'absent',
@@ -67,23 +60,6 @@ class govuk::node::s_db_admin(
     mode   => '0750',
   }
 
-  apt::source { 'gof3r':
-    ensure       => $ensure,
-    location     => "http://${apt_mirror_hostname}/gof3r",
-    release      => $::lsbdistcodename,
-    architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
-  }
-
-  package { 'gof3r':
-    ensure  => $ensure,
-    require => Apt::Source['gof3r'],
-  }
-
-  package { 'redis-tools':
-    ensure  => $ensure,
-  }
-
   $alert_hostname = 'alert'
 
   ### MySQL ###
@@ -104,33 +80,6 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::whitehall::db': }
 
   $mysql_backup_desc = 'RDS MySQL backup to S3'
-
-  @@icinga::passive_check { "check_rds_mysql_s3_backup-${::hostname}":
-    ensure              => $ensure,
-    service_description => $mysql_backup_desc,
-    freshness_threshold => 28 * 3600,
-    host_name           => $::fqdn,
-  }
-
-  file { '/usr/local/bin/rds-mysql-to-s3':
-    ensure  => $ensure,
-    content => template('govuk/node/s_db_admin/rds-mysql-to-s3.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0775',
-    require => [
-      File['/root/.my.cnf'],
-      Package['gof3r'],
-    ],
-  }
-
-  cron::crondotdee { 'rds-mysql-to-s3':
-    ensure  => $ensure,
-    hour    => $mysql_backup_hour,
-    minute  => $mysql_backup_min,
-    command => '/usr/local/bin/rds-mysql-to-s3',
-    require => File['/usr/local/bin/rds-mysql-to-s3'],
-  }
 
   ### PostgreSQL ###
 
@@ -181,35 +130,6 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::publishing_api::db': }
   -> class { '::govuk::apps::service_manual_publisher::db': }
   -> class { '::govuk::apps::support_api::db': }
-
-  $postgres_backup_desc = 'RDS PostgreSQL backup to S3'
-
-  @@icinga::passive_check { "check_rds_postgres_s3_backup-${::hostname}":
-    ensure              => $ensure,
-    service_description => $postgres_backup_desc,
-    freshness_threshold => 28 * 3600,
-    host_name           => $::fqdn,
-  }
-
-  file { '/usr/local/bin/rds-postgres-to-s3':
-    ensure  => $ensure,
-    content => template('govuk/node/s_db_admin/rds-postgres-to-s3.erb'),
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0775',
-    require => [
-      Package['gof3r'],
-      File['/root/.pgpass'],
-    ],
-  }
-
-  cron::crondotdee { 'rds-postgres-to-s3':
-    ensure  => $ensure,
-    hour    => $postgres_backup_hour,
-    minute  => $postgres_backup_min,
-    command => '/usr/local/bin/rds-postgres-to-s3',
-    require => File['/usr/local/bin/rds-postgres-to-s3'],
-  }
 
   if $::aws_environment == 'integration' {
 
