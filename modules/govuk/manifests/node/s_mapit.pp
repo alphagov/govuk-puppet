@@ -18,6 +18,8 @@ class govuk::node::s_mapit inherits govuk::node::s_base {
   ->
   class { 'govuk_postgresql::server::standalone': }
 
+  include govuk_python
+
   include collectd::plugin::memcached
   class { 'memcached':
     max_memory => '12%',
