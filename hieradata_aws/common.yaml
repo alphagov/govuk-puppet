@@ -1018,6 +1018,10 @@ grafana::dashboards::application_dashboards:
       - smartanswers
       - whitehall-frontend
   email-alert-frontend: {}
+  email-alert-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+  email-alert-service: {}
   feedback: {}
   finder-frontend:
     show_external_request_time: true
@@ -1049,6 +1053,11 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
+  publishing-api:
+    show_sidekiq_graphs: true
+    has_workers: true
+    instance_prefix: 'publishing_api'
+    show_memcached: true
   router: {}
   router-api: {}
   search-api:
