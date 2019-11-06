@@ -6,9 +6,10 @@
 class govuk::node::s_backend inherits govuk::node::s_base {
   include govuk::node::s_app_server
 
-  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+  if $::aws_environment == 'production' {
     include ::hosts::default
     include ::hosts::backend_migration
+    include icinga::client::check_pings
   }
 
   limits::limits { 'root_nofile':
@@ -39,10 +40,6 @@ class govuk::node::s_backend inherits govuk::node::s_base {
 
   # The catchall vhost throws a 500, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
-
-  if $::aws_migration {
-    include icinga::client::check_pings
-  }
 
   # Ensure memcached is available to backend nodes
   include collectd::plugin::memcached
