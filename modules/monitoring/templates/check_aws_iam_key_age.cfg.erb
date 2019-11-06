@@ -1,0 +1,4 @@
+define command {
+    command_name check_aws_iam_key_age
+    command_line /usr/lib/nagios/plugins/check_aws_aws_iam_key_age --key <%= @access_key %> --secret <%= @secret_key %> --region <%= @region %> --days <%= @max_age %>
+}

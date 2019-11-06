@@ -443,6 +443,7 @@ licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
 monitoring::checks::ses::region: us-east-1
+monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::smokey::environment: 'production'
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
