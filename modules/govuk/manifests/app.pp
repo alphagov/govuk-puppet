@@ -245,6 +245,11 @@
 #   If set, alert using Icinga if the number of threads exceeds the value specified.
 #   Default: 100
 #
+# [*alert_when_file_handles_exceed*]
+#   If set, alert using Icinga if the number of file handles exceeds
+#   the value specified.
+#   Default: 500
+#
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
@@ -311,6 +316,7 @@ define govuk::app (
   $cpu_critical = 200,
   $collectd_process_regex = undef,
   $alert_when_threads_exceed = 100,
+  $alert_when_file_handles_exceed = 500,
   $override_search_location = undef,
   $create_default_nginx_config = false,
   $monitor_unicornherder = undef,
@@ -394,6 +400,7 @@ define govuk::app (
     cpu_critical                        => $cpu_critical,
     collectd_process_regex              => $collectd_process_regex,
     alert_when_threads_exceed           => $alert_when_threads_exceed,
+    alert_when_file_handles_exceed      => $alert_when_file_handles_exceed,
     override_search_location            => $override_search_location,
     create_default_nginx_config         => $create_default_nginx_config,
     monitor_unicornherder               => $monitor_unicornherder,
