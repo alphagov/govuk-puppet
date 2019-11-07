@@ -1,7 +1,3 @@
 ---
 
-icinga::client::check_pings::endpoints:
-   router-api:
-     ip: 10.2.1.253
-
 govuk::apps::content_store::create_default_nginx_config: true
