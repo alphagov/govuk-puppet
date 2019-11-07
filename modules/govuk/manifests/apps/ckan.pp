@@ -74,18 +74,19 @@ class govuk::apps::ckan (
 
   if $enabled {
     govuk::app { 'ckan':
-      app_type               => 'procfile',
-      port                   => $port,
-      vhost_protected        => $vhost_protected,
-      vhost_ssl_only         => true,
-      health_check_path      => '/healthcheck',
-      log_format_is_json     => false,
-      read_timeout           => $request_timeout,
-      collectd_process_regex => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
-      nagios_memory_warning  => 2400,
-      nagios_memory_critical => 2500,
-      sentry_dsn             => $sentry_dsn,
-      enable_nginx_vhost     => false,
+      app_type                           => 'procfile',
+      port                               => $port,
+      vhost_protected                    => $vhost_protected,
+      vhost_ssl_only                     => true,
+      health_check_path                  => '/healthcheck',
+      log_format_is_json                 => false,
+      read_timeout                       => $request_timeout,
+      collectd_process_regex             => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
+      nagios_memory_warning              => 2400,
+      nagios_memory_critical             => 2500,
+      local_tcpconns_established_warning => $gunicorn_worker_processes,
+      sentry_dsn                         => $sentry_dsn,
+      enable_nginx_vhost                 => false,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
