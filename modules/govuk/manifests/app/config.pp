@@ -47,6 +47,11 @@
 # [*collectd_process_regex*]
 #   Regex to use to identify the process.
 #
+# [*alert_when_file_handles_exceed*]
+#   If set, alert using Icinga if the number of file handles exceeds
+#   the value specified.
+#   Default: undef
+#
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
@@ -106,6 +111,7 @@ define govuk::app::config (
   $cpu_critical = 200,
   $collectd_process_regex = undef,
   $alert_when_threads_exceed = undef,
+  $alert_when_file_handles_exceed = undef,
   $override_search_location = undef,
   $create_default_nginx_config = false,
   $monitor_unicornherder = undef,
@@ -365,6 +371,18 @@ define govuk::app::config (
         warning                    => $alert_when_threads_exceed,
         critical                   => $alert_when_threads_exceed,
         desc                       => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
+        host_name                  => $::fqdn,
+        attempts_before_hard_state => 3,
+        contact_groups             => $additional_check_contact_groups,
+      }
+    }
+    if $alert_when_file_handles_exceed {
+      @@icinga::check::graphite { "check_${title}_app_file_handles_count_${::hostname}":
+        ensure                     => $ensure,
+        target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.file_handles",
+        warning                    => $alert_when_file_handles_exceed,
+        critical                   => $alert_when_file_handles_exceed,
+        desc                       => "File handle count for ${title_underscore} exceeds ${alert_when_file_handles_exceed}",
         host_name                  => $::fqdn,
         attempts_before_hard_state => 3,
         contact_groups             => $additional_check_contact_groups,
