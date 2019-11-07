@@ -24,7 +24,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::record_taxonomy_metrics
   - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::run_whitehall_data_migrations
-  - govuk_jenkins::jobs::scrape_icinga_alerts_for_dashboard_metrics
   - govuk_jenkins::jobs::send_bulk_email
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
