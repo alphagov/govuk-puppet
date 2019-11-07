@@ -17,7 +17,7 @@ class govuk::node::s_transition_db_admin(
   include govuk_env_sync
   include ::govuk::node::s_base
 
-  if $backup_s3_bucket {
+  if ($::aws_environment == 'production' and $backup_s3_bucket) {
     $ensure = 'present'
   } else {
     $ensure = 'absent'
