@@ -11,10 +11,4 @@ class govuk::node::s_content_store inherits govuk::node::s_base {
     # If we miss all the apps, throw a 500 to be caught by the cache nginx
     nginx::config::vhost::default { 'default': }
   }
-
-  if $::aws_environment == 'production' {
-    include ::hosts::default
-    include ::hosts::backend_migration
-    include icinga::client::check_pings
-  }
 }
