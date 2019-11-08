@@ -20,7 +20,7 @@ class monitoring::checks::aws_iam_key (
   $region = undef,
   $access_key = undef,
   $secret_key = undef,
-  $enabled = true,
+  $enabled = false,
   $max_aws_iam_key_age = 90,
 ) {
   if $enabled and $::aws_migration {
