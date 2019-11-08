@@ -1,7 +1,0 @@
----
-
-icinga::client::check_pings::endpoints:
-   whitehall-admin:
-     ip: 10.3.3.254
-   backdrop-lb:
-     ip: 10.3.4.254
