@@ -21,9 +21,9 @@ class monitoring::checks::aws_iam_key (
   $access_key = undef,
   $secret_key = undef,
   $enabled = true,
+  $max_aws_iam_key_age = 90,
 ) {
   if $enabled and $::aws_migration {
-    $max_age = 365
 
     exec { 'install aws-sdk-iam into rbenv':
       path    => ['/usr/lib/rbenv/shims', '/usr/local/bin', '/usr/bin', '/bin'],
@@ -44,8 +44,8 @@ class monitoring::checks::aws_iam_key (
       check_command       => 'check_aws_iam_key_age',
       use                 => 'govuk_normal_priority',
       host_name           => $::fqdn,
-      check_interval      => 43200,
-      service_description => 'At least 1 AWS IAM Key is older then max_age days and needs rotating',
+      check_interval      => 12h,
+      service_description => "At least 1 AWS IAM Key is older then ${max_aws_iam_key_age} days and needs rotating",
       notes_url           => monitoring_docs_url(rotate-old-aws-iam-key),
       require             => Icinga::Check_config['check_aws_iam_key_age'],
     }
