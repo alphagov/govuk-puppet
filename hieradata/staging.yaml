@@ -302,6 +302,8 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild-standalone'
   - 'travel-advice-publisher'
 
+hosts::production::frontend::app_hostnames: []
+
 hosts::production::frontend::hosts:
   frontend-lb-1:
     ip: '10.2.2.101'
