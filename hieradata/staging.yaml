@@ -278,31 +278,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.161'
   transition-postgresql-standby-2:
     ip: '10.2.11.161'
-  whitehall-backend-1:
-    ip: '10.2.3.25'
-  whitehall-backend-2:
-    ip: '10.2.3.26'
-  whitehall-backend-3:
-    ip: '10.2.3.27'
-  whitehall-backend-4:
-    ip: '10.2.3.28'
-  whitehall-mysql-backup-1:
-    ip: '10.2.3.34'
-    legacy_aliases:
-      - 'whitehall-backup.mysql'
-  whitehall-mysql-master-1:
-    ip: '10.2.3.30'
-    legacy_aliases:
-      - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('app_domain')}"
-  whitehall-mysql-slave-1:
-    ip: '10.2.3.31'
-    legacy_aliases:
-      - 'whitehall-slave.mysql'
-  whitehall-mysql-slave-2:
-    ip: '10.2.3.32'
-  whitehall-mysql-slave-3:
-    ip: '10.2.11.31'
 
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
@@ -326,15 +301,8 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
   - 'travel-advice-publisher'
-  - 'whitehall-admin'
 
 hosts::production::frontend::hosts:
-  whitehall-frontend-1:
-    ip: '10.2.2.5'
-  whitehall-frontend-2:
-    ip: '10.2.2.6'
-  whitehall-frontend-3:
-    ip: '10.2.2.10'
   frontend-lb-1:
     ip: '10.2.2.101'
   frontend-lb-2:
