@@ -50,7 +50,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_ci::master::ci_agents
     govuk_ci::master::credentials_id
     govuk_ci::master::pipeline_jobs
-    govuk_containers::apps::release::envvars
     govuk_containers::frontend::haproxy::backend_mappings
     govuk_containers::frontend::haproxy::wildcard_publishing_certificate
     govuk_containers::frontend::haproxy::wildcard_publishing_key

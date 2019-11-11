@@ -746,15 +746,6 @@ govuk_containers::app::config::global_envvars:
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
-govuk_containers::apps::release::envvars:
-  - "OAUTH_ID=%{hiera('govuk::apps::release::oauth_id')}"
-  - "OAUTH_SECRET=%{hiera('govuk::apps::release::oauth_secret')}"
-  - "GITHUB_USERNAME=%{hiera('govuk::apps::release::github_username')}"
-  - "GITHUB_ACCESS_TOKEN=%{hiera('govuk::apps::release::github_access_token')}"
-  - "SECRET_KEY_BASE=%{hiera('govuk::apps::release::secret_key_base')}"
-  - "DATABASE_URL=mysql2://%{hiera('govuk::apps::release::db_username')}:%{hiera('govuk::apps::release::db_password')}@%{hiera('govuk::apps::release::db_hostname')}/release_production"
-  - "RAILS_SERVE_STATIC_FILES=true"
-
 govuk_containers::frontend::haproxy::backend_mappings:
   - "release.%{hiera('app_domain')}": "release"
 govuk_containers::frontend::haproxy::wildcard_publishing_certificate: "%{hiera('wildcard_publishing_certificate')}"
