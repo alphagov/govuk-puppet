@@ -385,6 +385,7 @@ define govuk::app::config (
         desc                       => "File handle count for ${title_underscore} exceeds ${alert_when_file_handles_exceed}",
         host_name                  => $::fqdn,
         attempts_before_hard_state => 3,
+        notes_url                  => monitoring_docs_url(process-file-handle-count-exceedes),
         contact_groups             => $additional_check_contact_groups,
       }
     }
