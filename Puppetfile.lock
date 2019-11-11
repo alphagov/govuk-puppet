@@ -56,9 +56,6 @@ FORGE
       puppetlabs-stdlib (>= 4.1.0)
       stahnma-epel (>= 0.0.6)
     puppetlabs-firewall (1.0.2)
-    puppetlabs-haproxy (1.5.0)
-      puppetlabs-concat (< 3.0.0, >= 1.2.3)
-      puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-java (1.6.0)
       puppetlabs-stdlib (< 5.0.0, >= 2.4.0)
     puppetlabs-java_ks (1.2.5)
@@ -117,7 +114,7 @@ GIT
   ref: v0.4.0
   sha: 3c908239a3c8d08372ab92b0ab8919759385d0f0
   specs:
-    gdsoperations-gor (0.3.1)
+    alphagov-gor (0.3.1)
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
@@ -202,6 +199,7 @@ DEPENDENCIES
   adrien-alternatives (>= 0)
   alphagov-curl (>= 0)
   alphagov-duplicity (>= 0)
+  alphagov-gor (>= 0)
   alphagov-puppet-rcs (>= 0)
   alphagov-puppet-reporter-sentry (>= 0)
   attachmentgenie-ufw (= 1.0.3)
@@ -213,7 +211,6 @@ DEPENDENCIES
   gdsoperations-aptly (>= 0)
   gdsoperations-auditd (= 0.2.0)
   gdsoperations-goenv (= 0.0.4)
-  gdsoperations-gor (>= 0)
   gdsoperations-graphite (~> 2.1)
   gdsoperations-openconnect (~> 1.2.2)
   gdsoperations-rbenv (~> 1.3)
@@ -225,13 +222,12 @@ DEPENDENCIES
   nextrevision-automysqlbackup (>= 0)
   puppet-archive (= 1.1.2)
   puppet-ext4mount (>= 0)
-  puppet-rabbitmq (~> 5.6)
   puppet-python (>= 0)
+  puppet-rabbitmq (~> 5.6)
   puppet-unattended_upgrades (>= 2.1.0)
   puppetlabs-apt (= 2.3.0)
   puppetlabs-concat (= 2.2.0)
   puppetlabs-docker (= 1.0.2)
-  puppetlabs-haproxy (= 1.5.0)
   puppetlabs-java_ks (>= 0)
   puppetlabs-lvm (>= 0)
   puppetlabs-mysql (= 3.11.0)
