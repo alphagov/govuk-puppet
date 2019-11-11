@@ -35,7 +35,6 @@ AWS_EXCLUDED_NODE_CLASSES = %w[
   ci_agent
   ci_master
   development
-  docker_backend
   email_alert_api
   email_alert_api_postgresql
   licensing_mongo
