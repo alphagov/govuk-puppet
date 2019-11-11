@@ -18,7 +18,6 @@ class govuk_scripts {
   # govuk_check_security_upgrades list packages which need a security upgrade
   file { '/usr/local/bin/govuk_check_security_upgrades':
     ensure => present,
-    #FIXME Needs updating when precise is no longer used
     source => "puppet:///modules/govuk_scripts/usr/local/bin/govuk_check_security_upgrades_${::lsbdistcodename}",
     mode   => '0755',
   }
