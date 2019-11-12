@@ -87,7 +87,7 @@ begin
       age = (Date.today - key.create_date.to_date).to_i
       puts "#{key.access_key_id}: #{key.create_date.to_date}" if options[:debug]
       if age >= options[:days]
-        failed_keys << [key.access_key_id, age, user.user_name].join(' ')
+        failed_keys << "#{user.user_name} (#{age} days)"
       end
     end
   end
