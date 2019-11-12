@@ -39,7 +39,7 @@ govuk_app_enable_services: false
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_cdnlogs::govuk_monitoring_enabled: false
-govuk_cdnlogs::bouncer_monitoring_enabled: falseA
+govuk_cdnlogs::bouncer_monitoring_enabled: false
 
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
