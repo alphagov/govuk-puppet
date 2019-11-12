@@ -495,7 +495,6 @@ govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform_docs::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::vale::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_api_redis::allowed_api_ip_range: "%{hiera('environment_ip_prefix')}.4.0/24"
 govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
