@@ -84,14 +84,19 @@ class govuk_cdnlogs (
     require => File['/etc/logrotate.cdn_logs_hourly.conf'],
   }
 
+  $check_rsyslog_status_bouncer_ensure = $bouncer_monitoring_enabled ? {
+    true    => present,
+    default => absent,
+  }
+
   file { '/usr/local/bin/check_rsyslog_status_bouncer':
-    ensure  => present,
+    ensure  => $check_rsyslog_status_bouncer_ensure,
     mode    => '0755',
     content => template('govuk_cdnlogs/usr/local/bin/check_rsyslog_status_bouncer.sh.erb'),
   }
 
   cron { 'check_rsyslog_status_bouncer':
-    ensure      => present,
+    ensure      => $check_rsyslog_status_bouncer_ensure,
     environment => ["MAILTO=''"],
     minute      => '*/5',
     command     => '/usr/local/bin/check_rsyslog_status_bouncer',
