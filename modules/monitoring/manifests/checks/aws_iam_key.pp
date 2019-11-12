@@ -16,6 +16,9 @@
 # [*enabled*]
 #   Should we enable the monitoring check?
 #
+# [*max_aws_iam_key_age*]
+#   Maximum age of AWS IAM key in days
+#
 class monitoring::checks::aws_iam_key (
   $region = undef,
   $access_key = undef,
