@@ -93,16 +93,16 @@ begin
   end
 
   unless failed_keys.empty?
-    puts "There are #{failed_keys.length} active keys older than #{options[:days]} days: "
+    puts "WARNING: There are #{failed_keys.length} active keys older than #{options[:days]} days: "
     puts failed_keys.join("\n")
     exit 1
   end
 rescue SystemExit
   raise
 rescue Exception => e
-  puts 'Unexpected error: ' + e.message + ' <' + e.backtrace[0] + '>'
+  puts 'CRITICAL: Unexpected error: ' + e.message + ' <' + e.backtrace[0] + '>'
   exit 2
 end
 
 puts 'No users with outdated keys found.'
-exit 1
+exit 0

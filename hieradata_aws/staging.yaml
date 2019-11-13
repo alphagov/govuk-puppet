@@ -289,7 +289,9 @@ monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
+monitoring::checks::aws_iam_key::enabled: true
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
+monitoring::checks::aws_iam_key::max_aws_iam_key_age: 320
 
 monitoring::checks::lb::region: 'eu-west-1'
 monitoring::checks::lb::loadbalancers:
