@@ -260,14 +260,3 @@ govuk_env_sync::tasks:
   "pull_licensify_refdata_staging_daily":
     <<: *pull_licensify
     database: "licensify-refdata"
-  "pull_govuk_assets_production":
-    ensure: "present"
-    hour: "2"
-    minute: "00"
-    action: "pull"
-    dbms: "documentdb"
-    storagebackend: "s3"
-    database: "govuk_assets_production"
-    temppath: "/tmp/govuk_assets_production"
-    url: "govuk-production-database-backups"
-    path: "mongo-normal"
