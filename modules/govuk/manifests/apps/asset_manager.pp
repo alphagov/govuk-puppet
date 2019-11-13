@@ -27,6 +27,12 @@
 #   An array of MongoDB instance hostnames
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if asset manager uses documentdb rather than mongodb
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if asset manager uses documentdb rather than mongodb
 # [*aws_s3_bucket_name*]
 #   The name of the AWS S3 bucket to use for storing/serving assets
 # [*aws_region*]
@@ -59,6 +65,8 @@ class govuk::apps::asset_manager(
   $jwt_auth_secret = undef,
   $mongodb_nodes,
   $mongodb_name = 'govuk_assets_production',
+  $mongodb_username = '',
+  $mongodb_password = '',
   $aws_s3_bucket_name = undef,
   $aws_region = undef,
   $aws_access_key_id = undef,
@@ -136,6 +144,8 @@ class govuk::apps::asset_manager(
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
     }
 
     govuk::procfile::worker { $app_name:
@@ -156,5 +166,6 @@ class govuk::apps::asset_manager(
         varname => 'AWS_SECRET_KEY',
         value   => $aws_secret_access_key;
     }
+
   }
 }
