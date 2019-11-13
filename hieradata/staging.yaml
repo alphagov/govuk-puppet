@@ -409,7 +409,9 @@ licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::whitehall_overdue_check_period: 'inoffice'
 monitoring::checks::ses::region: eu-west-1
+monitoring::checks::aws_iam_key::enabled: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
+monitoring::checks::aws_iam_key::max_aws_iam_key_age: 90
 monitoring::checks::smokey::environment: 'staging'
 monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::uptime_collector::environment: 'staging'
