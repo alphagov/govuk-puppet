@@ -74,7 +74,7 @@
             },
             {
               "refId": "B",
-              "target": "alias(summarize(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d', 'avg', true), '30 day average')"
+              "target": "alias(movingAverage(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d'), '30 day average')"
             },
             {
               "hide": true,
