@@ -48,7 +48,7 @@
             set +e
 
             echo "Running Data Sync"
-            bash sync staging aws-staging
+            /usr/local/bin/with_reboot_lock bash sync staging aws-staging
             EXITCODE=$?
 
             exit $EXITCODE
