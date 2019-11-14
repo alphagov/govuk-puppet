@@ -11,6 +11,10 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn worker processes to run
+#   Default: undef
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -33,6 +37,7 @@
 class govuk::apps::collections(
   $vhost = 'collections',
   $port = '3070',
+  $unicorn_worker_processes = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $nagios_memory_warning = undef,
@@ -40,16 +45,17 @@ class govuk::apps::collections(
   $email_alert_api_bearer_token = undef,
 ) {
   govuk::app { 'collections':
-    app_type               => 'rack',
-    port                   => $port,
-    health_check_path      => '/topic/oil-and-gas',
-    log_format_is_json     => true,
-    asset_pipeline         => true,
-    asset_pipeline_prefix  => 'collections',
-    vhost                  => $vhost,
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    sentry_dsn             => $sentry_dsn,
+    app_type                 => 'rack',
+    port                     => $port,
+    unicorn_worker_processes => $unicorn_worker_processes,
+    health_check_path        => '/topic/oil-and-gas',
+    log_format_is_json       => true,
+    asset_pipeline           => true,
+    asset_pipeline_prefix    => 'collections',
+    vhost                    => $vhost,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
+    sentry_dsn               => $sentry_dsn,
   }
 
   Govuk::App::Envvar {
