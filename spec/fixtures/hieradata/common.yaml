@@ -66,7 +66,6 @@ govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform_docs::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::vale::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
