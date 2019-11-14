@@ -117,6 +117,22 @@ govuk_env_sync::tasks:
   "pull_licensify_refdata_production_daily":
     <<: *pull_licensify
     database: "licensify-refdata"
+  "push_licensify_staging_daily": &push_licensify_staging
+    ensure: "present"
+    hour: "5"
+    minute: "15"
+    action: "push"
+    dbms: "documentdb"
+    storagebackend: "s3"
+    database: "licensify"
+    temppath: "/tmp/licensify_staging"
+    url: "govuk-staging-database-backups"
+    path: "mongo-licensing"
+  "push_licensify_refdata_staging_daily":
+    <<: *push_licensify_staging
+    database: "licensify-refdata"
+    hour: "5"
+    minute: "45"
   "pull_mysql_whitehall_production_daily":
     ensure: "present"
     hour: "3"

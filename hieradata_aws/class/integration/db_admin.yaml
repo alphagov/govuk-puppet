@@ -255,8 +255,9 @@ govuk_env_sync::tasks:
   "pull_licensify_audit_staging_daily":
     <<: *pull_licensify
     database: "licensify-audit"
-    hour: "6"
-    minute: "0"
+    ensure: "absent"
   "pull_licensify_refdata_staging_daily":
     <<: *pull_licensify
     database: "licensify-refdata"
+    hour: "6"
+    minute: "30"
