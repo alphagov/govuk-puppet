@@ -34,7 +34,7 @@
 
             cd "$WORKSPACE/whitehall/"
             echo "Sanitising whitehall database"
-            ./sanitise-and-sync-db.sh "<%= @whitehall_mysql_password %>" "<%= @mysql_dst_root_pw %>"
+            /usr/local/bin/with_reboot_lock ./sanitise-and-sync-db.sh "<%= @whitehall_mysql_password %>" "<%= @mysql_dst_root_pw %>"
     publishers:
       - trigger-parameterized-builds:
         - project: Success_Passive_Check
