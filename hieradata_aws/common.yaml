@@ -395,6 +395,7 @@ govuk::apps::ckan::gunicorn_worker_processes: "8"
 govuk::apps::ckan::s3_aws_access_key_id: "%{hiera('s3_aws_access_key_id')}"
 govuk::apps::ckan::s3_aws_secret_access_key: "%{hiera('s3_aws_secret_access_key')}"
 
+govuk::apps::collections::unicorn_worker_processes: 4
 govuk::apps::collections::nagios_memory_warning: 900
 govuk::apps::collections::nagios_memory_critical: 1000
 
