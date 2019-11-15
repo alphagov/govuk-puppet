@@ -644,7 +644,6 @@ govuk::apps::search_api::rabbitmq::enable_publishing_listener: true
 govuk::apps::search_api::rabbitmq_user: 'search-api'
 govuk::apps::search_api::redis_host: 'backend-redis'
 govuk::apps::search_api::redis_port: '6379'
-govuk::apps::search_api::elasticsearch_hosts: 'http://elasticsearch6'
 govuk::apps::search_api::unicorn_worker_processes: "9"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'

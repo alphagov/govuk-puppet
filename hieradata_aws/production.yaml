@@ -144,6 +144,7 @@ govuk::apps::email_alert_api::checks::internal_failure: false
 govuk::apps::email_alert_api::checks::technical_failure: false
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false
+govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
@@ -154,6 +155,7 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@al
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
 govuk::apps::search_api::bucket_name: 'govuk-production-sitemaps'
+govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
@@ -167,7 +169,7 @@ govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch6.blue.production.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 
 govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '0 6 * * 1-5' # Every weekday at 6am
 
