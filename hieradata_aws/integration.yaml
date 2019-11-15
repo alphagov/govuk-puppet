@@ -39,11 +39,13 @@ govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fc
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
+govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::router::sentry_environment: 'integration'
 govuk::apps::search_api::bucket_name: 'govuk-integration-sitemaps'
+govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-integration-search-relevancy'
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'
@@ -93,7 +95,7 @@ licensify::apps::licensify_feed::environment: 'integration'
 
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch6.blue.integration.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: "integration-%{hiera('stackname')}-aws"

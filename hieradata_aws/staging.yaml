@@ -148,12 +148,14 @@ govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
+govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_api::bucket_name: 'govuk-staging-sitemaps'
+govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::signon::instance_name: 'staging'
@@ -164,7 +166,7 @@ govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk_search::monitoring::es_port: '80'
-govuk_search::monitoring::es_host: 'elasticsearch6.blue.production.govuk-internal.digital'
+govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
