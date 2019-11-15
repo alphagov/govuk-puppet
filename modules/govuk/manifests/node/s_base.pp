@@ -119,11 +119,11 @@ class govuk::node::s_base (
     ensure => absent,
   }
 
-  file { '/etc/ssl/certs/rds_cacert.pem':
-    ensure  => present,
-    owner   => 'root',
-    group   => 'root',
-    mode    => '0644',
-    content => template('govuk/etc/ssl/certs/rds_cacert.pem'),
+  file { '/etc/ssl/certs/rds-combined-ca-bundle.pem':
+    ensure => present,
+    owner  => 'root',
+    group  => 'root',
+    mode   => '0644',
+    source => 'puppet:///modules/govuk/etc/ssl/certs/rds-combined-ca-bundle.pem',
   }
 }
