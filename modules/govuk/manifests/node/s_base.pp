@@ -119,6 +119,11 @@ class govuk::node::s_base (
     ensure => absent,
   }
 
+  # Old RDS-only cert bundle, superseded by rds-combined-ca-bundle.pem.
+  file { '/etc/ssl/certs/rds_cacert.pem':
+    ensure  => absent,
+  }
+
   file { '/etc/ssl/certs/rds-combined-ca-bundle.pem':
     ensure => present,
     owner  => 'root',
