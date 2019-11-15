@@ -18,7 +18,7 @@ define govuk::apps::email_alert_api::delivery_attempt_status_check(
   @@icinga::check::graphite { "email-alert-api-delivery-attempt-${title}":
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => "sum(stats.govuk.app.email-alert-api.*.delivery_attempt.status.${title})",
+    target    => "sum(stats_counts.govuk.app.email-alert-api.*.delivery_attempt.status.${title})",
     args      => '--ignore-missing',
     warning   => '0.5',
     critical  => '1',
