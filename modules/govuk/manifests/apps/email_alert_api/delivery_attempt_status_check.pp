@@ -19,6 +19,7 @@ define govuk::apps::email_alert_api::delivery_attempt_status_check(
     ensure    => $ensure,
     host_name => $::fqdn,
     target    => "sum(stats.govuk.app.email-alert-api.*.delivery_attempt.status.${title})",
+    args      => '--ignore-missing',
     warning   => '0.5',
     critical  => '1',
     from      => '1hour',
