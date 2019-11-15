@@ -17,4 +17,13 @@ class govuk::apps::email_alert_api::checks(
   delivery_attempt_status_check { 'technical_failure':
     ensure => $technical_failure_ensure,
   }
+
+  @@icinga::check::graphite { 'email-alert-api-notify-email-send-request-success':
+    host_name => $::fqdn,
+    target    => 'summarize(sum(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success),"1day")',
+    warning   => '3200000', # 4,000,000 * 0.8
+    critical  => '3600000', # 4,000,000 * 0.9
+    from      => '24hours',
+    desc      => 'High number of email send requests',
+  }
 }
