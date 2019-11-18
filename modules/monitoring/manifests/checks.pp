@@ -46,7 +46,9 @@ class monitoring::checks (
   include monitoring::checks::cloudwatch
   include monitoring::checks::aws_iam_key
 
-  include govuk::apps::email_alert_api::checks
+  if $::aws_migration == undef {
+    include govuk::apps::email_alert_api::checks
+  }
 
   $app_domain = hiera('app_domain')
 
