@@ -31,6 +31,7 @@ class govuk::apps::ckan::db (
   govuk_postgresql::db { 'ckan_production':
     user                    => $user,
     password                => $password,
+    connection_limit        => '1000',
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     allow_auth_from_lb      => $allow_auth_from_lb,
@@ -42,6 +43,7 @@ class govuk::apps::ckan::db (
   govuk_postgresql::db { 'ckan_pycsw_production':
     user                    => $user,
     password                => $password,
+    connection_limit        => '1000',
     allow_auth_from_backend => true,
     backend_ip_range        => $backend_ip_range,
     allow_auth_from_lb      => $allow_auth_from_lb,
