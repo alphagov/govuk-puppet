@@ -25,6 +25,10 @@
 # differs from postgresql::server::db which has a default of 'postgres'
 # Default: $user
 #
+# [*connection_limit*]
+# An optional limit on concurrent connections for the user (role).
+# Default: '-1' (no limit)
+#
 # [*encoding*]
 # An optional database encoding.
 # Default: UTF8
@@ -64,6 +68,7 @@ define govuk_postgresql::db (
     $password,
     $database                = undef,
     $owner                   = undef,
+    $connection_limit        = '-1',
     $encoding                = 'UTF8',
     $extensions              = [],
     $allow_auth_from_backend = false,
@@ -96,9 +101,10 @@ define govuk_postgresql::db (
 
     if ! defined(Postgresql::Server::Role[$user]) {
         @postgresql::server::role { $user:
-            password_hash => $password_hash,
-            tag           => 'govuk_postgresql::server::not_slave',
-            rds           => $rds,
+            password_hash    => $password_hash,
+            tag              => 'govuk_postgresql::server::not_slave',
+            rds              => $rds,
+            connection_limit => $connection_limit,
         }
     }
 
