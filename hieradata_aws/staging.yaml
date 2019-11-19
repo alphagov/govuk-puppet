@@ -110,8 +110,17 @@ node_class: &node_class
 govuk::node::s_base::node_apps:
   <<: *node_class
 
+# Licensify is a special case because it is not a regular govuk app
+# so we only define a Jenkins deploy app job for it.
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
+  licensing_frontend:
+    apps:
+      - licensify
+  licensing_backend:
+    apps:
+      - licensify-admin
+      - licensify-feed
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'

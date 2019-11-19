@@ -130,6 +130,8 @@ govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
+# Licensify is a special case because it is not a regular govuk app
+# so we only define a Jenkins deploy node app job for it.
 govuk_jenkins::deploy_all_apps::apps_on_nodes:
   <<: *node_class
   licensing_frontend:
