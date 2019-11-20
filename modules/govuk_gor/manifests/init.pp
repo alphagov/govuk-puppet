@@ -80,7 +80,7 @@ class govuk_gor(
   @@icinga::check { "check_gor_running_${::hostname}":
     ensure              => $nagios_ensure,
     check_command       => 'check_nrpe!check_proc_running!goreplay',
-    check_period        => 'inoffice',
+    check_period        => 'not_data_sync',
     host_name           => $::fqdn,
     service_description => 'gor running',
     notes_url           => monitoring_docs_url(gor),
