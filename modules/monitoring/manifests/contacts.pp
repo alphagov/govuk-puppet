@@ -54,6 +54,9 @@ class monitoring::contacts (
   $midday = '12:00'
   $office_day_end = '17:30'
   $midnight_day_end = '24:00'
+  # This should match up with the govuk_data_sync_in_progress class
+  $data_sync_start = '22:00'
+  $data_sync_end = '05:45'
 
   $all_day = "${midnight_day_start}-${midnight_day_end}"
   $office_day = "${office_day_start}-${office_day_end}"
@@ -61,6 +64,7 @@ class monitoring::contacts (
   $office_day_afternoon = "${midday}-${office_day_end}"
   $oncall_early_day = "${midnight_day_start}-${office_day_start}"
   $oncall_late_day = "${office_day_end}-${midnight_day_end}"
+  $not_data_sync = "${data_sync_end}-${data_sync_start}"
 
   icinga::timeperiod { '24x7':
     timeperiod_alias => '24 Hours A Day, 7 Days A Week',
@@ -100,6 +104,17 @@ class monitoring::contacts (
     thu              => "${oncall_early_day},${oncall_late_day}",
     fri              => "${oncall_early_day},${oncall_late_day}",
     sat              => $all_day,
+  }
+
+  icinga::timeperiod { 'not_data_sync':
+    timeperiod_alias => 'Not when data syncs could be taking place',
+    sun              => $not_data_sync,
+    mon              => $not_data_sync,
+    tue              => $not_data_sync,
+    wed              => $not_data_sync,
+    thu              => $not_data_sync,
+    fri              => $not_data_sync,
+    sat              => $not_data_sync,
   }
 
   icinga::timeperiod { 'never':

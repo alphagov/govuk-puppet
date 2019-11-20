@@ -92,6 +92,10 @@
 #   Additional contact groups to pass to the icinga::checks for this
 #   application.
 #
+# [*check_period*]
+#   The title of a `Icinga::Timeperiod` resource describing when Icinga
+#   checks relating to this app should run.
+#
 # [*deny_framing*]
 # should we allow this app to be framed
 #
@@ -290,6 +294,7 @@ define govuk::app (
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
   $additional_check_contact_groups = undef,
+  $check_period = undef,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $vhost = undef,
@@ -382,6 +387,7 @@ define govuk::app (
     health_check_service_template       => $health_check_service_template,
     health_check_notification_period    => $health_check_notification_period,
     additional_check_contact_groups     => $additional_check_contact_groups,
+    check_period                        => $check_period,
     deny_framing                        => $deny_framing,
     enable_nginx_vhost                  => $enable_nginx_vhost,
     nagios_memory_warning               => $nagios_memory_warning,

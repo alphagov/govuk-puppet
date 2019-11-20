@@ -105,12 +105,18 @@ class govuk::apps::govuk_crawler_worker (
       $service_ensure = running
     }
 
+    $app_check_period = $disable_during_data_sync ? {
+      true    => 'not_data_sync',
+      default => '24x7',
+    }
+
     govuk::app { $app_name:
       app_type               => 'bare',
       log_format_is_json     => true,
       port                   => $port,
       command                => './govuk_crawler_worker -json',
       health_check_path      => '/healthcheck',
+      check_period           => $app_check_period,
       nagios_memory_warning  => $nagios_memory_warning,
       nagios_memory_critical => $nagios_memory_critical,
       ensure_service         => $service_ensure,

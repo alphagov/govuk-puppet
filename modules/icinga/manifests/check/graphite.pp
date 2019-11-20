@@ -32,6 +32,10 @@
 #   when passed by the exporting node, rather than lazily evaluated inside
 #   the define by the collecting node.
 #
+# [*check_period*]
+#   The title of a `Icinga::Timeperiod` resource describing when this
+#   service should be actively checked.
+#
 # [*use*]
 #   The title of a `Icinga::Service_template` resource which this service
 #   should inherit. The downstream default is `govuk_regular_service`
@@ -67,6 +71,7 @@ define icinga::check::graphite(
   $warning,
   $critical,
   $host_name,
+  $check_period = undef,
   $use  = undef,
   $args = '',
   $from = '5minutes',
@@ -120,6 +125,7 @@ ${crit_line}${warn_line}\
     check_command              => "${check_command}!${target}!${warning}!${critical}!${args_real}",
     service_description        => $desc,
     host_name                  => $host_name,
+    check_period               => $check_period,
     use                        => $use,
     action_url                 => $action_url_real,
     notes_url                  => $notes_url,
