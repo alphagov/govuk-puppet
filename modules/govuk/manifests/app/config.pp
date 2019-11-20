@@ -18,6 +18,10 @@
 #   Additional contact groups to pass to the icinga::checks for this
 #   application.
 #
+# [*check_period*]
+#   The title of a `Icinga::Timeperiod` resource describing when Icinga
+#   checks relating to this app should run.
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -92,6 +96,7 @@ define govuk::app::config (
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
   $additional_check_contact_groups = undef,
+  $check_period = undef,
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $unicorn_herder_timeout = 'NOTSET',
@@ -324,13 +329,14 @@ define govuk::app::config (
       regex  => pick($collectd_process_regex, $default_collectd_process_regex),
     }
     @@icinga::check::graphite { "check_${title_underscore}_app_process_count_${::hostname}":
-      ensure    => $ensure,
-      target    => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.processes",
-      warning   => '@0', # WARN if there are 0 processes
-      critical  => '@-1', # Don't use the CRITICAL status for now
-      desc      => "No processes found for ${title_underscore}",
-      host_name => $::fqdn,
-      from      => '30seconds',
+      ensure       => $ensure,
+      target       => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.processes",
+      warning      => '@0', # WARN if there are 0 processes
+      critical     => '@-1', # Don't use the CRITICAL status for now
+      check_period => $check_period,
+      desc         => "No processes found for ${title_underscore}",
+      host_name    => $::fqdn,
+      from         => '30seconds',
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure         => $ensure,
@@ -444,6 +450,7 @@ define govuk::app::config (
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
         check_command       => "check_app_health!check_json_healthcheck!${port} ${health_check_path}",
+        check_period        => $check_period,
         service_description => $healthcheck_desc,
         use                 => $health_check_service_template,
         notification_period => $health_check_notification_period,
@@ -455,6 +462,7 @@ define govuk::app::config (
       @@icinga::check { "check_app_${title}_up_on_${::hostname}":
         ensure              => $ensure,
         check_command       => "check_app_health!check_app_up!${port} ${health_check_path}",
+        check_period        => $check_period,
         service_description => "${title} app healthcheck",
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(app-healthcheck-failed),
@@ -494,6 +502,7 @@ define govuk::app::config (
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
     ensure              => $ensure,
     check_command       => "check_nrpe!check_upstart_status!${title}",
+    check_period        => $check_period,
     service_description => "${title} upstart not up",
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
