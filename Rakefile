@@ -127,7 +127,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::config::theme_text_colour
     govuk_postgresql::server::standby::pgpassfile_enabled
     hosts::production::ip_bouncer
-    hosts::production::licensify_hosts
     mongodb::s3backup::backup::s3_bucket
     mongodb::s3backup::backup::s3_bucket_daily
 
