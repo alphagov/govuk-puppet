@@ -18,7 +18,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_dns
   - govuk_jenkins::jobs::deploy_docs
   - govuk_jenkins::jobs::deploy_lambda_app
-  - govuk_jenkins::jobs::deploy_licensify
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_router_data
   - govuk_jenkins::jobs::email_alert_check
