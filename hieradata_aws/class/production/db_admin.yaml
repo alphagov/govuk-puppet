@@ -65,6 +65,26 @@ govuk_env_sync::tasks:
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  "push_licensify_production": &push_licensify
+    hour: "1"
+    minute: "30"
+    action: "push"
+    dbms: "documentdb"
+    storagebackend: "s3"
+    database: "licensify"
+    temppath: "/tmp/licensify_production"
+    url: "govuk-production-database-backups"
+    path: "mongo-licensing"
+  "push_licensify_refdata_production":
+    <<: *push_licensify
+    database: "licensify-refdata"
+  "push_licensify_audit_production":
+    <<: *push_licensify
+    hour: "1"
+    minute: "45"
+    database: "licensify-audit"
+  # Install configs for Licensify restores but without cron entries.
+  # This allows for manual restores when needed.
   "pull_licensify_production": &pull_licensify
     ensure: "disabled"
     hour: "1"
