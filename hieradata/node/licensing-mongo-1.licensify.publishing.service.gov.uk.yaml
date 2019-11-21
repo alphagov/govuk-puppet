@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   push_licensify: &push_licensify
-    ensure: present
+    ensure: absent
     hour: '4'
     minute: '0'
     action: push
