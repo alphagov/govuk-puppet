@@ -432,10 +432,6 @@ hosts::production::redirector::hosts:
   bouncer-6:
     ip: '10.3.13.6'
 
-licensify::apps::licensify_admin::environment: 'production'
-licensify::apps::licensify::environment: 'production'
-licensify::apps::licensify_feed::environment: 'production'
-
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
 monitoring::checks::ses::region: us-east-1
 monitoring::checks::aws_iam_key::enabled: false

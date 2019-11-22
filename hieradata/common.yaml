@@ -523,17 +523,6 @@ govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::node::s_licensing_backend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk::node::s_licensing_frontend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensing-backend-1.licensify'
-  - 'licensing-backend-2.licensify'
-govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensing-frontend-1.licensify'
-  - 'licensing-frontend-2.licensify'
-
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
@@ -979,7 +968,6 @@ hosts::production::ip_api_lb: '10.7.1.2'
 hosts::production::ip_backend_lb: '10.3.1.2'
 hosts::production::ip_draft_api_lb: '10.7.2.2'
 hosts::production::ip_frontend_lb: '10.2.1.2'
-hosts::production::ip_licensify_lb: '10.5.1.2'
 
 hosts::production::api::hosts:
   api-1:
@@ -1201,26 +1189,6 @@ hosts::production::external_licensify: true
 hosts::production::frontend::app_hostnames:
   - 'whitehall-frontend'
   - 'draft-whitehall-frontend'
-
-hosts::production::licensify::hosts:
-  licensify-lb-1:
-    ip: '10.5.0.101'
-  licensify-lb-2:
-    ip: '10.5.0.102'
-  licensing-frontend-1:
-    ip: '10.5.0.12'
-  licensing-frontend-2:
-    ip: '10.5.0.13'
-  licensing-backend-1:
-    ip: '10.5.0.14'
-  licensing-backend-2:
-    ip: '10.5.0.15'
-  licensing-mongo-1:
-    ip: '10.5.0.16'
-  licensing-mongo-2:
-    ip: '10.5.0.17'
-  licensing-mongo-3:
-    ip: '10.5.0.18'
 
 hosts::production::management::hosts:
   jenkins-1:

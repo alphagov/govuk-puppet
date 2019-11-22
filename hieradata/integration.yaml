@@ -71,7 +71,6 @@ govuk_jenkins::job_builder::environment: 'integration'
 govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-integration'
   - 'carrenza-integration-dr'
-  - 'carrenza-integration-licensify'
 
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::deploy_dns::zones:
@@ -103,7 +102,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
 govuk::node::s_graphite::graphite_backup_hour: 12
-govuk::node::s_licensify_lb::enable_feed_console: true
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-integration'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
@@ -158,12 +156,6 @@ hosts::production::backend::app_hostnames:
   - 'whitehall-admin'
 
 icinga::client::check_cputype::cputype: 'amd'
-
-licensify::apps::licensify_admin::environment: 'integration'
-licensify::apps::licensify::environment: 'integration'
-licensify::apps::licensify_feed::environment: 'integration'
-licensify::apps::licensify::alert_5xx_warning_rate: 0.1
-licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
 monitoring::ci_environment: true
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
