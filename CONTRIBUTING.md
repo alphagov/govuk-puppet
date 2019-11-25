@@ -25,5 +25,8 @@ You can propose changes using a pull request.
 
 ## Tests
 
-Our tests run on Travis (for all pull requests) and on our own Jenkins
-instance (from branches in the alphagov GitHub organisation).
+Our tests run on our own Jenkins instance. This is restricted to
+branches in the `alphagov` GitHub org. We have [a process for
+running our CI checks on external contributors PRs](pr-process).
+
+[pr-process]: https://docs.publishing.service.gov.uk/manual/merge-pr.html#a-change-from-an-external-contributor
