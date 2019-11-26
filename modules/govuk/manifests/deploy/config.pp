@@ -119,6 +119,7 @@ class govuk::deploy::config(
       # By default traffic should route internally
       'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
       'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
+      'PLEK_SERVICE_LICENSIFY_URI': value => "https://licensify.${licensify_app_domain}";
     }
 
     # 1. Publishing API and Email Alert API still in Carrenza Production but
