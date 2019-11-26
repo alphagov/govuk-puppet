@@ -19,6 +19,8 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
   email_alert_api_db_admin
   frontend
   gatling
+  licensing_frontend
+  licensing_backend
   mapit
   mirrorer
   publishing_api_db_admin
