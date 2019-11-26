@@ -66,7 +66,6 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::backend::app_hostnames
     hosts::production::backend::hosts
     hosts::production::ci::hosts
-    hosts::production::external_licensify
     hosts::production::frontend::app_hostnames
     hosts::production::frontend::hosts
     hosts::production::ip_api_lb

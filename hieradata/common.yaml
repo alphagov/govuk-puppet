@@ -1184,8 +1184,6 @@ hosts::production::frontend::hosts:
   frontend-lb-2:
     ip: '10.1.2.102'
 
-hosts::production::external_licensify: true
-
 hosts::production::frontend::app_hostnames:
   - 'whitehall-frontend'
   - 'draft-whitehall-frontend'
