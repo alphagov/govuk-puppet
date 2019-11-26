@@ -19,7 +19,7 @@ class statsd(
     require => Class['nodejs'],
   }
 
-  file { '/etc/statsd.conf':
+  file { '/etc/statsd/config.js':
     content => template('statsd/etc/statsd.conf.erb'),
     require => Package['statsd'],
     notify  => Service['statsd'],
@@ -27,7 +27,7 @@ class statsd(
 
   service { 'statsd':
     ensure  => running,
-    require => [Package['statsd'], File['/etc/statsd.conf']],
+    require => [Package['statsd'], File['/etc/statsd/config.js']],
   }
 
   @@icinga::check { "check_statsd_upstart_up_${::hostname}":
