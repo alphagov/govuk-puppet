@@ -72,8 +72,6 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::ip_backend_lb
     hosts::production::ip_draft_api_lb
     hosts::production::ip_frontend_lb
-    hosts::production::ip_licensify_lb
-    hosts::production::licensify::hosts
     hosts::production::management::hosts
     hosts::production::redirector::hosts
     jenkins_admin_permission_list
@@ -343,6 +341,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_gatling::repo
     govuk::node::s_gatling::ssh_public_key
     govuk::node::s_gatling::ssh_private_key
+    govuk::node::s_licensing_backend::apt_mirror_hostname
+    govuk::node::s_licensing_frontend::apt_mirror_hostname
     govuk::node::s_postgresql_primary::alert_hostname
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars
@@ -468,6 +468,11 @@ task :check_consistency_between_aws_and_carrenza do
     licensify::apps::configfile::uncollected_expiry_start_days
     licensify::apps::configfile::upload_url_base
     licensify::apps::configfile::user_details_url
+    licensify::apps::licensify::alert_5xx_critical_rate
+    licensify::apps::licensify::alert_5xx_warning_rate
+    licensify::apps::licensify::environment
+    licensify::apps::licensify_admin::environment
+    licensify::apps::licensify_feed::environment
   ]
 
   failed = false
