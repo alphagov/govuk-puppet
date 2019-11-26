@@ -51,7 +51,6 @@ class grafana::dashboards (
       "${dashboard_directory}/aws-rds.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-rds.json';
       "${dashboard_directory}/aws-s3.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-s3.json';
       "${dashboard_directory}/detailed_search_api_queues.json": source => 'puppet:///modules/grafana/dashboards_aws/detailed_search_api_queues.json';
-      "${dashboard_directory}/search_api_elasticsearch.json": source => 'puppet:///modules/grafana/dashboards_aws/search_api_elasticsearch.json';
       "${dashboard_directory}/search_api_queues.json": source => 'puppet:///modules/grafana/dashboards_aws/search_api_queues.json';
       "${dashboard_directory}/mongodb.json": source => 'puppet:///modules/grafana/dashboards_aws/mongodb.json';
       "${dashboard_directory}/search_api_index_size.json": content => template('grafana/dashboards_aws/search_api_index_size.json.erb');
