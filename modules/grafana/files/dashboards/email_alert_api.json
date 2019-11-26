@@ -47,6 +47,7 @@
       }
     ]
   },
+  "editMode": false,
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -903,7 +904,16 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "30 day average",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 6,
+              "stack": false
+            }
+          ],
           "spaceLength": 10,
           "span": 12,
           "stack": true,
@@ -917,6 +927,12 @@
             {
               "refId": "B",
               "target": "alias(summarize(groupByNode(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure, 'sum'), 1, 'sum'), '1d', 'sum', false), 'Failures')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias(movingAverage(groupByNode(summarize(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, 'sum'), '1d', 'sum', false), 1, 'sum'), '30d'), '30 day average')",
               "textEditor": true
             }
           ],
