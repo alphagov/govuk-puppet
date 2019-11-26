@@ -26,11 +26,15 @@ class govuk_containers::tensorflow_serving(
     image_tag => $image_version,
   }
 
+  file { '/tensorflow-models':
+    ensure => directory,
+  }
+
   ::docker::run { 'tensorflow/serving':
     ports            => ['8501:8501'],
     image            => $image_name,
     require          => Docker::Image[$image_name],
-    extra_parameters => ['-P'],
+    extra_parameters => ['-P', '-v', '/tensorflow-models:/models'],
     command          => "-m ${max_memory} -e MODEL_NAME=${model_name}",
   }
 
