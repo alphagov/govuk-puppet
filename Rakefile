@@ -390,7 +390,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     govuk::apps::ckan::s3_aws_region_name
     govuk::apps::ckan::s3_bucket_name
-    govuk::deploy::config::licensify_app_domain
     govuk::node::s_base::node_apps
     govuk::node::s_cache::real_ip_header
     govuk::node::s_cache::router_as_container
