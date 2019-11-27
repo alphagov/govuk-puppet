@@ -7,9 +7,6 @@
 #
 # === Parameters:
 #
-# [*external_licensify*]
-#   Boolean indicating whether Licensify is hosted externally to this environment.
-#
 # [*ip_api_lb*]
 #   The IP address of the API load-balancer
 #
@@ -25,26 +22,16 @@
 # [*ip_frontend_lb*]
 #   The IP address of the frontend load-balancer
 #
-# [*ip_licensify_lb*]
-#   The IP address of the licensify load-balancer
-#
-# [*licensify_hosts*]
-#   Hash of host entries which should be created for Licensify if it's
-#   hosted externally.
-#
 # [*releaseapp_host_org*]
 #   Whether to create the `release.$app_domain` vhost alias within this environment.
 #   Default: false
 #
 class hosts::production (
-  $external_licensify          = false,
   $ip_api_lb                   = '127.0.0.1',
   $ip_backend_lb               = '127.0.0.1',
   $ip_bouncer                  = '127.0.0.1',
   $ip_draft_api_lb             = '127.0.0.1',
   $ip_frontend_lb              = '127.0.0.1',
-  $ip_licensify_lb             = '127.0.0.1',
-  $licensify_hosts             = {},
   $releaseapp_host_org         = false,
 ) {
 
@@ -56,7 +43,6 @@ class hosts::production (
     $ip_bouncer,
     $ip_draft_api_lb,
     $ip_frontend_lb,
-    $ip_licensify_lb
   )
 
   #api vdc machines
@@ -74,12 +60,6 @@ class hosts::production (
   }
 
   class { 'hosts::production::ci': }
-
-  # elms (licence finder) vdc machines
-  class { 'hosts::production::licensify':
-    app_domain     => $app_domain,
-    internal_lb_ip => $ip_licensify_lb,
-  }
 
   #frontend vdc machines
   class { 'hosts::production::frontend':
@@ -100,16 +80,7 @@ class hosts::production (
 
   ## 3rd-party hosts
 
-  # This is used by licensing / licensify hosts
-  host { 'gds01prod.aptosolutions.co.uk':
-    ip => '185.40.10.139',
-  }
-
   host { 'vcloud-no-vpn.carrenza.com':
     ip => '31.210.240.69',
-  }
-
-  if $external_licensify {
-    create_resources('host', $licensify_hosts)
   }
 }

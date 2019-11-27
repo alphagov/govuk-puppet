@@ -844,13 +844,6 @@ govuk::node::s_licensing_backend::apt_mirror_hostname: "%{hiera('apt_mirror_host
 
 govuk::node::s_licensing_frontend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk::node::s_licensify_lb::backend_app_servers:
-  - 'licensing-backend'
-  - 'licensing-backend'
-govuk::node::s_licensify_lb::frontend_app_servers:
-  - 'licensing-frontend'
-  - 'licensing-frontend'
-
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"

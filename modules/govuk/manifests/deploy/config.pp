@@ -22,9 +22,6 @@
 # [*app_domain*]
 #   The app domain for the environment eg dev.gov.uk
 #
-# [*licensify_app_domain*]
-#   The app domain for Licensify hosts, which are different in AWS.
-#
 # [*csp_report_only*]
 #   Whether to report content security policy violations rather than block them
 #
@@ -37,7 +34,6 @@ class govuk::deploy::config(
   $govuk_env = 'production',
   $website_root,
   $app_domain,
-  $licensify_app_domain = undef,
   $csp_report_only = false,
   $csp_report_uri = undef,
 ){
