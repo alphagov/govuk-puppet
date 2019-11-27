@@ -28,7 +28,7 @@ class govuk_containers::tensorflow_serving(
 
   file { '/tensorflow-models':
     ensure => directory,
-  }
+  } ->
 
   ::docker::run { 'tensorflow/serving':
     ports            => ['8501:8501'],
