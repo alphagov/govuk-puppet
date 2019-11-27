@@ -105,6 +105,7 @@ define govuk_env_sync::task(
     service_description => $service_desc,
     freshness_threshold => $threshold_secs,
     host_name           => $::fqdn,
+    notes_url           => 'https://docs.publishing.service.gov.uk/manual/govuk-env-sync.html',
   }
 
 }
