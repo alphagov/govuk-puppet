@@ -141,7 +141,6 @@ govuk::apps::content_publisher::email_address_override: "content-publisher-notif
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
-govuk::apps::content_store::plek_service_whitehall_frontend_uri: 'https://whitehall-frontend.staging.publishing.service.gov.uk'
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq::ensure: 'present'
