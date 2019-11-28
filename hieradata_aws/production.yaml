@@ -95,6 +95,12 @@ node_class: &node_class
   search:
     apps:
       - search-api
+  whitehall_backend:
+    apps:
+      - whitehall
+  whitehall_frontend:
+    apps:
+      - whitehall
 
 govuk::node::s_base::node_apps:
   <<: *node_class
