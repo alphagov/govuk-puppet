@@ -205,7 +205,6 @@ hosts::production::api::hosts:
     ip: '10.3.12.31'
 
 hosts::production::backend::app_hostnames:
-  - 'asset-manager'
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
