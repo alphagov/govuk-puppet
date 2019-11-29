@@ -980,10 +980,9 @@ grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
-  authenticating-proxy: {}
-  cache-clearing-service: {}
-  calculators: {}
-  calendars: {}
+  generic:
+    show_sidekiq_graphs: true
+    has_workers: true
   ckan:
     docs_name: 'ckanext-datagovuk'
     # No data in kibana
@@ -992,12 +991,6 @@ grafana::dashboards::application_dashboards:
   collections:
     instance_prefix: 'frontend'
     show_memcached: true
-  content-data-admin:
-    show_sidekiq_graphs: true
-    has_workers: true
-  content-data-api:
-    show_sidekiq_graphs: true
-    has_workers: true
   content-store:
     dependent_app_5xx_errors:
       - calendars
@@ -1012,35 +1005,22 @@ grafana::dashboards::application_dashboards:
       - publishing-api
       - smartanswers
       - whitehall-frontend
-  email-alert-frontend: {}
-  email-alert-api:
-    show_sidekiq_graphs: true
-    has_workers: true
-  email-alert-service: {}
-  feedback: {}
   finder-frontend:
     show_external_request_time: true
     show_memcached: true
     instance_prefix: 'calculators_frontend'
-  frontend: {}
-  government-frontend: {}
   imminence:
     dependent_app_5xx_errors:
       - frontend
     show_sidekiq_graphs: true
     has_workers: true
-  info-frontend: {}
   licencefinder:
     docs_name: 'licence-finder'
-  link-checker-api:
-    show_sidekiq_graphs: true
-    has_workers: true
   local-links-manager:
     dependent_app_5xx_errors:
       - frontend
     instance_prefix: 'backend'
     show_memcached: true
-  manuals-frontend: {}
   mapit:
     dependent_app_5xx_errors:
       - frontend
@@ -1053,8 +1033,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
     instance_prefix: 'publishing_api'
     show_memcached: true
-  router: {}
-  router-api: {}
   search-api:
     # search-api is a sinatra app
     show_controller_errors: false
@@ -1066,8 +1044,6 @@ grafana::dashboards::application_dashboards:
       - collections
       - finder-frontend
       - whitehall-frontend
-  service-manual-frontend: {}
-  sidekiq-monitoring: {}
   smartanswers:
     docs_name: 'smart-answers'
   static:
@@ -1082,15 +1058,6 @@ grafana::dashboards::application_dashboards:
       - manuals-frontend
       - smartanswers
       - whitehall-frontend
-  support:
-    show_sidekiq_graphs: true
-    has_workers: true
-  support-api:
-    show_sidekiq_graphs: true
-    has_workers: true
-  transition:
-    show_sidekiq_graphs: true
-    has_workers: true
 
 grub2::recordfail_timeout: 5
 

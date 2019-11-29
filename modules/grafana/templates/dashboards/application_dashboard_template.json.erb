@@ -1,12 +1,42 @@
 {
   "id": 29,
-  "title": "Application dashboard - <%= @app_name %>",
+  "title": "Application dashboard - <%= @title %>",
   "tags": [],
   "style": "dark",
   "timezone": "browser",
   "editable": true,
   "hideControls": false,
   "sharedCrosshair": false,
+  <% if $title == 'generic' %>
+    "templating": {
+      "list": [
+        {
+          "allValue": null,
+          "current": {
+            "tags": [],
+            "text": "asset-manager",
+            "value": "asset-manager"
+          },
+          "datasource": "Graphite",
+          "hide": 0,
+          "includeAll": false,
+          "label": null,
+          "multi": false,
+          "name": "Application",
+          "options": [],
+          "query": "*.processes-app-*",
+          "refresh": 1,
+          "regex": "/processes-app-(.*)/",
+          "sort": 0,
+          "tagValuesQuery": "",
+          "tags": [],
+          "tagsQuery": "",
+          "type": "query",
+          "useTags": false
+        }
+      ]
+    },
+  <% end %>
   "rows": [
     <% @panel_partials.each_with_index do |row, i| %>
       <%= ',' if i > 0 %> {

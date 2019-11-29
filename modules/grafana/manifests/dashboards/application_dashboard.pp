@@ -29,7 +29,6 @@
 #   application. For example, calculators_frontend vs finder_frontend.
 #
 define grafana::dashboards::application_dashboard (
-  $app_name = $title,
   $docs_name = $title,
   $dashboard_directory = undef,
   $app_domain = undef,
@@ -47,6 +46,12 @@ define grafana::dashboards::application_dashboard (
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
 
 ) {
+  if $title == 'generic' {
+    $app_name = '$Application'
+  } else {
+    $app_name = $title
+  }
+
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
   } else {
@@ -131,7 +136,7 @@ define grafana::dashboards::application_dashboard (
   )
 
   file {
-    "${dashboard_directory}/${app_name}.json":
+    "${dashboard_directory}/${title}.json":
     notify  => Service['grafana-server'],
     content => template('grafana/dashboards/application_dashboard_template.json.erb');
   }
