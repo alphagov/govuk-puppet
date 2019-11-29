@@ -1,0 +1,20 @@
+#!/bin/bash
+
+while getopts ":h:" opt; do
+  case ${opt} in
+    h )
+      GRAFANA_HOST=$OPTARG
+      ;;
+  esac
+done
+
+DASHBOARDS=$(curl -s https://$GRAFANA_HOST/api/search | jq -c '.[]' | grep 'db/' | jq '.title')
+
+if [ ${#DASHBOARDS[@]} -eq 0 ]; then
+  echo "OK: All dashboards are in version control"
+  exit 0
+fi
+
+echo "WARNING: there are dashboards that aren't in version control"
+printf '%s\n' "${DASHBOARDS[@]}"
+exit 1
