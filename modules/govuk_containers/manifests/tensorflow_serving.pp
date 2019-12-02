@@ -10,13 +10,9 @@
 # [*image_version*]
 #   The docker image version to use.
 #
-# [*max_memory*]
-#   The maximum amount of memory Tensorflow Serving should allocate
-#
 class govuk_containers::tensorflow_serving(
   $image_name = 'tensorflow/serving',
   $image_version = 'latest',
-  $max_memory    = 1024,
   $model_name = 'ltr'
 ) {
 
@@ -34,8 +30,7 @@ class govuk_containers::tensorflow_serving(
     ports            => ['8501:8501'],
     image            => $image_name,
     require          => Docker::Image[$image_name],
-    extra_parameters => ['-P', '-v', '/tensorflow-models:/models'],
-    command          => "-m ${max_memory} -e MODEL_NAME=${model_name}",
+    extra_parameters => ['-P', '-v', '/tensorflow-models:/models', "-e MODEL_NAME=${model_name}"],
   }
 
   @@icinga::check { "check_tensorflow_serving_running_${::hostname}":
