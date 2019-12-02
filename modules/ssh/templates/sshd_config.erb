@@ -7,6 +7,11 @@ UsePrivilegeSeparation          yes
 SyslogFacility                  AUTH
 LogLevel                        VERBOSE
 
+# Disable insecure ciphers. Ubuntu 14.04's sshd is so old that it doesn't
+# support removing ciphers from the list, so we have to specify the list
+# of ciphers which we still want.
+Ciphers                         chacha20-poly1305@openssh.com,aes128-ctr,aes192-ctr,aes256-ctr,aes128-gcm@openssh.com,aes256-gcm@openssh.com
+
 LoginGraceTime                  120
 StrictModes                     yes
 
