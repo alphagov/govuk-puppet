@@ -30,13 +30,13 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 141,
+  "id": 149,
   "links": [],
   "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "height": 239,
+      "height": 243,
       "panels": [
         {
           "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email-alert-api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)",
@@ -59,7 +59,7 @@
           "datasource": "Graphite",
           "format": "none",
           "gauge": {
-            "maxValue": 420,
+            "maxValue": 30000,
             "minValue": 0,
             "show": true,
             "thresholdLabels": false,
@@ -104,12 +104,89 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, \"sumSeries\")",
+              "target": "summarize(sumSeries(stats.govuk.app.email-alert-api.*.notify.email_send_request.*), '1min', 'sum', false)",
               "textEditor": false
             }
           ],
-          "thresholds": "300,360",
-          "title": "Notify Email Send Requests/second",
+          "thresholds": "20000,21600",
+          "title": "Notify Emails Sent (Per Minute)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "Graphite",
+          "format": "none",
+          "gauge": {
+            "maxValue": 6000000,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "hideTimeOverride": true,
+          "id": 18,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 2,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "integral(groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, 'sumSeries'))",
+              "textEditor": false
+            }
+          ],
+          "thresholds": "4000000,5000000",
+          "timeFrom": "now/d",
+          "timeShift": null,
+          "title": "Notify Emails Sent (Today)",
           "type": "singlestat",
           "valueFontSize": "80%",
           "valueMaps": [
@@ -149,7 +226,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -229,7 +306,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -291,7 +368,7 @@
     },
     {
       "collapse": false,
-      "height": 247,
+      "height": 298,
       "panels": [
         {
           "aliasColors": {},
@@ -300,7 +377,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 5,
+          "fill": 0,
           "id": 1,
           "legend": {
             "avg": false,
@@ -320,35 +397,40 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "content_changes_created",
+              "fill": 5,
+              "linewidth": 0
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
           "steppedLine": true,
           "targets": [
             {
-              "hide": false,
-              "refId": "A",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.success), 'sum'), 6, 7)",
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.content_changes_created), 'sum'), 5)",
               "textEditor": false
             },
             {
               "hide": false,
-              "refId": "E",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessMessageWorker.success), 'sum'), 6, 7)",
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.success), 'sum'), 7)",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.failure), 'sum'), 6, 7)",
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.failure), 'sum'), 7)",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Content Changes, Messages",
+          "title": "Content Changes",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -389,7 +471,7 @@
           "dashes": false,
           "datasource": "Graphite",
           "fill": 1,
-          "id": 4,
+          "id": 17,
           "legend": {
             "avg": false,
             "current": false,
@@ -403,7 +485,7 @@
           "linewidth": 1,
           "links": [],
           "maxDataPoints": "",
-          "nullPointMode": "null as zero",
+          "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 5,
           "points": false,
@@ -417,28 +499,20 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "aliasByNode(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.processing_time.mean, '5min', 'avg', false)), 7, 9)"
+              "target": "aliasByNode(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.mean, '5min', 'avg', false)), 7, 9)",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "aliasByNode(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.processing_time.upper, '5min', 'max', false)), 7, 9)"
-            },
-            {
-              "hide": false,
-              "refId": "C",
-              "target": "aliasByNode(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessMessageWorker.processing_time.upper, '5min', 'max', false)), 7, 9)"
-            },
-            {
-              "hide": false,
-              "refId": "D",
-              "target": "aliasByNode(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessMessageWorker.processing_time.mean, '5min', 'avg', false)), 7, 9)"
+              "target": "aliasByNode(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.upper, '5min', 'max', false)), 7, 9)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Content Changes, Messages (Duration)",
+          "title": "Content Changes (Duration)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -476,7 +550,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Content Changes, Messages",
+      "title": "Content Changes",
       "titleSize": "h6"
     },
     {
@@ -719,7 +793,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Emails",
+          "title": "Delivery Requests",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -786,19 +860,19 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ImmediateEmailGenerationWorker.processing_time.upper, '5min', 'max', false)), 'upper')",
+              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '5min', 'max', false)), 'upper')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ImmediateEmailGenerationWorker.processing_time.mean, '5min', 'avg', false)), 'mean')",
+              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '5min', 'avg', false)), 'mean')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ImmediateEmailGenerationJob (Duration)",
+          "title": "Delivery Requests (Duration)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -836,7 +910,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Workload",
+      "title": "Delivery Requests",
       "titleSize": "h6"
     },
     {
@@ -1399,7 +1473,6 @@
               "target": "aliasByNode(removeBelowValue(maxSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.DailyDigestInitiatorWorker.success, '1h', 'max', false)), 1), 6)"
             }
           ],
-          "thresholds": [],
           "timeFrom": "7d",
           "timeShift": null,
           "title": "Digest Runs",
@@ -1484,7 +1557,6 @@
               "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.workers.DigestEmailGenerationWorker.processing_time.sum), 'email processing time')"
             }
           ],
-          "thresholds": [],
           "timeFrom": "7d",
           "timeShift": null,
           "title": "Digest Run (Duration)",
@@ -1566,5 +1638,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 33
+  "version": 5
 }
