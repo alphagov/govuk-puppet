@@ -68,20 +68,20 @@
                 }
               ],
               "refId": "A",
-              "target": "hitcount(sumSeries(stats.whitehall-backend-*.nginx_logs.*.http_*), '1h')",
+              "target": "hitcount(sumSeries(stats.whitehall*backend-*.nginx_logs.*.http_*), '1h')",
               "textEditor": true,
               "timeField": "@timestamp"
             },
             {
               "hide": true,
               "refId": "B",
-              "target": "hitcount(sumSeries(stats.whitehall-backend-*.nginx_logs.*.http_{2*,3*,4*}), '1h')",
+              "target": "hitcount(sumSeries(stats.whitehall*backend-*.nginx_logs.*.http_{2*,3*,4*}), '1h')",
               "textEditor": true
             },
             {
               "refId": "C",
               "target": "alias(transformNull(asPercent(#B, #A), 100), 'Percentage non-5xx requests')",
-              "targetFull": "alias(transformNull(asPercent(hitcount(sumSeries(stats.whitehall-backend-*.nginx_logs.*.http_{2*,3*,4*}), '1h'), hitcount(sumSeries(stats.whitehall-backend-*.nginx_logs.*.http_*), '1h')), 100), 'Percentage non-5xx requests')",
+              "targetFull": "alias(transformNull(asPercent(hitcount(sumSeries(stats.whitehall*backend-*.nginx_logs.*.http_{2*,3*,4*}), '1h'), hitcount(sumSeries(stats.whitehall*backend-*.nginx_logs.*.http_*), '1h')), 100), 'Percentage non-5xx requests')",
               "textEditor": true
             }
           ],
