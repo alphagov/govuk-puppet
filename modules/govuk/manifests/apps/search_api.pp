@@ -94,9 +94,6 @@
 # [*relevancy_bucket_name*]
 #   The S3 bucket for search relevancy data - e.g. relevancy judgements
 #
-# [*enable_learning_to_rank*]
-#   A feature flag to enable learning to rank in an environment.
-#
 
 class govuk::apps::search_api(
   $rabbitmq_user,
@@ -129,7 +126,6 @@ class govuk::apps::search_api(
   $bucket_name = undef,
   $relevancy_bucket_name = undef,
   $aws_region = 'eu-west-1',
-  $enable_learning_to_rank = undef,
 ) {
   $app_name = 'search-api'
 
@@ -268,11 +264,5 @@ class govuk::apps::search_api(
     "${title}-AWS_S3_RELEVANCY_BUCKET_NAME":
       varname => 'AWS_S3_RELEVANCY_BUCKET_NAME',
       value   => $relevancy_bucket_name;
-  }
-
-  govuk::app::envvar {
-    "${title}-ENABLE_LTR":
-      varname => 'ENABLE_LTR',
-      value   => $enable_learning_to_rank;
   }
 }
