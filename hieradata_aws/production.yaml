@@ -146,8 +146,6 @@ govuk::apps::govuk_crawler_worker::blacklist_paths:
 
 govuk::apps::govuk_crawler_worker::crawler_threads: '32'
 
-govuk::apps::email_alert_service::enabled: false
-govuk::apps::email_alert_service::rabbitmq::ensure: 'absent'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
