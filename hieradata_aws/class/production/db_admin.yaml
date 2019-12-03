@@ -75,6 +75,15 @@ govuk_env_sync::tasks:
   # The pull_*_production configs below are not run automatically. The
   # ensure:disabled means that they are present on the db_admin machine but
   # without crontab entries. This allows for manual restores when needed.
+  "pull_email_alert_api_production":
+    ensure: "disabled"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "email-alert-api_production"
+    temppath: "/tmp/email-alert-api_production"
+    url: "govuk-production-database-backups"
+    path: "postgresql-backend"
   "pull_licensify_production": &pull_licensify
     ensure: "disabled"
     action: "pull"
