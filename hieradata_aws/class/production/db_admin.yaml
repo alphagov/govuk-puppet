@@ -54,17 +54,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-  "pull_publishing_api_production_daily":
-    ensure: "disabled"
-    hour: "3"
-    minute: "45"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "publishing_api_production"
-    temppath: "/tmp/publishing_api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_licensify_production": &push_licensify
     hour: "1"
     minute: "30"
@@ -83,12 +72,11 @@ govuk_env_sync::tasks:
     hour: "1"
     minute: "45"
     database: "licensify-audit"
-  # Install configs for Licensify restores but without cron entries.
-  # This allows for manual restores when needed.
+  # The pull_*_production configs below are not run automatically. The
+  # ensure:disabled means that they are present on the db_admin machine but
+  # without crontab entries. This allows for manual restores when needed.
   "pull_licensify_production": &pull_licensify
     ensure: "disabled"
-    hour: "1"
-    minute: "0"
     action: "pull"
     dbms: "documentdb"
     storagebackend: "s3"
@@ -104,3 +92,12 @@ govuk_env_sync::tasks:
     <<: *pull_licensify
     ensure: "disabled"
     database: "licensify-audit"
+  "pull_publishing_api_production":
+    ensure: "disabled"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "publishing_api_production"
+    temppath: "/tmp/publishing_api_production"
+    url: "govuk-production-database-backups"
+    path: "postgresql-backend"
