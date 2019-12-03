@@ -296,7 +296,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::search_api::unicorn_worker_processes
     govuk::apps::search_api::bucket_name
     govuk::apps::search_api::relevancy_bucket_name
-    govuk::apps::search_api::enable_learning_to_rank
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_host
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_port
     govuk::apps::sidekiq_monitoring::content_data_api_redis_host
