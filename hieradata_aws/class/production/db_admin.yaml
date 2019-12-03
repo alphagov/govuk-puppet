@@ -77,6 +77,8 @@ govuk_env_sync::tasks:
   # without crontab entries. This allows for manual restores when needed.
   "pull_email_alert_api_production":
     ensure: "disabled"
+    hour: "0"
+    minute: "00"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
@@ -86,6 +88,8 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "pull_licensify_production": &pull_licensify
     ensure: "disabled"
+    hour: "0"
+    minute: "00"
     action: "pull"
     dbms: "documentdb"
     storagebackend: "s3"
@@ -103,6 +107,8 @@ govuk_env_sync::tasks:
     database: "licensify-audit"
   "pull_publishing_api_production":
     ensure: "disabled"
+    hour: "0"
+    minute: "00"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
