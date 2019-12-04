@@ -497,6 +497,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
   - tom.whitwell@digital.cabinet-office.gov.uk
+  - vanita.barrett@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
