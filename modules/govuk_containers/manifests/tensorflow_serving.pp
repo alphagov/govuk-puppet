@@ -34,7 +34,7 @@ class govuk_containers::tensorflow_serving(
   }
 
   @@icinga::check { "check_tensorflow_serving_running_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!tensorflow_serving',
+    check_command       => 'check_nrpe!check_proc_running!tensorflow_model_server',
     service_description => 'Tensorflow Serving running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
