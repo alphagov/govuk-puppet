@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_email_alert_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "01"
     action: "push"
