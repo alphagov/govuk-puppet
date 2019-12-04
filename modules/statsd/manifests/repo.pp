@@ -12,7 +12,7 @@ class statsd::repo(
 ) {
   apt::source { 'statsd':
     location     => "http://${apt_mirror_hostname}/statsd",
-    release      => $::lsbdistcodename,
+    release      => 'stable',
     architecture => $::architecture,
     key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
   }
