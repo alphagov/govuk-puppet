@@ -349,6 +349,18 @@ function  dump_postgresql {
   fi
 }
 
+function output_restore_sql {
+  pg_restore "${dumpfile}" | sed -r "${sed_cmds}"
+  if [ "${transformation_sql_file}" ]; then
+    # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
+    # that the transform script doesn't need to prefix table names with
+    # 'public.'. The string "$user" is intentionally output verbatim.
+    # shellcheck disable=SC2016
+    echo 'SET search_path="$user",public;'
+    cat "${transformation_sql_file}"
+  fi
+}
+
 # Translate the binary dump file into text (SQL DDL/DML), filter out extension
 # comments (which would cause the restore to fail), fix up references to the
 # `postgres` user (which differs between actual Postgres and RDS), then pipe
@@ -357,18 +369,17 @@ function  dump_postgresql {
 # If transformation_sql_file (from config) is non-empty then the content of
 # that file is appended to the data which is sent to psql.
 function filtered_postgresql_restore {
-  local dumpfile="${tempdir}/${filename}"
-  local extra_sql_file="${transformation_sql_file:-/dev/null}"
+  dumpfile="${tempdir}/${filename}"
+
+  sed_cmds='/^COMMENT ON EXTENSION/d'
+  sed_cmds+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
 
   local single_transaction='-1'
   if [ "${database}" == 'ckan_production' ]; then
     single_transaction=''
   fi
 
-  local sed_cmds='/^COMMENT ON EXTENSION/d'
-  sed_cmds+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
-
-  (pg_restore "${dumpfile}" | sed -r "${sed_cmds}" && cat "${extra_sql_file}") \
+  output_restore_sql \
     | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
       --no-password -d "${database}" 2>&1
 }
