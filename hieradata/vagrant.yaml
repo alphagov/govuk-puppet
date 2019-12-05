@@ -83,7 +83,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_puppet
-  - govuk_jenkins::jobs::deploy_router_data
   - govuk_jenkins::jobs::launch_vms
   - govuk_jenkins::jobs::network_config_deploy
   - govuk_jenkins::jobs::passive_checks
