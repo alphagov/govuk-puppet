@@ -14,12 +14,10 @@ set -o errtrace
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-
 #     Database management system / data source (One of: mongo,
 #     elasticsearch,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
 #     If dbms is elasticsearch, storagebackend must be elasticsearch
-
 #
 #   S) storagebackend
 #     Storage backend (One of: s3,elasticsearch)
