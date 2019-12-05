@@ -980,6 +980,9 @@ grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
+  asset-manager:
+    show_sidekiq_graphs: true
+    has_workers: true
   authenticating-proxy: {}
   cache-clearing-service: {}
   calculators: {}
@@ -1091,6 +1094,11 @@ grafana::dashboards::application_dashboards:
   transition:
     show_sidekiq_graphs: true
     has_workers: true
+  whitehall:
+    show_sidekiq_graphs: true
+    has_workers: true
+    error_threshold: 50
+    warning_threshold: 25
 
 grub2::recordfail_timeout: 5
 
