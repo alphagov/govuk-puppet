@@ -36,7 +36,7 @@
   "rows": [
     {
       "collapse": false,
-      "height": 243,
+      "height": 246,
       "panels": [
         {
           "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email-alert-api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)",
@@ -226,7 +226,7 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 3,
+          "span": 6,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -245,86 +245,6 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "Time from Content Change until Notify request",
-          "tooltip": {
-            "shared": false,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "decimals": null,
-              "format": "ms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": false
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 14,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "maxDataPoints": "100",
-          "nullPointMode": "null as zero",
-          "percentage": false,
-          "pointradius": 10,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 3,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "D",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.email_created_to_first_delivery_attempt.mean, '5min', 'max')), 'upper')",
-              "textEditor": false
-            },
-            {
-              "refId": "C",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.email_created_to_first_delivery_attempt.mean, '5min', 'avg')), 'mean')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Time from Email Created until Notify request",
           "tooltip": {
             "shared": false,
             "sort": 0,
