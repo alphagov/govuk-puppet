@@ -40,6 +40,12 @@ set -o errtrace
 #   p) path
 #     Path to use on storage backend, prefix in case of S3.
 #
+#   s) transformation_sql_file
+#     Optional path to a file containing additional SQL statements to run
+#     within the transaction when restoring a Postgres database, after the data
+#     has been inserted. Intended for data scrubbing / anonymisation when
+#     restoring to the Integration environment.
+#
 #   t) timestamp
 #     Optional provide specific timestamp to restore.
 #
@@ -347,20 +353,22 @@ function  dump_postgresql {
 # comments (which would cause the restore to fail), fix up references to the
 # `postgres` user (which differs between actual Postgres and RDS), then pipe
 # the output into psql to do the actual restore.
+#
+# If transformation_sql_file (from config) is non-empty then the content of
+# that file is appended to the data which is sent to psql.
 function filtered_postgresql_restore {
-  local single_transaction
+  local dumpfile="${tempdir}/${filename}"
+  local extra_sql_file="${transformation_sql_file:-/dev/null}"
+
+  local single_transaction='-1'
   if [ "${database}" == 'ckan_production' ]; then
     single_transaction=''
-  else
-    single_transaction='-1'
   fi
 
-  local sed_commands
-  sed_commands='/^COMMENT ON EXTENSION/d'
-  sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
+  local sed_cmds='/^COMMENT ON EXTENSION/d'
+  sed_cmds+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
 
-  pg_restore "${tempdir}/${filename}" \
-    | sed -r "${sed_commands}" \
+  (pg_restore "${dumpfile}" | sed -r "${sed_cmds}" && cat "${extra_sql_file}") \
     | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
       --no-password -d "${database}" 2>&1
 }
@@ -606,6 +614,7 @@ do
     d) database="$OPTARG" ;;
     u) url="$OPTARG" ;;
     p) path="$OPTARG" ;;
+    s) transformation_sql_file="$OPTARG" ;;
     t) timestamp="$OPTARG" ;;
     *) usage ;;
   esac

@@ -39,6 +39,14 @@
 #   One of 'present', 'disabled' or 'absent' to control the task.
 #   Default: 'present'
 #
+# [*transformation_sql_filename*]
+#   Optional filename of a SQL script to run as part of the restore transaction
+#   after the data has been loaded. This is intended for scrubbing user data
+#   when restoring to the Integration environment. The corresponding file must
+#   exist in the files/transformation_sql directory of the govuk_env_sync
+#   Puppet module.
+#   Default: ''
+#
 define govuk_env_sync::task(
   $hour,
   $minute,
@@ -50,6 +58,7 @@ define govuk_env_sync::task(
   $url,
   $path,
   $ensure = 'present',
+  $transformation_sql_filename = '',
 ) {
   $general_ensure = $ensure ? {
     'disabled' => 'absent',

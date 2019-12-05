@@ -5,3 +5,6 @@ temppath="<%= @temppath %>"
 database="<%= @database %>"
 url="<%= @url %>"
 path="<%= @path %>"
+<% if transformation_sql_filename != '' %>
+transformation_sql_file="<%= scope['govuk_env_sync::conf_dir'] %>/transformation_sql/<%= @transformation_sql_filename %>"
+<% end %>
