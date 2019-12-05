@@ -67,7 +67,7 @@ define govuk_env_sync::task(
 
   file { "${govuk_env_sync::conf_dir}/${title}.cfg":
     ensure  => $config_ensure,
-    mode    => '0755',
+    mode    => '0644',
     owner   => $govuk_env_sync::user,
     group   => $govuk_env_sync::user,
     content => template('govuk_env_sync/govuk_env_sync_job.conf.erb'),
