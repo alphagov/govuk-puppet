@@ -366,8 +366,7 @@ function filtered_postgresql_restore {
 }
 
 function restore_postgresql {
-  # Check which postgres instance the database needs to restore into
-  # (content-data-api, transition, or postgresql).
+  # Determine source Postgres hostname based on database name.
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
@@ -378,8 +377,7 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
-# Checking if the database already exist
-# If it does we will drop the database
+  # Drop the target database if it already exists.
   DB_OWNER=''
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      log "Database ${database} exists, we will drop it before continuing"
