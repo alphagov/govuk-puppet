@@ -284,3 +284,4 @@ govuk_env_sync::tasks:
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+    transformation_sql_filename: "sanitise_publishing_api_production.sql"
