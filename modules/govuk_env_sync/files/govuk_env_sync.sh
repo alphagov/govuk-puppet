@@ -14,12 +14,10 @@ set -o errtrace
 #     'push' or 'pull' relative to storage backend (e.g. push to S3)
 #
 #   D) dbms
-
 #     Database management system / data source (One of: mongo,
 #     elasticsearch,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
 #     If dbms is elasticsearch, storagebackend must be elasticsearch
-
 #
 #   S) storagebackend
 #     Storage backend (One of: s3,elasticsearch)
@@ -41,6 +39,12 @@ set -o errtrace
 #
 #   p) path
 #     Path to use on storage backend, prefix in case of S3.
+#
+#   s) transformation_sql_file
+#     Optional path to a file containing additional SQL statements to run
+#     within the transaction when restoring a Postgres database, after the data
+#     has been inserted. Intended for data scrubbing / anonymisation when
+#     restoring to the Integration environment.
 #
 #   t) timestamp
 #     Optional provide specific timestamp to restore.
@@ -345,31 +349,43 @@ function  dump_postgresql {
   fi
 }
 
+function output_restore_sql {
+  pg_restore "${dumpfile}" | sed -r "${sed_cmds}"
+  if [ "${transformation_sql_file}" ]; then
+    # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
+    # that the transform script doesn't need to prefix table names with
+    # 'public.'. The string "$user" is intentionally output verbatim.
+    # shellcheck disable=SC2016
+    echo 'SET search_path="$user",public;'
+    cat "${transformation_sql_file}"
+  fi
+}
+
 # Translate the binary dump file into text (SQL DDL/DML), filter out extension
 # comments (which would cause the restore to fail), fix up references to the
 # `postgres` user (which differs between actual Postgres and RDS), then pipe
 # the output into psql to do the actual restore.
+#
+# If transformation_sql_file (from config) is non-empty then the content of
+# that file is appended to the data which is sent to psql.
 function filtered_postgresql_restore {
-  local single_transaction
+  dumpfile="${tempdir}/${filename}"
+
+  sed_cmds='/^COMMENT ON EXTENSION/d'
+  sed_cmds+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
+
+  local single_transaction='-1'
   if [ "${database}" == 'ckan_production' ]; then
     single_transaction=''
-  else
-    single_transaction='-1'
   fi
 
-  local sed_commands
-  sed_commands='/^COMMENT ON EXTENSION/d'
-  sed_commands+='; s/(SCHEMA public (TO|FROM)) postgres/\1 aws_db_admin/g'
-
-  pg_restore "${tempdir}/${filename}" \
-    | sed -r "${sed_commands}" \
+  output_restore_sql \
     | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
       --no-password -d "${database}" 2>&1
 }
 
 function restore_postgresql {
-  # Check which postgres instance the database needs to restore into
-  # (content-data-api, transition, or postgresql).
+  # Determine source Postgres hostname based on database name.
   if [ "${database}" == 'transition_production' ]; then
     db_hostname='transition-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
@@ -380,8 +396,7 @@ function restore_postgresql {
     db_hostname='postgresql-primary'
   fi
 
-# Checking if the database already exist
-# If it does we will drop the database
+  # Drop the target database if it already exists.
   DB_OWNER=''
   if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      log "Database ${database} exists, we will drop it before continuing"
@@ -610,6 +625,7 @@ do
     d) database="$OPTARG" ;;
     u) url="$OPTARG" ;;
     p) path="$OPTARG" ;;
+    s) transformation_sql_file="$OPTARG" ;;
     t) timestamp="$OPTARG" ;;
     *) usage ;;
   esac

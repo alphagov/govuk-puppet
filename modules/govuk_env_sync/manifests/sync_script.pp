@@ -18,4 +18,14 @@ class govuk_env_sync::sync_script {
     source => 'puppet:///modules/govuk_env_sync/govuk_env_sync.sh',
   }
 
+  # Data-scrubbing SQL scripts. These are dependencies of the sync script.
+  file { "${govuk_env_sync::conf_dir}/transformation_sql":
+    ensure       => 'directory',
+    recurse      => true,
+    mode         => '0644',
+    owner        => 'root',
+    group        => 'root',
+    sourceselect => 'all',
+    source       => 'puppet:///modules/govuk_env_sync/transformation_sql',
+  }
 }
