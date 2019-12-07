@@ -1,6 +1,7 @@
 # Create the brucebolt user
 class users::brucebolt {
   govuk_user { 'brucebolt':
+    ensure   => absent,
     fullname => 'Bruce Bolt',
     email    => 'bruce.bolt@digital.cabinet-office.gov.uk',
     ssh_key  => [
