@@ -151,8 +151,6 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-a
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
-govuk::apps::email_alert_api::checks::internal_failure: false
-govuk::apps::email_alert_api::checks::technical_failure: false
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
