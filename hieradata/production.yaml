@@ -62,7 +62,7 @@ govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
-govuk::apps::email_alert_api::email_archive_s3_enabled: true
+govuk::apps::email_alert_api::email_archive_s3_enabled: false
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
