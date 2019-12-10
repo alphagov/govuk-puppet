@@ -628,8 +628,8 @@ govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_pref
 govuk::apps::publishing_api::db::allow_auth_from_lb: true
 govuk::apps::publishing_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
-govuk::apps::publishing_api::nagios_memory_warning: 2000
-govuk::apps::publishing_api::nagios_memory_critical: 2500
+govuk::apps::publishing_api::nagios_memory_warning: 2500
+govuk::apps::publishing_api::nagios_memory_critical: 3000
 
 govuk::apps::release::db_hostname: "mysql-primary"
 govuk::apps::release::db_username: "release"
