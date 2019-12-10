@@ -47,6 +47,7 @@ govuk::apps::router::sentry_environment: 'integration'
 govuk::apps::search_api::bucket_name: 'govuk-integration-sitemaps'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-integration-search-relevancy'
+govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'
 govuk::apps::smartanswers::expose_govspeak: true
