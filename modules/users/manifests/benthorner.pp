@@ -1,7 +1,6 @@
 # Create the benthorner user
 class users::benthorner {
   govuk_user { 'benthorner':
-    ensure   => absent,
     fullname => 'Ben Thorner',
     email    => 'ben.thorner@digital.cabinet-office.gov.uk',
     ssh_key  => [
