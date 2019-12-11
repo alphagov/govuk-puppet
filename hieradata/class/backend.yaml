@@ -5,6 +5,8 @@ govuk::apps::contacts::db_hostname: 'mysql-master-1.backend'
 govuk::apps::contacts::db_username: 'contacts'
 govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"
 
+govuk::apps::govuk_content_schemas::ensure: absent
+
 govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::manuals_publisher::mongodb_nodes:
   - 'mongo-1.backend'
