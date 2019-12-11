@@ -4,17 +4,31 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow schemas to be removed.
+#
 # [*directory*]
 #   The directory in which the govuk_content_schemas should be
-#   available.
+#   deployed.
 #
 class govuk::apps::govuk_content_schemas(
-  $directory = '/data/apps/govuk-content-schemas/current',
+  $ensure = present,
+  $directory = '/data/apps/govuk-content-schemas',
 ) {
   include icinga::client::check_directory_exists
 
+  if $ensure == absent {
+    file { $directory:
+      ensure => absent,
+      force  => true,
+    }
+  }
+
+  $current_directory = "${directory}/current"
+
   @@icinga::check { "check_govuk_content_schemas_on_${::hostname}":
-    check_command       => "check_nrpe!check_directory_exists!${directory}",
+    ensure              => $ensure,
+    check_command       => "check_nrpe!check_directory_exists!${current_directory}",
     service_description => 'govuk_content_schemas exists',
     host_name           => $::fqdn,
   }
