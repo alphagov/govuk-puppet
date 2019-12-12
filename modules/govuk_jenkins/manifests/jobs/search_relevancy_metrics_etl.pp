@@ -1,6 +1,6 @@
-# == Class: govuk_jenkins::jobs::search_google_analytics_etl
+# == Class: govuk_jenkins::jobs::search_relevancy_metrics_etl
 #
-# A Jenkins job to periodically load Google Analytics data into graphite,
+# A Jenkins job to periodically load search relevancy metrics into graphite,
 # using a rake task in Search API. The data is displayed in the Search Relevancy
 # grafana dashboard.
 #
@@ -10,18 +10,18 @@
 #   The cron schedule to specify how often this task will run
 #   Default: undef
 #
-class govuk_jenkins::jobs::search_google_analytics_etl (
+class govuk_jenkins::jobs::search_relevancy_metrics_etl (
   $cron_schedule = undef,
   $app_domain = hiera('app_domain'),
 ) {
 
-  $check_name = 'search-google-analytics-etl'
-  $service_description = 'Search Google Analytics ETL'
-  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/search_google_analytics_etl/"
+  $check_name = 'search-relevancy-metrics-etl'
+  $service_description = 'Search Relevancy Metrics ETL'
+  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/search_relevancy_metrics_etl/"
 
-  file { '/etc/jenkins_jobs/jobs/search_google_analytics_etl.yaml':
+  file { '/etc/jenkins_jobs/jobs/search_relevancy_metrics_etl.yaml':
     ensure  => present,
-    content => template('govuk_jenkins/jobs/search_google_analytics_etl.yaml.erb'),
+    content => template('govuk_jenkins/jobs/search_relevancy_metrics_etl.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
 

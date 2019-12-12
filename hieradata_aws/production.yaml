@@ -239,7 +239,7 @@ govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
 govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
-govuk_jenkins::jobs::search_google_analytics_etl::cron_schedule: 'H 0,6,12,18 * * *' # every six hours
+govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 0,6,12,18 * * *' # every six hours
 
 govuk_jenkins::jobs::smokey::environment: production_aws
 
