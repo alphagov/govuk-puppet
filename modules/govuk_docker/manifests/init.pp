@@ -12,13 +12,21 @@
 #   Pin a version to use
 #   Default is present
 #
+# [*enable_collectd_plugin*]
+#   Enable the collectd plugin
+#   Default is true
+#
 class govuk_docker (
   $docker_users = [],
   $version = 'present',
+  $enable_collectd_plugin = true,
 ){
   validate_array($docker_users)
 
-  include ::collectd::plugin::docker
+  if $enable_collectd_plugin {
+    include ::collectd::plugin::docker
+  }
+
   include govuk_docker::repo
 
   class {'::docker':
