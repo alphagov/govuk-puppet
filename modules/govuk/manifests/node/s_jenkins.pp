@@ -61,4 +61,29 @@ class govuk::node::s_jenkins (
 
   # Required for a job that issues Jenkins Crumbs
   ensure_packages(['jq'])
+
+  # can't use the collectd plugin because the installation conflicts
+  # with some other python packages on the agent
+  class { '::govuk_docker':
+    docker_users           => ['jenkins'],
+    enable_collectd_plugin => false,
+  }
+
+  cron::crondotdee { 'docker_system_prune_dangling' :
+    hour    => '*',
+    minute  => 0,
+    command => 'docker system prune -f --filter="until=1h"',
+  }
+
+  cron::crondotdee { 'docker_system_prune_all' :
+    hour    => 4,
+    minute  => 30,
+    command => 'docker system prune -a -f --filter="until=48h"',
+  }
+
+  cron::crondotdee { 'docker_volume_prune' :
+    hour    => '*',
+    minute  => 5,
+    command => 'docker volume prune -f',
+  }
 }
