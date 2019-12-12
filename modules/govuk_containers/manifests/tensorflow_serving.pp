@@ -22,7 +22,7 @@ class govuk_containers::tensorflow_serving(
     image_tag => $image_version,
   }
 
-  file { '/tensorflow-models':
+  file { '/data/vhost/tensorflow-models':
     ensure => directory,
   } ->
 
@@ -30,7 +30,7 @@ class govuk_containers::tensorflow_serving(
     ports            => ['8501:8501'],
     image            => $image_name,
     require          => Docker::Image[$image_name],
-    extra_parameters => ['-P', '-v', '/tensorflow-models:/models', "-e MODEL_NAME=${model_name}"],
+    extra_parameters => ['-P', '-v', '/data/vhost/tensorflow-models:/models', "-e MODEL_NAME=${model_name}"],
   }
 
   @@icinga::check { "check_tensorflow_serving_running_${::hostname}":
