@@ -31,8 +31,10 @@ scrape_configs:
         - name: instance-state-name
           values: [ running ]
     relabel_configs:
-      - action: labelmap
-        regex: __meta_ec2_tag_(.+)
+      - source_labels: [__meta_ec2_tag_aws_migration]
+        target_label: aws_migration
+      - source_labels: [__meta_ec2_tag_aws_hostname]
+        target_label: aws_hostname
   - job_name: 'prometheus'
     ec2_sd_configs:
       - region: "eu-west-1"
@@ -43,5 +45,7 @@ scrape_configs:
         - name: tag:aws_migration
           values: [ prometheus ]
     relabel_configs:
-      - action: labelmap
-        regex: __meta_ec2_tag_(.+)
+      - source_labels: [__meta_ec2_tag_aws_migration]
+        target_label: aws_migration
+      - source_labels: [__meta_ec2_tag_aws_hostname]
+        target_label: aws_hostname
