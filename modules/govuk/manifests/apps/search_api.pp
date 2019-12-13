@@ -97,6 +97,9 @@
 # [*enable_learning_to_rank*]
 #   A feature flag to enable learning to rank in an environment.
 #
+# [*tensorflow_models_directory*]
+#   The place where tensorflow models are stored
+#
 
 class govuk::apps::search_api(
   $rabbitmq_user,
@@ -130,6 +133,7 @@ class govuk::apps::search_api(
   $relevancy_bucket_name = undef,
   $aws_region = 'eu-west-1',
   $enable_learning_to_rank = false,
+  $tensorflow_models_directory = undef,
 ) {
   $app_name = 'search-api'
 
@@ -274,5 +278,8 @@ class govuk::apps::search_api(
     "${title}-ENABLE_LTR":
       varname => 'ENABLE_LTR',
       value   => bool2str($enable_learning_to_rank);
+    "${title}-TENSORFLOW_MODELS_DIRECTORY":
+      varname => 'TENSORFLOW_MODELS_DIRECTORY',
+      value   => $tensorflow_models_directory;
   }
 }
