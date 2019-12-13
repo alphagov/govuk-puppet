@@ -26,7 +26,6 @@ node_class: &node_class
       - content-data-api
       - content-publisher
       - content-tagger
-      - govuk-content-schemas
       - hmrc-manuals-api
       - imminence
       - kibana
