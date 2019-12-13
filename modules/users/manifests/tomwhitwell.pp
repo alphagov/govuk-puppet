@@ -1,4 +1,4 @@
-# Creates the sebastianszypowicz user
+# Creates the tomwhitwell user
 class users::tomwhitwell {
   govuk_user { 'tomwhitwell':
     fullname => 'Tom Whitwell',
