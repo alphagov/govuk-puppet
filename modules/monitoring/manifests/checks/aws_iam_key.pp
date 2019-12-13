@@ -48,7 +48,7 @@ class monitoring::checks::aws_iam_key (
       use                 => 'govuk_normal_priority',
       host_name           => $::fqdn,
       check_interval      => 12h,
-      service_description => "At least 1 AWS IAM Key is older then ${max_aws_iam_key_age} days and needs rotating",
+      service_description => "At least 1 AWS IAM Key is older than ${max_aws_iam_key_age} days and needs rotating",
       notes_url           => 'https://docs.publishing.service.gov.uk/manual/aws-iam-key-rotation.html',
       require             => Icinga::Check_config['check_aws_iam_key_age'],
     }
