@@ -12,7 +12,7 @@
           artifact-num-to-keep: 5
     builders:
       - shell: |
-          IPADDRESS=$(facter ipaddress)
+          IPADDRESS=$(facter ipaddress_eth0)
           NSCA_CODE=0
           printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
     wrappers:
