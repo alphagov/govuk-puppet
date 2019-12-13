@@ -419,7 +419,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule
     govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load
     govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule
-    govuk_jenkins::jobs::search_google_analytics_etl::cron_schedule
+    govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule
     govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule
     govuk_jenkins::jobs::smokey::environment
     govuk_mysql::server::expire_log_days

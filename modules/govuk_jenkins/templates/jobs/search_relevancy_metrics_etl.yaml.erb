@@ -1,10 +1,11 @@
 ---
 - job:
-    name: search_google_analytics_etl
-    display-name: Search Google Analytics ETL
+    name: search_relevancy_metrics_etl
+    display-name: Search Relevancy Metrics ETL
     project-type: freestyle
-    description: "<p>Runs a Search API rake task relevancy:send_ga_data_to_graphite.</p>
-    <p>The rake task extracts GA data and loads it into Graphite.</p>
+    description: "<p>Runs a Search API rake task relevancy:send_metrics_to_graphite.</p>
+    <p>This rake task loads search relevancy metrics into Graphite, such as
+    click-through-rates from Google Analytics and NDCG.</p>
     <p>This is a monitoring task. It is safe to re-run in-hours.</p>
     <p>Get in touch with the search team for more details.</p>"
     builders:
@@ -14,7 +15,7 @@
             predefined-parameters: |
               TARGET_APPLICATION=search-api
               MACHINE_CLASS=search
-              RAKE_TASK=relevancy:send_ga_data_to_graphite SEND_TO_GRAPHITE=true
+              RAKE_TASK=relevancy:send_metrics_to_graphite SEND_TO_GRAPHITE=true
     wrappers:
       - ansicolor:
           colormap: xterm
