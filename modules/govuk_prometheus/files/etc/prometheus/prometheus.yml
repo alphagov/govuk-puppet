@@ -27,3 +27,6 @@ scrape_configs:
     ec2_sd_configs:
       - region: "eu-west-1"
         port: 9080
+        filters:
+        - name: instance-state-name
+          values: [ running ]
