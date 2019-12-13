@@ -100,6 +100,9 @@
 # [*tensorflow_models_directory*]
 #   The place where tensorflow models are stored
 #
+# [*tensorflow_serving_ip*]
+#   The IP address for the tensorflow serving API.
+#
 
 class govuk::apps::search_api(
   $rabbitmq_user,
@@ -134,6 +137,7 @@ class govuk::apps::search_api(
   $aws_region = 'eu-west-1',
   $enable_learning_to_rank = false,
   $tensorflow_models_directory = undef,
+  $tensorflow_serving_ip = undef,
 ) {
   $app_name = 'search-api'
 
@@ -281,5 +285,8 @@ class govuk::apps::search_api(
     "${title}-TENSORFLOW_MODELS_DIRECTORY":
       varname => 'TENSORFLOW_MODELS_DIRECTORY',
       value   => $tensorflow_models_directory;
+    "${title}-TENSORFLOW_SERVING_IP":
+      varname => 'TENSORFLOW_SERVING_IP',
+      value   => $tensorflow_serving_ip;
   }
 }
