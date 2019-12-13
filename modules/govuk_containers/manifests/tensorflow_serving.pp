@@ -24,6 +24,8 @@ class govuk_containers::tensorflow_serving(
 
   file { '/data/vhost/tensorflow-models':
     ensure => directory,
+    owner  => 'deploy',
+    group  => 'deploy',
   } ->
 
   ::docker::run { 'tensorflow/serving':
