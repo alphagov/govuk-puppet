@@ -23,7 +23,19 @@ rule_files:
 
 # A scrape configuration for ec2 instances
 scrape_configs:
-  - job_name: 'ec2'
+  - job_name: 'node'
     ec2_sd_configs:
       - region: "eu-west-1"
         port: 9080
+        filters:
+        - name: instance-state-name
+          values: [ running ]
+  - job_name: 'prometheus'
+    ec2_sd_configs:
+      - region: "eu-west-1"
+        port: 9090
+        filters:
+        - name: instance-state-name
+          values: [ running ]
+        - name: tag:aws_migration
+          values: [ prometheus ]
