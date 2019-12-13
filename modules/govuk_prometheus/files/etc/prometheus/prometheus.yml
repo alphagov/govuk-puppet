@@ -30,3 +30,12 @@ scrape_configs:
         filters:
         - name: instance-state-name
           values: [ running ]
+  - job_name: 'prometheus'
+    ec2_sd_configs:
+      - region: "eu-west-1"
+        port: 9090
+        filters:
+        - name: instance-state-name
+          values: [ running ]
+        - name: tag:aws_migration
+          values: [ prometheus ]
