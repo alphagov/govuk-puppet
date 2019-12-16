@@ -1,6 +1,5 @@
 # Creates the christopherbaines user
 class users::christopherbaines { govuk_user { 'christopherbaines':
-    ensure   => absent,
     fullname => 'Christopher Baines',
     email    => 'christopher.baines@digital.cabinet-office.gov.uk',
     ssh_key  => [
