@@ -168,6 +168,7 @@ govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-d
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
 govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
 govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
+govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
 govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
