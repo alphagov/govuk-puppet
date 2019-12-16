@@ -117,16 +117,12 @@ class govuk::deploy::config(
       'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
     }
 
-    # 1. Whitehall still in Carrenza Production but
-    #    migrated in AWS Staging.
-    if $::aws_environment == 'production' {
+    # 1. Signon is still in Carrenza Staging and Production.
+    # 2. Whitehall is still in Carrenza Staging and Production.
+    if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
       govuk_envvar {
         'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
       }
-    }
-
-    # 1. Signon is still in Carrenza Staging and Production.
-    if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
 
       # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
       # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
