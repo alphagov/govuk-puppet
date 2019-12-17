@@ -20,8 +20,7 @@ class govuk_jenkins::packages::terraform_docs (
   }
 
   package { 'terraform-docs':
-    ensure  => $version,
-    require => Apt::Source['terraform-docs'],
+    ensure  => absent,
   }
 
 }
