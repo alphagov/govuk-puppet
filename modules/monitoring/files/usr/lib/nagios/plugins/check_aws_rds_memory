@@ -101,7 +101,13 @@ cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 db_classes = {
    'db.m4.large': 8,
    'db.m4.xlarge': 16,
+   'db.m4.2xlarge': 32,
+   'db.m4.4xlarge': 64,
+   'db.m5.large': 8,
+   'db.m5.xlarge': 16,
    'db.m5.2xlarge': 32,
+   'db.m5.4xlarge': 64,
+   'db.m5.8xlarge': 128,
 }
 
 ####################################################
