@@ -7,7 +7,7 @@ NCSA_OUTPUT="Assets sync failed"
 
 function send_nsca {
   NCSA_CHECK_DESCRIPTION="Local assets sync from master to slave"
-  printf "<%= @ipaddress %>\t$NCSA_CHECK_DESCRIPTION\t$NCSA_CODE\t$NCSA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+  printf "<%= @ipaddress_eth0 %>\t$NCSA_CHECK_DESCRIPTION\t$NCSA_CODE\t$NCSA_OUTPUT\n" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
   exit $?
 }
 
