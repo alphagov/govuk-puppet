@@ -33,6 +33,17 @@ location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
   rewrite ^(.*)$ https://$host$uri_lowercase permanent;
 }
 
+<%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
+<%- proxy_host = "#{vhost_name}.#{@app_domain_internal}" -%>
+<%- upstream = "$upstream_#{vhost_name.delete('-')}" -%>
+# Static asset serving for <%= vhost_name %>
+set <%= upstream %> https://<%= proxy_host %>;
+location <%= alias_path %> {
+  proxy_set_header Host <%= proxy_host %>;
+  proxy_pass <%= upstream %>;
+}
+<%- end -%>
+
 location ~ ^/apply-for-a-licence/? {
   # Set proxy timeout to 50 seconds as a quick fix for problems
   # where civica QueryPayments calls are taking too long.
@@ -59,6 +70,7 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
   limit_req zone=contact burst=4 nodelay;
   proxy_pass http://varnish;
 }
+
 
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
