@@ -170,18 +170,19 @@ class govuk::apps::bouncer(
   }
 
   nginx::config::site { 'www.mhra.gov.uk':
+    ensure  => absent,
     content => template('govuk/www.mhra.gov.uk_nginx.conf.erb'),
   }
 
   nginx::log {
     'www.mhra.gov.uk-json.event.access.log':
       json          => true,
-      logstream     => present,
+      logstream     => absent,
       statsd_metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.http_%{status}",
       statsd_timers => [{metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.time_request",
                           value => 'request_time'}];
     'www.mhra.gov.uk-error.log':
-      logstream     => present;
+      logstream     => absent;
   }
 
   if $::govuk_node_class !~ /^development$/ {
