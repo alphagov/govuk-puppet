@@ -169,22 +169,6 @@ class govuk::apps::bouncer(
     document_root => '/var/apps/bouncer/assets-directgov/directgov_campaigns',
   }
 
-  nginx::config::site { 'www.mhra.gov.uk':
-    ensure  => absent,
-    content => template('govuk/www.mhra.gov.uk_nginx.conf.erb'),
-  }
-
-  nginx::log {
-    'www.mhra.gov.uk-json.event.access.log':
-      json          => true,
-      logstream     => absent,
-      statsd_metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.http_%{status}",
-      statsd_timers => [{metric => "${::fqdn_metrics}.nginx_logs.mhra_proxy.time_request",
-                          value => 'request_time'}];
-    'www.mhra.gov.uk-error.log':
-      logstream     => absent;
-  }
-
   if $::govuk_node_class !~ /^development$/ {
     govuk::app::envvar::database_url { 'bouncer':
       type     => 'postgresql',
