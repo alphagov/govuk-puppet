@@ -66,6 +66,10 @@
 #   The view id of GOV.UK in Google Analytics
 #   Default: undef
 #
+# [*google_bigquery_credentials*]
+#   The credentials to use to fetch data from BigQuery
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -117,6 +121,7 @@ class govuk::apps::search_api(
   $google_client_email = undef,
   $google_private_key = undef,
   $google_analytics_govuk_view_id = undef,
+  $google_bigquery_credentials = undef,
   $google_export_account_id = undef,
   $google_export_web_property_id = undef,
   $google_export_custom_data_source_id = undef,
@@ -220,6 +225,9 @@ class govuk::apps::search_api(
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
       value   => $google_analytics_govuk_view_id;
+    "${title}-GOOGLE_BIGQUERY_CREDENTIALS":
+      varname => 'GOOGLE_BIGQUERY_CREDENTIALS',
+      value   => $google_bigquery_credentials;
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
