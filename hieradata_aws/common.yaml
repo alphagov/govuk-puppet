@@ -28,7 +28,6 @@ node_class: &node_class
       - content-tagger
       - hmrc-manuals-api
       - imminence
-      - kibana
       - link-checker-api
       - local-links-manager
       - manuals-publisher

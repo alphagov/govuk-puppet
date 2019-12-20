@@ -24,7 +24,6 @@ node_class: &node_class
       - content-data-api
       - transition
       - imminence
-      - kibana
       - link-checker-api
       - local-links-manager
       - sidekiq-monitoring
