@@ -4,6 +4,7 @@
 class monitoring::checks::grafana_dashboards (
 ) {
   $app_domain_internal = hiera('app_domain_internal')
+  $app_domain = hiera('app_domain')
 
   icinga::plugin { 'check_grafana_dashboards':
     source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_grafana_dashboards',
@@ -22,6 +23,6 @@ class monitoring::checks::grafana_dashboards (
     service_description => 'At least 1 Grafana dashboard is not in version control',
     require             => Icinga::Check_config['check_grafana_dashboards'],
     notes_url           => monitoring_docs_url(grafana-dashboards),
-    action_url          => "https://grafana.${app_domain_internal}",
+    action_url          => "https://grafana.${app_domain}",
   }
 }

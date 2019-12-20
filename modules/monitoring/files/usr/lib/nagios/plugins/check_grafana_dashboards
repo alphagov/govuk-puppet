@@ -10,7 +10,7 @@ done
 
 DASHBOARDS=$(curl -s https://$GRAFANA_HOST/api/search | jq -c '.[]' | grep 'db/' | jq '.title')
 
-if [ ${#DASHBOARDS[@]} -eq 0 ]; then
+if [ -z "$DASHBOARDS" ]; then
   echo "OK: All dashboards are in version control"
   exit 0
 fi
