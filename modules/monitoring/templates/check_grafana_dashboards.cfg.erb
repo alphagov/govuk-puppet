@@ -1,0 +1,4 @@
+define command {
+    command_name check_grafana_dashboards
+    command_line /usr/lib/nagios/plugins/check_grafana_dashboards -h "grafana.<%= @app_domain_internal %>"
+}
