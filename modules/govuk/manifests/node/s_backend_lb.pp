@@ -110,11 +110,6 @@ class govuk::node::s_backend_lb (
       servers            => $publishing_api_backend_servers,
   }
 
-  loadbalancer::balance { 'kibana':
-    read_timeout => 5,
-    servers      => $backend_servers,
-  }
-
   loadbalancer::balance { [
       'whitehall-frontend',
       'draft-whitehall-frontend',
