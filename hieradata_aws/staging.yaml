@@ -325,6 +325,7 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-tagger
       - backend-docs
       - backend-hmrc-manuals-api
+      - backend-kibana
       - backend-manuals-publisher
       - backend-maslow
       - backend-policy-publisher

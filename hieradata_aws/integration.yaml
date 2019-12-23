@@ -355,6 +355,7 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-api
       - backend-content-performance-m
       - backend-docs
+      - backend-kibana
       - backend-policy-publisher
   govuk-cache-public: {}
 
