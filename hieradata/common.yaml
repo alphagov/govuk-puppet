@@ -66,7 +66,6 @@ deployable_applications: &deployable_applications
   content-audit-tool: {}
   content-publisher: {}
   content-tagger: {}
-  email-alert-api: {}
   email-alert-service: {}
   feedback: {}
   govuk-content-schemas: {}
