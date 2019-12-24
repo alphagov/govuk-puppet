@@ -37,10 +37,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  email_alert_api:
-    apps:
-      - email-alert-api
-      - email-alert-service
   publishing_api:
     apps:
       - govuk-content-schemas
