@@ -13,9 +13,6 @@
 # [*whitehall_backend_servers*]
 #   An array of whitehall backend app servers
 #
-# [*email_alert_api_backend_servers*]
-#   An array of email-alert-api backend app servers
-#
 # [*publishing_api_backend_servers*]
 #   An array of publishing-api backend app servers
 #
@@ -29,7 +26,6 @@ class govuk::node::s_backend_lb (
   $perfplat_public_app_domain = 'performance.service.gov.uk',
   $backend_servers,
   $whitehall_backend_servers,
-  $email_alert_api_backend_servers,
   $publishing_api_backend_servers,
   $whitehall_frontend_servers,
   $aws_egress_nat_ips,
@@ -94,15 +90,6 @@ class govuk::node::s_backend_lb (
     ]:
       deny_crawlers => true,
       servers       => $whitehall_backend_servers,
-  }
-
-  loadbalancer::balance { 'email-alert-api':
-      aws_egress_nat_ips => $aws_egress_nat_ips,
-      servers            => $email_alert_api_backend_servers,
-  }
-
-  loadbalancer::balance { 'email-alert-api-public':
-      servers       => $email_alert_api_backend_servers,
   }
 
   loadbalancer::balance { 'publishing-api':
