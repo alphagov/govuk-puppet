@@ -21,13 +21,6 @@ govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
-govuk::apps::email_alert_api::db::backend_ip_range: '10.2.3.0/24'
-govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
-govuk::apps::email_alert_api::email_archive_s3_enabled: true
-govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
-govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
-govuk::apps::email_alert_api::email_address_override_whitelist_only: true
-govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
