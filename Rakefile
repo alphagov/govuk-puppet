@@ -36,8 +36,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::content_tagger::db_allow_prepared_statements
     govuk::apps::content_tagger::db_port
-    govuk::apps::email_alert_api::db_allow_prepared_statements
-    govuk::apps::email_alert_api::db_port
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
@@ -214,8 +212,24 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::govuk_crawler_worker::nagios_memory_warning
     govuk::apps::govuk_crawler_worker::disable_during_data_sync
     govuk::apps::email_alert_api::db::allow_auth_from_lb
+    govuk::apps::email_alert_api::db::backend_ip_range
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
+    govuk::apps::email_alert_api::db_hostname
+    govuk::apps::email_alert_api::db_password
+    govuk::apps::email_alert_api::delivery_request_threshold
+    govuk::apps::email_alert_api::email_address_override
+    govuk::apps::email_alert_api::email_address_override_whitelist
+    govuk::apps::email_alert_api::email_address_override_whitelist_only
+    govuk::apps::email_alert_api::email_archive_s3_bucket
+    govuk::apps::email_alert_api::email_archive_s3_enabled
+    govuk::apps::email_alert_api::enabled
+    govuk::apps::email_alert_api::govuk_notify_template_id
+    govuk::apps::email_alert_api::nagios_memory_critical
+    govuk::apps::email_alert_api::nagios_memory_warning
+    govuk::apps::email_alert_api::redis_host
+    govuk::apps::email_alert_api::redis_port
+    govuk::apps::email_alert_api::unicorn_worker_processes
     govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enabled
     govuk::apps::finder_frontend::enabled
