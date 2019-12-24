@@ -885,9 +885,6 @@ grafana::dashboards::application_dashboards:
   content-tagger:
     show_sidekiq_graphs: true
     has_workers: true
-  email-alert-api:
-    show_sidekiq_graphs: true
-    has_workers: true
   email-alert-service: {}
   hmrc-manuals-api: {}
   manuals-publisher:
