@@ -600,7 +600,7 @@ usage() {
   exit 0
 }
 
-while getopts "f:a:D:S:T:d:u:p:t:h" opt
+while getopts "f:a:D:S:T:d:u:p:s:F:t:h" opt
 do
   case "$opt" in
     f) configfile="$OPTARG";
