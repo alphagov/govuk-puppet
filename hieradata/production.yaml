@@ -214,7 +214,6 @@ hosts::production::backend::app_hostnames:
   - 'content-tagger'
   - 'docs'
   - 'hmrc-manuals-api'
-  - 'kibana'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'

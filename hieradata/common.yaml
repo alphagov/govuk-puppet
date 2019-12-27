@@ -25,7 +25,6 @@ node_class: &node_class
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
-      - kibana
       - manuals-publisher
       - maslow
       - publisher
@@ -1132,7 +1131,6 @@ hosts::production::backend::app_hostnames:
   - 'email-alert-api'
   - 'email-alert-api-public'
   - 'hmrc-manuals-api'
-  - 'kibana'
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
