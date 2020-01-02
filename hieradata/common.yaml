@@ -61,7 +61,6 @@ deployable_applications: &deployable_applications
   content-audit-tool: {}
   content-publisher: {}
   content-tagger: {}
-  email-alert-service: {}
   feedback: {}
   govuk-content-schemas: {}
   govuk_crawler_worker: {}
@@ -499,6 +498,7 @@ govuk_ci::master::pipeline_jobs:
   content-store: {}
   email-alert-api: {}
   email-alert-frontend: {}
+  email-alert-service: {}
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
@@ -716,6 +716,7 @@ govuk_jenkins::jobs::integration_deploy::applications:
   collections: {}
   content-store: {}
   email-alert-frontend: {}
+  email-alert-service: {}
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
