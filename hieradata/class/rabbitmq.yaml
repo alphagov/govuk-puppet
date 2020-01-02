@@ -2,7 +2,6 @@
 
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - backdrop_write
-  - cache_clearing_service
 
 govuk_safe_to_reboot::can_reboot: 'careful'
 govuk_safe_to_reboot::reason: 'rabbitmq-1 is a single point of failure for content-store, apps not resilient'
