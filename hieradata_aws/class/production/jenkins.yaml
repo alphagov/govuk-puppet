@@ -1,11 +1,4 @@
 ---
-govuk_jenkins::config::banner_string: 'AWS Production'
-govuk_jenkins::config::banner_colour_background: '#005EA5'
-govuk_jenkins::config::banner_colour_text: 'white'
-govuk_jenkins::config::theme_colour: '#005EA5'
-govuk_jenkins::config::theme_text_colour: 'white'
-govuk_jenkins::config::theme_environment_name: 'AWS Production'
-
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::bouncer_cdn
   - govuk_jenkins::jobs::check_sentry_errors
