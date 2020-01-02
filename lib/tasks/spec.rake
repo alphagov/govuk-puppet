@@ -48,7 +48,6 @@ AWS_EXCLUDED_NODE_CLASSES = %w[
   performance_mongo
   postgresql_primary
   postgresql_standby
-  publishing_api_postgresql
   redis
   transition_postgresql_master
   transition_postgresql_primary
