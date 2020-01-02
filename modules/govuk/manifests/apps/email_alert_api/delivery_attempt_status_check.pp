@@ -23,7 +23,7 @@ define govuk::apps::email_alert_api::delivery_attempt_status_check(
     warning   => '0.5',
     critical  => '1',
     from      => '1hour',
-    desc      => "High number of ${title} delivery attempts",
+    desc      => "email-alert-api - high number of ${title} delivery attempts",
     notes_url => monitoring_docs_url(email-alert-api-delivery-attempt-status),
   }
 }
