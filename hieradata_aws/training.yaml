@@ -118,8 +118,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend'
-govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'publishing-api'
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
