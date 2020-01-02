@@ -1,15 +1,4 @@
 govuk_env_sync::tasks:
-  "push_email_alert_api_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "01"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "email-alert-api_production"
-    temppath: "/var/lib/autopostgresqlbackup/email-alert-api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_publishing_api_production_daily":
     ensure: "absent"
     hour: "2"

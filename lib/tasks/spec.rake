@@ -16,6 +16,7 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
   draft_cache
   draft_content_store
   draft_frontend
+  email_alert_api
   email_alert_api_db_admin
   frontend
   gatling

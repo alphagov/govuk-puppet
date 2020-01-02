@@ -60,10 +60,6 @@ govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::email_alert_api::db::backend_ip_range: '10.3.3.0/24'
-govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
-govuk::apps::email_alert_api::email_archive_s3_enabled: false
-govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
@@ -136,10 +132,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
-govuk::node::s_backend_lb::email_alert_api_backend_servers:
-  - 'email-alert-api-1.backend'
-  - 'email-alert-api-2.backend'
-  - 'email-alert-api-3.backend'
 govuk::node::s_backend_lb::publishing_api_backend_servers:
   - 'publishing-api-1.backend'
   - 'publishing-api-2.backend'
@@ -256,12 +248,6 @@ hosts::production::backend::hosts:
     ip: '10.3.3.111'
   docker-backend-2:
     ip: '10.3.3.112'
-  email-alert-api-1:
-    ip: '10.3.3.40'
-  email-alert-api-2:
-    ip: '10.3.3.41'
-  email-alert-api-3:
-    ip: '10.3.3.42'
   mongo-1:
     ip: '10.3.3.6'
     service_aliases:
