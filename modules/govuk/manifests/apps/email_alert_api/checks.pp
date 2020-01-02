@@ -21,7 +21,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '3200000', # 4,000,000 * 0.8
     critical  => '3600000', # 4,000,000 * 0.9
     from      => '3hours',
-    desc      => 'High number of email send requests',
+    desc      => 'email-alert-api - high number of email send requests',
   }
 
   @@icinga::check::graphite { 'email-alert-api-delivery-attempt-status-update':
@@ -31,6 +31,6 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0.166',
     critical  => '0.25',
     from      => '1hour',
-    desc      => 'High number of delivery attempts have not received status updates',
+    desc      => 'email-alert-api - high number of delivery attempts have not received status updates',
   }
 }
