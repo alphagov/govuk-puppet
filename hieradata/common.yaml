@@ -231,18 +231,6 @@ govuk::apps::asset_manager::nagios_memory_critical: 2750
 
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
-govuk::apps::cache_clearing_service::enabled: false
-govuk::apps::cache_clearing_service::nagios_memory_warning: 2750
-govuk::apps::cache_clearing_service::nagios_memory_critical: 3000
-govuk::apps::cache_clearing_service::puppetdb_node_url: 'http://puppetdb.cluster/v2/nodes'
-govuk::apps::cache_clearing_service::rabbitmq::enabled: false
-govuk::apps::cache_clearing_service::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
-govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
-
 govuk::apps::ckan::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::ckan::db_port: 6432
 govuk::apps::ckan::db_allow_prepared_statements: false

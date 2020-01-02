@@ -26,7 +26,6 @@ task :check_consistency_between_aws_and_carrenza do
   CARRENZA_ONLY_KEYS = %w[
     app_domain_internal
     environment_ip_prefix
-    govuk::apps::cache_clearing_service::puppetdb_node_url
     govuk::apps::ckan::db_allow_prepared_statements
     govuk::apps::ckan::db_port
     govuk::apps::content_audit_tool::db_allow_prepared_statements
@@ -157,6 +156,13 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::bouncer::nagios_memory_warning
     govuk::apps::bouncer::postgresql_role::rds
     govuk::apps::bouncer::unicorn_worker_processes
+    govuk::apps::cache_clearing_service::enabled
+    govuk::apps::cache_clearing_service::nagios_memory_critical
+    govuk::apps::cache_clearing_service::nagios_memory_warning
+    govuk::apps::cache_clearing_service::rabbitmq::enabled
+    govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold
+    govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold
+    govuk::apps::cache_clearing_service::rabbitmq_hosts
     govuk::apps::ckan::ckan_site_url
     govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
