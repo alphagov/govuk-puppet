@@ -3,7 +3,6 @@
 govuk::node::s_rabbitmq::apps_using_rabbitmq:
   - backdrop_write
   - email_alert_service
-  - publishing_api
   - cache_clearing_service
 
 govuk_safe_to_reboot::can_reboot: 'careful'

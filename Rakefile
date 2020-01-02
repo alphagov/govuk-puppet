@@ -39,8 +39,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
-    govuk::apps::publishing_api::db_allow_prepared_statements
-    govuk::apps::publishing_api::db_port
     govuk::apps::service_manual_publisher::db_allow_prepared_statements
     govuk::apps::service_manual_publisher::db_port
     govuk::node::s_logging::apt_mirror_hostname
@@ -100,7 +98,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_api_lb::api_servers
     govuk::node::s_backend_lb::backend_servers
     govuk::node::s_backend_lb::perfplat_public_app_domain
-    govuk::node::s_backend_lb::publishing_api_backend_servers
     govuk::node::s_backend_lb::whitehall_backend_servers
     govuk::node::s_backend_lb::whitehall_frontend_servers
     govuk::node::s_frontend_lb::whitehall_frontend_servers
@@ -286,9 +283,22 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::mapit::enabled
     govuk::apps::mapit::gdal_version
     govuk::apps::publisher::alert_hostname
+    govuk::apps::publishing_api::content_store
     govuk::apps::publishing_api::db::allow_auth_from_lb
+    govuk::apps::publishing_api::db::backend_ip_range
     govuk::apps::publishing_api::db::lb_ip_range
     govuk::apps::publishing_api::db::rds
+    govuk::apps::publishing_api::db_hostname
+    govuk::apps::publishing_api::draft_content_store
+    govuk::apps::publishing_api::event_log_aws_bucketname
+    govuk::apps::publishing_api::govuk_content_schemas_path
+    govuk::apps::publishing_api::nagios_memory_critical
+    govuk::apps::publishing_api::nagios_memory_warning
+    govuk::apps::publishing_api::rabbitmq_hosts
+    govuk::apps::publishing_api::rabbitmq_password
+    govuk::apps::publishing_api::redis_host
+    govuk::apps::publishing_api::redis_port
+    govuk::apps::publishing_api::unicorn_worker_processes
     govuk::apps::router::sentry_environment
     govuk::apps::search_api::nagios_memory_warning
     govuk::apps::search_api::nagios_memory_critical
@@ -315,6 +325,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::sidekiq_monitoring::content_data_api_redis_port
     govuk::apps::sidekiq_monitoring::link_checker_api_redis_host
     govuk::apps::sidekiq_monitoring::link_checker_api_redis_port
+    govuk::apps::sidekiq_monitoring::publishing_api_redis_host
+    govuk::apps::sidekiq_monitoring::publishing_api_redis_port
     govuk::apps::sidekiq_monitoring::search_api_redis_host
     govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::sidekiq_monitoring::support_api_redis_host

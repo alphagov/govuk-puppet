@@ -36,10 +36,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  publishing_api:
-    apps:
-      - govuk-content-schemas
-      - publishing-api
   whitehall_backend:
     apps:
       - whitehall
@@ -74,7 +70,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   maslow: {}
   publisher: {}
-  publishing-api: {}
   release: {}
   search-admin: {}
   service-manual-publisher: {}
@@ -334,26 +329,6 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::publishing_api::unicorn_worker_processes: "8"
-govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::publishing_api::db_port: 6432
-govuk::apps::publishing_api::db_allow_prepared_statements: false
-govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
-govuk::apps::publishing_api::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-govuk::apps::publishing_api::rabbitmq_password: "%{hiera('govuk::apps::publishing_api::rabbitmq::amqp_pass')}"
-# Hardcoded to redis-2 to improve performance
-# This setting is overridden in `development.yaml`
-govuk::apps::publishing_api::redis_host: "redis-2.backend"
-govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
-govuk::apps::publishing_api::nagios_memory_warning: 2500
-govuk::apps::publishing_api::nagios_memory_critical: 3000
-
 govuk::apps::release::db_hostname: "master.mysql"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
@@ -387,8 +362,6 @@ govuk::apps::sidekiq_monitoring::manuals_publisher_redis_host: "%{hiera('govuk::
 govuk::apps::sidekiq_monitoring::manuals_publisher_redis_port: "%{hiera('govuk::apps::manuals_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
-govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
-govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::signon_redis_host: "%{hiera('govuk::apps::signon::redis_host')}"
 govuk::apps::sidekiq_monitoring::signon_redis_port: "%{hiera('govuk::apps::signon::redis_port')}"
 govuk::apps::sidekiq_monitoring::specialist_publisher_redis_host: "%{hiera('govuk::apps::specialist_publisher::redis_host')}"
@@ -539,6 +512,7 @@ govuk_ci::master::pipeline_jobs:
   local-links-manager: {}
   manuals-frontend: {}
   mapit: {}
+  publishing-api: {}
   router: {}
   router-api: {}
   search-api: {}
@@ -893,11 +867,6 @@ grafana::dashboards::application_dashboards:
   publisher:
     show_sidekiq_graphs: true
     has_workers: true
-  publishing-api:
-    show_sidekiq_graphs: true
-    has_workers: true
-    instance_prefix: 'publishing_api'
-    show_memcached: true
   release: {}
   search-admin: {}
   service-manual-publisher: {}
@@ -1019,10 +988,6 @@ hosts::production::backend::hosts:
     ip: '10.1.3.13'
   postgresql-standby-2:
     ip: '10.1.11.13'
-  publishing-api-1:
-    ip: '10.1.3.45'
-  publishing-api-2:
-    ip: '10.1.3.46'
   rabbitmq-1:
     ip: '10.1.3.70'
   rabbitmq-2:
@@ -1083,7 +1048,6 @@ hosts::production::backend::app_hostnames:
   - 'maslow'
   - 'manuals-publisher'
   - 'publisher'
-  - 'publishing-api'
   - 'search-admin'
   - 'service-manual-publisher'
   - 'short-url-manager'

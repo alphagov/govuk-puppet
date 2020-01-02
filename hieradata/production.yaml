@@ -68,7 +68,6 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@al
 govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
-govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::cpu_warning: 400
 govuk::apps::whitehall::cpu_critical: 600
@@ -132,10 +131,6 @@ govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
   - 'backend-2.backend'
   - 'backend-3.backend'
-govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'publishing-api-1.backend'
-  - 'publishing-api-2.backend'
-  - 'publishing-api-3.backend'
 govuk::node::s_backend_lb::whitehall_backend_servers:
   - 'whitehall-backend-1.backend'
   - 'whitehall-backend-2.backend'
@@ -281,12 +276,6 @@ hosts::production::backend::hosts:
     ip: '10.3.3.13'
   postgresql-standby-2:
     ip: '10.3.11.13'
-  publishing-api-1:
-    ip: '10.3.3.45'
-  publishing-api-2:
-    ip: '10.3.3.46'
-  publishing-api-3:
-    ip: '10.3.3.47'
   rabbitmq-1:
     ip: '10.3.3.70'
   rabbitmq-2:
