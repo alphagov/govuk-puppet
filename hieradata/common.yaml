@@ -70,7 +70,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   maslow: {}
   publisher: {}
-  publishing-api: {}
   release: {}
   search-admin: {}
   service-manual-publisher: {}
@@ -535,6 +534,7 @@ govuk_ci::master::pipeline_jobs:
   local-links-manager: {}
   manuals-frontend: {}
   mapit: {}
+  publishing-api: {}
   router: {}
   router-api: {}
   search-api: {}
