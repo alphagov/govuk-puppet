@@ -1,3 +1,11 @@
 #!/bin/bash
 
+CURRENT_DATE="$(date -Idate)"
+
+if wget https://www.gov.uk/bank-holidays.json -O - | jq -r ".[\"england-and-wales\"].events | .[].date" | grep -q "$CURRENT_DATE"
+then
+  echo "Skipping as $CURRENT_DATE is a bank holiday"
+  exit 0
+fi
+
 touch "<%= filename %>"
