@@ -56,9 +56,6 @@ govuk::node::s_backend_lb::whitehall_backend_servers:
 govuk::node::s_backend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-1.frontend'
   - 'whitehall-frontend-2.frontend'
-govuk::node::s_backend_lb::publishing_api_backend_servers:
-  - 'publishing-api-1.backend'
-  - 'publishing-api-2.backend'
 
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 
