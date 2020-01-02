@@ -36,10 +36,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  publishing_api:
-    apps:
-      - govuk-content-schemas
-      - publishing-api
   whitehall_backend:
     apps:
       - whitehall
