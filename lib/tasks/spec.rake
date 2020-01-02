@@ -24,6 +24,7 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
   licensing_backend
   mapit
   mirrorer
+  publishing_api
   publishing_api_db_admin
   router_backend
   search
