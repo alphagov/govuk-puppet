@@ -17,13 +17,18 @@ class monitoring::pagerduty_drill (
   if $enabled {
     $filename = '/var/run/pagerduty_drill'
 
+    file { '/usr/local/bin/govuk_pagerduty_drill_start':
+      content => template('monitoring/govuk_pagerduty_drill_start.erb'),
+      mode    => '0755',
+    }
+
     cron { 'pagerduty_drill_start':
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
       hour    => 10,
       minute  => 0,
-      command => "touch ${filename}",
+      command => '/usr/local/bin/govuk_pagerduty_drill_start',
     }
 
     cron { 'pagerduty_drill_stop':
