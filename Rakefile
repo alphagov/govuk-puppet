@@ -314,6 +314,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::sidekiq_monitoring::content_data_api_redis_port
     govuk::apps::sidekiq_monitoring::link_checker_api_redis_host
     govuk::apps::sidekiq_monitoring::link_checker_api_redis_port
+    govuk::apps::sidekiq_monitoring::publishing_api_redis_host
+    govuk::apps::sidekiq_monitoring::publishing_api_redis_port
     govuk::apps::sidekiq_monitoring::search_api_redis_host
     govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::sidekiq_monitoring::support_api_redis_host
