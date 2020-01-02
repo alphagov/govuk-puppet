@@ -705,6 +705,7 @@ govuk_jenkins::jobs::integration_deploy::applications:
     repository: 'ckanext-datagovuk'
   collections: {}
   content-store: {}
+  email-alert-api: {}
   email-alert-frontend: {}
   email-alert-service: {}
   finder-frontend: {}
@@ -720,6 +721,7 @@ govuk_jenkins::jobs::integration_deploy::applications:
   local-links-manager: {}
   manuals-frontend: {}
   mapit: {}
+  publishing-api: {}
   router: {}
   router-api: {}
   search-api: {}
