@@ -284,16 +284,6 @@ govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::email_alert_service::enabled: true
-govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
-govuk::apps::email_alert_service::rabbitmq_hosts:
-  - rabbitmq-1.backend
-  - rabbitmq-2.backend
-  - rabbitmq-3.backend
-govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold: 25
-govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
-
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
