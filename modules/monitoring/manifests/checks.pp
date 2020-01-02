@@ -47,7 +47,9 @@ class monitoring::checks (
   include monitoring::checks::aws_iam_key
   include monitoring::checks::grafana_dashboards
 
-  include govuk::apps::email_alert_api::checks
+  if $::aws_migration {
+    include govuk::apps::email_alert_api::checks
+  }
 
   $app_domain = hiera('app_domain')
 
