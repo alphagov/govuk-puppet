@@ -397,6 +397,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::deploy_app::graphite_host
     govuk_jenkins::jobs::deploy_app::graphite_port
     govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
+    govuk_jenkins::jobs::email_alert_check::email_addresses_to_check
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range

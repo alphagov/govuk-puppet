@@ -660,15 +660,6 @@ govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
-govuk_jenkins::jobs::email_alert_check::email_addresses_to_check: >-
-  govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  ,
-  govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  :
-  govuk_email_check@digital.cabinet-office.gov.uk
-  ,
-  gov.uk.email@notifications.service.gov.uk
-
 govuk_jenkins::jobs::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::jobs::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
 
