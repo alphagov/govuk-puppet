@@ -6,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 1,
   "hideControls": false,
-  "id": 142,
+  "id": 11,
   "links": [],
   "refresh": "1m",
   "rows": [
@@ -26,10 +26,11 @@
             "alignAsTable": true,
             "avg": true,
             "current": true,
+            "hideEmpty": true,
             "max": true,
             "min": false,
             "show": true,
-            "sort": "total",
+            "sort": "avg",
             "sortDesc": true,
             "total": true,
             "values": true
@@ -52,7 +53,7 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "aliasByNode(summarize(consolidateBy(sumSeriesWithWildcards(stats_counts.govuk.app.$Application.*.workers.*.success, 4), 'sum'), '$Aggregation', 'sum', false), 5)",
+              "target": "groupByNode(summarize(stats_counts.govuk.app.$Application.*.workers.*.success, '$Aggregation', 'sum', false), 6, 'sum')",
               "textEditor": false
             }
           ],
@@ -102,7 +103,7 @@
     },
     {
       "collapse": false,
-      "height": 357,
+      "height": 404,
       "panels": [
         {
           "aliasColors": {},
@@ -116,12 +117,14 @@
             "alignAsTable": true,
             "avg": true,
             "current": true,
-            "hideEmpty": true,
-            "hideZero": true,
+            "hideEmpty": false,
+            "hideZero": false,
             "max": true,
             "min": false,
             "rightSide": false,
             "show": true,
+            "sort": "max",
+            "sortDesc": true,
             "total": false,
             "values": true
           },
@@ -142,7 +145,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "summarize(groupByNode(stats.gauges.govuk.app.$Application.*.workers.queues.*.latency, 8, 'avg'), '$Aggregation', 'avg', false)"
+              "target": "aliasByNode(summarize(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.queues.*.latency, 5), '$Aggregation', 'avg', false), 7)"
             }
           ],
           "thresholds": [],
@@ -197,10 +200,12 @@
             "avg": true,
             "current": true,
             "hideEmpty": true,
-            "hideZero": true,
+            "hideZero": false,
             "max": true,
             "min": false,
             "show": true,
+            "sort": "max",
+            "sortDesc": true,
             "total": false,
             "values": true
           },
@@ -221,7 +226,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.queues.*.enqueued, max, 5), '$Aggregation', 'max', false), 7)",
+              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.enqueued, '$Aggregation', 'max', false), 8, 'maxSeries')",
               "textEditor": false
             }
           ],
@@ -273,7 +278,172 @@
     },
     {
       "collapse": false,
-      "height": 327,
+      "height": 408,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 10,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "hideEmpty": true,
+            "hideZero": false,
+            "max": true,
+            "min": false,
+            "show": true,
+            "sort": "max",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.runtime, '$Aggregation', 'max', false), 8, 'maxSeries')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Job duration (snapshot, max over $Aggregation)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 11,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "hideEmpty": true,
+            "max": true,
+            "min": false,
+            "show": true,
+            "sort": "max",
+            "sortDesc": true,
+            "total": false,
+            "values": true
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.processing, '$Aggregation', 'max', false), 8, 'maxSeries')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Jobs underway (snapshot, max over $Aggregation)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 383,
       "panels": [
         {
           "aliasColors": {},
@@ -315,7 +485,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.retry_set_size, max, 5), '$Aggregation', 'max', false), 4)",
+              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.retry_set_size, '$Aggregation', 'max', false), 4, 'maxSeries')",
               "textEditor": false
             }
           ],
@@ -370,7 +540,7 @@
             "avg": true,
             "current": true,
             "hideEmpty": true,
-            "hideZero": true,
+            "hideZero": false,
             "max": true,
             "min": false,
             "rightSide": false,
@@ -398,7 +568,7 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "aliasByNode(summarize(consolidateBy(sumSeriesWithWildcards(stats_counts.govuk.app.$Application.*.workers.*.failure, 4), 'sum'), '$Aggregation', 'sum', false), 5)",
+              "target": "groupByNode(summarize(stats_counts.govuk.app.$Application.*.workers.*.failure, '$Aggregation', 'sum', false), 6, 'sum')",
               "textEditor": false
             }
           ],
@@ -703,8 +873,8 @@
       {
         "allValue": "*",
         "current": {
-          "text": "publishing-api",
-          "value": "publishing-api"
+          "text": "email-alert-api",
+          "value": "email-alert-api"
         },
         "datasource": "Graphite",
         "hide": 0,
@@ -798,7 +968,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -828,5 +998,5 @@
   },
   "timezone": "browser",
   "title": "Sidekiq",
-  "version": 14
+  "version": 7
 }
