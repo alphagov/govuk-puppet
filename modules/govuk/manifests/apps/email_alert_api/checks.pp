@@ -27,7 +27,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-delivery-attempt-status-update':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'divideSeries(keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.pending_status_total), keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.total))',
+    target    => 'transformNull(divideSeries(keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.pending_status_total), keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.total)),0)',
     warning   => '0.166',
     critical  => '0.25',
     from      => '1hour',
