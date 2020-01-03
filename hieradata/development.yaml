@@ -37,6 +37,8 @@ govuk::app::nginx_vhost::asset_pipeline_enabled: false
 
 govuk::apps::cache_clearing_service::enabled: true
 govuk::apps::cache_clearing_service::rabbitmq::enabled: true
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
+govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
 govuk::node::s_development::apps:
   - 'asset_manager'
