@@ -32,7 +32,6 @@ define govuk_mount(
   $mountoptions = undef,
   $mountpoint = $title
 ) {
-  $app_domain = hiera('app_domain')
   $mountpoint_escaped = regsubst($mountpoint, '/', '_', 'G')
   $mountpoint_graphite = regsubst($mountpoint, '/', '-', 'G')
   $graphite_target = "${::fqdn_metrics}.df${mountpoint_graphite}.df_complex-free"
@@ -53,13 +52,20 @@ define govuk_mount(
     }
   }
 
+  if $::aws_migration and ($::aws_environment != 'integration') {
+    $graphite_app_domain = "${::aws_environment}.govuk.digital"
+  }
+  else {
+    $graphite_app_domain = hiera('app_domain')
+  }
+
   @@icinga::check { "check${mountpoint_escaped}_disk_space_${::hostname}":
     check_command       => "check_nrpe!check_disk_space_arg!${percent_threshold_warning}% ${percent_threshold_critical}% ${mountpoint}",
     service_description => "low available disk space on ${mountpoint}",
     use                 => 'govuk_high_priority',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(low-available-disk-space),
-    action_url          => "https://graphite.${app_domain}/render?from=-14days&until=now&width=600&height=300&target=${graphite_target}",
+    action_url          => "https://graphite.${graphite_app_domain}/render?from=-14days&until=now&width=600&height=300&target=${graphite_target}",
   }
 
   @@icinga::check { "check${mountpoint_escaped}_disk_inodes_${::hostname}":
