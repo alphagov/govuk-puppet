@@ -7,22 +7,23 @@ set -o errtrace
 #
 # Options:
 #   f) configfile
-#     Optional argument and alternative way to pass configuration
+#     Optional argument and alternative way to pass configuration.
 #     Template can be found in govuk_env_sync/templates/govuk_env_sync_conf.erb
 #
 #   a) action
-#     'push' or 'pull' relative to storage backend (e.g. push to S3)
+#     'push' or 'pull' relative to storage backend (e.g. push to S3). Push
+#     means dump/backup and upload. Pull means download and restore.
 #
 #   D) dbms
 #     Database management system / data source (One of: mongo,
 #     elasticsearch,postgresql,mysql)
 #     This is used to construct script names called, e.g. dump_mongo
-#     If dbms is elasticsearch, storagebackend must be elasticsearch
+#     If dbms is elasticsearch, storagebackend must be elasticsearch.
 #
 #   S) storagebackend
 #     Storage backend (One of: s3,elasticsearch)
 #     This is used to construct script names called, e.g. push_s3
-#     If storagebackend is elasticsearch, dbms must be elasticsearch
+#     If storagebackend is elasticsearch, dbms must be elasticsearch.
 #
 #   T) temppath
 #     Path to create temporary directory in. Directory will be created if
@@ -35,7 +36,7 @@ set -o errtrace
 #
 #   u) url
 #     URL of storage backend, bucket name in case of S3, repository name in case of
-#     elasticsearch
+#     elasticsearch.
 #
 #   p) path
 #     Path to use on storage backend, prefix in case of S3.
@@ -447,25 +448,6 @@ function pull_s3 {
 function get_timestamp_s3 {
   timestamp="$(aws s3 ls "s3://${url}/${path}/" \
   | grep "\\-${database}\." | tail -1 \
-  | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
-}
-
-function push_rsync {
-  log "Upload to ${url}:/${path}/${filename}..."
-  rsync -acq "${tempdir}/${filename}" "${url}:/${path}/${filename}"
-  log "completed."
-}
-
-function pull_rsync {
-  log "Download from ${url}:${path}/${filename}..."
-  rsync -acq "${url}:${path}/${filename}" "${tempdir}/${filename}"
-  log "completed."
-}
-
-function get_timestamp_rsync {
-  # We actually want to insert the information this side of SSH:
-  # shellcheck disable=SC2029
-  timestamp="$(ssh "${url}" "ls -rt \"${path}/*${database}*\" |tail -1" \
   | grep -o '[0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}')"
 }
 
