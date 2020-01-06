@@ -25,7 +25,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::monitor_taxonomy_health
   - govuk_jenkins::jobs::network_config_deploy
   - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::performance_platform_data_sync
   - govuk_jenkins::jobs::publication_delay_report
   - govuk_jenkins::jobs::publish_special_routes
   - govuk_jenkins::jobs::record_taxonomy_metrics
