@@ -158,7 +158,6 @@ router::assets_origin::vhost_aliases:
   - 'assets.training.govuk.digital'
 
 users::usernames:
-  - agnieszkadufrat
   - alangabbianelli
   - alexandrujurubita
   - andysellick
