@@ -10,6 +10,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::email_alert_check
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::publish_special_routes
