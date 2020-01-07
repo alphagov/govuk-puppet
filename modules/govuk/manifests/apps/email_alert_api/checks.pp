@@ -48,6 +48,17 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
   }
 
+    @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'transformNull(stats.gauges.govuk.email-alert-api.content_changes.warning_total)',
+    warning   => '0',
+    critical  => '100000000',
+    from      => '1hour',
+    desc      => 'email-alert-api - unprocessed content changes',
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
+  }
+
   # We are only interested in the `critical` state but `warning` is also required
   # for valid Icinga check configuration. Both states are set to 0 but `critical`
   # takes precedence and allows us to get round this issue
@@ -60,5 +71,16 @@ class govuk::apps::email_alert_api::checks(
     from      => '1hour',
     desc      => 'email-alert-api - unprocessed subscription contents - critical',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
+  }
+
+  @@icinga::check::graphite { 'email-alert-api-critical-content-changes':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'transformNull(stats.gauges.govuk.email-alert-api.content_changes.critical_total)',
+    warning   => '0',
+    critical  => '0',
+    from      => '1hour',
+    desc      => 'email-alert-api - unprocessed content changes',
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
   }
 }
