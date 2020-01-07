@@ -20,7 +20,7 @@
       - timed: <%= @rake_etl_master_process_cron_schedule %>
   <% end %>
     logrotate:
-        numToKeep: 10
+        daysToKeep: 365
     publishers:
       - trigger-parameterized-builds:
           - project: Success_Passive_Check
