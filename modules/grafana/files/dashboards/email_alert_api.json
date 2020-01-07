@@ -1531,7 +1531,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "Graphite",
           "fill": 1,
           "id": 19,
           "legend": {
