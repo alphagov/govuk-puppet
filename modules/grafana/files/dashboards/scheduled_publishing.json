@@ -49,32 +49,32 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.national_statistics.mean_ms, 'mean - national statistics')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.national_statistics.mean_ms), 'mean - national statistics')",
               "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.official_statistics.mean_ms, 'mean - official statistics')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.official_statistics.mean_ms), 'mean - official statistics')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.other_document_types.mean_ms, 'mean - other doc types')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.other_document_types.mean_ms), 'mean - other doc types')",
               "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.national_statistics.95_percentile_ms, '95pc - national statistics')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.national_statistics.95_percentile_ms), '95pc - national statistics')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.official_statistics.95_percentile_ms, '95pc - official statistics')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.official_statistics.95_percentile_ms), '95pc - official statistics')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias(stats.gauges.govuk.app.content-store.content-store-1.scheduled_publishing.aggregate.other_document_types.95_percentile_ms, '95pc - other doc types')",
+              "target": "alias(maxSeries(stats.gauges.govuk.app.content-store.*.scheduled_publishing.aggregate.other_document_types.95_percentile_ms), '95pc - other doc types')",
               "textEditor": false
             }
           ],
