@@ -33,4 +33,24 @@ class govuk::apps::email_alert_api::checks(
     from      => '1hour',
     desc      => 'email-alert-api - high number of delivery attempts have not received status updates',
   }
+
+  @@icinga::check::graphite { 'email-alert-api-warning-subscription-contents':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'transformNull((keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.warning_total))',
+    warning   => '1',
+    from      => '1hour',
+    desc      => 'email-alert-api - unprocessed subscription contents',
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
+  }
+
+  @@icinga::check::graphite { 'email-alert-api-critical-subscription-contents':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.critical_total)',
+    critical  => '1',
+    from      => '1hour',
+    desc      => 'email-alert-api - unprocessed subscription contents',
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
+  }
 }
