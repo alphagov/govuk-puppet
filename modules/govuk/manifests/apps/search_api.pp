@@ -107,6 +107,9 @@
 # [*tensorflow_serving_ip*]
 #   The IP address for the tensorflow serving API.
 #
+# [*tensorflow_sagemaker_endpoint*]
+#   The Amazon SageMaker endpoint serving the tensorflow model.
+#
 
 class govuk::apps::search_api(
   $rabbitmq_user,
@@ -143,6 +146,7 @@ class govuk::apps::search_api(
   $enable_learning_to_rank = false,
   $tensorflow_models_directory = undef,
   $tensorflow_serving_ip = undef,
+  $tensorflow_sagemaker_endpoint = undef,
 ) {
   $app_name = 'search-api'
 
@@ -296,5 +300,8 @@ class govuk::apps::search_api(
     "${title}-TENSORFLOW_SERVING_IP":
       varname => 'TENSORFLOW_SERVING_IP',
       value   => $tensorflow_serving_ip;
+    "${title}-TENSORFLOW_SAGEMAKER_ENDPOINT":
+      varname => 'TENSORFLOW_SAGEMAKER_ENDPOINT',
+      value   => $tensorflow_sagemaker_endpoint;
   }
 }
