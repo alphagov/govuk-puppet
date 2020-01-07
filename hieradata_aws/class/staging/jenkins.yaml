@@ -11,7 +11,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::clear_template_cache
   - govuk_jenkins::jobs::clear_varnish_cache
   - govuk_jenkins::jobs::content_data_api
-  - govuk_jenkins::jobs::data_sync
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
