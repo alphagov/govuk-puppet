@@ -26,8 +26,6 @@ task :check_consistency_between_aws_and_carrenza do
   CARRENZA_ONLY_KEYS = %w[
     app_domain_internal
     environment_ip_prefix
-    govuk::apps::ckan::db_allow_prepared_statements
-    govuk::apps::ckan::db_port
     govuk::apps::content_audit_tool::db_allow_prepared_statements
     govuk::apps::content_audit_tool::db_port
     govuk::apps::content_publisher::db_allow_prepared_statements
@@ -166,8 +164,13 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::ckan::ckan_site_url
     govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
+    govuk::apps::ckan::db::backend_ip_range
     govuk::apps::ckan::db::lb_ip_range
     govuk::apps::ckan::db::rds
+    govuk::apps::ckan::db_hostname
+    govuk::apps::ckan::gunicorn_worker_processes
+    govuk::apps::ckan::redis_host
+    govuk::apps::ckan::redis_port
     govuk::apps::ckan::s3_aws_access_key_id
     govuk::apps::ckan::s3_aws_secret_access_key
     govuk::apps::collections::unicorn_worker_processes

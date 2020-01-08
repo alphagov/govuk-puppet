@@ -123,8 +123,6 @@ govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 govuk::apps::authenticating_proxy::govuk_upstream_uri: 'http://government-frontend.dev.gov.uk'
 govuk::apps::authenticating_proxy::signon_uri_scheme: 'http'
 govuk::apps::backdrop_write::enable_procfile_worker: false
-govuk::apps::ckan::priority_worker_processes: '1'
-govuk::apps::ckan::bulk_worker_processes: '1'
 govuk::apps::collections_publisher::enable_procfile_worker: false
 govuk::apps::contacts::extra_aliases: ['contacts-admin']
 
