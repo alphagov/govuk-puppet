@@ -344,6 +344,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::sidekiq_monitoring::search_api_redis_port
     govuk::apps::sidekiq_monitoring::support_api_redis_host
     govuk::apps::sidekiq_monitoring::support_api_redis_port
+    govuk::apps::sidekiq_monitoring::transition_redis_host
+    govuk::apps::sidekiq_monitoring::transition_redis_port
     govuk::apps::search_api::elasticsearch_hosts
     govuk::apps::service_manual_publisher::db::allow_auth_from_lb
     govuk::apps::service_manual_publisher::db::lb_ip_range
@@ -365,8 +367,12 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::support_api::redis_host
     govuk::apps::support_api::redis_port
     govuk::apps::support_api::zendesk_anonymous_ticket_email
+    govuk::apps::transition::db_hostname
     govuk::apps::transition::db_password
+    govuk::apps::transition::postgresql_db::backend_ip_range
     govuk::apps::transition::postgresql_db::rds
+    govuk::apps::transition::redis_host
+    govuk::apps::transition::redis_port
     govuk::deploy::setup::gemstash_server
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
@@ -382,6 +388,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_licensing_backend::apt_mirror_hostname
     govuk::node::s_licensing_frontend::apt_mirror_hostname
     govuk::node::s_postgresql_primary::alert_hostname
+    govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars
     govuk_crawler::alert_hostname
