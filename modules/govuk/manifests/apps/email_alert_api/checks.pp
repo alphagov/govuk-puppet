@@ -51,7 +51,7 @@ class govuk::apps::email_alert_api::checks(
     @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(stats.gauges.govuk.email-alert-api.content_changes.warning_total)',
+    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.warning_total))',
     warning   => '0',
     critical  => '100000000',
     from      => '1hour',
@@ -76,7 +76,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-critical-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(stats.gauges.govuk.email-alert-api.content_changes.critical_total)',
+    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.critical_total))',
     warning   => '0',
     critical  => '0',
     from      => '1hour',
