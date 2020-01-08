@@ -995,7 +995,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher'
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
-  - 'transition'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
 
