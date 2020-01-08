@@ -64,7 +64,6 @@ govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::terraform_docs::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

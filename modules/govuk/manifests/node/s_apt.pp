@@ -139,7 +139,6 @@ class govuk::node::s_apt (
   aptly::repo { 'splunk': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
-  aptly::repo { 'terraform-docs': }
   aptly::repo { 'whisper-backup': }
 
   include nginx
