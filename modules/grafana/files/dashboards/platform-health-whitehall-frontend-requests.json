@@ -6,9 +6,8 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": null,
+  "id": 150,
   "links": [],
-  "refresh": false,
   "rows": [
     {
       "collapse": false,
@@ -45,14 +44,7 @@
               "bars": false,
               "fill": 0,
               "lines": true,
-              "linewidth": 6
-            },
-            {
-              "alias": "Last 30 day average - 50% (target)",
-              "bars": false,
-              "fill": 0,
-              "lines": true,
-              "linewidth": 4
+              "linewidth": 5
             },
             {
               "alias": "Target",
@@ -68,22 +60,19 @@
           "steppedLine": false,
           "targets": [
             {
-              "hide": false,
               "refId": "A",
-              "target": "alias(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', false), 'Errors per day')"
+              "target": "alias(summarize(sumSeries(stats_counts.whitehall-frontend-*.whitehall.http_{2*,3*}), '1d', 'sum', false), 'Requests per day')",
+              "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias(movingAverage(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d'), '30 day average')"
+              "target": "alias(movingAverage(summarize(sumSeries(stats_counts.whitehall-frontend-*.whitehall.http_{2*,3*}), '1d', 'sum', false), '30d'), '30 day average')",
+              "textEditor": false
             },
             {
-              "hide": true,
               "refId": "C",
-              "target": "alias(timeShift(scale(summarize(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d', 'avg', false), 0.5), '30d'), 'Last 30 day average - 50% (target)')"
-            },
-            {
-              "refId": "D",
-              "target": "alias(constantLine(6000), 'Target')"
+              "target": "alias(constantLine(750000), 'Target')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -106,7 +95,7 @@
           "yaxes": [
             {
               "format": "short",
-              "label": "Sentry error count per day",
+              "label": null,
               "logBase": 1,
               "max": null,
               "min": null,
@@ -138,8 +127,8 @@
     "list": []
   },
   "time": {
-    "from": "2019-10-06T23:00:00.000Z",
-    "to": "2019-11-30T00:00:00.000Z"
+    "from": "now-90d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -167,6 +156,6 @@
     ]
   },
   "timezone": "",
-  "title": "Platform Health - Q3 (19-20) Whitehall errors",
-  "version": 4
+  "title": "Platform Health - Whitehall Frontend Requests",
+  "version": 2
 }
