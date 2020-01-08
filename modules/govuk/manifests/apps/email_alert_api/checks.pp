@@ -48,7 +48,7 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
   }
 
-    @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
+  @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.warning_total))',
@@ -57,6 +57,17 @@ class govuk::apps::email_alert_api::checks(
     from      => '1hour',
     desc      => 'email-alert-api - unprocessed content changes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
+    }
+
+  @@icinga::check::graphite { 'email-alert-api-warning-digest-runs':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.digest_runs.warning_total))',
+    warning   => '0',
+    critical  => '100000000',
+    from      => '1hour',
+    desc      => 'email-alert-api - incomplete digest runs - warning',
+    notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
   }
 
   # We are only interested in the `critical` state but `warning` is also required
@@ -82,5 +93,16 @@ class govuk::apps::email_alert_api::checks(
     from      => '1hour',
     desc      => 'email-alert-api - unprocessed content changes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
+  }
+
+  @@icinga::check::graphite { 'email-alert-api-critical-digest-runs':
+    ensure    => $ensure,
+    host_name => $::fqdn,
+    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.digest_runs.critical_total))',
+    warning   => '0',
+    critical  => '0',
+    from      => '1hour',
+    desc      => 'email-alert-api - incomplete digest runs - critical',
+    notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
   }
 }
