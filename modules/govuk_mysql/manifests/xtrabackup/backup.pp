@@ -83,7 +83,7 @@ define govuk_mysql::xtrabackup::backup (
     notes_url           => monitoring_docs_url(mysql-xtrabackups-to-s3),
   }
 
-  $incremental_threshold_secs = $incremental_backup_cron_interval * 60
+  $incremental_threshold_secs = ($incremental_backup_cron_interval * 60) + (5 * 60)
   $incremental_service_desc = 'MySQL Xtrabackup incremental push'
 
   file { '/usr/local/bin/xtrabackup_s3_incremental':
