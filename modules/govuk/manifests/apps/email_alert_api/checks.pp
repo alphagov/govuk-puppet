@@ -55,7 +55,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '100000000',
     from      => '1hour',
-    desc      => 'email-alert-api - unprocessed content changes',
+    desc      => 'email-alert-api - unprocessed content changes - warning',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
     }
 
@@ -91,7 +91,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '0',
     from      => '1hour',
-    desc      => 'email-alert-api - unprocessed content changes',
+    desc      => 'email-alert-api - unprocessed content changes - critical',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
   }
 
