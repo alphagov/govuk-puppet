@@ -12,7 +12,7 @@
 #
 class govuk_containers::tensorflow_serving(
   $image_name = 'tensorflow/serving',
-  $image_version = 'latest',
+  $image_version = '2.0.0',
   $model_name = 'ltr'
 ) {
 
