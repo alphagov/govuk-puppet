@@ -32,7 +32,7 @@ class govuk::apps::email_alert_api::checks(
     critical  => '0.25',
     from      => '1hour',
     desc      => 'email-alert-api - high number of delivery attempts have not received status updates',
-    notes_url => monitoring_docs_url(email-alert-api-delivery-attempts-status-update),
+    notes_url => monitoring_docs_url(email-alert-api-delivery-attempts-status-updates),
   }
 
   # We are only interested in the `warning` state but `critical` is also required
