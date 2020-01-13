@@ -44,9 +44,9 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::router::sentry_environment: 'integration'
-govuk::apps::search_api::bucket_name: 'govuk-integration-sitemaps'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-integration-search-relevancy'
+govuk::apps::search_api::sitemaps_bucket_name: 'govuk-integration-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
 govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'

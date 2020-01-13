@@ -327,8 +327,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::search_api::redis_port
     govuk::apps::search_api::elasticsearch_hosts
     govuk::apps::search_api::unicorn_worker_processes
-    govuk::apps::search_api::bucket_name
     govuk::apps::search_api::relevancy_bucket_name
+    govuk::apps::search_api::sitemaps_bucket_name
     govuk::apps::search_api::enable_learning_to_rank
     govuk::apps::search_api::tensorflow_models_directory
     govuk::apps::search_api::tensorflow_serving_ip

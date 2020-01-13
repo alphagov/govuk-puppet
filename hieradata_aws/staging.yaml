@@ -160,9 +160,9 @@ govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
-govuk::apps::search_api::bucket_name: 'govuk-staging-sitemaps'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
+govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
 govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
