@@ -9,10 +9,9 @@ class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
   $rate_limit_token = undef,
   $cron_schedule = undef
 ) {
-
   $job_name = 'enhanced_ecommerce_search_api'
   $service_description = 'Enhanced Ecommerce ETL from Search API to Google Analytics'
-  $job_url = "https://deploy.${app_domain}/job/enhanced_ecommerce_search_api/"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_name}/"
   $target_application = 'search-api'
 
   file { '/etc/jenkins_jobs/jobs/enhanced_ecommerce_search_api.yaml':
