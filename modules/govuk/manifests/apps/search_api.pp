@@ -88,15 +88,15 @@
 # [*oauth_secret*]
 #   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
-# [*bucket_name*]
-#   The S3 bucket to serve sitemaps from and store them in
-#
 # [*aws_region*]
 #   The AWS region of the S3 bucket.
 #   Default: eu-west-1
 #
 # [*relevancy_bucket_name*]
 #   The S3 bucket for search relevancy data - e.g. relevancy judgements
+#
+# [*sitemaps_bucket_name*]
+#   The S3 bucket to serve sitemaps from and store them in
 #
 # [*enable_learning_to_rank*]
 #   A feature flag to enable learning to rank in an environment.
@@ -140,8 +140,8 @@ class govuk::apps::search_api(
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $bucket_name = undef,
   $relevancy_bucket_name = undef,
+  $sitemaps_bucket_name = undef,
   $aws_region = 'eu-west-1',
   $enable_learning_to_rank = false,
   $tensorflow_models_directory = undef,
@@ -275,19 +275,20 @@ class govuk::apps::search_api(
       value   => $oauth_secret;
   }
 
+  # todo: remove AWS_S3_BUCKET_NAME when search-api has been changed to use AWS_S3_SITEMAPS_BUCKET_NAME
   govuk::app::envvar {
     "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
-      value   => $bucket_name;
+      value   => $sitemaps_bucket_name;
     "${title}-AWS_REGION":
       varname => 'AWS_REGION',
       value   => $aws_region;
-  }
-
-  govuk::app::envvar {
     "${title}-AWS_S3_RELEVANCY_BUCKET_NAME":
       varname => 'AWS_S3_RELEVANCY_BUCKET_NAME',
       value   => $relevancy_bucket_name;
+    "${title}-AWS_S3_SITEMAPS_BUCKET_NAME":
+      varname => 'AWS_S3_SITEMAPS_BUCKET_NAME',
+      value   => $sitemaps_bucket_name;
   }
 
   govuk::app::envvar {

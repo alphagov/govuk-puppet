@@ -162,9 +162,9 @@ govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
-govuk::apps::search_api::bucket_name: 'govuk-production-sitemaps'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
+govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
 govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
 govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
 govuk::apps::search_api::enable_learning_to_rank: true
