@@ -35,13 +35,7 @@ class icinga::client::checks (
   }
   include icinga::client::check_file_not_exists
   include icinga::client::check_linux_free_memory
-  include icinga::client::check_rw_rootfs
   include icinga::client::check_upstart_status
-
-  anchor { ['icinga::client::checks::begin', 'icinga::client::checks::end']: }
-  Anchor['icinga::client::checks::begin']
-    -> Class['icinga::client::check_rw_rootfs']
-    -> Anchor['icinga::client::checks::end']
 
   @icinga::nrpe_config { 'check_file_age':
     source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_file_age.cfg',
