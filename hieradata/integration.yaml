@@ -56,9 +56,6 @@ govuk_jenkins::config::user_permissions:
     user: 'alphagov*GOV.UK'
     permissions: *jenkins_admin_permission_list
   -
-    user: 'alphagov*GOV.UK ITHC'
-    permissions: *jenkins_admin_permission_list
-  -
     user: 'anonymous'
     permissions:
       - 'hudson.model.Hudson.Read'
