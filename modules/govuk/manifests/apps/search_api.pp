@@ -275,11 +275,7 @@ class govuk::apps::search_api(
       value   => $oauth_secret;
   }
 
-  # todo: remove AWS_S3_BUCKET_NAME when search-api has been changed to use AWS_S3_SITEMAPS_BUCKET_NAME
   govuk::app::envvar {
-    "${title}-AWS_S3_BUCKET_NAME":
-      varname => 'AWS_S3_BUCKET_NAME',
-      value   => $sitemaps_bucket_name;
     "${title}-AWS_REGION":
       varname => 'AWS_REGION',
       value   => $aws_region;
