@@ -55,21 +55,21 @@ def ec2_nodes_list_with_puppet_class(stackname):
                )
 
     reservations = response['Reservations']
-    for reservation in reservations:
-        instances = reservation['Instances']
 
-    return [
-        "%s:%s" % (
-            instance['PrivateDnsName'],
-            next(
-                filter(
-                    lambda t: t['Key'] == 'aws_hostname',
-                    instance['Tags']
-                )
-            )['Value']
-        )
-        for instance in list(instances)
-    ]
+    hostname_and_puppet_class = []
+
+    for reservation in reservations:
+        for instance in list(reservation['Instances']):
+            hostname_and_puppet_class.append("%s:%s" % (
+                instance['PrivateDnsName'],
+                next(
+                    filter(
+                        lambda t: t['Key'] == 'aws_hostname',
+                        instance['Tags']
+                    )
+                )['Value']))
+
+    return hostname_and_puppet_class
 
 def ec2_classes(stackname):
     client = boto3.client('ec2', region_name=region)
