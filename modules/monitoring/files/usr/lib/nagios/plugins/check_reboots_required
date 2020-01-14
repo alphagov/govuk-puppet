@@ -66,7 +66,7 @@ else
   end
   if safe_machines.length > 0
     puts "\n"
-    puts 'These hosts should reboot overnight:'
+    puts 'These hosts should reboot automatically overnight:'
     safe_machines.sort.each do |hostname|
       hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
       puts "- #{hydrated_name}"
