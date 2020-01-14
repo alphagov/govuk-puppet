@@ -17,7 +17,7 @@ def hostname_with_node_name(hostname, machines_names_hash)
   name = machines_names_hash[hostname]
 
   if name
-    "%s with hostname: %s" % [name, hostname]
+    "#{hostname} (#{name}))"
   else
     hostname
   end
