@@ -59,15 +59,10 @@ def ec2_nodes_list_with_puppet_class(stackname):
     hostname_and_puppet_class = []
 
     for reservation in reservations:
-        for instance in list(reservation['Instances']):
-            hostname_and_puppet_class.append("%s:%s" % (
-                instance['PrivateDnsName'],
-                next(
-                    filter(
-                        lambda t: t['Key'] == 'aws_hostname',
-                        instance['Tags']
-                    )
-                )['Value']))
+        for instance in reservation['Instances']:
+            private_dns_name = instance['PrivateDnsName']
+            hostname = next(tag['Value'] for tag in instance['Tags'] if tag['Key'] == 'aws_hostname')
+            hostname_and_puppet_class.append("{private_dns_name}:{hostname}".format(private_dns_name=private_dns_name, hostname=hostname))
 
     return hostname_and_puppet_class
 
