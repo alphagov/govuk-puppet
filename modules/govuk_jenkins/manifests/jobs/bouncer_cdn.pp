@@ -27,9 +27,7 @@ class govuk_jenkins::jobs::bouncer_cdn (
   }
 
   $check_name = 'bouncer-cdn-configuration'
-
-  # FIXME: go back to using $app_domain once we have a single Icinga instance in AWS
-  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/Bouncer_CDN/"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/Bouncer_CDN/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,

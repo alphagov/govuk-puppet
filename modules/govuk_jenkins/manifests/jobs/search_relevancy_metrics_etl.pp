@@ -14,10 +14,9 @@ class govuk_jenkins::jobs::search_relevancy_metrics_etl (
   $cron_schedule = undef,
   $app_domain = hiera('app_domain'),
 ) {
-
   $check_name = 'search-relevancy-metrics-etl'
   $service_description = 'Search Relevancy Metrics ETL'
-  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/search_relevancy_metrics_etl/"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/search_relevancy_metrics_etl/"
 
   file { '/etc/jenkins_jobs/jobs/search_relevancy_metrics_etl.yaml':
     ensure  => present,

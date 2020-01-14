@@ -21,8 +21,7 @@ class govuk_jenkins::jobs::transition_import_hits(
 
   $check_name = 'transition-import-hits'
 
-  # FIXME: go back to using $app_domain once we have a single Icinga instance in AWS
-  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/transition_import_hits/"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/transition_import_hits/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,

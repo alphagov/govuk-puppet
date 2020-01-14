@@ -19,8 +19,7 @@ class govuk_jenkins::jobs::search_api_fetch_analytics_data (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  # FIXME: go back to using $app_domain once we have a single Icinga instance in AWS
-  $job_url = "https://deploy.${::aws_environment}.govuk.digital/job/${job_name}"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_name}/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,
