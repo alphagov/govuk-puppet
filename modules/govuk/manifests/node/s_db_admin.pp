@@ -53,13 +53,6 @@ class govuk::node::s_db_admin(
     ensure  => latest,
   }
 
-  file { '/var/lib/documentdb':
-    ensure => directory,
-    owner  => 'govuk-backup',
-    group  => 'govuk-backup',
-    mode   => '0750',
-  }
-
   $alert_hostname = 'alert'
 
   ### MySQL ###
