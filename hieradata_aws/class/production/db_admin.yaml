@@ -108,6 +108,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/email-alert-api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  "pull_govuk_assets_production":
+    ensure: "disabled"
+    hour: "0"
+    minute: "00"
+    action: "pull"
+    dbms: "documentdb"
+    storagebackend: "s3"
+    database: "govuk_assets_production"
+    temppath: "/tmp/govuk_assets_production"
+    url: "govuk-production-database-backups"
+    path: "mongo-normal"
   "pull_licensify_production": &pull_licensify
     ensure: "disabled"
     hour: "0"
@@ -127,6 +138,17 @@ govuk_env_sync::tasks:
     <<: *pull_licensify
     ensure: "disabled"
     database: "licensify-audit"
+  "pull_mysql_whitehall_production_daily":
+    ensure: "disabled"
+    hour: "0"
+    minute: "00"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "whitehall_production"
+    temppath: "/tmp/whitehall_production"
+    url: "govuk-production-database-backups"
+    path: "mysql"
   "pull_publishing_api_production":
     ensure: "disabled"
     hour: "0"
