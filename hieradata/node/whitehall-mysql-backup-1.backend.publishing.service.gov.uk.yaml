@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_mysql_whitehall_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "00"
     action: "push"

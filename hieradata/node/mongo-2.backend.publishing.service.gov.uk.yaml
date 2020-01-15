@@ -4,7 +4,7 @@ mongodb::s3backup::cron::realtime_minute: '*/30'
 
 govuk_env_sync::tasks:
   "push_govuk_assets_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "00"
     action: "push"
