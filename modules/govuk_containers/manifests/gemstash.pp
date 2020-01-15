@@ -20,6 +20,11 @@ class govuk_containers::gemstash(
     ensure => directory,
   }
 
+  file { '/var/lib/gemstash/config.yml':
+    ensure  => present,
+    content => file('govuk_containers/gemstash/config.yml'),
+  }
+
   ::docker::image { $gemstash_image:
     ensure    => 'present',
     require   => Class['govuk_docker'],
