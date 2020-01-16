@@ -6,6 +6,19 @@ class govuk::apps::email_alert_api::checks(
   $ensure = present,
 ) {
 
+  sidekiq_queue_check { [ 'delivery_immediate_high',
+                          'delivery_immediate',
+                          'delivery_digest',
+                          'email_generation_immediate',
+                          'process_and_generate_emails',
+                          'default',
+                          'email_generation_digest',
+                          'cleanup']:
+    size_warning  => '75000',
+    size_critical => '100000',
+    ;
+  }
+
   delivery_attempt_status_check { 'internal_failure':
     ensure => $ensure,
   }
