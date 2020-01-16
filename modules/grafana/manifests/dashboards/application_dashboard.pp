@@ -28,6 +28,15 @@
 #   Used for metrics that are named based on the instance name rather than the
 #   application. For example, calculators_frontend vs finder_frontend.
 #
+# [*rows*]
+#   A nested array of rows containing partial names to be appended in-order
+#   to the application dashboard. For example, [['sidekiq_queue_length', 'sidekiq_errors']]
+#   for a single row containing two partials. Or for two rows:
+#   [['sidekiq_queue_length', 'sidekiq_errors'], ['memcached']]
+#   which will a row with two partials, and a second with one.
+#   The partial names should map to partials in application_dashboard_panels
+#   directory, e.g. _sidekiq_errors.json.erb.
+#
 define grafana::dashboards::application_dashboard (
   $app_name = $title,
   $docs_name = $title,
@@ -41,11 +50,10 @@ define grafana::dashboards::application_dashboard (
   $show_response_times = false,
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
-  $show_external_request_time = false,
   $show_memcached = false,
   $instance_prefix = '',
   $sentry_environment = $::govuk::deploy::config::errbit_environment_name,
-
+  $rows = [],
 ) {
   if $has_workers {
     $worker_row = [['worker_failures', 'worker_successes']]
@@ -102,19 +110,6 @@ define grafana::dashboards::application_dashboard (
     $memcached_row = []
   }
 
-# These three are pretty specific to finder frontend.
-# If you want to use them then they probably need more white-labelling.
-  if $show_external_request_time {
-    $external_request_row = [
-      [
-        'content_store_request_time',
-        'registry_request_time',
-        'search_api_request_time']
-    ]
-  } else {
-    $external_request_row = []
-  }
-
   $panel_partials = concat(
     [
       ['processor_count'],
@@ -127,7 +122,7 @@ define grafana::dashboards::application_dashboard (
     $dependent_app_5xx_row,
     $sidekiq_graph_row,
     $memcached_row,
-    $external_request_row
+    $rows
   )
 
   file {
