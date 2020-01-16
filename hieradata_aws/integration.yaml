@@ -278,6 +278,9 @@ grafana::dashboards::application_dashboards:
   router-api: {}
   search-api:
     # search-api is a sinatra app
+    rows:
+      - - reranker_latency_vs_request_count
+      - - reranker_errors
     show_controller_errors: false
     show_response_times: true
     show_sidekiq_graphs: true
