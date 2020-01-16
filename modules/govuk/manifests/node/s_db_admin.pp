@@ -124,33 +124,5 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::service_manual_publisher::db': }
   -> class { '::govuk::apps::support_api::db': }
 
-  if $::aws_environment == 'integration' {
-
-    file { '/usr/local/bin/reboot_elasticache.py':
-      content => file('govuk/node/s_db_admin/reboot_elasticache.py'),
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0775',
-    }
-
-    cron::crondotdee { 'reboot-elasticache':
-      hour    => 11,
-      minute  => 0,
-      command => '/usr/bin/env bash -l -exec "/usr/bin/env python3 /usr/local/bin/reboot_elasticache.py --log=INFO >> /var/log/reboot_elasticache 2>&1"',
-      require => [ File['/usr/local/bin/reboot_elasticache.py'], Package['boto3'],],
-    }
-
-    @logrotate::conf { 'reboot-elasticache':
-      ensure        => 'present',
-      matches       => '/var/log/reboot_elasticache',
-      days_to_keep  => '7',
-      delaycompress => true,
-      copytruncate  => false,
-      create        => '644 root root',
-      maxsize       => '10M',
-    }
-
-  }
-
   class { '::govuk_datascrubber': }
 }
