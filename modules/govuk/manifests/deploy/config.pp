@@ -121,7 +121,8 @@ class govuk::deploy::config(
     # 2. Whitehall is still in Carrenza Staging and Production.
     if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
       govuk_envvar {
-        'PLEK_SERVICE_WHITEHALL_ADMIN_URI': value  => "https://whitehall-admin.${app_domain}";
+        'PLEK_SERVICE_WHITEHALL_ADMIN_URI':    value  => "https://whitehall-admin.${app_domain}";
+        'PLEK_SERVICE_WHITEHALL_FRONTEND_URI': value  => "https://whitehall-frontend.${app_domain}";
       }
 
       # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
