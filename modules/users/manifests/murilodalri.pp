@@ -1,6 +1,7 @@
 # Create the murilodalri user
 class users::murilodalri {
   govuk_user { 'murilodalri':
+    ensure   => absent,
     fullname => 'Murilo Dal Ri',
     email    => 'murilo.dalri@digital.cabinet-office.gov.uk',
     ssh_key  => [
