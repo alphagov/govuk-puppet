@@ -118,13 +118,7 @@ class govuk::deploy::config(
     }
 
     # 1. Signon is still in Carrenza Staging and Production.
-    # 2. Whitehall is still in Carrenza Staging and Production.
     if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
-      govuk_envvar {
-        'PLEK_SERVICE_WHITEHALL_ADMIN_URI':    value  => "https://whitehall-admin.${app_domain}";
-        'PLEK_SERVICE_WHITEHALL_FRONTEND_URI': value  => "https://whitehall-frontend.${app_domain}";
-      }
-
       # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
       # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
       # signon URL with 'draft-'. We therefore mustn't override it here, otherwise
@@ -133,6 +127,13 @@ class govuk::deploy::config(
         govuk_envvar {
           'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
         }
+      }
+    }
+    # 2. Whitehall is still in Carrenza Production.
+    if $::aws_environment == 'production' {
+      govuk_envvar {
+        'PLEK_SERVICE_WHITEHALL_ADMIN_URI':    value  => "https://whitehall-admin.${app_domain}";
+        'PLEK_SERVICE_WHITEHALL_FRONTEND_URI': value  => "https://whitehall-frontend.${app_domain}";
       }
     }
 
