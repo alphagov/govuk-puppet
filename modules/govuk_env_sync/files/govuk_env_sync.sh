@@ -560,8 +560,8 @@ function postprocess_router {
   fi
   mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
 
-  # whitehall has been migrated in only integration so far
-  if [ "${aws_environment}" == "integration" ]; then
+  # whitehall has been migrated in only integration and staging so far
+  if [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "staging" ]; then
     whitehall_domain="${local_domain}"
   else
     whitehall_domain="${unmigrated_source_domain}"
