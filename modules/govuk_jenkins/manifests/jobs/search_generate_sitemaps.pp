@@ -20,5 +20,6 @@ class govuk_jenkins::jobs::search_generate_sitemaps{
     host_name           => $::fqdn,
     freshness_threshold => 129600,
     action_url          => $job_url,
+    notes_url           => monitoring_docs_url(runs-rake-task-search-api),
   }
 }
