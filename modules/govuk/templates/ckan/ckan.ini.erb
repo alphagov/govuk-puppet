@@ -91,7 +91,7 @@ ckan.cors.origin_allow_all = true
 #       Add ``datapusher`` to enable DataPusher
 #       Add ``resource_proxy`` to enable resorce proxying and get around the
 #       same origin policy
-ckan.plugins = datagovuk_publisher_form datagovuk datagovsg_s3_resources dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api gemini_csw_harvester gemini_waf_harvester gemini_doc_harvester inventory_harvester
+ckan.plugins = datagovuk_publisher_form datagovuk dcat harvest ckan_harvester dcat_rdf_harvester dcat_json_harvester dcat_json_interface spatial_metadata spatial_query spatial_harvest_metadata_api gemini_csw_harvester gemini_waf_harvester gemini_doc_harvester inventory_harvester
 
 # These are marked as legacy harvesters
 # gemini_csw_harvester gemini_doc_harvester gemini_waf_harvester
@@ -100,11 +100,6 @@ ckan.plugins = datagovuk_publisher_form datagovuk datagovsg_s3_resources dcat ha
 # inventory_harvester
 
 ## S3 Settings
-ckan.datagovsg_s3_resources.s3_aws_access_key_id = <%= @s3_aws_access_key_id%>
-ckan.datagovsg_s3_resources.s3_aws_secret_access_key = <%= @s3_aws_secret_access_key%>
-ckan.datagovsg_s3_resources.s3_bucket_name = <%= @s3_bucket_name%>
-ckan.datagovsg_s3_resources.s3_url_prefix = https://s3-<%= @s3_aws_region_name%>.amazonaws.com/<%= @s3_bucket_name%>/
-ckan.datagovsg_s3_resources.s3_aws_region_name = <%= @s3_aws_region_name%>
 ckan.datagovuk.s3_aws_access_key_id = <%= @s3_aws_access_key_id%>
 ckan.datagovuk.s3_aws_secret_access_key = <%= @s3_aws_secret_access_key%>
 ckan.datagovuk.s3_bucket_name = <%= @s3_bucket_name%>
