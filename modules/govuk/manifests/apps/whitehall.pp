@@ -249,6 +249,16 @@ class govuk::apps::whitehall(
       asset_pipeline_prefix => 'government/assets',
     }
 
+    # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
+    # because Whitehall sets $enable_nginx_vhost=false. We therefore need to
+    # configure the LB healthcheck explicitly.
+    if $::aws_migration {
+      concat::fragment { "${whitehall_frontend_vhost_}_lb_healthcheck":
+        target  => '/etc/nginx/lb_healthchecks.conf',
+        content => "location /_healthcheck_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy${health_check_path};\n}\n",
+      }
+    }
+
     if $::govuk_node_class !~ /^development$/ {
       govuk::app::envvar::database_url { $app_name:
         type     => 'mysql2',
