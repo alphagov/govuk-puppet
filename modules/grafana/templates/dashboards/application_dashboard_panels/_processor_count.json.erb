@@ -58,7 +58,7 @@
         }
       ],
       "refId": "A",
-      "target": "aliasByNode(<%= @instance_prefix %>-*.processes-app-<%= @app_name %>.ps_count.processes,0)",
+      "target": "aliasByNode(*.processes-app-<%= @app_name %>.ps_count.processes,0)",
       "textEditor": true,
       "timeField": "@timestamp"
     },
