@@ -5,7 +5,7 @@
 class govuk_jenkins::jobs::search_generate_sitemaps{
   $app_domain = hiera('app_domain')
 
-  $service_description = 'Runs a rake task on Search API that generates the sitemap files'
+  $service_description = 'Runs a rake task on Search API that generates the sitemap files. It is safe to re-run in-hours.'
   $job_slug = 'search_generate_sitemaps'
   $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_slug}/"
 
