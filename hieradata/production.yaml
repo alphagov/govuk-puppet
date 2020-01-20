@@ -188,7 +188,6 @@ hosts::production::api::hosts:
     ip: '10.3.12.31'
 
 hosts::production::backend::app_hostnames:
-  - 'asset-manager'
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
@@ -207,7 +206,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
   - 'travel-advice-publisher'
-  - 'whitehall-admin'
 
 hosts::production::backend::hosts:
   asset-master-1:
