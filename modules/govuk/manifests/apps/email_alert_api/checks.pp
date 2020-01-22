@@ -6,16 +6,28 @@ class govuk::apps::email_alert_api::checks(
   $ensure = present,
 ) {
 
-  sidekiq_queue_check { [ 'delivery_immediate_high',
-                          'delivery_immediate',
-                          'delivery_digest',
-                          'email_generation_immediate',
+  sidekiq_queue_check { [ 'email_generation_immediate',
                           'process_and_generate_emails',
                           'default',
                           'email_generation_digest',
                           'cleanup']:
-    size_warning  => '75000',
-    size_critical => '100000',
+    size_warning     => '75000',
+    size_critical    => '100000',
+    latency_warning  => '5',
+    latency_critical => '10',
+    ;
+                        [ 'delivery_immediate_high',
+                          'delivery_immediate']:
+    size_warning     => '75000',
+    size_critical    => '100000',
+    latency_warning  => '2.5',
+    latency_critical => '5',
+    ;
+                        [ 'delivery_digest']:
+    size_warning     => '75000',
+    size_critical    => '100000',
+    latency_warning  => '90',
+    latency_critical => '60',
     ;
   }
 
