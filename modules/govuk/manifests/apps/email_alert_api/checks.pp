@@ -31,6 +31,11 @@ class govuk::apps::email_alert_api::checks(
     ;
   }
 
+  sidekiq_retry_size_check { 'retry_set_size':
+    retry_size_warning  => '40000',
+    retry_size_critical => '50000',
+  }
+
   delivery_attempt_status_check { 'internal_failure':
     ensure => $ensure,
   }
