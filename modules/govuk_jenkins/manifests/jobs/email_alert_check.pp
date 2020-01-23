@@ -38,10 +38,10 @@ class govuk_jenkins::jobs::email_alert_check (
 
   $drug_check_name = 'email_alert_check'
   $drug_service_description = 'Email alert check'
-  $drug_job_url = "https://deploy.${app_domain}/job/email-alert-check/"
+  $drug_job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/email-alert-check/"
   $travel_advice_check_name = 'travel_advice_email_alert_check'
   $travel_advice_service_description = 'Travel Advice email alert check'
-  $travel_advice_job_url = "https://deploy.${app_domain}/job/travel-advice-email-alert-check/"
+  $travel_advice_job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/travel-advice-email-alert-check/"
 
   file {
     '/etc/jenkins_jobs/jobs/drug_email_alert_check.yaml':
