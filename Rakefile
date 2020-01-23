@@ -26,8 +26,6 @@ task :check_consistency_between_aws_and_carrenza do
   CARRENZA_ONLY_KEYS = %w[
     app_domain_internal
     environment_ip_prefix
-    govuk::apps::content_audit_tool::db_allow_prepared_statements
-    govuk::apps::content_audit_tool::db_port
     govuk::apps::content_publisher::db_allow_prepared_statements
     govuk::apps::content_publisher::db_port
     govuk::apps::content_publisher::db::backend_ip_range
@@ -132,8 +130,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_monitoring::enable_fastly_metrics
     govuk_bouncer::gor::enabled
     govuk_bouncer::gor::target
-    govuk_jenkins::jobs::content_audit_tool::rake_import_all_content_items_frequency
-    govuk_jenkins::jobs::content_audit_tool::rake_import_all_ga_metrics_frequency
     govuk_jenkins::jobs::network_config_deploy::environments
     govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
@@ -175,9 +171,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::collections::unicorn_worker_processes
     govuk::apps::collections::nagios_memory_critical
     govuk::apps::collections::nagios_memory_warning
-    govuk::apps::content_audit_tool::db::allow_auth_from_lb
-    govuk::apps::content_audit_tool::db::lb_ip_range
-    govuk::apps::content_audit_tool::db::rds
     govuk::apps::content_data_admin::db::allow_auth_from_lb
     govuk::apps::content_data_admin::db::lb_ip_range
     govuk::apps::content_data_admin::db::rds

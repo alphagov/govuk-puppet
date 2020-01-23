@@ -19,7 +19,7 @@ class govuk_jenkins::jobs::content_audit_tool (
   $rake_import_all_ga_metrics_frequency = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/content_audit_tool.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/content_audit_tool.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }

@@ -239,12 +239,6 @@ govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_audit_tool::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_audit_tool::db_port: 6432
-govuk::apps::content_audit_tool::db_allow_prepared_statements: false
-govuk::apps::content_audit_tool::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_audit_tool::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_audit_tool::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
@@ -318,8 +312,6 @@ govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::collections_publisher_redis_host: "%{hiera('govuk::apps::collections_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::collections_publisher_redis_port: "%{hiera('govuk::apps::collections_publisher::redis_port')}"
-govuk::apps::sidekiq_monitoring::content_audit_tool_redis_host: "%{hiera('govuk::apps::content_audit_tool::redis_host')}"
-govuk::apps::sidekiq_monitoring::content_audit_tool_redis_port: "%{hiera('govuk::apps::content_audit_tool::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_publisher_redis_host: "%{hiera('govuk::apps::content_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::content_publisher_redis_port: "%{hiera('govuk::apps::content_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::content_tagger_redis_host: "%{hiera('govuk::apps::content_tagger::redis_host')}"

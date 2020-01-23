@@ -54,17 +54,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content-register_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
-  "pull_content_audit_tool_training_daily":
-    ensure: "present"
-    hour: "3"
-    minute: "30"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "content_audit_tool_production"
-    temppath: "/tmp/content_audit_tool_production"
-    url: "govuk-integration-database-backups"
-    path: "postgresql-backend"
   "pull_content_publisher_training_daily":
     ensure: "present"
     hour: "3"
