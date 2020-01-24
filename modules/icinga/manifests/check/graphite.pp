@@ -113,7 +113,7 @@ define icinga::check::graphite(
     }
 
     $action_url_real = "https://graphite.${app_domain}/render/?\
-width=${graph_width}&height=${graph_height}&colorList=red,orange,blue,green,purple,brown\
+width=${graph_width}&height=${graph_height}&from=-${from}&colorList=red,orange,blue,green,purple,brown\
 ${crit_line}${warn_line}\
 &target=${url_encoded_target}"
   } else {
