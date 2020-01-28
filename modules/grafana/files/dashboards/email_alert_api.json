@@ -104,7 +104,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "summarize(sumSeries(stats.govuk.app.email-alert-api.*.notify.email_send_request.*), '1min', 'sum', false)",
+              "target": "summarize(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*), '1min', 'sum', false)",
               "textEditor": false
             }
           ],
@@ -179,7 +179,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "integral(groupByNode(stats.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, 'sumSeries'))",
+              "target": "integral(groupByNode(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, 1, 'sumSeries'))",
               "textEditor": false
             }
           ],
