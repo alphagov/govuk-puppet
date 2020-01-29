@@ -43,9 +43,6 @@ FORGE
     puppet-unattended_upgrades (2.1.0)
       puppetlabs-apt (< 3.0.0, >= 2.2.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
-    puppet-yum (2.2.1)
-      puppetlabs-concat (< 5.0.0, >= 1.2.5)
-      puppetlabs-stdlib (< 5.0.0, >= 4.10.0)
     puppet-zypprepo (2.2.1)
     puppetlabs-apt (2.3.0)
       puppetlabs-stdlib (< 5.0.0, >= 4.5.0)
@@ -66,7 +63,6 @@ FORGE
       puppetlabs-stdlib (< 5.0.0, >= 3.2.0)
     puppetlabs-stdlib (4.25.1)
     puppetlabs-vcsrepo (2.3.0)
-    richardc-datacat (0.6.2)
     rtyler-jenkins (1.7.0)
       darin-zypprepo (< 2.0.0, >= 1.0.1)
       puppet-archive (>= 0.4.8)
@@ -143,18 +139,6 @@ GIT
       puppetlabs-stdlib (~> 4.0)
 
 GIT
-  remote: git://github.com/elastic/puppet-elasticsearch.git
-  ref: 7d297e0002f1519e488620b7580963c80fe89f18
-  sha: 7d297e0002f1519e488620b7580963c80fe89f18
-  specs:
-    elasticsearch-elasticsearch (5.5.0)
-      puppet-yum (< 3.0.0, >= 0.9.6)
-      puppetlabs-apt (< 5.0.0, >= 2.0.0)
-      puppetlabs-java (< 5.0.0, >= 1.0.0)
-      puppetlabs-stdlib (< 5.0.0, >= 4.6.0)
-      richardc-datacat (< 1.0.0, >= 0.6.2)
-
-GIT
   remote: git://github.com/electrical/puppet-logstash.git
   ref: 694fa1a
   sha: 694fa1afc87e0151ae0a5121c0241cf0b3a1bbbf
@@ -205,7 +189,6 @@ DEPENDENCIES
   attachmentgenie-ufw (= 1.0.3)
   camptocamp-augeas (= 1.1.0)
   covermymeds-pgbouncer (= 0.3.3)
-  elasticsearch-elasticsearch (>= 0)
   elasticsearch-logstash (>= 0)
   fsalum-redis (>= 0)
   gdsoperations-aptly (>= 0)
