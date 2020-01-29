@@ -17,7 +17,6 @@ node_class: &node_class
       - asset_env_sync
   backend:
     apps:
-      - asset-manager
       - canary-backend
       - collections-publisher
       - contacts
