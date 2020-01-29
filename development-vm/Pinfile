@@ -16,7 +16,6 @@ process :collections => [:static, :'content-store', :'search-api']
 process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker', :'link-checker-api']
 process :'collections-publisher-worker'
 process :'contacts-admin' => [:'publishing-api', :whitehall]
-process :'content-audit-tool' => [:'publishing-api-read', :'content-audit-tool-sidekiq-google-analytics', :'content-audit-tool-sidekiq-publishing-api']
 process :'content-data' =>[:'content-data-api', :'content-data-sidekiq-default']
 process :'content-data-api' => [:'publishing-api', :'content-data-api-sidekiq-default', :'content-data-api-publishing-api-consumer', 'content-data-api-bulk-import-publishing-api-consumer', 'content-store']
 process :'content-publisher' => [:'publishing-api', :'asset-manager']
