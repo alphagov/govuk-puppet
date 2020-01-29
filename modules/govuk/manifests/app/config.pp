@@ -363,7 +363,7 @@ define govuk::app::config (
       ensure         => $ensure,
       target         => "summarize(transformNull(stats_counts.govuk.app.${title}.memory_restarts,0),\"1d\",\"sum\",false)",
       args           => '--ignore-missing',
-      from           => '3hours',
+      from           => '1days',
       warning        => 4,
       critical       => 10 ,
       desc           => "${title} restarts per day due to memory usage",
