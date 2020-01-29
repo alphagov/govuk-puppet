@@ -92,6 +92,7 @@ class govuk::apps::content_audit_tool(
   $app_name = 'content-audit-tool'
 
   govuk::app { $app_name:
+    ensure            => 'absent',
     app_type          => 'rack',
     port              => $port,
     sentry_dsn        => $sentry_dsn,
