@@ -21,7 +21,6 @@ node_class: &node_class
       - canary-backend
       - collections-publisher
       - contacts
-      - content-audit-tool
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -969,7 +968,6 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'content-audit-tool'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

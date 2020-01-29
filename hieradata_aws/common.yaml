@@ -21,7 +21,6 @@ node_class: &node_class
       - canary-backend
       - collections-publisher
       - contacts
-      - content-audit-tool
       - content-data-admin
       - content-data-api
       - content-publisher
