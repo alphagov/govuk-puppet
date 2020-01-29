@@ -160,7 +160,6 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-  content-audit-tool: {}
   content-data-admin: {}
   content-data-api: {}
   content-publisher: {}

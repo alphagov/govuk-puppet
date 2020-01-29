@@ -58,7 +58,6 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-  content-audit-tool: {}
   content-publisher: {}
   content-tagger: {}
   feedback: {}
