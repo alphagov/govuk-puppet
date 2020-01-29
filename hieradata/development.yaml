@@ -343,7 +343,6 @@ govuk_sshkeys::development_keys:
 
 govuk_unattended_reboot::enabled: false
 govuk_unattended_reboot::mongodb::enabled: false
-govuk_unattended_reboot::elasticsearch::enabled: false
 
 hosts::development::apps:
   - 'assets-origin'
