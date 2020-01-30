@@ -52,7 +52,6 @@ class govuk::node::s_backend_lb (
   loadbalancer::balance { [
     'collections-publisher',
     'contacts-admin',
-    'content-audit-tool',
     'content-data',
     'content-data-admin',
     'content-data-api',

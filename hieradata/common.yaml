@@ -21,7 +21,6 @@ node_class: &node_class
       - canary-backend
       - collections-publisher
       - contacts
-      - content-audit-tool
       - content-publisher
       - content-tagger
       - hmrc-manuals-api
@@ -58,7 +57,6 @@ deployable_applications: &deployable_applications
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
-  content-audit-tool: {}
   content-publisher: {}
   content-tagger: {}
   feedback: {}
@@ -802,9 +800,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   contacts:
     docs_name: 'contacts-admin'
-  content-audit-tool:
-    show_sidekiq_graphs: true
-    has_workers: true
   content-publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -973,7 +968,6 @@ hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'collections-publisher'
   - 'contacts-admin'
-  - 'content-audit-tool'
   - 'content-publisher'
   - 'content-tagger'
   - 'docs'

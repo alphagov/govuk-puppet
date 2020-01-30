@@ -319,7 +319,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-collections-publisher
       - backend-contacts-admin
       - backend-content-api
-      - backend-content-audit-tool
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger

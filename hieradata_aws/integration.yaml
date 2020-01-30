@@ -192,9 +192,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   contacts:
     docs_name: 'contacts-admin'
-  content-audit-tool:
-    show_sidekiq_graphs: true
-    has_workers: true
   content-data-admin:
     show_sidekiq_graphs: true
     has_workers: true
