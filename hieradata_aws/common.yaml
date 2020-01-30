@@ -1065,6 +1065,8 @@ grafana::dashboards::application_dashboards:
     rows:
       - - reranker_latency_vs_request_count
       - - reranker_errors
+      - - completion_latency_vs_request_count
+        - spelling_latency_vs_request_count
     show_controller_errors: false
     show_response_times: true
     show_sidekiq_graphs: true
