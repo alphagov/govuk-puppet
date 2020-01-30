@@ -110,6 +110,9 @@
 # [*tensorflow_sagemaker_endpoint*]
 #   The Amazon SageMaker endpoint serving the tensorflow model.
 #
+# [*unicorn_timeout*]
+#   Unicorn worker request timeout. Should match search machine Nginx timeout.
+#
 
 class govuk::apps::search_api(
   $rabbitmq_user,
@@ -147,6 +150,7 @@ class govuk::apps::search_api(
   $tensorflow_models_directory = undef,
   $tensorflow_serving_ip = undef,
   $tensorflow_sagemaker_endpoint = undef,
+  $unicorn_timeout = 15,
 ) {
   $app_name = 'search-api'
 
@@ -211,6 +215,12 @@ class govuk::apps::search_api(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar {
+    "${title}-UNICORN_TIMEOUT":
+      varname => 'UNICORN_TIMEOUT',
+      value   => $unicorn_timeout;
   }
 
   govuk::app::envvar {
