@@ -26,6 +26,7 @@ node_class: &node_class
       - imminence
       - link-checker-api
       - local-links-manager
+      - release
       - sidekiq-monitoring
       - support
       - support-api
