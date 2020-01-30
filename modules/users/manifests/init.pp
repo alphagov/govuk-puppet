@@ -12,6 +12,14 @@
 #   List of pentest user accounts to add.
 #   Default: []
 #
+# [*licensify_machines*]
+#   List of machines which licensify contractors require access to.
+#   Default: []
+#
+# [*licensify_usernames*]
+#   List of licensify contractors user accounts to add.
+#   Default: []
+#
 # [*root_password_encrypted*]
 #   A string which is in the format that the operating system requires passwords
 #   (eg a SHA-512 hash on Ubuntu).
@@ -23,11 +31,13 @@
 class users (
   $pentest_machines = [],
   $pentest_usernames = [],
+  $licensify_machines = [],
+  $licensify_usernames = [],
   $root_password_encrypted,
   $usernames = [],
 ) {
 
-  validate_array($pentest_machines, $pentest_usernames, $usernames)
+  validate_array($pentest_machines, $pentest_usernames, $licensify_machines, $licensify_usernames, $usernames)
 
   user { 'root':
     ensure   => present,
@@ -40,7 +50,7 @@ class users (
   # have usernames => ['null_user'] set via hiera or otherwise during class instantiation.
   # This is a safety check to prevent accidentally passing a blank list of users and
   # then removing all accounts
-  if (!empty($usernames) or !empty($pentest_usernames)) {
+  if (!empty($usernames) or !empty($pentest_usernames) or !empty($licensify_usernames)) {
     resources { 'user':
       purge              => true,
       unless_system_user => 500,
@@ -69,5 +79,13 @@ class users (
   if ($::hostname in $pentest_machines) {
     $pentest_user_classes = regsubst($pentest_usernames, '^', 'users::')
     include $pentest_user_classes
+  }
+
+  if $::aws_migration {
+    $licensify_hostname = sprintf('%s', $::govuk_node_class)
+    if ($licensify_hostname in $licensify_machines) {
+      $licensify_user_classes = regsubst($licensify_usernames, '^', 'users::')
+      include $licensify_user_classes
+    }
   }
 }
