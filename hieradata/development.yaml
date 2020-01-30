@@ -57,7 +57,6 @@ govuk::node::s_development::apps:
   - 'content_data_admin'
   - 'collections_publisher'
   - 'contacts'
-  - 'content_audit_tool'
   - 'content_data_api'
   - 'content_data_api::rabbitmq'
   - 'content_publisher'
