@@ -5,7 +5,6 @@
 class govuk::node::s_postgresql_base inherits govuk::node::s_base {
   include govuk_pgbouncer
 
-  include govuk::apps::content_audit_tool::db
   include govuk::apps::content_publisher::db
   include govuk::apps::content_tagger::db
   include govuk::apps::service_manual_publisher::db
