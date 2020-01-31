@@ -166,6 +166,7 @@ govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevan
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
 govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
 govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
+govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-production-search-ltr-endpoint'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
