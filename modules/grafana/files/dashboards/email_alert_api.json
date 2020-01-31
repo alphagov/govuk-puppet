@@ -1583,9 +1583,9 @@
             }
           ],
           "thresholds": [],
-          "timeFrom": "90d",
+          "timeFrom": "365d",
           "timeShift": null,
-          "title": "Volume over 90 days",
+          "title": "Volume over 365 days",
           "tooltip": {
             "shared": true,
             "sort": 0,
