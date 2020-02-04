@@ -391,8 +391,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_crawler::ssh_keys
     govuk_crawler::sync_enable
     govuk_crawler::targets
-    govuk_datascrubber::apt_mirror_hostname
-    govuk_datascrubber::aws_region
     govuk_jenkins::deploy_all_apps::apps_on_nodes
     govuk_jenkins::deploy_all_apps::deploy_environment
     govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule
@@ -434,7 +432,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_cache::router_as_container
     govuk_containers::terraboard::aws_bucket
     govuk_containers::terraboard::oauth2_proxy_base_url
-    govuk_datascrubber::ensure
     monitoring::checks::cache::region
     monitoring::checks::rds::region
     nginx::config::stack_network_prefix

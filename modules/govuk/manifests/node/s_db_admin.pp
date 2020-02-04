@@ -122,6 +122,4 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::publishing_api::db': }
   -> class { '::govuk::apps::service_manual_publisher::db': }
   -> class { '::govuk::apps::support_api::db': }
-
-  class { '::govuk_datascrubber': }
 }

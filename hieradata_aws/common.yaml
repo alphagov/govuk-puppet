@@ -1287,7 +1287,3 @@ unattended_upgrades::origins:
 unicornherder::version: '0.1.0'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
-govuk_datascrubber::ensure: 'absent'
-govuk_datascrubber::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_datascrubber::aws_region: 'eu-west-1'
