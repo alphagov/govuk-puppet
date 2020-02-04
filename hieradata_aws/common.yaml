@@ -355,10 +355,7 @@ filebeat::prospectors:
 gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
-govuk::apps::asset_manager::mongodb_nodes:
-  - 'mongo-1'
-  - 'mongo-2'
-  - 'mongo-3'
+
 govuk::apps::asset_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::asset_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::asset_manager::unicorn_worker_processes: "16"
