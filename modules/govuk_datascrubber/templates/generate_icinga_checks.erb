@@ -1,6 +1,0 @@
-<%
-checks = {}
-scope['databases'].each do |d|
-  checks.merge!( { d => {} } )
-end
-%><%= checks.to_json %>
