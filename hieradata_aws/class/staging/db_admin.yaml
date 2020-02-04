@@ -144,6 +144,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/whitehall_production"
     url: "govuk-production-database-backups"
     path: "mysql"
+  "pull_release_production_daily":
+    ensure: "present"
+    hour: "2"
+    minute: "15"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "release_production"
+    temppath: "/tmp/release_production"
+    url: "govuk-production-database-backups"
+    path: "mysql"
   "pull_govuk_assets_production":
     ensure: "present"
     hour: "2"
