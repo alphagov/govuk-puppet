@@ -1053,7 +1053,8 @@ grafana::dashboards::application_dashboards:
     rows:
       - - reranker_latency_vs_request_count
       - - reranker_errors
-      - - completion_latency_vs_request_count
+      - - search_latency_vs_request_count
+        - completion_latency_vs_request_count
         - spelling_latency_vs_request_count
     show_controller_errors: false
     show_response_times: true
