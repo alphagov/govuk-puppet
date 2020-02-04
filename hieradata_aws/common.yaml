@@ -905,9 +905,6 @@ govuk_jenkins::jobs::email_alert_check::email_addresses_to_check: >-
 
 govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
-govuk_jenkins::jobs::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
-govuk_jenkins::jobs::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
-
 govuk_jenkins::jobs::smokey::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::jobs::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::jobs::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
