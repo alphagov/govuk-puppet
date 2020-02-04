@@ -140,6 +140,9 @@ govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::search_api_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_api_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
 
+govuk_jenkins::jobs::search_api_reindex_with_new_schema::icinga_check_enabled: true
+govuk_jenkins::jobs::search_api_reindex_with_new_schema::cron_schedule: '0 21 * * 1'
+
 govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
 govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 2,8,14,20 * * *' # every six hours
 # Integration doesn't have a mirror
