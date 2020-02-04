@@ -36,7 +36,7 @@ private
   def healthcheck_uri
     @healthcheck_uri ||= begin
       if aws
-        URI("https://#{service_name}.blue.integration.govuk.digital/healthcheck")
+        URI("https://#{service_name}.blue.#{environment}.govuk.digital/healthcheck")
       else
         prefix = environment == "production" ? "#{service_name}" : "#{service_name}.#{environment}"
         URI("https://#{prefix}.publishing.service.gov.uk/#{healthcheck_path}")
