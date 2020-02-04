@@ -630,9 +630,6 @@ govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
-govuk_jenkins::jobs::search_test_spelling_suggestions::auth_username: "%{hiera('http_username')}"
-govuk_jenkins::jobs::search_test_spelling_suggestions::auth_password: "%{hiera('http_password')}"
-
 govuk_jenkins::jobs::smokey::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::jobs::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::jobs::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"

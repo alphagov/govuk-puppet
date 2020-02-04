@@ -105,8 +105,6 @@ govuk_jenkins::jobs::smokey::environment: training
 
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-training'
 
-govuk_jenkins::jobs::search_test_spelling_suggestions::cron_schedule: '0 10 * * 1-5'
-
 govuk_jenkins::jobs::search_api_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_api_fetch_analytics_data::cron_schedule: '30 9 * * 1-5'
 
