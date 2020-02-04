@@ -6,7 +6,7 @@
     "datasource": "Graphite",
     "description": "",
     "fill": 1,
-    "id": 17,
+    "id": 18,
     "legend": {
         "avg": false,
         "current": false,
@@ -37,19 +37,19 @@
     "targets": [
         {
             "refId": "B",
-            "target": "alias(groupByNode(stats.govuk.app.search-api.ip-*.suggest.spelling, 5, 'sum'), 'Requests')",
+            "target": "alias(groupByNode(stats.govuk.app.search-api.ip-*.search_query, 5, 'sum'), 'Requests')",
             "textEditor": false
         },
         {
             "refId": "A",
-            "target": "alias(groupByNode(stats.timers.govuk.app.search-api.ip-*.suggest.spelling.upper_90, 6, 'avg'), 'Upper 90 latency')",
+            "target": "alias(groupByNode(stats.timers.govuk.app.search-api.ip-*.elasticsearch.raw_search.upper_90, 6, 'avg'), 'Upper 90 latency')",
             "textEditor": false
         }
     ],
     "thresholds": [],
     "timeFrom": null,
     "timeShift": null,
-    "title": "Spelling suggestion count vs latency",
+    "title": "Search count vs latency",
     "tooltip": {
         "shared": true,
         "sort": 0,
