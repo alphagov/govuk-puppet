@@ -45,6 +45,7 @@ class monitoring::checks (
   include monitoring::checks::cloudwatch
   include monitoring::checks::aws_iam_key
   include monitoring::checks::grafana_dashboards
+  include monitoring::checks::cdn_logs
 
   if $::aws_migration {
     include govuk::apps::email_alert_api::checks
@@ -160,6 +161,29 @@ class monitoring::checks (
       check_interval      => 30,
       retry_interval      => 30,
       require             => Package['jq'],
+    }
+
+    $cdn_log_age_threshold_hours = $::aws_environment ? {
+      'production' => 1,
+      # Staging and Integration don't produce any logs between 22:00 and 04:00
+      # when traffic replay isn't running. Fastly doesn't send us empty files.
+      default      => 6,
+    }
+    icinga::check { 'check_cdn_log_s3_freshness_assets':
+      check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l govuk_assets -c ${cdn_log_age_threshold_hours}",
+      host_name           => $::fqdn,
+      service_description => "check that Fastly logs from ${cdn_log_age_threshold_hours}h ago appear in s3://govuk-${::aws_environment}-fastly-logs/govuk_assets",
+      notes_url           => monitoring_docs_url(cdn-log-freshness),
+      check_interval      => 60,
+      retry_interval      => 5,
+    }
+    icinga::check { 'check_cdn_log_s3_freshness_www':
+      check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l govuk_www -c ${cdn_log_age_threshold_hours}",
+      host_name           => $::fqdn,
+      service_description => "check that Fastly logs from ${cdn_log_age_threshold_hours}h ago appear in s3://govuk-${::aws_environment}-fastly-logs/govuk_www",
+      notes_url           => monitoring_docs_url(cdn-log-freshness),
+      check_interval      => 60,
+      retry_interval      => 5,
     }
   }
 
