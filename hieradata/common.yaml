@@ -999,10 +999,6 @@ hosts::production::ci::hosts:
     ip: '10.1.6.28'
 
 hosts::production::frontend::hosts:
-  docker-frontend-1:
-    ip: '10.1.2.31'
-  docker-frontend-2:
-    ip: '10.1.2.32'
   whitehall-frontend-1:
     ip: '10.1.2.5'
   whitehall-frontend-2:
