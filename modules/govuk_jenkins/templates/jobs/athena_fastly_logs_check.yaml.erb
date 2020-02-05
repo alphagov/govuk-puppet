@@ -1,0 +1,100 @@
+---
+- job:
+    name: athena-fastly-logs-check
+    display-name: Athena fastly_logs check
+    project-type: freestyle
+    description: 'Job to verify that Fastly CDN data is still queryable via Athena'
+    logrotate:
+        numToKeep: 100
+    triggers:
+        - parameterized-timer:
+            cron: |
+              # Jobs run at 11am, 3pm and 7pm these are timed to not collide
+              # with datasync on integration or staging. Note the parameterized
+              # scheduler plugin doesn't support timezones so these will run
+              # an hour earlier in BST
+              <%- @databases.each.with_index do |db, index| -%>
+              <%= index * 5 %> 11,15,19 * * * % DATABASE=<%= db %>
+              <%- end -%>
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+    builders:
+        - shell: |
+            #!/usr/bin/env bash
+
+            # blow up on any errors, even going into pipes
+            set -e -o pipefail
+
+            region=<%= @aws_region %>
+            output_location="s3://<%= @s3_results_bucket %>/${DATABASE}/"
+            from_time=$(date -d '4 hours ago' '+%Y-%m-%d %H:%M')
+            query="SELECT COUNT(*) AS count FROM fastly_logs.${DATABASE} WHERE year=$(date +'%Y') AND month=$(date +'%m') AND date=$(date +'%d') AND request_received > TIMESTAMP '$from_time';"
+
+            echo "Querying for any DB records for the last 4 hours on $dn_name"
+            echo $query
+
+            # send query to athena, and receive JSON with an id within it to identify the query
+            query_execution_id=$(aws --region="$region" athena start-query-execution --query-string="$query" --result-configuration "OutputLocation=$output_location" | jq -r '.QueryExecutionId')
+
+            # continuously loop until Athena returns that the query is no longer queued or running
+            while true
+            do
+              execution=$(aws --region="$region" athena get-query-execution --query-execution-id "$query_execution_id")
+              status=$(echo "$execution" | jq -r '.QueryExecution.Status.State')
+              if [[ "$status" != "QUEUED" ]] && [[ "$status" != "RUNNING" ]]; then
+                break
+              fi
+              echo "Query is ${status}..."
+              sleep 1
+            done
+
+            echo "Query finished with status $status"
+
+            if [[ "$status" != "SUCCEEDED" ]]; then
+              # show the query and error message
+              echo $execution | jq -r '.QueryExecution.Query'
+              echo $execution | jq -r '.QueryExecution.Status.StateChangeReason'
+              exit 1
+            fi
+
+            # Now query is complete and successful retrieve the results
+            count=$(aws --region="$region" athena get-query-results --query-execution-id "$query_execution_id" | jq -r '.ResultSet.Rows[1].Data[0].VarCharValue')
+
+            if [[ "$count" -eq 0 ]]; then
+              echo "Returned 0 results - something is probably broken"
+              exit 1
+            else
+              echo "Returned $count results"
+            fi
+    publishers:
+        - trigger-parameterized-builds:
+            - project: Success_Passive_Check
+              condition: 'SUCCESS'
+              predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @jenkins_service_description %>
+                NSCA_OUTPUT=<%= @jenkins_service_description %> success
+            - project: Failure_Passive_Check
+              condition: 'FAILED'
+              predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @jenkins_service_description %>
+                NSCA_OUTPUT=<%= @jenkins_service_description %> failed
+    parameters:
+        - choice:
+            name: DATABASE
+            description: Which database to query
+            choices: <%= @databases %>
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+              - name: AWS_ACCESS_KEY_ID
+                password:
+                  '<%= @aws_access_key_id %>'
+              - name: AWS_SECRET_ACCESS_KEY
+                password:
+                  '<%= @aws_secret_access_key %>'

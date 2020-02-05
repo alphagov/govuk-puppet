@@ -202,6 +202,7 @@ govuk_crawler::targets:
 
 govuk_jenkins::job_builder::environment: 'staging'
 
+govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-staging-fastly-logs-monitoring'
 govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 11 * * *'
 
 govuk_jenkins::jobs::network_config_deploy::environments:

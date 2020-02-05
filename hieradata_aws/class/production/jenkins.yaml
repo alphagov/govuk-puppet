@@ -1,5 +1,6 @@
 ---
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::athena_fastly_logs_check
   - govuk_jenkins::jobs::bouncer_cdn
   - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::clear_cdn_cache

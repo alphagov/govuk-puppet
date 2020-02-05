@@ -447,6 +447,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_cdnlogs::bouncer_monitoring_enabled
     govuk_cdnlogs::critical_cdn_freshness
     govuk_cdnlogs::warning_cdn_freshness
+    govuk_jenkins::jobs::athena_fastly_logs_check::databases
+    govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket
     govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate
     govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule
     govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load
