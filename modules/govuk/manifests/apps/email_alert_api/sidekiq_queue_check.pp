@@ -44,7 +44,7 @@ define govuk::apps::email_alert_api::sidekiq_queue_check(
   }
   icinga::check::graphite { "check_email_alert_api_${title}_queue_latency":
     target    => "transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.email-alert-api.*.workers.queues.${title}.latency)), 0)",
-    from      => '1hour',
+    from      => '15minutes',
     args      => '--ignore-missing',
     warning   => $latency_warning,
     critical  => $latency_critical,
