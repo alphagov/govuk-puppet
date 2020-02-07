@@ -1,15 +1,15 @@
 ---
-app_domain: "publishing.service.gov.uk"
+app_domain: 'publishing.service.gov.uk'
 app_domain_internal: "production.govuk-internal.digital"
 
 backup::server::backup_hour: 9
 
-base::shell::shell_prompt_string: "production"
+base::shell::shell_prompt_string: 'production'
 base::supported_kernel::enabled: false
 
 cron::daily_hour: 6
 
-environment_ip_prefix: "10.13"
+environment_ip_prefix: '10.13'
 
 node_class: &node_class
   asset_master:
@@ -115,81 +115,81 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
       - licensify-admin
       - licensify-feed
 
-govuk::apps::asset_manager::aws_s3_bucket_name: "govuk-assets-production"
-govuk::apps::asset_manager::aws_region: "eu-west-1"
-govuk::apps::ckan::ckan_site_url: "https://ckan.publishing.service.gov.uk"
+govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
+govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-production-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
-govuk::apps::content_data_admin::google_tag_manager_id: "GTM-NZG8SF2"
-govuk::apps::content_data_admin::aws_csv_export_bucket_name: "govuk-production-content-data-csvs"
-govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: "9"
+govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
+govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
+govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '9'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::content_store::performance_platform_big_screen_view_url: "https://performance-platform-big-screen-view-production.cloudapps.digital"
-govuk::apps::content_store::performance_platform_spotlight_url: "https://performance-platform-spotlight-production.cloudapps.digital"
+govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
+govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 
 govuk::apps::govuk_crawler_worker::blacklist_paths:
-  - "/apply-for-a-licence"
-  - "/business-finance-support-finder"
-  - "/drug-device-alerts.atom"
-  - "/drug-safety-update.atom"
-  - "/foreign-travel-advice.atom"
-  - "/government/announcements.atom"
-  - "/government/publications.atom"
-  - "/government/statistics.atom"
-  - "/licence-finder"
-  - "/search"
+  - '/apply-for-a-licence'
+  - '/business-finance-support-finder'
+  - '/drug-device-alerts.atom'
+  - '/drug-safety-update.atom'
+  - '/foreign-travel-advice.atom'
+  - '/government/announcements.atom'
+  - '/government/publications.atom'
+  - '/government/statistics.atom'
+  - '/licence-finder'
+  - '/search'
 
-govuk::apps::govuk_crawler_worker::crawler_threads: "32"
+govuk::apps::govuk_crawler_worker::crawler_threads: '32'
 
-govuk::apps::email_alert_api::db::backend_ip_range: "10.13.3.0/24"
-govuk::apps::email_alert_api::email_archive_s3_bucket: "govuk-production-email-alert-api-archive"
+govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
+govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
-govuk::apps::email_alert_api::govuk_notify_template_id: "cb633abc-6ae6-4843-ae6f-82ca500b6de2"
-govuk::apps::frontend::govuk_notify_template_id: "cb633abc-6ae6-4843-ae6f-82ca500b6de2"
+govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
+govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::licencefinder::elasticsearch_uri: "https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com"
+govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::local_links_manager::run_links_ga_export: true
 
 govuk::apps::publisher::run_fact_check_fetcher: false
-govuk::apps::publisher::fact_check_address_format: "factcheck+production-{id}@alphagov.co.uk"
-govuk::apps::publishing_api::event_log_aws_bucketname: "govuk-publishing-api-event-log-production"
-govuk::apps::router::sentry_environment: "production"
-govuk::apps::search_api::elasticsearch_hosts: "https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com"
-govuk::apps::search_api::relevancy_bucket_name: "govuk-production-search-relevancy"
-govuk::apps::search_api::sitemaps_bucket_name: "govuk-production-sitemaps"
-govuk::apps::search_api::tensorflow_models_directory: "/data/vhost/tensorflow-models"
-govuk::apps::search_api::tensorflow_serving_ip: "0.0.0.0"
-govuk::apps::search_api::tensorflow_sagemaker_endpoint: "govuk-production-search-ltr-endpoint"
+govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
+govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
+govuk::apps::router::sentry_environment: 'production'
+govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
+govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
+govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
+govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
+govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
+govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-production-search-ltr-endpoint'
 govuk::apps::search_api::enable_learning_to_rank: true
-govuk::apps::short_url_manager::instance_name: "production"
-govuk::apps::static::ga_universal_id: "UA-26179049-1"
-govuk::apps::support::zendesk_anonymous_ticket_email: "zd-api-public@digital.cabinet-office.gov.uk"
-govuk::apps::support::zendesk_client_username: "zd-api-govt@digital.cabinet-office.gov.uk/token"
-govuk::apps::support::aws_s3_bucket_name: "govuk-production-support-api-csvs"
-govuk::apps::support_api::zendesk_client_username: "zd-api-govt@digital.cabinet-office.gov.uk/token"
-govuk::apps::support_api::zendesk_anonymous_ticket_email: "zd-api-public@digital.cabinet-office.gov.uk"
-govuk::apps::support_api::pp_data_url: "https://www.performance.service.gov.uk"
-govuk::apps::support_api::aws_s3_bucket_name: "govuk-production-support-api-csvs"
+govuk::apps::short_url_manager::instance_name: 'production'
+govuk::apps::static::ga_universal_id: 'UA-26179049-1'
+govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
+govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+govuk::apps::support::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
+govuk::apps::support_api::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
+govuk::apps::support_api::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
+govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
+govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
-govuk_search::monitoring::es_port: "80"
-govuk_search::monitoring::es_host: "vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com"
+govuk_search::monitoring::es_port: '80'
+govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 
-govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: "0 6 * * 1-5" # Every weekday at 6am
+govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '0 6 * * 1-5' # Every weekday at 6am
 
-govuk::deploy::aws_ses_smtp_host: "email-smtp.eu-west-1.amazonaws.com"
-govuk::deploy::config::errbit_environment_name: "production"
-govuk::deploy::config::website_root: "https://www.gov.uk"
+govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
+govuk::deploy::config::errbit_environment_name: 'production'
+govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
-  jenkins_production_carrenza: "AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=="
+    jenkins_production_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQCfPjubgzCkZo1aTPlkgeXb1eh3IonRBRptx0qLMCjOV+e+M8uRAT/Xx3ydJYPd7sOgZDyx2xjSGb7Eefau0jSUAcMD1Xd01SXWBQPJRDfPmQLrdbM0xxOFH8nft39uo4Mz6ccZc34xrudL6q/urp732HZHYwltnNnbk9h58n1QIhemRtN3u9RrSSOILqw/F42S6Aj8lZ1v/DGgfc6F5pKyJ7TByHL1RlqwpZHbEjYYuvK0ZJJsKPlyVPbNDsX7UEYWwbpPsFs9LPvCC6epmj+7Lv25bTU8rKK8J3rNWa1FybpWS0VXbF/+mrLjtT0/vwvbwUzsjK6dSUsbEsBEn+cOqomxCYkLjMzUy1+ReYAh6+CjmzutPs1g4OjQRel2ONprhPTEsNUu+oNObnGDOUpzHK10ntAZxguA4QEUmOBBWfxuQhmJO60/b1zedCcc7MR8e9S0y4jtpXa8GBCe40+napArZTW9QXlHLWz+khkYQfO107Q+z1QaLFojdcrHlUfpqAc6DtVJQu7tsBt2vXTn0qq6mU5Eg6UY+X1l/3gWdFS3ZEvCUoGK6bLU3i50jZ1xsFogFFfvSux46S1DYW2Fk8a/2IBBdcQcL1YoM73jiAQgpU8Vs50wtk4mWhK1yBaMYmMAeL7mKFbJla7SjTAwaDdo5uezyrJlbZxqTb/Y3w=='
 
 govuk::node::s_backend_lb::aws_egress_nat_ips: []
 
@@ -198,132 +198,135 @@ govuk::node::s_monitoring::enable_fastly_metrics: true
 # Staging never receives requests to bouncer
 govuk_cdnlogs::bouncer_monitoring_enabled: false
 # Increase the freshness-threshold for govuk logs as traffic is slower
-govuk_cdnlogs::warning_cdn_freshness: 86400 # 1 day
+govuk_cdnlogs::warning_cdn_freshness: 86400   # 1 day
 govuk_cdnlogs::critical_cdn_freshness: 172800 # 2 days
 
-govuk_containers::terraboard::aws_bucket: "govuk-terraform-steppingstone-production"
-govuk_containers::terraboard::oauth2_proxy_base_url: "https://terraboard.production.govuk.digital"
+govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-production'
+govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.production.govuk.digital'
 
 govuk_crawler::seed_enable: true
-govuk_crawler::days: "*"
+govuk_crawler::days: '*'
 govuk_crawler::start_hour: 20
 govuk_crawler::sync_enable: true
-govuk_crawler::site_root: "https://www.gov.uk"
+govuk_crawler::site_root: 'https://www.gov.uk'
 govuk_crawler::targets:
-  - "s3://govuk-production-mirror/"
+  - 's3://govuk-production-mirror/'
 
 govuk::apps::govuk_crawler_worker::root_urls:
-  - "https://assets.digital.cabinet-office.gov.uk/"
+  - 'https://assets.digital.cabinet-office.gov.uk/'
   - "https://assets.%{hiera('app_domain')}/"
-  - "https://www.gov.uk/"
+  - 'https://www.gov.uk/'
 
 govuk_crawler::ssh_keys:
   mirror0.mirror.provider1.production.govuk.service.gov.uk:
-    key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VVHvPeBh8MoAEBTLpO9Xj/s5s+rqe4AN61HTzu4hGpYIB4sv+j8VHzHVHVmhP31gl9xaIiv+7BI8AstuGWPiehOIgTR+ufKyvnr1msHO59dM5Vht5i2ZVVB5WF/MphTfGT4vO3RDAZGvZXUaasBxOqqE6jrp4jF5d8WFV44mzE5PqqhAodiBGyfKDcd0gzuQhGpOsafYAy4+E+OlIbcX3LvTZyZdrC5va0l5LSVxstJjUjTSw85/m1pjSYBPMLc50T0M5SYA79G2yPaPYqux5YpA+D/0qnWlNQfR7MQdo3XO4ZGqRyjSn9/WcYsyn5KVivRd+Id6Jw8x0MwPzIVJ"
-    type: "ssh-rsa"
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQC1VVHvPeBh8MoAEBTLpO9Xj/s5s+rqe4AN61HTzu4hGpYIB4sv+j8VHzHVHVmhP31gl9xaIiv+7BI8AstuGWPiehOIgTR+ufKyvnr1msHO59dM5Vht5i2ZVVB5WF/MphTfGT4vO3RDAZGvZXUaasBxOqqE6jrp4jF5d8WFV44mzE5PqqhAodiBGyfKDcd0gzuQhGpOsafYAy4+E+OlIbcX3LvTZyZdrC5va0l5LSVxstJjUjTSw85/m1pjSYBPMLc50T0M5SYA79G2yPaPYqux5YpA+D/0qnWlNQfR7MQdo3XO4ZGqRyjSn9/WcYsyn5KVivRd+Id6Jw8x0MwPzIVJ'
+    type: 'ssh-rsa'
   mirror1.mirror.provider1.production.govuk.service.gov.uk:
-    key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b"
-    type: "ssh-rsa"
+    key: 'AAAAB3NzaC1yc2EAAAADAQABAAABAQDHi69quH4i1jY4uVLuIYOoUi7yc+6/fJjDKJciWIIgyH1rCSGtTXrfcJQHQKxKEyndQ+LoUs8krImD9CtzQTvoqdXYKu+XgpjqiZ5HfQhx55ZoMCXnx9vqCwGtx2LwH4PaBZRvsNJbbY+sG3W13eXkgwQnIcI2FgGpDDJQ9lfxSNzt6jMJQuvAhhDrKtZEsA56AznPIRd1mIHmuZ6gILBzJmDw5EIpqQhSb4+NrNTNnGxHyFkZISTMG0mx9lRtlyS1SMZVoPJQbShSEScKMXRlacrpkiNOTvrGDrhsLjTUtT5g1bo4XMFRubReAwFCeTZI0Qv1Bvpzj8V9c8B4+p6b'
+    type: 'ssh-rsa'
 
-govuk_jenkins::config::banner_colour_background: "#df3034"
-govuk_jenkins::config::banner_colour_text: "white"
-govuk_jenkins::config::banner_string: "AWS Production"
-govuk_jenkins::config::theme_colour: "#df3034"
-govuk_jenkins::config::theme_text_colour: "white"
-govuk_jenkins::config::theme_environment_name: "AWS Production"
+govuk_jenkins::config::banner_colour_background: '#df3034'
+govuk_jenkins::config::banner_colour_text: 'white'
+govuk_jenkins::config::banner_string: 'AWS Production'
+govuk_jenkins::config::theme_colour: '#df3034'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'AWS Production'
 
-govuk_jenkins::job_builder::environment: "production"
+govuk_jenkins::job_builder::environment: 'production'
 
-govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: "0 7 * * *"
+govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 7 * * *'
 
 govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache: true
 
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
-govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: "30 8 * * 1-5"
+govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
-govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: "45 */3 * * *" # every three hours
-govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: "H 0,6,12,18 * * *" # every six hours
+govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
+govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 0,6,12,18 * * *' # every six hours
 
 govuk_jenkins::jobs::smokey::environment: production_aws
 
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
-  - old: publishing.service.gov.uk
+  -
+    old: publishing.service.gov.uk
     new: production.publishing.service.gov.uk
-  - old: performance.service.gov.uk
+  -
+    old: performance.service.gov.uk
     new: production.performance.service.gov.uk
-  - old: -production.cloudapps.digital
+  -
+    old: -production.cloudapps.digital
     new: -production.cloudapps.digital
 
-govuk_jenkins::jobs::deploy_dns::gce_client_name: "govuk-dns-deploy"
-govuk_jenkins::jobs::deploy_dns::gce_project_id: "govuk-production-160211"
+govuk_jenkins::jobs::deploy_dns::gce_client_name: 'govuk-dns-deploy'
+govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-production-160211'
 
-govuk_jenkins::ssh_key::public_key: "AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=="
+govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
 
 govuk_mysql::server::expire_log_days: 1
-govuk_mysql::server::innodb_buffer_pool_size_proportion: "0.5"
+govuk_mysql::server::innodb_buffer_pool_size_proportion: '0.5'
 govuk_mysql::server::slow_query_log: true
 
 govuk::node::s_asset_master::copy_attachments_hour: 7
 
-govuk::node::s_cache::real_ip_header: "True-Client-Ip"
+govuk::node::s_cache::real_ip_header: 'True-Client-Ip'
 govuk::node::s_monitoring::offsite_backups: false
 
 govuk_sudo::sudo_conf:
   deploy_service_postgresql:
-    content: "deploy ALL=NOPASSWD:/etc/init.d/postgresql"
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/postgresql'
 
-grafana::dashboards::machine_suffix_metrics: "_production"
+grafana::dashboards::machine_suffix_metrics: '_production'
 
-licensify::apps::configfile::mongo_database_reference_name: "licensify-refdata"
-licensify::apps::configfile::mongo_database_audit_name: "licensify-audit"
-licensify::apps::configfile::mongo_database_slaveok: "false"
+licensify::apps::configfile::mongo_database_reference_name: 'licensify-refdata'
+licensify::apps::configfile::mongo_database_audit_name: 'licensify-audit'
+licensify::apps::configfile::mongo_database_slaveok: 'false'
 licensify::apps::configfile::mongo_database_auth_enabled: true
-licensify::apps::configfile::feed_actor: "true"
-licensify::apps::configfile::oauth_callback_url_override: "https://licensify-admin.publishing.service.gov.uk/licence-management/admin/oauth"
-licensify::apps::configfile::upload_url_base: "https://uploadlicence.publishing.service.gov.uk/"
-licensify::apps::configfile::elms_frontend_host: "https://www.gov.uk/"
-licensify::apps::configfile::elms_admin_host: "https://licensify-admin.publishing.service.gov.uk/"
-licensify::apps::configfile::elms_max_app_process_attempt_count: "6"
-licensify::apps::configfile::access_token_url: "https://signon.publishing.service.gov.uk/oauth/access_token"
-licensify::apps::configfile::authorization_url: "https://signon.publishing.service.gov.uk/oauth/authorize"
-licensify::apps::configfile::user_details_url: "https://signon.publishing.service.gov.uk/user.json"
-licensify::apps::configfile::google_analytics_account_admin: "UA-34530684-2"
-licensify::apps::configfile::google_analytics_domain_admin: "publishing.service.gov.uk"
-licensify::apps::configfile::google_analytics_account_frontend: "UA-26179049-1"
-licensify::apps::configfile::google_analytics_domain_frontend: ".www.gov.uk"
-licensify::apps::configfile::no_reply_mail_address: "noreply-licensing@digital.cabinet-office.gov.uk"
-licensify::apps::configfile::performance_data_sender_cron_expression: "0 0 1 * * ?"
-licensify::apps::configfile::performance_platform_service_url: "https://www.performance.service.gov.uk/data/licensing/application"
-licensify::apps::configfile::is_master_node: "true"
+licensify::apps::configfile::feed_actor: 'true'
+licensify::apps::configfile::oauth_callback_url_override: 'https://licensify-admin.publishing.service.gov.uk/licence-management/admin/oauth'
+licensify::apps::configfile::upload_url_base: 'https://uploadlicence.publishing.service.gov.uk/'
+licensify::apps::configfile::elms_frontend_host: 'https://www.gov.uk/'
+licensify::apps::configfile::elms_admin_host: 'https://licensify-admin.publishing.service.gov.uk/'
+licensify::apps::configfile::elms_max_app_process_attempt_count: '6'
+licensify::apps::configfile::access_token_url: 'https://signon.publishing.service.gov.uk/oauth/access_token'
+licensify::apps::configfile::authorization_url: 'https://signon.publishing.service.gov.uk/oauth/authorize'
+licensify::apps::configfile::user_details_url: 'https://signon.publishing.service.gov.uk/user.json'
+licensify::apps::configfile::google_analytics_account_admin: 'UA-34530684-2'
+licensify::apps::configfile::google_analytics_domain_admin: 'publishing.service.gov.uk'
+licensify::apps::configfile::google_analytics_account_frontend: 'UA-26179049-1'
+licensify::apps::configfile::google_analytics_domain_frontend: '.www.gov.uk'
+licensify::apps::configfile::no_reply_mail_address: 'noreply-licensing@digital.cabinet-office.gov.uk'
+licensify::apps::configfile::performance_data_sender_cron_expression: '0 0 1 * * ?'
+licensify::apps::configfile::performance_platform_service_url: 'https://www.performance.service.gov.uk/data/licensing/application'
+licensify::apps::configfile::is_master_node: 'true'
 
-licensify::apps::configfile::email_periodic_enabled: "true"
-licensify::apps::configfile::licenceApplication_expirationPeriod: "7"
-licensify::apps::configfile::notify_periodic_email_cron: "0 0 6 3 * ?"
-licensify::apps::configfile::notify_template_applicant_none: "f324cd8c-a0b1-48fa-b009-69bdf8ba81b0"
-licensify::apps::configfile::notify_template_applicant_offline: "bbbc408b-4276-498f-9d94-8f76663b258e"
-licensify::apps::configfile::notify_template_applicant_online: "8ca00761-7902-4ec3-89a2-e3aa006d3ed8"
-licensify::apps::configfile::notify_template_authority: "96af61a3-ffdc-419c-a814-9ce01a78a87f"
-licensify::apps::configfile::notify_template_periodic: "a3a54578-2695-4953-9787-d7c73aaf08c0"
-licensify::apps::configfile::uncollected_expiry_cron: "0 0 4 * * ?"
-licensify::apps::configfile::uncollected_expiry_enabled: "true"
-licensify::apps::configfile::uncollected_expiry_purge_days: "7"
-licensify::apps::configfile::uncollected_expiry_start_days: "90"
+licensify::apps::configfile::email_periodic_enabled: 'true'
+licensify::apps::configfile::licenceApplication_expirationPeriod: '7'
+licensify::apps::configfile::notify_periodic_email_cron: '0 0 6 3 * ?'
+licensify::apps::configfile::notify_template_applicant_none: 'f324cd8c-a0b1-48fa-b009-69bdf8ba81b0'
+licensify::apps::configfile::notify_template_applicant_offline: 'bbbc408b-4276-498f-9d94-8f76663b258e'
+licensify::apps::configfile::notify_template_applicant_online: '8ca00761-7902-4ec3-89a2-e3aa006d3ed8'
+licensify::apps::configfile::notify_template_authority: '96af61a3-ffdc-419c-a814-9ce01a78a87f'
+licensify::apps::configfile::notify_template_periodic: 'a3a54578-2695-4953-9787-d7c73aaf08c0'
+licensify::apps::configfile::uncollected_expiry_cron: '0 0 4 * * ?'
+licensify::apps::configfile::uncollected_expiry_enabled: 'true'
+licensify::apps::configfile::uncollected_expiry_purge_days: '7'
+licensify::apps::configfile::uncollected_expiry_start_days: '90'
 
-licensify::apps::licensify_admin::environment: "production"
-licensify::apps::licensify::environment: "production"
-licensify::apps::licensify_feed::environment: "production"
+licensify::apps::licensify_admin::environment: 'production'
+licensify::apps::licensify::environment: 'production'
+licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
-monitoring::checks::datagovuk_publish::ensure: "present"
-monitoring::checks::datagovuk_publish::host: "publish-data-beta-production.cloudapps.digital"
+monitoring::checks::datagovuk_publish::ensure: 'present'
+monitoring::checks::datagovuk_publish::host: 'publish-data-beta-production.cloudapps.digital'
 monitoring::checks::sidekiq::enable_signon_check: false
-monitoring::checks::ses::region: "eu-west-1"
-monitoring::checks::rds::region: "eu-west-1"
+monitoring::checks::ses::region: 'eu-west-1'
+monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::enabled: true
-monitoring::checks::aws_iam_key::region: "eu-west-1"
+monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 320
 
-monitoring::checks::lb::region: "eu-west-1"
+monitoring::checks::lb::region: 'eu-west-1'
 monitoring::checks::lb::loadbalancers:
   blue-calculators-frontend-int: {}
   blue-draft-frontend-internal:
@@ -357,29 +360,30 @@ monitoring::checks::lb::loadbalancers:
       - backend-travel-advice-publish
   govuk-cache-public: {}
 
-monitoring::checks::cache::region: "eu-west-1"
+monitoring::checks::cache::region: 'eu-west-1'
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
-monitoring::contacts::slack_channel: "#govuk-alerts"
-monitoring::contacts::slack_username: "Production (AWS)"
+monitoring::contacts::slack_channel: '#govuk-alerts'
+monitoring::contacts::slack_username: 'Production (AWS)'
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 
-monitoring::checks::rds::servers:
-  - "postgresql-primary"
-  - "postgresql-standby"
-  - "transition-postgresql-primary"
-  - "transition-postgresql-standby"
-  - "mysql-primary"
-  - "mysql-replica"
 
-monitoring::checks::smokey::environment: "production_aws"
-monitoring::uptime_collector::environment: "production"
+monitoring::checks::rds::servers:
+   - 'postgresql-primary'
+   - 'postgresql-standby'
+   - 'transition-postgresql-primary'
+   - 'transition-postgresql-standby'
+   - 'mysql-primary'
+   - 'mysql-replica'
+
+monitoring::checks::smokey::environment: 'production_aws'
+monitoring::uptime_collector::environment: 'production'
 
 postfix::smarthost:
-  - "email-smtp.us-east-1.amazonaws.com:587"
-  - "ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587"
-postfix::rewrite_mail_domain: "digital.cabinet-office.gov.uk"
-postfix::rewrite_mail_list: "machine.email.carrenza"
+  - 'email-smtp.us-east-1.amazonaws.com:587'
+  - 'ses-smtp-prod-335357831.us-east-1.elb.amazonaws.com:587'
+postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
+postfix::rewrite_mail_list: 'machine.email.carrenza'
 
-nginx::config::stack_network_prefix: "10.13.0"
+nginx::config::stack_network_prefix: '10.13.0'
