@@ -102,7 +102,7 @@ govuk_env_sync::tasks:
     dbms: "mysql"
     storagebackend: "s3"
     database: "release_production"
-    temppath: "/home/govuk-backup/tmp_dumps/release_production"
+    temppath: "/tmp/release_production"
     url: "govuk-production-database-backups"
     path: "mysql"
   # The pull_*_production configs below are not run automatically. The
@@ -171,3 +171,14 @@ govuk_env_sync::tasks:
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  "pull_release_production":
+    ensure: "disabled"
+    hour: "0"
+    minute: "00"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "release_production"
+    temppath: "/tmp/release_production"
+    url: "govuk-production-database-backups"
+    path: "mysql"
