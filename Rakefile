@@ -138,7 +138,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency
     govuk_postgresql::backup::auto_postgresql_backup_hour
     govuk_postgresql::backup::auto_postgresql_backup_minute
-    hosts::production::releaseapp_host_org
   ]
 
   # Keys that are AWS-only

@@ -160,7 +160,6 @@ hosts::production::ip_backend_lb: '10.3.3.254'
 hosts::production::ip_bouncer: '37.26.90.219'
 hosts::production::ip_draft_api_lb: '10.3.4.253'
 hosts::production::ip_frontend_lb: '10.3.2.254'
-hosts::production::releaseapp_host_org: true
 
 hosts::production::api::hosts:
   api-1:
