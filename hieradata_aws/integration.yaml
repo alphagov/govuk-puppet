@@ -111,9 +111,6 @@ govuk::deploy::setup::ssh_keys:
 govuk_cdnlogs::govuk_monitoring_enabled: false
 govuk_cdnlogs::bouncer_monitoring_enabled: false
 
-govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-integration'
-govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.integration.govuk.digital'
-
 govuk_jenkins::job_builder::environment: 'integration'
 govuk_jenkins::config::executors: '8'
 

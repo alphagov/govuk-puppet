@@ -201,9 +201,6 @@ govuk_cdnlogs::bouncer_monitoring_enabled: false
 govuk_cdnlogs::warning_cdn_freshness: 86400   # 1 day
 govuk_cdnlogs::critical_cdn_freshness: 172800 # 2 days
 
-govuk_containers::terraboard::aws_bucket: 'govuk-terraform-steppingstone-production'
-govuk_containers::terraboard::oauth2_proxy_base_url: 'https://terraboard.production.govuk.digital'
-
 govuk_crawler::seed_enable: true
 govuk_crawler::days: '*'
 govuk_crawler::start_hour: 20

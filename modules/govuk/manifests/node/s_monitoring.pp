@@ -19,7 +19,6 @@ class govuk::node::s_monitoring (
 
   include google_chrome
   include ::govuk_docker
-  include ::govuk_containers::terraboard
   include govuk_rbenv::all
   include ::selenium
   include ::govuk_cdnlogs
@@ -54,22 +53,6 @@ class govuk::node::s_monitoring (
       protected    => false,
       root         => '/dev/null',
     }
-  }
-
-  # Only install Terraboard in AWS
-  if $::aws_migration {
-    $terraboard_ensure = absent
-  } else {
-    $terraboard_ensure = absent
-  }
-
-  nginx::config::vhost::proxy { 'terraboard':
-    ensure       => $terraboard_ensure,
-    to           => ['localhost:7920'],
-    ssl_only     => true,
-    ssl_certtype => 'wildcard_publishing',
-    protected    => false,
-    root         => '/dev/null',
   }
 
   limits::limits { 'nagios_nofile':
