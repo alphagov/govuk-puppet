@@ -58,7 +58,7 @@ class govuk::node::s_monitoring (
 
   # Only install Terraboard in AWS
   if $::aws_migration {
-    $terraboard_ensure = present
+    $terraboard_ensure = absent
   } else {
     $terraboard_ensure = absent
   }

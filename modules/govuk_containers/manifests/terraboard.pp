@@ -55,7 +55,7 @@ class govuk_containers::terraboard(
 
   # Only install Terraboard in AWS
   if $::aws_migration {
-    $terraboard_ensure = present
+    $terraboard_ensure = absent
     $terraboard_directory = directory
   } else {
     $terraboard_ensure = absent
