@@ -1,11 +1,15 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class monitoring::client::apt {
-  @icinga::nrpe_config { 'check_apt_security_updates':
-    source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_security_updates.cfg',
-  }
+
   @icinga::plugin { 'check_apt_security_updates':
-    ensure => absent,
+    source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_apt_security_updates',
   }
+
+  @icinga::nrpe_config { 'check_apt_security_updates':
+    source  => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_apt_security_updates.cfg',
+    require => Icinga::Plugin['check_apt_security_updates'],
+  }
+
   @@icinga::check { "check_apt_security_updates_${::hostname}":
     check_command              => 'check_nrpe!check_apt_security_updates!0 0',
     service_description        => 'outstanding security updates',
