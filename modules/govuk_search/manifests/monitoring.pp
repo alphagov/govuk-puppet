@@ -14,8 +14,13 @@ class govuk_search::monitoring (
     template => 'collectd/etc/collectd/conf.d/elasticsearch-aws.conf.erb',
   }
 
+  @icinga::plugin { 'check_elasticsearch_aws_cluster_health':
+    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_aws_elasticsearch_cluster_health',
+  }
+
   @icinga::nrpe_config { 'check_elasticsearch_aws_cluster_health':
-    source => 'puppet:///modules/govuk_search/check_elasticsearch_aws_cluster_health.cfg',
+    source  => 'puppet:///modules/govuk_search/check_elasticsearch_aws_cluster_health.cfg',
+    require => Icinga::Plugin['check_elasticsearch_aws_cluster_health'],
   }
 
 }
