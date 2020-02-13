@@ -15,7 +15,7 @@ class govuk_search::monitoring (
   }
 
   @icinga::plugin { 'check_elasticsearch_aws_cluster_health':
-    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_aws_elasticsearch_cluster_health',
+    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_elasticsearch_aws',
   }
 
   @icinga::nrpe_config { 'check_elasticsearch_aws_cluster_health':
