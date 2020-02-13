@@ -314,8 +314,6 @@ licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
-monitoring::checks::datagovuk_publish::ensure: 'present'
-monitoring::checks::datagovuk_publish::host: 'publish-data-beta-production.cloudapps.digital'
 monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::ses::region: 'eu-west-1'
 monitoring::checks::rds::region: 'eu-west-1'
