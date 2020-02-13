@@ -1043,6 +1043,7 @@ grafana::dashboards::application_dashboards:
     has_workers: true
     instance_prefix: 'publishing_api'
     show_memcached: true
+  release: {}
   router: {}
   router-api: {}
   search-api:
