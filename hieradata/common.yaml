@@ -802,7 +802,6 @@ grafana::dashboards::application_dashboards:
   publisher:
     show_sidekiq_graphs: true
     has_workers: true
-  release: {}
   search-admin: {}
   service-manual-publisher: {}
   short-url-manager: {}
