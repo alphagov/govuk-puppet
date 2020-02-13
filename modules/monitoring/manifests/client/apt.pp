@@ -17,7 +17,7 @@ class monitoring::client::apt {
   }
 
   @icinga::plugin { 'check_reboot_required':
-    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_reboot_required',
+    source  => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_reboot_required',
   }
 
   @icinga::nrpe_config { 'check_reboot_required':
