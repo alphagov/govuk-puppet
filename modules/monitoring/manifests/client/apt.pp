@@ -16,10 +16,12 @@ class monitoring::client::apt {
     notes_url                  => 'https://docs.publishing.service.gov.uk/manual/rebooting-machines.html',
   }
 
-  @icinga::nrpe_config { 'check_reboot_required':
-    source => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_reboot_required.cfg',
-  }
   @icinga::plugin { 'check_reboot_required':
-    ensure => absent,
+    source  => 'puppet:///modules/icinga/usr/lib/nagios/plugins/check_reboot_required',
+  }
+
+  @icinga::nrpe_config { 'check_reboot_required':
+    source  => 'puppet:///modules/monitoring/etc/nagios/nrpe.d/check_reboot_required.cfg',
+    require => Icinga::Plugin['check_reboot_required'],
   }
 }
