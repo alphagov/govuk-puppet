@@ -173,6 +173,10 @@ class monitoring::checks (
 
   # In AWS this is liable to happen more often as machines come and go
   unless $::aws_migration {
+    icinga::plugin { 'check_puppetdb_ssh_host_keys':
+      source => 'puppet:///modules/monitoring/usr/lib/nagios/plugins/check_puppetdb_ssh_host_keys',
+    }
+
     icinga::check_config { 'check_puppetdb_ssh_host_keys':
       source  => 'puppet:///modules/monitoring/etc/nagios3/conf.d/check_puppetdb_ssh_host_keys.cfg',
       require => Class['monitoring::client'],
