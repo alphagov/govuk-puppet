@@ -20,7 +20,9 @@
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
-            export HOSTFILTER="$TARGET_MACHINES"
+            if [ "${TARGET_MACHINES:-all}" != "all" ]; then
+              export HOSTFILTER="$TARGET_MACHINES"
+            fi
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
             export GRAPHITE_HOST="<%= @graphite_host -%>"
