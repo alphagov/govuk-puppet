@@ -20,7 +20,7 @@
             export DEPLOY_TO="<%= @environment -%>"
             export DEPLOY_TASK="$DEPLOY_TASK"
             export TAG="$TAG"
-            export TARGET_MACHINES="$TARGET_MACHINES"
+            export HOSTFILTER="$TARGET_MACHINES"
             export ORGANISATION="<%= @environment -%>"
             export CI_DEPLOY_JENKINS_API_KEY="<%= @ci_deploy_jenkins_api_key -%>"
             export GRAPHITE_HOST="<%= @graphite_host -%>"
@@ -90,8 +90,9 @@
         - string:
             name: TARGET_MACHINES
             description: >
-              Use "all" to target all eligible servers or
-              provide a comma-delimited list of FQDN of the servers to deploy to.
+              Use "all" to target all eligible servers or provide a
+              comma-delimited list of FQDN of the servers to deploy to. Sets
+              the HOSTFILTER environment variable for Capistrano.
             default: all
         - bool:
             name: DEPLOY_FROM_AWS_CODECOMMIT
