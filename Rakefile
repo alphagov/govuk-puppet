@@ -343,6 +343,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::specialist_publisher::aws_s3_bucket_name
     govuk::apps::support::aws_s3_bucket_name
     govuk::apps::support::redis_host
     govuk::apps::support::redis_port

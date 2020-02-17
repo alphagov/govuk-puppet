@@ -50,6 +50,22 @@
 #   The bearer token to use when communicating with Email Alert API.
 #   Default: undef
 #
+# [*aws_access_key_id*]
+#   The Access Key ID for AWS to access S3 buckets.
+#   Default: undef
+#
+# [*aws_secret_access_key*]
+#   The Secret Access Key for AWS to access S3 buckets.
+#   Default: undef
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#   Default: undef
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -80,6 +96,10 @@ class govuk::apps::specialist_publisher(
   $publish_pre_production_finders = false,
   $publishing_api_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
+  $aws_access_key_id = undef,
+  $aws_secret_access_key = undef,
+  $aws_s3_bucket_name = undef,
+  $aws_region = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $redis_host = undef,
@@ -147,6 +167,18 @@ client_max_body_size 500m;
       "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
       varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
       value   => $email_alert_api_bearer_token;
+      "${title}-AWS_ACCESS_KEY_ID":
+      varname => 'AWS_ACCESS_KEY_ID',
+      value   => $aws_access_key_id;
+      "${title}-AWS_SECRET_ACCESS_KEY":
+      varname => 'AWS_SECRET_ACCESS_KEY',
+      value   => $aws_secret_access_key;
+      "${title}-AWS_REGION":
+      varname => 'AWS_REGION',
+      value   => $aws_region;
+      "${title}-AWS_S3_BUCKET_NAME":
+      varname => 'AWS_S3_BUCKET_NAME',
+      value   => $aws_s3_bucket_name;
     }
 
     if $secret_key_base != undef {
