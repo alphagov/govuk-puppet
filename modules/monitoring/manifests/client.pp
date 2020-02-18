@@ -11,12 +11,6 @@ class monitoring::client (
   include collectd
   include collectd::plugin::tcp
 
-  exec { 'gds-nagios-plugins':
-    path    => ['/usr/local/bin', '/usr/bin', '/bin'],
-    command => 'pip uninstall -y setuptools-pep8 gds-nagios-plugins || true',
-    require => Package['update-notifier-common'],
-  }
-
   class { 'statsd':
     graphite_hostname => $graphite_hostname,
   }
