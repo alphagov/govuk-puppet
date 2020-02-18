@@ -138,11 +138,6 @@ class govuk::apps::publisher(
     content => template('govuk/local_authority_import_check.erb'),
   }
 
-  file { ['/data/uploads/publisher', '/data/uploads/publisher/reports']:
-    ensure => directory,
-    mode   => '0775',
-  }
-
   govuk::procfile::worker { $app_name:
     enable_service => $enable_procfile_worker,
   }
