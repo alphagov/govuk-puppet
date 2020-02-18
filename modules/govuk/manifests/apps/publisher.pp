@@ -138,17 +138,9 @@ class govuk::apps::publisher(
     content => template('govuk/local_authority_import_check.erb'),
   }
 
-  if $::aws_migration {
-    $data_dir_user = 'deploy'
-  } else {
-    $data_dir_user = 'assets'
-  }
-
   file { ['/data/uploads/publisher', '/data/uploads/publisher/reports']:
     ensure => directory,
     mode   => '0775',
-    owner  => $data_dir_user,
-    group  => $data_dir_user,
   }
 
   govuk::procfile::worker { $app_name:
