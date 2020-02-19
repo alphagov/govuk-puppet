@@ -34,7 +34,7 @@ class govuk_jenkins::jobs::athena_fastly_logs_check (
   }
 
   $jenkins_url = "https://deploy.${hosting_env_domain}/job/athena-fastly-logs-check/"
-  $jenkins_service_description = "Athena has recent results for fasty_logs \${DATABASE}"
+  $jenkins_service_description = "Athena has recent results for fastly_logs \${DATABASE}"
 
   file {
     '/etc/jenkins_jobs/jobs/athena_fastly_logs_check.yaml':
