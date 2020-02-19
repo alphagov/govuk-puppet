@@ -416,7 +416,7 @@ function dump_mysql {
   # --single-transaction --quick is recommended for dumping large tables
   # without holding locks for the duration of the dump.
   # https://dev.mysql.com/doc/refman/5.6/en/mysqldump.html#option_mysqldump_single-transaction
-  sudo -H mysqldump -u "$DB_USER" --add-drop-database --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
+  sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
 }
 
 function restore_mysql {
