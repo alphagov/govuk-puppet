@@ -240,6 +240,8 @@ govuk_jenkins::config::theme_environment_name: 'AWS Production'
 
 govuk_jenkins::job_builder::environment: 'production'
 
+govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-production-fastly-logs-monitoring'
+govuk_jenkins::jobs::athena_fastly_logs_check::databases: ['govuk_www', 'govuk_assets', 'bouncer']
 govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 7 * * *'
 
 govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache: true
