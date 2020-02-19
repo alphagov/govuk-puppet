@@ -130,6 +130,7 @@ class govuk_cdnlogs (
 
   file { $log_dir:
     ensure => absent,
+    force  => true,
     owner  => 'root',
     group  => 'deploy',
     mode   => '0775',
