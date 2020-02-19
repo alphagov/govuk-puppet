@@ -21,7 +21,6 @@ class govuk::node::s_monitoring (
   include ::govuk_docker
   include govuk_rbenv::all
   include ::selenium
-  include ::govuk_cdnlogs
   include monitoring
   include collectd::plugin::icinga
   include govuk_java::openjdk8::jre

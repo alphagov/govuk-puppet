@@ -30,8 +30,8 @@
 
 class govuk_cdnlogs (
   $log_dir,
-  $govuk_monitoring_enabled = true,
-  $bouncer_monitoring_enabled = true,
+  $govuk_monitoring_enabled = false,
+  $bouncer_monitoring_enabled = false,
   $warning_cdn_freshness = 1800,
   $critical_cdn_freshness = 3600,
   $server_key,
@@ -47,14 +47,14 @@ class govuk_cdnlogs (
   $crt_file = '/etc/ssl/rsyslog.crt'
 
   file { $key_file:
-    ensure  => file,
+    ensure  => absent,
     mode    => '0400',
     owner   => 'root',
     content => $server_key,
     notify  => Class['rsyslog::service'],
   }
   file { $crt_file:
-    ensure  => file,
+    ensure  => absent,
     mode    => '0400',
     owner   => 'root',
     content => $server_crt,
@@ -73,12 +73,12 @@ class govuk_cdnlogs (
   }
 
   file { '/etc/logrotate.cdn_logs_hourly.conf':
-    ensure  => file,
+    ensure  => absent,
     content => template('govuk_cdnlogs/etc/logrotate.cdn_logs_hourly.conf.erb'),
   }
 
   file { '/etc/cron.hourly/cdn_logs_rotate':
-    ensure  => file,
+    ensure  => absent,
     source  => 'puppet:///modules/govuk_cdnlogs/etc/cron.hourly/cdn_logs_rotate',
     mode    => '0744',
     require => File['/etc/logrotate.cdn_logs_hourly.conf'],
@@ -129,7 +129,7 @@ class govuk_cdnlogs (
   }
 
   file { $log_dir:
-    ensure => directory,
+    ensure => absent,
     owner  => 'root',
     group  => 'deploy',
     mode   => '0775',
