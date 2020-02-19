@@ -226,7 +226,7 @@
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
               "refId": "A",
