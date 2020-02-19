@@ -39,7 +39,8 @@
               <properties>TARGET_APPLICATION=<%= app %>
 DEPLOY_TASK=deploy:without_migrations
 TARGET_MACHINES=${TARGET_MACHINES}
-TAG=deployed-to-<%= @environment -%></properties>
+TAG=deployed-to-<%= @environment -%>
+NOTIFY_RELEASE_APP=false</properties>
             </hudson.plugins.parameterizedtrigger.PredefinedBuildParameters>
           </configs>
           <projects>Deploy_App</projects>
