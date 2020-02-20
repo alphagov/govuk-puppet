@@ -188,10 +188,27 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-  "pull_mysql_whitehall_production_daily":
+  # The push_whitehall_staging_daily job redacts the Staging Whitehall database
+  # in-place before dumping it to S3. Integration then pulls the redacted copy.
+  # The pull_whitehall_production_daily job then overwrites Staging with the
+  # latest data from Production, so Staging remains unredacted. Staging has the
+  # unredacted data because it helps when debugging content-related issues.
+  "push_whitehall_staging_daily":
     ensure: "present"
-    hour: "3"
-    minute: "00"
+    hour: "0"
+    minute: "30"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "whitehall_production"
+    temppath: "/tmp/whitehall_staging"
+    url: "govuk-staging-database-backups"
+    path: "mysql"
+    pre_dump_transformation_sql_filename: "sanitise_whitehall.sql"
+  "pull_whitehall_production_daily":
+    ensure: "present"
+    hour: "2"
+    minute: "30"
     action: "pull"
     dbms: "mysql"
     storagebackend: "s3"
