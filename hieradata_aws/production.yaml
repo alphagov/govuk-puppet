@@ -167,6 +167,7 @@ govuk::apps::local_links_manager::run_links_ga_export: true
 
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
+govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'

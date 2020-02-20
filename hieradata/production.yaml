@@ -68,6 +68,7 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@al
 govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true

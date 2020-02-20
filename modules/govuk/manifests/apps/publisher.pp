@@ -72,6 +72,9 @@
 # [*email_group_citizen*]
 #   The email address to use citizen alerts
 #
+# [*email_group_force_publish_alerts*]
+#   The email address to use for skip review alerts
+#
 # [*link_checker_api_secret_token*]
 #   The Link Checker API secret token.
 #   Default: undef
@@ -102,6 +105,7 @@ class govuk::apps::publisher(
     $email_group_dev = undef,
     $email_group_business = undef,
     $email_group_citizen = undef,
+    $email_group_force_publish_alerts = undef,
     $link_checker_api_secret_token = undef,
     $link_checker_api_bearer_token = undef,
   ) {
@@ -203,6 +207,9 @@ class govuk::apps::publisher(
     "${title}-EMAIL_GROUP_CITIZEN":
       varname => 'EMAIL_GROUP_CITIZEN',
       value   => $email_group_citizen;
+    "${title}-EMAIL_GROUP_FORCE_PUBLISH_ALERTS":
+      varname => 'EMAIL_GROUP_FORCE_PUBLISH_ALERTS',
+      value   => $email_group_force_publish_alerts;
     "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
