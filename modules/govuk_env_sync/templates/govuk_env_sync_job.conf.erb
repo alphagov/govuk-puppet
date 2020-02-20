@@ -8,3 +8,6 @@ path="<%= @path %>"
 <% if transformation_sql_filename != '' %>
 transformation_sql_file="<%= scope['govuk_env_sync::conf_dir'] %>/transformation_sql/<%= @transformation_sql_filename %>"
 <% end %>
+<% if pre_dump_transformation_sql_filename != '' %>
+pre_dump_transformation_sql_file="<%= scope['govuk_env_sync::conf_dir'] %>/transformation_sql/<%= @pre_dump_transformation_sql_filename %>"
+<% end %>

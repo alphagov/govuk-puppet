@@ -47,6 +47,14 @@
 #   Puppet module.
 #   Default: ''
 #
+# [*pre_dump_transformation_sql_filename*]
+#   Optional filename of a SQL script to run before dumping a MySQL database.
+#   Intended for data scrubbing / anonymisation when dumping the Whitehall
+#   database from Staging. Unlike for Postgres, the script is *not* wrapped in
+#   a transaction. The corresponding file must exist in the
+#   files/transformation_sql directory of the govuk_env_sync Puppet module.
+#   Default: ''
+#
 define govuk_env_sync::task(
   $hour,
   $minute,
@@ -59,6 +67,7 @@ define govuk_env_sync::task(
   $path,
   $ensure = 'present',
   $transformation_sql_filename = '',
+  $pre_dump_transformation_sql_filename = '',
 ) {
   $general_ensure = $ensure ? {
     'disabled' => 'absent',
