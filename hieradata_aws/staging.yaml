@@ -20,17 +20,29 @@ node_class: &node_class
       - asset-manager
       - cache-clearing-service
       - canary-backend
+      - contacts-admin
       - content-data-admin
       - content-data-api
-      - transition
+      - content-tagger
+      - collections-publisher
+      - hmrc-manuals-api
       - imminence
+      - manuals-publisher
+      - maslow
+      - publisher
       - link-checker-api
       - local-links-manager
       - release
+      - search-admin
+      - service-manual-publisher
+      - short-url-manager
       - sidekiq-monitoring
+      - specialist-publisher
       - support
       - support-api
       - support_api_csv_env_sync
+      - transition
+      - travel-advice-publisher
   bouncer:
     apps:
       - bouncer
