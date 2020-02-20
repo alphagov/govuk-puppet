@@ -77,11 +77,9 @@ function filter_pg_stderr {
   # This reads the postgres stderr errors identified by the "Command was:" string into an array
   IFS="#" read -r -a pg_errors <<< "$( echo "${pg_stderr}" | grep -B 1 "Command was:" | tr -d "\\n" | sed s/--/#/g)"
   if ! [ -z "${pg_stderr:-}" ]; then
-    for pg_error in "${pg_errors[@]}"
-    do
+    for pg_error in "${pg_errors[@]}"; do
       # The removal of the newlines in grep output above causes unset array elements, filter those
-      if [ "${pg_error}" != "" ]
-      then
+      if [ "${pg_error}" != "" ]; then
         # Calculate the checksum rather than rely on exact replication of the error string in this script
         # If you require to add more error messages to be igored, do run sth like the below and add to cases.
         # pg_restore ... | grep -B 1 "Command was: <COMMAND CAUSING SPURIOUS ERROR>" | tr -d "\n" | sha256sum | awk '{ print $1 }'
@@ -107,8 +105,7 @@ function filter_pg_stderr {
 }
 
 function report_error {
-  if [ -n "${pg_stderr:-""}" ]
-  then
+  if [ -n "${pg_stderr:-""}" ]; then
     # Ignore spurious warnings of PG (see above for more detail)
     filter_pg_stderr "$@"
   else
@@ -119,8 +116,7 @@ function report_error {
 
 function nagios_passive {
   # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
-  if [ -n "${configfile:-""}" ]
-  then
+  if [ -n "${configfile:-""}" ]; then
     nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
     printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
   fi
@@ -205,14 +201,11 @@ function dump_mongo {
   readarray -t collections < \
     <(mongo --quiet --eval 'rs.slaveOk(); printjson(db.getCollectionNames());' "localhost/$database" | jq -r '.[]')
 
-  for collection in "${collections[@]}"
-  do
-
+  for collection in "${collections[@]}"; do
     mongodump \
       --db "${database}" \
       --collection "${collection}" \
       --out "${tempdir}"
-
   done
 
   cd "${tempdir}" || exit 1
@@ -240,8 +233,7 @@ function dump_documentdb {
        "$database" \
        --eval 'rs.slaveOk(); printjson(db.getCollectionNames());' | jq -r '.[]')
 
-  for collection in "${collections[@]}"
-  do
+  for collection in "${collections[@]}"; do
     mongodump \
       --host "${DOCUMENTDB_HOST}" \
       --username "master" \
@@ -262,10 +254,7 @@ function restore_documentdb {
   setup_documentdb_credentials
   database_normalized=$(normalize_documentdb_database_name)
 
-
-  for bson_file_path in ${tempdir}/${database}/*.bson
-  do
-
+  for bson_file_path in ${tempdir}/${database}/*.bson; do
     filename=$(basename -- "$bson_file_path")
     collection_name="${filename%.*}"
 
@@ -276,9 +265,7 @@ function restore_documentdb {
     max_retries=5
     retries_count=0
 
-    while [ $retries_count -lt $max_retries ]
-    do
-
+    while [ $retries_count -lt $max_retries ]; do
       mongorestore --drop \
         --host "${DOCUMENTDB_HOST}" \
         --username "master" \
@@ -325,7 +312,7 @@ function restore_elasticsearch {
   /usr/bin/curl --connect-timeout 10 -sSf -XGET "http://${database}/_cat/recovery" | grep -q "${snapshot_name}"
 }
 
-function  dump_postgresql {
+function dump_postgresql {
   # Check which postgres instance the database needs to restore into
   # (transition, or postgresql-primary).
   if [ "${database}" == 'transition_production' ]; then
@@ -337,7 +324,6 @@ function  dump_postgresql {
   else
     db_hostname='postgresql-primary'
   fi
-
 
   if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
     # We do not need sudo rights to write the output file
@@ -418,7 +404,7 @@ function restore_postgresql {
   fi
 }
 
-function  dump_mysql {
+function dump_mysql {
   # If the AWS_ACCESS_KEY_ID is unset, then we're running in
   # AWS. Otherwise, we're running in Carrenza.
   if [ -z "${AWS_ACCESS_KEY_ID:-}" ] ; then
@@ -426,10 +412,14 @@ function  dump_mysql {
   else
     DB_USER='root'
   fi
-  sudo -H mysqldump -u "$DB_USER" --add-drop-database "${database}" | gzip > "${tempdir}/${filename}"
+
+  # --single-transaction --quick is recommended for dumping large tables
+  # without holding locks for the duration of the dump.
+  # https://dev.mysql.com/doc/refman/5.6/en/mysqldump.html#option_mysqldump_single-transaction
+  sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
 }
 
-function  restore_mysql {
+function restore_mysql {
   gunzip < "${tempdir}/${filename}" | sudo -H mysql -h mysql-primary "${database}"
 }
 
@@ -647,8 +637,7 @@ case ${action} in
     remove_tempdir
     ;;
   pull)
-    if [ "$("is_writable_${dbms}")" == 'true' ]
-    then
+    if [ "$("is_writable_${dbms}")" == 'true' ]; then
       create_tempdir
       "get_timestamp_${storagebackend}"
       set_filename
