@@ -65,7 +65,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_admin_production_push"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
-  pull_content_tagger_production_daily":
+  "pull_content_tagger_production_daily":
     ensure: "present"
     hour: "0"
     minute: "7"
