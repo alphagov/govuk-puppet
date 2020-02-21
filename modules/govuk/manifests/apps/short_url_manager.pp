@@ -18,6 +18,14 @@
 #   Array of hostnames for the mongo cluster to use.
 #   Default: undef
 #
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
+#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -52,6 +60,8 @@ class govuk::apps::short_url_manager(
   $instance_name = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $oauth_id = undef,
   $oauth_secret = undef,
   $publishing_api_bearer_token = undef,
@@ -91,6 +101,8 @@ class govuk::apps::short_url_manager(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
   }
 
   govuk::app::envvar::redis { $app_name:

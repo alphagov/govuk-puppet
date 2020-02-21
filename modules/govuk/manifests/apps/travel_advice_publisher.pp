@@ -25,6 +25,14 @@
 # [*mongodb_nodes*]
 #   Array of hostnames for the mongo cluster to use.
 #
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
+#
 # [*oauth_id*]
 #   Sets the OAuth ID
 #
@@ -71,6 +79,8 @@ class govuk::apps::travel_advice_publisher(
   $sentry_dsn = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $oauth_id = undef,
   $oauth_secret = undef,
   $port = '3035',
@@ -105,6 +115,8 @@ class govuk::apps::travel_advice_publisher(
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
     }
   }
 
