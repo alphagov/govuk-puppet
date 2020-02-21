@@ -32,5 +32,6 @@ define govuk_jenkins::jobs::athena_fastly_logs_check::icinga_database_check (
       freshness_alert_level   => 'warning',
       freshness_alert_message => 'Jenkins job has stopped running or is unstable',
       action_url              => "${jenkins_url}?search=${name}",
+      notes_url               => monitoring_docs_url(athena-fastly-logs-check),
   }
 }
