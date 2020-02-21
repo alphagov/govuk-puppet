@@ -20,7 +20,7 @@ node_class: &node_class
       - asset-manager
       - cache-clearing-service
       - canary-backend
-      - contacts-admin
+      - contacts
       - content-data-admin
       - content-data-api
       - content-tagger
