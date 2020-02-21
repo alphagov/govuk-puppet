@@ -11,9 +11,9 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_tagger_production_daily":
-    ensure: "absent"
+    ensure: "present"
     hour: "0"
-    minute: "7"
+    minute: "6"
     action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_service-manual-publisher_production_daily":
-    ensure: "absent"
+    ensure: "present"
     hour: "0"
     minute: "4"
     action: "push"
