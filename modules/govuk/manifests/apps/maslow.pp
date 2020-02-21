@@ -12,6 +12,14 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -33,6 +41,8 @@ class govuk::apps::maslow(
   $port = '3053',
   $mongodb_nodes,
   $mongodb_name,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
@@ -57,6 +67,8 @@ class govuk::apps::maslow(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
   }
 
   govuk::app::envvar {

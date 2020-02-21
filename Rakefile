@@ -286,7 +286,16 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::local_links_manager::unicorn_worker_processes
     govuk::apps::mapit::enabled
     govuk::apps::mapit::gdal_version
+    govuk::apps::manuals_publisher::mongodb_nodes
+    govuk::apps::manuals_publisher::mongodb_username
+    govuk::apps::manuals_publisher::mongodb_password
+    govuk::apps::maslow::mongodb_nodes
+    govuk::apps::maslow::mongodb_username
+    govuk::apps::maslow::mongodb_password
     govuk::apps::publisher::alert_hostname
+    govuk::apps::publisher::mongodb_nodes
+    govuk::apps::publisher::mongodb_username
+    govuk::apps::publisher::mongodb_password
     govuk::apps::publishing_api::content_store
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::backend_ip_range
@@ -343,6 +352,9 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::short_url_manager::mongodb_nodes
+    govuk::apps::short_url_manager::mongodb_username
+    govuk::apps::short_url_manager::mongodb_password
     govuk::apps::specialist_publisher::aws_s3_bucket_name
     govuk::apps::support::aws_s3_bucket_name
     govuk::apps::support::redis_host
@@ -366,6 +378,9 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::transition::postgresql_db::rds
     govuk::apps::transition::redis_host
     govuk::apps::transition::redis_port
+    govuk::apps::travel_advice_publisher::mongodb_nodes
+    govuk::apps::travel_advice_publisher::mongodb_username
+    govuk::apps::travel_advice_publisher::mongodb_password
     govuk::deploy::setup::gemstash_server
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
