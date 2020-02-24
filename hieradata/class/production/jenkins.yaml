@@ -10,7 +10,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::copy_attachments_to_staging
   - govuk_jenkins::jobs::copy_data_to_integration
   - govuk_jenkins::jobs::copy_data_to_staging
-  - govuk_jenkins::jobs::copy_sanitised_whitehall_database
   - govuk_jenkins::jobs::delete_redis_uniquejobs
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
