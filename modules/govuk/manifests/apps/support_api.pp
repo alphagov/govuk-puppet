@@ -85,6 +85,9 @@
 # [*aws_s3_bucket_name*]
 #   The S3 Bucket for AWS to access.
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
 class govuk::apps::support_api(
   $ensure = 'present',
   $db_hostname = undef,
@@ -110,6 +113,7 @@ class govuk::apps::support_api(
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $aws_s3_bucket_name = undef,
+  $govuk_notify_api_key = undef,
 ) {
   $app_name = 'support-api'
 
@@ -162,6 +166,9 @@ class govuk::apps::support_api(
     "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
       value   => $aws_s3_bucket_name;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
   }
 
   govuk::app::envvar::redis { $app_name:
