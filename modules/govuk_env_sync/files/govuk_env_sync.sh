@@ -420,15 +420,19 @@ function dump_mysql {
   fi
 
   if [ "${pre_dump_transformation_sql_file:-}" ]; then
+    log "Running pre-dump SQL script ${pre_dump_transformation_sql_file}..."
     # We can read the file without being root, but shellcheck doesn't know it.
     # shellcheck disable=SC2024
     sudo -H mysql "${database}" < "${pre_dump_transformation_sql_file}"
+    log "completed."
   fi
 
   # --single-transaction --quick is recommended for dumping large tables
   # without holding locks for the duration of the dump.
   # https://dev.mysql.com/doc/refman/5.6/en/mysqldump.html#option_mysqldump_single-transaction
+  log "Running mysqldump..."
   sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
+  log "completed."
 }
 
 function restore_mysql {
