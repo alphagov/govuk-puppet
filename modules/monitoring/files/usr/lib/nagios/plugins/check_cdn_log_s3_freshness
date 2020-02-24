@@ -19,16 +19,21 @@ For help on command-line options:
     check_cdn_log_s3_freshness -h
 
 Example usage for testing the script:
-    check_cdn_log_s3_freshness -e staging -t 2020-01-31T17:00
+    check_cdn_log_s3_freshness -e staging -F 2020-01-31T17:00
 
 Example usage in production:
-    check_cdn_log_s3_freshness -e production -l govuk_www -c 1
+    check_cdn_log_s3_freshness -e production -l govuk_www -c 60
+
+Doctest doesn't work when the module filename doesn't end in .py, so in order
+to run doctest you have to rename the file and then run:
+    python3 -m check_cdn_log_s3_freshness.py
 """
 
 import argparse
 import datetime
 import enum
 import logging
+import posixpath
 import sys
 
 import boto3
@@ -46,8 +51,12 @@ def fromisoformat(s):
 
     This is only meant for passing in a fake time from the command-line when
     testing. Would use datetime.fromisoformat, but we're stuck on Python 3.4.
+
+    Example:
+    >>> fromisoformat('2020-01-30T22:00')
+    datetime.datetime(2020, 1, 30, 22, 0, tzinfo=datetime.timezone.utc)
     """
-    return datetime.datetime.strptime(s, '%Y-%m-%dT%H:%M')
+    return datetime.datetime.strptime(s + '+0000', '%Y-%m-%dT%H:%M%z')
 
 
 def parse_args():
@@ -57,10 +66,10 @@ def parse_args():
                         help='Environment to check: integration, staging, production.')
     parser.add_argument('-l', '--log_type', default='govuk_assets',
                         help='Which logs to check: govuk_assets, govuk_www.')
-    parser.add_argument('-c', '--critical_age_hours', type=int, default=1,
-                        help='If the newest logs are older than this many hours, '
+    parser.add_argument('-c', '--critical_age_minutes', type=int, default=60,
+                        help='If the newest logs are older than this many minutes, '
                              'return CRITICAL status.')
-    parser.add_argument('-t', '--time', type=fromisoformat,
+    parser.add_argument('-F', '--fake_time', type=fromisoformat,
                         help='For testing purposes, use the given time as if it\'s the current '
                              'time. Requires the format YYYY-MM-DDTHH:MM. Assumes UTC.')
     parser.add_argument('-v', '--verbose', action='count',
@@ -76,45 +85,74 @@ def get_s3_bucket(env):
     return s3.Bucket(bucket_name)
 
 
-def get_prefix(log_type, critical_age_hours, fake_time=None):
+def get_prefix(log_type, query_time):
     """Return the S3 prefix to be searched for log files, based on the time."""
-    max_age = datetime.timedelta(hours=critical_age_hours)
-    now = fake_time or datetime.datetime.now(datetime.timezone.utc)  # TZ-aware datetime in UTC.
-    query_time = now - max_age  # Oldest acceptable last_modified time for logs.
-    time_prefix = query_time.strftime('year=%Y/month=%m/date=%d/%Y-%m-%dT%H')
-    logging.info('Time is %s%s', query_time.isoformat(),
-                 ' (overridden for testing)' if fake_time else '')
+    time_prefix = query_time.strftime('year=%Y/month=%m/date=%d/')
     return '%s/%s' % (log_type, time_prefix)
 
 
-def logs_new_enough(s3_objs):
-    """True if there are new enough logs in the given listing, False otherwise."""
-    # For now, we just check that there were logs within the right hour.
-    # Could improve precision by parsing the timestamp in the filename and
-    # comparing that against the threshold, but that's probably not warranted
-    # unless we really care about having better precision that +/- an hour.
-    obj_count = sum(1 for _ in s3_objs)
-    logging.info('Found %d log chunks.', obj_count)
-    return obj_count > 0
+def date_from_filename(filename):
+    """Returns a UTC datetime parsed from the given Fastly log filename.
+
+    Example:
+    >>> date_from_filename('2020-01-30T22:00:00.000-DXdcYBSfUdJyVvwbPcAn.log.gz')
+    datetime.datetime(2020, 1, 30, 22, 0, tzinfo=datetime.timezone.utc)
+    """
+    date_string = filename.split('.')[0] + '+0000'
+    return datetime.datetime.strptime(date_string, '%Y-%m-%dT%H:%M:%S%z')
 
 
-def exit_status_for_icinga(s3_objs):
-    """Return the appropriate exit status, based on whether the logs are up-to-date."""
-    if logs_new_enough(s3_objs):
+def objs_with_prefix(bucket, log_type, query_time):
+    """Return a list of S3 objects for the given day's CDN logs.
+
+    The list is returned in ascending order by S3 key (path).
+    """
+    prefix = get_prefix(log_type, query_time)
+    # S3 guarantees to return objects in ascending key order based on the UTF-8
+    # binary representation of the key. Unfortunately the server-side filtering
+    # is quite limited; we can't specify the sort order or the sort key.
+    objs = list(bucket.objects.filter(Prefix=prefix))
+    logging.info('Found %s files with prefix %s',
+                 'no' if not objs else len(objs), prefix)
+    return objs
+
+
+def status_for_icinga(s3_objs, threshold_datetime):
+    """Given a list of files and a threshold, return the check result.
+
+    s3_objs is assumed to be in ascending order by filename.
+    """
+    if not s3_objs:
+        return IcingaStatus.CRITICAL
+    last_filename = posixpath.basename(s3_objs[-1].key)
+    logging.info('Newest log file (based on filename) is %s', last_filename)
+    file_datetime = date_from_filename(last_filename)
+    logging.info('Newest log time parsed from filename is %s', file_datetime.isoformat())
+    if file_datetime >= threshold_datetime:
         return IcingaStatus.OK
     return IcingaStatus.CRITICAL
 
 
 def main():
+    """Entry point for check_cdn_log_s3_freshness. See module docstring."""
     args = parse_args()
     logging.basicConfig(level=logging.DEBUG if args.verbose else logging.INFO)
 
-    bucket = get_s3_bucket(args.env)
-    prefix = get_prefix(args.log_type, args.critical_age_hours, fake_time=args.time)
-    logging.info('Listing S3 bucket for prefix %s', prefix)
-    listing = bucket.objects.filter(Prefix=prefix)
+    max_age = datetime.timedelta(minutes=args.critical_age_minutes)
+    now = args.fake_time or datetime.datetime.now(datetime.timezone.utc)
+    oldest_acceptable_time = now - max_age
+    logging.info('Current time is %s%s.',
+                 'overridden for testing to ' if args.fake_time else '',
+                 now.isoformat())
+    logging.info('Looking for log filenames dated %s or newer.',
+                 oldest_acceptable_time.isoformat())
 
-    status = exit_status_for_icinga(listing)
+    bucket = get_s3_bucket(args.env)
+    s3_objs = objs_with_prefix(bucket, args.log_type, oldest_acceptable_time)
+    if now.day != oldest_acceptable_time.day:
+        s3_objs += objs_with_prefix(bucket, args.log_type, now)
+
+    status = status_for_icinga(s3_objs, oldest_acceptable_time)
     print(status.name)
     sys.exit(status)
 
