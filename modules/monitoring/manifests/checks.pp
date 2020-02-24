@@ -185,6 +185,17 @@ class monitoring::checks (
       check_interval      => 60,
       retry_interval      => 5,
     }
+    # Bouncer logs are in Production only.
+    if $::aws_environment == 'production' {
+      icinga::check { 'check_cdn_log_s3_freshness_bouncer':
+        check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l bouncer -c ${cdn_log_age_threshold_mins}",
+        host_name           => $::fqdn,
+        service_description => "check that Fastly logs from ${cdn_log_age_threshold_mins}m ago appear in s3://govuk-${::aws_environment}-fastly-logs/bouncer",
+        notes_url           => monitoring_docs_url(cdn-log-freshness),
+        check_interval      => 60,
+        retry_interval      => 5,
+      }
+    }
   }
 
   if ($::aws_migration and $::aws_environment == 'production') {
