@@ -171,7 +171,7 @@ govuk_env_sync::tasks:
     <<: *pull_licensify
     ensure: "disabled"
     database: "licensify-audit"
-  "pull_mysql_whitehall_production_daily":
+  "pull_whitehall_production_daily":
     ensure: "disabled"
     hour: "0"
     minute: "00"
