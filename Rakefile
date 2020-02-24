@@ -368,6 +368,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::support_api::db_name
     govuk::apps::support_api::db_password
     govuk::apps::support_api::db_username
+    govuk::apps::support_api::govuk_notify_template_id
     govuk::apps::support_api::pp_data_url
     govuk::apps::support_api::redis_host
     govuk::apps::support_api::redis_port
