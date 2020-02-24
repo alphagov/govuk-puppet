@@ -114,6 +114,7 @@ class govuk::apps::support_api(
   $aws_region = 'eu-west-1',
   $aws_s3_bucket_name = undef,
   $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
   $app_name = 'support-api'
 
@@ -169,6 +170,9 @@ class govuk::apps::support_api(
     "${title}-GOVUK_NOTIFY_API_KEY":
       varname => 'GOVUK_NOTIFY_API_KEY',
       value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
   }
 
   govuk::app::envvar::redis { $app_name:
