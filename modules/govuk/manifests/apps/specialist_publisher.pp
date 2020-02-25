@@ -83,6 +83,12 @@
 #   The secret key base value for rails
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::specialist_publisher(
   $port = '3064',
   $asset_manager_bearer_token = undef,
@@ -105,6 +111,8 @@ class govuk::apps::specialist_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   $app_name = 'specialist-publisher'
@@ -179,6 +187,12 @@ client_max_body_size 500m;
       "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
       value   => $aws_s3_bucket_name;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
     }
 
     if $secret_key_base != undef {
