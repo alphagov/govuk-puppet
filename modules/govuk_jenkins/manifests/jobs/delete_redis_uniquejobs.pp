@@ -1,4 +1,4 @@
-# == Class: govuk_jenkins::jobs::whitehall_publisher_notifications
+# == Class: govuk_jenkins::jobs::delete_redis_uniquejobs
 #
 # Create a jenkins job to periodically remove redis uniquejobs key
 #
