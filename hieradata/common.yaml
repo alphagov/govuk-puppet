@@ -65,7 +65,6 @@ deployable_applications: &deployable_applications
   manuals-publisher: {}
   maslow: {}
   publisher: {}
-  release: {}
   search-admin: {}
   service-manual-publisher: {}
   short-url-manager: {}
