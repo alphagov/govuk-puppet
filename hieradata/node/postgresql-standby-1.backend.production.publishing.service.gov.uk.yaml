@@ -13,7 +13,7 @@ govuk_env_sync::tasks:
   "push_service-manual-publisher_production_daily":
     ensure: "present"
     hour: "0"
-    minute: "4"
+    minute: "36"
     action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
