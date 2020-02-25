@@ -51,9 +51,6 @@ AWS_EXCLUDED_NODE_CLASSES = %w[
   transition_postgresql_slave
   transition_postgresql_standby
   whitehall_backend
-  whitehall_mysql_backup
-  whitehall_mysql_master
-  whitehall_mysql_slave
 ]
 
 namespace :spec do

@@ -15,10 +15,6 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automysqlbackup/
     fq_dn: mysql-backup-1.backend.%{hiera('app_domain')}
     priority: '001'
-  backup_mysql_backups_whitehall_mysql_backup_1:
-    directory: /var/lib/automysqlbackup/
-    fq_dn: whitehall-mysql-backup-1.backend.%{hiera('app_domain')}
-    priority: '001'
   backup_postgresql_backups_postgresql_primary_1:
     directory: /var/lib/autopostgresqlbackup/
     fq_dn: postgresql-primary-1.backend.%{hiera('app_domain')}

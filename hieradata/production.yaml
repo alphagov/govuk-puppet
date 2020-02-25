@@ -73,13 +73,10 @@ govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
-govuk::apps::whitehall::cpu_warning: 400
-govuk::apps::whitehall::cpu_critical: 600
 
 govuk::apps::content_tagger::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
-govuk::apps::whitehall::override_search_location: 'https://search-api.production.govuk.digital'
 
 govuk::deploy::actionmailer_enable_delivery: true
 
@@ -153,8 +150,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
 govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
-govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-production'
-govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 
 govuk_postgresql::backup::auto_postgresql_backup_hour: 3
 govuk_postgresql::backup::auto_postgresql_backup_minute: 0
@@ -291,23 +286,6 @@ hosts::production::backend::hosts:
     ip: '10.3.3.27'
   whitehall-backend-4:
     ip: '10.3.3.28'
-  whitehall-mysql-backup-1:
-    ip: '10.3.3.34'
-    legacy_aliases:
-      - 'whitehall-backup.mysql'
-  whitehall-mysql-master-1:
-    ip: '10.3.3.30'
-    legacy_aliases:
-      - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('app_domain')}"
-  whitehall-mysql-slave-1:
-    ip: '10.3.3.31'
-    legacy_aliases:
-      - 'whitehall-slave.mysql'
-  whitehall-mysql-slave-2:
-    ip: '10.3.3.32'
-  whitehall-mysql-slave-3:
-    ip: '10.3.11.31'
 
 hosts::production::frontend::hosts:
   whitehall-frontend-1:

@@ -31,13 +31,10 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
-govuk::apps::whitehall::cpu_warning: 400
-govuk::apps::whitehall::cpu_critical: 600
 
 govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk.digital'
-govuk::apps::whitehall::override_search_location: 'https://search-api.staging.govuk.digital'
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
@@ -121,8 +118,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-staging'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
-govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-staging'
-govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
@@ -244,23 +239,6 @@ hosts::production::backend::hosts:
     ip: '10.2.3.27'
   whitehall-backend-4:
     ip: '10.2.3.28'
-  whitehall-mysql-backup-1:
-    ip: '10.2.3.34'
-    legacy_aliases:
-      - 'whitehall-backup.mysql'
-  whitehall-mysql-master-1:
-    ip: '10.2.3.30'
-    legacy_aliases:
-      - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('app_domain')}"
-  whitehall-mysql-slave-1:
-    ip: '10.2.3.31'
-    legacy_aliases:
-      - 'whitehall-slave.mysql'
-  whitehall-mysql-slave-2:
-    ip: '10.2.3.32'
-  whitehall-mysql-slave-3:
-    ip: '10.2.11.31'
 
 hosts::production::backend::app_hostnames:
   - 'canary-backend'

@@ -119,8 +119,6 @@ govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_mirrorer::daily_queue_purge: true
-govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-training'
-govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk_sudo::sudo_conf:

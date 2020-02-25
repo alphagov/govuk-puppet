@@ -1,16 +1,3 @@
 mongodb::backup::s3_backups: true
 mongodb::s3backup::cron::realtime_hour: '*'
 mongodb::s3backup::cron::realtime_minute: '*/30'
-
-govuk_env_sync::tasks:
-  "push_govuk_assets_production":
-    ensure: "absent"
-    hour: "1"
-    minute: "00"
-    action: "push"
-    dbms: "mongo"
-    storagebackend: "s3"
-    database: "govuk_assets_production"
-    temppath: "/var/lib/s3backup/.dumps"
-    url: "govuk-production-database-backups"
-    path: "mongo-normal"
