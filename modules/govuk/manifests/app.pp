@@ -327,7 +327,7 @@ define govuk::app (
   $monitor_unicornherder = undef,
   $local_tcpconns_established_warning = undef,
   $local_tcpconns_established_critical = undef,
-  $ensure_service = running,
+  $ensure_service = undef,
 ) {
 
   if ! ($app_type in ['procfile', 'rack', 'bare']) {
@@ -414,8 +414,17 @@ define govuk::app (
     local_tcpconns_established_critical => $local_tcpconns_established_critical,
   }
 
+  if $ensure == 'absent' {
+    $ensure_service_real = 'absent'
+  } else {
+    $ensure_service_real = $ensure_service ? {
+      undef    => running,
+      default  => $ensure_service,
+    }
+  }
+
   govuk::app::service { $title:
-    ensure     => $ensure_service,
+    ensure     => $ensure_service_real,
     hasrestart => $hasrestart,
     subscribe  => Class['govuk::deploy'],
   }
