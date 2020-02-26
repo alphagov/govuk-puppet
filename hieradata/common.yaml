@@ -26,6 +26,7 @@ node_class: &node_class
       - manuals-publisher
       - maslow
       - publisher
+      - release
       - search-admin
       - service-manual-publisher
       - short-url-manager
