@@ -26,6 +26,7 @@ node_class: &node_class
       - manuals-publisher
       - maslow
       - publisher
+      - release
       - search-admin
       - service-manual-publisher
       - short-url-manager
@@ -263,6 +264,12 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
+
+govuk::apps::release::enabled: false
+govuk::apps::release::db_hostname: "master.mysql"
+govuk::apps::release::db_username: "release"
+govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
+govuk::apps::release::github_username: "govuk-ci"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
 govuk::apps::search_admin::db_hostname: 'master.mysql'

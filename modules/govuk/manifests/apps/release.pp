@@ -40,6 +40,7 @@
 #
 class govuk::apps::release(
   $port = '3036',
+  $enabled = true,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $db_hostname = undef,
@@ -53,7 +54,13 @@ class govuk::apps::release(
 ) {
   $app_name = 'release'
 
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -64,7 +71,8 @@ class govuk::apps::release(
   }
 
   Govuk::App::Envvar {
-    app => $app_name,
+    app    => $app_name,
+    ensure => $ensure,
   }
 
   govuk::app::envvar {
