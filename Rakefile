@@ -312,6 +312,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::redis_host
     govuk::apps::publishing_api::redis_port
     govuk::apps::publishing_api::unicorn_worker_processes
+    govuk::apps::release::db_hostname
+    govuk::apps::release::db_password
+    govuk::apps::release::db_username
+    govuk::apps::release::github_username
     govuk::apps::router::sentry_environment
     govuk::apps::search_api::nagios_memory_warning
     govuk::apps::search_api::nagios_memory_critical

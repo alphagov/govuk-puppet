@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mysql"
   "push_release_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "16"
     action: "push"
