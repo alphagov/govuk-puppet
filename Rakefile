@@ -115,8 +115,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::search_admin::override_search_location
 
     _
-    backup::assets::backup_private_gpg_key_fingerprint
-    backup::assets::jobs
     backup::offsite::jobs
     govuk::deploy::actionmailer_enable_delivery
     govuk::node::s_apt::real_ip_header

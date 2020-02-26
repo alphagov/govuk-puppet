@@ -7,23 +7,6 @@ app_domain: 'publishing.service.gov.uk'
 # Staging/production will not have separate internal load balancers until migrated to AWS
 app_domain_internal: 'publishing.service.gov.uk'
 
-backup::assets::backup_private_gpg_key_fingerprint: *offsite_gpg_key
-backup::assets::jobs:
-  'assets-whitehall-s3':
-    ensure: 'absent'
-    sources: '/mnt/uploads/whitehall'
-    destination: 's3://s3-eu-west-1.amazonaws.com/govuk-offsite-backups-production/assets-whitehall/'
-    aws_access_key_id: "%{hiera('backup::offsite::job::aws_access_key_id')}"
-    aws_secret_access_key: "%{hiera('backup::offsite::job::aws_secret_access_key')}"
-    hour: 4
-    minute: 20
-    user: 'root'
-    gpg_key_id: *offsite_gpg_key
-    pre_command: "export PASSPHRASE=%{hiera('backup::assets::backup_private_gpg_key_passphrase')}"
-    s3_use_multiprocessing: true
-    s3_multipart_chunk_size: 200
-    s3_multipart_max_procs: 4
-
 backup::offsite::jobs:
   'govuk-datastores-s3':
     sources:
