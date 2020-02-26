@@ -265,6 +265,7 @@ govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
+govuk::apps::release::enabled: false
 govuk::apps::release::db_hostname: "master.mysql"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"

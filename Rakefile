@@ -31,6 +31,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::content_tagger::db_allow_prepared_statements
     govuk::apps::content_tagger::db_port
+    govuk::apps::release::enabled
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
