@@ -33,12 +33,6 @@ node_class: &node_class
       - signon
       - specialist-publisher
       - travel-advice-publisher
-  whitehall_backend:
-    apps:
-      - whitehall
-  whitehall_frontend:
-    apps:
-      - whitehall
 
 govuk::node::s_base::node_apps:
   <<: *node_class
@@ -72,7 +66,6 @@ deployable_applications: &deployable_applications
   signon: {}
   specialist-publisher: {}
   travel-advice-publisher: {}
-  whitehall: {}
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 
@@ -266,21 +259,6 @@ govuk::apps::publisher::email_group_force_publish_alerts: 'test-mainstream-force
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::whitehall::admin_db_hostname: whitehall-master.mysql
-govuk::apps::whitehall::admin_key_space_limit: '262144'
-govuk::apps::whitehall::admin_db_name: whitehall_production
-govuk::apps::whitehall::admin_db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
-govuk::apps::whitehall::admin_db_username: whitehall
-govuk::apps::whitehall::db_hostname: whitehall-slave.mysql
-govuk::apps::whitehall::db_name: whitehall_production
-govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
-govuk::apps::whitehall::db_username: whitehall_fe
-govuk::apps::whitehall::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
-govuk::apps::whitehall::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::whitehall::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::whitehall::db::whitehall_fe_password: "%{hiera('mysql_whitehall_frontend')}"
-
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
@@ -318,8 +296,8 @@ govuk::apps::sidekiq_monitoring::specialist_publisher_redis_host: "%{hiera('govu
 govuk::apps::sidekiq_monitoring::specialist_publisher_redis_port: "%{hiera('govuk::apps::specialist_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_host: "%{hiera('govuk::apps::travel_advice_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('govuk::apps::travel_advice_publisher::redis_port')}"
-govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
-govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::signon::db_hostname: 'master.mysql'
 govuk::apps::signon::db_name: 'signon_production'
@@ -399,10 +377,6 @@ govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
-
-govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
-govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
-govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
 govuk::node::s_postgresql_standby::aws_access_key_id: "%{hiera('govuk::node::s_postgresql_primary::aws_access_key_id')}"
 govuk::node::s_postgresql_standby::aws_secret_access_key: "%{hiera('govuk::node::s_postgresql_primary::aws_secret_access_key')}"
@@ -808,11 +782,6 @@ grafana::dashboards::application_dashboards:
   travel-advice-publisher:
     show_sidekiq_graphs: true
     has_workers: true
-  whitehall:
-    show_sidekiq_graphs: true
-    has_workers: true
-    error_threshold: 50
-    warning_threshold: 25
 
 grub2::recordfail_timeout: 5
 
@@ -927,21 +896,6 @@ hosts::production::backend::hosts:
     ip: '10.1.3.25'
   whitehall-backend-2:
     ip: '10.1.3.26'
-  whitehall-mysql-backup-1:
-    ip: '10.1.3.34'
-    legacy_aliases:
-      - 'whitehall-backup.mysql'
-  whitehall-mysql-master-1:
-    ip: '10.1.3.30'
-    legacy_aliases:
-      - 'whitehall-master.mysql'
-      - "whitehall-mysql.backend.%{hiera('app_domain')}"
-  whitehall-mysql-slave-1:
-    ip: '10.1.3.31'
-    legacy_aliases:
-      - 'whitehall-slave.mysql'
-  whitehall-mysql-slave-2:
-    ip: '10.1.11.31'
 
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
@@ -963,7 +917,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
   - 'travel-advice-publisher'
-  - 'whitehall-admin'
 
 hosts::production::ci::hosts:
   ci-master-1:
@@ -996,10 +949,6 @@ hosts::production::frontend::hosts:
     ip: '10.1.2.101'
   frontend-lb-2:
     ip: '10.1.2.102'
-
-hosts::production::frontend::app_hostnames:
-  - 'whitehall-frontend'
-  - 'draft-whitehall-frontend'
 
 hosts::production::management::hosts:
   jenkins-1:
