@@ -28,9 +28,6 @@ govuk::node::s_backup::directories:
     fq_dn: graphite-1.management.%{hiera('app_domain')}
     priority: '004'
 
-icinga::client::checks::disk_time_warn: 750 # milliseconds
-icinga::client::checks::disk_time_critical: 1000 # milliseconds
-
 lv:
   data:
     pv:
