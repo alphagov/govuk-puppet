@@ -21,17 +21,6 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/contacts_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-  "push_release_production_daily":
-    ensure: "absent"
-    hour: "0"
-    minute: "16"
-    action: "push"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "release_production"
-    temppath: "/home/govuk-backup/tmp_dumps/release_production"
-    url: "govuk-staging-database-backups"
-    path: "mysql"
   "push_search_admin_production_daily":
     ensure: "present"
     hour: "0"
