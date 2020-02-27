@@ -1,6 +1,5 @@
 ---
 
-govuk::node::s_asset_slave::offsite_backups: true
 backup::assets::archive_directory: '/mnt/duplicity-cache'
 
 lv:
