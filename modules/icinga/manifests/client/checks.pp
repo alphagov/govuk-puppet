@@ -3,16 +3,6 @@
 # This class provides the default checks for a client machine.
 #
 # === Parameters:
-# [*disk_time_warn*]
-#   The disk time in milliseconds that will causing a warning state.
-#
-# [*disk_time_critical*]
-#   The disk time in milliseconds that will cause a critical state.
-#
-# [*disk_time_window_minutes*]
-#   The duration in minutes to include in the moving average window
-#   for disk time checks.
-#
 # [*disk_space_warn*]
 #   A warning is triggered when free disk space falls below this
 #   percentage.
@@ -23,9 +13,6 @@
 #
 #
 class icinga::client::checks (
-  $disk_time_warn = 100,
-  $disk_time_critical = 200,
-  $disk_time_window_minutes = 5,
   $disk_space_warn = 20,
   $disk_space_critical = 10,
 ) {
@@ -130,36 +117,12 @@ class icinga::client::checks (
     }
   }
 
-  # Check how much time the kernel is spending reading and writing to disk. This
-  # checks the median (50th percentile) time (in milliseconds) spent per second
-  # performing I/O operations over the last 5 minutes. The argument to
-  # movingMedian is the number of data points to include in the moving average
-  # frame, calculated below as
-  #
-  #   (5 minutes * 60 seconds minute^-1) / 10 seconds datapoint^-1
-  #
-  # This will not alert on short spikes in I/O unless they are very large.
-  # Instead, it is intended to alert on persistent high I/O.
-
-  $disk_time_window_points = ($disk_time_window_minutes * 60) / 10
-
   # In vCloud, disk names begin with sd, whereas in AWS they begin with either
   # xvd or nvm, hence the regex.
   if $::aws_migration {
     $disk_prefix = '{xvd*,nvm*}'
   } else {
     $disk_prefix = 'sd'
-  }
-
-  @@icinga::check::graphite { "check_disk_time_${::hostname}":
-    desc                       => 'high disk time',
-    target                     => "movingMedian(sum(${::fqdn_metrics}.disk-${disk_prefix}?.disk_time.*),${disk_time_window_points})",
-    args                       => "--from ${disk_time_window_minutes}mins",
-    warning                    => $disk_time_warn,
-    critical                   => $disk_time_critical,
-    host_name                  => $::fqdn,
-    notes_url                  => monitoring_docs_url(high-disk-time),
-    attempts_before_hard_state => 2,
   }
 
   @@icinga::check { "check_ntp_time_${::hostname}":

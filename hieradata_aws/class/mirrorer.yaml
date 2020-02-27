@@ -3,9 +3,6 @@ govuk_crawler::mirror_root: '/mnt/crawler_worker'
 
 govuk::apps::govuk_crawler_worker::amqp_host: "%{hiera('govuk_crawler::amqp_host')}"
 
-icinga::client::checks::disk_time_warn: 150 # milliseconds
-icinga::client::checks::disk_time_critical: 250 # milliseconds
-
 lv:
   worker:
     pv: '/dev/nvme1n1'
