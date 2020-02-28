@@ -67,7 +67,7 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "pull_content_tagger_production_daily":
     ensure: "present"
-    hour: "0"
+    hour: "2"
     minute: "7"
     action: "pull"
     dbms: "postgresql"
@@ -111,7 +111,7 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "pull_service-manual-publisher_production_daily":
     ensure: "present"
-    hour: "0"
+    hour: "2"
     minute: "5"
     action: "pull"
     dbms: "postgresql"
@@ -157,7 +157,7 @@ govuk_env_sync::tasks:
     minute: "45"
   "pull_collections_publisher_production_daily":
     ensure: "present"
-    hour: "1"
+    hour: "2"
     minute: "12"
     action: "pull"
     dbms: "mysql"
@@ -168,7 +168,7 @@ govuk_env_sync::tasks:
     path: "mysql"
   "pull_contacts_production_daily":
     ensure: "present"
-    hour: "1"
+    hour: "2"
     minute: "14"
     action: "pull"
     dbms: "mysql"
