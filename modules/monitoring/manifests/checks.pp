@@ -68,7 +68,7 @@ class monitoring::checks (
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  if $::aws_migration == undef {
+  if $::aws_migration {
     icinga::check { "check_whitehall_overdue_from_${::hostname}":
       check_command              => 'check_whitehall_overdue',
       service_description        => 'overdue publications in Whitehall',
