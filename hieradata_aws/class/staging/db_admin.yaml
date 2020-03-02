@@ -188,6 +188,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-production-database-backups"
     path: "mysql"
+  "pull_signon_production_daily":
+    ensure: "present"
+    hour: "1"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "signon_production"
+    temppath: "/tmp/signon_production"
+    url: "govuk-production-database-backups"
+    path: "mysql"
   # The push_whitehall_staging_daily job redacts the Staging Whitehall database
   # in-place before dumping it to S3. Integration then pulls the redacted copy.
   # The pull_whitehall_production_daily job then overwrites Staging with the
