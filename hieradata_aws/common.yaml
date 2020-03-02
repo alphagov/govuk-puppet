@@ -481,8 +481,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - kevin.dew@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
-  - robert.bond@digital.cabinet-office.gov.uk
-  - ruth.morris@digital.cabinet-office.gov.uk
   - steve.messer@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
