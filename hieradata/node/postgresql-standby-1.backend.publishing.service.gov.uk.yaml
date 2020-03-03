@@ -21,4 +21,14 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/autopostgresqlbackup/service-manual-publisher_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-
+  "push_content_publisher_production_daily":
+    ensure: "present"
+    hour: "0"
+    minute: "45"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_publisher_production"
+    temppath: "/tmp/content_publisher_production"
+    url: "govuk-production-database-backups"
+    path: "postgresql-backend"

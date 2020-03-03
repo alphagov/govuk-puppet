@@ -23,6 +23,7 @@ node_class: &node_class
       - contacts
       - content-data-admin
       - content-data-api
+      - content-publisher
       - content-tagger
       - collections-publisher
       - hmrc-manuals-api
