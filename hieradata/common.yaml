@@ -652,6 +652,7 @@ govuk_jenkins::jobs::integration_deploy::applications:
   support-api: {}
   support: {}
   transition: {}
+  whitehall: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
