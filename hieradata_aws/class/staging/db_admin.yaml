@@ -120,7 +120,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/service-manual-publisher_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
- "pull_content_publisher_production_daily":
+  "pull_content_publisher_production_daily":
     ensure: "present"
     hour: "1"
     minute: "45"
@@ -197,6 +197,17 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "search_admin_production"
     temppath: "/tmp/search_admin_production"
+    url: "govuk-production-database-backups"
+    path: "mysql"
+  "pull_signon_production_daily":
+    ensure: "present"
+    hour: "1"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "signon_production"
+    temppath: "/tmp/signon_production"
     url: "govuk-production-database-backups"
     path: "mysql"
   # The push_whitehall_staging_daily job redacts the Staging Whitehall database

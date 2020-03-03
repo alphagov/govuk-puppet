@@ -13,21 +13,21 @@ class govuk::apps::email_alert_api::checks(
                           'cleanup']:
     size_warning     => '75000',
     size_critical    => '100000',
-    latency_warning  => '5',
-    latency_critical => '10',
+    latency_warning  => '300', # 5 minutes
+    latency_critical => '600', # 10 minutes
     ;
                         [ 'delivery_immediate_high',
                           'delivery_immediate']:
     size_warning     => '75000',
     size_critical    => '100000',
-    latency_warning  => '2.5',
-    latency_critical => '5',
+    latency_warning  => '150', # 2.5 minutes
+    latency_critical => '300', # 5 minutes
     ;
                         [ 'delivery_digest']:
     size_warning     => '75000',
     size_critical    => '100000',
-    latency_warning  => '90',
-    latency_critical => '60',
+    latency_warning  => '3600', # 60 minutes
+    latency_critical => '5400', # 90 minutes
     ;
   }
 
