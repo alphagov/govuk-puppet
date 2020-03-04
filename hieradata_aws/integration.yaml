@@ -48,8 +48,6 @@ govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-d
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-integration-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-integration-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
-govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
-govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-integration-search-ltr-endpoint'
 govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::instance_name: 'integration'

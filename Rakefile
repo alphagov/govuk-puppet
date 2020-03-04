@@ -323,8 +323,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::search_api::relevancy_bucket_name
     govuk::apps::search_api::sitemaps_bucket_name
     govuk::apps::search_api::enable_learning_to_rank
-    govuk::apps::search_api::tensorflow_models_directory
-    govuk::apps::search_api::tensorflow_serving_ip
     govuk::apps::search_api::tensorflow_sagemaker_endpoint
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_host
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_port
