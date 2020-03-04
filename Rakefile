@@ -31,7 +31,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_publisher::db::backend_ip_range
     govuk::apps::content_tagger::db_allow_prepared_statements
     govuk::apps::content_tagger::db_port
-    govuk::apps::release::enabled
     govuk::apps::publisher::email_group_business
     govuk::apps::publisher::email_group_citizen
     govuk::apps::publisher::email_group_dev
@@ -306,6 +305,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::redis_port
     govuk::apps::publishing_api::unicorn_worker_processes
     govuk::apps::router::sentry_environment
+    govuk::apps::release::db_hostname
+    govuk::apps::release::db_password
+    govuk::apps::release::db_username
+    govuk::apps::release::github_username
     govuk::apps::search_api::nagios_memory_warning
     govuk::apps::search_api::nagios_memory_critical
     govuk::apps::search_api::rabbitmq_hosts
