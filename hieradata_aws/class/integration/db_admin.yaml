@@ -331,7 +331,7 @@ govuk_env_sync::tasks:
     path: "mysql"
   "pull_content_publisher_production_daily":
     ensure: "present"
-    hour: "2"
+    hour: "3"
     minute: "45"
     action: "pull"
     dbms: "postgresql"
