@@ -41,7 +41,7 @@ govuk::apps::specialist_publisher::mongodb_password: "%{hiera('shared_documentdb
 govuk::apps::travel_advice_publisher::mongodb_name: 'travel_advice_publisher_production'
 govuk::apps::travel_advice_publisher::mongodb_nodes:
   - 'shared-documentdb'
-govuk::apps::traveil_advice_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
 
 govuk::deploy::setup::deploy_uid: 2899
