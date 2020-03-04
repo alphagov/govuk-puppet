@@ -129,8 +129,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency
-    govuk_postgresql::backup::auto_postgresql_backup_hour
-    govuk_postgresql::backup::auto_postgresql_backup_minute
   ]
 
   # Keys that are AWS-only
@@ -423,7 +421,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
-    govuk_postgresql::backup::alert_hostname
     govuk_splunk::repos::apt_mirror_hostname
     govuk_unattended_reboot::alert_hostname
     icinga::client::config::allowed_hosts
