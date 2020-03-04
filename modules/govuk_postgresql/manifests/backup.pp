@@ -31,7 +31,7 @@ class govuk_postgresql::backup (
   $auto_postgresql_backup_hour = 6,
   $auto_postgresql_backup_minute = 0,
   $alert_hostname = 'alert.cluster',
-  $ensure = 'present',
+  $ensure = 'absent',
 ) {
 
     $threshold_secs = 28 * 3600
