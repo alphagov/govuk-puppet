@@ -13,8 +13,6 @@ class govuk::node::s_search inherits govuk::node::s_base {
 
   include ::govuk_docker
 
-  include ::govuk_containers::tensorflow_serving
-
   # The catchall vhost throws a 500, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
 
