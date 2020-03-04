@@ -17,28 +17,22 @@ class govuk_containers::tensorflow_serving(
 ) {
 
   ::docker::image { $image_name:
-    ensure    => 'present',
+    ensure    => 'absent',
     require   => Class['govuk_docker'],
     image_tag => $image_version,
   }
 
   file { '/data/vhost/tensorflow-models':
-    ensure => directory,
-    owner  => 'deploy',
-    group  => 'deploy',
-  } ->
+    ensure  => absent,
+    force   => true,
+    recurse => true,
+  }
 
   ::docker::run { 'tensorflow/serving':
+    ensure           => 'absent',
     ports            => ['8501:8501'],
     image            => $image_name,
     require          => Docker::Image[$image_name],
     extra_parameters => ['-P', '-v', '/data/vhost/tensorflow-models:/models', "-e MODEL_NAME=${model_name}"],
-  }
-
-  @@icinga::check { "check_tensorflow_serving_running_${::hostname}":
-    check_command       => 'check_nrpe!check_proc_running!tensorflow_mode',
-    service_description => 'Tensorflow Serving running',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(check-process-running),
   }
 }
