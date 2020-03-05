@@ -104,7 +104,6 @@ govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-integratio
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
-govuk_postgresql::backup::auto_postgresql_backup_hour: 10
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
 govuk_sudo::sudo_conf:

@@ -134,9 +134,6 @@ govuk::node::s_monitoring::enable_fastly_metrics: true
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-production'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
 
-govuk_postgresql::backup::auto_postgresql_backup_hour: 3
-govuk_postgresql::backup::auto_postgresql_backup_minute: 0
-
 hosts::production::ip_api_lb: '10.3.4.254'
 hosts::production::ip_backend_lb: '10.3.3.254'
 hosts::production::ip_bouncer: '37.26.90.219'
