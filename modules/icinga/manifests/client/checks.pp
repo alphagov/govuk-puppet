@@ -17,9 +17,6 @@ class icinga::client::checks (
   $disk_space_critical = 10,
 ) {
 
-  if ! $::aws_migration {
-    include icinga::client::check_cputype
-  }
   include icinga::client::check_file_not_exists
   include icinga::client::check_linux_free_memory
   include icinga::client::check_upstart_status

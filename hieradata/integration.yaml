@@ -144,8 +144,6 @@ hosts::production::backend::app_hostnames:
   - 'travel-advice-publisher'
   - 'whitehall-admin'
 
-icinga::client::check_cputype::cputype: 'amd'
-
 monitoring::ci_environment: true
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_signon_check: false
