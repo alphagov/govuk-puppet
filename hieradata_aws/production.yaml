@@ -193,8 +193,6 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 
-govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '0 6 * * 1-5' # Every weekday at 6am
-
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
