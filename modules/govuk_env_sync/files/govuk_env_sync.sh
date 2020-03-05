@@ -582,7 +582,25 @@ function postprocess_router {
     spotlight_proxy_domain="${unmigrated_source_domain}"
   fi
   mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
+}
 
+function postprocess_govuk_assets_production {
+  setup_documentdb_credentials
+
+  mongo \
+    --host "${DOCUMENTDB_HOST}" \
+    --username "master" \
+    --password "${DOCUMENTDB_PASSWD}" \
+    --quiet \
+    --eval \
+      "db = db.getSiblingDB(\"${database}\"); \
+      db.assets.find({ access_limited: { \$exists: true, \$nin: [[], false] }, legacy_url_path: { \$exists: true } }) \
+        .forEach(function(asset) { \
+          splitPath = asset.legacy_url_path.split('/'); \
+          splitPath[splitPath.length - 1] = 'redacted.pdf'; \
+          asset.legacy_url_path = splitPath.join('/'); \
+          db.assets.save(asset); \
+        });"
 }
 
 function postprocess_database {
@@ -591,6 +609,7 @@ function postprocess_database {
     # re-using postprocess_router below is not a typo - the script checks $database to determine where to apply changes.
     draft_router) postprocess_router;;
     signon_production) postprocess_signon_production;;
+    govuk_assets_production) postprocess_govuk_assets_production;;
     *) log "No post processing needed for ${database}" ;;
   esac
 }
