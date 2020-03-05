@@ -23,9 +23,10 @@ class puppet::monitoring (
   $app_domain = hiera('app_domain')
 
   @@icinga::passive_check { "check_puppet_${::hostname}":
-    service_description => 'puppet last run errors',
-    host_name           => $::fqdn,
-    freshness_threshold => 7200,
-    notes_url           => monitoring_docs_url(puppet-last-run-errors),
+    service_description   => 'puppet last run errors',
+    host_name             => $::fqdn,
+    freshness_threshold   => 7200,
+    freshness_alert_level => 'critical',
+    notes_url             => monitoring_docs_url(puppet-last-run-errors),
   }
 }
