@@ -49,3 +49,19 @@ scrape_configs:
         target_label: aws_migration
       - source_labels: [__meta_ec2_tag_aws_hostname]
         target_label: aws_hostname
+  - job_name: 'router'
+    ec2_sd_configs:
+      - region: "eu-west-1"
+        port: 3055
+        filters:
+        - name: instance-state-name
+          values: [ running ]
+        - name: tag:aws_migration
+          values: [ cache ]
+        - name: tag:aws_environment
+          values: [ integration ]
+    relabel_configs:
+      - source_labels: [__meta_ec2_tag_aws_migration]
+        target_label: aws_migration
+      - source_labels: [__meta_ec2_tag_aws_hostname]
+        target_label: aws_hostname
