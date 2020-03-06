@@ -19,7 +19,7 @@ class monitoring::checks::reboots {
       host_name           => $::fqdn,
       check_interval      => 60,
       service_description => 'At least 1 machine requires reboots due to apt updates',
-      notes_url           => monitoring_docs_url(reboot-required-by-apt),
+      notes_url           => monitoring_docs_url(rebooting-machines),
       require             => Icinga::Check_config['check_reboots_required'],
   }
 }
