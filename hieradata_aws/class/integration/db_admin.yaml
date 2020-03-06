@@ -55,7 +55,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/local-links-manager_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
-  "push_link-checker-api_integration_daily":
+  "push_link_checker_api_integration_daily":
     ensure: "present"
     hour: "23"
     minute: "45"
@@ -63,7 +63,7 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "link_checker_api_production"
-    temppath: "/tmp/link-checker-api_production"
+    temppath: "/tmp/link_checker_api_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
   "push_support-contacts_integration_daily":
