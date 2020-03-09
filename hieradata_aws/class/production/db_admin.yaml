@@ -76,7 +76,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/whitehall_production"
     url: "govuk-production-database-backups"
     path: "mysql"
-  "push_link-checker-api_production_daily":
+  "push_link_checker_api_production_daily":
     ensure: "present"
     hour: "3"
     minute: "0"
@@ -84,7 +84,7 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "link_checker_api_production"
-    temppath: "/tmp/link-checker-api_production"
+    temppath: "/tmp/link_checker_api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_support-contacts_production_daily":
