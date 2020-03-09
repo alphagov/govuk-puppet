@@ -57,8 +57,8 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "push_link_checker_api_integration_daily":
     ensure: "present"
-    hour: "23"
-    minute: "45"
+    hour: "5"
+    minute: "1"
     action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
@@ -354,8 +354,8 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "pull_link_checker_api_production_daily":
     ensure: "present"
-    hour: "2"
-    minute: "2"
+    hour: "4"
+    minute: "1"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
