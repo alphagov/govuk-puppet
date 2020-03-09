@@ -104,6 +104,9 @@
 # [*tensorflow_sagemaker_endpoint*]
 #   The Amazon SageMaker endpoint serving the tensorflow model.
 #
+# [*tensorflow_sagemaker_variants*]
+#   Comma-separated list of SageMaker model variants.
+#
 # [*unicorn_timeout*]
 #   Unicorn worker request timeout. Should match search machine Nginx timeout.
 #
@@ -142,6 +145,7 @@ class govuk::apps::search_api(
   $aws_region = 'eu-west-1',
   $enable_learning_to_rank = false,
   $tensorflow_sagemaker_endpoint = undef,
+  $tensorflow_sagemaker_variants = undef,
   $unicorn_timeout = 15,
 ) {
   $app_name = 'search-api'
@@ -296,5 +300,8 @@ class govuk::apps::search_api(
     "${title}-TENSORFLOW_SAGEMAKER_ENDPOINT":
       varname => 'TENSORFLOW_SAGEMAKER_ENDPOINT',
       value   => $tensorflow_sagemaker_endpoint;
+    "${title}-TENSORFLOW_SAGEMAKER_VARIANTS":
+      varname => 'TENSORFLOW_SAGEMAKER_VARIANTS',
+      value   => $tensorflow_sagemaker_variants;
   }
 }
