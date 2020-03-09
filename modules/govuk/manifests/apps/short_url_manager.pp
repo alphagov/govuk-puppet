@@ -55,6 +55,12 @@
 #   start.
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::short_url_manager(
   $sentry_dsn = undef,
   $instance_name = undef,
@@ -69,6 +75,8 @@ class govuk::apps::short_url_manager(
   $redis_host = undef,
   $redis_port = '6379',
   $secret_key_base = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   $app_name = 'short-url-manager'
@@ -96,6 +104,13 @@ class govuk::apps::short_url_manager(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
+    }
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
