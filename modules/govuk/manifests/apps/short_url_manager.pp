@@ -110,7 +110,6 @@ class govuk::apps::short_url_manager(
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
       varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
       value   => $govuk_notify_template_id;
-    }
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
