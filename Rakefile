@@ -345,6 +345,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
+    govuk::apps::short_url_manager::govuk_notify_template_id
     govuk::apps::short_url_manager::mongodb_nodes
     govuk::apps::short_url_manager::mongodb_username
     govuk::apps::short_url_manager::mongodb_password
