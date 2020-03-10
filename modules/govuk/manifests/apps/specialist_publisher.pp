@@ -30,6 +30,14 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
+#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -97,6 +105,8 @@ class govuk::apps::specialist_publisher(
   $enable_procfile_worker = true,
   $mongodb_nodes,
   $mongodb_name,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $oauth_id = undef,
   $oauth_secret = undef,
   $publish_pre_production_finders = false,
@@ -140,6 +150,8 @@ client_max_body_size 500m;
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
     }
 
     govuk::app::envvar::redis { $app_name:
