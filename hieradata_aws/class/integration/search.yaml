@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_es6_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "24"
     action: "pull"

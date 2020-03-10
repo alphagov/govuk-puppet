@@ -232,7 +232,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration-database-backups"
     path: "mysql-backend"
   "pull_whitehall_staging_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "30"
     action: "pull"
@@ -274,7 +274,7 @@ govuk_env_sync::tasks:
     hour: "6"
     minute: "30"
   "pull_publishing_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "40"
     action: "pull"
@@ -286,7 +286,7 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
     transformation_sql_filename: "sanitise_publishing_api_production.sql"
   "pull_govuk_assets_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "30"
     action: "pull"
