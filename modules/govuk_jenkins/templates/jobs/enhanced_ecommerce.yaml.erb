@@ -16,8 +16,10 @@
               TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
               RAKE_TASK=analytics:export_indexed_pages_to_google_analytics
+<% if @cron_schedule %>
     triggers:
         - timed: '<%= @cron_schedule %>'
+<% end %>
     publishers:
         - trigger-parameterized-builds:
             - project: Success_Passive_Check

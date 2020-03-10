@@ -44,7 +44,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-normal"
   "push_govuk_assets_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "41"
     action: "push"

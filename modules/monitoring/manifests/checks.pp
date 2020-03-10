@@ -45,6 +45,7 @@ class monitoring::checks (
   include monitoring::checks::cloudwatch
   include monitoring::checks::aws_iam_key
   include monitoring::checks::grafana_dashboards
+  include monitoring::checks::cdn_logs
 
   if $::aws_migration {
     include govuk::apps::email_alert_api::checks
@@ -67,7 +68,7 @@ class monitoring::checks (
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  if $::aws_migration == undef {
+  if $::aws_migration {
     icinga::check { "check_whitehall_overdue_from_${::hostname}":
       check_command              => 'check_whitehall_overdue',
       service_description        => 'overdue publications in Whitehall',
@@ -161,6 +162,40 @@ class monitoring::checks (
       retry_interval      => 30,
       require             => Package['jq'],
     }
+
+    $cdn_log_age_threshold_mins = $::aws_environment ? {
+      'production' => 60,
+      # Staging and Integration don't produce any logs between 22:00 and 04:00
+      # when traffic replay isn't running. Fastly doesn't send us empty files.
+      default      => 390,
+    }
+    icinga::check { 'check_cdn_log_s3_freshness_assets':
+      check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l govuk_assets -c ${cdn_log_age_threshold_mins}",
+      host_name           => $::fqdn,
+      service_description => "check that Fastly logs from ${cdn_log_age_threshold_mins}m ago appear in s3://govuk-${::aws_environment}-fastly-logs/govuk_assets",
+      notes_url           => monitoring_docs_url(cdn-log-freshness),
+      check_interval      => 60,
+      retry_interval      => 5,
+    }
+    icinga::check { 'check_cdn_log_s3_freshness_www':
+      check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l govuk_www -c ${cdn_log_age_threshold_mins}",
+      host_name           => $::fqdn,
+      service_description => "check that Fastly logs from ${cdn_log_age_threshold_mins}m ago appear in s3://govuk-${::aws_environment}-fastly-logs/govuk_www",
+      notes_url           => monitoring_docs_url(cdn-log-freshness),
+      check_interval      => 60,
+      retry_interval      => 5,
+    }
+    # Bouncer logs are in Production only.
+    if $::aws_environment == 'production' {
+      icinga::check { 'check_cdn_log_s3_freshness_bouncer':
+        check_command       => "check_cdn_log_s3_freshness!-e ${::aws_environment} -l bouncer -c ${cdn_log_age_threshold_mins}",
+        host_name           => $::fqdn,
+        service_description => "check that Fastly logs from ${cdn_log_age_threshold_mins}m ago appear in s3://govuk-${::aws_environment}-fastly-logs/bouncer",
+        notes_url           => monitoring_docs_url(cdn-log-freshness),
+        check_interval      => 60,
+        retry_interval      => 5,
+      }
+    }
   }
 
   if ($::aws_migration and $::aws_environment == 'production') {
@@ -168,6 +203,7 @@ class monitoring::checks (
       check_command       => 'check_uk_cloud_vpn!www.civicaepay.co.uk!/NottinghamXML/QueryPayments/QueryPayments.asmx',
       host_name           => $::fqdn,
       service_description => 'check that the VPN between UKCloud/Licensify and AWS is still up',
+      notes_url           => monitoring_docs_url(vpn-down),
     }
   }
 

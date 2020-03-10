@@ -23,6 +23,7 @@ node_class: &node_class
       - contacts
       - content-data-admin
       - content-data-api
+      - content-publisher
       - content-tagger
       - collections-publisher
       - hmrc-manuals-api
@@ -185,9 +186,8 @@ govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-d
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
-govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
-govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-staging-search-ltr-endpoint'
+govuk::apps::search_api::tensorflow_sagemaker_variants: 'hippo,elephant'
 govuk::apps::short_url_manager::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::short_url_manager::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
@@ -196,6 +196,7 @@ govuk::apps::short_url_manager::mongodb_password: "%{hiera('govuk::apps::asset_m
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'

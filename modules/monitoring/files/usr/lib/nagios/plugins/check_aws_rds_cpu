@@ -95,11 +95,11 @@ cw_conn = boto.ec2.cloudwatch.connect_to_region(args.region)
 
 ###########################################################
 # Define start and end times      			  #
-# Here we have give 5 minutes because that is the window  #
+# Here we have give 15 minutes because that is the window #
 # we are using to calculate the average.		  #
 # Note: The time should be in UTC format.		  #
 ###########################################################
-start = datetime.datetime.now() - datetime.timedelta(seconds=300)
+start = datetime.datetime.now() - datetime.timedelta(seconds=900)
 end = datetime.datetime.now()
 
 ####################################

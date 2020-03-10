@@ -9,5 +9,5 @@ class govuk_python {
 
   Class['python::install'] -> Package <| provider == 'pip' and ensure != absent |>
 
-  ensure_packages(['python3', 'python3-dev'])
+  ensure_packages(['python3.5', 'python3.5-dev', 'python3-dev'])
 }

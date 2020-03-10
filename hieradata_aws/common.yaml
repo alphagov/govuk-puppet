@@ -481,8 +481,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - kevin.dew@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
-  - robert.bond@digital.cabinet-office.gov.uk
-  - ruth.morris@digital.cabinet-office.gov.uk
   - steve.messer@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
@@ -838,9 +836,6 @@ govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_back
 
 govuk::node::s_postgresql_primary::alert_hostname: 'alert'
 
-govuk::node::s_whitehall_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
-govuk::node::s_whitehall_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
-govuk::node::s_whitehall_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -922,7 +917,6 @@ govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
 
 govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
-govuk_postgresql::backup::alert_hostname: 'alert'
 govuk_postgresql::server::configure_env_sync_user: true
 
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

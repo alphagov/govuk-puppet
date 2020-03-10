@@ -30,6 +30,14 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
+#
 # [*oauth_id*]
 #   Sets the OAuth ID for using GDS-SSO
 #   Default: undef
@@ -83,6 +91,12 @@
 #   The secret key base value for rails
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::specialist_publisher(
   $port = '3064',
   $asset_manager_bearer_token = undef,
@@ -91,6 +105,8 @@ class govuk::apps::specialist_publisher(
   $enable_procfile_worker = true,
   $mongodb_nodes,
   $mongodb_name,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $oauth_id = undef,
   $oauth_secret = undef,
   $publish_pre_production_finders = false,
@@ -105,6 +121,8 @@ class govuk::apps::specialist_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   $app_name = 'specialist-publisher'
@@ -132,6 +150,8 @@ client_max_body_size 500m;
     govuk::app::envvar::mongodb_uri { $app_name:
       hosts    => $mongodb_nodes,
       database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
     }
 
     govuk::app::envvar::redis { $app_name:
@@ -179,6 +199,12 @@ client_max_body_size 500m;
       "${title}-AWS_S3_BUCKET_NAME":
       varname => 'AWS_S3_BUCKET_NAME',
       value   => $aws_s3_bucket_name;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
     }
 
     if $secret_key_base != undef {

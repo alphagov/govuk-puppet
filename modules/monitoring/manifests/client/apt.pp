@@ -17,7 +17,7 @@ class monitoring::client::apt {
     attempts_before_hard_state => 24, # Wait 24hrs to allow unattended-upgrades to run first
     check_interval             => 60, # Save cycles, apt-get update only runs every 30m
     retry_interval             => 60,
-    notes_url                  => 'https://docs.publishing.service.gov.uk/manual/rebooting-machines.html',
+    notes_url                  => monitoring_docs_url(rebooting-machines),
   }
 
   @icinga::plugin { 'check_reboot_required':

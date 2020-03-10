@@ -1,11 +1,11 @@
----
-
-backup::offsite::archive_directory: '/data/backups/.cache/duplicity'
-
 govuk::node::s_backup::directories:
   backup_mongodb_backups_mongo:
     directory: /var/lib/automongodbbackup/
     fq_dn: mongo-1.backend.%{hiera('app_domain')}
+    priority: '001'
+  backup_mongodb_backups_performance_mongo:
+    directory: /var/lib/automongodbbackup/
+    fq_dn: performance-mongo-1.api.%{hiera('app_domain')}
     priority: '001'
   backup_mysql_backups_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
@@ -15,20 +15,3 @@ govuk::node::s_backup::directories:
     directory: /opt/graphite/storage/backups
     fq_dn: graphite-1.management.%{hiera('app_domain')}
     priority: '004'
-
-lv:
-  data:
-    pv:
-      - '/dev/sdb1'
-      - '/dev/sdc1'
-      - '/dev/sdd1'
-      - '/dev/sde1'
-    vg: 'backups'
-
-mount:
-  /data/backups:
-    disk: '/dev/mapper/backups-data'
-    govuk_lvm: 'data'
-    mountoptions: 'defaults'
-    percent_threshold_warning: 2
-    percent_threshold_critical: 1

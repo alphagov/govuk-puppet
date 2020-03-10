@@ -56,7 +56,6 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::backend::app_hostnames
     hosts::production::backend::hosts
     hosts::production::ci::hosts
-    hosts::production::frontend::app_hostnames
     hosts::production::frontend::hosts
     hosts::production::ip_api_lb
     hosts::production::ip_backend_lb
@@ -87,8 +86,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     govuk::apps::government-frontend::cpu_critical
     govuk::apps::government-frontend::cpu_warning
-    govuk::apps::whitehall::cpu_critical
-    govuk::apps::whitehall::cpu_warning
     govuk::node::s_api_lb::api_servers
     govuk::node::s_backend_lb::backend_servers
     govuk::node::s_backend_lb::perfplat_public_app_domain
@@ -102,8 +99,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_postgresql_standby::s3_bucket_url
     govuk::node::s_postgresql_standby::wale_private_gpg_key
     govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint
-    govuk::node::s_whitehall_mysql_backup::s3_bucket_name
-    govuk::node::s_whitehall_mysql_master::s3_bucket_name
     govuk_jenkins::config::banner_colour_background
     govuk_jenkins::config::banner_colour_text
     govuk_jenkins::config::banner_string
@@ -118,11 +113,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_tagger::override_search_location
     govuk::apps::hmrc_manuals_api::override_search_location
     govuk::apps::search_admin::override_search_location
-    govuk::apps::whitehall::override_search_location
 
     _
-    backup::assets::backup_private_gpg_key_fingerprint
-    backup::assets::jobs
     backup::offsite::jobs
     govuk::deploy::actionmailer_enable_delivery
     govuk::node::s_apt::real_ip_header
@@ -136,8 +128,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency
-    govuk_postgresql::backup::auto_postgresql_backup_hour
-    govuk_postgresql::backup::auto_postgresql_backup_minute
   ]
 
   # Keys that are AWS-only
@@ -313,6 +303,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::publishing_api::redis_port
     govuk::apps::publishing_api::unicorn_worker_processes
     govuk::apps::router::sentry_environment
+    govuk::apps::release::db_hostname
+    govuk::apps::release::db_password
+    govuk::apps::release::db_username
+    govuk::apps::release::github_username
     govuk::apps::search_api::nagios_memory_warning
     govuk::apps::search_api::nagios_memory_critical
     govuk::apps::search_api::rabbitmq_hosts
@@ -330,9 +324,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::search_api::relevancy_bucket_name
     govuk::apps::search_api::sitemaps_bucket_name
     govuk::apps::search_api::enable_learning_to_rank
-    govuk::apps::search_api::tensorflow_models_directory
-    govuk::apps::search_api::tensorflow_serving_ip
     govuk::apps::search_api::tensorflow_sagemaker_endpoint
+    govuk::apps::search_api::tensorflow_sagemaker_variants
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_host
     govuk::apps::sidekiq_monitoring::content_data_admin_redis_port
     govuk::apps::sidekiq_monitoring::content_data_api_redis_host
@@ -382,6 +375,19 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::travel_advice_publisher::mongodb_nodes
     govuk::apps::travel_advice_publisher::mongodb_username
     govuk::apps::travel_advice_publisher::mongodb_password
+    govuk::apps::whitehall::admin_db_hostname
+    govuk::apps::whitehall::admin_db_name
+    govuk::apps::whitehall::admin_db_password
+    govuk::apps::whitehall::admin_db_username
+    govuk::apps::whitehall::admin_key_space_limit
+    govuk::apps::whitehall::db::whitehall_fe_password
+    govuk::apps::whitehall::db_hostname
+    govuk::apps::whitehall::db_name
+    govuk::apps::whitehall::db_password
+    govuk::apps::whitehall::db_username
+    govuk::apps::whitehall::jwt_auth_secret
+    govuk::apps::whitehall::redis_host
+    govuk::apps::whitehall::redis_port
     govuk::deploy::setup::gemstash_server
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
@@ -417,7 +423,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
-    govuk_postgresql::backup::alert_hostname
     govuk_splunk::repos::apt_mirror_hostname
     govuk_unattended_reboot::alert_hostname
     icinga::client::config::allowed_hosts
@@ -470,7 +475,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load
     govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule
     govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule
-    govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule
     govuk_jenkins::jobs::smokey::environment
     govuk_mysql::server::expire_log_days
     govuk_mysql::server::slow_query_log

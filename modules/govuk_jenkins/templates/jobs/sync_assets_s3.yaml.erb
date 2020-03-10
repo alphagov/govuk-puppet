@@ -1,0 +1,36 @@
+---
+- job:
+    name: sync_assets_s3
+    display-name: <%= @service_description %>
+    project-type: freestyle
+    description: >
+      Synchronises the assets S3 buckets for Staging and Integration with the
+      Production one, by running aws s3 sync from the Production db_admin
+      machine. Syncs deletions as well as additions.
+    logrotate:
+      numToKeep: 10
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    triggers:
+      - timed: |
+          TZ=Europe/London
+          H 2 * * 1-5
+    builders:
+      - shell: |
+          set -x
+          db_admin_host="$(govuk_node_list -c db_admin --single-node)"
+          ssh "deploy@${db_admin_host}" aws s3 sync --acl bucket-owner-full-control --no-progress --delete s3://govuk-assets-production s3://govuk-assets-staging
+          ssh "deploy@${db_admin_host}" aws s3 sync --acl bucket-owner-full-control --no-progress --delete s3://govuk-assets-production s3://govuk-assets-integration
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>

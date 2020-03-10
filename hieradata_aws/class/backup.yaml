@@ -23,21 +23,10 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automysqlbackup/
     fq_dn: whitehall-mysql-backup-1.backend.%{hiera('app_domain')}
     priority: '001'
-  backup_postgresql_backups_postgresql_primary_1:
-    directory: /var/lib/autopostgresqlbackup/
-    fq_dn: postgresql-primary-1.backend.%{hiera('app_domain')}
-    priority: '001'
-  backup_postgresql_backups_puppetmaster_postgresql:
-    directory: /var/lib/autopostgresqlbackup/
-    fq_dn: puppetmaster-1.management.%{hiera('app_domain')}
-    priority: '003'
   backup_graphite_storage_whisper_graphite-1:
     directory: /opt/graphite/storage/whisper
     fq_dn: graphite-1.management.%{hiera('app_domain')}
     priority: '004'
-
-icinga::client::checks::disk_time_warn: 750 # milliseconds
-icinga::client::checks::disk_time_critical: 1000 # milliseconds
 
 lv:
   data:

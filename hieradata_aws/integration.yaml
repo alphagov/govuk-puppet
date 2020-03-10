@@ -48,8 +48,6 @@ govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-d
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-integration-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-integration-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
-govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
-govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-integration-search-ltr-endpoint'
 govuk::apps::short_url_manager::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::short_url_manager::instance_name: 'integration'
@@ -58,6 +56,7 @@ govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-integration-specialist-publisher-csvs'
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
+govuk::apps::specialist_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::static::ga_universal_id: 'UA-26179049-22'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
@@ -162,8 +161,6 @@ govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
 govuk::node::s_mirrorer::daily_queue_purge: true
-govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-integration'
-govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk_sudo::sudo_conf:
@@ -492,7 +489,6 @@ users::usernames:
   - rosafox
   - sarahyoung
   - seanrankine
-  - sebastianschmieschek
   - sebastianszypowicz
   - simonhughesdon
   - stephenford

@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_collections_publisher_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "12"
     action: "push"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mysql"
   "push_contacts_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "14"
     action: "push"
@@ -21,19 +21,8 @@ govuk_env_sync::tasks:
     temppath: "/home/govuk-backup/tmp_dumps/contacts_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-  "push_release_production_daily":
-    ensure: "present"
-    hour: "0"
-    minute: "16"
-    action: "push"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "release_production"
-    temppath: "/home/govuk-backup/tmp_dumps/release_production"
-    url: "govuk-staging-database-backups"
-    path: "mysql"
   "push_search_admin_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "18"
     action: "push"

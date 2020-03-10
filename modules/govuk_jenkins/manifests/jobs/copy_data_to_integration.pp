@@ -23,7 +23,7 @@ class govuk_jenkins::jobs::copy_data_to_integration (
   $slack_build_server_url = "https://deploy.${app_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/copy_data_to_integration.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/copy_data_to_integration.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }

@@ -7,8 +7,6 @@ FILES = Dir.entries(job_directory).reject{ |f| f == "." || f == ".." }
 BROKEN_SPECS = %w[
   copy_data_from_integration_to_aws.pp
   copy_data_from_staging_to_aws.pp
-  copy_attachments_to_integration.pp
-  copy_attachments_to_staging.pp
   copy_data_to_integration.pp
   copy_data_to_staging.pp
   deploy_cdn.pp

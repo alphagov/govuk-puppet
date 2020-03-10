@@ -173,14 +173,14 @@ govuk::apps::router::sentry_environment: 'production'
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
-govuk::apps::search_api::tensorflow_models_directory: '/data/vhost/tensorflow-models'
-govuk::apps::search_api::tensorflow_serving_ip: '0.0.0.0'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-production-search-ltr-endpoint'
+govuk::apps::search_api::tensorflow_sagemaker_variants: 'hippo,elephant'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::short_url_manager::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
 govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
 govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
@@ -194,8 +194,6 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
-
-govuk_jenkins::jobs::enhanced_ecommerce_search_api::cron_schedule: '0 6 * * 1-5' # Every weekday at 6am
 
 govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'

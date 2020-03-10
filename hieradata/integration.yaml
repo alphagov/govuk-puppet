@@ -102,11 +102,8 @@ govuk::node::s_graphite::graphite_backup_hour: 12
 govuk::node::s_monitoring::offsite_backups: false
 govuk::node::s_mysql_backup::s3_bucket_name: 'govuk-mysql-xtrabackups-integration'
 govuk::node::s_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_mysql_backup::s3_bucket_name')}"
-govuk::node::s_whitehall_mysql_backup::s3_bucket_name: 'govuk-whitehall-mysql-xtrabackups-integration'
-govuk::node::s_whitehall_mysql_master::s3_bucket_name: "%{hiera('govuk::node::s_whitehall_mysql_backup::s3_bucket_name')}"
 govuk::node::s_whitehall_backend::sync_mirror: true
 
-govuk_postgresql::backup::auto_postgresql_backup_hour: 10
 govuk_postgresql::server::standby::pgpassfile_enabled: true
 
 govuk_sudo::sudo_conf:
@@ -146,8 +143,6 @@ hosts::production::backend::app_hostnames:
   - 'specialist-publisher-rebuild-standalone'
   - 'travel-advice-publisher'
   - 'whitehall-admin'
-
-icinga::client::check_cputype::cputype: 'amd'
 
 monitoring::ci_environment: true
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
@@ -216,7 +211,6 @@ users::usernames:
   - rosafox
   - sarahyoung
   - seanrankine
-  - sebastianschmieschek
   - sebastianszypowicz
   - simonhughesdon
   - stephenford

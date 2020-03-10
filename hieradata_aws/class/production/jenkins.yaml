@@ -1,4 +1,43 @@
 ---
+jenkins_admin_permission_list: &jenkins_admin_permission_list
+  - 'hudson.model.Hudson.Administer'
+  - 'hudson.model.Hudson.Read'
+  - 'hudson.model.Hudson.RunScripts'
+  - 'hudson.model.Item.Build'
+  - 'hudson.model.Item.Cancel'
+  - 'hudson.model.Item.Configure'
+  - 'hudson.model.Item.Create'
+  - 'hudson.model.Item.Delete'
+  - 'hudson.model.Item.Discover'
+  - 'hudson.model.Item.Read'
+  - 'hudson.model.Item.Workspace'
+  - 'hudson.model.Run.Delete'
+  - 'hudson.model.Run.Update'
+  - 'hudson.model.View.Configure'
+  - 'hudson.model.View.Create'
+  - 'hudson.model.View.Delete'
+  - 'hudson.model.View.Read'
+  - 'hudson.scm.SCM.Tag'
+
+govuk_jenkins::config::manage_permissions_github_teams: true
+govuk_jenkins::config::user_permissions:
+  -
+    user: 'jenkins_api_user'
+    permissions: *jenkins_admin_permission_list
+  -
+    user: 'alphagov*GOV.UK Production'
+    permissions: *jenkins_admin_permission_list
+  -
+    user: 'anonymous'
+    permissions:
+      - 'hudson.model.Hudson.Read'
+      - 'hudson.model.Item.Discover'
+  -
+    user: 'github'
+    permissions:
+      - 'hudson.model.Item.Build'
+      - 'hudson.model.Item.Read'
+
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
   - govuk_jenkins::jobs::bouncer_cdn
@@ -18,18 +57,21 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::publishing_api_archive_events
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_index_checks
   - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::search_generate_sitemaps
   - govuk_jenkins::jobs::search_relevancy_rank_evaluation
   - govuk_jenkins::jobs::search_relevancy_metrics_etl
+  - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_import_dns
   - govuk_jenkins::jobs::transition_import_hits
   - govuk_jenkins::jobs::transition_load_site_config
-
+  - govuk_jenkins::jobs::whitehall_publisher_notifications
+  - govuk_jenkins::jobs::whitehall_run_broken_link_checker
 
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: false
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: false
