@@ -971,9 +971,14 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
+  contacts:
+    docs_name: 'contacts-admin'
   collections:
     instance_prefix: 'frontend'
     show_memcached: true
+  collections-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   content-data-admin:
     show_sidekiq_graphs: true
     has_workers: true
@@ -994,6 +999,12 @@ grafana::dashboards::application_dashboards:
       - publishing-api
       - smartanswers
       - whitehall-frontend
+  content-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-tagger:
+    show_sidekiq_graphs: true
+    has_workers: true
   email-alert-frontend: {}
   email-alert-api:
     show_sidekiq_graphs: true
@@ -1009,6 +1020,7 @@ grafana::dashboards::application_dashboards:
     instance_prefix: 'calculators_frontend'
   frontend: {}
   government-frontend: {}
+  hmrc-manuals-api: {}
   imminence:
     dependent_app_5xx_errors:
       - frontend
@@ -1025,7 +1037,7 @@ grafana::dashboards::application_dashboards:
       - frontend
     instance_prefix: 'backend'
     show_memcached: true
-  manuals-frontend: {}
+  maslow: {}
   mapit:
     dependent_app_5xx_errors:
       - frontend
@@ -1033,6 +1045,13 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
+  manuals-frontend: {}
+  manuals-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
+  publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   publishing-api:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1058,10 +1077,16 @@ grafana::dashboards::application_dashboards:
       - collections
       - finder-frontend
       - whitehall-frontend
+  search-admin: {}
   service-manual-frontend: {}
+  service-manual-publisher: {}
   sidekiq-monitoring: {}
+  short-url-manager: {}
   smartanswers:
     docs_name: 'smart-answers'
+  specialist-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   static:
     dependent_app_5xx_errors:
       - calendars
@@ -1081,6 +1106,9 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   transition:
+    show_sidekiq_graphs: true
+    has_workers: true
+  travel-advice-publisher:
     show_sidekiq_graphs: true
     has_workers: true
   whitehall:
