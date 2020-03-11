@@ -188,6 +188,7 @@ govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-staging-search-ltr-endpoint'
 govuk::apps::search_api::tensorflow_sagemaker_variants: 'hippo,elephant'
+govuk::apps::short_url_manager::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::short_url_manager::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::short_url_manager::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
