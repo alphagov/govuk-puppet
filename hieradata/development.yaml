@@ -247,6 +247,7 @@ govuk::apps::search_api::rabbitmq::enable_publishing_listener: true
 
 govuk::apps::signon::enable_procfile_worker: false
 govuk::apps::smartanswers::expose_govspeak: true
+govuk::apps::short_url_manager::enable_procfile_worker: false
 govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_development'
 govuk::apps::short_url_manager::mongodb_nodes: ['localhost']
 govuk::apps::sidekiq_monitoring::nginx_location: '/var/govuk/sidekiq-monitoring/public'
