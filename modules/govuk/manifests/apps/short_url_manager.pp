@@ -61,6 +61,10 @@
 # [*govuk_notify_template_id*]
 #   The template ID used to send email via GOV.UK Notify.
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 class govuk::apps::short_url_manager(
   $sentry_dsn = undef,
   $instance_name = undef,
@@ -77,6 +81,7 @@ class govuk::apps::short_url_manager(
   $secret_key_base = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $enable_procfile_worker = true,
 ) {
 
   $app_name = 'short-url-manager'
@@ -136,5 +141,9 @@ class govuk::apps::short_url_manager(
       varname => 'INSTANCE_NAME',
       value   => $instance_name,
     }
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
   }
 }
