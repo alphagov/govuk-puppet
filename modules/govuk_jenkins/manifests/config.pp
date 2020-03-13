@@ -109,7 +109,7 @@ class govuk_jenkins::config (
   $manage_config = true,
   $version = $govuk_jenkins::version,
   $create_agent_role = false,
-  $executors = '4',
+  $executors = '8',
   $agent_tcp_port = '0',
   $csrf_version = true,
   $markup_formatter_version = '1.5',

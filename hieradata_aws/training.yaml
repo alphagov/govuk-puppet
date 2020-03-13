@@ -82,7 +82,6 @@ govuk_cdnlogs::govuk_monitoring_enabled: false
 govuk_cdnlogs::bouncer_monitoring_enabled: false
 
 govuk_jenkins::job_builder::environment: 'training'
-govuk_jenkins::config::executors: '8'
 
 govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
 
