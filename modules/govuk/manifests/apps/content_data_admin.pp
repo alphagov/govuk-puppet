@@ -74,6 +74,12 @@
 # [*aws_csv_export_bucket_name*]
 #   The S3 Bucket used for csv exports.
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::content_data_admin (
   $port                         = '3230',
   $enabled                      = true,
@@ -98,6 +104,8 @@ class govuk::apps::content_data_admin (
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $aws_csv_export_bucket_name = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
   $app_name = 'content-data-admin'
 
@@ -172,6 +180,12 @@ class govuk::apps::content_data_admin (
     "${title}-AWS_CSV_EXPORT_BUCKET_NAME":
       varname => 'AWS_CSV_EXPORT_BUCKET_NAME',
       value   => $aws_csv_export_bucket_name;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
   }
 
   govuk::app::envvar::redis { $app_name:
