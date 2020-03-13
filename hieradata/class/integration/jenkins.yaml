@@ -1,6 +1,4 @@
 ---
-govuk_jenkins::config::executors: '8'
-
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::deploy_terraform_govuk_aws
