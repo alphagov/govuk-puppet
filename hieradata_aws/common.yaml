@@ -476,15 +476,20 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - deborah.chua@digital.cabinet-office.gov.uk
   - dilwoar.hussain@digital.cabinet-office.gov.uk
   - edward.kerry@digital.cabinet-office.gov.uk
+  - huw.diprose@digital.cabinet-office.gov.uk
   - jennifer.allum@digital.cabinet-office.gov.uk
   - jos.koetsier@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
+  - laurent.curau@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
+  - neil.hayes@digital.cabinet-office.gov.uk
+  - sean.rankine@digital.cabinet-office.gov.uk
   - steve.messer@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
   - tom.whitwell@digital.cabinet-office.gov.uk
+  - vanita.barrett@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
