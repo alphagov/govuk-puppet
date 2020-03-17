@@ -1625,6 +1625,335 @@
       "showTitle": true,
       "title": "Volume",
       "titleSize": "h6"
+    },
+    {
+      "collapse": true,
+      "height": 284,
+      "panels": [
+        {
+          "aliasColors": {
+            "CPUUtilization_Average": "#7EB26D",
+            "FreeableMemory_Average": "#E5AC0E"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "fill": 1,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "CPUUtilization_Average",
+              "yaxis": 1
+            },
+            {
+              "alias": "FreeableMemory_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {},
+              "metricName": "FreeableMemory",
+              "namespace": "AWS/ElastiCache",
+              "period": "",
+              "refId": "A",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ],
+              "target": ""
+            },
+            {
+              "dimensions": {},
+              "metricName": "CPUUtilization",
+              "namespace": "AWS/ElastiCache",
+              "period": "",
+              "refId": "B",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "ElastiCache (Redis)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": "Memory",
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "fill": 1,
+          "id": 21,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "FreeableMemory_Average",
+              "yaxis": 2
+            },
+            {
+              "alias": "WriteIOPS_Average",
+              "yaxis": 2
+            },
+            {
+              "alias": "FreeStorageSpace_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "dimensions": {
+                "DBInstanceIdentifier": "blue-postgresql-primary"
+              },
+              "hide": false,
+              "metricName": "CPUUtilization",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ],
+              "target": ""
+            },
+            {
+              "dimensions": {
+                "DBInstanceIdentifier": "blue-postgresql-primary"
+              },
+              "hide": false,
+              "metricName": "FreeStorageSpace",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ],
+              "target": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Primary DB - CPU/Storage",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "fill": 1,
+          "id": 22,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "WriteIOPS_Average",
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "dimensions": {
+                "DBInstanceIdentifier": "blue-postgresql-primary"
+              },
+              "metricName": "ReadIOPS",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "A",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ],
+              "target": ""
+            },
+            {
+              "dimensions": {
+                "DBInstanceIdentifier": "blue-postgresql-primary"
+              },
+              "metricName": "WriteIOPS",
+              "namespace": "AWS/RDS",
+              "period": "",
+              "refId": "B",
+              "region": "eu-west-1",
+              "statistics": [
+                "Average"
+              ],
+              "target": ""
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Primary DB - IOPS",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Shared Resources",
+      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
@@ -1664,5 +1993,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 5
+  "version": 6
 }
