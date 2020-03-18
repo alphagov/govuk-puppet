@@ -8,8 +8,9 @@
 #   Raw Nginx config lines to insert into the vhost config.
 #
 # [*status*]
-#   HTTP response code to return.
-#   Default: 500
+#   HTTP response code to return. This should be 400 according to
+#   https://tools.ietf.org/html/rfc7230#section-5.4
+#   Default: 400
 #
 # [*status_message*]
 #   HTTP response content to return.
@@ -21,7 +22,7 @@
 #
 define nginx::config::vhost::default(
   $extra_config = '',
-  $status = '500',
+  $status = '400',
   $status_message = "'{\"error\": \"Fell through to default vhost\"}\\n'",
   $ssl_certtype = 'wildcard_publishing',
 ) {
