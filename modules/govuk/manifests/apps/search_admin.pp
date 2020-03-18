@@ -46,6 +46,14 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::search_admin(
   $db_hostname = undef,
   $db_name = undef,
@@ -59,6 +67,8 @@ class govuk::apps::search_admin(
   $secret_key_base = undef,
   $rummager_bearer_token = undef,
   $override_search_location = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'search-admin'
 
@@ -76,6 +86,11 @@ class govuk::apps::search_admin(
 
   Govuk::App::Envvar {
     app => $app_name,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 
   govuk::app::envvar {
