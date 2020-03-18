@@ -186,3 +186,4 @@ content-data-api-sidekiq-default:  govuk_setenv content-data-api ./run_in.sh ../
 # byebug web listener for content-publisher uses 3237
 # byebug sidekiq listener for content-publisher uses 3238
 # sidekiq-monitoring for content-data-api uses port 3239
+# sidekiq-monitoring for search-admin uses port 3241

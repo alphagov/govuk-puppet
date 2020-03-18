@@ -110,6 +110,14 @@
 #   Redis port for Publishing API Sidekiq.
 #   Default: undef
 #
+# [*search_admin_redis_host*]
+#   Redis host for Search Admin Sidekiq.
+#   Default: undef
+#
+# [*search_admin_redis_port*]
+#   Redis port for Search Admin Sidekiq.
+#   Default: undef
+#
 # [*search_api_redis_host*]
 #   Redis host for Search API Sidekiq.
 #   Default: undef
@@ -193,6 +201,8 @@ class govuk::apps::sidekiq_monitoring (
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
   $publishing_api_redis_port = undef,
+  $search_admin_redis_host = undef,
+  $search_admin_redis_port = undef,
   $search_api_redis_host = undef,
   $search_api_redis_port = undef,
   $signon_redis_host = undef,
@@ -297,6 +307,11 @@ class govuk::apps::sidekiq_monitoring (
       prefix => 'publishing_api',
       host   => $publishing_api_redis_host,
       port   => $publishing_api_redis_port;
+
+    "${app_name}_search_admin":
+      prefix => 'search_admin',
+      host   => $search_admin_redis_host,
+      port   => $search_admin_redis_port;
 
     "${app_name}_signon":
       prefix => 'signon',
