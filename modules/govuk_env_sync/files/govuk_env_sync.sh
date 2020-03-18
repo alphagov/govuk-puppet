@@ -72,7 +72,7 @@ local_domain="${LOCAL_DOMAIN}"
 ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
 function log {
-  echo -ne "$(basename "$0"): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
+  echo -ne "$(date +%Y-%m-%dT%H:%M:%S): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
