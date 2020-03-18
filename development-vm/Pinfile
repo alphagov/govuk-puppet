@@ -65,7 +65,8 @@ process :'search-api-publishing-listener'
 process :'search-api-govuk-index-listener'
 process :'search-api-bulk-reindex-listener'
 process :screenshot_as_a_service
-process :'search-admin' => [:'search-api', :'publishing-api']
+process :'search-admin' => [:'search-api', :'publishing-api', :'search-admin-worker']
+process :'search-admin-worker' => [:'search-api']
 process :'service-manual-frontend' => [:'content-store', :static]
 process :'service-manual-publisher' => [:'publishing-api']
 process :'short-url-manager' => [:'publishing-api']

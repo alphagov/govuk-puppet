@@ -46,6 +46,10 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
+# [*enable_procfile_worker*]
+#   Whether to enable the procfile worker
+#   Default: true
+#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -67,6 +71,7 @@ class govuk::apps::search_admin(
   $secret_key_base = undef,
   $rummager_bearer_token = undef,
   $override_search_location = undef,
+  $enable_procfile_worker = true,
   $redis_host = undef,
   $redis_port = undef,
 ) {
@@ -91,6 +96,10 @@ class govuk::apps::search_admin(
   govuk::app::envvar::redis { $app_name:
     host => $redis_host,
     port => $redis_port,
+  }
+
+  govuk::procfile::worker { $app_name:
+    enable_service => $enable_procfile_worker,
   }
 
   govuk::app::envvar {
