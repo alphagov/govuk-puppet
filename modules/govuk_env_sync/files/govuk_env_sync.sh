@@ -72,7 +72,7 @@ local_domain="${LOCAL_DOMAIN}"
 ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
 function log {
-  echo -ne "$(basename "$0"): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
+  echo -ne "$(date +%Y-%m-%dT%H:%M:%S): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
 }
 
@@ -123,8 +123,25 @@ function report_error {
 function nagios_passive {
   # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
   if [ -n "${configfile:-""}" ]; then
+    local nagios_service_description
     nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
-    printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert.cluster >/dev/null
+
+    local max_retries=4
+    local retries_count=0
+    local send_failed=""
+
+    while [ $retries_count -lt $max_retries ]; do
+      printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert.cluster >/dev/null || send_failed=$?
+
+      if [ -z "${send_failed:-}" ]; then
+        break
+      fi
+
+      log "nagios_passive failed: $send_failed"
+
+      retries_count=$((retries_count+1))
+      sleep 20
+    done
   fi
   # If arguments are provided manually, do not report to nagios/icinga
 }
