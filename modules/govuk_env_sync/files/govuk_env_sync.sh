@@ -135,6 +135,8 @@ function nagios_passive {
         break
       fi
 
+      log "nagios_passive failed: $send_failed"
+
       retries_count=$((retries_count+1))
       sleep 20
     done
