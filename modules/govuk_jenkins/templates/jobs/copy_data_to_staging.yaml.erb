@@ -50,7 +50,7 @@
             set +e
 
             echo "Running Data Sync"
-            /usr/local/bin/with_reboot_lock bash sync production staging
+            /usr/local/bin/with_reboot_lock env-sync-and-backup_Copy_Data_to_Staging bash sync production staging
             EXITCODE=$?
 
             exit $EXITCODE
