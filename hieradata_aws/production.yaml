@@ -129,6 +129,7 @@ govuk::apps::ckan::s3_bucket_name: "datagovuk-production-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
+govuk::apps::content_data_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '9'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"

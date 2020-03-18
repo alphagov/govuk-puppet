@@ -21,6 +21,7 @@ govuk::apps::content_data_admin::google_tag_manager_auth: 'wFyiBTovFhDv5qMe_LXt7
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-7'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-integration-content-data-csvs'
+govuk::apps::content_data_admin::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '14'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-integration-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "xTPyDeRcMiXFWvscgkLowg"

@@ -169,6 +169,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::content_data_admin::redis_port
     govuk::apps::content_data_admin::aws_csv_export_bucket_name
     govuk::apps::content_data_admin::google_tag_manager_id
+    govuk::apps::content_data_admin::govuk_notify_template_id
     govuk::apps::content_data_api::db::lb_ip_range
     govuk::apps::content_data_api::db::rds
     govuk::apps::content_data_api::db_hostname
