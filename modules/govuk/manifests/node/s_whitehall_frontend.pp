@@ -9,7 +9,7 @@ class govuk::node::s_whitehall_frontend inherits govuk::node::s_base {
 
   $app_domain = hiera('app_domain')
 
-  # The catchall vhost throws a 500, except for healthcheck requests.
+  # The catchall vhost throws a 400, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
 
   nginx::config::vhost::redirect { "whitehall.${app_domain}":

@@ -22,7 +22,7 @@ class govuk::node::s_email_alert_api inherits govuk::node::s_base {
 
   include nginx
 
-  # The catchall vhost throws a 500, except for healthcheck requests.
+  # The catchall vhost throws a 400, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
 
   # Ensure memcached is available to backend nodes
