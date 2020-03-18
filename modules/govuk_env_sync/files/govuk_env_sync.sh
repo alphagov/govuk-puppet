@@ -123,10 +123,12 @@ function report_error {
 function nagios_passive {
   # We require to map the monitored services to the configuration files/govuk_env_sync::tasks
   if [ -n "${configfile:-""}" ]; then
+    local nagios_service_description
     nagios_service_description="GOV.UK environment sync $(basename "${configfile%.cfg}")"
 
-    max_retries=4
-    retries_count=0
+    local max_retries=4
+    local retries_count=0
+    local send_failed=""
 
     while [ $retries_count -lt $max_retries ]; do
       printf "%s\\t%s\\t%s\\t%s\\n" "${ip_address}" "${nagios_service_description}" "${nagios_code}" "${nagios_message}" | /usr/sbin/send_nsca -H alert.cluster >/dev/null || send_failed=$?
