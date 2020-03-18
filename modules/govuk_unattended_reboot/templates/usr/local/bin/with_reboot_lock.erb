@@ -3,7 +3,7 @@
 set -eu
 
 lock_file_name="$1"
-lock_file="<%= @lock_dir %>/$lock_file_name"
+lock_file="<%= @lock_dir %>/reboot_lock-${lock_file_name}"
 
 function lock() {
   while [ -f $lock_file ]; do
