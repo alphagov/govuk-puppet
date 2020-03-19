@@ -55,6 +55,12 @@
 #   The http basic auth password when running on integration.
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::service_manual_publisher(
   $db_hostname = 'postgresql-primary-1.backend',
   $db_port = undef,
@@ -71,6 +77,8 @@ class govuk::apps::service_manual_publisher(
   $asset_manager_bearer_token = undef,
   $http_username = undef,
   $http_password = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
@@ -109,6 +117,12 @@ class govuk::apps::service_manual_publisher(
     "${title}-HTTP_PASSWORD":
       varname => 'HTTP_PASSWORD',
       value   => $http_password;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
   }
 
   if $secret_key_base != undef {
