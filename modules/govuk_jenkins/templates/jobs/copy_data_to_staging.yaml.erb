@@ -43,10 +43,6 @@
             sed -i.bak "s/PG_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-postgresql.sh
             sed -i "s/PG_DST_ENV_SYNC_PW=PLACEHOLDER/PG_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-postgresql.sh
 
-            echo "Putting in the real Transition Postgresql password"
-            sed -i.bak "s/PG_TR_SRC_ENV_SYNC_PW=PLACEHOLDER/PG_TR_SRC_ENV_SYNC_PW='<%= @pg_src_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
-            sed -i "s/PG_TR_DST_ENV_SYNC_PW=PLACEHOLDER/PG_TR_DST_ENV_SYNC_PW='<%= @pg_dst_env_sync_pw %>'/" scripts/sync-transition-postgresql.sh
-
             set +e
 
             echo "Running Data Sync"
