@@ -24,6 +24,7 @@ govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
+govuk::apps::service_manual_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::short_url_manager::govuk_notify_template_id: '112842bb-d8a4-4511-90de-57dc5c8f27ec'
 govuk::apps::signon::instance_name: 'staging'
