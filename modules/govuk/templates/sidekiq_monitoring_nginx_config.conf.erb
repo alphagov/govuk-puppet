@@ -66,6 +66,10 @@ server {
     proxy_pass http://localhost:3114;
   }
 
+  location /search-admin {
+    proxy_pass http://localhost:3241;
+  }
+
   location /search-api {
     proxy_pass http://localhost:3234;
   }
