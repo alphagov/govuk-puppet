@@ -32,3 +32,49 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+
+- job:
+    name: Publish_CV_Routes
+    display-name: Publish coronavirus page
+    project-type: freestyle
+    description: "Publish coronavirus page with a major update"
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/special-route-publisher/
+    scm:
+      - special-route-publisher_Publish_Special_Routes
+    builders:
+        - shell: |
+            export GOVUK_APP_DOMAIN=<%= @app_domain %>
+            export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec rake publish_coronavirus_routes
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+
+- job:
+    name: Publish_CV_Routes_Minor
+    display-name: "Publish coronavirus page (minor update)"
+    project-type: freestyle
+    description: "Publish coronavirus page with a minor update"
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/special-route-publisher/
+    scm:
+      - special-route-publisher_Publish_Special_Routes
+    builders:
+        - shell: |
+            export GOVUK_APP_DOMAIN=<%= @app_domain %>
+            export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec rake minor_update_coronavirus_routes
+    wrappers:
+        - ansicolor:
+            colormap: xterm
