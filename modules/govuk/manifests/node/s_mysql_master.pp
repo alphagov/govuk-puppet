@@ -35,7 +35,6 @@ class govuk::node::s_mysql_master (
   class { [
     'govuk::apps::collections_publisher::db',
     'govuk::apps::contacts::db',
-    'govuk::apps::release::db',
     'govuk::apps::search_admin::db',
     'govuk::apps::signon::db',
     ]:
