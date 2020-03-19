@@ -74,7 +74,7 @@
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
             export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bundle exec rake minor_update_coronavirus_routes
+            bundle exec rake minor_publish_coronavirus_routes
     wrappers:
         - ansicolor:
             colormap: xterm
