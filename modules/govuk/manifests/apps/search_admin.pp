@@ -58,6 +58,15 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
+# [*expiring_bets_mailing_list*]
+#   The email address to send notifications of expiring bets to
+#
 class govuk::apps::search_admin(
   $db_hostname = undef,
   $db_name = undef,
@@ -74,6 +83,9 @@ class govuk::apps::search_admin(
   $enable_procfile_worker = true,
   $redis_host = undef,
   $redis_port = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $expiring_bets_mailing_list = undef,
 ) {
   $app_name = 'search-admin'
 
@@ -115,6 +127,15 @@ class govuk::apps::search_admin(
     "${title}-RUMMAGER_BEARER_TOKEN":
       varname => 'RUMMAGER_BEARER_TOKEN',
       value   => $rummager_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
+    "${title}-EXPIRING_BETS_MAILING_LIST":
+      varname => 'EXPIRING_BETS_MAILING_LIST',
+      value   => $expiring_bets_mailing_list;
   }
 
   if $secret_key_base != undef {
