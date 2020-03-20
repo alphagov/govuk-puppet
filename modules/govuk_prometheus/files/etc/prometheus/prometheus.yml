@@ -58,8 +58,6 @@ scrape_configs:
           values: [ running ]
         - name: tag:aws_migration
           values: [ cache ]
-        - name: tag:aws_environment
-          values: [ integration ]
     relabel_configs:
       - source_labels: [__meta_ec2_tag_aws_migration]
         target_label: aws_migration
