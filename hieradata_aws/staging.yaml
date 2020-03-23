@@ -183,6 +183,7 @@ govuk::apps::publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::
 govuk::apps::publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
+govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
