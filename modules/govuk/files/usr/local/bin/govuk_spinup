@@ -85,6 +85,10 @@ echo "GOVUK_APP_ROOT=${GOVUK_APP_ROOT}"
 echo "GOVUK_APP_RUN=${GOVUK_APP_RUN}"
 echo "GOVUK_APP_LOGROOT=${GOVUK_APP_LOGROOT}"
 
+if [ -n "$GOVUK_APP_ULIMIT_NOFILE" ]; then
+    ulimit -n "$GOVUK_APP_ULIMIT_NOFILE"
+fi
+
 set -x
 exec start-stop-daemon --start \
           --chuid "$GOVUK_USER:$GOVUK_GROUP" \
