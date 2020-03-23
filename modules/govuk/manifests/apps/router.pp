@@ -62,6 +62,9 @@ class govuk::apps::router (
     "${title}-ROUTER_BACKEND_SENTRY_ENVIRONMENT":
       value   => $sentry_environment,
       varname => 'SENTRY_ENVIRONMENT';
+    "${title}-ROUTER_ULIMIT_NOFILE":
+      value   => 65536,
+      varname => 'GOVUK_APP_ULIMIT_NOFILE';
   }
 
   govuk::app { 'router':
