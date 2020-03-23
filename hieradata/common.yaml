@@ -18,21 +18,8 @@ node_class: &node_class
   backend:
     apps:
       - canary-backend
-      - collections-publisher
-      - contacts
-      - content-publisher
-      - content-tagger
-      - hmrc-manuals-api
-      - manuals-publisher
-      - maslow
-      - publisher
-      - search-admin
-      - service-manual-publisher
-      - short-url-manager
       - sidekiq-monitoring
       - signon
-      - specialist-publisher
-      - travel-advice-publisher
 
 govuk::node::s_base::node_apps:
   <<: *node_class
