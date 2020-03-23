@@ -15,3 +15,7 @@ govuk::apps::router::mongodb_nodes:
   - 'router-backend-3'
 
 varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
+
+# Increase the maximum number of file descriptors usable by the router
+# A file descriptor is used per connection
+govuk::deploy::config: 65536
