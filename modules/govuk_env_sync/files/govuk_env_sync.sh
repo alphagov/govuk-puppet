@@ -682,6 +682,11 @@ nagios_code=2
 
 case ${action} in
   push)
+    if [ "${dbms}" == "mongo" ] && [ "$(is_writable_mongo)" != "true" ]; then
+      trap - EXIT # remove the trap, as we do not want to send a nagios message in this case
+      log "This machine is not a mongo master. Skipping."
+      exit
+    fi
     create_tempdir
     create_timestamp
     set_filename
