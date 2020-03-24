@@ -27,3 +27,15 @@
            <%- end -%>
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
+    publishers:
+      - trigger-parameterized-builds:
+        - project: Success_Passive_Check
+          condition: 'SUCCESS'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> success
+        - project: Failure_Passive_Check
+          condition: 'FAILED'
+          predefined-parameters: |
+            NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+            NSCA_OUTPUT=<%= @service_description %> failed

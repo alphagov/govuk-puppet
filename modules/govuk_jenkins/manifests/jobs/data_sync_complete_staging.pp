@@ -18,13 +18,28 @@ class govuk_jenkins::jobs::data_sync_complete_staging (
 ) {
   if $::aws_migration {
     $aws = true
+
+    $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/Data_Sync_Complete"
   } else {
     $aws = false
+
+    $job_url = "https://deploy.${::app_domain}/job/Data_Sync_Complete"
   }
+
+  $check_name = 'data_sync_complete'
+  $service_description = 'Data Sync Complete'
 
   file { '/etc/jenkins_jobs/jobs/data_sync_complete.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/data_sync_complete_staging.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
+  }
+
+  @@icinga::passive_check { "${check_name}_${::hostname}":
+    service_description => $service_description,
+    host_name           => $::fqdn,
+    freshness_threshold => 115200,
+    action_url          => $job_url,
+    notes_url           => monitoring_docs_url(data-sync),
   }
 }
