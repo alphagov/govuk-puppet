@@ -9,6 +9,12 @@
     <%- end -%>
     logrotate:
       numToKeep: 10
+    <%- if @aws -%>
+    triggers:
+      - timed: |
+          TZ=Europe/London
+          30 3 * * *
+    <%- end %>
     properties:
       - build-discarder:
           days-to-keep: 30
