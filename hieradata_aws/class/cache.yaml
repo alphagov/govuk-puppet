@@ -18,4 +18,4 @@ varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
 
 # Increase the maximum number of file descriptors usable by the router
 # A file descriptor is used per connection
-govuk::deploy::config: 65536
+govuk::deploy::config::nofile_limit: 65536
