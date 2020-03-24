@@ -16,6 +16,12 @@ class govuk_jenkins::jobs::data_sync_complete_staging (
   $auth_token = undef,
   $signon_domains_to_migrate = [],
 ) {
+  if $::aws_migration {
+    $aws = true
+  } else {
+    $aws = false
+  }
+
   file { '/etc/jenkins_jobs/jobs/data_sync_complete.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/data_sync_complete_staging.yaml.erb'),
