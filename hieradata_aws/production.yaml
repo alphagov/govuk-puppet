@@ -176,7 +176,6 @@ govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-d
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-production-search-ltr-endpoint'
-govuk::apps::search_api::tensorflow_sagemaker_variants: 'hippo,elephant'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
