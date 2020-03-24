@@ -21,7 +21,9 @@
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/signon && OLD_DOMAIN=<%= domain['old'] -%> NEW_DOMAIN=<%= domain['new'] -%> govuk_setenv signon bundle exec rake applications:migrate_domain'
            <%- end -%>
            <%- end -%>
+           <%- if @aws -%>
            # Queue up any whitehall scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c whitehall_backend --single-node) 'cd /var/apps/whitehall ; govuk_setenv whitehall bundle exec rake publishing:scheduled:requeue_all_jobs'
+           <%- end -%>
            # Queue up any publisher scheduled editions that have been transferred across.
            ssh deploy@$(govuk_node_list -c backend --single-node) 'cd /var/apps/publisher ; govuk_setenv publisher bundle exec rake editions:requeue_scheduled_for_publishing'
