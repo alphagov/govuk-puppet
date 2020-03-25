@@ -48,10 +48,8 @@ class govuk::node::s_cache (
     include router::gor
   }
 
-  # Increase the maximum number of file descriptors usable by the router
-  # A file descriptor is used per connection
   limits::limits { 'deploy_nofile_router':
-    ensure     => present,
+    ensure     => absent,
     user       => 'deploy',
     limit_type => 'nofile',
     both       => 65536,

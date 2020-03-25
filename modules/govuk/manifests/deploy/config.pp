@@ -28,6 +28,14 @@
 # [*csp_report_uri*]
 #   The URI to report any content security policy violations too
 #
+# [*nofile_limit*]
+#   Limit for the number of open files for the deploy domain.
+#   Default: 16384
+#
+# [*nproc_limit*]
+#   Limit for the number of processes for the deploy domain.
+#   Default: 2048
+
 class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
@@ -36,20 +44,22 @@ class govuk::deploy::config(
   $app_domain,
   $csp_report_only = false,
   $csp_report_uri = undef,
+  $nofile_limit = 16384,
+  $nproc_limit = 2048,
 ){
 
   limits::limits { 'deploy_nofile':
     ensure     => present,
     user       => 'deploy',
     limit_type => 'nofile',
-    both       => 16384,
+    both       => $nofile_limit,
   }
 
   limits::limits { 'deploy_nproc':
     ensure     => present,
     user       => 'deploy',
     limit_type => 'nproc',
-    both       => 2048,
+    both       => $nproc_limit,
   }
 
   file { '/etc/govuk/unicorn.rb':
