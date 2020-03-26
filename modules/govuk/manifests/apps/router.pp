@@ -76,8 +76,8 @@ class govuk::apps::router (
     nagios_memory_warning               => 1100,
     nagios_memory_critical              => 2500,
     sentry_dsn                          => $sentry_dsn,
-    local_tcpconns_established_warning  => 150,
-    local_tcpconns_established_critical => 200,
+    local_tcpconns_established_warning  => 1000,
+    local_tcpconns_established_critical => 2000,
   }
 
   # We can't pass `health_check_path` to `govuk::app` because it has the
