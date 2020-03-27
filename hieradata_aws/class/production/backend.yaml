@@ -1,0 +1,37 @@
+---
+
+govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::manuals_publisher::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::manuals_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::manuals_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
+
+govuk::apps::maslow::mongodb_name: 'maslow_production'
+govuk::apps::maslow::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::maslow::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::maslow::mongodb_password: "%{hiera('shared_documentdb_password')}"
+
+govuk::apps::publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::publisher::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
+
+govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_production'
+govuk::apps::short_url_manager::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::short_url_manager::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::short_url_manager::mongodb_password: "%{hiera('shared_documentdb_password')}"
+
+govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_production'
+govuk::apps::specialist_publisher::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::specialist_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::specialist_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
+
+govuk::apps::travel_advice_publisher::mongodb_name: 'travel_advice_publisher_production'
+govuk::apps::travel_advice_publisher::mongodb_nodes:
+  - 'shared-documentdb'
+govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
+govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
