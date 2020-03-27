@@ -76,6 +76,7 @@ class govuk::apps::router (
     nagios_memory_warning               => 1100,
     nagios_memory_critical              => 2500,
     sentry_dsn                          => $sentry_dsn,
+    alert_when_file_handles_exceed      => 2000,
     local_tcpconns_established_warning  => 1000,
     local_tcpconns_established_critical => 2000,
   }
