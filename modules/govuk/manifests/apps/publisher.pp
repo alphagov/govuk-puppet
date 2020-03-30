@@ -91,6 +91,12 @@
 #   The bearer token that will be used to authenticate with link-checker-api
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::publisher(
     $port = '3000',
     $enable_procfile_worker = true,
@@ -118,6 +124,8 @@ class govuk::apps::publisher(
     $email_group_force_publish_alerts = undef,
     $link_checker_api_secret_token = undef,
     $link_checker_api_bearer_token = undef,
+    $govuk_notify_api_key = undef,
+    $govuk_notify_template_id = undef,
   ) {
 
   $app_name = 'publisher'
@@ -228,5 +236,11 @@ class govuk::apps::publisher(
     "${title}-LINK_CHECKER_API_BEARER_TOKEN":
         varname => 'LINK_CHECKER_API_BEARER_TOKEN',
         value   => $link_checker_api_bearer_token;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
   }
 }

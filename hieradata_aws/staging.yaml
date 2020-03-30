@@ -184,6 +184,7 @@ govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alpha
 govuk::apps::publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
+govuk::apps::publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
