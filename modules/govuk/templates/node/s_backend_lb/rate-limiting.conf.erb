@@ -26,3 +26,14 @@ limit_req_zone $post_limit_req zone=contact:5m rate=6r/m;
 # Return 429 (Too Many Requests) instead of the default 503.
 limit_req_status 429;
 limit_conn_status 429;
+
+# Create a rate limiting zone that handles limiting excessive load from 
+# all Google-App-Script calls.
+map $http_user_agent $script_limit {
+  default "";
+  ~*(Google-Apps-Script) $http_user_agent;
+}
+
+limit_req_zone $script_limit zone=rate:30m rate=10r/s;
+limit_req_zone $script_limit zone=performance:5m rate=5r/s;
+limit_conn_zone $script_limit zone=connections:10m;
