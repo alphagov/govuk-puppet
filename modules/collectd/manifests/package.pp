@@ -13,10 +13,14 @@
 # [*apt_mirror_hostname*]
 #   The hostname of the local aptly mirror.
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of the local aptly mirror.
+#
 class collectd::package (
   $collectd_version = '5.8.0.145.gca1cb27-1~trusty',
   $yajl_package = 'libyajl2',
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
   include govuk_ppa
 
@@ -25,7 +29,7 @@ class collectd::package (
     location     => "http://${apt_mirror_hostname}/collectd",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
   # collectd contains only configuration files, which we're overriding anyway
   package { 'collectd':

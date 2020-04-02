@@ -8,8 +8,12 @@
 # [*apt_mirror_hostname*]
 #   Hostname of the APT mirror to install packages from
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   Fingerprint of the APT mirror to install packages from
+#
 class govuk_rbenv::all (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
   $with_foreman = false,
 ) {
   include govuk_rbenv
@@ -18,7 +22,7 @@ class govuk_rbenv::all (
     location     => "http://${apt_mirror_hostname}/rbenv-ruby",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   $ruby_versions = [

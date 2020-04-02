@@ -25,12 +25,13 @@
 #  Default = undef
 #
 class govuk::node::s_gatling (
-  $root_dir            = '/usr/local/bin/gatling/results',
-  $repo                = 'https://github.com/alphagov/govuk-load-testing.git',
-  $commit              = 'master',
-  $apt_mirror_hostname = undef,
-  $ssh_public_key      = undef,
-  $ssh_private_key     = undef,
+  $root_dir                       = '/usr/local/bin/gatling/results',
+  $repo                           = 'https://github.com/alphagov/govuk-load-testing.git',
+  $commit                         = 'master',
+  $apt_mirror_hostname            = undef,
+  $apt_mirror_gpg_key_fingerprint = undef,
+  $ssh_public_key                 = undef,
+  $ssh_private_key                = undef,
 ) inherits govuk::node::s_base {
 
   # User used to run Gatling
@@ -93,7 +94,7 @@ class govuk::node::s_gatling (
     release      => 'trusty',
     architecture => $::architecture,
     repos        => 'main',
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'govuk-gatling':

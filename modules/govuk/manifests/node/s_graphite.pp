@@ -13,11 +13,15 @@
 #  [*apt_mirror_hostname*]
 #    The hostname of the local aptly mirror.
 #
+#  [*apt_mirror_gpg_key_fingerprint*]
+#    The fingerprint of the local aptly mirror.
+#
 
 class govuk::node::s_graphite (
   $graphite_path = '/opt/graphite',
   $graphite_backup_hour = 23,
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) inherits govuk::node::s_base {
   class { 'graphite':
     version                    => '0.9.13',
@@ -122,7 +126,7 @@ class govuk::node::s_graphite (
       location     => "http://${apt_mirror_hostname}/whisper-backup",
       release      => $::lsbdistcodename,
       architecture => $::architecture,
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      key          => $apt_mirror_gpg_key_fingerprint,
     }
 
     package { 'whisper-backup':

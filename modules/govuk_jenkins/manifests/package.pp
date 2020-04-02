@@ -8,6 +8,10 @@
 #   The hostname for the apt mirror to add to enable fetching specific
 #   packages
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint for the apt mirror to add to enable fetching specific
+#   packages
+#
 # [*version*]
 #   Specify the version of Jenkins you wish to install
 #
@@ -19,6 +23,7 @@
 #
 class govuk_jenkins::package (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
   $version = $govuk_jenkins::version,
   $config  = {},
   $plugins = {},
@@ -32,7 +37,7 @@ class govuk_jenkins::package (
     location     => "http://${apt_mirror_hostname}/govuk-jenkins",
     release      => 'stable',
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   class { 'govuk_java::set_defaults':

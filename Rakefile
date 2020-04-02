@@ -46,6 +46,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_containers::frontend::haproxy::wildcard_publishing_key
     govuk_jenkins::config::user_permissions
     govuk_jenkins::packages::sops::apt_mirror_hostname
+    govuk_jenkins::packages::sops::apt_mirror_gpg_key_fingerprint
     govuk_mysql::server::expire_log_days
     govuk_mysql::server::monitoring::master::plaintext_mysql_password
     govuk_mysql::server::monitoring::slave::plaintext_mysql_password
@@ -397,11 +398,14 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_asset_base::alert_hostname
     govuk::node::s_base::log_remote
     govuk::node::s_gatling::apt_mirror_hostname
+    govuk::node::s_gatling::apt_mirror_gpg_key_fingerprint
     govuk::node::s_gatling::repo
     govuk::node::s_gatling::ssh_public_key
     govuk::node::s_gatling::ssh_private_key
     govuk::node::s_licensing_backend::apt_mirror_hostname
+    govuk::node::s_licensing_backend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_licensing_frontend::apt_mirror_hostname
+    govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_postgresql_primary::alert_hostname
     govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
@@ -424,6 +428,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
     govuk_splunk::repos::apt_mirror_hostname
+    govuk_splunk::repos::apt_mirror_gpg_key_fingerprint
     govuk_unattended_reboot::alert_hostname
     icinga::client::config::allowed_hosts
     icinga::config::graphite_hostname
