@@ -4,8 +4,16 @@
 #   - don't duplicate storage in each environment
 #   - have something that we can point Vagrant and smaller environments to
 #
+# [*private_gpg_key*]
+#   The private key to sign the repos with
+#
+# [*private_gpg_key_fingerprint*]
+#   The fingerprint is required to specify the private key.
+#
 class govuk::node::s_apt (
   $root_dir,
+  $private_gpg_key = undef,
+  $private_gpg_key_fingerprint = undef,
   $real_ip_header = undef,
   $apt_service = 'apt.cluster',
   $gemstash_service = 'gemstash.cluster',
@@ -152,4 +160,21 @@ class govuk::node::s_apt (
   include ::govuk_docker
   include ::govuk_containers::gemstash
 
+  if $private_gpg_key {
+    file { "/root/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc":
+      ensure  => present,
+      mode    => '0600',
+      content => $private_gpg_key,
+      owner   => 'root',
+      group   => 'root',
+    }
+
+    exec { "import_gpg_secret_key_for_aptly_${::hostname}":
+      command     => "gpg --batch --delete-secret-and-public-key ${private_gpg_key_fingerprint}; gpg --allow-secret-key-import --import /root/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc",
+      user        => 'root',
+      group       => 'root',
+      subscribe   => File["/root/.gnupg/${private_gpg_key_fingerprint}_secret_key.asc"],
+      refreshonly => true,
+    }
+  }
 }

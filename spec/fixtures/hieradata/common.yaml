@@ -2,6 +2,7 @@ app_domain: 'environment.example.com'
 app_domain_internal: 'dev.govuk-internal.digital'
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
+apt_mirror_fingerprint: '0000111122223333444455556666777788889999'
 
 backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 

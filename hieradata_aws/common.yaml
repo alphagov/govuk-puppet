@@ -211,6 +211,7 @@ deployable_applications: &deployable_applications
   whitehall: {}
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
+apt_mirror_fingerprint: '3803E444EB0235822AA36A66EC5FE1A937E3ACBB'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
@@ -802,6 +803,7 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_apt::apt_service: 'apt'
 govuk::node::s_apt::gemstash_service: 'gemstash'
+govuk::node::s_apt::private_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_asset_base::alert_hostname: 'alert'
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
