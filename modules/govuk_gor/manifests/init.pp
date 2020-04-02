@@ -7,6 +7,9 @@
 # [*apt_mirror_hostname*]
 #   Hostname of the APT mirror to install Gor from
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   Fingerprint of the APT mirror to install Gor from
+#
 # [*args*]
 #   Command-line arguments to pass to Gor executable, defaults to an empty hash
 #
@@ -29,11 +32,12 @@ class govuk_gor(
   $binary_path = '/usr/local/bin/goreplay',
   $envvars = {},
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
 
   apt::source { 'gor':
     location     => "http://${apt_mirror_hostname}/gor",
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
     architecture => $::architecture,
   }
 

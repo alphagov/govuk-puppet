@@ -7,14 +7,18 @@
 # [*apt_mirror_hostname*]
 #   The hostname of an APT mirror
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of an APT mirror
+#
 class govuk_ci::agent::gcloud (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ){
   apt::source { 'google-cloud-sdk-trusty':
     location     => "http://${apt_mirror_hostname}/google-cloud-sdk-trusty",
     release      => 'stable',
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'google-cloud-sdk':

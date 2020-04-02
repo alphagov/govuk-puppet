@@ -8,6 +8,10 @@
 #   Hostname to use for the APT mirror.
 #   Defaults to undefined because `$use_mirror` can be disabled.
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   Fingerprint to use for the APT mirror.
+#   Defaults to undefined because `$use_mirror` can be disabled.
+#
 # [*use_mirror*]
 #   Whether to use our mirror of the repo.
 #   Default: true
@@ -15,6 +19,7 @@
 class mongodb::repository(
   $use_mirror = true,
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
   validate_bool($use_mirror)
   if $use_mirror {
@@ -23,7 +28,7 @@ class mongodb::repository(
       release      => 'dist',
       repos        => '10gen',
       architecture => $::architecture,
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      key          => $apt_mirror_gpg_key_fingerprint,
     }
 
     apt::source { 'mongodb3.2':
@@ -31,7 +36,7 @@ class mongodb::repository(
       release      => 'trusty-mongodb-org-3.2',
       repos        => 'multiverse',
       architecture => $::architecture,
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      key          => $apt_mirror_gpg_key_fingerprint,
     }
 
   } else {

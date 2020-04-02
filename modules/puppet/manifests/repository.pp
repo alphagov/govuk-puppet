@@ -8,6 +8,10 @@
 #   Hostname to use for the APT mirror.
 #   Defaults to undefined because `$use_mirror` can be disabled.
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   Fingerprint to use for the APT mirror.
+#   Defaults to undefined because `$use_mirror` can be disabled.
+#
 # [*use_mirror*]
 #   Whether to use our own mirror of the PuppetLabs repo. You may want to
 #   temporarily disable this if you're bringing up a new production
@@ -17,6 +21,7 @@
 class puppet::repository(
   $use_mirror = true,
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
   # This is installed by bootstrapping. `apt::source` takes its place.
   package { 'puppetlabs-release':
@@ -29,7 +34,7 @@ class puppet::repository(
       location     => "http://${apt_mirror_hostname}/puppetlabs-${::lsbdistcodename}",
       release      => $::lsbdistcodename,
       architecture => $::architecture,
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      key          => $apt_mirror_gpg_key_fingerprint,
     }
   } else {
     apt::source {'puppetlabs':

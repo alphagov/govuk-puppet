@@ -5,8 +5,12 @@
 # [*apt_mirror_hostname*]
 #   The hostname of an APT mirror
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of an APT mirror
+#
 class govuk_mysql::xtrabackup::packages (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
   package { 'xtrabackup':
     ensure  => present,
@@ -28,7 +32,7 @@ class govuk_mysql::xtrabackup::packages (
     location     => "http://${apt_mirror_hostname}/percona",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'qpress':
@@ -39,7 +43,7 @@ class govuk_mysql::xtrabackup::packages (
     location     => "http://${apt_mirror_hostname}/gof3r",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'gof3r':

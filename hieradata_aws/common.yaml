@@ -124,6 +124,7 @@ govuk::node::s_base::node_apps:
   <<: *node_class
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_graphite::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_java::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
@@ -211,6 +212,7 @@ deployable_applications: &deployable_applications
   whitehall: {}
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
+apt_mirror_gpg_key_fingerprint: '3803E444EB0235822AA36A66EC5FE1A937E3ACBB'
 
 apt::apt_update_frequency: 'daily'
 apt::purge_preferences_d: true
@@ -239,6 +241,7 @@ apt::sources:
     repos: 'main restricted universe multiverse'
 
 backup::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+backup::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 base::packages::gems:
   ruby-shadow:
@@ -301,6 +304,7 @@ collectd::plugin::tcp::metrics:
   - 'PassiveOpens'
 
 collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+collectd::package::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 collectd::plugin::docker::repo: "https://github.com/alphagov/docker-collectd-plugin.git"
 collectd::plugin::docker::commit: "e56ddb84536065786e0a55143faa8c6fc035c119"
 
@@ -353,6 +357,7 @@ filebeat::prospectors:
       application: 'apt'
 
 gdal::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+gdal::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
@@ -757,6 +762,7 @@ govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
@@ -774,6 +780,7 @@ govuk_pgbouncer::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk_beat::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_ci::agent::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_ci::agent::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::config::asset_root: "https://assets.%{hiera('app_domain')}"
@@ -785,12 +792,16 @@ govuk::deploy::sync::jenkins_domain: "deploy.%{hiera('app_domain_internal')}"
 govuk::deploy::sync::auth_token: "%{hiera('govuk_jenkins::deploy_all_apps::auth_token')}"
 
 govuk_gor::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_gor::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_htpasswd::http_username: "%{hiera('http_username')}"
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::terraform::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::govuk_python::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
@@ -802,6 +813,7 @@ govuk::node::s_api_redis::allowed_backend_ip_range: "%{hiera('environment_ip_pre
 
 govuk::node::s_apt::apt_service: 'apt'
 govuk::node::s_apt::gemstash_service: 'gemstash'
+govuk::node::s_apt::private_gpg_key_fingerprint: "%{hiera('apt_mirror_gpg_key_fingerprint')}"
 
 govuk::node::s_asset_base::alert_hostname: 'alert'
 govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -825,10 +837,12 @@ govuk::node::s_backend_lb::assets_carrenza_vhost_aliases:
 govuk::node::s_backend_lb::assets_carrenza_real_ip_header: "True-Client-Ip"
 
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_gatling::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_gatling::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk::node::s_gatling::repo: 'git@github.com:alphagov/govuk-load-testing.git'
 govuk::node::s_gatling::ssh_public_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
 govuk::node::s_gatling::ssh_private_key: "%{hiera('govuk_jenkins::ssh_key::private_key')}"
@@ -836,8 +850,10 @@ govuk::node::s_gatling::ssh_private_key: "%{hiera('govuk_jenkins::ssh_key::priva
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_licensing_backend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_licensing_backend::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_licensing_frontend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
@@ -851,9 +867,13 @@ govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_ho
 govuk_bundler::config::service: 'http://gemstash'
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_postgresql::mirror::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_prometheus_node_exporter::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_prometheus_node_exporter::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_prometheus::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_prometheus::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_ppa::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_ppa::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_sshkeys::deployment_keys:
   github.com:
@@ -893,8 +913,10 @@ govuk_crawler::site_root: "https://www.%{hiera('app_domain')}"
 
 govuk_docker::version: "17.09.0~ce-0~ubuntu"
 govuk_docker::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_docker::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_jenkins::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::package::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
@@ -925,12 +947,15 @@ govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
 
 govuk_mysql::xtrabackup::packages::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_mysql::xtrabackup::packages::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_postgresql::server::configure_env_sync_user: true
 
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_rabbitmq::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_rbenv::all::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_sudo::sudo_conf:
   deploy_docker_image:
@@ -955,6 +980,7 @@ govuk_sudo::sudo_conf:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
 govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_splunk::repos::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
@@ -965,6 +991,7 @@ govuk_unattended_reboot::monitoring_basic_auth:
   password: "%{hiera('http_password')}"
 
 grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+grafana::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
@@ -1153,6 +1180,7 @@ limits::entries:
 
 mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+mongodb::repository::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 mongodb::server::version: '2.4.9'
 
 monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
@@ -1205,9 +1233,11 @@ monitoring::uptime_collector::aws: true
 mysql::client::package_ensure: 'present'
 
 nginx::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+nginx::package::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 nginx::package::nginx_version: "1.14.0-1~trusty"
 
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+nodejs::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 nodejs::version: '6.14.3-1nodesource1'
 
 ntp::server_list:
@@ -1226,6 +1256,7 @@ puppet::puppetdb::database_password: ''
 puppet::monitoring::alert_hostname: 'alert'
 
 puppet::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+puppet::repository::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 rabbitmq::delete_guest_user: true
 rabbitmq::config_stomp: true
@@ -1298,7 +1329,9 @@ sidekiq_port: '6379'
 ssh::config::allow_users_enable: true
 
 statsd::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+statsd::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_unattended_reboot::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_unattended_reboot::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 unattended_reboot::cron_env_vars:
   - 'MAILTO=""'
@@ -1317,3 +1350,4 @@ unattended_upgrades::origins:
 unicornherder::version: '0.1.0'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+yarn::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"

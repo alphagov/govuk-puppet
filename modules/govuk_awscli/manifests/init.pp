@@ -7,8 +7,12 @@
 # [*apt_mirror_hostname*]
 #   The hostname of the Apt mirror containing the awscli repo
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of the Apt mirror containing the awscli repo
+#
 class govuk_awscli (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 )
 {
   apt::source { 'awscli':
@@ -16,7 +20,7 @@ class govuk_awscli (
     location     => "http://${apt_mirror_hostname}/awscli",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'awscli':

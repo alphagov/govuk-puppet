@@ -7,13 +7,17 @@
 #  [*apt_mirror_hostname*]
 #    The hostname of the local aptly mirror.
 #
+#  [*apt_mirror_gpg_key_fingerprint*]
+#    The fingerprint of the local aptly mirror.
+#
 class backup::repo (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
   apt::source { 'duplicity':
     location     => "http://${apt_mirror_hostname}/duplicity",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 }

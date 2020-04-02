@@ -4,6 +4,7 @@
 #
 class govuk_prometheus (
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ) {
 
   include ::nginx
@@ -26,7 +27,7 @@ class govuk_prometheus (
     release      => 'stable',
     architecture => $::architecture,
     repos        => 'main',
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'prometheus':

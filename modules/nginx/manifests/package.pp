@@ -4,8 +4,11 @@
 #
 # === Parameters
 #
-#  [*apt_mirror_hostname*]
-#    The hostname of the local aptly mirror.
+# [*apt_mirror_hostname*]
+#   The hostname of the local aptly mirror.
+#
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of the local aptly mirror.
 #
 # [*nginx_version*]
 #   Which version of the nginx package to install. Default: 'present'
@@ -15,6 +18,7 @@
 #
 class nginx::package(
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
   $nginx_version             = 'present',
   $nginx_module_perl_version = 'present',
 ) {
@@ -26,7 +30,7 @@ class nginx::package(
     release      => $::lsbdistcodename,
     architecture => $::architecture,
     repos        => 'nginx',
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   if $::lsbdistcodename == 'precise' {
@@ -35,7 +39,7 @@ class nginx::package(
       release      => $::lsbdistcodename,
       architecture => $::architecture,
       repos        => 'nginx',
-      key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+      key          => $apt_mirror_gpg_key_fingerprint,
     }
   }
 

@@ -7,16 +7,20 @@
 # [*apt_mirror_hostname*]
 #   The hostname of an APT mirror
 #
+# [*apt_mirror_gpg_key_fingerprint*]
+#   The fingerprint of an APT mirror
+#
 class govuk_jenkins::packages::terraform (
   $version = '0.11.14',
   $apt_mirror_hostname,
+  $apt_mirror_gpg_key_fingerprint,
 ){
 
   apt::source { 'terraform':
     location     => "http://${apt_mirror_hostname}/terraform",
     release      => $::lsbdistcodename,
     architecture => $::architecture,
-    key          => '3803E444EB0235822AA36A66EC5FE1A937E3ACBB',
+    key          => $apt_mirror_gpg_key_fingerprint,
   }
 
   package { 'terraform':
