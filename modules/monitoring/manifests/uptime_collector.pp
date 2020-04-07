@@ -15,8 +15,8 @@ class monitoring::uptime_collector (
   $environment = '',
   $aws = false,
 ) {
-  exec { 'install statsd into 2.5 rbenv':
-    environment => 'RBENV_VERSION=2.5',
+  exec { 'install statsd into 2.6 rbenv':
+    environment => 'RBENV_VERSION=2.6',
     path        => ['/usr/lib/rbenv/shims', '/usr/local/bin', '/usr/bin', '/bin'],
     command     => 'gem install statsd-ruby',
     unless      => 'gem list -i statsd-ruby',
