@@ -394,6 +394,7 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
+          "repeat": "processes",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 12,
