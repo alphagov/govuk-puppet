@@ -63,7 +63,7 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($hostname.load.load.shortterm, 'Short term load')"
+              "target": "alias(consolidateBy($hostname.load.load.shortterm, 'max'), 'Short term load')"
             },
             {
               "hide": false,
@@ -74,7 +74,7 @@
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($hostname.load.load.shortterm, 'Short term load fill')"
+              "target": "alias(consolidateBy($hostname.load.load.shortterm, 'max'), 'Short term load fill')"
             }
           ],
           "thresholds": [],
@@ -166,7 +166,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($hostname.cpu-*.$cpmetrics, 1, 2)"
+              "target": "aliasByNode(consolidateBy($hostname.cpu-*.$cpmetrics, 'max'), 1, 2)"
             }
           ],
           "thresholds": [],
@@ -249,13 +249,14 @@
           "seriesOverrides": [
             {
               "alias": "Total",
-              "color": "#890F02"
+              "color": "#890F02",
+              "stack": false
             },
             {
               "alias": "Used",
               "color": "#629E51",
-              "linewidth": 3,
-              "fill": 2
+              "fill": 2,
+              "linewidth": 3
             },
             {
               "alias": "Buffered",
@@ -273,19 +274,19 @@
           "targets": [
             {
               "refId": "A",
-              "target": "alias($hostname.memory.memory-used, 'Used')"
+              "target": "alias(consolidateBy($hostname.memory.memory-used, 'max'), 'Used')"
             },
             {
               "refId": "C",
-              "target": "alias($hostname.memory.memory-buffered, 'Buffered')"
+              "target": "alias(consolidateBy($hostname.memory.memory-buffered, 'max'), 'Buffered')"
             },
             {
               "refId": "B",
-              "target": "alias($hostname.memory.memory-cached, 'Cached')"
+              "target": "alias(consolidateBy($hostname.memory.memory-cached, 'max'), 'Cached')"
             },
             {
               "refId": "D",
-              "target": "alias($hostname.memory.memory-free, 'Total')"
+              "target": "alias(sumSeries($hostname.memory.memory-*), 'Total')"
             }
           ],
           "thresholds": [],
@@ -366,27 +367,28 @@
           "repeat": "filesystem",
           "seriesOverrides": [
             {
-              "alias": "df_complex-free",
+              "alias": "Total",
               "color": "#BF1B00",
-              "fill": 0
+              "fill": 0,
+              "stack": false
             }
           ],
           "spaceLength": 10,
-          "span": 1.3333333333333333,
+          "span": 1.7142857142857142,
           "stack": true,
           "steppedLine": false,
           "targets": [
             {
               "refId": "B",
-              "target": "aliasByNode($hostname.df-$filesystem.df_complex-reserved, 2)"
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
             },
             {
               "refId": "A",
-              "target": "aliasByNode($hostname.df-$filesystem.df_complex-used, 2)"
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
             },
             {
               "refId": "C",
-              "target": "aliasByNode($hostname.df-$filesystem.df_complex-free, 2)"
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
             }
           ],
           "thresholds": [],
