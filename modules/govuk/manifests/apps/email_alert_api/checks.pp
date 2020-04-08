@@ -74,7 +74,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.warning_total))',
     warning   => '0',
     critical  => '100000000',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - unprocessed subscription contents - warning',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
   }
@@ -85,7 +85,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.warning_total))',
     warning   => '0',
     critical  => '100000000',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - unprocessed content changes - warning',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
     }
@@ -121,7 +121,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.critical_total))',
     warning   => '0',
     critical  => '0',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - unprocessed subscription contents - critical',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
   }
@@ -132,7 +132,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.critical_total))',
     warning   => '0',
     critical  => '0',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - unprocessed content changes - critical',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
   }
