@@ -51,7 +51,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-$processes.ps_cputime.user, 0)"
+              "target": "aliasByNode(consolidateBy($host.processes-$processes.ps_cputime.user, 'max'), 0)"
             }
           ],
           "thresholds": [],
@@ -140,7 +140,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-$processes.ps_rss, 0)",
+              "target": "aliasByNode(consolidateBy($host.processes-$processes.ps_rss, 'max'), 0)",
               "textEditor": false
             }
           ],
@@ -230,7 +230,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-$processes.ps_count.processes, 0)",
+              "target": "aliasByNode(consolidateBy($host.processes-$processes.ps_count.processes, 'max'), 0)",
               "textEditor": false
             }
           ],
@@ -317,7 +317,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-$processes.ps_count.threads, 0)",
+              "target": "aliasByNode(consolidateBy($host.processes-$processes.ps_count.threads, 'max'), 0)",
               "textEditor": false
             }
           ],
@@ -394,6 +394,7 @@
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
+          "repeat": "processes",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 12,
@@ -402,7 +403,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode($host.processes-$processes.file_handles, 0)",
+              "target": "aliasByNode(consolidateBy($host.processes-$processes.file_handles, 'max'), 0)",
               "textEditor": false
             }
           ],
