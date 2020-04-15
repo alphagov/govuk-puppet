@@ -1,0 +1,8 @@
+# Creates the user danacotoran
+class users::danacotoran {
+  govuk_user { 'danacotoran':
+    fullname => 'Dana Cotoran',
+    email    => 'dana.cotoran@digital.cabinet-office.gov.uk',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQCfLziUxCvj5gutvMjB8MVbgBpfWt47EixEYtCNULa/WcMIYY5oZgTV7lnMLkC54X3syQo7q0EafZ3S89jOCwq9HNil3NyDWDw2zk1P31gM46mk88RmLncW2mQmqHWNgfOOyZC0Wa5BZKaEEedpYsZsK9TUDefacrWZnJvIVuEosddoHerybK9bDHbDZrTkHH/uHscBMI1RkxOYboOkxFiyITW9LM7cVCoiy9tEd4EwHtsp/1x8YlV4TVXFfS4GDj/0iIS4lzftt9P4bM1LJTWMoEbdrfcPnxNIza+vnCD1ffL2iqNCdXDiJ/AIPkI2aUpGV7XV8588WWRvNFMC4w71yjcEKvAF3gSlgb35e4YfJqtBoM0MrFOS/nUWpeaYa8aUV1cKYcj5j2y4FIut93SB3KCA8sOP6zTqptfQjhgITuILhTfJ1Ctiks22fuTF15wt06NRoFps4aLdD0uYUX13N494jhzJeLJ27vaeJMriMirXi8QqpoHAlcn+L3W6NT8uC9FQHZPbk5KqMmARtzHfhTDiMpp9YwDg7ZD7uCUPHOzi51h6Pj3c98nbHuDbrgEissqe+zKwdKHGEYLaStsr2NFhVcR3cQC2alLd2MeaSfm0jL1bWPds6+BkUwWT1Y0CDF0O/n6gtuqMw8Fzvge3WawFLFhKoPCSmLzpyV+bfw== dana.cotoran@gmail.com',
+  }
+}
