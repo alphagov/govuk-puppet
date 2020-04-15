@@ -346,7 +346,6 @@ hosts::production::redirector::hosts:
     ip: '10.3.13.6'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
-monitoring::checks::ses::region: us-east-1
 monitoring::checks::aws_iam_key::enabled: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 90

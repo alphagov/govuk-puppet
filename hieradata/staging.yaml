@@ -338,7 +338,6 @@ hosts::production::redirector::hosts:
 
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::whitehall_overdue_check_period: 'inoffice'
-monitoring::checks::ses::region: eu-west-1
 monitoring::checks::aws_iam_key::enabled: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 90
