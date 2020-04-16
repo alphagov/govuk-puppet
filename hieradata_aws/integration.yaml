@@ -43,6 +43,10 @@ govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
+govuk::apps::publisher::email_group_dev: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_business: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::router::sentry_environment: 'integration'

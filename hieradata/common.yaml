@@ -254,10 +254,6 @@ govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_business: 'govuk-dev@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_citizen: 'govuk-dev@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_force_publish_alerts: 'test-mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
