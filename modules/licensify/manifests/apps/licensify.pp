@@ -8,12 +8,6 @@
 # [*port*]
 #   The TCP port which the app should listen on.
 #
-# [*aws_ses_access_key*]
-#   The access key to authenticate the app to Amazon Simple Email Service.
-#
-# [*aws_ses_secret_key*]
-#   The secret key to authenticate the app to Amazon Simple Email Service.
-#
 # [*aws_application_form_access_key*]
 #   The access key to authenticate the app to Amazon S3.
 #
@@ -36,8 +30,6 @@
 #
 class licensify::apps::licensify (
   $port = 9000,
-  $aws_ses_access_key = '',
-  $aws_ses_secret_key = '',
   $aws_application_form_access_key = '',
   $aws_application_form_secret_key = '',
   $environment = '',
@@ -70,8 +62,6 @@ class licensify::apps::licensify (
 
   licensify::apps::envvars { 'licensify':
     app                             => 'licensify',
-    aws_ses_access_key              => $aws_ses_access_key,
-    aws_ses_secret_key              => $aws_ses_secret_key,
     aws_application_form_access_key => $aws_application_form_access_key,
     aws_application_form_secret_key => $aws_application_form_secret_key,
     environment                     => $environment,

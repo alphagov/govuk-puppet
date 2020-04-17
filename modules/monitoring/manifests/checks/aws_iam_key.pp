@@ -5,7 +5,7 @@
 # === Parameters
 #
 # [*region*]
-#   Which SES region should be checked ['us-east-1','eu-west-1']
+#   Which region should be checked ['us-east-1','eu-west-1']
 #
 # [*access_key*]
 #   AWS access key to use
