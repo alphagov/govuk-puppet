@@ -182,6 +182,10 @@ govuk::apps::publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mon
 govuk::apps::publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::publisher::email_group_dev: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_business: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
