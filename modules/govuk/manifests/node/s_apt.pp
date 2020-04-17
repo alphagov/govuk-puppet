@@ -130,6 +130,7 @@ class govuk::node::s_apt (
   aptly::repo { 'google-cloud-sdk-trusty': }
   aptly::repo { 'gor': }
   aptly::repo { 'govuk-jenkins': }
+  aptly::repo { 'govuk-mongo': }
   aptly::repo { 'govuk-prometheus': }
   aptly::repo { 'govuk-prometheus-node-exporter': }
   aptly::repo { 'govuk-python': }
