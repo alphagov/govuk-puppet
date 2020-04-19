@@ -10,6 +10,7 @@
 class govuk_jenkins::jobs::user_monitor (
   $github_token = undef,
   $app_domain = hiera('app_domain'),
+  $enable_icinga_check = false,
 ) {
 
   $service_description = 'Check that correct users have access'
@@ -20,8 +21,14 @@ class govuk_jenkins::jobs::user_monitor (
     notify  => Exec['jenkins_jobs_update'];
   }
 
+  $icinga_check_ensure = $enable_icinga_check ? {
+    true  => 'present',
+    false => 'absent'
+  }
+
   @@icinga::passive_check {
     "user_monitor_${::hostname}":
+      ensure              => $icinga_check_ensure,
       service_description => $service_description,
       host_name           => $::fqdn,
       freshness_threshold => 5400, # 90 minutes
