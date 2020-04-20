@@ -338,6 +338,7 @@ grafana::dashboards::application_dashboards:
     warning_threshold: 25
 
 mongodb::backup::mongo_backup_node: 'localhost'
+mongodb::server::version: '2.6.12'
 
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::whitehall_overdue_check_period: 'inoffice'
