@@ -37,16 +37,23 @@ class mongodb::server (
   $syncpath = '/var/lib/mongo-sync'
 ) {
 
-  if versioncmp($version, '3.0.0') >= 0 {
-    $service_name = 'mongod'
-    $package_name = 'mongodb-org'
-    $config_filename = '/etc/mongod.conf'
-    $template_name = 'mongod.conf.erb'
-  } else {
+  if $::aws_environment == 'integration' {
     $service_name = 'mongodb'
-    $package_name = 'mongodb-10gen'
+    $package_name = 'govuk-mongo'
     $config_filename = '/etc/mongodb.conf'
     $template_name = 'mongodb.conf'
+  } else {
+    if versioncmp($version, '3.0.0') >= 0 {
+      $service_name = 'mongod'
+      $package_name = 'mongodb-org'
+      $config_filename = '/etc/mongod.conf'
+      $template_name = 'mongod.conf.erb'
+    } else {
+      $service_name = 'mongodb'
+      $package_name = 'mongodb-10gen'
+      $config_filename = '/etc/mongodb.conf'
+      $template_name = 'mongodb.conf'
+    }
   }
 
   validate_bool($development)
