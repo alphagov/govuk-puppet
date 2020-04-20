@@ -31,6 +31,14 @@ class mongodb::repository(
       key          => $apt_mirror_gpg_key_fingerprint,
     }
 
+    apt::source { 'govuk-mongo':
+      location     => "http://${apt_mirror_hostname}/govuk-mongo",
+      release      => 'stable',
+      repos        => 'main',
+      architecture => $::architecture,
+      key          => $apt_mirror_gpg_key_fingerprint,
+    }
+
     apt::source { 'mongodb3.2':
       location     => "http://${apt_mirror_hostname}/mongodb3.2",
       release      => 'trusty-mongodb-org-3.2',
