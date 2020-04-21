@@ -10,7 +10,15 @@
     location ~ "-[0-9a-f]{32,}\." {
       expires max;
       add_header Cache-Control "public, immutable";
+
+      # Set CORS allow origin for fonts only
+      location ~* \.(eot|otf|ttf|woff|woff2)$ {
+        add_header Access-Control-Allow-Origin "*";
+        add_header Access-Control-Allow-Methods "GET, OPTIONS";
+        add_header Access-Control-Allow-Headers "origin, authorization";
+      }
     }
+
   }
 <% end %>
 
