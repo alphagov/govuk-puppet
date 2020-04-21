@@ -131,7 +131,7 @@ describe 'govuk::app::config', :type => :define do
       end
     end
 
-    context 'with asset_pipeline => true, asset_pipeline_prefix => "giraffe_assets"' do
+    context 'with asset_pipeline => true, asset_pipeline_prefixes => ["giraffe_assets"]' do
       let(:params) do
         {
           :port => '8000',
@@ -139,7 +139,7 @@ describe 'govuk::app::config', :type => :define do
           :vhost_full => 'giraffe.example.com',
           :domain => 'example.com',
           :asset_pipeline => true,
-          :asset_pipeline_prefix => 'giraffe_assets',
+          :asset_pipeline_prefixes => ['giraffe_assets'],
         }
       end
 

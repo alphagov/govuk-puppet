@@ -62,7 +62,7 @@ class govuk::apps::government_frontend(
     vhost_ssl_only           => true,
     health_check_path        => '/healthcheck',
     asset_pipeline           => true,
-    asset_pipeline_prefix    => 'government-frontend',
+    asset_pipeline_prefixes  => ['government-frontend'],
     vhost                    => $vhost,
     unicorn_worker_processes => $unicorn_worker_processes,
     cpu_warning              => $cpu_warning,

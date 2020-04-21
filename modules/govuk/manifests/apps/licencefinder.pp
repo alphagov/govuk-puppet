@@ -41,14 +41,14 @@ class govuk::apps::licencefinder(
   $app_name = 'licencefinder'
 
   govuk::app { $app_name:
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    health_check_path     => '/licence-finder/sectors',
-    log_format_is_json    => true,
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'licencefinder',
-    repo_name             => 'licence-finder',
+    app_type                => 'rack',
+    port                    => $port,
+    sentry_dsn              => $sentry_dsn,
+    health_check_path       => '/licence-finder/sectors',
+    log_format_is_json      => true,
+    asset_pipeline          => true,
+    asset_pipeline_prefixes => ['licencefinder'],
+    repo_name               => 'licence-finder',
   }
 
   if $::govuk_node_class !~ /^development$/ {

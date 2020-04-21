@@ -26,13 +26,13 @@ class govuk::apps::calculators(
   $secret_key_base = undef,
 ) {
   govuk::app { 'calculators':
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    health_check_path     => '/child-benefit-tax-calculator/main',
-    log_format_is_json    => true,
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'calculators',
+    app_type                => 'rack',
+    port                    => $port,
+    sentry_dsn              => $sentry_dsn,
+    health_check_path       => '/child-benefit-tax-calculator/main',
+    log_format_is_json      => true,
+    asset_pipeline          => true,
+    asset_pipeline_prefixes => ['calculators'],
   }
 
   Govuk::App::Envvar {

@@ -241,12 +241,12 @@ class govuk::apps::whitehall(
     }
 
     govuk::app::nginx_vhost { 'whitehall-frontend':
-      vhost                 => $whitehall_frontend_vhost_,
-      aliases               => $whitehall_frontend_aliases,
-      protected             => $vhost_protected,
-      app_port              => $port,
-      asset_pipeline        => true,
-      asset_pipeline_prefix => 'government/assets',
+      vhost                   => $whitehall_frontend_vhost_,
+      aliases                 => $whitehall_frontend_aliases,
+      protected               => $vhost_protected,
+      app_port                => $port,
+      asset_pipeline          => true,
+      asset_pipeline_prefixes => ['government/assets'],
     }
 
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
@@ -280,16 +280,16 @@ class govuk::apps::whitehall(
     }
 
     govuk::app::nginx_vhost { 'whitehall-admin':
-      vhost                 => $whitehall_admin_vhost_,
-      app_port              => $port,
-      protected             => $vhost_protected,
-      protected_location    => '/government/admin/fact_check_requests/',
-      deny_framing          => true,
-      deny_crawlers         => true,
-      asset_pipeline        => true,
-      asset_pipeline_prefix => 'government/assets',
-      hidden_paths          => [$health_check_path],
-      nginx_extra_config    => '
+      vhost                   => $whitehall_admin_vhost_,
+      app_port                => $port,
+      protected               => $vhost_protected,
+      protected_location      => '/government/admin/fact_check_requests/',
+      deny_framing            => true,
+      deny_crawlers           => true,
+      asset_pipeline          => true,
+      asset_pipeline_prefixes => ['government/assets'],
+      hidden_paths            => [$health_check_path],
+      nginx_extra_config      => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
 
       client_max_body_size 500m;

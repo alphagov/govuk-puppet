@@ -186,16 +186,11 @@
 # nginx config. Set this value to true to create assets when the app is deployed.
 #
 #
-# [*asset_pipeline_prefix*]
-# the path prefix from which assets are served.  This should
+# [*asset_pipeline_prefixes*]
+# the path prefixes from which assets are served.  This should
 # match the application's config.assets.prefix (which defaults to 'assets').
-# Should only be set if the application is being deployed to the GOV.UK frontend.
-# The value is where the pages served by the application can be found on gov.uk.
-# e.g. The whitehall app has an asset_pipeline_prefix of `government`, that means
-# all of the whitehall pages can be found at `gov.uk/government`.  If the value
-# is set for an app deployed to a backend server, the assets (css, images etc)
-# are copied to the wrong place and the app doesn't render correctly.
-#
+# This is an array that can accept multiple items to allow tranisitioning
+# assets locations.
 #
 # [*ensure*]
 # allow govuk app to be removed.
@@ -308,7 +303,7 @@ define govuk::app (
   $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
   $asset_pipeline = false,
-  $asset_pipeline_prefix = 'assets',
+  $asset_pipeline_prefixes = ['assets'],
   $ensure = 'present',
   $hasrestart = false,
   $depends_on_nfs = false,
@@ -396,7 +391,7 @@ define govuk::app (
     alert_5xx_critical_rate             => $alert_5xx_critical_rate,
     unicorn_herder_timeout              => $unicorn_herder_timeout,
     asset_pipeline                      => $asset_pipeline,
-    asset_pipeline_prefix               => $asset_pipeline_prefix,
+    asset_pipeline_prefixes             => $asset_pipeline_prefixes,
     depends_on_nfs                      => $depends_on_nfs,
     read_timeout                        => $read_timeout,
     sentry_dsn                          => $sentry_dsn,

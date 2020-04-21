@@ -78,7 +78,7 @@ class govuk::apps::static(
     log_format_is_json       => true,
     nginx_extra_config       => template('govuk/static_extra_nginx_config.conf.erb'),
     asset_pipeline           => true,
-    asset_pipeline_prefix    => $app_name,
+    asset_pipeline_prefixes  => [$app_name],
     vhost                    => $vhost,
     unicorn_worker_processes => $unicorn_worker_processes,
     nagios_memory_warning    => $nagios_memory_warning,
