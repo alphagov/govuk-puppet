@@ -39,6 +39,8 @@ location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
 # Static asset serving for <%= vhost_name %>
 set <%= upstream %> https://<%= proxy_host %>;
 location <%= alias_path %> {
+  limit_req zone=rate burst=10 nodelay;
+  limit_conn connections 10;
   proxy_set_header Host <%= proxy_host %>;
   proxy_pass <%= upstream %>;
 }
