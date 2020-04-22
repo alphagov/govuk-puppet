@@ -257,6 +257,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::static::nagios_memory_warning
     govuk::apps::static::redis_host
     govuk::apps::static::redis_port
+    govuk::apps::static::asset_host
     govuk::apps::static::unicorn_worker_processes
     govuk::apps::licencefinder::elasticsearch_uri
     govuk::apps::link_checker_api::db::allow_auth_from_lb
