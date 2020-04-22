@@ -1306,6 +1306,9 @@ rabbitmq::config_stomp: true
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
 
+router::nginx::app_specific_static_asset_routes:
+  '/assets/government-frontend/': 'government-frontend'
+
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.
 router::assets_origin::app_specific_static_asset_routes:
