@@ -120,13 +120,4 @@ class govuk::node::s_cache (
     'allow-cache-clearing-from-all':
       port => 7999;
   }
-
-  @@icinga::check::graphite { "check_nginx_connections_writing_${::hostname}":
-    target    => "${::fqdn_metrics}.nginx.nginx_connections-writing",
-    warning   => 150,
-    critical  => 250,
-    desc      => 'nginx high conn writing - upstream indicator',
-    host_name => $::fqdn,
-    notes_url => monitoring_docs_url(nginx-high-conn-writing-upstream-indicator-check),
-  }
 }
