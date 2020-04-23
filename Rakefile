@@ -110,6 +110,7 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::ip_bouncer
     mongodb::s3backup::backup::s3_bucket
     mongodb::s3backup::backup::s3_bucket_daily
+    mongodb::server::version
 
     govuk::apps::content_tagger::override_search_location
     govuk::apps::hmrc_manuals_api::override_search_location

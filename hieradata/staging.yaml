@@ -408,5 +408,6 @@ router::nginx::robotstxt: |
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-staging'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-staging'
+mongodb::server::version: '2.6.12'
 
 unattended_reboot::cron_hour: "*"
