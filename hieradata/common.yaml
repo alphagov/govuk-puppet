@@ -473,7 +473,6 @@ govuk_ci::master::pipeline_jobs:
   govuk-content-schema-test-helpers: {}
   govuk-csp-forwarder: {}
   govuk-dummy_content_store: {}
-  govuk-developer-docs: {}
   govuk_document_types: {}
   govuk-guix: {}
   govuk-jenkinslib: {}
