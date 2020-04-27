@@ -524,9 +524,7 @@ govuk_ci::master::pipeline_jobs:
   rack-logstasher: {}
   rails_translation_manager: {}
   router-data: {}
-  rubocop-govuk: {}
   scss-lint-govuk: {}
-  seal: {}
   search-api: {}
   shared_mustache: {}
   slimmer: {}
