@@ -53,6 +53,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::content_data_api
   - govuk_jenkins::jobs::data_sync_complete_staging
   - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::passive_checks
