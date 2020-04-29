@@ -8,7 +8,7 @@ class govuk_scripts {
     mode   => '0755',
   }
 
-  # govuk_app_console: opens a database console for a specified application
+  # govuk_app_dbconsole: opens a database console for a specified application
   file { '/usr/local/bin/govuk_app_dbconsole':
     ensure => present,
     source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_app_dbconsole',
