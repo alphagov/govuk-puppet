@@ -39,12 +39,6 @@ class govuk_jenkins::jobs::integration_deploy (
   $ci_deploy_url = 'ci-deploy.integration.publishing.service.gov.uk',
   $puppet_auth_token = undef,
 ) {
-  file { '/etc/jenkins_jobs/jobs/integration_app_deploy.yaml':
-    ensure  => present,
-    content => template('govuk_jenkins/jobs/integration_app_deploy.yaml.erb'),
-    notify  => Exec['jenkins_jobs_update'],
-  }
-
   file { '/etc/jenkins_jobs/jobs/integration_puppet_deploy.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/integration_puppet_deploy.yaml.erb'),

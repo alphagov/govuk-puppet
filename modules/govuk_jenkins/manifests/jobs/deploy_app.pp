@@ -20,6 +20,9 @@
 # [*enable_slack_notifications*]
 #   Set to true to post details of a deployment into a Slack channel.
 #
+# [*continuous_deployment_downstream*]
+#   Set to true to trigger Deploy_App in a downstream environment, on success.
+#
 class govuk_jenkins::jobs::deploy_app (
   $app_domain = undef,
   $auth_token = undef,
@@ -29,6 +32,7 @@ class govuk_jenkins::jobs::deploy_app (
   $graphite_port = '80',
   $notify_release_app = true,
   $enable_slack_notifications = true,
+  $continuous_deployment_downstream = false,
 ) {
   if $::aws_migration {
     $aws_deploy = true

@@ -128,6 +128,12 @@ govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-integra
 govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule: '0 13 * * *'
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
+
+govuk_jenkins::jobs::deploy_app::continuous_deployment_downstream: true
+
+govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.staging.publishing.service.gov.uk'
+govuk_jenkins::jobs::deploy_app_downstream::aws_deploy_url: 'deploy.blue.staging.govuk.digital'
+
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::deploy_dns::zones:
   - 'dnstest.alphagov.co.uk'

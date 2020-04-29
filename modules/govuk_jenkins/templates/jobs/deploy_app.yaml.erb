@@ -42,10 +42,16 @@
 
             git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
             ./jenkins.sh
-    publishers:
-        - trigger:
+        - trigger-builds:
             project: Smokey
-            threshold: UNSTABLE
+            block: true
+    publishers:
+        <% if @continuous_deployment_downstream %>
+        - trigger-parameterized-builds:
+            project: Deploy_App_Downstream
+            current-parameters: true
+            threshold: SUCCESS
+        <% end %>
         - text-finder:
             regexp: "DOCKER TAG FAILED"
             also-check-console-output: true
