@@ -66,16 +66,16 @@ govuk_env_sync::tasks:
     temppath: "/tmp/link_checker_api_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
-  "push_support-contacts_integration_daily":
+  "pull_support-contacts_integration_daily":
     ensure: "present"
     hour: "1"
     minute: "15"
-    action: "push"
+    action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "support_contacts_production"
     temppath: "/tmp/support-contacts_integration_daily"
-    url: "govuk-integration-database-backups"
+    url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_content-register_production_integration_daily":
     ensure: "present"
