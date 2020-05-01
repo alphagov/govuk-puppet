@@ -45,6 +45,13 @@ class licensify::apps::licensify (
     $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*'
   }
 
+  # This is for the nginx_extra_config passed in to govuk::app. The
+  # limit_req_zone can't be used within a server block, so use a
+  # conf.d file instead.
+  nginx::conf { 'rate-limiting':
+    content => "limit_req_zone \$limit_req zone=licensing:1m rate=1r/s;\n",
+  }
+
   govuk::app { 'licensify':
     app_type                       => 'procfile',
     port                           => $port,
