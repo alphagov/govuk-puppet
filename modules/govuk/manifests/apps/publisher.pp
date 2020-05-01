@@ -116,6 +116,7 @@ class govuk::apps::publisher(
     $oauth_secret = undef,
     $run_fact_check_fetcher = false,
     $fact_check_address_format = undef,
+    $fact_check_subject_prefix = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
     $email_group_dev = undef,
@@ -212,6 +213,9 @@ class govuk::apps::publisher(
     "${title}-FACT_CHECK_ADDRESS_FORMAT":
       varname => 'FACT_CHECK_ADDRESS_FORMAT',
       value   => $fact_check_address_format;
+    "${title}-FACT_CHECK_SUBJECT_PREFIX":
+      varname => 'FACT_CHECK_SUBJECT_PREFIX',
+      value   => $fact_check_subject_prefix;
     "${title}-FACT_CHECK_USERNAME":
       varname => 'FACT_CHECK_USERNAME',
       value   => $fact_check_username;
