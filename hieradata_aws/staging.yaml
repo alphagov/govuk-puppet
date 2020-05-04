@@ -331,7 +331,7 @@ licensify::apps::licensify_feed::environment: 'staging'
 licensify::apps::licensify::alert_5xx_warning_rate: 0.1
 licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
-mongodb::server::version: '2.4.9'
+mongodb::server::version: '2.6.12'
 
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::whitehall_overdue_check_period: 'inoffice'
