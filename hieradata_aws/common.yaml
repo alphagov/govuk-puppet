@@ -486,6 +486,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - jennifer.allum@digital.cabinet-office.gov.uk
   - jos.koetsier@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
+  - kelvin.gan@digital.cabinet-office.gov.uk
   - laurent.curau@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
