@@ -37,7 +37,9 @@ class mongodb::server (
   $syncpath = '/var/lib/mongo-sync'
 ) {
 
-  if ($::aws_environment == 'integration') or ( $::domain == 'backend.staging.publishing.service.gov.uk') {
+# This horrible if statement will be deleted once Mongo has been upgraded
+# in all environments
+  if ($::aws_environment == 'integration') or ($::aws_environment == 'staging') or ( $::domain == 'backend.staging.publishing.service.gov.uk') {
     $service_name = 'mongodb'
     $package_name = 'govuk-mongo'
     $config_filename = '/etc/mongodb.conf'
