@@ -1194,8 +1194,6 @@ monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_envir
 monitoring::checks::smokey::features:
   check_caching:
     feature: caching
-  check_calendars:
-    feature: calendars
   check_contacts:
     feature: contacts
   check_frontend:

@@ -395,8 +395,6 @@ monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::checks::smokey::features:
   check_caching:
     feature: caching
-  check_calendars:
-    feature: calendars
   check_contacts:
     feature: contacts
   check_frontend:

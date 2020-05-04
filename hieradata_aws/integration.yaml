@@ -386,8 +386,6 @@ monitoring::checks::smokey::features:
     feature: caching
   check_calculators:
     feature: calculators
-  check_calendars:
-    feature: calendars
   check_collections:
     feature: collections
   check_contacts:
