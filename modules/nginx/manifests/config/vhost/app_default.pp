@@ -4,6 +4,10 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether to create the config or not.
+#   Default: present
+#
 # [*app_hostname*]
 #   The "Host" value that the app expects in the HTML header request.
 #
@@ -21,11 +25,13 @@
 define nginx::config::vhost::app_default(
   $app_hostname,
   $app_port,
+  $ensure = 'present',
   $app_healthcheck_url = '/healthcheck',
   $default_healthcheck_url = '/_healthcheck',
 ) {
 
   nginx::config::site { 'default':
+    ensure  => $ensure,
     content => template('nginx/app-default-vhost.conf'),
   }
 
