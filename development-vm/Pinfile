@@ -11,7 +11,6 @@ process :backdrop_write
 process :bouncer
 process :'cache-clearing-service'
 process :calculators => [:static, :'content-store']
-process :calendars => [:static, :'content-store']
 process :collections => [:static, :'content-store', :'search-api']
 process :'collections-publisher' => [:'publishing-api', :'collections-publisher-worker', :'link-checker-api']
 process :'collections-publisher-worker'
@@ -51,7 +50,7 @@ process :'manuals-publisher' => [:'asset-manager', :'publishing-api', :'link-che
 process :'manuals-publisher-worker' => [:'publishing-api']
 process :mapit
 process :maslow
-process :publisher => [:'publishing-api', 'publisher-worker', :calendars, :'link-checker-api'] # for some requests also uses: mapit
+process :publisher => [:'publishing-api', 'publisher-worker', :'link-checker-api'] # for some requests also uses: mapit
 process :'publishing-api-read' => [:'publishing-api-web']
 process :'publishing-api' => [:'publishing-api-web', :'content-store', :'draft-content-store', :'router-api', :'draft-router-api', :'publishing-api-worker']
 process :'publishing-api-worker' => [:'content-store', :'router-api']
