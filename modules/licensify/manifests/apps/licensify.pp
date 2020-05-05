@@ -45,6 +45,21 @@ class licensify::apps::licensify (
     $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*'
   }
 
+  # This is for the nginx_extra_config passed in to govuk::app. The
+  # limit_req_zone can't be used within a server block, so use a
+  # conf.d file instead.
+  nginx::conf { 'rate-limiting':
+    content => "limit_req_zone \$binary_remote_addr zone=licensing:1m rate=1r/s;\n",
+  }
+
+  nginx::conf { 'real-ip-params':
+    content => "
+      real_ip_header True-Client-Ip;
+      real_ip_recursive on;
+      set_real_ip_from 0.0.0.0/0;
+    ",
+  }
+
   govuk::app { 'licensify':
     app_type                       => 'procfile',
     port                           => $port,
