@@ -426,7 +426,6 @@ govuk_ci::master::pipeline_jobs:
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   collections: {}
   content-store: {}
   email-alert-api: {}
@@ -623,7 +622,6 @@ govuk_jenkins::jobs::integration_deploy::applications:
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
