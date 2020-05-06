@@ -49,7 +49,7 @@ class monitoring::checks::smokey (
       $icinga_ensure = present
     }
   } else {
-    $service_ensure = absent
+    $service_ensure = stopped
     $icinga_ensure = absent
   }
 
