@@ -30,7 +30,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 149,
+  "id": 102,
   "links": [],
   "refresh": "1m",
   "rows": [
@@ -475,6 +475,205 @@
     },
     {
       "collapse": false,
+      "height": 245,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 16,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": "100",
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/delivery/",
+              "bars": false,
+              "fill": 5,
+              "lines": true,
+              "linewidth": 3,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.success), 'sum'), 6, 7)",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.failure), 'sum'), 6, 7)",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate.enqueued), 'max'), 8, 9)",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "D",
+              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate_high.enqueued), 'max'), 8, 9)",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "E",
+              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_transactional.enqueued), 'max'), 8, 9)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Delivery Jobs",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 12,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "maxDataPoints": "",
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "C",
+              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '5min', 'max', false)), 'upper')",
+              "textEditor": false
+            },
+            {
+              "refId": "A",
+              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '5min', 'avg', false)), 'mean')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Delivery Jobs (Duration)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "dtdurationms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Delivery Requests",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
       "height": 249,
       "panels": [
         {
@@ -638,199 +837,6 @@
       "repeatRowId": null,
       "showTitle": true,
       "title": "Notify Requests",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": 245,
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": true,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 16,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 1,
-          "links": [],
-          "maxDataPoints": "100",
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "/delivery_immediate/",
-              "bars": false,
-              "fill": 5,
-              "lines": true,
-              "linewidth": 3,
-              "yaxis": 2
-            }
-          ],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "hide": false,
-              "refId": "C",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.success), 'sum'), 6, 7)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.failure), 'sum'), 6, 7)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
-              "refId": "B",
-              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate.enqueued), 'max'), 8, 9)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
-              "refId": "D",
-              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate_high.enqueued), 'max'), 8, 9)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delivery Requests",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 12,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 1,
-          "links": [],
-          "maxDataPoints": "",
-          "nullPointMode": "connected",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "C",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '5min', 'max', false)), 'upper')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '5min', 'avg', false)), 'mean')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delivery Requests (Duration)",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "dtdurationms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": true,
-      "title": "Delivery Requests",
       "titleSize": "h6"
     },
     {
@@ -1664,5 +1670,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 5
+  "version": 3
 }
