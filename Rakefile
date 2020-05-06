@@ -66,6 +66,7 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::redirector::hosts
     jenkins_admin_permission_list
     monitoring::checks::sidekiq::enable_support_check
+    monitoring::checks::smokey::ensure
     monitoring::vpn_gateways::endpoints
     postgresql_api_slave_addresses_dr
     postgresql_api_slave_addresses_live
@@ -441,6 +442,7 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::client::alert_hostname
     monitoring::checks::sidekiq::enable_signon_check
     monitoring::checks::smokey::features
+    monitoring::checks::smokey::disable_during_data_sync
     monitoring::client::graphite_hostname
     monitoring::uptime_collector::aws
     nginx_enable_ssl
