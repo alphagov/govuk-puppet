@@ -47,7 +47,7 @@ govuk_env_sync::tasks:
     ensure: "present"
     hour: "4"
     minute: "30"
-    action: "pull"
+    action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "local-links-manager_production"
