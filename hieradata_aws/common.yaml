@@ -763,6 +763,9 @@ govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk_awscloudwatch::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
