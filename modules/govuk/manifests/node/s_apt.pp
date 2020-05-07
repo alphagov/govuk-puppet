@@ -122,6 +122,7 @@ class govuk::node::s_apt (
 
   aptly::repo { 'awscli': }
   aptly::repo { 'collectd': }
+  aptly::repo { 'awscloudwatch': }
   aptly::repo { 'elastic-beats': }
   aptly::repo { 'etcdctl': }
   aptly::repo { 'govuk-gatling': }
