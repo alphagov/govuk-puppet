@@ -465,7 +465,6 @@ govuk_ci::master::pipeline_jobs:
   gds-sso: {}
   gds_zendesk: {}
   govspeak: {}
-  govuk-app-deployment: {}
   govuk_ab_testing: {}
   govuk_app_config: {}
   govuk-cdn-config: {}
