@@ -48,15 +48,14 @@ class monitoring::checks::smokey (
       $service_ensure = running
       $icinga_ensure = present
     }
-  } else {
-    $service_ensure = stopped
-    $icinga_ensure = absent
-  }
 
-  service { 'smokey-loop':
-    ensure   => $service_ensure,
-    provider => 'upstart',
-    require  => File[$service_file],
+    service { 'smokey-loop':
+      ensure   => $service_ensure,
+      provider => 'upstart',
+      require  => File[$service_file],
+    }
+  } else {
+    $icinga_ensure = absent
   }
 
   if $disable_during_data_sync {
