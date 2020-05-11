@@ -712,12 +712,12 @@
             {
               "hide": false,
               "refId": "C",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure), 'sum'), 6, 7)"
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success), 'sum'), 6, 7)"
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success), 'sum'), 6, 7)"
+              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure), 'sum'), 6, 7)"
             }
           ],
           "thresholds": [],
