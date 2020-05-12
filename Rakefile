@@ -493,6 +493,8 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::pagerduty_drill::enabled
     router::nginx::robotstxt
     govuk::apps::govuk_crawler_worker::blacklist_paths
+    govuk_awscloudwatch::apt_mirror_hostname
+    govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint
     govuk_crawler::start_hour
     govuk_crawler::days
     govuk::apps::govuk_crawler_worker::crawler_threads
