@@ -78,6 +78,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_load_site_config
+  - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::whitehall_publisher_notifications
   - govuk_jenkins::jobs::whitehall_run_broken_link_checker
 
