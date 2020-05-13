@@ -56,7 +56,6 @@ node_class: &node_class
   calculators_frontend:
     apps:
       - calculators
-      - calendars
       - finder-frontend
       - licencefinder
       - smartanswers
@@ -153,7 +152,6 @@ deployable_applications: &deployable_applications
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
@@ -486,6 +484,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - jennifer.allum@digital.cabinet-office.gov.uk
   - jos.koetsier@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
+  - kelvin.gan@digital.cabinet-office.gov.uk
   - laurent.curau@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
@@ -764,6 +763,9 @@ govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk_awscloudwatch::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
@@ -1001,7 +1003,6 @@ grafana::dashboards::application_dashboards:
   authenticating-proxy: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   ckan:
     docs_name: 'ckanext-datagovuk'
     # No data in kibana
@@ -1023,7 +1024,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   content-store:
     dependent_app_5xx_errors:
-      - calendars
       - collections
       - contacts
       - email-alert-frontend
@@ -1125,7 +1125,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   static:
     dependent_app_5xx_errors:
-      - calendars
       - collections
       - contacts
       - email-alert-frontend
@@ -1192,24 +1191,66 @@ monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{::aws_enviro
 monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{::aws_environment}.govuk.digital/cgi-bin/icinga/status.cgi"
 
 monitoring::checks::smokey::features:
+  check_ab_testing:
+    feature: ab_testing
+  check_assets:
+    feature: assets
+  check_benchmarking:
+    feature: benchmarking
   check_caching:
     feature: caching
-  check_calendars:
-    feature: calendars
+  check_collections:
+    feature: collections
   check_contacts:
     feature: contacts
+  check_content_data_admin:
+    feature: content_data_admin
+  check_csv_preview:
+    feature: csv_preview
+  check_draft_environment:
+    feature: draft_environment
+  check_email_sign_up:
+    feature: email_sign_up
+  check_feedback:
+    feature: feedback
+  check_finder_frontend:
+    feature: finder_frontend
+  check_foreign_travel_advice:
+    feature: foreign_travel_advice
   check_frontend:
     feature: frontend
+  check_gov_uk:
+    feature: gov_uk
+  check_gov_uk_redirect:
+    feature: gov_uk_redirect
   check_government_frontend:
     feature: government_frontend
+  check_licence_finder:
+    feature: licence_finder
+  check_licensing:
+    feature: licensing
+  check_manuals_frontend:
+    feature: manuals_frontend
   check_mirror:
     feature: mirror
+  check_performance_platform:
+    feature: performance_platform
+  check_public_api:
+    feature: public_api
+  check_publishing_tools:
+    feature: publishing_tools
   check_router:
     feature: router
   check_search:
     feature: search
+  check_service_manual:
+    feature: service_manual
+  check_signon:
+    feature: signon
   check_smartanswers:
     feature: smartanswers
+  check_transition:
+    feature: transition
   check_waf:
     feature: waf
   check_whitehall:
@@ -1270,7 +1311,6 @@ rcs::tmptime: '7'
 router::assets_origin::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
   '/calculators/': "calculators"
-  '/calendars/': "calendars"
   '/collections/': "collections"
   '/email-alert-frontend/': "email-alert-frontend"
   '/feedback/': "feedback"

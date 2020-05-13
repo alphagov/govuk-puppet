@@ -300,6 +300,7 @@ define govuk::app::config (
 
     if ($create_default_nginx_config == true) and ($::aws_environment == 'staging' or $::aws_environment == 'production') {
       nginx::config::vhost::app_default { 'default':
+        ensure                  => $ensure,
         app_healthcheck_url     => $health_check_path,
         app_hostname            => $title,
         app_port                => $port,
@@ -307,7 +308,7 @@ define govuk::app::config (
       }
     }
 
-    if defined(Concat['/etc/nginx/lb_healthchecks.conf']) and $health_check_path != 'NOTSET' {
+    if $ensure == 'present' and defined(Concat['/etc/nginx/lb_healthchecks.conf']) and $health_check_path != 'NOTSET' {
       concat::fragment { "${title}_lb_healthcheck":
         target  => '/etc/nginx/lb_healthchecks.conf',
         content => "location /_healthcheck_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy${health_check_path};\n}\n",

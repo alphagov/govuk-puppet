@@ -48,6 +48,7 @@ govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publisher::run_fact_check_fetcher: true
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '792923cb-fa07-4dce-a4c5-e6320bd19c17'
 govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
@@ -350,6 +351,7 @@ monitoring::checks::aws_iam_key::enabled: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 90
 monitoring::checks::smokey::environment: 'production'
+monitoring::checks::smokey::ensure: 'absent'
 monitoring::contacts::notify_pager: true
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts'

@@ -9,3 +9,6 @@ location /api {
   allow all;
   auth_basic off;
 }
+
+limit_req_status 429;
+limit_req zone=licensing burst=40 nodelay;

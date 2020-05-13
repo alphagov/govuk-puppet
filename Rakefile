@@ -66,6 +66,7 @@ task :check_consistency_between_aws_and_carrenza do
     hosts::production::redirector::hosts
     jenkins_admin_permission_list
     monitoring::checks::sidekiq::enable_support_check
+    monitoring::checks::smokey::ensure
     monitoring::vpn_gateways::endpoints
     postgresql_api_slave_addresses_dr
     postgresql_api_slave_addresses_live
@@ -440,6 +441,8 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::checks::rds::servers
     monitoring::client::alert_hostname
     monitoring::checks::sidekiq::enable_signon_check
+    monitoring::checks::smokey::features
+    monitoring::checks::smokey::disable_during_data_sync
     monitoring::client::graphite_hostname
     monitoring::uptime_collector::aws
     nginx_enable_ssl
@@ -490,6 +493,8 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::pagerduty_drill::enabled
     router::nginx::robotstxt
     govuk::apps::govuk_crawler_worker::blacklist_paths
+    govuk_awscloudwatch::apt_mirror_hostname
+    govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint
     govuk_crawler::start_hour
     govuk_crawler::days
     govuk::apps::govuk_crawler_worker::crawler_threads

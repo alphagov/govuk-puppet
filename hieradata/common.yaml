@@ -426,7 +426,6 @@ govuk_ci::master::pipeline_jobs:
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   collections: {}
   content-store: {}
   email-alert-api: {}
@@ -460,31 +459,21 @@ govuk_ci::master::pipeline_jobs:
   # Other repositories
   asset_bom_removal-rails: {}
   backdrop-transactions-explorer-collector: {}
-  bulk-merger: {}
   deprecated_columns: {}
   email-alert-monitoring: {}
-  gapy: {}
   gds-api-adapters: {}
-  gds-scala-common: {}
   gds-sso: {}
   gds_zendesk: {}
   govspeak: {}
-  govuk-app-deployment: {}
-  govuk-aws: {}
-  govuk_admin_template: {}
   govuk_ab_testing: {}
   govuk_app_config: {}
   govuk-cdn-config: {}
   govuk-content-schema-test-helpers: {}
   govuk-csp-forwarder: {}
   govuk-dummy_content_store: {}
-  govuk-dependencies: {}
-  govuk-developer-docs: {}
   govuk_document_types: {}
-  govuk-docker: {}
   govuk-guix: {}
   govuk-jenkinslib: {}
-  govuk-lint: {}
   govuk_message_queue_consumer: {}
   govuk-provisioning: {}
   govuk_publishing_components: {}
@@ -514,6 +503,7 @@ govuk_ci::master::pipeline_jobs:
       - 'integration'
       - 'staging'
       - 'production'
+  middleman-search: {}
   omniauth-gds: {}
   optic14n: {}
   performanceplatform-client.py: {}
@@ -524,9 +514,7 @@ govuk_ci::master::pipeline_jobs:
   rack-logstasher: {}
   rails_translation_manager: {}
   router-data: {}
-  rubocop-govuk: {}
   scss-lint-govuk: {}
-  seal: {}
   search-api: {}
   shared_mustache: {}
   slimmer: {}
@@ -634,7 +622,6 @@ govuk_jenkins::jobs::integration_deploy::applications:
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}
-  calendars: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
@@ -1060,52 +1047,6 @@ monitoring::checks::http_password: "%{hiera('http_password')}"
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::contacts::slack_icinga_status_cgi_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/status.cgi"
 monitoring::contacts::slack_icinga_extinfo_cgi_url: "https://alert.%{hiera('app_domain')}/cgi-bin/icinga/extinfo.cgi"
-
-monitoring::checks::smokey::features:
-  check_ab_testing:
-    feature: ab_testing
-  check_assets:
-    feature: assets
-  check_benchmarking:
-    feature: benchmarking
-  check_collections:
-    feature: collections
-  check_content_data_admin:
-    feature: content_data_admin
-  check_csv_preview:
-    feature: csv_preview
-  check_draft_environment:
-    feature: draft_environment
-  check_email_sign_up:
-    feature: email_sign_up
-  check_feedback:
-    feature: feedback
-  check_finder_frontend:
-    feature: finder_frontend
-  check_foreign_travel_advice:
-    feature: foreign_travel_advice
-  check_gov_uk:
-    feature: gov_uk
-  check_gov_uk_redirect:
-    feature: gov_uk_redirect
-  check_licence_finder:
-    feature: licence_finder
-  check_licensing:
-    feature: licensing
-  check_manuals_frontend:
-    feature: manuals_frontend
-  check_performance_platform:
-    feature: performance_platform
-  check_public_api:
-    feature: public_api
-  check_publishing_tools:
-    feature: publishing_tools
-  check_service_manual:
-    feature: service_manual
-  check_signon:
-    feature: signon
-  check_transition:
-    feature: transition
 
 monitoring::vpn_gateways::endpoints:
   vpn_gateway_api_dr:

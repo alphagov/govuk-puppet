@@ -29,6 +29,8 @@ govuk::apps::publisher::email_group_dev: 'mainstream-publisher-notifications-sta
 govuk::apps::publisher::email_group_business: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::fact_check_subject_prefix: 'staging'
+govuk::apps::publisher::fact_check_reply_to_id: 'c07e5ba1-08fe-4080-acec-70e66f961c55'
 govuk::apps::search_admin::govuk_notify_template_id: '112842bb-d8a4-4511-90de-57dc5c8f27ec'
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
@@ -346,55 +348,11 @@ monitoring::checks::aws_iam_key::enabled: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 90
 monitoring::checks::smokey::environment: 'staging'
-monitoring::checks::smokey::disable_during_data_sync: true
+monitoring::checks::smokey::ensure: 'absent'
 monitoring::uptime_collector::environment: 'staging'
 monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts-staging'
 monitoring::contacts::slack_username: 'Staging (Carrenza)'
-
-monitoring::checks::smokey::features:
-  check_ab_testing:
-    feature: ab_testing
-  check_assets:
-    feature: assets
-  check_benchmarking:
-    feature: benchmarking
-  check_collections:
-    feature: collections
-  check_content_data_admin:
-    feature: content_data_admin
-  check_csv_preview:
-    feature: csv_preview
-  check_draft_environment:
-    feature: draft_environment
-  check_email_sign_up:
-    feature: email_sign_up
-  check_feedback:
-    feature: feedback
-  check_finder_frontend:
-    feature: finder_frontend
-  check_foreign_travel_advice:
-    feature: foreign_travel_advice
-  check_gov_uk:
-    feature: gov_uk
-  check_gov_uk_redirect:
-    feature: gov_uk_redirect
-  check_licence_finder:
-    feature: licence_finder
-  check_licensing:
-    feature: licensing
-  check_manuals_frontend:
-    feature: manuals_frontend
-  check_public_api:
-    feature: public_api
-  check_publishing_tools:
-    feature: publishing_tools
-  check_service_manual:
-    feature: service_manual
-  check_signon:
-    feature: signon
-  check_transition:
-    feature: transition
 
 postfix::smarthost:
   - 'email-smtp.us-east-1.amazonaws.com:587'

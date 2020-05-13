@@ -6,12 +6,16 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether to enable the smokey-loop service.
+#   Default: 'present'
 # [*features*]
 #   A hash of features that should be executed by Icinga.
 # [*environment*]
 #   String to pass to the tests_json_output.sh script, e.g. integration
 #
 class monitoring::checks::smokey (
+  $ensure = 'present',
   $features = {},
   $environment = '',
   $disable_during_data_sync = false,
@@ -23,7 +27,7 @@ class monitoring::checks::smokey (
   include govuk::apps::smokey
 
   user { 'smokey':
-    ensure     => present,
+    ensure     => $ensure,
     name       => 'smokey',
     managehome => true,
     shell      => '/bin/bash',
@@ -31,23 +35,27 @@ class monitoring::checks::smokey (
   }
 
   file { $service_file:
-    ensure  => present,
+    ensure  => $ensure,
     content => template('monitoring/smokey-loop.conf'),
     require => Class['govuk::apps::smokey'],
   }
 
-  if $disable_during_data_sync and $::data_sync_in_progress {
-    $service_ensure = stopped
-    $icinga_ensure = absent
-  } else {
-    $service_ensure = running
-    $icinga_ensure = present
-  }
+  if $ensure == 'present' {
+    if $disable_during_data_sync and $::data_sync_in_progress {
+      $service_ensure = stopped
+      $icinga_ensure = absent
+    } else {
+      $service_ensure = running
+      $icinga_ensure = present
+    }
 
-  service { 'smokey-loop':
-    ensure   => $service_ensure,
-    provider => 'upstart',
-    require  => File[$service_file],
+    service { 'smokey-loop':
+      ensure   => $service_ensure,
+      provider => 'upstart',
+      require  => File[$service_file],
+    }
+  } else {
+    $icinga_ensure = absent
   }
 
   if $disable_during_data_sync {

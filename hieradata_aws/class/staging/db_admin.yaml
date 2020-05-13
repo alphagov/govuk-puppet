@@ -43,6 +43,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/local-links-manager_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  "push_local-links-manager_staging_daily":
+    ensure: "present"
+    hour: "4"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "local-links-manager_production"
+    temppath: "/tmp/local-links-manager_staging"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
   "pull_content_data_admin_production_daily":
     ensure: "present"
     hour: "0"

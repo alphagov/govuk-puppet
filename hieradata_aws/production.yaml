@@ -43,7 +43,6 @@ node_class: &node_class
   calculators_frontend:
     apps:
       - calculators
-      - calendars
       - finder-frontend
       - licencefinder
       - smartanswers
@@ -168,6 +167,7 @@ govuk::apps::local_links_manager::run_links_ga_export: true
 
 govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '792923cb-fa07-4dce-a4c5-e6320bd19c17'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'

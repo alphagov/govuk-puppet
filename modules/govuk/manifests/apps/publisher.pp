@@ -71,6 +71,10 @@
 # [*fact_check_password*]
 #   The password to use for Basic Auth for fact check
 #
+# [*fact_check_reply_to_id*]
+#   The UUID (configured in Notify) for the reply-to address to be used on
+#   fact-check emails
+#
 # [*email_group_dev*]
 #   The email address to use dev alerts
 #
@@ -116,8 +120,10 @@ class govuk::apps::publisher(
     $oauth_secret = undef,
     $run_fact_check_fetcher = false,
     $fact_check_address_format = undef,
+    $fact_check_subject_prefix = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
+    $fact_check_reply_to_id = undef,
     $email_group_dev = undef,
     $email_group_business = undef,
     $email_group_citizen = undef,
@@ -212,12 +218,18 @@ class govuk::apps::publisher(
     "${title}-FACT_CHECK_ADDRESS_FORMAT":
       varname => 'FACT_CHECK_ADDRESS_FORMAT',
       value   => $fact_check_address_format;
+    "${title}-FACT_CHECK_SUBJECT_PREFIX":
+      varname => 'FACT_CHECK_SUBJECT_PREFIX',
+      value   => $fact_check_subject_prefix;
     "${title}-FACT_CHECK_USERNAME":
       varname => 'FACT_CHECK_USERNAME',
       value   => $fact_check_username;
     "${title}-FACT_CHECK_PASSWORD":
       varname => 'FACT_CHECK_PASSWORD',
       value   => $fact_check_password;
+    "${title}-FACT_CHECK_REPLY_TO_ID":
+      varname => 'FACT_CHECK_REPLY_TO_ID',
+      value   => $fact_check_reply_to_id;
     "${title}-EMAIL_GROUP_DEV":
       varname => 'EMAIL_GROUP_DEV',
       value   => $email_group_dev;
