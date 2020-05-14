@@ -79,12 +79,16 @@ location / {
 }
 
 error_page 400 /400.html;
+error_page 401 /401.html;
 error_page 403 /403.html;
-error_page 404 401 /404.html;
+error_page 404 /404.html;
+error_page 405 /405.html;
 error_page 406 /406.html;
 error_page 410 /410.html;
 error_page 422 /422.html;
-error_page 500 502 /500.html;
+error_page 429 /429.html;
+error_page 500 /500.html;
+error_page 502 /502.html;
 error_page 503 /503.html;
 error_page 504 /504.html;
 
@@ -100,6 +104,10 @@ location /400.html {
   root /usr/share/nginx/www;
   internal;
 }
+location /401.html {
+  root /usr/share/nginx/www;
+  internal;
+}
 location /403.html {
   root /usr/share/nginx/www;
   internal;
@@ -108,6 +116,10 @@ location /404.html {
   # Set Cache-Control headers on 404 pages since we overide those set by apps.
   # So that we dont fall through to the default provided by the CDN.
   add_header Cache-Control "public, max-age=<%= @page_ttl_404 -%>" always;
+  root /usr/share/nginx/www;
+  internal;
+}
+location /405.html {
   root /usr/share/nginx/www;
   internal;
 }
@@ -120,6 +132,10 @@ location /410.html {
   internal;
 }
 location /422.html {
+  root /usr/share/nginx/www;
+  internal;
+}
+location /429.html {
   root /usr/share/nginx/www;
   internal;
 }
