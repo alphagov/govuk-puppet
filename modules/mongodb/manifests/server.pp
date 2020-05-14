@@ -37,9 +37,12 @@ class mongodb::server (
   $syncpath = '/var/lib/mongo-sync'
 ) {
 
-# This horrible if statement will be deleted once Mongo has been upgraded
-# in all environments
-  if ($::aws_environment == 'integration') or ($::aws_environment == 'staging') or ( $::domain == 'backend.staging.publishing.service.gov.uk') {
+# These conditionals will be removed after the Publishing Apps migration when we 
+# will shutdown the self hosted mongo instances. For now mongo 2.6 is running
+# in: AWS Integration, AWS Staging, Carrenza Staging and Carrenza Production.
+
+  if ($::aws_environment == 'integration') or ($::aws_environment == 'staging') or ( $::domain == 'backend.staging.publishing.service.gov.uk') or ($::domain == 'backend.publishing.service.gov.uk') {
+
     $service_name = 'mongodb'
     $package_name = 'govuk-mongo'
     $config_filename = '/etc/mongodb.conf'
