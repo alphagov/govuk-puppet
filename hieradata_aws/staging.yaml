@@ -187,6 +187,7 @@ govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::fact_check_subject_prefix: 'staging'
 govuk::apps::publisher::fact_check_reply_to_id: 'c07e5ba1-08fe-4080-acec-70e66f961c55'
+govuk::apps::publisher::fact_check_reply_to_address: 'factcheck@alphagov.co.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
