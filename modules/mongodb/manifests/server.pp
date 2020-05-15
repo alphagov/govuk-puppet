@@ -37,28 +37,21 @@ class mongodb::server (
   $syncpath = '/var/lib/mongo-sync'
 ) {
 
-# These conditionals will be removed after the Publishing Apps migration when we
-# will shutdown the self hosted mongo instances. For now mongo 2.6 is running
-# in: AWS Integration, AWS Staging, Carrenza Staging, Carrenza Production, AWS Production.
-
-  if ($::aws_environment == 'integration') or ($::aws_environment == 'staging') or ($::aws_environment == 'production') or ( $::domain == 'backend.staging.publishing.service.gov.uk') or ($::domain == 'backend.publishing.service.gov.uk') {
-
+  if versioncmp($version, '3.0.0') >= 0 {
+    $service_name = 'mongod'
+    $package_name = 'mongodb-org'
+    $config_filename = '/etc/mongod.conf'
+    $template_name = 'mongod.conf.erb'
+  } elsif $version == '2.6.12' {
     $service_name = 'mongodb'
     $package_name = 'govuk-mongo'
     $config_filename = '/etc/mongodb.conf'
     $template_name = 'mongodb.conf'
   } else {
-    if versioncmp($version, '3.0.0') >= 0 {
-      $service_name = 'mongod'
-      $package_name = 'mongodb-org'
-      $config_filename = '/etc/mongod.conf'
-      $template_name = 'mongod.conf.erb'
-    } else {
-      $service_name = 'mongodb'
-      $package_name = 'mongodb-10gen'
-      $config_filename = '/etc/mongodb.conf'
-      $template_name = 'mongodb.conf'
-    }
+    $service_name = 'mongodb'
+    $package_name = 'mongodb-10gen'
+    $config_filename = '/etc/mongodb.conf'
+    $template_name = 'mongodb.conf'
   }
 
   validate_bool($development)
