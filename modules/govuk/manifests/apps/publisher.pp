@@ -75,6 +75,10 @@
 #   The UUID (configured in Notify) for the reply-to address to be used on
 #   fact-check emails
 #
+# [*fact_check_reply_to_address*]
+#   The reply-to address to be used on fact-check emails (should match the
+#   one referred to by fact_check_reply_to_id)
+#
 # [*email_group_dev*]
 #   The email address to use dev alerts
 #
@@ -124,6 +128,7 @@ class govuk::apps::publisher(
     $fact_check_username = undef,
     $fact_check_password = undef,
     $fact_check_reply_to_id = undef,
+    $fact_check_reply_to_address = undef,
     $email_group_dev = undef,
     $email_group_business = undef,
     $email_group_citizen = undef,
@@ -230,6 +235,9 @@ class govuk::apps::publisher(
     "${title}-FACT_CHECK_REPLY_TO_ID":
       varname => 'FACT_CHECK_REPLY_TO_ID',
       value   => $fact_check_reply_to_id;
+    "${title}-FACT_CHECK_REPLY_TO_ADDRESS":
+      varname => 'FACT_CHECK_REPLY_TO_ADDRESS',
+      value   => $fact_check_reply_to_address;
     "${title}-EMAIL_GROUP_DEV":
       varname => 'EMAIL_GROUP_DEV',
       value   => $email_group_dev;
