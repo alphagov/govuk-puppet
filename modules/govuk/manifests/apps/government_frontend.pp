@@ -14,6 +14,10 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.
+#   Default: undef
+#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -39,6 +43,7 @@ class govuk::apps::government_frontend(
   $port = '3090',
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,
@@ -49,12 +54,15 @@ class govuk::apps::government_frontend(
     app => 'government-frontend',
   }
 
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
   }
+
   govuk::app { 'government-frontend':
     app_type                 => 'rack',
     port                     => $port,
