@@ -591,6 +591,8 @@ govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::router::api_port: "%{hiera('govuk::apps::router_api::port')}"
+
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
