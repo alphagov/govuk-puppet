@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3064
 #
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
@@ -98,7 +97,7 @@
 #   The template ID used to send email via GOV.UK Notify.
 #
 class govuk::apps::specialist_publisher(
-  $port = '3064',
+  $port,
   $asset_manager_bearer_token = undef,
   $sentry_dsn = undef,
   $enabled = false,

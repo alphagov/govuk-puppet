@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3093
 #
 # [*content_store*]
 #   Is a URL that tells publishing API which content store to save
@@ -121,7 +120,7 @@
 #
 class govuk::apps::publishing_api(
   $ensure = 'present',
-  $port = '3093',
+  $port,
   $content_store = '',
   $content_store_bearer_token = undef,
   $draft_content_store = '',

@@ -100,7 +100,7 @@
 #
 class govuk::apps::local_links_manager(
   $ensure = 'present',
-  $port = 3121,
+  $port,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $oauth_id = undef,

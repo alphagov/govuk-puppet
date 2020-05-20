@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port which the app runs on.
-#   Default: 3000
 #
 # [*enable_procfile_worker*]
 #   Boolean, whether the procfile worker should be enabled
@@ -106,7 +105,7 @@
 #   The template ID used to send email via GOV.UK Notify.
 #
 class govuk::apps::publisher(
-    $port = '3000',
+    $port,
     $enable_procfile_worker = true,
     $publishing_api_bearer_token = undef,
     $asset_manager_bearer_token = undef,

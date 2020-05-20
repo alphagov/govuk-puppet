@@ -7,7 +7,7 @@
 #
 # [*port*]
 #   The port that Asset Manager is served on.
-#   Default: 3037
+#
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
 #   Default: true
@@ -56,7 +56,7 @@
 #
 class govuk::apps::asset_manager(
   $enabled = true,
-  $port = '3037',
+  $port,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $oauth_id = undef,

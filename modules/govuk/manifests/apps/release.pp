@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that the release app is served on.
-#   Default: 3036
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -39,7 +38,7 @@
 #   Sets the OAuth Secret Key
 #
 class govuk::apps::release(
-  $port = '3036',
+  $port,
   $enabled = true,
   $sentry_dsn = undef,
   $secret_key_base = undef,

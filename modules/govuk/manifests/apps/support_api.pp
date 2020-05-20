@@ -45,7 +45,6 @@
 #
 # [*port*]
 #   The port where the Rails app is running.
-#   Default: 3075
 #
 # [*pp_data_bearer_token*]
 #   Bearer token used to connect to Performance Platform.
@@ -100,7 +99,7 @@ class govuk::apps::support_api(
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3075',
+  $port,
   $pp_data_url = undef,
   $pp_data_bearer_token = undef,
   $redis_host = undef,

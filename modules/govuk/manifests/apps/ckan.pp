@@ -41,8 +41,8 @@
 #
 class govuk::apps::ckan (
   $enabled                        = false,
-  $port                           = '3220',
-  $pycsw_port                     = '3221',
+  $port,
+  $pycsw_port,
   $db_hostname                    = undef,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',

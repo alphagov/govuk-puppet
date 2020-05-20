@@ -7,7 +7,6 @@
 #   Port that the sidekiq monitoring web frontend listens
 #   on and proxies requests to the individual app sidekiq
 #   interfaces.
-#   Default: 3211
 #
 # [*nginx_location*]
 #   Path on the server where the public folder of the
@@ -175,7 +174,7 @@
 #   Default: undef
 #
 class govuk::apps::sidekiq_monitoring (
-  $port = 3211,
+  $port,
   $nginx_location = undef,
   $asset_manager_redis_host = undef,
   $asset_manager_redis_port = undef,

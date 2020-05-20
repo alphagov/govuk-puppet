@@ -26,7 +26,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3093
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
@@ -73,7 +72,7 @@ class govuk::apps::support(
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3031',
+  $port,
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,

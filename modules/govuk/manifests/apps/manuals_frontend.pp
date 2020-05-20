@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port that the app is served on.
-#   Default: 3072
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
@@ -24,7 +23,7 @@
 #
 class govuk::apps::manuals_frontend(
   $vhost = 'manuals-frontend',
-  $port = '3072',
+  $port,
   $publishing_api_bearer_token = undef,
   $sentry_dsn = undef,
   $secret_key_base = undef,

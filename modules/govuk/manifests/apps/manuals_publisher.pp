@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that Manuals Publisher is served on.
-#   Default: 3064
 #
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
@@ -70,7 +69,7 @@
 #   Default: undef
 #
 class govuk::apps::manuals_publisher(
-  $port = 3205,
+  $port,
   $asset_manager_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
   $enable_procfile_worker = true,

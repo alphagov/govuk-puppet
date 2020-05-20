@@ -108,7 +108,7 @@ class govuk::apps::content_data_api(
   $google_private_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3235',
+  $port,
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_vhost = '/',

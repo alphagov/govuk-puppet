@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port the app will listen on.
-#   Default: 3233
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker service.
@@ -113,7 +112,7 @@
 
 class govuk::apps::search_api(
   $rabbitmq_user,
-  $port = '3233',
+  $port,
   $enable_procfile_worker = true,
   $enable_govuk_index_listener = false,
   $enable_bulk_reindex_listener = false,

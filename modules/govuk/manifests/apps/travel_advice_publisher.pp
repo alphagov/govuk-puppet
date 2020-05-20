@@ -41,7 +41,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3035
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
@@ -83,7 +82,7 @@ class govuk::apps::travel_advice_publisher(
   $mongodb_password = '',
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3035',
+  $port,
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,

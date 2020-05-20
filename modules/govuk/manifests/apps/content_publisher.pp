@@ -101,7 +101,7 @@
 #   An email address that intercepted Notify emails can be sent to
 #
 class govuk::apps::content_publisher (
-  $port = '3221',
+  $port,
   $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,

@@ -22,7 +22,6 @@
 #
 # [*port*]
 #   The port where the Rails app is running.
-#   Default: 3073
 #
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
@@ -73,7 +72,7 @@ class govuk::apps::search_admin(
   $db_password = undef,
   $db_username = undef,
   $sentry_dsn = undef,
-  $port = '3073',
+  $port,
   $publishing_api_bearer_token = undef,
   $oauth_id = undef,
   $oauth_secret = undef,

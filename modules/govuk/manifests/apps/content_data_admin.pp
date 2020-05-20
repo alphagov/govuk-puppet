@@ -81,7 +81,7 @@
 #   The template ID used to send email via GOV.UK Notify.
 #
 class govuk::apps::content_data_admin (
-  $port                         = '3230',
+  $port,
   $enabled                      = true,
   $secret_key_base              = undef,
   $sentry_dsn                   = undef,

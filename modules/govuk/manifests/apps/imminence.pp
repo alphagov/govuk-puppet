@@ -12,7 +12,6 @@
 #
 # [*port*]
 #   The port that Imminence is served on.
-#   Default: 3002
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the Procfile worker.
@@ -54,7 +53,7 @@
 #
 class govuk::apps::imminence(
   $ensure = 'present',
-  $port = '3002',
+  $port,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $mongodb_nodes = undef,

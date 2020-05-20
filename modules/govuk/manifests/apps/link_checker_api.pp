@@ -52,7 +52,6 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3208
 #
 # [*redis_host*]
 #   Redis host for sidekiq.
@@ -89,7 +88,7 @@ class govuk::apps::link_checker_api (
   $google_api_key = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = 3208,
+  $port,
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,

@@ -9,7 +9,6 @@
 #
 # [*port*]
 #   The port that transition is served on.
-#   Default: 3044
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
@@ -64,7 +63,7 @@
 #
 class govuk::apps::transition(
   $ensure = 'present',
-  $port = '3044',
+  $port,
   $enable_procfile_worker = true,
   $oauth_id = undef,
   $oauth_secret = undef,

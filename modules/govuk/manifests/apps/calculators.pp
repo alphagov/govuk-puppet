@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3047
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -20,7 +19,7 @@
 #   The key for Rails to use when signing/encrypting sessions.
 #
 class govuk::apps::calculators(
-  $port = '3047',
+  $port,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,

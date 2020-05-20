@@ -14,7 +14,6 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3107
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -45,7 +44,7 @@
 class govuk::apps::authenticating_proxy(
   $mongodb_nodes,
   $mongodb_name = 'authenticating_proxy_production',
-  $port = '3107',
+  $port,
   $sentry_dsn = undef,
   $govuk_upstream_uri = 'http://localhost:3054',
   $oauth_id = undef,

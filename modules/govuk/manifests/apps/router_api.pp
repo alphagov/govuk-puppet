@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that router-api listens on.
-#   Default: 3056
 #
 # [*mongodb_name*]
 #   The Mongo database to be used.
@@ -41,7 +40,7 @@
 #
 
 class govuk::apps::router_api(
-  $port = '3056',
+  $port,
   $mongodb_name,
   $mongodb_nodes,
   $mongodb_username = '',

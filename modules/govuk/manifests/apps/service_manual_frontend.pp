@@ -25,7 +25,7 @@
 #
 class govuk::apps::service_manual_frontend(
   $vhost = 'service-manual-frontend',
-  $port = 3122,
+  $port,
   $enabled = true,
   $sentry_dsn = undef,
   $secret_key_base = undef,

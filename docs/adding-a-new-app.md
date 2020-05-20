@@ -11,7 +11,7 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #
 # === Parameters
 # [*port*]
-#   What port should the app run on? Find the next free one in development-vm/Procfile
+#   What port the app should run on.
 #
 # [*enabled*]
 #   Whether to install or uninstall the app. Defaults to true (install on all enviroments)
@@ -49,7 +49,7 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #   The database name to use for the DATABASE_URL environment variable
 #
 class govuk::apps::myapp (
-  $port = 99999999,
+  $port,
   $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,
@@ -162,6 +162,17 @@ class govuk::apps::myapp::db (
     rds                     => $rds,
   }
 }
+```
+
+Find the next available port number by looking in `hieradata_aws/common.yaml`
+and finding the block of port numbers for the existing apps.
+
+```
+# hieradata/common.yaml
+govuk::apps::myapp::port: 999999
+
+# hieradata_aws/common.yaml
+govuk::apps::myapp::port: 999999
 ```
 
 Start with the following configuration for the app module variables.
