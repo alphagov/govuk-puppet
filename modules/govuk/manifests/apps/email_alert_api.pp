@@ -184,16 +184,14 @@ class govuk::apps::email_alert_api(
     notify_service  => $enabled,
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { 'email-alert-api':
-      type                      => 'postgresql',
-      username                  => $db_username,
-      password                  => $db_password,
-      host                      => $db_hostname,
-      port                      => $db_port,
-      allow_prepared_statements => $db_allow_prepared_statements,
-      database                  => $db_name,
-    }
+  govuk::app::envvar::database_url { 'email-alert-api':
+    type                      => 'postgresql',
+    username                  => $db_username,
+    password                  => $db_password,
+    host                      => $db_hostname,
+    port                      => $db_port,
+    allow_prepared_statements => $db_allow_prepared_statements,
+    database                  => $db_name,
   }
 
   govuk::app::envvar::redis { 'email-alert-api':

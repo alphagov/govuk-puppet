@@ -41,7 +41,7 @@ ENV.fetch('classes').split(",").each do |class_name|
     let(:node) { "#{node_hostname}-1.example.com" }
     let(:facts) do
       {
-        :environment => (class_name =~ /^development$/ ? "development" : 'vagrant'),
+        :environment => ('vagrant'),
         :concat_basedir => '/var/lib/puppet/concat/',
         :kernel => 'Linux',
         :memorysize =>  '3.86 GB',

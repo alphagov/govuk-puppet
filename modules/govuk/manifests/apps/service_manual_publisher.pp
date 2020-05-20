@@ -132,15 +132,13 @@ class govuk::apps::service_manual_publisher(
     }
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type                      => 'postgresql',
-      username                  => $db_username,
-      password                  => $db_password,
-      host                      => $db_hostname,
-      port                      => $db_port,
-      allow_prepared_statements => $db_allow_prepared_statements,
-      database                  => $db_name,
-    }
+  govuk::app::envvar::database_url { $app_name:
+    type                      => 'postgresql',
+    username                  => $db_username,
+    password                  => $db_password,
+    host                      => $db_hostname,
+    port                      => $db_port,
+    allow_prepared_statements => $db_allow_prepared_statements,
+    database                  => $db_name,
   }
 }

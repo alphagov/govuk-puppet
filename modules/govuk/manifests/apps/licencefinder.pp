@@ -50,11 +50,9 @@ class govuk::apps::licencefinder(
     repo_name               => 'licence-finder',
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::mongodb_uri { $app_name:
-      hosts    => $mongodb_nodes,
-      database => $mongodb_name,
-    }
+  govuk::app::envvar::mongodb_uri { $app_name:
+    hosts    => $mongodb_nodes,
+    database => $mongodb_name,
   }
 
   if $secret_key_base {

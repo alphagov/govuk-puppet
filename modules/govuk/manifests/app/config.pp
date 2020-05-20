@@ -198,6 +198,9 @@ define govuk::app::config (
       "${title}-SENTRY_DSN":
         varname => 'SENTRY_DSN',
         value   => $sentry_dsn;
+      "${title}-GOVUK_APP_LOGROOT":
+        varname => 'GOVUK_APP_LOGROOT',
+        value   => "/var/log/${title}";
     }
 
     if $override_search_location {
@@ -208,13 +211,6 @@ define govuk::app::config (
         "${title}-PLEK_SERVICE_RUMMAGER_URI":
           varname => 'PLEK_SERVICE_RUMMAGER_URI',
           value   => $override_search_location;
-      }
-    }
-
-    if 'development' != $::govuk_node_class {
-      govuk::app::envvar { "${title}-GOVUK_APP_LOGROOT":
-        varname => 'GOVUK_APP_LOGROOT',
-        value   => "/var/log/${title}",
       }
     }
 
