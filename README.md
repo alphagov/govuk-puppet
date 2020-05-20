@@ -11,12 +11,6 @@ Dependencies are managed with [Bundler](http://bundler.io/) and
 [librarian-puppet](http://librarian-puppet.com/), but hopefully this should be
 transparent unless you need to update the dependencies yourself.
 
-If you're on a GOV.UK development VM, you should be able to run
-
-    $ govuk_puppet
-
-which is a thin wrapper around the `puppet-apply-dev` script.
-
 ## Standards
 
 Please familiarise yourself with our Puppet standards before contributing to
@@ -153,7 +147,7 @@ variable `classes` for the rake task, e.g.
 
 During spec tests `spec/fixtures/hiera/hiera.yaml` is used to configure hieradata which *only* uses `spec/fixtures/hieradata/common.yaml` for its values (i.e. nothing from `hieradata/`).
 
-During node tests the hieradata uses the `vagrant` and `development` environments. The `development` environment should only be used if a value in `ENV['classes']` matches the regexp `/^development$/` (i.e. in normal operation it will use `vagrant`). This can mean that settings in `common.yaml` will be overwritten in accordance with hiera's `:hierarchy`.
+During node tests the hieradata uses the `vagrant` environment.
 
 ### Test Coverage
 
