@@ -99,17 +99,15 @@ class govuk::apps::myapp (
       value          => $oauth_secret;
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type                      => 'postgresql',
-      username                  => $db_username,
-      password                  => $db_password,
-      host                      => $db_hostname,
-      port                      => $db_port,
-      allow_prepared_statements => $db_allow_prepared_statements,
-      database                  => $db_name,
-   }
-  }
+  govuk::app::envvar::database_url { $app_name:
+    type                      => 'postgresql',
+    username                  => $db_username,
+    password                  => $db_password,
+    host                      => $db_hostname,
+    port                      => $db_port,
+    allow_prepared_statements => $db_allow_prepared_statements,
+    database                  => $db_name,
+ }
 }
 ```
 
@@ -205,13 +203,9 @@ Check if your app appears in these files (use existing apps as examples).
   * hieradata_aws/common.yaml (node_class)
   * hieradata_aws/common.yaml (deployable_applications)
   * hieradata_aws/common.yaml (grafana::dashboards::application_dashboards)
-  * hieradata/development.yaml (hosts::development::apps)
   * modules/govuk/manifests/node/s_db_admin.pp
   * modules/govuk/manifests/node/s_postgresql_base.pp
   * modules/grafana/files/dashboards/processes.json
   * modules/govuk/manifests/node/s_backend_lb.pp (if a backend app)
   * modules/govuk/manifests/node/s_frontend_lb.pp (if a frontend app)
   * modules/govuk_jenkins/templates/jobs/data_sync_complete_integration.yaml.erb
-  * development-vm/Procfile
-  * development-vm/Pinfile
-  * development-vm/alphagov_repos

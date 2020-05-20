@@ -4,7 +4,7 @@
 #
 # === Parameters
 # [*port*]
-#   What port should the app run on? Find the next free one in development-vm/Procfile
+#   What port should the app run on?
 #
 # [*enabled*]
 #   Whether to install the app. Don't change the default (false) until production-ready
