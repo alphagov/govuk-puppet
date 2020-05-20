@@ -223,6 +223,7 @@ govuk::apps::support::port: 3031
 govuk::apps::travel_advice_publisher::port: 3035
 govuk::apps::release::port: 3036
 govuk::apps::asset_manager::port: 3037
+# asset-manager sidekiq monitoring uses 3038
 govuk::apps::transition::port: 3044
 govuk::apps::calculators::port: 3047
 govuk::apps::bouncer::port: 3049
@@ -241,8 +242,13 @@ govuk::apps::govuk_crawler_worker::port: 3074
 govuk::apps::support_api::port: 3075
 govuk::apps::short_url_manager::port: 3076
 govuk::apps::collections_publisher::port: 3078
+# publisher sidekiq monitoring uses 3079
+# signon sidekiq monitoring uses 3080
+# whitehall sidekiq monitoring uses 3081
 govuk::apps::info_frontend::port: 3085
+# transition sidekiq monitoring uses 3086
 govuk::apps::email_alert_api::port: 3088
+# email-alert-api sidekiq monitoring uses 3089
 govuk::apps::government_frontend::port: 3090
 govuk::apps::publishing_api::port: 3093
 govuk::apps::email_alert_frontend::port: 3099
@@ -251,19 +257,33 @@ govuk::apps::backdrop_write::port: 3102
 govuk::apps::authenticating_proxy::port: 3107
 govuk::apps::mapit::port: 3108
 govuk::apps::service_manual_publisher::port: 3111
+# publishing-api sidekiq monitoring uses 3114
 govuk::apps::content_tagger::port: 3116
+# imminence sidekiq monitoring uses 3120
 govuk::apps::local_links_manager::port: 3121
 govuk::apps::service_manual_frontend::port: 3122
+# content-tagger sidekiq monitoring uses 3125
+# travel-advice-publisher sidekiq monitoring uses 3203
 govuk::apps::manuals_publisher::port: 3205
 govuk::apps::link_checker_api::port: 3208
+# link-checker-api sidekiq monitoring uses 3209
+# specialist-publisher sidekiq monitoring uses 3210
 govuk::apps::sidekiq_monitoring::port: 3211
 govuk::apps::publishing_components::port: 3212
+# manuals-publisher sidekiq monitoring uses 3214
+# support-api sidekiq monitoring uses 3215
+# collections-publisher sidekiq monitoring uses 3216
 govuk::apps::ckan::port: 3220
 govuk::apps::ckan::pycsw_port: 3221
 govuk::apps::content_publisher::port: 3221
 govuk::apps::content_data_admin::port: 3230
 govuk::apps::search_api::port: 3233
+# search-api sidekiq monitoring uses 3234
 govuk::apps::content_data_api::port: 3235
+# content-publisher sidekiq monitoring uses 3236
+# content-data-api sidekiq monitoring uses 3239
+# content-data-admin sidekiq monitoring uses 3240
+# search-admin sidekiq monitoring uses 3241
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
