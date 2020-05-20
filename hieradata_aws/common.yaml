@@ -482,7 +482,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - edward.kerry@digital.cabinet-office.gov.uk
   - huw.diprose@digital.cabinet-office.gov.uk
   - jennifer.allum@digital.cabinet-office.gov.uk
-  - jos.koetsier@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
   - kelvin.gan@digital.cabinet-office.gov.uk
   - laurent.curau@digital.cabinet-office.gov.uk
