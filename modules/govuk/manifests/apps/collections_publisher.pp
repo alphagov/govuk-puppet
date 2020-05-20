@@ -7,7 +7,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3078
 #
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
@@ -59,7 +58,7 @@
 #   Default: undef
 #
 class govuk::apps::collections_publisher(
-  $port = '3078',
+  $port,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,

@@ -40,7 +40,7 @@
 #
 class govuk::apps::government_frontend(
   $vhost = 'government-frontend',
-  $port = '3090',
+  $port,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,

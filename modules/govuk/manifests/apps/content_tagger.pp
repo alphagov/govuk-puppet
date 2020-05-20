@@ -65,7 +65,7 @@
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
 class govuk::apps::content_tagger(
-  $port = '3116',
+  $port,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $db_hostname = undef,

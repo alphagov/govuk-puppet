@@ -71,7 +71,7 @@ class govuk::apps::service_manual_publisher(
   $sentry_dsn = undef,
   $oauth_id = '',
   $oauth_secret = '',
-  $port = 3111,
+  $port,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
   $asset_manager_bearer_token = undef,

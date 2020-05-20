@@ -110,7 +110,7 @@
 #   Default: undef
 #
 class govuk::apps::email_alert_api(
-  $port = '3088',
+  $port,
   $enabled = false,
   $enable_public_proxy = true,
   $enable_procfile_worker = true,

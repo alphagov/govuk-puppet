@@ -79,7 +79,7 @@ class govuk::apps::contacts(
   $oauth_secret = undef,
   $secret_key_base = undef,
   $vhost = 'contacts-admin',
-  $port = '3051',
+  $port,
   $vhost_protected = undef,
   $extra_aliases = [],
   $publishing_api_bearer_token = undef,

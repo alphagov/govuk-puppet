@@ -49,7 +49,7 @@ class govuk::apps::govuk_crawler_worker (
   $crawler_threads = '4',
   $enabled   = false,
   $mirror_root = '/mnt/crawler_worker',
-  $port = '3074',
+  $port,
   $root_urls = [],
   $rate_limit_token = undef,
   $nagios_memory_warning = undef,

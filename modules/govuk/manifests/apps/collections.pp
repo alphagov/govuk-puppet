@@ -36,7 +36,7 @@
 #
 class govuk::apps::collections(
   $vhost = 'collections',
-  $port = '3070',
+  $port,
   $unicorn_worker_processes = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,

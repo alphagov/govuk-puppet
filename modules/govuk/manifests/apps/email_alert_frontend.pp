@@ -37,7 +37,7 @@
 #
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
-  $port = '3099',
+  $port,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,

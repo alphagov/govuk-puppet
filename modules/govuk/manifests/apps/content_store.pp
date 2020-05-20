@@ -63,7 +63,7 @@
 #
 
 class govuk::apps::content_store(
-  $port = '3068',
+  $port,
   $mongodb_nodes,
   $mongodb_name,
   $vhost = 'content-store',

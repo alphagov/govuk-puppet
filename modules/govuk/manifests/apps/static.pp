@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port that the app is served on.
-#   Default: 3013
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -55,7 +54,7 @@
 #
 class govuk::apps::static(
   $vhost = 'static',
-  $port = '3013',
+  $port,
   $sentry_dsn = undef,
   $draft_environment = false,
   $secret_key_base = undef,

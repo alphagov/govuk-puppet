@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port that the app is served on.
-#   Default: 3005
 #
 # [*vhost_protected*]
 #   Should this vhost be protected with HTTP Basic auth?
@@ -56,7 +55,7 @@
 #
 class govuk::apps::frontend(
   $vhost = 'frontend',
-  $port = '3005',
+  $port,
   $vhost_protected = false,
   $publishing_api_bearer_token = undef,
   $nagios_memory_warning = undef,

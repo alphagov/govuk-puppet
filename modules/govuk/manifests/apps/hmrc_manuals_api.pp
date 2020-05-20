@@ -7,7 +7,6 @@
 #
 # [*port*]
 #   The port that hmrc-manuals-api is served on.
-#   Default: 3071
 #
 # [*allow_unknown_hmrc_manual_slugs*]
 #   Feature flag to allow publishing manuals (and their sections) with
@@ -38,7 +37,7 @@
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
 class govuk::apps::hmrc_manuals_api(
-  $port = '3071',
+  $port,
   $sentry_dsn = undef,
   $allow_unknown_hmrc_manual_slugs = false,
   $oauth_id = undef,

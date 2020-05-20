@@ -22,7 +22,7 @@
 #   Bearer token for communication with the email-alert-api
 #
 class govuk::apps::finder_frontend(
-  $port = '3062',
+  $port,
   $enabled = false,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,

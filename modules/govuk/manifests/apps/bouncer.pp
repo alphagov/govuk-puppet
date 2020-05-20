@@ -9,7 +9,6 @@
 #
 # [*port*]
 #   The port on which Bouncer is served on.
-#   Default: 3049
 #
 # [*db_username*]
 #   The username to use in DATABASE_URL.
@@ -39,7 +38,7 @@ class govuk::apps::bouncer(
   $db_password = '',
   $db_hostname = '',
   $db_name = 'transition_production',
-  $port = '3049',
+  $port,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,

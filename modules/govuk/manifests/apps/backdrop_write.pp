@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port on which Backdrop Write is served on.
-#   Default: 3102
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker. Typically sued to disable the worker
@@ -31,7 +30,7 @@
 #
 class govuk::apps::backdrop_write (
   $enabled = true,
-  $port = '3102',
+  $port,
   $enable_procfile_worker = true,
   $signon_api_user_token = undef,
   $stagecraft_collection_endpoint_token = undef,

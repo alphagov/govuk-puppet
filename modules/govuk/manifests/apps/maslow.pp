@@ -38,7 +38,7 @@
 #   The application's OAuth Secret from Signon
 #
 class govuk::apps::maslow(
-  $port = '3053',
+  $port,
   $mongodb_nodes,
   $mongodb_name,
   $mongodb_username = '',

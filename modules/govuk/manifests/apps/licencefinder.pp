@@ -6,7 +6,6 @@
 #
 # [*port*]
 #   The port that licence finder is served on.
-#   Default: 3093
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -29,7 +28,7 @@
 #   Default: undef
 #
 class govuk::apps::licencefinder(
-  $port = '3014',
+  $port,
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name = 'licence_finder_production',

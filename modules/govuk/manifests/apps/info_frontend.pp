@@ -4,7 +4,6 @@
 #
 # [*port*]
 #   The port that the app is served on.
-#   Default: 3085
 #
 # [*enabled*]
 #   Whether the app should be present in a given environment.
@@ -24,7 +23,7 @@
 #   An array of aliases to pass to NGINX.
 #
 class govuk::apps::info_frontend(
-  $port = '3085',
+  $port,
   $enabled = false,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,

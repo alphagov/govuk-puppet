@@ -19,7 +19,7 @@
 #
 class govuk::apps::mapit (
   $enabled = false,
-  $port    = '3108',
+  $port,
   $db_password,
   $django_secret_key = undef,
   $sentry_dsn = undef,

@@ -8,10 +8,9 @@
 #
 # [*port*]
 #   The port that publishing_components is served on.
-#   Default: 3212
 #
 class govuk::apps::publishing_components (
-  $port = 3212,
+  $port,
 ) {
   $app_name = 'publishing-components'
 

@@ -40,7 +40,6 @@
 #
 # [*port*]
 #   The port that publishing API is served on.
-#   Default: 3078
 #
 # [*redis_host*]
 #   Redis host for sidekiq.
@@ -75,7 +74,7 @@ class govuk::apps::short_url_manager(
   $oauth_id = undef,
   $oauth_secret = undef,
   $publishing_api_bearer_token = undef,
-  $port = '3076',
+  $port,
   $redis_host = undef,
   $redis_port = '6379',
   $secret_key_base = undef,

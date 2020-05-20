@@ -68,7 +68,6 @@
 #
 # [*port*]
 #   The port where the Rails app is running.
-#   Default: 3020
 #
 # [*prevent_single_host*]
 #   This manifest will deliberately fail if the frontend and admin are on the
@@ -159,7 +158,7 @@ class govuk::apps::whitehall(
   $nagios_memory_critical = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $port = '3020',
+  $port,
   $prevent_single_host = true,
   $procfile_worker_process_count = 1,
   $publishing_api_bearer_token = undef,

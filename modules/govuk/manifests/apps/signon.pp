@@ -41,7 +41,6 @@
 #
 # [*port*]
 #   The port that it is served on.
-#   Default: 3016
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
@@ -79,7 +78,7 @@ class govuk::apps::signon(
   $instance_name = undef,
   $nagios_memory_critical = undef,
   $nagios_memory_warning = undef,
-  $port = '3016',
+  $port,
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,

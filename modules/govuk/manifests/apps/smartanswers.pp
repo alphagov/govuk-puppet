@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port that Smart Answers is served on.
-#   Default: 3010
 #
 # [*expose_govspeak*]
 #   A boolean value indicating if govspeak format should be made
@@ -44,7 +43,7 @@
 #
 class govuk::apps::smartanswers(
   $vhost = 'smartanswers',
-  $port = '3010',
+  $port,
   $expose_govspeak = false,
   $show_draft_flows = false,
   $sentry_dsn = undef,

@@ -8,7 +8,7 @@
 #
 
 class govuk::apps::router (
-  $port = '3054',
+  $port,
   $api_port,
   $api_healthcheck = '/healthcheck',
   $error_log = '/var/log/router/errors.json.log',

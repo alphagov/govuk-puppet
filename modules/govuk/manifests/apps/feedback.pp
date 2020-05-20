@@ -25,7 +25,7 @@
 #   to people who want to sign up to take a survey
 #
 class govuk::apps::feedback(
-  $port = '3028',
+  $port,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $support_bearer_token = undef,

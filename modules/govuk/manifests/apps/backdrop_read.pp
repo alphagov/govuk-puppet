@@ -10,7 +10,6 @@
 #
 # [*port*]
 #   The port on which Backdrop Read is served on.
-#   Default: 3101
 #
 # [*signon_api_user_token*]
 #   An API token to allow backdrop-read to communicate with the performanceplatform-admin
@@ -18,7 +17,7 @@
 #
 class govuk::apps::backdrop_read (
   $enabled = true,
-  $port = '3101',
+  $port,
   $signon_api_user_token = undef,
 ) {
   if $enabled {
