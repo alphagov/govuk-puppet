@@ -1,0 +1,64 @@
+---
+- job:
+    name: Deploy_App_Downstream
+    display-name: Deploy_App_Downstream
+    project-type: freestyle
+    description: "Kicks off an appliction deploy in a downstream environment"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - shell: |
+          # Workaround for our inconsistent repo vs. deployment naming
+          case "$TARGET_APPLICATION" in
+          <% @applications.keys.each do |app| %>
+            <%= app %>)
+              REPO="<%= @applications[app].fetch("repository", app) %>"
+              ;;
+          <% end %>
+          esac
+
+          # Check release to deploy is genuine and we're not going backwards
+          GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
+          LATEST_TAGS=$(curl -s "$GITHUB_API/tags?per_page=1")
+          LATEST_MASTER_SHA=$(curl -s "$GITHUB_API/commits?per_page=1" | jq '.[].sha' | head -1)
+          LATEST_TAG_SHA=$(echo "$LATEST_TAGS" | jq '.[].commit.sha' | head -1)
+          LATEST_TAG_NAME=$(echo "$LATEST_TAGS" | jq '.[].name' | head -1)
+
+          if [ "$LATEST_TAG_NAME" != "\"$TAG\"" ]; then
+            echo "The TAG parameter does not match the latest release. Aborting."
+            exit 1
+          fi
+
+          if [ "$LATEST_TAG_SHA" != "$LATEST_MASTER_SHA" ]; then
+            echo "The TAG to deploy is supserseded, or not on master. Aborting."
+            exit 1
+          fi
+      - shell: |
+          # Deploy to downstream environment
+          JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"
+          CRUMB=$(curl https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+          curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/job/Deploy_App/build --data-urlencode json="$JSON"
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - choice:
+            name: TARGET_APPLICATION
+            description: 'Application to deploy'
+            choices: <%= ['-- Choose an app'] + @applications.keys %>
+        - string:
+            name: TAG
+            description: 'Git tag/committish to deploy.'
+        - choice:
+            name: DEPLOY_TASK
+            description: 'Task to run (available as $DEPLOY_TASK to deploy.sh and passed explicitly to Capistrano).'
+            choices:
+              - deploy
+              - deploy:migrations
+              - deploy:setup
+    publishers:
+        - description-setter:
+            regexp: ""
+            description: "$TARGET_APPLICATION $TAG"
