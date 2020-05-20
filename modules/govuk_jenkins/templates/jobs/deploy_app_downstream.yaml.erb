@@ -9,6 +9,19 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
+      - shell: |
+          # Check for deploy freeze set in Release App
+          APPLICATION_METADATA=$(curl -s \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer $RELEASE_APP_NOTIFICATION_BEARER_TOKEN" \
+            "https://release.publishing.service.gov.uk/applications/$TARGET_APPLICATION")
+
+          DEPLOY_FREEZE=$(echo "$APPLICATION_METADATA" | jq .deploy_freeze)
+
+          if $DEPLOY_FREEZE; then
+            echo "This application is under a deploy freeze in Release app. Aborting"
+            exit 1
+          fi
       <% if @smokey_pre_check %>
       - shell: |
           # Wait for any app restarts to complete before running Smokey
