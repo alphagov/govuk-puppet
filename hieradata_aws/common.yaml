@@ -1308,6 +1308,7 @@ rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
 
 router::nginx::app_specific_static_asset_routes:
+  '/assets/frontend/': 'frontend'
   '/assets/government-frontend/': 'government-frontend'
   '/assets/static/': 'static'
 
