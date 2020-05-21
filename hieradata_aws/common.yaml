@@ -145,10 +145,6 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
 deployable_applications: &deployable_applications
   asset-manager: {}
   authenticating-proxy: {}
-  backdrop-read:
-    repository: 'backdrop'
-  backdrop-write:
-    repository: 'backdrop'
   bouncer: {}
   cache-clearing-service: {}
   calculators: {}

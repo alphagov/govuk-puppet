@@ -42,10 +42,6 @@ govuk::node::s_base::node_apps:
 # need to add an empty hash
 deployable_applications: &deployable_applications
   asset-manager: {}
-  backdrop-read:
-    repository: 'backdrop'
-  backdrop-write:
-    repository: 'backdrop'
   collections-publisher: {}
   contacts:
     repository: 'contacts-admin'
