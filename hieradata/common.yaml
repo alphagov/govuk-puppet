@@ -230,6 +230,7 @@ govuk::apps::bouncer::port: 3049
 govuk::apps::contacts::port: 3051
 govuk::apps::maslow::port: 3053
 govuk::apps::router::port: 3054
+govuk::apps::router::api_port: 3055
 govuk::apps::router_api::port: 3056
 govuk::apps::finder_frontend::port: 3062
 govuk::apps::specialist_publisher::port: 3064
@@ -329,8 +330,6 @@ govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::router::api_port: "%{hiera('govuk::apps::router_api::port')}"
 
 govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
