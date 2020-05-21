@@ -20,9 +20,13 @@
           esac
 
           # Check release to deploy is genuine and we're not going backwards
-          GITHUB_API="-H 'Authorization: token <%= @github_api_token %>' https://api.github.com/repos/alphagov/$REPO"
-          LATEST_TAGS=$(curl -s "$GITHUB_API/tags?per_page=1")
-          LATEST_MASTER_SHA=$(curl -s "$GITHUB_API/commits?per_page=1" | jq '.[].sha' | head -1)
+          GITHUB_AUTH="-H 'Authorization: token <%= @github_api_token %>'"
+          GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
+
+          LATEST_TAGS=$(curl $GITHUB_AUTH -s "$GITHUB_API/tags?per_page=1")
+          LATEST_MASTER=$(curl $GITHUB_AUTH -s "$GITHUB_API/commits?per_page=1")
+
+          LATEST_MASTER_SHA=$(echo "$LATEST_MASTER" | jq '.[].sha' | head -1)
           LATEST_TAG_SHA=$(echo "$LATEST_TAGS" | jq '.[].commit.sha' | head -1)
           LATEST_TAG_NAME=$(echo "$LATEST_TAGS" | jq '.[].name' | head -1)
 
