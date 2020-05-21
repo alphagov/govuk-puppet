@@ -164,7 +164,7 @@ class govuk::apps::ckan (
         value   => $bulk_worker_processes;
       "${title}-PYCSW_PORT":
         varname => 'PYCSW_PORT',
-        value   => $pycsw_port;
+        value   => "${pycsw_port}"; # lint:ignore:only_variable_string
       "${title}-PYCSW_CONFIG":
         varname => 'PYCSW_CONFIG',
         value   => $pycsw_config;

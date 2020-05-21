@@ -77,7 +77,7 @@ class govuk::apps::govuk_crawler_worker (
       'CRAWLER_THREADS':
         value => $crawler_threads;
       'HTTP_PORT':
-        value => $port;
+        value => "${port}"; # lint:ignore:only_variable_string
       'REDIS_ADDRESS':
         value => '127.0.0.1:6379';
       'REDIS_KEY_PREFIX':
