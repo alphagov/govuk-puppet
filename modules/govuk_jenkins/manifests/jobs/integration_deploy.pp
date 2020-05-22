@@ -4,12 +4,6 @@
 #
 # === Parameters
 #
-# [*jenkins_integration_api_user*]
-#   The username used to authenticate with the deployment Jenkins in Integration.
-#
-# [*jenkins_integration_api_password*]
-#   The password used to authenticate with the deployment Jenkins in Integration.
-#
 # [*jenkins_integration_aws_api_user*]
 #   The username used to authenticate with the deployment Jenkins in Integration AWS.
 #
@@ -20,27 +14,15 @@
 #   The URL of the AWS Integration stack. This may potentially change in the future
 #   so it is added as a parameter.
 #
-# [*ci_deploy_url*]
-#   The URL of the CI stack to deploy Puppet changes into.
-#
 # [*puppet_auth_token*]
 #   This token is used to authenticate with the deploy job in Integration.
 #
 class govuk_jenkins::jobs::integration_deploy (
-  $jenkins_integration_api_user = undef,
-  $jenkins_integration_api_password = undef,
   $jenkins_integration_aws_api_user = undef,
   $jenkins_integration_aws_api_password = undef,
   $aws_deploy_url = 'deploy.integration.publishing.service.gov.uk',
-  $ci_deploy_url = 'ci-deploy.integration.publishing.service.gov.uk',
   $puppet_auth_token = undef,
 ) {
-  file { '/etc/jenkins_jobs/jobs/integration_puppet_deploy.yaml':
-    ensure  => present,
-    content => template('govuk_jenkins/jobs/integration_puppet_deploy.yaml.erb'),
-    notify  => Exec['jenkins_jobs_update'],
-  }
-
   file { '/etc/jenkins_jobs/jobs/integration_licensify_deploy.yaml':
     ensure  => present,
     content => template('govuk_jenkins/jobs/integration_licensify_deploy.yaml.erb'),

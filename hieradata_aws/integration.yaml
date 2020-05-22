@@ -139,9 +139,6 @@ govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::deploy_dns::zones:
   - 'dnstest.alphagov.co.uk'
 
-govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_user: "%{hiera('govuk::node::s_jenkins::jenkins_api_user')}"
-govuk_jenkins::jobs::integration_deploy::jenkins_integration_api_password: "%{hiera('govuk::node::s_jenkins::jenkins_api_token')}"
-
 govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: true
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '30 11 * * 2'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 11 * * *'

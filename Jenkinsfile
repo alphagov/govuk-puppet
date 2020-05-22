@@ -52,7 +52,7 @@ node {
       }
 
       stage("Deploy on Integration") {
-        build job: 'integration-puppet-deploy',
+        build job: 'Deploy_Puppet_Downstream',
         parameters: [string(name: 'TAG', value: 'release_' + env.BUILD_NUMBER)]
       }
     }
