@@ -72,7 +72,6 @@ govuk_jenkins::config::executors: '0'
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_puppet_downstream
-  - govuk_jenkins::jobs::integration_deploy
   - govuk_jenkins::jobs::build_fpm_package
 
 govuk_jenkins::plugins:
