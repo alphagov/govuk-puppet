@@ -30,8 +30,8 @@ govuk::apps::publisher::email_group_business: 'mainstream-publisher-notification
 govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::fact_check_subject_prefix: 'staging'
-govuk::apps::publisher::fact_check_reply_to_id: 'c07e5ba1-08fe-4080-acec-70e66f961c55'
-govuk::apps::publisher::fact_check_reply_to_address: 'factcheck@alphagov.co.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '88f713ff-7de0-43a6-8221-8721bedd103c'
+govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-staging@digital.cabinet-office.gov.uk'
 govuk::apps::search_admin::govuk_notify_template_id: '112842bb-d8a4-4511-90de-57dc5c8f27ec'
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
