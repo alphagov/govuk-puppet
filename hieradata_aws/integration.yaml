@@ -42,6 +42,8 @@ govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-integration@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '6b6ee566-54f2-48f6-98c4-21a373e6dea2'
 govuk::apps::publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::publisher::email_group_dev: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_business: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
