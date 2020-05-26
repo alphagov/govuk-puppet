@@ -165,7 +165,6 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::local_links_manager::run_links_ga_export: true
 
-govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publisher::fact_check_reply_to_id: '792923cb-fa07-4dce-a4c5-e6320bd19c17'
 govuk::apps::publisher::fact_check_reply_to_address: 'factcheck+production@alphagov.co.uk'

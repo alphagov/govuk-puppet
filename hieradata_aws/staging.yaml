@@ -175,7 +175,6 @@ govuk::apps::manuals_publisher::mongodb_password: "%{hiera('govuk::apps::asset_m
 govuk::apps::maslow::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::maslow::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::maslow::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
-govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
