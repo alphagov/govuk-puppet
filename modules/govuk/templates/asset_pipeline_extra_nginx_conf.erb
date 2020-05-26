@@ -1,8 +1,8 @@
-
-  # Set expires headers for assets
-  # Assets with a digest (32+ char hex string in filename) get max expires
-  # Non-digest assets get 30 mins
-  location ^~ /<%= @asset_pipeline_prefix %>/ {
+<% @asset_pipeline_prefixes.each do |prefix| %>
+  location ^~ /<%= prefix %>/ {
+    # Set expires headers for assets
+    # Assets with a digest (32+ char hex string in filename) get max expires
+    # Non-digest assets get 30 mins
     expires 30m;
     add_header Cache-Control public;
     gzip_static on;
@@ -10,7 +10,16 @@
     location ~ "-[0-9a-f]{32,}\." {
       expires max;
       add_header Cache-Control "public, immutable";
+
+      # Set CORS allow origin for fonts only
+      location ~* \.(eot|otf|ttf|woff|woff2)$ {
+        add_header Access-Control-Allow-Origin "*";
+        add_header Access-Control-Allow-Methods "GET, OPTIONS";
+        add_header Access-Control-Allow-Headers "origin, authorization";
+      }
     }
+
   }
+<% end %>
 
 <%= @nginx_extra_config %>

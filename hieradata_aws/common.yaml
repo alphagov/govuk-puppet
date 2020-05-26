@@ -801,6 +801,7 @@ govuk::apps::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
+govuk::apps::static::asset_host: "%{hiera('govuk::deploy::config::website_root')}"
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::static::unicorn_worker_processes: "8"
@@ -1378,6 +1379,12 @@ rabbitmq::config_stomp: true
 
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
+
+router::nginx::app_specific_static_asset_routes:
+  '/assets/collections/': 'collections'
+  '/assets/frontend/': 'frontend'
+  '/assets/government-frontend/': 'government-frontend'
+  '/assets/static/': 'static'
 
 # Note: it's important that all targets here have matching host entries both in
 # production, and on the dev VM, otherwise nginx will fail to start.

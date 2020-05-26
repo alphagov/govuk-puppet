@@ -33,15 +33,15 @@ class govuk::apps::info_frontend(
   $app_name = 'info-frontend'
 
   govuk::app { $app_name:
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    vhost_aliases         => $vhost_aliases,
-    log_format_is_json    => true,
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'info-frontend',
-    health_check_path     => '/healthcheck',
-    json_health_check     => true,
+    app_type                => 'rack',
+    port                    => $port,
+    sentry_dsn              => $sentry_dsn,
+    vhost_aliases           => $vhost_aliases,
+    log_format_is_json      => true,
+    asset_pipeline          => true,
+    asset_pipeline_prefixes => ['info-frontend'],
+    health_check_path       => '/healthcheck',
+    json_health_check       => true,
   }
 
   Govuk::App::Envvar {

@@ -28,6 +28,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*asset_host*]
+#   The URL that will be used as a prefix for statics assets.
+#   Default: undef
+#
 # [*ga_universal_id*]
 #   The Google Analytics ID.
 #   Default: undef
@@ -59,6 +63,7 @@ class govuk::apps::static(
   $draft_environment = false,
   $secret_key_base = undef,
   $publishing_api_bearer_token = undef,
+  $asset_host = undef,
   $ga_universal_id = undef,
   $redis_host = undef,
   $redis_port = undef,
@@ -77,7 +82,7 @@ class govuk::apps::static(
     log_format_is_json       => true,
     nginx_extra_config       => template('govuk/static_extra_nginx_config.conf.erb'),
     asset_pipeline           => true,
-    asset_pipeline_prefix    => $app_name,
+    asset_pipeline_prefixes  => [$app_name, 'assets/static'],
     vhost                    => $vhost,
     unicorn_worker_processes => $unicorn_worker_processes,
     nagios_memory_warning    => $nagios_memory_warning,
@@ -108,9 +113,13 @@ class govuk::apps::static(
     port => $redis_port,
   }
 
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
+  govuk::app::envvar {
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+      varname => 'PUBLISHING_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
+    "${title}-ASSET_HOST":
+      varname => 'ASSET_HOST',
+      value   => $asset_host;
   }
 
   if $ga_universal_id != undef {

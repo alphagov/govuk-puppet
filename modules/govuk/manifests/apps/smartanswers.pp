@@ -89,7 +89,7 @@ class govuk::apps::smartanswers(
     health_check_path        => '/pay-leave-for-parents/y',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    asset_pipeline_prefix    => 'smartanswers',
+    asset_pipeline_prefixes  => ['smartanswers'],
     vhost                    => $vhost,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,

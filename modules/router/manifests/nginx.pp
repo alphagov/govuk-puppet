@@ -8,6 +8,9 @@
 #
 # === Parameters
 #
+# [*app_specific_static_asset_routes*]
+#   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
+#
 # [*vhost_protected*]
 #   Mandatory boolean value. Whether to enable BasicAuth or not. Used in
 #   environments where origin is not firewalled.
@@ -47,6 +50,7 @@
 # Default: ''
 #
 class router::nginx (
+  $app_specific_static_asset_routes = {},
   $vhost_protected,
   $page_ttl_404 = '30',
   $real_ip_header = '',
@@ -66,6 +70,7 @@ class router::nginx (
   }
 
   $app_domain = hiera('app_domain')
+  $app_domain_internal = hiera('app_domain_internal')
 
   nginx::config::ssl { "www.${app_domain}":
     certtype => 'wildcard_publishing',

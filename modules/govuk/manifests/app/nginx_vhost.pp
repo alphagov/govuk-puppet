@@ -37,8 +37,8 @@
 # [*asset_pipeline*]
 #   Boolean, whether to enable the Rails asset pipeline
 #
-# [*asset_pipeline_prefix*]
-#   Path that nginx will serve assets from
+# [*asset_pipeline_prefixes*]
+#   Paths that nginx will serve assets from
 #
 # [*hidden_paths*]
 #   Array of paths that nginx will force to return an error
@@ -74,7 +74,7 @@ define govuk::app::nginx_vhost (
   $deny_crawlers = false,
   $is_default_vhost = false,
   $asset_pipeline = false,
-  $asset_pipeline_prefix = 'assets',
+  $asset_pipeline_prefixes = ['assets'],
   $hidden_paths = undef,
   $single_page_app = false,
   $read_timeout = 15,

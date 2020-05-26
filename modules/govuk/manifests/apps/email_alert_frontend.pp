@@ -46,14 +46,14 @@ class govuk::apps::email_alert_frontend(
   $subscription_management_enabled = false,
 ) {
   govuk::app { 'email-alert-frontend':
-    app_type              => 'rack',
-    port                  => $port,
-    sentry_dsn            => $sentry_dsn,
-    asset_pipeline        => true,
-    asset_pipeline_prefix => 'email-alert-frontend',
-    vhost                 => $vhost,
-    health_check_path     => '/healthcheck',
-    json_health_check     => true,
+    app_type                => 'rack',
+    port                    => $port,
+    sentry_dsn              => $sentry_dsn,
+    asset_pipeline          => true,
+    asset_pipeline_prefixes => ['email-alert-frontend'],
+    vhost                   => $vhost,
+    health_check_path       => '/healthcheck',
+    json_health_check       => true,
   }
 
   Govuk::App::Envvar {

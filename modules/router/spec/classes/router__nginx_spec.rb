@@ -4,6 +4,25 @@ describe 'router::nginx', :type => :class do
   let(:assets_config) { '/etc/nginx/sites-available/assets-origin.environment.example.com' }
   let(:router_config) { '/etc/nginx/router_include.conf' }
 
+  context 'app_specific_static_asset_routes' do
+    context 'default UNSET' do
+      let(:params) {{
+        :vhost_protected => false,
+      }}
+
+      it { is_expected.not_to contain_file(router_config).with_content(%r{^\s*location \/assets\/frontend\s+}) }
+    end
+
+    context 'set for a host' do
+      let(:params) {{
+        :vhost_protected => false,
+        :app_specific_static_asset_routes => { "/assets/frontend" => "frontend" },
+      }}
+
+      it { is_expected.to contain_file(router_config).with_content(%r{^\s*location /assets/frontend\s+}) }
+    end
+  end
+
   context 'vhost_protected' do
     context 'set to false' do
       let(:params) {{
