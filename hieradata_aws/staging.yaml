@@ -215,6 +215,7 @@ govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
+govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'

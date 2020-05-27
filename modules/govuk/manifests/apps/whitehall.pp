@@ -135,6 +135,12 @@
 #   `configure_frontend` is disabled.
 #   Default: 4
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 
 class govuk::apps::whitehall(
   $admin_db_name = undef,
@@ -177,6 +183,8 @@ class govuk::apps::whitehall(
   $override_search_location = undef,
   $frontend_unicorn_worker_processes = 8,
   $backend_unicorn_worker_processes = 4,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -373,6 +381,12 @@ class govuk::apps::whitehall(
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
           varname => 'LINK_CHECKER_API_BEARER_TOKEN',
           value   => $link_checker_api_bearer_token;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
     }
 
     if $::govuk_node_class !~ /^development$/ {
