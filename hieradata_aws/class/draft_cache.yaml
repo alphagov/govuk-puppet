@@ -29,6 +29,7 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/email-alert-frontend/': 'draft-email-alert-frontend'
   '/assets/frontend/': 'draft-frontend'
   '/assets/government-frontend/': 'draft-government-frontend'
+  '/assets/manuals-frontend/': 'draft-manuals-frontend'
   '/assets/static/': 'draft-static'
 
 router::nginx::check_requests_warning: '@0'
