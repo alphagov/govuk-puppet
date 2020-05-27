@@ -25,6 +25,7 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/collections/': 'collections'
   '/assets/email-alert-frontend/': 'email-alert-frontend'
   '/assets/finder-frontend/': 'finder-frontend'
+  '/assets/info-frontend/': 'info-frontend'
   '/assets/frontend/': 'frontend'
   '/assets/government-frontend/': 'government-frontend'
   '/assets/static/': 'static'
