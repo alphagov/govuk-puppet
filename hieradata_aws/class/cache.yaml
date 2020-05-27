@@ -30,4 +30,5 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/government-frontend/': 'government-frontend'
   '/assets/licencefinder/': 'licencefinder'
   '/assets/manuals-frontend/': 'manuals-frontend'
+  '/assets/service-manual-frontend/': 'service-manual-frontend'
   '/assets/static/': 'static'
