@@ -33,6 +33,7 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/service-manual-frontend/': 'draft-service-manual-frontend'
   '/assets/smartanswers/': 'draft-smartanswers'
   '/assets/static/': 'draft-static'
+  '/assets/whitehall/': 'draft-whitehall-frontend'
 
 router::nginx::check_requests_warning: '@0'
 router::nginx::check_requests_critical: '@0'
