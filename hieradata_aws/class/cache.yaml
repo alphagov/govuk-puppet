@@ -23,6 +23,7 @@ govuk::deploy::config::nofile_limit: 65536
 router::nginx::app_specific_static_asset_routes:
   '/assets/calculators/': 'calculators'
   '/assets/collections/': 'collections'
+  '/assets/email-alert-frontend/': 'email-alert-frontend'
   '/assets/frontend/': 'frontend'
   '/assets/government-frontend/': 'government-frontend'
   '/assets/static/': 'static'
