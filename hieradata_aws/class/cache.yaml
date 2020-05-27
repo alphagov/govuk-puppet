@@ -31,4 +31,5 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/licencefinder/': 'licencefinder'
   '/assets/manuals-frontend/': 'manuals-frontend'
   '/assets/service-manual-frontend/': 'service-manual-frontend'
+  '/assets/smartanswers/': 'smartanswers'
   '/assets/static/': 'static'
