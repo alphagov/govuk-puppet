@@ -24,7 +24,14 @@ govuk::apps::router_api::router_nodes_class: 'draft_cache'
 
 govuk::apps::router_api::vhost: 'draft-router-api'
 
+router::nginx::app_specific_static_asset_routes:
+  '/assets/collections/': 'draft-collections'
+  '/assets/frontend/': 'draft-frontend'
+  '/assets/government-frontend/': 'draft-government-frontend'
+  '/assets/static/': 'draft-static'
+
 router::nginx::check_requests_warning: '@0'
 router::nginx::check_requests_critical: '@0'
 
 varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
+
