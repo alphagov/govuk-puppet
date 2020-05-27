@@ -19,14 +19,17 @@ class govuk::apps::email_alert_api::checks(
       latency_warning  => '300', # 5 minutes
       latency_critical => '600'; # 10 minutes
 
-    [
-      'delivery_immediate_high',
-      'delivery_immediate',
-    ]:
+    'delivery_immediate':
       size_warning     => '75000',
       size_critical    => '100000',
-      latency_warning  => '150', # 2.5 minutes
-      latency_critical => '300'; # 5 minutes
+      latency_warning  => '1200', # 20 minutes
+      latency_critical => '1800'; # 30 minutes
+
+    'delivery_immediate_high':
+      size_warning     => '75000',
+      size_critical    => '100000',
+      latency_warning  => '300', # 5 minutes
+      latency_critical => '600'; # 10 minutes
 
     'delivery_digest':
       size_warning     => '75000',
