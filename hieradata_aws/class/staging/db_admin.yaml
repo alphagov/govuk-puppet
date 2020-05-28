@@ -305,7 +305,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "pull_govuk_content_production":
-    ensure: "present"
+    ensure: "disabled"
     hour: "3"
     minute: "20"
     action: "pull"
