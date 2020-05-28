@@ -245,7 +245,7 @@ class govuk::apps::whitehall(
       protected               => $vhost_protected,
       app_port                => $port,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets'],
+      asset_pipeline_prefixes => ['government/assets', 'assets/whitehall'],
     }
 
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
@@ -286,7 +286,7 @@ class govuk::apps::whitehall(
       deny_framing            => true,
       deny_crawlers           => true,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets'],
+      asset_pipeline_prefixes => ['government/assets', 'assets/whitehall'],
       hidden_paths            => [$health_check_path],
       nginx_extra_config      => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;

@@ -21,7 +21,16 @@ varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
 govuk::deploy::config::nofile_limit: 65536
 
 router::nginx::app_specific_static_asset_routes:
+  '/assets/calculators/': 'calculators'
   '/assets/collections/': 'collections'
+  '/assets/email-alert-frontend/': 'email-alert-frontend'
+  '/assets/finder-frontend/': 'finder-frontend'
+  '/assets/info-frontend/': 'info-frontend'
   '/assets/frontend/': 'frontend'
   '/assets/government-frontend/': 'government-frontend'
+  '/assets/licencefinder/': 'licencefinder'
+  '/assets/manuals-frontend/': 'manuals-frontend'
+  '/assets/service-manual-frontend/': 'service-manual-frontend'
+  '/assets/smartanswers/': 'smartanswers'
   '/assets/static/': 'static'
+  '/assets/whitehall/': 'whitehall-frontend'
