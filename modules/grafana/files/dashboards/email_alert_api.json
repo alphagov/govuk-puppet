@@ -1631,6 +1631,218 @@
       "showTitle": true,
       "title": "Volume",
       "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": "500",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 20,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "count",
+              "color": "#1F78C1",
+              "fill": 0,
+              "linewidth": 1,
+              "yaxis": 2
+            },
+            {
+              "alias": "upper",
+              "color": "#BF1B00"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.mean), 'mean')",
+              "textEditor": false
+            },
+            {
+              "refId": "B",
+              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.upper_90), 'upper 90')",
+              "textEditor": false
+            },
+            {
+              "refId": "D",
+              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.upper), 'upper')",
+              "textEditor": false
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.count), 'count')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Delivery Request Worker: Find email timing",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "dtdurationms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 21,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "count",
+              "color": "#1F78C1",
+              "fill": 0,
+              "linewidth": 1,
+              "yaxis": 2
+            },
+            {
+              "alias": "upper",
+              "color": "#BF1B00"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.mean), 'mean')",
+              "textEditor": false
+            },
+            {
+              "refId": "A",
+              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.upper_90), 'upper 90')",
+              "textEditor": false
+            },
+            {
+              "refId": "D",
+              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.upper), 'upper')",
+              "textEditor": false
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.count), 'count')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Delivery Request Service: Create delivery attempt timing",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "dtdurationms",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Delivery request detailed timings",
+      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
