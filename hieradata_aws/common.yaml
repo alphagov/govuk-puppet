@@ -1411,6 +1411,8 @@ router::assets_origin::vhost_aliases:
   - 'assets.publishing.service.gov.uk'
   - 'assets.production.govuk.digital'
 
+router::assets_origin::website_root: "%{hiera('govuk::deploy::config::website_root')}"
+
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
 router::nginx::robotstxt: |

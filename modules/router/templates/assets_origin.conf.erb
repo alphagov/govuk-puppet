@@ -37,6 +37,10 @@ server {
   add_header "Access-Control-Allow-Methods" "GET, OPTIONS";
   add_header "Access-Control-Allow-Headers" "origin, authorization";
 
+  <%- if @website_root -%>
+  rewrite ^/government/assets/(.*)$ <%= @website_root %>/assets/whitehall/$1 permanent;
+  <%- end -%>
+
   location /government/uploads/system/uploads/consultation_response_form/ {
     add_header Cache-Control "public";
     expires 1y;

@@ -492,6 +492,7 @@ task :check_consistency_between_aws_and_carrenza do
     grafana::dashboards::machine_suffix_metrics
     monitoring::checks::sidekiq::enable_support_check
     monitoring::pagerduty_drill::enabled
+    router::assets_origin::website_root
     router::nginx::robotstxt
     govuk::apps::govuk_crawler_worker::blacklist_paths
     govuk_awscloudwatch::apt_mirror_hostname
