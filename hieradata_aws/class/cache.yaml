@@ -24,6 +24,7 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/calculators/': 'calculators'
   '/assets/collections/': 'collections'
   '/assets/email-alert-frontend/': 'email-alert-frontend'
+  '/assets/feedback/': 'feedback'
   '/assets/finder-frontend/': 'finder-frontend'
   '/assets/info-frontend/': 'info-frontend'
   '/assets/frontend/': 'frontend'
