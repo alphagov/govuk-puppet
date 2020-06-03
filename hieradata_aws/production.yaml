@@ -151,6 +151,20 @@ govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 
+govuk::apps::contacts::ensure: 'present'
+govuk::apps::collections_publisher::ensure: 'present'
+govuk::apps::content_publisher::ensure: 'present'
+govuk::apps::content_tagger::ensure: 'present'
+govuk::apps::hmrc_manuals_api::ensure: 'present'
+govuk::apps::manuals_publisher::ensure: 'present'
+govuk::apps::maslow::ensure: 'present'
+govuk::apps::publisher::ensure: 'present'
+govuk::apps::search_admin::ensure: 'present'
+govuk::apps::service_manual_publisher::ensure: 'present'
+govuk::apps::short_url_manager::ensure: 'present'
+govuk::apps::specialist_publisher::ensure: 'present'
+govuk::apps::travel_advice_publisher::ensure: 'present'
+
 govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/apply-for-a-licence'
   - '/business-finance-support-finder'
