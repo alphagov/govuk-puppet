@@ -43,7 +43,9 @@
           "seriesOverrides": [
             {
               "alias": "Count",
+              "dashes": true,
               "fill": 0,
+              "linewidth": 2,
               "yaxis": 2
             }
           ],
@@ -93,7 +95,7 @@
                   "field": "@timestamp",
                   "id": "2",
                   "settings": {
-                    "interval": "1m",
+                    "interval": "$Interval",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
