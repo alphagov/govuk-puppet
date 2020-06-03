@@ -1,7 +1,7 @@
 # == Class: base
 #
 # Pull in a standard set of modules for all machines. Used everywhere, by
-# both `govuk::node::s_base` and `govuk::node::s_development`.
+# both `govuk::node::s_base`.
 #
 # [*esm_repo*]
 #   Wether or not to install ESM repo.

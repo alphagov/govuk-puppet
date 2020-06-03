@@ -4,7 +4,7 @@
 #
 # === Parameters
 # [*port*]
-#   What port should the app run on? Find the next free one in development-vm/Procfile
+#   What port should the app run on?
 #
 # [*enabled*]
 #   Whether to install the app. Don't change the default (false) until production-ready
@@ -217,16 +217,14 @@ class govuk::apps::content_publisher (
     port => $redis_port,
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type                      => 'postgresql',
-      username                  => $db_username,
-      password                  => $db_password,
-      host                      => $db_hostname,
-      port                      => $db_port,
-      allow_prepared_statements => $db_allow_prepared_statements,
-      database                  => $db_name,
-    }
+  govuk::app::envvar::database_url { $app_name:
+    type                      => 'postgresql',
+    username                  => $db_username,
+    password                  => $db_password,
+    host                      => $db_hostname,
+    port                      => $db_port,
+    allow_prepared_statements => $db_allow_prepared_statements,
+    database                  => $db_name,
   }
 
   govuk::procfile::worker { $app_name:

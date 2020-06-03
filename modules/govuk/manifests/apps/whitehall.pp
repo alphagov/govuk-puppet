@@ -232,13 +232,6 @@ class govuk::apps::whitehall(
   }
 
   if $configure_frontend == true {
-
-    if $::govuk_node_class == 'development' {
-      $app_protocol = 'http'
-    } else {
-      $app_protocol = 'https'
-    }
-
     if $::aws_migration {
       $whitehall_frontend_vhost_  = 'whitehall-frontend'
       $whitehall_frontend_aliases = ['draft-whitehall-frontend']
@@ -266,14 +259,12 @@ class govuk::apps::whitehall(
       }
     }
 
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'mysql2',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
   }
 
@@ -389,83 +380,12 @@ class govuk::apps::whitehall(
         value   => $govuk_notify_template_id;
     }
 
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'mysql2',
-        username => $admin_db_username,
-        password => $admin_db_password,
-        host     => $admin_db_hostname,
-        database => $admin_db_name,
-      }
-    }
-
-    if $::govuk_node_class =~ /^development$/ {
-      # Create the directory structure for whitehall assets in development
-      $asset_directories = [
-        '/data/uploads/whitehall',
-        '/data/uploads/whitehall/asset-manager-tmp',
-        '/data/uploads/whitehall/attachment-cache',
-        '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
-        '/data/uploads/whitehall/carrierwave-tmp',
-        '/data/uploads/whitehall/clean',
-        '/data/uploads/whitehall/draft-clean',
-        '/data/uploads/whitehall/draft-incoming',
-        '/data/uploads/whitehall/draft-infected',
-        '/data/uploads/whitehall/fatality_notices',
-        '/data/uploads/whitehall/incoming',
-        '/data/uploads/whitehall/infected',
-      ]
-
-      file { $asset_directories:
-        ensure => directory,
-        mode   => '0775',
-        owner  => 'assets',
-        group  => 'assets',
-      }
-
-      # Symlink directories in the whitehall app root to the assets directories
-      # Use `force` since some of these are created on git checkout.
-      file { '/var/govuk/whitehall/asset-manager-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/asset-manager-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/attachment-cache':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/attachment-cache',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/bulk-upload-zip-file-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/carrierwave-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/carrierwave-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/clean-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/clean',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/incoming-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/incoming',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/infected-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/infected',
-        force  => true,
-      }
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $admin_db_username,
+      password => $admin_db_password,
+      host     => $admin_db_hostname,
+      database => $admin_db_name,
     }
   }
 

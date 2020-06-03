@@ -113,14 +113,12 @@ class govuk::apps::transition(
       port => $redis_port,
     }
 
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'postgresql',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
 
     if $secret_key_base {
