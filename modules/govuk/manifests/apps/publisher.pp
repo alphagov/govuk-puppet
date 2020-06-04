@@ -57,10 +57,6 @@
 # [*oauth_secret*]
 #   The application's OAuth Secret from Signon
 #
-# [*run_fact_check_fetcher*]
-#   Whether to perform fetches for fact checks
-#   Default: false
-#
 # [*fact_check_address_format*]
 #   The address format used for sending fact checks
 #
@@ -121,7 +117,6 @@ class govuk::apps::publisher(
     $sentry_dsn = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
-    $run_fact_check_fetcher = false,
     $fact_check_address_format = undef,
     $fact_check_subject_prefix = undef,
     $fact_check_username = undef,
@@ -190,14 +185,6 @@ class govuk::apps::publisher(
 
   Govuk::App::Envvar {
     app => $app_name,
-  }
-
-  if $run_fact_check_fetcher {
-    govuk::app::envvar {
-      "${title}-RUN_FACT_CHECK_FETCHER":
-        varname => 'RUN_FACT_CHECK_FETCHER',
-        value   => '1';
-    }
   }
 
   govuk::app::envvar {
