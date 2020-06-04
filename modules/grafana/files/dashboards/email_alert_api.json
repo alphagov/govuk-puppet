@@ -133,7 +133,7 @@
           "datasource": "Graphite",
           "format": "none",
           "gauge": {
-            "maxValue": 10000000,
+            "maxValue": 25000000,
             "minValue": 0,
             "show": true,
             "thresholdLabels": false,
@@ -183,7 +183,7 @@
               "textEditor": false
             }
           ],
-          "thresholds": "8000000,9000000",
+          "thresholds": "20000000,22500000",
           "timeFrom": "now/d",
           "timeShift": null,
           "title": "Notify Emails Sent (Today)",

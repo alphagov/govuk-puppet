@@ -55,8 +55,8 @@ class govuk::apps::email_alert_api::checks(
     host_name => $::fqdn,
     target    => 'summarize(groupByNode(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, "sum"), 1, "sum"), "1d", "sum", false)',
     args      => '--ignore-missing',
-    warning   => '8000000', # 10,000,000 * 0.8
-    critical  => '9000000', # 10,000,000 * 0.9
+    warning   => '20000000', # 25,000,000 * 0.8
+    critical  => '22500000', # 25,000,000 * 0.9
     from      => '3hours',
     desc      => 'email-alert-api - high number of email send requests',
   }
