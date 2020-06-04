@@ -1,0 +1,47 @@
+[agent]
+collection_jitter = "0s"
+debug = false
+flush_interval = "1s"
+flush_jitter = "0s"
+hostname = ""
+interval = "60s"
+logfile = "/opt/aws/amazon-cloudwatch-agent/logs/amazon-cloudwatch-agent.log"
+metric_batch_size = 1000
+metric_buffer_limit = 10000
+omit_hostname = false
+precision = ""
+quiet = false
+round_interval = false
+
+[inputs]
+
+[[inputs.tail]]
+data_format = "value"
+data_type = "string"
+file_state_folder = "/opt/aws/amazon-cloudwatch-agent/logs/state"
+name_override = "raw_log_line"
+
+<% @log_files.each do |log_file| %>
+[[inputs.tail.file_config]]
+file_path = <%= log_file['path'] %>
+from_beginning = true
+log_group_name = <%= log_file['log_group_name'] %>
+log_stream_name = <%= log_file['log_stream_name'] %>
+pipe = false
+<% end %>
+
+[inputs.tail.tags]
+metricPath = "logs"
+
+[outputs]
+
+[[outputs.cloudwatchlogs]]
+file_state_folder = "/opt/aws/amazon-cloudwatch-agent/logs/state"
+force_flush_interval = "5s"
+region = <%= @aws_region %>
+tagexclude = ["metricPath"]
+[outputs.cloudwatchlogs.tagpass]
+metricPath = ["logs"]
+
+[outputs.cloudwatchlogs.tagpass]
+metricPath = ["logs"]

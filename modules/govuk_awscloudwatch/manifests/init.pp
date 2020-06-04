@@ -13,6 +13,8 @@
 class govuk_awscloudwatch (
   $apt_mirror_hostname,
   $apt_mirror_gpg_key_fingerprint,
+  $log_files,
+  $aws_region,
 )
 {
   apt::source { 'awscloudwatch':
@@ -27,5 +29,14 @@ class govuk_awscloudwatch (
   package { 'amazon-cloudwatch-agent':
     ensure  => present,
     require => Apt::Source['awscloudwatch'],
+  }
+
+  file { 'amazon-cloudwatch-config':
+    ensure => present,
+    path => '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.toml',
+    content => template('govuk_awscloudwatch/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.toml.erb'),
+    owner   => 'root',
+    group   => 'root',
+    mode    => '0644',
   }
 }
