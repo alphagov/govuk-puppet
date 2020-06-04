@@ -111,6 +111,7 @@ ckan.harvest.mq.type = redis
 ckan.harvest.mq.hostname = <%= @redis_host%>
 ckan.harvest.mq.port = <%= @redis_port%>
 ckan.harvest.mq.redis_db = 1
+ckan.harvest.timeout = 720  # 12 hours
 
 ckan.redis.url = redis://<%= @redis_host%>:<%= @redis_port%>/1
 
