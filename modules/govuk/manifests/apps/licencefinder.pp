@@ -42,12 +42,25 @@ class govuk::apps::licencefinder(
   govuk::app { $app_name:
     app_type                => 'rack',
     port                    => $port,
+    nginx_extra_config      => template('licencefinder/nginx_extra'),
     sentry_dsn              => $sentry_dsn,
     health_check_path       => '/licence-finder/sectors',
     log_format_is_json      => true,
     asset_pipeline          => true,
     asset_pipeline_prefixes => ['licencefinder', 'assets/licencefinder'],
     repo_name               => 'licence-finder',
+  }
+
+  nginx::conf { 'rate-limiting':
+    content => "limit_req_zone \$binary_remote_addr zone=licencefinder:1m rate=1r/s;\n",
+  }
+
+  nginx::conf { 'real-ip-params':
+    content => "
+      real_ip_header True-Client-Ip;
+      real_ip_recursive on;
+      set_real_ip_from 0.0.0.0/0;
+    ",
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:
