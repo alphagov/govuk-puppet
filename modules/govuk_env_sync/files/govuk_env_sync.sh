@@ -360,7 +360,7 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
-  pg_restore "${dumpfile}" | sed -r "${sed_cmds}"
+  pg_restore -j 2 "${dumpfile}" | sed -r "${sed_cmds}"
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
