@@ -216,6 +216,20 @@ govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::a
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 
+govuk::apps::contacts::ensure: 'present'
+govuk::apps::collections_publisher::ensure: 'present'
+govuk::apps::content_publisher::ensure: 'present'
+govuk::apps::content_tagger::ensure: 'present'
+govuk::apps::hmrc_manuals_api::ensure: 'present'
+govuk::apps::manuals_publisher::ensure: 'present'
+govuk::apps::maslow::ensure: 'present'
+govuk::apps::publisher::ensure: 'present'
+govuk::apps::search_admin::ensure: 'present'
+govuk::apps::service_manual_publisher::ensure: 'present'
+govuk::apps::short_url_manager::ensure: 'present'
+govuk::apps::specialist_publisher::ensure: 'present'
+govuk::apps::travel_advice_publisher::ensure: 'present'
+
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 
