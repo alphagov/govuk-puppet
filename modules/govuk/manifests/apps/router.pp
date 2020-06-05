@@ -103,8 +103,4 @@ class govuk::apps::router (
     fields => {'application' => 'router'},
     json   => {'add_error_key' => true},
   }
-
-  if $::aws_environment == 'integration' {
-    include govuk_splunk
-  }
 }
