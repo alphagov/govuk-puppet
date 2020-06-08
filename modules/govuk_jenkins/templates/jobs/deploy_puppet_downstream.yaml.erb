@@ -1,0 +1,35 @@
+---
+- job:
+    name: Deploy_Puppet_Downstream
+    project-type: freestyle
+    description: "Kicks off a Puppet deploy in a downstream environment"
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    builders:
+      - shell: |
+          JSON="{\"parameter\": [{\"name\": \"TAG\", \"value\": \"$TAG\"}], \"\": \"\"}"
+
+          # Deploy to downstream environment
+          CRUMB=$(curl https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+
+          curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/job/Deploy_Puppet/build -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON"
+
+          # Deploy to AWS downstream environment
+          CRUMB=$(curl https://<%= @jenkins_downstream_aws_api_user %>:<%= @jenkins_downstream_aws_api_password %>@<%= @aws_deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
+
+          curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://<%= @jenkins_downstream_aws_api_user %>:<%= @jenkins_downstream_aws_api_password %>@<%= @aws_deploy_url %>/job/Deploy_Puppet/build -d token=<%= @puppet_auth_token %> --data-urlencode json="$JSON"
+
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+        - string:
+            name: TAG
+            description: 'Git tag/committish to deploy.'
+            default: 'release'
+    publishers:
+        - description-setter:
+            regexp: ""
+            description: "$TAG"
