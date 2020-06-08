@@ -25,6 +25,7 @@ class govuk_jenkins::jobs::deploy_app_downstream (
   $jenkins_downstream_api_password = undef,
   $deploy_url = undef,
   $github_api_token = undef,
+  $smokey_pre_check = true,
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_app_downstream.yaml':
     ensure  => present,

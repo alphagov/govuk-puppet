@@ -9,6 +9,15 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
+      <% if @smokey_pre_check %>
+      - shell: |
+          # Wait for any app restarts to complete before running Smokey
+          sleep 60
+      - trigger-builds:
+          - project: Smokey
+            current-parameters: true
+            block: true
+      <% end %>
       - shell: |
           # Workaround for our inconsistent repo vs. deployment naming
           case "$TARGET_APPLICATION" in
