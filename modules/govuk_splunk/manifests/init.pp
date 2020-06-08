@@ -34,15 +34,15 @@
 #
 #
 class govuk_splunk(
-  $gds_servers,
-  $gds_server_cert,
-  $gds_root_ca_cert,
-  $gds_password,
-  $gds_cname,
-  $cyber_servers,
-  $cyber_server_cert,
-  $cyber_root_ca_cert,
-  $cyber_cname,
+  $gds_servers = [],
+  $gds_server_cert = [],
+  $gds_root_ca_cert = [],
+  $gds_password = [],
+  $gds_cname = [],
+  $cyber_servers = [],
+  $cyber_server_cert = [],
+  $cyber_root_ca_cert = [],
+  $cyber_cname = [],
 ) {
 
   include govuk_splunk::repos
