@@ -29,11 +29,14 @@
             predefined-parameters: |
                 NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                 NSCA_OUTPUT=<%= @service_description %> failed
+    parameters:
+      - string:
+          name: TARGET_APPLICATION
+          description: Application to target (optional).
     builders:
       - shell: |
           set +x
           export TARGET_PLATFORM=<%= @environment %>
-          export MYTASK=<%= @smokey_task %>
           set -x
           ./jenkins.sh
     wrappers:
