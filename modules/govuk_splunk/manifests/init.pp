@@ -142,16 +142,6 @@ class govuk_splunk(
     notify  => Service['splunk'],
   }
 
-  file { '/opt/splunkforwarder/etc/apps/govuk_frontend/default/inputs.conf':
-    ensure  => present,
-    owner   => 'splunk',
-    group   => 'splunk',
-    mode    => '0600',
-    content => template('govuk_splunk/opt/splunkforwarder/etc/apps/govuk_frontend/default/inputs.conf'),
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
-  }
-
   service { 'splunk':
     ensure    => running,
     subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
