@@ -6,12 +6,14 @@ class icinga::config::pingdom (
 ) {
 
   file { '/etc/pingdom.ini':
+    ensure  => 'absent',
     content => template('icinga/etc/pingdom.ini.erb'),
     owner   => 'nagios',
     mode    => '0400',
   }
 
   file { '/usr/local/bin/check_pingdom.py':
+    ensure => 'absent',
     source => 'puppet:///modules/icinga/usr/local/bin/check_pingdom.py',
     mode   => '0755',
   }
