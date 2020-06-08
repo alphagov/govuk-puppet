@@ -73,7 +73,7 @@ class govuk::apps::router (
     port                                => $port,
     enable_nginx_vhost                  => $enable_nginx_vhost,
     vhost_aliases                       => $vhost_aliases,
-    nagios_memory_warning               => 1100,
+    nagios_memory_warning               => 1500,
     nagios_memory_critical              => 2500,
     sentry_dsn                          => $sentry_dsn,
     alert_when_file_handles_exceed      => 2000,
