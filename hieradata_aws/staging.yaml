@@ -161,8 +161,9 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-aler
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
 govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
-govuk::apps::email_alert_api::email_address_override_whitelist_only: true
-govuk::apps::email_alert_api::delivery_request_threshold: "3000"
+#govuk::apps::email_alert_api::email_address_override_whitelist_only: true
+#govuk::apps::email_alert_api::delivery_request_threshold: "3000"
+govuk::apps::email_alert_api::email_service_provider: "DELAY"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
