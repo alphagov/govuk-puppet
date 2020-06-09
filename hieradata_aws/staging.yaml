@@ -159,7 +159,7 @@ govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-staging-email-alert-api-archive'
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: false
-govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
+govuk::apps::email_alert_api::govuk_notify_template_id: '76d21ce7-54c3-4fb7-8830-ba3b79287985'
 govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazonses.com'
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"

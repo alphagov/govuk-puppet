@@ -218,6 +218,9 @@ class govuk::apps::email_alert_api(
     "${title}-SIDEKIQ_QUEUE_LATENCY_WARNING_THRESHOLD":
         varname => 'SIDEKIQ_QUEUE_LATENCY_WARNING',
         value   => $sidekiq_queue_latency_warning;
+    "${title}-GOVUK_NOTIFY_BASE_URL":
+        varname => 'GOVUK_NOTIFY_BASE_URL',
+        value   => 'https://api.staging-notify.works/';
     "${title}-GOVUK_NOTIFY_API_KEY":
         varname => 'GOVUK_NOTIFY_API_KEY',
         value   => $govuk_notify_api_key;
