@@ -85,7 +85,7 @@
                   "type": "percentiles"
                 }
               ],
-              "query": "tags: sidekiq AND @fields.worker:$Worker",
+              "query": "tags: sidekiq AND @fields.worker:$Worker AND @status:done",
               "refId": "A",
               "timeField": "@timestamp"
             },
