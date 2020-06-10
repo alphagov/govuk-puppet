@@ -140,6 +140,7 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.u
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::ckan::cronjobs::enable_solr_reindex: true
+govuk::apps::contacts::enabled: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
@@ -151,6 +152,7 @@ govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::enabled: true
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
@@ -204,6 +206,7 @@ govuk::apps::short_url_manager::mongodb_password: "%{hiera('govuk::apps::asset_m
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
@@ -211,6 +214,7 @@ govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: true
 govuk::apps::travel_advice_publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"

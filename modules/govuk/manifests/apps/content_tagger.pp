@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+## [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*port*]
 #   The port that the app is served on.
 #   Default: 3116
@@ -65,6 +68,7 @@
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
 class govuk::apps::content_tagger(
+  $ensure = 'present',
   $port,
   $secret_key_base = undef,
   $sentry_dsn = undef,
@@ -86,6 +90,7 @@ class govuk::apps::content_tagger(
   $app_name = 'content-tagger'
 
   govuk::app { $app_name:
+    ensure                   => $ensure,
     app_type                 => 'rack',
     port                     => $port,
     vhost_ssl_only           => true,
@@ -97,48 +102,50 @@ class govuk::apps::content_tagger(
     override_search_location => $override_search_location,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
-
-  if $secret_key_base {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
     }
-  }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
-      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
-      value   => $email_alert_api_bearer_token;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-  }
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
 
-  govuk::app::envvar::database_url { $app_name:
-    type                      => 'postgresql',
-    username                  => $db_username,
-    password                  => $db_password,
-    host                      => $db_hostname,
-    port                      => $db_port,
-    allow_prepared_statements => $db_allow_prepared_statements,
-    database                  => $db_name,
-  }
+    if $secret_key_base {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      }
+    }
 
-  govuk::procfile::worker { 'content-tagger':
-    enable_service => $enable_procfile_worker,
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+    }
+
+    govuk::app::envvar::database_url { $app_name:
+      type                      => 'postgresql',
+      username                  => $db_username,
+      password                  => $db_password,
+      host                      => $db_hostname,
+      port                      => $db_port,
+      allow_prepared_statements => $db_allow_prepared_statements,
+      database                  => $db_name,
+    }
+
+    govuk::procfile::worker { 'content-tagger':
+      enable_service => $enable_procfile_worker,
+    }
   }
 }

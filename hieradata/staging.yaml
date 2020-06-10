@@ -20,6 +20,8 @@ govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::contacts::enabled: false
+govuk::apps::content_publisher::enabled: false
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
@@ -38,9 +40,11 @@ govuk::apps::short_url_manager::govuk_notify_template_id: '112842bb-d8a4-4511-90
 govuk::apps::signon::instance_name: 'staging'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: false
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_email_alerts: false
+govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 
 govuk::apps::contacts::ensure: 'absent'

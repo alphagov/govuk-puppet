@@ -228,6 +228,7 @@ class govuk::apps::content_publisher (
   }
 
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 }

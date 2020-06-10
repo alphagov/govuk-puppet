@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*port*]
 #   The port that hmrc-manuals-api is served on.
 #
@@ -37,6 +40,7 @@
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
 class govuk::apps::hmrc_manuals_api(
+  $ensure = 'present',
   $port,
   $sentry_dsn = undef,
   $allow_unknown_hmrc_manual_slugs = false,
@@ -47,45 +51,49 @@ class govuk::apps::hmrc_manuals_api(
   $override_search_location = undef,
 ) {
 
-  Govuk::App::Envvar {
-    app => 'hmrc-manuals-api',
-  }
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
-  if $allow_unknown_hmrc_manual_slugs {
-    govuk::app::envvar {
-      "${title}-ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS":
-        varname => 'ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS',
-        value   => '1';
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => 'hmrc-manuals-api',
     }
-  }
 
-  if $publish_topics {
-    govuk::app::envvar {
-      "${title}-PUBLISH_TOPICS":
-        varname => 'PUBLISH_TOPICS',
-        value   => '1';
+    if $allow_unknown_hmrc_manual_slugs {
+      govuk::app::envvar {
+        "${title}-ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS":
+          varname => 'ALLOW_UNKNOWN_HMRC_MANUAL_SLUGS',
+          value   => '1';
+      }
     }
-  }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token,
-  }
+    if $publish_topics {
+      govuk::app::envvar {
+        "${title}-PUBLISH_TOPICS":
+          varname => 'PUBLISH_TOPICS',
+          value   => '1';
+      }
+    }
 
-  govuk::app { 'hmrc-manuals-api':
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    vhost_ssl_only           => true,
-    health_check_path        => '/healthcheck',
-    log_format_is_json       => true,
-    override_search_location => $override_search_location,
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token,
+    }
+
+    govuk::app { 'hmrc-manuals-api':
+      app_type                 => 'rack',
+      port                     => $port,
+      sentry_dsn               => $sentry_dsn,
+      vhost_ssl_only           => true,
+      health_check_path        => '/healthcheck',
+      log_format_is_json       => true,
+      override_search_location => $override_search_location,
+    }
   }
 }
