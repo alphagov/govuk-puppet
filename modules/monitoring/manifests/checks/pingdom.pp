@@ -33,6 +33,7 @@ class monitoring::checks::pingdom (
 
   if $enable {
     icinga::check { 'check_pingdom':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_homepage_check',
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
@@ -41,6 +42,7 @@ class monitoring::checks::pingdom (
     }
 
     icinga::check { 'check_pingdom_calendar':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_calendar_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
@@ -48,6 +50,7 @@ class monitoring::checks::pingdom (
     }
 
     icinga::check { 'check_pingdom_search':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_search_check',
       use                 => 'govuk_urgent_priority',
       host_name           => $::fqdn,
@@ -56,6 +59,7 @@ class monitoring::checks::pingdom (
     }
 
     icinga::check { 'check_pingdom_smart_answer':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_smart_answer_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
@@ -63,6 +67,7 @@ class monitoring::checks::pingdom (
     }
 
     icinga::check { 'check_pingdom_mirror_S3':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_mirror_S3_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
@@ -71,6 +76,7 @@ class monitoring::checks::pingdom (
     }
 
     icinga::check { 'check_pingdom_mirror_S3_replica':
+      ensure              => 'absent',
       check_command       => 'run_pingdom_mirror_S3_replica_check',
       use                 => 'govuk_high_priority',
       host_name           => $::fqdn,
