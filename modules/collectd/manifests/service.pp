@@ -10,7 +10,7 @@ class collectd::service {
 
   @@icinga::check { "check_collectd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!collectd',
-    service_description => 'collectd system statistics daemon',
+    service_description => 'collectd system statistics daemon not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }
