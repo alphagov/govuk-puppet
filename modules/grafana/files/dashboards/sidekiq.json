@@ -53,14 +53,14 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "groupByNode(summarize(stats_counts.govuk.app.$Application.*.workers.*.success, '$Aggregation', 'sum', false), 6, 'sum')",
+              "target": "groupByNode(consolidateBy(summarize(stats_counts.govuk.app.$Application.*.workers.*.success, '$Interval', 'sum', false), 'sum'), 6, 'sum')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Jobs Processed (total over $Aggregation)",
+          "title": "Jobs Processed (total over $Interval)",
           "tooltip": {
             "shared": false,
             "sort": 2,
@@ -145,13 +145,13 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByNode(summarize(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.queues.*.latency, 5), '$Aggregation', 'avg', false), 7)"
+              "target": "aliasByNode(consolidateBy(summarize(averageSeriesWithWildcards(stats.gauges.govuk.app.$Application.*.workers.queues.*.latency, 5), '$Interval', 'avg', false), 'average'), 7)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Queue Latency (average over $Aggregation)",
+          "title": "Queue Latency (average over $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 2,
@@ -226,14 +226,14 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.enqueued, '$Aggregation', 'max', false), 8, 'maxSeries')",
+              "target": "groupByNode(consolidateBy(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.enqueued, '$Interval', 'max', false), 'max'), 8, 'maxSeries')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Queue Length (max over $Aggregation)",
+          "title": "Queue Length (max over $Interval)",
           "tooltip": {
             "msResolution": true,
             "shared": true,
@@ -318,13 +318,13 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.runtime, '$Aggregation', 'max', false), 8, 'maxSeries')"
+              "target": "groupByNode(consolidateBy(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.runtime, '$Interval', 'max', false), 'max'), 8, 'maxSeries')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Job duration (snapshot, max over $Aggregation)",
+          "title": "Job duration (snapshot, max over $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -394,13 +394,13 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.processing, '$Aggregation', 'max', false), 8, 'maxSeries')"
+              "target": "groupByNode(consolidateBy(summarize(stats.gauges.govuk.app.$Application.*.workers.queues.*.processing, '$Interval', 'max', false), 'max'), 8, 'maxSeries')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Jobs underway (snapshot, max over $Aggregation)",
+          "title": "Jobs underway (snapshot, max over $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -485,7 +485,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "groupByNode(summarize(stats.gauges.govuk.app.$Application.*.workers.retry_set_size, '$Aggregation', 'max', false), 4, 'maxSeries')",
+              "target": "groupByNode(consolidateBy(summarize(stats.gauges.govuk.app.$Application.*.workers.retry_set_size, '$Interval', 'max', false), 'max'), 4, 'maxSeries')",
               "textEditor": false
             }
           ],
@@ -568,7 +568,7 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "groupByNode(summarize(stats_counts.govuk.app.$Application.*.workers.*.failure, '$Aggregation', 'sum', false), 6, 'sum')",
+              "target": "groupByNode(consolidateBy(summarize(stats_counts.govuk.app.$Application.*.workers.*.failure, '$Interval', 'sum', false), 'sum'), 6, 'sum')",
               "textEditor": false
             }
           ],
@@ -903,7 +903,7 @@
         },
         "hide": 2,
         "label": null,
-        "name": "Aggregation",
+        "name": "Interval",
         "options": [
           {
             "selected": true,

@@ -30,16 +30,16 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 102,
+  "id": 33,
   "links": [],
-  "refresh": "1m",
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
-      "height": 246,
+      "height": 196,
       "panels": [
         {
-          "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email-alert-api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)",
+          "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email-alert-api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)\n   - [Postgres stats](/dashboard/file/aws-rds.json?orgId=1&var-region=eu-west-1&var-dbinstanceidentifier=blue-postgresql-primary&from=now-1h&to=now)",
           "id": 7,
           "links": [],
           "mode": "markdown",
@@ -59,81 +59,7 @@
           "datasource": "Graphite",
           "format": "none",
           "gauge": {
-            "maxValue": 30000,
-            "minValue": 0,
-            "show": true,
-            "thresholdLabels": false,
-            "thresholdMarkers": true
-          },
-          "id": 15,
-          "interval": null,
-          "links": [],
-          "mappingType": 1,
-          "mappingTypes": [
-            {
-              "name": "value to text",
-              "value": 1
-            },
-            {
-              "name": "range to text",
-              "value": 2
-            }
-          ],
-          "maxDataPoints": 100,
-          "nullPointMode": "connected",
-          "nullText": null,
-          "postfix": "",
-          "postfixFontSize": "50%",
-          "prefix": "",
-          "prefixFontSize": "50%",
-          "rangeMaps": [
-            {
-              "from": "null",
-              "text": "N/A",
-              "to": "null"
-            }
-          ],
-          "span": 2,
-          "sparkline": {
-            "fillColor": "rgba(31, 118, 189, 0.18)",
-            "full": false,
-            "lineColor": "rgb(31, 120, 193)",
-            "show": true
-          },
-          "tableColumn": "",
-          "targets": [
-            {
-              "refId": "A",
-              "target": "summarize(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*), '1min', 'sum', false)",
-              "textEditor": false
-            }
-          ],
-          "thresholds": "20000,21600",
-          "title": "Notify Emails Sent (Per Minute)",
-          "type": "singlestat",
-          "valueFontSize": "80%",
-          "valueMaps": [
-            {
-              "op": "=",
-              "text": "N/A",
-              "value": "null"
-            }
-          ],
-          "valueName": "current"
-        },
-        {
-          "cacheTimeout": null,
-          "colorBackground": false,
-          "colorValue": false,
-          "colors": [
-            "rgba(50, 172, 45, 0.97)",
-            "rgba(237, 129, 40, 0.89)",
-            "rgba(245, 54, 54, 0.9)"
-          ],
-          "datasource": "Graphite",
-          "format": "none",
-          "gauge": {
-            "maxValue": 25000000,
+            "maxValue": 30000000,
             "minValue": 0,
             "show": true,
             "thresholdLabels": false,
@@ -183,7 +109,7 @@
               "textEditor": false
             }
           ],
-          "thresholds": "20000000,22500000",
+          "thresholds": "20000000,25000000",
           "timeFrom": "now/d",
           "timeShift": null,
           "title": "Notify Emails Sent (Today)",
@@ -204,7 +130,101 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
+          "id": 22,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 1,
+          "points": true,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "per minute rate limit",
+              "fill": 0
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "hide": true,
+              "refId": "A",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false))",
+              "textEditor": false
+            },
+            {
+              "hide": true,
+              "refId": "C",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.delivery_request_worker.rate_limit_exceeded, '30s', 'sum', false))",
+              "textEditor": false
+            },
+            {
+              "refId": "B",
+              "target": "alias(constantLine(10800), 'per minute rate limit')"
+            },
+            {
+              "refId": "D",
+              "target": "alias(consolidateBy(sumSeries(#A, #C), 'sum'), 'per minute rate')",
+              "targetFull": "alias(consolidateBy(sumSeries(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false)), sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.delivery_request_worker.rate_limit_exceeded, '30s', 'sum', false))), 'sum'), 'per minute rate')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Notify Emails Sent (per 30s)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 2,
           "id": 13,
           "legend": {
             "avg": false,
@@ -216,28 +236,28 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "",
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 10,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "D",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '5minutes', 'max')), 'upper')",
+              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '$Interval', 'max')), 'upper')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '5minutes', 'avg')), 'mean')",
+              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '$Interval', 'avg')), 'mean')",
               "textEditor": false
             }
           ],
@@ -288,7 +308,7 @@
     },
     {
       "collapse": false,
-      "height": 298,
+      "height": 266,
       "panels": [
         {
           "aliasColors": {},
@@ -297,7 +317,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 0,
+          "fill": 2,
           "id": 1,
           "legend": {
             "avg": false,
@@ -312,45 +332,46 @@
           "linewidth": 2,
           "links": [],
           "maxDataPoints": "100",
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "content_changes_created",
-              "fill": 5,
-              "linewidth": 0
+              "alias": "failure",
+              "bars": true,
+              "lines": false,
+              "points": false,
+              "yaxis": 2
             }
           ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
-              "refId": "B",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.content_changes_created), 'sum'), 5)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
-              "refId": "A",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.success), 'sum'), 7)",
+              "refId": "C",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.process_and_generate_emails.processing, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.failure), 'sum'), 7)",
+              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
+              "textEditor": false
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.process_and_generate_emails.enqueued, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Content Changes",
+          "title": "Content Changes (per $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -385,12 +406,12 @@
         },
         {
           "aliasColors": {},
-          "bars": false,
+          "bars": true,
           "cacheTimeout": "",
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
           "id": 17,
           "legend": {
             "avg": false,
@@ -401,31 +422,29 @@
             "total": false,
             "values": false
           },
-          "lines": true,
-          "linewidth": 1,
+          "lines": false,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "",
-          "nullPointMode": "connected",
+          "nullPointMode": "null",
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 2,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
-              "hide": false,
-              "refId": "A",
-              "target": "aliasByNode(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.mean, '5min', 'avg', false)), 7, 9)",
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             },
             {
-              "hide": false,
-              "refId": "B",
-              "target": "aliasByNode(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.upper, '5min', 'max', false)), 7, 9)",
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
               "textEditor": false
             }
           ],
@@ -479,11 +498,11 @@
       "panels": [
         {
           "aliasColors": {},
-          "bars": true,
+          "bars": false,
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
           "id": 16,
           "legend": {
             "avg": false,
@@ -494,22 +513,21 @@
             "total": false,
             "values": false
           },
-          "lines": false,
-          "linewidth": 1,
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "100",
           "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "/delivery/",
-              "bars": false,
-              "fill": 5,
-              "lines": true,
-              "linewidth": 3,
+              "alias": "failure",
+              "bars": true,
+              "lines": false,
+              "points": false,
               "yaxis": 2
             }
           ],
@@ -520,39 +538,27 @@
           "targets": [
             {
               "hide": false,
-              "refId": "C",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.success), 'sum'), 6, 7)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
               "refId": "A",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.failure), 'sum'), 6, 7)",
+              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate.enqueued), 'max'), 8, 9)",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
               "textEditor": false
             },
             {
               "hide": false,
-              "refId": "D",
-              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate_high.enqueued), 'max'), 8, 9)",
-              "textEditor": false
-            },
-            {
-              "hide": false,
-              "refId": "E",
-              "target": "aliasByNode(consolidateBy(maxSeries(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_transactional.enqueued), 'max'), 8, 9)",
+              "refId": "C",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate_high.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delivery Jobs",
+          "title": "Delivery Jobs (per $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -591,7 +597,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
           "id": 12,
           "legend": {
             "avg": false,
@@ -603,13 +609,13 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "",
           "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
@@ -619,12 +625,12 @@
           "targets": [
             {
               "refId": "C",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '5min', 'max', false)), 'upper')",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '5min', 'avg', false)), 'mean')",
+              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
               "textEditor": false
             }
           ],
@@ -683,7 +689,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 5,
+          "fill": 2,
           "id": 6,
           "legend": {
             "avg": false,
@@ -698,32 +704,32 @@
           "linewidth": 2,
           "links": [],
           "maxDataPoints": "100",
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
               "hide": false,
               "refId": "C",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success), 'sum'), 6, 7)"
+              "target": "aliasByNode(consolidateBy(summarize(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success), '$Interval', 'sum', false), 'sum'), 6, 7)"
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "aliasByNode(consolidateBy(sumSeries(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure), 'sum'), 6, 7)"
+              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure, '$Interval', 'sum', false)), 'sum'), 6, 7)"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Notify Email Send Requests",
+          "title": "Notify Email Send Requests (per $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -763,7 +769,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
           "id": 5,
           "legend": {
             "avg": false,
@@ -775,13 +781,13 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "",
-          "nullPointMode": "null as zero",
+          "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
@@ -791,8 +797,13 @@
           "targets": [
             {
               "hide": false,
+              "refId": "A",
+              "target": "aliasByNode(maxSeries(consolidateBy(summarize(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.upper, '$Interval', 'max', false), 'max')), 9)"
+            },
+            {
+              "hide": false,
               "refId": "D",
-              "target": "alias(summarize(averageSeries(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.mean), '5min', 'avg', false), 'average request duration')"
+              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.notify.email_send_request.timing.mean, '$Interval', 'avg', false)), 'average'), 9)"
             }
           ],
           "thresholds": [],
@@ -850,7 +861,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
-          "fill": 5,
+          "fill": 2,
           "id": 8,
           "interval": "",
           "legend": {
@@ -866,19 +877,19 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "100",
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
           "stack": true,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
               "bucketAggs": [
@@ -899,7 +910,7 @@
                   "field": "@timestamp",
                   "id": "3",
                   "settings": {
-                    "interval": "1m",
+                    "interval": "$Interval",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
@@ -926,7 +937,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Status Updates from Notify",
+          "title": "Status Updates from Notify (per $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -960,14 +971,17 @@
           ]
         },
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "mean": "#EAB839",
+            "upper": "#7EB26D"
+          },
           "bars": false,
           "cacheTimeout": "",
           "dashLength": 10,
           "dashes": false,
           "datasource": "Elasticsearch",
           "decimals": null,
-          "fill": 5,
+          "fill": 2,
           "id": 9,
           "legend": {
             "alignAsTable": false,
@@ -983,21 +997,22 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "100",
-          "nullPointMode": "null",
+          "nullPointMode": "connected",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
+              "alias": "mean",
               "bucketAggs": [
                 {
                   "fake": true,
@@ -1016,7 +1031,7 @@
                   "field": "@timestamp",
                   "id": "3",
                   "settings": {
-                    "interval": "1m",
+                    "interval": "$Interval",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
@@ -1036,6 +1051,49 @@
               ],
               "query": "application: email-alert-api AND status: [200 TO 299] AND route: status_updates*",
               "refId": "A",
+              "target": "aliasByNode(sumSeries(stats.govuk.app.email-alert-api.*.status_update.success), 5, 6)",
+              "timeField": "@timestamp"
+            },
+            {
+              "alias": "upper",
+              "bucketAggs": [
+                {
+                  "fake": true,
+                  "field": "route",
+                  "id": "4",
+                  "settings": {
+                    "min_doc_count": 1,
+                    "order": "desc",
+                    "orderBy": "_term",
+                    "size": "0"
+                  },
+                  "type": "terms"
+                },
+                {
+                  "fake": true,
+                  "field": "@timestamp",
+                  "id": "3",
+                  "settings": {
+                    "interval": "$Interval",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "hide": false,
+              "metrics": [
+                {
+                  "field": "duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {},
+                  "type": "max"
+                }
+              ],
+              "query": "application: email-alert-api AND status: [200 TO 299] AND route: status_updates*",
+              "refId": "B",
               "target": "aliasByNode(sumSeries(stats.govuk.app.email-alert-api.*.status_update.success), 5, 6)",
               "timeField": "@timestamp"
             }
@@ -1155,7 +1213,7 @@
                   "field": "@timestamp",
                   "id": "3",
                   "settings": {
-                    "interval": "auto",
+                    "interval": "$Interval",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
@@ -1182,7 +1240,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Other Requests",
+          "title": "Other Requests (per $Interval)",
           "tooltip": {
             "shared": false,
             "sort": 0,
@@ -1270,7 +1328,7 @@
                   "field": "@timestamp",
                   "id": "3",
                   "settings": {
-                    "interval": "auto",
+                    "interval": "$Interval",
                     "min_doc_count": 0,
                     "trimEdges": 0
                   },
@@ -1349,7 +1407,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 1,
+          "fill": 2,
           "id": 2,
           "legend": {
             "avg": false,
@@ -1360,21 +1418,28 @@
             "total": false,
             "values": false
           },
-          "lines": false,
-          "linewidth": 1,
+          "lines": true,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "",
-          "nullPointMode": "null",
+          "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 10,
+          "pointradius": 1,
           "points": true,
           "renderer": "flot",
           "seriesOverrides": [
             {
-              "alias": "DigestEmailGenerationWorker",
-              "lines": true,
-              "nullPointMode": "null as zero",
-              "points": false,
+              "alias": "WeeklyDigestInitiatorWorker",
+              "lines": false,
+              "nullPointMode": "null",
+              "pointradius": 5,
+              "yaxis": 2
+            },
+            {
+              "alias": "DailyDigestInitiatorWorker",
+              "lines": false,
+              "nullPointMode": "null",
+              "pointradius": 5,
               "yaxis": 2
             }
           ],
@@ -1442,7 +1507,7 @@
           "dashLength": 10,
           "dashes": false,
           "datasource": "Graphite",
-          "fill": 10,
+          "fill": 2,
           "id": 3,
           "legend": {
             "avg": false,
@@ -1454,15 +1519,20 @@
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "maxDataPoints": "50",
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "DigestEmailGenerationWorker",
+              "yaxis": 2
+            }
+          ],
           "spaceLength": 10,
           "span": 6,
           "stack": false,
@@ -1470,18 +1540,18 @@
           "targets": [
             {
               "hide": false,
-              "refId": "D",
-              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.digest_initiator_service.weekly.timing.mean), 'weekly initiation time')"
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy(averageSeries(stats.timers.govuk.app.email-alert-api.*.workers.DailyDigestInitiatorWorker.processing_time.mean), 'average'), 7)"
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy(averageSeries(stats.timers.govuk.app.email-alert-api.*.workers.WeeklyDigestInitiatorWorker.processing_time.mean), 'average'), 7)"
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.digest_initiator_service.daily.timing.mean), 'daily initiation time')"
-            },
-            {
-              "hide": false,
-              "refId": "E",
-              "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.workers.DigestEmailGenerationWorker.processing_time.sum), 'email processing time')"
+              "target": "aliasByNode(consolidateBy(averageSeries(stats.timers.govuk.app.email-alert-api.*.workers.DigestEmailGenerationWorker.processing_time.mean), 'average'), 7)"
             }
           ],
           "thresholds": [],
@@ -1511,7 +1581,7 @@
               "show": true
             },
             {
-              "format": "short",
+              "format": "ms",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -1631,228 +1701,84 @@
       "showTitle": true,
       "title": "Volume",
       "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": "500",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 20,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "count",
-              "color": "#1F78C1",
-              "fill": 0,
-              "linewidth": 1,
-              "yaxis": 2
-            },
-            {
-              "alias": "upper",
-              "color": "#BF1B00"
-            }
-          ],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.mean), 'mean')",
-              "textEditor": false
-            },
-            {
-              "refId": "B",
-              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.upper_90), 'upper 90')",
-              "textEditor": false
-            },
-            {
-              "refId": "D",
-              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.upper), 'upper')",
-              "textEditor": false
-            },
-            {
-              "refId": "C",
-              "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_worker_find_email.timing.count), 'count')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delivery Request Worker: Find email timing",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "dtdurationms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        },
-        {
-          "aliasColors": {},
-          "bars": false,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 21,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": true,
-          "linewidth": 2,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "count",
-              "color": "#1F78C1",
-              "fill": 0,
-              "linewidth": 1,
-              "yaxis": 2
-            },
-            {
-              "alias": "upper",
-              "color": "#BF1B00"
-            }
-          ],
-          "spaceLength": 10,
-          "span": 6,
-          "stack": false,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "B",
-              "target": "alias(averageSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.mean), 'mean')",
-              "textEditor": false
-            },
-            {
-              "refId": "A",
-              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.upper_90), 'upper 90')",
-              "textEditor": false
-            },
-            {
-              "refId": "D",
-              "target": "alias(maxSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.upper), 'upper')",
-              "textEditor": false
-            },
-            {
-              "refId": "C",
-              "target": "alias(sumSeries(stats.timers.govuk.app.email-alert-api.*.delivery_request_service_create_delivery_attempt.timing.count), 'count')",
-              "textEditor": false
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": null,
-          "timeShift": null,
-          "title": "Delivery Request Service: Create delivery attempt timing",
-          "tooltip": {
-            "shared": true,
-            "sort": 2,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "dtdurationms",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": true,
-      "title": "Delivery request detailed timings",
-      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
   "style": "dark",
   "tags": [],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "auto": false,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "text": "1m",
+          "value": "1m"
+        },
+        "hide": 2,
+        "label": null,
+        "name": "Interval",
+        "options": [
+          {
+            "selected": true,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          },
+          {
+            "selected": false,
+            "text": "1h",
+            "value": "1h"
+          },
+          {
+            "selected": false,
+            "text": "6h",
+            "value": "6h"
+          },
+          {
+            "selected": false,
+            "text": "12h",
+            "value": "12h"
+          },
+          {
+            "selected": false,
+            "text": "1d",
+            "value": "1d"
+          },
+          {
+            "selected": false,
+            "text": "7d",
+            "value": "7d"
+          },
+          {
+            "selected": false,
+            "text": "14d",
+            "value": "14d"
+          },
+          {
+            "selected": false,
+            "text": "30d",
+            "value": "30d"
+          }
+        ],
+        "query": "1m,10m,30m,1h,6h,12h,1d,7d,14d,30d",
+        "refresh": 2,
+        "type": "interval"
+      }
+    ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -1882,5 +1808,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Metrics",
-  "version": 3
+  "version": 16
 }
