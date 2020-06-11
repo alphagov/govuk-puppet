@@ -1,3 +1,12 @@
+# Guard against open redirects from CKAN for requests with paths like
+# the following, starting with two forward slashes and a trailing
+# slash: //www.gov.uk/
+merge_slashes off;
+location ~* "//" {
+  rewrite ^(.*)//(.*)$ $1/$2;
+  rewrite ^ $uri permanent;
+}
+
 # Some API paths expose PII, so we block access by default. We allow access to
 # specific paths required by other apps which do not expose PII.
 
