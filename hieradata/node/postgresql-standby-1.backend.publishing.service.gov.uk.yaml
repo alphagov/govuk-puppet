@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_content_tagger_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "6"
     action: "push"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_service-manual-publisher_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "36"
     action: "push"
@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_content_publisher_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "45"
     action: "push"
