@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#   
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -67,6 +70,7 @@
 #   The email address to send notifications of expiring bets to
 #
 class govuk::apps::search_admin(
+  $ensure = 'present',
   $db_hostname = undef,
   $db_name = undef,
   $db_password = undef,
@@ -88,7 +92,10 @@ class govuk::apps::search_admin(
 ) {
   $app_name = 'search-admin'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   govuk::app { $app_name:
+    ensure                   => $ensure,
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
@@ -100,55 +107,57 @@ class govuk::apps::search_admin(
     override_search_location => $override_search_location,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
-
-  govuk::procfile::worker { $app_name:
-    enable_service => $enable_procfile_worker,
-  }
-
-  govuk::app::envvar {
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-RUMMAGER_BEARER_TOKEN":
-      varname => 'RUMMAGER_BEARER_TOKEN',
-      value   => $rummager_bearer_token;
-    "${title}-GOVUK_NOTIFY_API_KEY":
-      varname => 'GOVUK_NOTIFY_API_KEY',
-      value   => $govuk_notify_api_key;
-    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-      value   => $govuk_notify_template_id;
-    "${title}-EXPIRING_BETS_MAILING_LIST":
-      varname => 'EXPIRING_BETS_MAILING_LIST',
-      value   => $expiring_bets_mailing_list;
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
     }
-  }
 
-  govuk::app::envvar::database_url { $app_name:
-    type     => 'mysql2',
-    username => $db_username,
-    password => $db_password,
-    host     => $db_hostname,
-    database => $db_name,
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
+    govuk::procfile::worker { $app_name:
+      enable_service => $enable_procfile_worker,
+    }
+
+    govuk::app::envvar {
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-RUMMAGER_BEARER_TOKEN":
+        varname => 'RUMMAGER_BEARER_TOKEN',
+        value   => $rummager_bearer_token;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+      "${title}-EXPIRING_BETS_MAILING_LIST":
+        varname => 'EXPIRING_BETS_MAILING_LIST',
+        value   => $expiring_bets_mailing_list;
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
+    }
   }
 }

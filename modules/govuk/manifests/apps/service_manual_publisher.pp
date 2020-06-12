@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+## [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -62,6 +65,7 @@
 #   The template ID used to send email via GOV.UK Notify.
 #
 class govuk::apps::service_manual_publisher(
+  $ensure = 'present',
   $db_hostname = 'postgresql-primary-1.backend',
   $db_port = undef,
   $db_allow_prepared_statements = undef,
@@ -85,7 +89,10 @@ class govuk::apps::service_manual_publisher(
 
   $app_name = 'service-manual-publisher'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     log_format_is_json => true,
     port               => $port,
@@ -94,51 +101,53 @@ class govuk::apps::service_manual_publisher(
     health_check_path  => '/healthcheck',
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
-
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-ASSET_MANAGER_BEARER_TOKEN":
-      varname => 'ASSET_MANAGER_BEARER_TOKEN',
-      value   => $asset_manager_bearer_token;
-    "${title}-HTTP_USERNAME":
-      varname => 'HTTP_USERNAME',
-      value   => $http_username;
-    "${title}-HTTP_PASSWORD":
-      varname => 'HTTP_PASSWORD',
-      value   => $http_password;
-    "${title}-GOVUK_NOTIFY_API_KEY":
-      varname => 'GOVUK_NOTIFY_API_KEY',
-      value   => $govuk_notify_api_key;
-    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-      value   => $govuk_notify_template_id;
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
     }
-  }
 
-  govuk::app::envvar::database_url { $app_name:
-    type                      => 'postgresql',
-    username                  => $db_username,
-    password                  => $db_password,
-    host                      => $db_hostname,
-    port                      => $db_port,
-    allow_prepared_statements => $db_allow_prepared_statements,
-    database                  => $db_name,
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-ASSET_MANAGER_BEARER_TOKEN":
+        varname => 'ASSET_MANAGER_BEARER_TOKEN',
+        value   => $asset_manager_bearer_token;
+      "${title}-HTTP_USERNAME":
+        varname => 'HTTP_USERNAME',
+        value   => $http_username;
+      "${title}-HTTP_PASSWORD":
+        varname => 'HTTP_PASSWORD',
+        value   => $http_password;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    govuk::app::envvar::database_url { $app_name:
+      type                      => 'postgresql',
+      username                  => $db_username,
+      password                  => $db_password,
+      host                      => $db_hostname,
+      port                      => $db_port,
+      allow_prepared_statements => $db_allow_prepared_statements,
+      database                  => $db_name,
+    }
   }
 }

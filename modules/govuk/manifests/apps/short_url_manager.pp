@@ -4,6 +4,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -65,6 +68,7 @@
 #   Default: true
 #
 class govuk::apps::short_url_manager(
+  $ensure = 'present',
   $sentry_dsn = undef,
   $instance_name = undef,
   $mongodb_name = undef,
@@ -85,11 +89,10 @@ class govuk::apps::short_url_manager(
 
   $app_name = 'short-url-manager'
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -98,51 +101,58 @@ class govuk::apps::short_url_manager(
     log_format_is_json => true,
   }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-GOVUK_NOTIFY_API_KEY":
-      varname => 'GOVUK_NOTIFY_API_KEY',
-      value   => $govuk_notify_api_key;
-    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-      value   => $govuk_notify_template_id;
-  }
-
-  govuk::app::envvar::mongodb_uri { $app_name:
-    hosts    => $mongodb_nodes,
-    database => $mongodb_name,
-    username => $mongodb_username,
-    password => $mongodb_password,
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
-  }
-
-  if $instance_name != undef {
-    govuk::app::envvar { "${title}-INSTANCE_NAME":
-      varname => 'INSTANCE_NAME',
-      value   => $instance_name,
-    }
-  }
-
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
+  }
+
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
+
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+    }
+
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
+    }
+
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
+    if $secret_key_base != undef {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base,
+      }
+    }
+
+    if $instance_name != undef {
+      govuk::app::envvar { "${title}-INSTANCE_NAME":
+        varname => 'INSTANCE_NAME',
+        value   => $instance_name,
+      }
+    }
   }
 }
