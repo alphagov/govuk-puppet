@@ -55,7 +55,7 @@ class govuk_docker (
 
   @@icinga::check { "check_dockerd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!dockerd',
-    service_description => 'dockerd running',
+    service_description => 'dockerd not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

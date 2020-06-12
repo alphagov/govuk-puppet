@@ -16,7 +16,7 @@ class filebeat::service {
   @@icinga::check { "check_filebeat_running_${::hostname}":
     ensure              => $check_ensure,
     check_command       => 'check_nrpe!check_proc_running!filebeat',
-    service_description => 'filebeat running',
+    service_description => 'filebeat not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

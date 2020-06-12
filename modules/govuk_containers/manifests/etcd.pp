@@ -30,7 +30,7 @@ class govuk_containers::etcd {
 
   @@icinga::check { "check_etcd_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!etcd',
-    service_description => 'etcd running',
+    service_description => 'etcd not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

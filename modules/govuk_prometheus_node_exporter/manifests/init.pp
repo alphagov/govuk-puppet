@@ -19,7 +19,7 @@ class govuk_prometheus_node_exporter {
 
   @@icinga::check { "check_prometheus_node_exporter_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!node_exporter',
-    service_description => 'prometheus_node_exporter running',
+    service_description => 'prometheus_node_exporter not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

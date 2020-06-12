@@ -43,7 +43,7 @@ class govuk_containers::redis(
 
   @@icinga::check { "check_redis_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!redis-server',
-    service_description => 'redis running',
+    service_description => 'redis not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

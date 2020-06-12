@@ -58,14 +58,14 @@ class govuk::node::s_graphite (
 
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-cache.py',
-    service_description => 'carbon-cache running',
+    service_description => 'carbon-cache not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }
 
   @@icinga::check { "check_carbon_aggregator_running_on_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!carbon-aggregat',
-    service_description => 'carbon-aggregator running',
+    service_description => 'carbon-aggregator not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }
