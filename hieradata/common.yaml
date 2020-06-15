@@ -681,6 +681,7 @@ govuk_jenkins::jobs::smokey::signon_password: "%{hiera('smokey_signon_password')
 
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
+govuk_jenkins::jobs::populate_missing_data_etl::rerun_rake_etl_master_process_cron_schedule: '0 3 * * *'
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   <<: *deployable_applications
