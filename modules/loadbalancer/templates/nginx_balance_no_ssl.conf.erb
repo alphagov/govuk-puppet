@@ -60,6 +60,8 @@ server {
   }
 
   <%- if @deny_crawlers -%>
+  add_header X-Robots-Tag "noindex";
+
   location = /robots.txt {
     add_header content-type text/plain;
     return 200 'User-agent: *\nDisallow: /';
@@ -80,7 +82,7 @@ server {
     allow 10.0.0.0/8;
     allow 127.0.0.1;
     deny all;
-    <%- end -%> 
+    <%- end -%>
     include includes/maintenance.conf;
     if ($maintenance = 1) {
       error_page 503 /scheduled_maintenance.html;
