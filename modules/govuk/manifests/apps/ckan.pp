@@ -178,6 +178,7 @@ class govuk::apps::ckan (
       hidden_paths       => ['/api/'],
       read_timeout       => $request_timeout,
       nginx_extra_config => template('govuk/ckan/nginx.conf.erb'),
+      deny_crawlers      => true,
     }
 
     file { $ckan_home:
