@@ -150,7 +150,6 @@ hosts::production::backend::app_hostnames:
 monitoring::ci_environment: true
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_signon_check: false
-monitoring::checks::pingdom::enable: false
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::smokey::environment: 'integration'
 monitoring::checks::smokey::ensure: 'absent'

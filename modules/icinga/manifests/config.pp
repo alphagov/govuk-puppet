@@ -26,7 +26,6 @@ class icinga::config (
   validate_bool($enable_event_handlers)
 
   include govuk_htpasswd
-  contain icinga::config::pingdom
   contain icinga::config::smokey
 
   $app_domain = hiera('app_domain','dev.gov.uk')
