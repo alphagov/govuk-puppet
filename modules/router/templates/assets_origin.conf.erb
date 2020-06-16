@@ -78,10 +78,6 @@ server {
   <%- end -%>
 
   set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
-  location = /static/a {
-    proxy_pass $upstream_static;
-  }
-
   location /__canary__ {
     proxy_pass $upstream_static;
   }
