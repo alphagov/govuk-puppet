@@ -82,6 +82,13 @@ class govuk_splunk(
                 ],
   }
 
+  file { '/opt/splunkforwarder/etc/apps/':
+    ensure => directory,
+    owner  => 'splunk',
+    group  => 'splunk',
+    mode   => '0600',
+  }
+
   file { '/opt/splunkforwarder/etc/apps/govuk_frontend/':
     ensure => directory,
     owner  => 'splunk',
