@@ -85,7 +85,6 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
-  add_header Link "<https://assets.<%= @app_domain %>>; rel=preconnect; crossorigin";
   <% if @aws_migration == 'draft_cache' -%>
   add_header X-Robots-Tag "noindex";
   <% end -%>
