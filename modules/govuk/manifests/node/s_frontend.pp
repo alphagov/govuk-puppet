@@ -9,6 +9,7 @@ class govuk::node::s_frontend inherits govuk::node::s_base {
 
   include nginx
   include govuk_awscloudwatch
+  include govuk_splunk
 
   # The catchall vhost throws a 500, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
