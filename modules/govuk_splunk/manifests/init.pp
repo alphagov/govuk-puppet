@@ -34,15 +34,15 @@
 #
 #
 class govuk_splunk(
-  $gds_servers = [],
-  $gds_server_cert = [],
-  $gds_root_ca_cert = [],
-  $gds_password = [],
-  $gds_cname = [],
-  $cyber_servers = [],
-  $cyber_server_cert = [],
-  $cyber_root_ca_cert = [],
-  $cyber_cname = [],
+  $gds_servers,
+  $gds_server_cert,
+  $gds_root_ca_cert,
+  $gds_password,
+  $gds_cname,
+  $cyber_servers,
+  $cyber_server_cert,
+  $cyber_root_ca_cert,
+  $cyber_cname,
 ) {
 
   include govuk_splunk::repos
@@ -80,20 +80,6 @@ class govuk_splunk(
                 User['splunk'],
                 Group['splunk'],
                 ],
-  }
-
-  file { '/opt/splunkforwarder/etc/apps/govuk_frontend/':
-    ensure => directory,
-    owner  => 'splunk',
-    group  => 'splunk',
-    mode   => '0600',
-  }
-
-  file { '/opt/splunkforwarder/etc/apps/govuk_frontend/default/':
-    ensure => directory,
-    owner  => 'splunk',
-    group  => 'splunk',
-    mode   => '0600',
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem':
