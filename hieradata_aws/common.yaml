@@ -896,7 +896,6 @@ govuk::node::s_base::log_remote: false
 
 govuk::node::s_backend_lb::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
-  '/government/assets/': "whitehall-frontend"
 govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'
   - '/media/'
@@ -1379,24 +1378,6 @@ rabbitmq::config_stomp: true
 
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
-
-# Note: it's important that all targets here have matching host entries both in
-# production, and on the dev VM, otherwise nginx will fail to start.
-router::assets_origin::app_specific_static_asset_routes:
-  '/asset-manager': "asset-manager"
-  '/calculators/': "calculators"
-  '/collections/': "collections"
-  '/email-alert-frontend/': "email-alert-frontend"
-  '/feedback/': "feedback"
-  '/finder-frontend/': "finder-frontend"
-  '/frontend/': "frontend"
-  '/government/assets/': "whitehall-frontend"
-  '/government-frontend/': "government-frontend"
-  '/info-frontend/': "info-frontend"
-  '/manuals-frontend/': "manuals-frontend"
-  '/licencefinder/': "licencefinder"
-  '/service-manual-frontend/': "service-manual-frontend"
-  '/smartanswers/': "smartanswers"
 
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'

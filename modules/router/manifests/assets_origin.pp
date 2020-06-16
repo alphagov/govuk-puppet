@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*app_specific_static_asset_routes*]
-#   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
-#
 # [*asset_manager_uploaded_assets_routes*]
 #   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
 #
@@ -27,7 +24,6 @@
 #   The URL to the root of the main GOV.UK host for redirects
 #
 class router::assets_origin(
-  $app_specific_static_asset_routes = {},
   $asset_manager_uploaded_assets_routes = [],
   $whitehall_uploaded_assets_routes = [],
   $real_ip_header = '',

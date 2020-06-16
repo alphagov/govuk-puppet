@@ -47,13 +47,6 @@ server {
     rewrite ^/government/uploads/system/uploads/consultation_response_form/(.*)$ /government/uploads/system/uploads/consultation_response_form_data/$1;
   }
 
-  <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
-  set $upstream_<%= vhost_name.delete "-" %> <%= @upstream_ssl ? 'https' : 'http' %>://<%= vhost_name %>.<%= @app_domain %>;
-  location <%= alias_path %> {
-    proxy_pass $upstream_<%= vhost_name.delete "-" %>;
-  }
-  <%- end -%>
-
   set $upstream_asset_manager <%= @upstream_ssl ? 'https' : 'http' %>://asset-manager.<%= @app_domain %>;
   <%- @asset_manager_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
