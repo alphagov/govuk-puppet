@@ -31,7 +31,7 @@ class govuk::apps::calculators(
     health_check_path       => '/child-benefit-tax-calculator/main',
     log_format_is_json      => true,
     asset_pipeline          => true,
-    asset_pipeline_prefixes => ['calculators', 'assets/calculators'],
+    asset_pipeline_prefixes => ['assets/calculators'],
   }
 
   Govuk::App::Envvar {

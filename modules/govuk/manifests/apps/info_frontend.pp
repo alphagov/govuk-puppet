@@ -39,7 +39,7 @@ class govuk::apps::info_frontend(
     vhost_aliases           => $vhost_aliases,
     log_format_is_json      => true,
     asset_pipeline          => true,
-    asset_pipeline_prefixes => ['info-frontend', 'assets/info-frontend'],
+    asset_pipeline_prefixes => ['assets/info-frontend'],
     health_check_path       => '/healthcheck',
     json_health_check       => true,
   }

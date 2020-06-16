@@ -50,7 +50,7 @@ class govuk::apps::email_alert_frontend(
     port                    => $port,
     sentry_dsn              => $sentry_dsn,
     asset_pipeline          => true,
-    asset_pipeline_prefixes => ['email-alert-frontend', 'assets/email-alert-frontend'],
+    asset_pipeline_prefixes => ['assets/email-alert-frontend'],
     vhost                   => $vhost,
     health_check_path       => '/healthcheck',
     json_health_check       => true,

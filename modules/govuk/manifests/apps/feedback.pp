@@ -45,7 +45,7 @@ class govuk::apps::feedback(
     health_check_path       => '/contact',
     log_format_is_json      => true,
     asset_pipeline          => true,
-    asset_pipeline_prefixes => ['feedback', 'assets/feedback'],
+    asset_pipeline_prefixes => ['assets/feedback'],
   }
 
   Govuk::App::Envvar {
