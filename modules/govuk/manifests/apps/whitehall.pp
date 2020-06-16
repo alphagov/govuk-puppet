@@ -22,6 +22,10 @@
 #   Rack limit for how many form parameters it will parse.
 #   Default: undef
 #
+# [*asset_host*]
+#   The URL that will be used as a prefix for whitehall assets.
+#   Default: undef
+#
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
@@ -149,6 +153,7 @@ class govuk::apps::whitehall(
   $admin_db_username = undef,
   $admin_key_space_limit = undef,
   $asset_manager_bearer_token = undef,
+  $asset_host = undef,
   $basic_auth_credentials = undef,
   $configure_frontend = false,
   $configure_admin = false,
@@ -404,6 +409,14 @@ class govuk::apps::whitehall(
     "${title}-RUMMAGER_BEARER_TOKEN":
       varname => 'RUMMAGER_BEARER_TOKEN',
       value   => $rummager_bearer_token;
+  }
+
+  if $asset_host != undef {
+    govuk::app::envvar {
+      "${title}-ASSET_HOST":
+        varname => 'ASSET_HOST',
+        value   => $asset_host;
+    }
   }
 
   if $basic_auth_credentials != undef {
