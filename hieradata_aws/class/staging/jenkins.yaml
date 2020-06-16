@@ -56,8 +56,11 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
+  - govuk_jenkins::jobs::monitor_taxonomy_health
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::publish_special_routes
+  - govuk_jenkins::jobs::record_taxonomy_metrics
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::run_whitehall_data_migrations
