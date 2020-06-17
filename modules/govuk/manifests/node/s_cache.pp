@@ -43,6 +43,7 @@ class govuk::node::s_cache (
 
   include govuk_htpasswd
   include nscd
+  include govuk_splunk
 
   unless ( 'ip-10-12-4' in $::hostname ) and ( $::aws_migration == 'cache' ) and ( $::aws_environment == 'staging' ) {
     include router::gor
