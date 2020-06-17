@@ -492,7 +492,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Retry set size (max over $Aggregation)",
+          "title": "Retry set size (max over $Interval)",
           "tooltip": {
             "msResolution": true,
             "shared": false,
@@ -575,7 +575,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Failures (total over $Aggregation)",
+          "title": "Failures (total over $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 2,
