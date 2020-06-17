@@ -33,6 +33,14 @@ location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
   rewrite ^(.*)$ https://$host$uri_lowercase permanent;
 }
 
+# Rewrite the path of legacy Whitehall assets.
+# Whitehall writes paths to the applications assets inside content items, which
+# can make it very hard to change the URL. This rewrites any request to
+# /government/assets/* to the new path of /assets/whitehall. A redirect isn't
+# used because there are lots of these and this would cause a substantial
+# number of extra requests.
+rewrite ^/government/assets/(.*)$ /assets/whitehall/$1;
+
 <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
 <%- proxy_host = "#{vhost_name}.#{@app_domain_internal}" -%>
 <%- upstream = "$upstream_#{vhost_name.delete('-')}" -%>
