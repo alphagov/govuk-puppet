@@ -63,6 +63,20 @@ govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb
 govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 
+govuk::apps::contacts::ensure: 'absent'
+govuk::apps::collections_publisher::ensure: 'absent'
+govuk::apps::content_publisher::ensure: 'absent'
+govuk::apps::content_tagger::ensure: 'absent'
+govuk::apps::hmrc_manuals_api::ensure: 'absent'
+govuk::apps::manuals_publisher::ensure: 'absent'
+govuk::apps::maslow::ensure: 'absent'
+govuk::apps::publisher::ensure: 'absent'
+govuk::apps::search_admin::ensure: 'absent'
+govuk::apps::service_manual_publisher::ensure: 'absent'
+govuk::apps::short_url_manager::ensure: 'absent'
+govuk::apps::specialist_publisher::ensure: 'absent'
+govuk::apps::travel_advice_publisher::ensure: 'absent'
+
 govuk::apps::content_tagger::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
