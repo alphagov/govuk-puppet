@@ -33,7 +33,7 @@ class govuk::apps::manuals_frontend(
     port                    => $port,
     sentry_dsn              => $sentry_dsn,
     asset_pipeline          => true,
-    asset_pipeline_prefixes => ['manuals-frontend', 'assets/manuals-frontend'],
+    asset_pipeline_prefixes => ['assets/manuals-frontend'],
     vhost                   => $vhost,
     health_check_path       => '/healthcheck',
     json_health_check       => true,

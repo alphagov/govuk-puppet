@@ -42,7 +42,7 @@ class govuk::apps::service_manual_frontend(
       vhost_ssl_only          => true,
       health_check_path       => '/healthcheck',
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['service-manual-frontend', 'assets/service-manual-frontend'],
+      asset_pipeline_prefixes => ['assets/service-manual-frontend'],
       vhost                   => $vhost,
     }
 

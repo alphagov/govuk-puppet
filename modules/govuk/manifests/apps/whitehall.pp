@@ -251,7 +251,7 @@ class govuk::apps::whitehall(
       protected               => $vhost_protected,
       app_port                => $port,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets', 'assets/whitehall'],
+      asset_pipeline_prefixes => ['assets/whitehall'],
     }
 
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
@@ -290,7 +290,7 @@ class govuk::apps::whitehall(
       deny_framing            => true,
       deny_crawlers           => true,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets', 'assets/whitehall'],
+      asset_pipeline_prefixes => ['assets/whitehall'],
       hidden_paths            => [$health_check_path],
       nginx_extra_config      => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
@@ -348,17 +348,10 @@ class govuk::apps::whitehall(
       memory_critical_threshold => 14000,
     }
 
-    # NOTE. The GOVUK_ASSET_ROOT environment variable uses a protocol relative
-    # URL so assets in admin are on the same domain but work in production and
-    # development. (This is needed for IE8)
     govuk::app::envvar {
       "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
         value   => $asset_manager_bearer_token;
-      "${title}-GOVUK_ASSET_ROOT":
-        app     => $app_name,
-        varname => 'GOVUK_ASSET_ROOT',
-        value   => "//whitehall-admin.${app_domain}";
       "${title}-HIGHLIGHT_WORDS_TO_AVOID":
         varname => 'HIGHLIGHT_WORDS_TO_AVOID',
         value   => bool2str($highlight_words_to_avoid);

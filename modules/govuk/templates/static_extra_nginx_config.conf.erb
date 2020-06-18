@@ -1,11 +1,3 @@
-location = /static/a {
-  expires -1;
-  add_header Last-Modified "";
-
-  default_type text/plain;
-  return 200 '';
-}
-
 # 1stline use this URL in their zendesk template
 location = /static/gov.uk_logotype_crown.png {
   absolute_redirect off;
