@@ -107,6 +107,11 @@ class govuk::apps::search_admin(
     override_search_location => $override_search_location,
   }
 
+  govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
+  }
+
   unless $ensure == 'absent' {
     Govuk::App::Envvar {
       app => $app_name,
@@ -115,10 +120,6 @@ class govuk::apps::search_admin(
     govuk::app::envvar::redis { $app_name:
       host => $redis_host,
       port => $redis_port,
-    }
-
-    govuk::procfile::worker { $app_name:
-      enable_service => $enable_procfile_worker,
     }
 
     govuk::app::envvar {

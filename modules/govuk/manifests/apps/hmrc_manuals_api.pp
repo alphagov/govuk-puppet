@@ -53,6 +53,17 @@ class govuk::apps::hmrc_manuals_api(
 
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
+  govuk::app { 'hmrc-manuals-api':
+    ensure                   => $ensure,
+    app_type                 => 'rack',
+    port                     => $port,
+    sentry_dsn               => $sentry_dsn,
+    vhost_ssl_only           => true,
+    health_check_path        => '/healthcheck',
+    log_format_is_json       => true,
+    override_search_location => $override_search_location,
+  }
+
   unless $ensure == 'absent' {
     Govuk::App::Envvar {
       app => 'hmrc-manuals-api',
@@ -86,14 +97,5 @@ class govuk::apps::hmrc_manuals_api(
         value   => $publishing_api_bearer_token,
     }
 
-    govuk::app { 'hmrc-manuals-api':
-      app_type                 => 'rack',
-      port                     => $port,
-      sentry_dsn               => $sentry_dsn,
-      vhost_ssl_only           => true,
-      health_check_path        => '/healthcheck',
-      log_format_is_json       => true,
-      override_search_location => $override_search_location,
-    }
   }
 }

@@ -102,6 +102,11 @@ class govuk::apps::content_tagger(
     override_search_location => $override_search_location,
   }
 
+  govuk::procfile::worker { 'content-tagger':
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
+  }
+
   unless $ensure == 'absent' {
     Govuk::App::Envvar {
       app => $app_name,
@@ -144,8 +149,5 @@ class govuk::apps::content_tagger(
       database                  => $db_name,
     }
 
-    govuk::procfile::worker { 'content-tagger':
-      enable_service => $enable_procfile_worker,
-    }
   }
 }

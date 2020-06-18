@@ -94,6 +94,11 @@ class govuk::apps::collections_publisher(
     deny_framing       => true,
   }
 
+  govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
+  }
+
   unless $ensure == 'absent' {
     Govuk::App::Envvar {
       app => $app_name,
@@ -137,8 +142,5 @@ class govuk::apps::collections_publisher(
       database => $db_name,
     }
 
-    govuk::procfile::worker { $app_name:
-      enable_service => $enable_procfile_worker,
-    }
   }
 }
