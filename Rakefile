@@ -423,6 +423,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::deploy_all_apps::apps_on_nodes
     govuk_jenkins::deploy_all_apps::deploy_environment
     govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule
+    govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_master_process_cron_schedule
     govuk_jenkins::jobs::deploy_app::graphite_host
     govuk_jenkins::jobs::deploy_app::graphite_port
     govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache

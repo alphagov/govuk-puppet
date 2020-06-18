@@ -879,6 +879,7 @@ govuk_jenkins::packages::govuk_python::apt_mirror_gpg_key_fingerprint: "%{hiera(
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
+govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_master_process_cron_schedule: '0 3 * * *'
 
 govuk_jenkins::deploy_all_apps::deploy_environment: "%{hiera('govuk_jenkins::job_builder::environment')}"
 

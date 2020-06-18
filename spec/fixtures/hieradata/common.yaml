@@ -70,6 +70,7 @@ govuk_jenkins::config::github_web_uri: wibble
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app_downstream::applications: *deployable_applications
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
+govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_master_process_cron_schedule: '0 3 * * *'
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
