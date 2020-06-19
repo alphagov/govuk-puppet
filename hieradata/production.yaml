@@ -192,23 +192,8 @@ hosts::production::api::hosts:
 
 hosts::production::backend::app_hostnames:
   - 'canary-backend'
-  - 'collections-publisher'
-  - 'contacts-admin'
-  - 'content-publisher'
-  - 'content-tagger'
   - 'docs'
-  - 'hmrc-manuals-api'
-  - 'maslow'
-  - 'manuals-publisher'
-  - 'publisher'
-  - 'search-admin'
-  - 'service-manual-publisher'
-  - 'short-url-manager'
   - 'signon'
-  - 'specialist-publisher'
-  - 'specialist-publisher-rebuild'
-  - 'specialist-publisher-rebuild-standalone'
-  - 'travel-advice-publisher'
 
 hosts::production::backend::hosts:
   asset-master-1:
