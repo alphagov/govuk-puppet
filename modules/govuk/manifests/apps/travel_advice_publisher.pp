@@ -133,6 +133,7 @@ class govuk::apps::travel_advice_publisher(
 
   validate_bool($enable_procfile_worker)
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
   }
 

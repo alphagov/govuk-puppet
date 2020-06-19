@@ -126,22 +126,33 @@ class govuk::apps::specialist_publisher(
 
   $app_name = 'specialist-publisher'
 
-  if $enabled {
-    govuk::app { $app_name:
-      app_type               => 'rack',
-      port                   => $port,
-      sentry_dsn             => $sentry_dsn,
-      health_check_path      => '/healthcheck',
-      json_health_check      => true,
-      log_format_is_json     => true,
-      nginx_extra_config     => '
+  $ensure = $enabled ? {
+    true  => 'present',
+    false => 'absent',
+  }
+
+  govuk::app { $app_name:
+    ensure                 => $ensure,
+    app_type               => 'rack',
+    port                   => $port,
+    sentry_dsn             => $sentry_dsn,
+    health_check_path      => '/healthcheck',
+    json_health_check      => true,
+    log_format_is_json     => true,
+    nginx_extra_config     => '
 client_max_body_size 500m;
 ',
-      nagios_memory_warning  => $nagios_memory_warning,
-      nagios_memory_critical => $nagios_memory_critical,
-      asset_pipeline         => true,
-    }
+    nagios_memory_warning  => $nagios_memory_warning,
+    nagios_memory_critical => $nagios_memory_critical,
+    asset_pipeline         => true,
+  }
 
+  govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
+  }
+
+  if $enabled {
     Govuk::App::Envvar {
       app => $app_name,
     }
@@ -164,10 +175,6 @@ client_max_body_size 500m;
           varname => 'PUBLISH_PRE_PRODUCTION_FINDERS',
           value   => '1';
       }
-    }
-
-    govuk::procfile::worker { $app_name:
-      enable_service => $enable_procfile_worker,
     }
 
     govuk::app::envvar {
