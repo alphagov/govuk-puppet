@@ -19,6 +19,9 @@
 # [*github_api_token*]
 #   The API token used to avoid rate limiting for GitHub API calls.
 #
+# [*release_app_bearer_token*]
+#   The API token used to query the release app for deploy freezes.
+#
 class govuk_jenkins::jobs::deploy_app_downstream (
   $applications = undef,
   $jenkins_downstream_api_user = undef,
@@ -26,6 +29,7 @@ class govuk_jenkins::jobs::deploy_app_downstream (
   $deploy_url = undef,
   $github_api_token = undef,
   $smokey_pre_check = true,
+  $release_app_bearer_token = undef,
 ) {
   file { '/etc/jenkins_jobs/jobs/deploy_app_downstream.yaml':
     ensure  => present,

@@ -13,7 +13,7 @@
           # Check for deploy freeze set in Release App
           APPLICATION_METADATA=$(curl -s \
             -H "Accept: application/json" \
-            -H "Authorization: Bearer $RELEASE_APP_NOTIFICATION_BEARER_TOKEN" \
+            -H "Authorization: Bearer $RELEASE_APP_BEARER_TOKEN" \
             "https://release.publishing.service.gov.uk/applications/$TARGET_APPLICATION")
 
           DEPLOY_FREEZE=$(echo "$APPLICATION_METADATA" | jq .deploy_freeze)
@@ -42,7 +42,7 @@
           esac
 
           # Check release to deploy is genuine and we're not going backwards
-          GITHUB_AUTH="-H 'Authorization: token <%= @github_api_token %>'"
+          GITHUB_AUTH="-H 'Authorization: token $GITHUB_API_TOKEN'"
           GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
 
           LATEST_TAGS=$(curl $GITHUB_AUTH -s "$GITHUB_API/tags?per_page=1")
@@ -69,6 +69,16 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+              - name: GITHUB_API_TOKEN
+                password:
+                  '<%= @github_api_token %>'
+              - name: RELEASE_APP_BEARER_TOKEN
+                password:
+                  '<%= @release_app_bearer_token %>'
     parameters:
         - choice:
             name: TARGET_APPLICATION
