@@ -60,6 +60,15 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
+# [*publish_without_2i_email*]
+#   The email address which will receive publishing without 2i alerts.
+#
 class govuk::apps::collections_publisher(
   $ensure = 'present',
   $port,
@@ -77,6 +86,9 @@ class govuk::apps::collections_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $jwt_auth_secret = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $publish_without_2i_email = undef,
 ) {
   $app_name = 'collections-publisher'
 
@@ -132,6 +144,15 @@ class govuk::apps::collections_publisher(
       "${title}-JWT_AUTH_SECRET":
         varname => 'JWT_AUTH_SECRET',
         value   => $jwt_auth_secret;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+      "${title}-PUBLISH_WITHOUT_2I_EMAIL":
+        varname => 'PUBLISH_WITHOUT_2I_EMAIL',
+        value   => $publish_without_2i_email;
     }
 
     govuk::app::envvar::database_url { $app_name:
