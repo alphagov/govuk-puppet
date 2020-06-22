@@ -1,0 +1,21 @@
+---
+- job:
+    name: content_data_api_re_run_re_run_rake_etl_master_process_cron_schedule
+    display-name: Content Data API - rerun ETL master
+    project-type: freestyle
+    description: "<p>Rerun the etl:master rake task to populate missing data.</p>"
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=content-data-api
+              MACHINE_CLASS=backend
+              RAKE_TASK=etl:rerun_master['<%= "#{(Time.now-2*24*60*60).strftime("%Y-%m-%d")}, #{(Time.now-2*24*60*60).strftime("%Y-%m-%d")}" %>']
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+    triggers:
+      - timed: <%= @re_run_rake_etl_master_process_cron_schedule %>
+    logrotate:
+        daysToKeep: 365
