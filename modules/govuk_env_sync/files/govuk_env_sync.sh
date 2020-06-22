@@ -631,6 +631,14 @@ function postprocess_database {
   esac
 }
 
+function s3_sync {
+  if "${delete}"; then
+    aws s3 sync --acl bucket-owner-full-control --delete --only-show-errors s3://"${source_bucket}" s3://"${destination_bucket}"
+  else
+    aws s3 sync --acl bucket-owner-full-control --only-show-errors s3://"${source_bucket}" s3://"${destination_bucket}"
+  fi
+}
+
 usage() {
   printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
   exit 0
@@ -657,27 +665,38 @@ do
 done
 
 : "${action?"No action specified (pass -a option)"}"
-: "${dbms?"No DBMS specified (pass -D option)"}"
-: "${storagebackend?"No storagebackend specified (pass -S option)"}"
-: "${temppath?"No temppath specified (pass -T option)"}"
-: "${database?"No database name specified (pass -d option)"}"
-: "${url?"No storage url specified (pass -u option)"}"
-: "${path?"No storage path specified (pass -p option)"}"
+if [ "${action}" == "s3_sync" ]; then
+  : "${source_bucket?"No source S3 bucket specified (set in config file)"}"
+  : "${destination_bucket?"No destination S3 bucket specified (set in config file)"}"
+else
+  : "${dbms?"No DBMS specified (pass -D option)"}"
+  : "${storagebackend?"No storagebackend specified (pass -S option)"}"
+  : "${temppath?"No temppath specified (pass -T option)"}"
+  : "${database?"No database name specified (pass -d option)"}"
+  : "${url?"No storage url specified (pass -u option)"}"
+  : "${path?"No storage path specified (pass -p option)"}"
 
-if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
-  echo "$dbms is only compatible with the elasticsearch storage backend"
-  exit 1
-fi
-if [[ "$storagebackend" == "elasticsearch" ]] && [[ "$dbms" != "elasticsearch" ]]; then
-  echo "$dbms is not compatible with the $storagebackend storage backend"
-  exit 1
+  if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
+    echo "$dbms is only compatible with the elasticsearch storage backend"
+    exit 1
+  fi
+
+  if [[ "$storagebackend" == "elasticsearch" ]] && [[ "$dbms" != "elasticsearch" ]]; then
+    echo "$dbms is not compatible with the $storagebackend storage backend"
+    exit 1
+  fi
+
 fi
 
 # Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
 
 # Setting default nagios response to failed
-nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+if [ "${action}" == "s3_sync" ]; then
+  nagios_message="CRITICAL: govuk_env_sync.sh ${action} of ${destination_bucket} from ${source_bucket}"
+else
+  nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+fi
 nagios_code=2
 
 case ${action} in
@@ -706,9 +725,16 @@ case ${action} in
       postprocess_database
     fi
     ;;
+  s3_sync)
+    s3_sync
+    ;;
 esac
 
 # The script arrived here without detour to throw_error/exit
-nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+if [ "${action}" == "s3_sync" ]; then
+  nagios_message="OK: govuk_env_sync.sh ${action} of ${destination_bucket} from ${source_bucket}"
+else
+  nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+fi
 nagios_code=0
 log "Completed \"$0 ${args[*]:-''}\""

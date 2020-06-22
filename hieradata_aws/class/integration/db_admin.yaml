@@ -440,3 +440,11 @@ govuk_env_sync::tasks:
     temppath: "/tmp/travel_advice_publisher_production"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
+govuk_env_sync::s3_sync_tasks:
+  "s3_sync_content_publisher_from_staging_daily":
+    ensure: "present"
+    hour: "0"
+    minute: "45"
+    source_bucket: govuk-staging-content-publisher-activestorage
+    destination_bucket: govuk-integration-content-publisher-activestorage
+    delete: true
