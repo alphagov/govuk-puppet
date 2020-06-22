@@ -64,7 +64,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-delivery-attempt-status-update':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(divideSeries(keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.pending_status_total), keepLastValue(stats.gauges.govuk.email-alert-api.delivery_attempt.total)),0)',
+    target    => 'transformNull(divideSeries(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.delivery_attempt.pending_status_total)), keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.delivery_attempt.total))),0)',
     warning   => '0.166',
     critical  => '0.25',
     from      => '1hour',
@@ -78,7 +78,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-warning-subscription-contents':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.warning_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.subscription_contents.warning_total)))',
     warning   => '0',
     critical  => '100000000',
     from      => '15minutes',
@@ -89,7 +89,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.warning_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.content_changes.warning_total)))',
     warning   => '0',
     critical  => '100000000',
     from      => '15minutes',
@@ -100,7 +100,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-warning-digest-runs':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.digest_runs.warning_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.digest_runs.warning_total)))',
     warning   => '0',
     critical  => '100000000',
     from      => '1hour',
@@ -111,7 +111,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-warning-messages':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.messages.warning_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.warning_total)))',
     warning   => '0',
     critical  => '100000000',
     from      => '1hour',
@@ -125,7 +125,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-critical-subscription-contents':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.subscription_contents.critical_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.subscription_contents.critical_total)))',
     warning   => '0',
     critical  => '0',
     from      => '15minutes',
@@ -136,7 +136,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-critical-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.content_changes.critical_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.content_changes.critical_total)))',
     warning   => '0',
     critical  => '0',
     from      => '15minutes',
@@ -147,7 +147,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-critical-digest-runs':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.digest_runs.critical_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.digest_runs.critical_total)))',
     warning   => '0',
     critical  => '0',
     from      => '1hour',
@@ -158,7 +158,7 @@ class govuk::apps::email_alert_api::checks(
   @@icinga::check::graphite { 'email-alert-api-critical-messages':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(stats.gauges.govuk.email-alert-api.messages.critical_total))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.critical_total)))',
     warning   => '0',
     critical  => '0',
     from      => '1hour',
