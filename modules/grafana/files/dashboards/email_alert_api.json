@@ -359,7 +359,7 @@
             {
               "hide": false,
               "refId": "F",
-              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
+              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
               "textEditor": false
             },
             {
@@ -439,12 +439,12 @@
           "targets": [
             {
               "refId": "B",
-              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeAndGenerateEmailsWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
+              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.ProcessContentChangeWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
               "textEditor": false
             }
           ],
