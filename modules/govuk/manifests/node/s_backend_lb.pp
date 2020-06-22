@@ -50,24 +50,12 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { [
-    'collections-publisher',
-    'contacts-admin',
     'content-data',
     'content-data-admin',
     'content-data-api',
-    'content-publisher',
-    'content-tagger',
-    'manuals-publisher',
-    'maslow',
-    'publisher',
     'release',
-    'search-admin',
-    'service-manual-publisher',
     'signon',
-    'specialist-publisher',
-    'short-url-manager',
     'support',
-    'travel-advice-publisher',
     ]:
       servers => $backend_servers,
   }
