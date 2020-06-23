@@ -72,20 +72,6 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-delivery-attempts-status-updates),
   }
 
-  # We are only interested in the `warning` state but `critical` is also required
-  # for valid Icinga check configuration. Setting it to a high value that won't be
-  # reached allows us to get round this issue
-  @@icinga::check::graphite { 'email-alert-api-warning-subscription-contents':
-    ensure    => $ensure,
-    host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.subscription_contents.warning_total)))',
-    warning   => '0',
-    critical  => '100000000',
-    from      => '15minutes',
-    desc      => 'email-alert-api - unprocessed subscription contents - warning',
-    notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
-  }
-
   @@icinga::check::graphite { 'email-alert-api-warning-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
@@ -117,20 +103,6 @@ class govuk::apps::email_alert_api::checks(
     from      => '1hour',
     desc      => 'email-alert-api - unprocessed messages - warning',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-messages),
-  }
-
-  # We are only interested in the `critical` state but `warning` is also required
-  # for valid Icinga check configuration. Both states are set to 0 but `critical`
-  # takes precedence and allows us to get round this issue
-  @@icinga::check::graphite { 'email-alert-api-critical-subscription-contents':
-    ensure    => $ensure,
-    host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.subscription_contents.critical_total)))',
-    warning   => '0',
-    critical  => '0',
-    from      => '15minutes',
-    desc      => 'email-alert-api - unprocessed subscription contents - critical',
-    notes_url => monitoring_docs_url(email-alert-api-unprocessed-subscription-contents),
   }
 
   @@icinga::check::graphite { 'email-alert-api-critical-content-changes':
