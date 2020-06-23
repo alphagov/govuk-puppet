@@ -16,11 +16,17 @@
 #
 #   Default: undef
 #
+# [*ensure*]
+#   Determines where the backup is active or not
+#   Possible value are: 'present' or 'absent'
+#   Default = 'present'
+#
 define backup::directory (
     $directory,
     $fq_dn,
     $priority = undef,
     $alert_hostname = 'alert.cluster',
+    $ensure = 'present',
 ) {
     $sanitised_dir  = regsubst($directory, '/', '_', 'G')
     $threshold_secs = 28 * (60 * 60)
@@ -34,11 +40,13 @@ define backup::directory (
     }
 
     file { $filename:
+        ensure  => $ensure,
         content => template('backup/directory.erb'),
         mode    => '0755',
     }
 
     @@icinga::passive_check { "check_backup-${fq_dn}-${sanitised_dir}-${::hostname}":
+      ensure              => $ensure,
       service_description => $service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,
