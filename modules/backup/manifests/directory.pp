@@ -17,8 +17,8 @@
 #   Default: undef
 #
 # [*ensure*]
-#   Determines where the backup is active or not
-#   Possible value are: 'present' or 'absent'
+#   Determines whether the backup is active or not
+#   Possible values are: 'present' or 'absent'
 #   Default = 'present'
 #
 define backup::directory (
