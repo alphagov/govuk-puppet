@@ -2,7 +2,7 @@
 
 lv:
   data:
-    pv: '/dev/nvme1n1'
+    pv: '/dev/xvdf'
     vg: 'jenkins'
 
 mount:
