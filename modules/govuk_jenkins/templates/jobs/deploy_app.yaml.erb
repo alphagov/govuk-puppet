@@ -42,7 +42,7 @@
 
             git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
             ./jenkins.sh
-        <% if @deploy_downstream_applications.any? %>
+        <% if @deploy_downstream %>
         - conditional-step:
             condition-kind: and
             condition-operands:
