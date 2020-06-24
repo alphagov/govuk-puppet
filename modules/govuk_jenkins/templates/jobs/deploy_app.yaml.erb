@@ -43,30 +43,30 @@
             git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
             ./jenkins.sh
         <% if @deploy_downstream_applications.any? %>
-          - conditional-step:
-              condition-kind: and
-              condition-operands:
-                # Only trigger downstream deploy for "deploy" tasks
-                - condition-kind: strings-match
-                  condition-string1: "$DEPLOY_TASK"
-                  condition-string2: "deploy"
-                # Only trigger downstream deploy for "release_123" tags
-                - condition-kind: regex-match
-                  regex: "release_.*"
-                  label: "$TAG"
-                # Only trigger downstream deploy for support apps
-                - condition-kind: or
-                  condition-operands:
-                    <% @deploy_downstream_applications.keys.each do |app| %>
-                    - condition-kind: strings-match
-                      condition-string1: "$TARGET_APPLICATION"
-                      condition-string2: "<%= app %>"
-                    <% end %>
-                    - condition-kind: never # until we have multiple apps
-              steps:
-                - trigger-builds:
-                    - project: Deploy_App_Downstream
-                      current-parameters: true
+        - conditional-step:
+            condition-kind: and
+            condition-operands:
+              # Only trigger downstream deploy for "deploy" tasks
+              - condition-kind: strings-match
+                condition-string1: "$DEPLOY_TASK"
+                condition-string2: "deploy"
+              # Only trigger downstream deploy for "release_123" tags
+              - condition-kind: regex-match
+                regex: "release_.*"
+                label: "$TAG"
+              # Only trigger downstream deploy for support apps
+              - condition-kind: or
+                condition-operands:
+                  <% @deploy_downstream_applications.keys.each do |app| %>
+                  - condition-kind: strings-match
+                    condition-string1: "$TARGET_APPLICATION"
+                    condition-string2: "<%= app %>"
+                  <% end %>
+                  - condition-kind: never # until we have multiple apps
+            steps:
+              - trigger-builds:
+                  - project: Deploy_App_Downstream
+                    current-parameters: true
         <% end %>
     publishers:
         - trigger:
