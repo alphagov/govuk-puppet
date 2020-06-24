@@ -200,7 +200,7 @@ govuk_jenkins::plugins:
   ssh-slaves:
     version: '1.29.4'
   structs:
-    version: '1.19'
+    version: '1.20'
   subversion:
     version: '2.12.1'
   text-finder:
