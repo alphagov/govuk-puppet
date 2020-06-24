@@ -20,6 +20,9 @@
 # [*enable_slack_notifications*]
 #   Set to true to post details of a deployment into a Slack channel
 #
+# [*deploy_downstream*]
+#   Set to true to trigger downstream deployments for supported apps
+#
 # [*deploy_downstream_applications*]
 #   A hash of applications supported for downstream deployment
 #
@@ -32,6 +35,7 @@ class govuk_jenkins::jobs::deploy_app (
   $graphite_port = '80',
   $notify_release_app = true,
   $enable_slack_notifications = true,
+  $deploy_downstream = true,
   $deploy_downstream_applications = hiera('govuk_jenkins::jobs::deploy_app_downstream::applications'),
 ) {
   if $::aws_migration {

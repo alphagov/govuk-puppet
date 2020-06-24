@@ -432,3 +432,5 @@ postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 nginx::config::stack_network_prefix: '10.13.0'
+
+govuk_jenkins::jobs::deploy_app::deploy_downstream: false
