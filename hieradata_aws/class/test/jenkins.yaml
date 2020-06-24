@@ -1,0 +1,54 @@
+govuk_jenkins::config::banner_string: 'AWS Test (replatforming)'
+govuk_jenkins::config::banner_colour_background: '#005EA5'
+govuk_jenkins::config::banner_colour_text: 'white'
+govuk_jenkins::config::theme_colour: '#005EA5'
+govuk_jenkins::config::theme_text_colour: 'white'
+govuk_jenkins::config::theme_environment_name: 'AWS Test'
+
+govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::athena_fastly_logs_check
+  - govuk_jenkins::jobs::clear_frontend_memcache
+  - govuk_jenkins::jobs::clear_template_cache
+  - govuk_jenkins::jobs::clear_varnish_cache
+  - govuk_jenkins::jobs::configure_github_repos
+  - govuk_jenkins::jobs::content_data_api
+  - govuk_jenkins::jobs::data_sync_complete_integration
+  - govuk_jenkins::jobs::deploy_app
+  - govuk_jenkins::jobs::deploy_app_downstream
+  - govuk_jenkins::jobs::deploy_cdn
+  - govuk_jenkins::jobs::deploy_dns
+  - govuk_jenkins::jobs::deploy_emergency_banner
+  - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::enhanced_ecommerce_search_api
+  - govuk_jenkins::jobs::govuk_content_api_docs
+  - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
+  - govuk_jenkins::jobs::monitor_taxonomy_health
+  - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::publication_delay_report
+  - govuk_jenkins::jobs::publish_special_routes
+  - govuk_jenkins::jobs::record_taxonomy_metrics
+  - govuk_jenkins::jobs::remove_emergency_banner
+  - govuk_jenkins::jobs::run_deploy_lag_badger
+  - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::run_whitehall_data_migrations
+  - govuk_jenkins::jobs::search_api_fetch_analytics_data
+  - govuk_jenkins::jobs::search_api_index_checks
+  - govuk_jenkins::jobs::search_api_reindex_with_new_schema
+  - govuk_jenkins::jobs::search_generate_sitemaps
+  - govuk_jenkins::jobs::search_relevancy_rank_evaluation
+  - govuk_jenkins::jobs::search_relevancy_metrics_etl
+  - govuk_jenkins::jobs::send_bulk_email
+  - govuk_jenkins::jobs::signon_cron_rake_tasks
+  - govuk_jenkins::jobs::smokey
+  - govuk_jenkins::jobs::smokey_deploy
+  - govuk_jenkins::jobs::update_cdn_dictionaries
+  - govuk_jenkins::jobs::transition_load_site_config
+  - govuk_jenkins::jobs::user_monitor
+  - govuk_jenkins::jobs::whitehall_publisher_notifications
+
+govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
+
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'jenkins'
