@@ -22,6 +22,7 @@ map "$http_Rate_Limit_Token:$request_method" $post_limit_req {
 }
 
 limit_req_zone $post_limit_req zone=contact:5m rate=6r/m;
+limit_req_zone $post_limit_req zone=email:5m rate=3r/m;
 
 # Return 429 (Too Many Requests) instead of the default 503.
 limit_req_status 429;

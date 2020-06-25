@@ -81,6 +81,10 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
   proxy_pass http://varnish;
 }
 
+location ~ ^/email/subscriptions/verify$ {
+  limit_req zone=email burst=0 nodelay;
+  proxy_pass http://varnish;
+}
 
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
