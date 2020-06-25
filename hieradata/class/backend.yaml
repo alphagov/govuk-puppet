@@ -1,46 +1,5 @@
 ---
 
-govuk::apps::contacts::vhost: contacts-admin
-govuk::apps::contacts::db_hostname: 'mysql-master-1.backend'
-govuk::apps::contacts::db_username: 'contacts'
-govuk::apps::contacts::db_password: "%{hiera('govuk::apps::contacts::db::mysql_contacts_admin')}"
-
-govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
-govuk::apps::manuals_publisher::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
-govuk::apps::maslow::mongodb_name: 'maslow_production'
-govuk::apps::maslow::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
-govuk::apps::publisher::mongodb_name: 'govuk_content_production'
-govuk::apps::publisher::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
-govuk::apps::short_url_manager::mongodb_name: 'short_url_manager_production'
-govuk::apps::short_url_manager::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
-govuk::apps::specialist_publisher::mongodb_name: 'govuk_content_production'
-govuk::apps::specialist_publisher::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
-govuk::apps::travel_advice_publisher::mongodb_name: 'travel_advice_publisher_production'
-govuk::apps::travel_advice_publisher::mongodb_nodes:
-  - 'mongo-1.backend'
-  - 'mongo-2.backend'
-  - 'mongo-3.backend'
-
 lv:
   data:
     pv: '/dev/sdb1'

@@ -38,35 +38,8 @@ environment_ip_prefix: '10.3'
 
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
-govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
-govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA"
-govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
-govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
-govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::collections_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk"
-govuk::apps::contacts::enabled: false
-govuk::apps::content_publisher::enabled: false
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
-govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
-govuk::apps::publisher::fact_check_reply_to_id: '792923cb-fa07-4dce-a4c5-e6320bd19c17'
-govuk::apps::publisher::fact_check_reply_to_address: 'factcheck+production@alphagov.co.uk'
-govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
-govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::service_manual_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::short_url_manager::govuk_notify_template_id: 'e00e89f5-b622-4dcb-8f30-e6c70231a940'
-govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
-govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
-govuk::apps::specialist_publisher::enabled: false
-govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::travel_advice_publisher::enable_email_alerts: false
-govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 
 govuk::apps::contacts::ensure: 'absent'
@@ -83,9 +56,6 @@ govuk::apps::short_url_manager::ensure: 'absent'
 govuk::apps::specialist_publisher::ensure: 'absent'
 govuk::apps::travel_advice_publisher::ensure: 'absent'
 
-govuk::apps::content_tagger::override_search_location: 'https://search-api.production.govuk.digital'
-govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
-govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
 
 govuk::deploy::actionmailer_enable_delivery: true
 

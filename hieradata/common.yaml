@@ -282,59 +282,12 @@ govuk::apps::asset_manager::nagios_memory_critical: 2750
 
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
-govuk::apps::collections_publisher::db_hostname: "mysql-master-1.backend"
-govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
-govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_publisher::db_port: 6432
-govuk::apps::content_publisher::db_allow_prepared_statements: false
-govuk::apps::content_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
-govuk::apps::content_publisher::aws_region: "eu-west-1"
-govuk::apps::content_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::content_tagger::db_port: 6432
-govuk::apps::content_tagger::db_allow_prepared_statements: false
-govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::content_tagger::enable_procfile_worker: true
-govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
-govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::publisher::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::short_url_manager::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::short_url_manager::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::licencefinder::mongodb_nodes:
   - 'mongo-1.backend'
   - 'mongo-2.backend'
   - 'mongo-3.backend'
 
-govuk::apps::search_admin::db_name: 'search_admin_production'
-govuk::apps::search_admin::db_hostname: 'master.mysql'
-govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
-govuk::apps::search_admin::db_username: 'search_admin'
-govuk::apps::search_admin::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::search_admin::redis_port: "%{hiera('sidekiq_port')}"
-
-govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
-govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
-
-govuk::apps::service_manual_publisher::db_port: 6432
-govuk::apps::service_manual_publisher::db_allow_prepared_statements: false
-govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
@@ -372,21 +325,12 @@ govuk::apps::signon::nagios_memory_warning: 1100
 govuk::apps::signon::nagios_memory_critical: 1200
 govuk::apps::signon::unicorn_worker_processes: "4"
 
-govuk::apps::specialist_publisher::enabled: true
-govuk::apps::specialist_publisher::nagios_memory_warning: 1100
-govuk::apps::specialist_publisher::nagios_memory_critical: 1200
-govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
-
 govuk::apps::smokey::http_username: "%{hiera('http_username')}"
 govuk::apps::smokey::http_password: "%{hiera('http_password')}"
 govuk::apps::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 govuk::apps::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
-
-govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
-govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
@@ -966,23 +910,8 @@ hosts::production::backend::hosts:
 hosts::production::backend::app_hostnames:
   - 'asset-manager'
   - 'canary-backend'
-  - 'collections-publisher'
-  - 'contacts-admin'
-  - 'content-publisher'
-  - 'content-tagger'
   - 'docs'
-  - 'hmrc-manuals-api'
-  - 'maslow'
-  - 'manuals-publisher'
-  - 'publisher'
-  - 'search-admin'
-  - 'service-manual-publisher'
-  - 'short-url-manager'
   - 'signon'
-  - 'specialist-publisher'
-  - 'specialist-publisher-rebuild'
-  - 'specialist-publisher-rebuild-standalone'
-  - 'travel-advice-publisher'
 
 hosts::production::ci::hosts:
   ci-master-1:
