@@ -1017,6 +1017,7 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   smartanswers:
     repository: 'smart-answers'
+  publishing-api: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
