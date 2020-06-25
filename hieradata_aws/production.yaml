@@ -150,6 +150,8 @@ govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 
