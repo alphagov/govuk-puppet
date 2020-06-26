@@ -220,6 +220,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::redis_host
     govuk::apps::email_alert_api::redis_port
     govuk::apps::email_alert_api::unicorn_worker_processes
+    govuk::apps::email_alert_frontend::redis_host
+    govuk::apps::email_alert_frontend::redis_port
     govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enable_unpublishing_queue_consumer
     govuk::apps::email_alert_service::enabled
