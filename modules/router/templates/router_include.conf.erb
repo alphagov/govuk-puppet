@@ -82,7 +82,7 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
 }
 
 location ~ ^/email/subscriptions/verify$ {
-  limit_req zone=email burst=0 nodelay;
+  limit_req zone=email nodelay;
   proxy_pass http://varnish;
 }
 
