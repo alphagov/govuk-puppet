@@ -70,11 +70,16 @@ server {
   }
   <%- end -%>
 
-  set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
+  # Endpoint that isn't cached, which is used to assert that an external
+  # service can receive a response from GOV.UK origin on assets hostname. It
+  # is intended for pingdom monitoring
   location /__canary__ {
-    proxy_pass $upstream_static;
+    default_type application/json;
+    add_header cache-control "max-age=0,no-store,no-cache";
+    return 200 '{"message": "Tweet tweet"}\n';
   }
 
+  set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   location / {
     proxy_pass $upstream_static;
   }
