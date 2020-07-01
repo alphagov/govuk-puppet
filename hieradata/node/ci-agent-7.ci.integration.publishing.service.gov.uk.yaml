@@ -1,3 +1,5 @@
 ---
 govuk_containers::elasticsearch::primary::enable: false
 govuk_containers::elasticsearch::secondary::enable: false
+
+govuk_solr::remove: true
