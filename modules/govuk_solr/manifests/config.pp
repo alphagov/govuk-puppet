@@ -14,21 +14,37 @@
 class govuk_solr::config (
   $jetty_user = undef,
   $solr_home = undef,
+  $remove = undef,
 ) {
 
+  $ensure_dir = $remove ? {
+    false => directory,
+    true  => absent,
+  }
+
+  $ensure_file = $remove ? {
+    false => file,
+    true  => absent,
+  }
+
+  $ensure_service = $remove ? {
+    false => running,
+    true  => stopped,
+  }
+
   file{"${solr_home}/current/conf":
-    ensure  => directory,
+    ensure  => $ensure_dir,
   } ->
 
   file{"${solr_home}/current/solr":
-    ensure  => directory,
+    ensure  => $ensure_dir,
     owner   => $jetty_user,
     group   => $jetty_user,
     recurse => true,
   } ->
 
   file {"${solr_home}/current/example/solr/collection1/conf/schema.xml":
-    ensure => file,
+    ensure => $ensure_file,
     owner  => $jetty_user,
     group  => $jetty_user,
     source => 'puppet:///modules/govuk_solr/schema.xml',
@@ -36,7 +52,7 @@ class govuk_solr::config (
   } ->
 
   file {"${solr_home}/current/conf/jetty-logging.xml":
-    ensure => file,
+    ensure => $ensure_file,
     owner  => $jetty_user,
     group  => $jetty_user,
     source => 'puppet:///modules/govuk_solr/jetty-logging.xml',
@@ -44,27 +60,27 @@ class govuk_solr::config (
   } ->
 
   file {'/etc/default/jetty':
-    ensure  => file,
+    ensure  => $ensure_file,
     content => template('govuk_solr/jetty.erb'),
     notify  => Service['jetty'],
   } ->
 
   file {'/etc/init.d/jetty':
-    ensure  => file,
+    ensure  => $ensure_file,
     mode    => '0755',
     content => template('govuk_solr/jetty.sh.erb'),
     notify  => Service['jetty'],
   } ->
 
   file {'/var/log/jetty':
-    ensure => directory,
+    ensure => $ensure_dir,
   } ->
 
   file {'/var/cache/jetty':
-    ensure => directory,
+    ensure => $ensure_dir,
   } ->
 
   service {'jetty':
-    ensure => running,
+    ensure => $ensure_service,
   }
 }
