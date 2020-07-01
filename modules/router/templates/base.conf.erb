@@ -41,7 +41,7 @@ server {
   # Redirect for a draft document that was accidentally leaked to the publi
   # with bypass authentication token.
   #
-  # Added 30 June 2020 - if this is still hear 6 months later assume it's safe
+  # Added 30 June 2020 - if this is still here 6 months later assume it's safe
   # to remove.
   if ($arg_token = "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzOTM0NjUzMi0zMTM5LTQ3MzgtYjI2Mi02NjYxMzIzMjY0MzEifQ.9Fd2ok0BMi7IEnMQF9xlMNzl57nYoiOpz-rdL8QuWNI") {
     rewrite ^/(government/news/leicestershire-coronavirus-lockdown-areas-and-changes)$ <%= @website_root %>/$1? permanent;
