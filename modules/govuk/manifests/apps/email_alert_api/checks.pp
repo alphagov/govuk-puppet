@@ -20,8 +20,8 @@ class govuk::apps::email_alert_api::checks(
       latency_critical => '600'; # 10 minutes
 
     'delivery_immediate':
-      size_warning     => '75000',
-      size_critical    => '100000',
+      size_warning     => '150000',
+      size_critical    => '500000',
       latency_warning  => '1200', # 20 minutes
       latency_critical => '1800'; # 30 minutes
 
