@@ -1429,6 +1429,8 @@ router::nginx::robotstxt: |
   User-agent: Googlebot
   Disallow: /licence-finder/*
 
+router::nginx::website_root: "%{hiera('govuk::deploy::config::website_root')}"
+
 sidekiq_host: 'backend-redis'
 sidekiq_port: '6379'
 

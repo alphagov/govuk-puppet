@@ -49,6 +49,9 @@
 #
 # Default: ''
 #
+# [*website_root*]
+#   The URL to the root of the main GOV.UK host for redirects
+#
 class router::nginx (
   $app_specific_static_asset_routes = {},
   $vhost_protected,
@@ -58,6 +61,7 @@ class router::nginx (
   $check_requests_warning = '@25',
   $check_requests_critical = '@10',
   $robotstxt = '',
+  $website_root = undef,
 ) {
   validate_array($rate_limit_tokens)
 

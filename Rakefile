@@ -497,6 +497,7 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::pagerduty_drill::enabled
     router::assets_origin::website_root
     router::nginx::robotstxt
+    router::nginx::website_root
     govuk::apps::govuk_crawler_worker::blacklist_paths
     govuk_awscloudwatch::apt_mirror_hostname
     govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint
