@@ -221,6 +221,7 @@ govuk::apps::travel_advice_publisher::mongodb_nodes: "%{hiera('govuk::apps::asse
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-staging-whitehall-csvs'
 
 govuk::apps::contacts::ensure: 'present'
 govuk::apps::collections_publisher::ensure: 'present'
