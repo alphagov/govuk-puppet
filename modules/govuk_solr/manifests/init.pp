@@ -19,11 +19,17 @@ class govuk_solr (
 
   class{'govuk_solr::install':
     remove => $remove,
-  } ~>
+  }
 
   class{'govuk_solr::config':
     jetty_user => $jetty_user,
     solr_home  => $solr_home,
     remove     => $remove,
+  }
+
+  if $remove {
+    Class['govuk_solr::config'] ~> Class['govuk_solr::install']
+  } else {
+    Class['govuk_solr::install'] ~> Class['govuk_solr::config']
   }
 }

@@ -32,32 +32,34 @@ class govuk_solr::config (
     true  => stopped,
   }
 
-  file{"${solr_home}/current/conf":
-    ensure  => $ensure_dir,
-  } ->
+  unless $remove {
+    file{"${solr_home}/current/conf":
+        ensure  => $ensure_dir,
+    } ->
 
-  file{"${solr_home}/current/solr":
-    ensure  => $ensure_dir,
-    owner   => $jetty_user,
-    group   => $jetty_user,
-    recurse => true,
-  } ->
+    file{"${solr_home}/current/solr":
+        ensure  => $ensure_dir,
+        owner   => $jetty_user,
+        group   => $jetty_user,
+        recurse => true,
+    } ->
 
-  file {"${solr_home}/current/example/solr/collection1/conf/schema.xml":
-    ensure => $ensure_file,
-    owner  => $jetty_user,
-    group  => $jetty_user,
-    source => 'puppet:///modules/govuk_solr/schema.xml',
-    notify => Service['jetty'],
-  } ->
+    file {"${solr_home}/current/example/solr/collection1/conf/schema.xml":
+        ensure => $ensure_file,
+        owner  => $jetty_user,
+        group  => $jetty_user,
+        source => 'puppet:///modules/govuk_solr/schema.xml',
+        notify => Service['jetty'],
+    } ->
 
-  file {"${solr_home}/current/conf/jetty-logging.xml":
-    ensure => $ensure_file,
-    owner  => $jetty_user,
-    group  => $jetty_user,
-    source => 'puppet:///modules/govuk_solr/jetty-logging.xml',
-    notify => Service['jetty'],
-  } ->
+    file {"${solr_home}/current/conf/jetty-logging.xml":
+        ensure => $ensure_file,
+        owner  => $jetty_user,
+        group  => $jetty_user,
+        source => 'puppet:///modules/govuk_solr/jetty-logging.xml',
+        notify => Service['jetty'],
+    }
+  }
 
   file {'/etc/default/jetty':
     ensure  => $ensure_file,
