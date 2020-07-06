@@ -145,12 +145,6 @@
 # [*govuk_notify_template_id*]
 #   The template ID used to send email via GOV.UK Notify.
 #
-# [*aws_access_key_id*]
-#   The Access Key ID for AWS to access S3 buckets.
-#
-# [*aws_secret_access_key*]
-#   The Secret Access Key for AWS to access S3 buckets.
-#
 # [*aws_region*]
 #   The Region for AWS to access S3 buckets.
 #
@@ -201,8 +195,6 @@ class govuk::apps::whitehall(
   $backend_unicorn_worker_processes = 4,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $aws_access_key_id = undef,
-  $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
   $aws_s3_bucket_name = undef,
 ) {
@@ -391,12 +383,6 @@ class govuk::apps::whitehall(
       "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
-      "${title}-AWS_ACCESS_KEY_ID":
-        varname => 'AWS_ACCESS_KEY_ID',
-        value   => $aws_access_key_id;
-      "${title}-AWS_SECRET_ACCESS_KEY":
-        varname => 'AWS_SECRET_ACCESS_KEY',
-        value   => $aws_secret_access_key;
       "${title}-AWS_REGION":
         varname => 'AWS_REGION',
         value   => $aws_region;
