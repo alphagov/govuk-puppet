@@ -95,10 +95,6 @@ server {
   }
   <%- end -%>
 
-  location /__canary__ {
-    return 200;
-  }
-
   <%- if scope.lookupvar('::aws_migration') %>
   set $upstream_static <%= @upstream_ssl ? 'https' : 'http' %>://static.<%= @app_domain %>;
   <%- end %>
