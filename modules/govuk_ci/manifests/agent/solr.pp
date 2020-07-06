@@ -6,4 +6,6 @@ class govuk_ci::agent::solr {
 
   include ::govuk_solr
 
+  include ::govuk_solr6
+
 }
