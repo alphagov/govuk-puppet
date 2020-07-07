@@ -6,14 +6,14 @@ server {
     proxy_pass http://varnish;
   }
 
-  # Health checks from ALB reuse Fastly __canary__ health check path
-  # and bypass authentication on Integration
   location /_healthcheck_www {
-    proxy_pass http://varnish/__canary__;
+    proxy_pass http://varnish/__varnish_check__;
   }
+
   location /_healthcheck_www-origin {
-    proxy_pass http://varnish/__canary__;
+    proxy_pass http://varnish/__varnish_check__;
   }
+
   location /_healthcheck_assets-origin {
     return 200;
   }
