@@ -6,7 +6,7 @@ define icinga::smokey_loop(
 ) {
   icinga::check { "smokey_loop_for_${feature}":
     ensure              => $ensure,
-    check_command       => "run_smokey_tests!${feature}!normal",
+    check_command       => "run_smokey_tests!${feature}",
     service_description => "Smokey loop for ${feature}",
     host_name           => $::fqdn,
     notes_url           => $notes_url,
