@@ -1,6 +1,6 @@
 require_relative '../../../../spec_helper'
 
-describe 'icinga::check_feature', :type => :define do
+describe 'icinga::smokey_loop', :type => :define do
   let(:title) { 'check_test_feature' }
   let(:pre_condition) {  'icinga::host{"test_host.blah.blah":}' }
   let(:facts) {{
