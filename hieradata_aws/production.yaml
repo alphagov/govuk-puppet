@@ -38,6 +38,7 @@ node_class: &node_class
       - service-manual-publisher
       - short-url-manager
       - sidekiq-monitoring
+      - signon
       - specialist-publisher
       - support
       - support-api
