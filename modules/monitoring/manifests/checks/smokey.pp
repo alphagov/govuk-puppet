@@ -67,6 +67,6 @@ class monitoring::checks::smokey (
 
   create_resources(icinga::smokey_loop, $features, {
     'ensure' => $icinga_ensure,
-    'notes_url' => monitoring_docs_url(high-priority-tests),
+    'notes_url' => monitoring_docs_url(smokey-loop-tests),
   })
 }
