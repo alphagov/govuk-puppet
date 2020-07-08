@@ -542,6 +542,12 @@ task :check_consistency_between_aws_and_carrenza do
     licensify::apps::licensify::environment
     licensify::apps::licensify_admin::environment
     licensify::apps::licensify_feed::environment
+
+    govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs
+    govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency
+    govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency
+    govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency
+    govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency
   ]
 
   failed = false
