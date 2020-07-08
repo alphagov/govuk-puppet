@@ -174,7 +174,7 @@
             },
             {
               "refId": "B",
-              "target": "alias(constantLine(10800), 'per minute rate limit')"
+              "target": "alias(constantLine(10500), 'per minute rate limit')"
             },
             {
               "refId": "D",
