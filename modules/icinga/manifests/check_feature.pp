@@ -4,10 +4,11 @@ define icinga::check_feature(
   $ensure = present,
   $notes_url = undef
 ) {
-  icinga::check_feature_w_prio { "check_feature_${feature}_normal":
-    ensure    => $ensure,
-    feature   => $feature,
-    prio      => 'normal',
-    notes_url => $notes_url,
+  icinga::check { "smokey_loop_for_${feature}":
+    ensure              => $ensure,
+    check_command       => "run_smokey_tests!${feature}!normal",
+    service_description => "Smokey loop for ${feature}",
+    host_name           => $::fqdn,
+    notes_url           => $notes_url,
   }
 }

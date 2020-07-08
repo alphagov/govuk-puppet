@@ -14,6 +14,6 @@ describe 'icinga::check_feature', :type => :define do
   }}
   it {
     is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
-      'check_feature_test_feature_normal_checker.cfg')
+      'smokey_loop_for_test_feature.cfg')
   }
 end
