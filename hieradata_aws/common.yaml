@@ -1195,6 +1195,9 @@ grafana::dashboards::application_dashboards:
   service-manual-publisher: {}
   sidekiq-monitoring: {}
   short-url-manager: {}
+  signon:
+    show_sidekiq_graphs: true
+    has_workers: true
   smartanswers:
     docs_name: 'smart-answers'
   specialist-publisher:
