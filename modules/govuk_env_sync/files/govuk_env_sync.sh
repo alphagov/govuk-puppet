@@ -493,23 +493,36 @@ function get_timestamp_elasticsearch {
   sed "s/-${database}$//")"
 }
 
-function postprocess_signon_production {
-  source_domain_query="SELECT home_uri FROM oauth_applications WHERE name='Publisher';"
-  source_domain=$(echo "${source_domain_query}" |\
-                  sudo -H mysql -h mysql-primary --database=signon_production | grep publisher | sed s#https://publisher.##g)
-  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
+function postprocess_mysl_cmd_signon_production {
+  source_domain="${1}"
+  new_domain="${2}"
 
   update_home_uri_query="UPDATE oauth_applications\
-     SET home_uri = REPLACE(home_uri, '${source_domain}', '${local_domain}')\
+     SET home_uri = REPLACE(home_uri, '${source_domain}', '${new_domain}')\
      WHERE home_uri LIKE '%${source_domain}%'"
 
   echo "${update_home_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
 
   update_redirect_uri_query="UPDATE oauth_applications\
-     SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${local_domain}')\
+     SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${new_domain}')\
      WHERE redirect_uri LIKE '%${source_domain}%'"
 
   echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+}
+
+function postprocess_signon_production {
+  aws_environment="$(get_aws_environment)"
+  if [ "${aws_environment}" == "production" ] || [ "${aws_environment}" == "integration" ] ; then
+      # For production, we don't want any processing to be done for production as the URLs are the originals
+      # For integration, we don't want any processing as integration has its own signon database which is not derived
+      # from production or staging
+      return
+  fi
+
+  postprocess_mysl_cmd_signon_production "publishing.service.gov.uk" "staging.publishing.service.gov.uk"
+  postprocess_mysl_cmd_signon_production "performance.service.gov.uk" "staging.performance.service.gov.uk"
+  postprocess_mysl_cmd_signon_production "-production.cloudapps.digital" "-staging.cloudapps.digital"
+  postprocess_mysl_cmd_signon_production "-production.london.cloudapps.digital" "-staging.london.cloudapps.digital"
 }
 
 function get_aws_environment {
