@@ -2,7 +2,7 @@
 #
 # Monitoring checks based on Smokey (cucumber HTTP tests). smokey-loop runs
 # constantly and writes the results to a JSON file atomically. That output
-# is read by Icinga for each of the check_feature resources.
+# is read by Icinga for each of the smokey_loop resources.
 #
 # === Parameters
 #
@@ -65,8 +65,8 @@ class monitoring::checks::smokey (
     }
   }
 
-  create_resources(icinga::check_feature, $features, {
+  create_resources(icinga::smokey_loop, $features, {
     'ensure' => $icinga_ensure,
-    'notes_url' => monitoring_docs_url(high-priority-tests),
+    'notes_url' => monitoring_docs_url(smokey-loop-tests),
   })
 }
