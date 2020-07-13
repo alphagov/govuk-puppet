@@ -55,6 +55,11 @@
 #   files/transformation_sql directory of the govuk_env_sync Puppet module.
 #   Default: ''
 #
+# [*excluded_tables*]
+#   Optional comma-delimited list of tables to be excluded from the backup (i.e. push)
+#   Only works for mysql for now.
+#   Default: ''
+#
 define govuk_env_sync::task(
   $hour,
   $minute,
@@ -68,6 +73,7 @@ define govuk_env_sync::task(
   $ensure = 'present',
   $transformation_sql_filename = '',
   $pre_dump_transformation_sql_filename = '',
+  $excluded_tables = '',
 ) {
   $general_ensure = $ensure ? {
     'disabled' => 'absent',
