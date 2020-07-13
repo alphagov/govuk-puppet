@@ -145,6 +145,11 @@
 # [*govuk_notify_template_id*]
 #   The template ID used to send email via GOV.UK Notify.
 #
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
 
 class govuk::apps::whitehall(
   $admin_db_name = undef,
@@ -190,6 +195,8 @@ class govuk::apps::whitehall(
   $backend_unicorn_worker_processes = 4,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket_name = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -376,6 +383,12 @@ class govuk::apps::whitehall(
       "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
+      "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
+      "${title}-AWS_S3_BUCKET_NAME":
+        varname => 'AWS_S3_BUCKET_NAME',
+        value   => $aws_s3_bucket_name;
     }
 
     govuk::app::envvar::database_url { $app_name:

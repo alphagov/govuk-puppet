@@ -394,6 +394,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::whitehall::jwt_auth_secret
     govuk::apps::whitehall::redis_host
     govuk::apps::whitehall::redis_port
+    govuk::apps::whitehall::aws_s3_bucket_name
     govuk::deploy::setup::gemstash_server
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
