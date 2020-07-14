@@ -448,8 +448,22 @@ function dump_mysql {
   # without holding locks for the duration of the dump.
   # https://dev.mysql.com/doc/refman/5.6/en/mysqldump.html#option_mysqldump_single-transaction
   log "Running mysqldump..."
-  sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
-  log "completed."
+  if [ -z "${excluded_tables:-}" ] ; then
+    sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
+  else
+    log "excluded tables specified: ${excluded_tables}"
+
+    IFS=',' read -r -a excluded_tables_array <<< "${excluded_tables}"
+
+    ignored_tables_string=''
+    for table in "${excluded_tables_array[@]}" ; do
+      ignored_tables_string+=" --ignore-table=${database}.${table}"
+    done
+
+    # shellcheck disable=SC2086
+    sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" ${ignored_tables_string} | gzip > "${tempdir}/${filename}"
+  fi
+  log "mysqldump completed."
 }
 
 function restore_mysql {
@@ -511,11 +525,14 @@ function postprocess_mysl_cmd_signon_production {
 }
 
 function postprocess_signon_production {
+  log "Starting the postprocessing for Signon..."
+
   aws_environment="$(get_aws_environment)"
-  if [ "${aws_environment}" == "production" ] || [ "${aws_environment}" == "integration" ] ; then
+  if [ "${aws_environment}" == "production" ] || [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "" ] ; then
       # For production, we don't want any processing to be done for production as the URLs are the originals
       # For integration, we don't want any processing as integration has its own signon database which is not derived
       # from production or staging
+      log "No postprocessing for Signon because in AWS Production or Integration or Carrenza"
       return
   fi
 
@@ -523,6 +540,8 @@ function postprocess_signon_production {
   postprocess_mysl_cmd_signon_production "performance.service.gov.uk" "staging.performance.service.gov.uk"
   postprocess_mysl_cmd_signon_production "-production.cloudapps.digital" "-staging.cloudapps.digital"
   postprocess_mysl_cmd_signon_production "-production.london.cloudapps.digital" "-staging.london.cloudapps.digital"
+
+  log "Completed the postprocessing for Signon"
 }
 
 function get_aws_environment {
@@ -672,6 +691,7 @@ do
     p) path="$OPTARG" ;;
     s) transformation_sql_file="$OPTARG" ;;
     F) pre_dump_transformation_sql_file="$OPTARG" ;;
+    e) excluded_tables="$OPTARG" ;;
     t) timestamp="$OPTARG" ;;
     *) usage ;;
   esac
