@@ -288,7 +288,6 @@ hosts::production::backend::app_hostnames:
   - 'search-admin'
   - 'service-manual-publisher'
   - 'short-url-manager'
-  - 'signon'
   - 'specialist-publisher'
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'
