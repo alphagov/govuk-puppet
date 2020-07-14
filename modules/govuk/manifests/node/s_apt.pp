@@ -79,7 +79,7 @@ class govuk::node::s_apt (
       release  => 'trusty',
       key      => 'ABF5BD827BD9BF62';
     'nodejs':
-      location => 'https://deb.nodesource.com/node_6.x',
+      location => 'https://deb.nodesource.com/node_12.x',
       release  => 'trusty',
       repos    => ['main'],
       key      => '68576280';
