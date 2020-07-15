@@ -79,7 +79,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '100000000',
     from      => '15minutes',
-    desc      => 'email-alert-api - unprocessed content changes - warning',
+    desc      => 'email-alert-api - unprocessed content changes older than 90 minutes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
     }
 
@@ -101,7 +101,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '100000000',
     from      => '1hour',
-    desc      => 'email-alert-api - unprocessed messages - warning',
+    desc      => 'email-alert-api - unprocessed messages older than 90 minutes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-messages),
   }
 
@@ -112,7 +112,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '0',
     from      => '15minutes',
-    desc      => 'email-alert-api - unprocessed content changes - critical',
+    desc      => 'email-alert-api - unprocessed content changes older than 120 minutes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
   }
 
@@ -134,7 +134,7 @@ class govuk::apps::email_alert_api::checks(
     warning   => '0',
     critical  => '0',
     from      => '1hour',
-    desc      => 'email-alert-api - unprocessed messages - critical',
+    desc      => 'email-alert-api - unprocessed messages older than 120 minutes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-messages),
   }
 }
