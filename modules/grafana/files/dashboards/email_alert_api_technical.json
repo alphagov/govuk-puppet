@@ -32,7 +32,7 @@
   "hideControls": false,
   "id": 33,
   "links": [],
-  "refresh": false,
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
@@ -1597,110 +1597,6 @@
       "showTitle": true,
       "title": "Digest Runs",
       "titleSize": "h6"
-    },
-    {
-      "collapse": true,
-      "height": "300",
-      "panels": [
-        {
-          "aliasColors": {},
-          "bars": true,
-          "dashLength": 10,
-          "dashes": false,
-          "datasource": "Graphite",
-          "fill": 1,
-          "id": 19,
-          "legend": {
-            "avg": false,
-            "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
-            "total": false,
-            "values": false
-          },
-          "lines": false,
-          "linewidth": 1,
-          "links": [],
-          "nullPointMode": "null",
-          "percentage": false,
-          "pointradius": 5,
-          "points": false,
-          "renderer": "flot",
-          "seriesOverrides": [
-            {
-              "alias": "30 day average",
-              "bars": false,
-              "fill": 0,
-              "lines": true,
-              "linewidth": 4,
-              "stack": false
-            }
-          ],
-          "spaceLength": 10,
-          "span": 12,
-          "stack": true,
-          "steppedLine": false,
-          "targets": [
-            {
-              "refId": "A",
-              "target": "alias(summarize(groupByNode(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.success, 'sum'), 1, 'sum'), '1d', 'sum', false), 'Successes')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias(summarize(groupByNode(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.failure, 'sum'), 1, 'sum'), '1d', 'sum', false), 'Failures')",
-              "textEditor": true
-            },
-            {
-              "refId": "C",
-              "target": "alias(movingAverage(groupByNode(summarize(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, 'sum'), '1d', 'sum', false), 1, 'sum'), '30d'), '30 day average')",
-              "textEditor": true
-            }
-          ],
-          "thresholds": [],
-          "timeFrom": "365d",
-          "timeShift": null,
-          "title": "Volume over 365 days",
-          "tooltip": {
-            "shared": true,
-            "sort": 0,
-            "value_type": "individual"
-          },
-          "type": "graph",
-          "xaxis": {
-            "buckets": null,
-            "mode": "time",
-            "name": null,
-            "show": true,
-            "values": []
-          },
-          "yaxes": [
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            },
-            {
-              "format": "short",
-              "label": null,
-              "logBase": 1,
-              "max": null,
-              "min": null,
-              "show": true
-            }
-          ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": true,
-      "title": "Volume",
-      "titleSize": "h6"
     }
   ],
   "schemaVersion": 14,
@@ -1709,12 +1605,12 @@
   "templating": {
     "list": [
       {
-        "auto": false,
+        "auto": true,
         "auto_count": 30,
         "auto_min": "10s",
         "current": {
-          "text": "1m",
-          "value": "1m"
+          "text": "auto",
+          "value": "$__auto_interval"
         },
         "hide": 2,
         "label": null,
@@ -1722,6 +1618,11 @@
         "options": [
           {
             "selected": true,
+            "text": "auto",
+            "value": "$__auto_interval"
+          },
+          {
+            "selected": false,
             "text": "1m",
             "value": "1m"
           },
@@ -1807,6 +1708,6 @@
     ]
   },
   "timezone": "",
-  "title": "Email Alert API Metrics",
+  "title": "Email Alert API Technical",
   "version": 16
 }
