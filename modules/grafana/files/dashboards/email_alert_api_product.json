@@ -19,7 +19,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "Graphite",
           "fill": 1,
           "id": 3,
           "legend": {
@@ -117,7 +117,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "Graphite",
           "fill": 1,
           "id": 1,
           "legend": {
@@ -193,7 +193,7 @@
           "bars": true,
           "dashLength": 10,
           "dashes": false,
-          "datasource": null,
+          "datasource": "Graphite",
           "fill": 1,
           "id": 2,
           "legend": {
@@ -383,5 +383,5 @@
   },
   "timezone": "browser",
   "title": "Email Alert API Product",
-  "version": 19
+  "version": 20
 }
