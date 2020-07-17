@@ -34,8 +34,8 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "pull_email_alert_api_production_daily":
     ensure: "present"
-    hour: "3"
-    minute: "10"
+    hour: "1"
+    minute: "30"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
