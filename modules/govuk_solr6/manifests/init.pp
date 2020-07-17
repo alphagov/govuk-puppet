@@ -23,11 +23,14 @@ class govuk_solr6 (
   }
 
   if $present {
-    service { 'solr':
-      ensure => running,
-      enable => true,
+    configset { 'ckan28':
+      schema_xml => 'puppet:///modules/govuk_solr6/ckan28.schema.xml',
     }
 
-    Package['solr'] ~> Service['solr']
+    service { 'solr':
+      ensure    => running,
+      enable    => true,
+      subscribe => Package['solr'],
+    }
   }
 }
