@@ -133,6 +133,8 @@ govuk_jenkins::plugins:
     version: '1.7'
   findbugs:
     version: '5.0.0'
+  generic-webhook-trigger:
+    version: '1.67'
   git-client:
     version: '2.7.7'
   git:
