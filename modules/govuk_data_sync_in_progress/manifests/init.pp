@@ -20,8 +20,8 @@ define govuk_data_sync_in_progress(
   $start_hour = 22
   $start_minute = 0
 
-  $finish_hour = 5
-  $finish_minute = 45
+  $finish_hour = 8
+  $finish_minute = 00
 
   if !defined(File[$fact_path]) {
     file { $fact_path:
