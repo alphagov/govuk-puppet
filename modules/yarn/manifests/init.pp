@@ -5,10 +5,10 @@
 # === Parameters:
 #
 # [*version*]
-#   Version to install. Defaults to 'present' which will install latest version
+#   Version to install. Defaults to '1.22.4-1'
 #
 class yarn(
-  $version = 'present',
+  $version = '1.22.4-1',
 ) {
 
   class { '::yarn::repo': }
