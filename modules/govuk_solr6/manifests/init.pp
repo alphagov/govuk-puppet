@@ -32,5 +32,9 @@ class govuk_solr6 (
       enable    => true,
       subscribe => Package['solr'],
     }
+
+    core { 'example_core_ckan28':
+      configset => 'ckan28',
+    }
   }
 }
