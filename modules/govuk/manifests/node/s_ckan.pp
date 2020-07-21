@@ -28,6 +28,7 @@ class govuk::node::s_ckan inherits govuk::node::s_base {
     jre => 'openjdk8',
   }
   include govuk_solr
+  include govuk_solr6
 
   package { 'libgeos-c1':
     ensure => latest,

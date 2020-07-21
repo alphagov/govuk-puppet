@@ -5,3 +5,5 @@ govuk::apps::ckan::priority_worker_processes: '1'
 govuk::apps::ckan::bulk_worker_processes: '4'
 govuk::apps::ckan::enable_harvester_fetch: true
 govuk::apps::ckan::enable_harvester_gather: true
+
+govuk_solr6::present: false
