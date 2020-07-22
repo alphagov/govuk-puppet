@@ -87,13 +87,6 @@ class icinga::client::checks (
     $grafana = "grafana.${app_domain}"
   }
 
-  @@icinga::check { "check_load_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_load',
-    service_description => 'high load on',
-    host_name           => $::fqdn,
-    action_url          => "https://${grafana}/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=${::fqdn_metrics}",
-  }
-
   if $::aws_migration {
     @icinga::nrpe_config { 'check_ssh_local':
       source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_ssh_local.cfg',
