@@ -195,7 +195,6 @@ hosts::production::api::hosts:
 hosts::production::backend::app_hostnames:
   - 'canary-backend'
   - 'docs'
-  - 'signon'
 
 hosts::production::backend::hosts:
   asset-master-1:
