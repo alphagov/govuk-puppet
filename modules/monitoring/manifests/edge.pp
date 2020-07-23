@@ -14,7 +14,7 @@ class monitoring::edge (
 
   if $enabled {
     icinga::check::graphite { "fastly_5xx_rate_on_${::hostname}":
-      target    => "${::fqdn_metrics}.cdn_fastly-govuk.requests-status_5xx",
+      target    => movingMedian("${::fqdn_metrics}.cdn_fastly-govuk.requests-status_5xx", '5min'),
       desc      => 'Fastly error rate for GOV.UK',
       warning   => 0.05,
       critical  => 0.1,
