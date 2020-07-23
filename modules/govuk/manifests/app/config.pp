@@ -485,7 +485,7 @@ define govuk::app::config (
       service_description      => "${title} does not have the expected number of unicorn workers",
       host_name                => $::fqdn,
       contact_groups           => $additional_check_contact_groups,
-      first_notification_delay => 2,
+      first_notification_delay => 5,
     }
     include icinga::client::check_unicorn_ruby_version
     @@icinga::check { "check_app_${title}_unicorn_ruby_version_${::hostname}":
