@@ -14,26 +14,18 @@ class govuk::apps::email_alert_api::checks(
       'email_generation_digest',
       'cleanup',
     ]:
-      size_warning     => '75000',
-      size_critical    => '100000',
       latency_warning  => '300', # 5 minutes
       latency_critical => '600'; # 10 minutes
 
     'delivery_immediate':
-      size_warning     => '150000',
-      size_critical    => '500000',
       latency_warning  => '1200', # 20 minutes
       latency_critical => '1800'; # 30 minutes
 
     'delivery_immediate_high':
-      size_warning     => '75000',
-      size_critical    => '100000',
       latency_warning  => '300', # 5 minutes
       latency_critical => '600'; # 10 minutes
 
     'delivery_digest':
-      size_warning     => '75000',
-      size_critical    => '100000',
       latency_warning  => '3600', # 60 minutes
       latency_critical => '5400'; # 90 minutes
   }
