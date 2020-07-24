@@ -45,7 +45,7 @@ class govuk::apps::email_alert_api::checks(
 
   @@icinga::check::graphite { 'email-alert-api-notify-email-send-request-success':
     host_name => $::fqdn,
-    target    => 'summarize(groupByNode(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, "sum"), 1, "sum"), "1d", "sum", false)',
+    target    => 'transformNull(sumSeries(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, "sum")),0)',
     args      => '--ignore-missing',
     warning   => '20000000', # 25,000,000 * 0.8
     critical  => '22500000', # 25,000,000 * 0.9
