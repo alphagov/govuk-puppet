@@ -30,7 +30,7 @@ def nagios_critical(message):
     raise CheckException("CRITICAL: %s" % message, 2)
 
 
-def parse_apt_get(apt_get_output, critical, warning):
+def parse_apt_get(security_updates, critical, warning):
     if security_updates > critical:
         nagios_critical("%s security updates have not been installed automatically"
                         % security_updates)
