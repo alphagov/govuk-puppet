@@ -537,7 +537,7 @@ govuk::apps::email_alert_api::nagios_memory_warning: 2400
 govuk::apps::email_alert_api::nagios_memory_critical: 3000
 govuk::apps::email_alert_api::unicorn_worker_processes: '10'
 # This list should be kept in sync with https://www.notifications.service.gov.uk/services/ecfc7e2f-5145-45a6-9413-5d9b6e813ea9/users
-govuk::apps::email_alert_api::email_address_override_whitelist:
+govuk::apps::email_alert_api::email_address_override_allowlist:
   - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
   - alan.gabbianelli@digital.cabinet-office.gov.uk
   - alex.jurubita@digital.cabinet-office.gov.uk
@@ -566,6 +566,8 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - thomas.leese@digital.cabinet-office.gov.uk
   - tom.whitwell@digital.cabinet-office.gov.uk
   - vanita.barrett@digital.cabinet-office.gov.uk
+
+govuk::apps::email_alert_api::email_address_override_whitelist: "%{hiera('govuk::apps::email_alert_api::email_address_override_allowlist')}"
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
