@@ -30,28 +30,7 @@ def nagios_critical(message):
     raise CheckException("CRITICAL: %s" % message, 2)
 
 
-def parse_output(apt_check_output):
-    """
-    Parse the passed in apt_check_output. Expects a string of the format
-    '<int>;<int>'. The second of these two numbers is the number of security
-    updates. If, for instance, there are broken packages then apt_check_output
-    cannot be parsed as an int. This is assumed to be a critical
-    as it could imply broken packages.
-    """
-    packages_to_update = string.split(apt_check_output, ';')
-
-    try:
-        return (int(packages_to_update[0]),
-                int(packages_to_update[1]))
-    except ValueError:
-        nagios_critical("apt-check output was not an int. "
-                        "Returned '{}'".format(
-                            apt_check_output))
-
-
-def parse_apt_check(apt_check_output, critical, warning):
-    (_, security_updates) = parse_output(apt_check_output)
-
+def parse_apt_get(apt_get_output, critical, warning):
     if security_updates > critical:
         nagios_critical("%s security updates need to be"
                         "applied with 'apt-get dist-upgrade'"
@@ -92,11 +71,11 @@ def main():
             warning = 0
             critical = 0
 
-        proc = subprocess.Popen(['/usr/lib/update-notifier/apt-check'],
+        proc = subprocess.Popen(["/bin/bash", "-c", "apt-get upgrade -s | grep -i security | wc -l"],
                                 stdout=subprocess.PIPE,
                                 stderr=subprocess.STDOUT)
-        apt_check_output = proc.stdout.read()
-        parse_apt_check(apt_check_output, critical, warning)
+        apt_get_output = int(proc.stdout.read())
+        parse_apt_get(apt_get_output, critical, warning)
 
     except CheckException as e:
         nagios_message(e.message, e.severity)
