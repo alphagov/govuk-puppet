@@ -32,12 +32,10 @@ def nagios_critical(message):
 
 def parse_apt_get(apt_get_output, critical, warning):
     if security_updates > critical:
-        nagios_critical("%s security updates need to be"
-                        "applied with 'apt-get dist-upgrade'"
+        nagios_critical("%s security updates have not been installed automatically"
                         % security_updates)
     elif security_updates > warning:
-        nagios_warning("%s security updates need to be"
-                       "applied with 'apt-get dist-upgrade'"
+        nagios_warning("%s security updates have not been installed automatically"
                        % security_updates)
     else:
         nagios_ok("All security updates applied")
