@@ -79,15 +79,15 @@ and a critical at the second number of updates
 def main():
     try:
         if len(sys.argv) >= 3:
-            warning = sys.argv[2]
-            critical = sys.argv[1]
+            warning = int(sys.argv[2])
+            critical = int(sys.argv[1])
         elif len(sys.argv) == 2:
             if sys.argv[1] == "-h":
                 print usage_message
                 sys.exit(0)
             else:
-                warning = sys.argv[1]
-                critical = sys.argv[1]
+                warning = int(sys.argv[1])
+                critical = int(sys.argv[1])
         else:
             warning = 0
             critical = 0
