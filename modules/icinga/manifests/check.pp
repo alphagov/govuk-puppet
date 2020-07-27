@@ -58,6 +58,9 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
+# [*first_notification_delay*]
+#   Minutes to wait before the alert fires after the check fails
+#
 define icinga::check (
   $host_name,
   $ensure                     = 'present',
