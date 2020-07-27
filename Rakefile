@@ -96,11 +96,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_frontend_lb::whitehall_frontend_servers
     govuk::node::s_mysql_backup::s3_bucket_name
     govuk::node::s_mysql_master::s3_bucket_name
-    govuk::node::s_postgresql_standby::aws_access_key_id
-    govuk::node::s_postgresql_standby::aws_secret_access_key
-    govuk::node::s_postgresql_standby::s3_bucket_url
-    govuk::node::s_postgresql_standby::wale_private_gpg_key
-    govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint
     govuk_jenkins::config::banner_colour_background
     govuk_jenkins::config::banner_colour_text
     govuk_jenkins::config::banner_string
@@ -412,7 +407,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_licensing_backend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_licensing_frontend::apt_mirror_hostname
     govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint
-    govuk::node::s_postgresql_primary::alert_hostname
     govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars

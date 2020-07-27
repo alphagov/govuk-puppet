@@ -936,9 +936,6 @@ govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_b
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
-govuk::node::s_postgresql_primary::alert_hostname: 'alert'
-
-
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_bundler::config::service: 'http://gemstash'
