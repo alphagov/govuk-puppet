@@ -20,7 +20,7 @@
 # [*support_api_bearer_token*]
 #   The bearer token to allow this app to submit anonymous feedback to the Support API.
 #
-# [*survey_notify_service_api_key*]
+# [*govuk_notify_api_key*]
 #   The API key to allow this app to talk to GOV.UK Notify and send emails
 #   to people who want to sign up to take a survey
 #
@@ -35,6 +35,7 @@ class govuk::apps::feedback(
   $google_client_email = undef,
   $google_private_key = undef,
   $survey_notify_service_api_key = undef,
+  $govuk_notify_api_key = undef,
 ) {
   $app_name = 'feedback'
 
@@ -103,6 +104,13 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-SURVEY_NOTIFY_SERVICE_API_KEY":
       varname => 'SURVEY_NOTIFY_SERVICE_API_KEY',
       value   => $survey_notify_service_api_key,
+    }
+  }
+
+  if $govuk_notify_api_key != undef {
+    govuk::app::envvar { "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key,
     }
   }
 }
