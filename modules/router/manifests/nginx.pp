@@ -148,7 +148,7 @@ class router::nginx (
     from                => '3minutes',
     desc                => '5xx rate for www-origin [in office hours]',
     host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
+    notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
     notification_period => 'inoffice',
   }
 
@@ -160,7 +160,7 @@ class router::nginx (
     from                => '8minutes',
     desc                => '5xx rate for www-origin [on call]',
     host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
+    notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
     notification_period => 'oncall',
   }
 

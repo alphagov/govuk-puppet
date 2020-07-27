@@ -154,9 +154,9 @@ define nginx::config::vhost::proxy(
     warning                  => $alert_5xx_warning_rate,
     critical                 => $alert_5xx_critical_rate,
     from                     => '30minutes',
-    desc                     => "${title} nginx 5xx rate too high",
+    desc                     => "${title} high nginx 5xx rate",
     host_name                => $::fqdn,
-    notes_url                => monitoring_docs_url(nginx-5xx-rate-too-high-for-many-apps-boxes),
+    notes_url                => monitoring_docs_url(high-nginx-5xx-rate),
     first_notification_delay => 5,
   }
 
