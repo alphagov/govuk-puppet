@@ -74,12 +74,6 @@ class icinga::client::checks (
     notes_url           => monitoring_docs_url(high-zombie-procs),
   }
 
-  @@icinga::check { "check_procs_${::hostname}":
-    check_command       => 'check_nrpe_1arg!check_total_procs',
-    service_description => 'high total procs',
-    host_name           => $::fqdn,
-  }
-
   if $::aws_migration or ($::aws_environment == 'integration'){
     $grafana = "grafana.${::aws_environment}.govuk.digital"
   } else {
