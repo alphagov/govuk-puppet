@@ -64,7 +64,9 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
-
+# [*first_notification_delay*]
+#   Minutes to wait before the alert fires after the check fails
+#
 define icinga::check::graphite(
   $target,
   $desc,
@@ -82,6 +84,7 @@ define icinga::check::graphite(
   $notification_period = undef,
   $attempts_before_hard_state = 1,
   $event_handler = undef,
+  $first_notification_delay = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
@@ -133,5 +136,6 @@ ${crit_line}${warn_line}\
     contact_groups             => $contact_groups,
     notification_period        => $notification_period,
     event_handler              => $event_handler,
+    first_notification_delay   => $first_notification_delay,
   }
 }
