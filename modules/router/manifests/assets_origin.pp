@@ -56,18 +56,4 @@ class router::assets_origin(
     "${vhost_name}-error.log":
       logstream => present;
   }
-
-  $graphite_429_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.assets-origin.http_429,0)"
-
-  @@icinga::check::graphite { "check_nginx_429_assets_on_${::hostname}":
-    target              => $graphite_429_target,
-    args                => '--ignore-missing',
-    warning             => 3,
-    critical            => 5,
-    from                => '5minutes',
-    desc                => '429 rate for assets-origin [in office hours]',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
-    notification_period => 'inoffice',
-  }
 }

@@ -139,19 +139,6 @@ class govuk::node::s_backend_lb (
         logstream => present;
     }
 
-    $graphite_429_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.assets-carrenza.http_429,0)"
-
-    @@icinga::check::graphite { "check_nginx_429_assets_on_${::hostname}":
-      target              => $graphite_429_target,
-      args                => '--ignore-missing',
-      warning             => 3,
-      critical            => 5,
-      from                => '5minutes',
-      desc                => '429 rate for assets-carrenza [in office hours]',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
-      notification_period => 'inoffice',
-    }
     # Custom vhost to proxy draft-assets-origin to asset-manager and whitehall in Carrenza
     nginx::config::site { $draft_assets_carrenza_vhost_name:
       content => template('govuk/node/s_backend_lb/draft-assets-carrenza.conf.erb'),
