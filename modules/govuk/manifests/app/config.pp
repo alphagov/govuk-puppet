@@ -346,7 +346,7 @@ define govuk::app::config (
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
       ensure                     => $ensure,
-      target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
+      target                     => "movingMedian(${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss,\"5min\")",
       warning                    => $nagios_memory_warning_real,
       critical                   => $nagios_memory_critical_real,
       desc                       => "high memory for ${title} app",
