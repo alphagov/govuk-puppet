@@ -24,6 +24,9 @@
 #   The API key to allow this app to talk to GOV.UK Notify and send emails
 #   to people who want to sign up to take a survey
 #
+# [*govuk_notify_template_id*]
+#   Template ID for GOV.UK Notify
+#
 class govuk::apps::feedback(
   $port,
   $sentry_dsn = undef,
@@ -36,6 +39,7 @@ class govuk::apps::feedback(
   $google_private_key = undef,
   $survey_notify_service_api_key = undef,
   $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
   $app_name = 'feedback'
 
@@ -111,6 +115,13 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-GOVUK_NOTIFY_API_KEY":
       varname => 'GOVUK_NOTIFY_API_KEY',
       value   => $govuk_notify_api_key,
+    }
+  }
+
+  if $govuk_notify_template_id != undef {
+    govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id,
     }
   }
 }
