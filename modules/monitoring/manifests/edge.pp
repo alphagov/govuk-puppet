@@ -14,14 +14,13 @@ class monitoring::edge (
 
   if $enabled {
     icinga::check::graphite { "fastly_5xx_rate_on_${::hostname}":
-      target                   => "${::fqdn_metrics}.cdn_fastly-govuk.requests-status_5xx",
-      desc                     => 'Fastly error rate for GOV.UK',
-      warning                  => 0.05,
-      critical                 => 0.1,
-      host_name                => $::fqdn,
-      from                     => '30minutes',
-      notes_url                => monitoring_docs_url(fastly-error-rate),
-      first_notification_delay => 5,
+      target    => "movingMedian(${::fqdn_metrics}.cdn_fastly-govuk.requests-status_5xx,\"5min\")",
+      desc      => 'Fastly error rate for GOV.UK',
+      warning   => 0.05,
+      critical  => 0.1,
+      host_name => $::fqdn,
+      from      => '5minutes',
+      notes_url => monitoring_docs_url(fastly-error-rate),
     }
   }
 

@@ -58,9 +58,6 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
-# [*first_notification_delay*]
-#   Minutes to wait before the alert fires after the check fails
-#
 define icinga::check (
   $host_name,
   $ensure                     = 'present',
@@ -74,7 +71,6 @@ define icinga::check (
   $linked_metric              = undef,
   $check_interval             = undef,
   $retry_interval             = undef,
-  $first_notification_delay   = undef,
   $attempts_before_hard_state = undef,
   $contact_groups             = undef,
   $event_handler              = undef,

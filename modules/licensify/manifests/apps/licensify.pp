@@ -131,13 +131,12 @@ class licensify::apps::licensify (
   statsd::counter { "${counter_basename}.http_500": }
 
   @@icinga::check::graphite { "check_nginx_5xx_${vhost_name}_on_${::hostname}":
-    target                   => "transformNull(stats.${counter_basename}.http_5xx,0)",
-    warning                  => 0.05,
-    critical                 => 0.1,
-    from                     => '30minutes',
-    desc                     => "${vhost_name} high nginx 5xx rate",
-    host_name                => $::fqdn,
-    notes_url                => monitoring_docs_url(high-nginx-5xx-rate),
-    first_notification_delay => 5,
+    target    => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
+    warning   => 0.05,
+    critical  => 0.1,
+    from      => '5minutes',
+    desc      => "${vhost_name} high nginx 5xx rate",
+    host_name => $::fqdn,
+    notes_url => monitoring_docs_url(high-nginx-5xx-rate),
   }
 }

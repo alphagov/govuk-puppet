@@ -149,15 +149,14 @@ define nginx::config::vhost::proxy(
   statsd::counter { "${counter_basename}.http_500": }
 
   @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
-    ensure                   => $ensure,
-    target                   => "transformNull(stats.${counter_basename}.http_5xx,0)",
-    warning                  => $alert_5xx_warning_rate,
-    critical                 => $alert_5xx_critical_rate,
-    from                     => '30minutes',
-    desc                     => "${title} high nginx 5xx rate",
-    host_name                => $::fqdn,
-    notes_url                => monitoring_docs_url(high-nginx-5xx-rate),
-    first_notification_delay => 5,
+    ensure    => $ensure,
+    target    => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
+    warning   => $alert_5xx_warning_rate,
+    critical  => $alert_5xx_critical_rate,
+    from      => '5minutes',
+    desc      => "${title} high nginx 5xx rate",
+    host_name => $::fqdn,
+    notes_url => monitoring_docs_url(high-nginx-5xx-rate),
   }
 
 }
