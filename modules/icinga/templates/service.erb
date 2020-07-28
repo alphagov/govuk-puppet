@@ -9,9 +9,6 @@ define service {
 <%- if @retry_interval -%>
         retry_interval            <%= @retry_interval %>
 <%- end -%>
-<%- if @first_notification_delay -%>
-        first_notification_delay  <%= @first_notification_delay %>
-<%- end -%>
 <%- if @attempts_before_hard_state -%>
         max_check_attempts        <%= @attempts_before_hard_state %>
 <%- end -%>
