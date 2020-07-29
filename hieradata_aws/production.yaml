@@ -206,6 +206,7 @@ govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publ
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
+govuk::apps::signon::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
