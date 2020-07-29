@@ -1,0 +1,7 @@
+---
+
+govuk_solr::disable: true
+govuk_solr6::present: true
+
+govuk::apps::ckan::solr_core: ckan
+govuk::apps::ckan::solr_core_configset: ckan28

@@ -74,7 +74,7 @@ ckan.google_analytics_tracking_id = nil
 ## Search Settings
 
 ckan.site_id = dgu
-solr_url = http://127.0.0.1:8983/solr
+solr_url = <%= "http://#{@solr_host}:#{@solr_port}/solr" %><%= @solr_core == nil ? "" : "/#{@solr_core}" %>
 
 ## CORS Settings
 
