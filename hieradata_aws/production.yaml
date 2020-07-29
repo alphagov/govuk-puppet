@@ -392,7 +392,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger
-      - backend-docs
       - backend-hmrc-manuals-api
       - backend-kibana
       - backend-manuals-publisher

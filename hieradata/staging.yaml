@@ -280,7 +280,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-publisher'
   - 'content-tagger'
-  - 'docs'
   - 'hmrc-manuals-api'
   - 'maslow'
   - 'manuals-publisher'
