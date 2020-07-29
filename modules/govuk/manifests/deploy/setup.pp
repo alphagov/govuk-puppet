@@ -5,7 +5,6 @@
 #
 # === Parameters
 #
-# [*setup_actionmailer_ses_config*]
 # [*actionmailer_enable_delivery*]
 #   Determines whether email deliveries are enabled in the ActionMailer config.
 #
@@ -22,7 +21,6 @@
 # [*deploy_gid*]
 #   Deploy GID
 class govuk::deploy::setup (
-    $setup_actionmailer_ses_config,
     $actionmailer_enable_delivery,
     $aws_ses_smtp_host,
     $aws_ses_smtp_username,
@@ -109,14 +107,6 @@ class govuk::deploy::setup (
     group   => 'deploy',
     mode    => '0600',
     content => template('govuk/home/deploy/.ssh/authorized_keys.erb'),
-  }
-
-  if ($setup_actionmailer_ses_config) {
-    file { '/etc/govuk/actionmailer_ses_smtp_config.rb':
-      ensure  => present,
-      content => template('govuk/etc/govuk/actionmailer_ses_smtp_config.erb'),
-      require => File['/etc/govuk'],
-    }
   }
 
   govuk_bundler::config { 'deploy-bundler':
