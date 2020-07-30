@@ -25,15 +25,20 @@ define govuk_solr6::configset (
     group   => 'solr',
     source  => '/opt/solr/server/solr/configsets/basic_configs',
     recurse => true,
-    # disabling purge as solr is liable to alter & generate some files here
-    # itself
-    purge   => false,
-    ignore  => ['schema.xml*', 'managed-schema'],
+    # we don't want the basic_configs' managed_schema and add schema.xml ourselves
+    ignore  => ['schema.xml', 'managed-schema'],
   } ~>
 
   file{"/var/lib/solr/configsets/${name}/conf/schema.xml":
     owner  => 'solr',
     group  => 'solr',
     source => $schema_xml,
+  } ~>
+
+  file{"/var/lib/solr/configsets/${name}/conf/managed-schema":
+    # this gets re-created by solr every time the configset is used to create a core,
+    # but we want to be able to update the schema.xml without it being ignored in
+    # favour of a stale managed-schema.
+    ensure => absent,
   }
 }
