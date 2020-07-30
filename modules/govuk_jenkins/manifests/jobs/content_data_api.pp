@@ -1,7 +1,7 @@
 # == Class: govuk_jenkins::jobs::content_data_api
 #
 # Create a jenkins job to periodically run rake for the following tasks:
-# - import:all_content_items
+# - etl:master
 #
 # === Parameters:
 #
