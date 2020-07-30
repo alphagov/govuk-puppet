@@ -87,9 +87,7 @@ govuk::apps::content_tagger::override_search_location: 'https://search-api.produ
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
 
-govuk::deploy::actionmailer_enable_delivery: true
 
-govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:

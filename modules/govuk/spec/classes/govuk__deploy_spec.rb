@@ -5,10 +5,6 @@ describe 'govuk::deploy::setup', :type => :class do
 
   context 'keys provided' do
     let(:params) {{
-      'actionmailer_enable_delivery' => true,
-      'aws_ses_smtp_host'     => 'email-smtp.aws.example.com',
-      'aws_ses_smtp_username' => 'a_username',
-      'aws_ses_smtp_password' => 'a_password',
       'ssh_keys'              => {
         'foo' => 'oneapple',
         'bar' => 'twopears',
@@ -28,10 +24,6 @@ eos
 
   context 'keys not provided' do
     let(:params) {{
-      'actionmailer_enable_delivery' => false,
-      'aws_ses_smtp_host'     => 'UNSET',
-      'aws_ses_smtp_username' => 'UNSET',
-      'aws_ses_smtp_password' => 'UNSET',
     }}
 
     it 'authorized_keys should only contain commented keys' do

@@ -5,13 +5,6 @@
 #
 # === Parameters
 #
-# [*actionmailer_enable_delivery*]
-#   Determines whether email deliveries are enabled in the ActionMailer config.
-#
-# [*aws_ses_smtp_host*]
-# [*aws_ses_smtp_username*]
-# [*aws_ses_smtp_host*]
-#
 # [*ssh_keys*]
 #   Hash of SSH authorized_keys entries to allow deployments from.
 #
@@ -21,10 +14,6 @@
 # [*deploy_gid*]
 #   Deploy GID
 class govuk::deploy::setup (
-    $actionmailer_enable_delivery,
-    $aws_ses_smtp_host,
-    $aws_ses_smtp_username,
-    $aws_ses_smtp_password,
     $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
     $deploy_uid = undef,
