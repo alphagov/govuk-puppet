@@ -87,15 +87,6 @@ class govuk::node::s_backend_lb (
     to => "https://admin.${perfplat_public_app_domain}/",
   }
 
-  # Allthough there are different staging, integration and production buckets
-  # created by Terraform on S3, we do not intend to use them. To avoid confusion
-  # we proxy all domains to the production bucket.
-  nginx::config::vhost::proxy { "docs.${app_domain}" :
-    to        => ['govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com'],
-    protected => false,
-    http_host => 'govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com',
-  }
-
   nginx::config::vhost::proxy { "content-api.${app_domain}" :
     to        => ['alphagov.github.io'],
     protected => false,
