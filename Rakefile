@@ -224,6 +224,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold
     govuk::apps::email_alert_service::rabbitmq_hosts
     govuk::apps::email_alert_service::redis_host
+    govuk::apps::feedback::govuk_notify_reply_to_id
     govuk::apps::feedback::govuk_notify_template_id
     govuk::apps::finder_frontend::enabled
     govuk::apps::finder_frontend::nagios_memory_critical
