@@ -11,10 +11,6 @@
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
 #
-# [*enable_email_alerts*]
-#   Send email alerts via the email-alert-api
-#   Default: false
-#
 # [*enable_procfile_worker*]
 #   Enables the sidekiq background worker.
 #   Default: true
@@ -77,7 +73,6 @@
 class govuk::apps::travel_advice_publisher(
   $ensure = 'present',
   $asset_manager_bearer_token = undef,
-  $enable_email_alerts = false,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $mongodb_name = undef,
@@ -118,15 +113,6 @@ class govuk::apps::travel_advice_publisher(
     govuk::app::envvar {
       "${title}-SHOW_HISTORICAL_EDITION_LINK":
         varname => 'SHOW_HISTORICAL_EDITION_LINK',
-        value   => '1';
-    }
-  }
-
-  validate_bool($enable_email_alerts)
-  if ($enable_email_alerts) {
-    govuk::app::envvar {
-      "${title}-SEND_EMAIL_ALERTS":
-        varname => 'SEND_EMAIL_ALERTS',
         value   => '1';
     }
   }

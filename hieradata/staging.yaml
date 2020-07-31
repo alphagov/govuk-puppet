@@ -46,7 +46,6 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist
 govuk::apps::specialist_publisher::enabled: false
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
-govuk::apps::travel_advice_publisher::enable_email_alerts: false
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 
