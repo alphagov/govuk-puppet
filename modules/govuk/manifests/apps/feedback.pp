@@ -27,6 +27,9 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
+# [*govuk_notify_reply_to_id*]
+#   Email address reply_to ID for GOV.UK Notify
+#
 class govuk::apps::feedback(
   $port,
   $sentry_dsn = undef,
@@ -40,6 +43,7 @@ class govuk::apps::feedback(
   $survey_notify_service_api_key = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $govuk_notify_reply_to_id = undef,
 ) {
   $app_name = 'feedback'
 
@@ -122,6 +126,12 @@ class govuk::apps::feedback(
     govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id,
+    }
+  }
+  if $govuk_notify_reply_to_id != undef {
+    govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
+        varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
+        value   => $govuk_notify_reply_to_id,
     }
   }
 }
