@@ -35,14 +35,6 @@ class govuk::apps::email_alert_api::checks(
     retry_size_critical => '50000',
   }
 
-  delivery_attempt_status_check { 'internal_failure':
-    ensure => $ensure,
-  }
-
-  delivery_attempt_status_check { 'technical_failure':
-    ensure => $ensure,
-  }
-
   @@icinga::check::graphite { 'email-alert-api-notify-email-send-request-success':
     host_name => $::fqdn,
     target    => 'transformNull(sumSeries(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, "sum")),0)',
