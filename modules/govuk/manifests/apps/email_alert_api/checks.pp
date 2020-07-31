@@ -8,7 +8,6 @@ class govuk::apps::email_alert_api::checks(
 
   sidekiq_queue_check {
     [
-      'email_generation_immediate',
       'process_and_generate_emails',
       'default',
       'email_generation_digest',
