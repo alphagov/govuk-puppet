@@ -41,9 +41,9 @@ class govuk::apps::feedback(
   $google_client_email = undef,
   $google_private_key = undef,
   $survey_notify_service_api_key = undef,
-  $govuk_notify_api_key = undef,
-  $govuk_notify_template_id = undef,
-  $govuk_notify_reply_to_id = undef,
+  $govuk_notify_api_key,
+  $govuk_notify_template_id,
+  $govuk_notify_reply_to_id,
 ) {
   $app_name = 'feedback'
 
@@ -115,23 +115,18 @@ class govuk::apps::feedback(
     }
   }
 
-  if $govuk_notify_api_key != undef {
-    govuk::app::envvar { "${title}-GOVUK_NOTIFY_API_KEY":
-      varname => 'GOVUK_NOTIFY_API_KEY',
-      value   => $govuk_notify_api_key,
-    }
+  govuk::app::envvar { "${title}-GOVUK_NOTIFY_API_KEY":
+    varname => 'GOVUK_NOTIFY_API_KEY',
+    value   => $govuk_notify_api_key,
   }
 
-  if $govuk_notify_template_id != undef {
-    govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-        value   => $govuk_notify_template_id,
-    }
+  govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id,
   }
-  if $govuk_notify_reply_to_id != undef {
-    govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
-        varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
-        value   => $govuk_notify_reply_to_id,
-    }
+
+  govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
+      varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
+      value   => $govuk_notify_reply_to_id,
   }
 }
