@@ -41,6 +41,12 @@ govuk_jenkins::jobs::deploy_cdn::services:
   - tldredirect
   - www
 
+govuk_jenkins::jobs::update_cdn_dictionaries::services:
+  - assets
+  - mirror
+  - performanceplatform
+  - www
+
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: true
 govuk_jenkins::jobs::validate_published_dns::run_daily: true
 govuk_jenkins::jobs::user_monitor::enable_icinga_check: true

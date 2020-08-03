@@ -52,6 +52,11 @@ govuk_jenkins::jobs::deploy_cdn::services:
   - performanceplatform
   - www
 
+govuk_jenkins::jobs::update_cdn_dictionaries::services:
+  - assets
+  - performanceplatform
+  - www
+
 lv:
   data:
     pv: '/dev/nvme1n1'
