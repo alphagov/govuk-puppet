@@ -40,7 +40,6 @@ class govuk::apps::feedback(
   $assisted_digital_google_spreadsheet_key = undef,
   $google_client_email = undef,
   $google_private_key = undef,
-  $survey_notify_service_api_key = undef,
   $govuk_notify_api_key,
   $govuk_notify_template_id,
   $govuk_notify_reply_to_id,
@@ -108,25 +107,18 @@ class govuk::apps::feedback(
     }
   }
 
-  if $survey_notify_service_api_key != undef {
-    govuk::app::envvar { "${title}-SURVEY_NOTIFY_SERVICE_API_KEY":
-      varname => 'SURVEY_NOTIFY_SERVICE_API_KEY',
-      value   => $survey_notify_service_api_key,
-    }
-  }
-
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_API_KEY":
     varname => 'GOVUK_NOTIFY_API_KEY',
     value   => $govuk_notify_api_key,
   }
 
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-      value   => $govuk_notify_template_id,
+    varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+    value   => $govuk_notify_template_id,
   }
 
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
-      varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
-      value   => $govuk_notify_reply_to_id,
+    varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
+    value   => $govuk_notify_reply_to_id,
   }
 }
