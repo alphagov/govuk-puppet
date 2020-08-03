@@ -58,13 +58,9 @@
             name: vhost
             choices:
                 - PLEASE CHOOSE ONE
-                - www
-                - assets
-                - apt
-                - tldredirect
-                - servicegovuk
-                - performanceplatform
-                - mirror
+                <%- @services.each do |service| -%>
+                - <%= service %>
+                <%- end -%>
         - password:
             name: FASTLY_API_KEY
             default: false
