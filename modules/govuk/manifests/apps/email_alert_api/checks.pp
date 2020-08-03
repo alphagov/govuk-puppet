@@ -8,7 +8,6 @@ class govuk::apps::email_alert_api::checks(
 
   sidekiq_queue_check {
     [
-      'email_generation_immediate',
       'process_and_generate_emails',
       'default',
       'email_generation_digest',
@@ -28,21 +27,6 @@ class govuk::apps::email_alert_api::checks(
     'delivery_digest':
       latency_warning  => '3600', # 60 minutes
       latency_critical => '5400'; # 90 minutes
-  }
-
-  sidekiq_retry_size_check { 'retry_set_size':
-    retry_size_warning  => '40000',
-    retry_size_critical => '50000',
-  }
-
-  @@icinga::check::graphite { 'email-alert-api-notify-email-send-request-success':
-    host_name => $::fqdn,
-    target    => 'transformNull(sumSeries(consolidateBy(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, "sum")),0)',
-    args      => '--ignore-missing',
-    warning   => '20000000', # 25,000,000 * 0.8
-    critical  => '22500000', # 25,000,000 * 0.9
-    from      => '3hours',
-    desc      => 'email-alert-api - high number of email send requests',
   }
 
   @@icinga::check::graphite { 'email-alert-api-delivery-attempt-status-update':
