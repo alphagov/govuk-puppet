@@ -287,7 +287,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
-  # testing signon backup with excluded tables
   "pull_signon_production_daily":
     ensure: "present"
     hour: "1"
@@ -298,25 +297,7 @@ govuk_env_sync::tasks:
     database: "signon_production"
     temppath: "/tmp/signon_production"
     url: "govuk-production-database-backups"
-    path: "mysql/trimmed"
-  # testing signon backup with excluded tables
-  "push_signon_production_daily":
-    ensure: "absent" #was used for testing
-    hour: "1"
-    minute: "30"
-    action: "push"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "signon_production"
-    temppath: "/tmp/signon_production"
-    url: "govuk-staging-database-backups"
-    excluded_tables: "__event_logs_old,event_logs,lhma_2019_04_30_10_36_45_946_event_logs,lhma_2019_06_18_13_31_49_199_event_logs"
-    path: "mysql/trimmed"
-  # The push_whitehall_staging_daily job redacts the Staging Whitehall database
-  # in-place before dumping it to S3. Integration then pulls the redacted copy.
-  # The pull_whitehall_production_daily job then overwrites Staging with the
-  # latest data from Production, so Staging remains unredacted. Staging has the
-  # unredacted data because it helps when debugging content-related issues.
+    path: "mysql"
   "push_whitehall_staging_daily":
     ensure: "present"
     hour: "0"
