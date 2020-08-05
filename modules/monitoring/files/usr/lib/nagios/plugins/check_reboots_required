@@ -65,10 +65,16 @@ if safe_machines.length + unsafe_machines.length == 0
 else
   puts 'Some hosts need to be rebooted to apply updates'
 
-  if unsafe_machines.length > 0
+  if out_of_hours_unsafe_machines.length > 0
     puts "\n"
-    puts 'These hosts need to be rebooted manually:'
-    print_hostnames(unsafe_machines, machines_names_hash)
+    puts 'These hosts need to be rebooted manually out of hours:'
+    print_hostnames(out_of_hours_unsafe_machines, machines_names_hash)
+  end
+
+  if in_hours_unsafe_machines.length > 0
+    puts "\n"
+    puts 'These hosts need to be rebooted manually in hours:'
+    print_hostnames(in_hours_unsafe_machines, machines_names_hash)
   end
 
   if safe_machines.length > 0
