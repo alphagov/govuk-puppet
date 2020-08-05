@@ -346,7 +346,7 @@ define govuk::app::config (
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
       ensure                     => $ensure,
-      target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss",
+      target                     => "movingMedian(${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss,\"5min\")",
       warning                    => $nagios_memory_warning_real,
       critical                   => $nagios_memory_critical_real,
       desc                       => "high memory for ${title} app",
@@ -478,15 +478,6 @@ define govuk::app::config (
     }
   }
   if $app_type == 'rack' {
-    include icinga::client::check_unicorn_workers
-    @@icinga::check { "check_app_${title}_unicorn_workers_${::hostname}":
-      ensure                   => $ensure,
-      check_command            => "check_nrpe!check_unicorn_workers!${title}",
-      service_description      => "${title} does not have the expected number of unicorn workers",
-      host_name                => $::fqdn,
-      contact_groups           => $additional_check_contact_groups,
-      first_notification_delay => 2,
-    }
     include icinga::client::check_unicorn_ruby_version
     @@icinga::check { "check_app_${title}_unicorn_ruby_version_${::hostname}":
       ensure              => $ensure,

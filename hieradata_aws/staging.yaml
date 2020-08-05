@@ -169,6 +169,8 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
+govuk::apps::feedback::govuk_notify_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
+govuk::apps::feedback::govuk_notify_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
@@ -207,6 +209,7 @@ govuk::apps::short_url_manager::mongodb_nodes: "%{hiera('govuk::apps::asset_mana
 govuk::apps::short_url_manager::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::short_url_manager::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::signon::instance_name: 'staging'
+govuk::apps::signon::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
 govuk::apps::specialist_publisher::enabled: true
@@ -216,7 +219,6 @@ govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::enable_procfile_worker: true
 govuk::apps::travel_advice_publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
@@ -384,7 +386,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger
-      - backend-docs
       - backend-hmrc-manuals-api
       - backend-kibana
       - backend-manuals-publisher

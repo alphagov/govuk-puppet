@@ -58,6 +58,7 @@ govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::signon::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::govuk_notify_template_id: 'e00e89f5-b622-4dcb-8f30-e6c70231a940'
@@ -65,7 +66,6 @@ govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
 govuk::apps::specialist_publisher::enabled: false
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::travel_advice_publisher::enable_email_alerts: false
 govuk::apps::travel_advice_publisher::enable_procfile_worker: false
 govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 
@@ -194,7 +194,6 @@ hosts::production::api::hosts:
 
 hosts::production::backend::app_hostnames:
   - 'canary-backend'
-  - 'docs'
 
 hosts::production::backend::hosts:
   asset-master-1:

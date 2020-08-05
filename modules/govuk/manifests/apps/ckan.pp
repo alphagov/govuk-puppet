@@ -29,6 +29,20 @@
 # [*redis_port*]
 #   The Redis port that CKAN should use
 #
+# [*solr_host*]
+#   The Solr host that CKAN should use
+#
+# [*solr_port*]
+#   The Solr port that CKAN should use
+#
+# [*solr_core*]
+#   The Solr core that CKAN should use. This will be provisioned if it doesn't
+#   already exist, and if left undef, ckan will expect to use a single-core
+#   Solr.
+#
+# [*solr_core_configset*]
+#   The configset name to use when provisioning $solr_core
+#
 # [*secret*]
 #   The secret token that CKAN uses for session encryption
 #
@@ -49,6 +63,10 @@ class govuk::apps::ckan (
   $db_name                        = 'ckan_production',
   $redis_host                     = undef,
   $redis_port                     = '6379',
+  $solr_host                      = '127.0.0.1',
+  $solr_port                      = '8983',
+  $solr_core                      = undef,
+  $solr_core_configset            = undef,
   $secret                         = undef,
   $ckan_site_url                  = undef,
   $gunicorn_worker_processes      = '1',
@@ -222,6 +240,14 @@ class govuk::apps::ckan (
     exec { 'setup_pycsw_tables':
       command => "${ckan_bin}/paster --plugin=ckanext-spatial ckan-pycsw setup -p ${pycsw_config} && sudo touch ${pycsw_tables_created}",
       creates => $pycsw_tables_created,
+    }
+
+    if ($solr_core != undef) {
+      govuk_solr6::core { $solr_core:
+        solr_host => $solr_host,
+        solr_port => $solr_port,
+        configset => $solr_core_configset,
+      }
     }
   }
 }

@@ -37,6 +37,9 @@
     triggers:
         - timed: '<%= @cron_schedule %>'
     publishers:
+        - naginator:
+            fixed-delay: 3600
+            max-failed-builds: 1
         - trigger-parameterized-builds:
             - project: Success_Passive_Check
               condition: 'SUCCESS'

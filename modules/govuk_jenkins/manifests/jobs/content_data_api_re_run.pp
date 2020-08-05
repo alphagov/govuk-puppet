@@ -1,7 +1,7 @@
 # == Class: govuk_jenkins::jobs::content_data_api_re_run
 #
 # Create a jenkins job to periodically run rake for the following tasks:
-# - rake etl:rerun_master
+# - etl:rerun_master
 #
 # === Parameters:
 #

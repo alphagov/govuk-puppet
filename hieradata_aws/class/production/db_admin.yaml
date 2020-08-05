@@ -285,6 +285,17 @@ govuk_env_sync::tasks:
     temppath: "/tmp/short_url_manager_production"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
+  "pull_signon_production_daily":
+    ensure: "disabled"
+    hour: "1"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "signon_production"
+    temppath: "/tmp/signon_production"
+    url: "govuk-production-database-backups"
+    path: "mysql/trimmed"
   "push_support-contacts_production_daily":
     ensure: "present"
     hour: "2"

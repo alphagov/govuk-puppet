@@ -1,0 +1,15 @@
+version: 2
+updates:
+  - package-ecosystem: bundler
+    directory: /
+    schedule:
+      interval: daily
+    allow:
+      # Internal gems
+      - dependency-name: "govuk*"
+        dependency-type: direct
+      # Framework gems
+      - dependency-name: rake
+        dependency-type: direct
+      - dependency-name: rspec-puppet
+        dependency-type: direct

@@ -38,6 +38,7 @@ node_class: &node_class
       - service-manual-publisher
       - short-url-manager
       - sidekiq-monitoring
+      - signon
       - specialist-publisher
       - support
       - support-api
@@ -188,6 +189,8 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-a
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
+govuk::apps::feedback::govuk_notify_reply_to_id: 'e8b2d8a6-db5f-4346-9fbd-49b16b531e1c'
+govuk::apps::feedback::govuk_notify_template_id: '54168fa9-3946-4860-a2f8-27ddbb14babe'
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
@@ -206,6 +209,7 @@ govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publ
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
+govuk::apps::signon::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
@@ -228,7 +232,6 @@ govuk::apps::support_api::zendesk_anonymous_ticket_email: 'zd-api-public@digital
 govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
 govuk::apps::travel_advice_publisher::enable_procfile_worker: true
 govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-production-whitehall-csvs'
@@ -392,7 +395,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger
-      - backend-docs
       - backend-hmrc-manuals-api
       - backend-kibana
       - backend-manuals-publisher

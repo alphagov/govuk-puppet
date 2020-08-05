@@ -71,7 +71,6 @@ define icinga::check (
   $linked_metric              = undef,
   $check_interval             = undef,
   $retry_interval             = undef,
-  $first_notification_delay   = undef,
   $attempts_before_hard_state = undef,
   $contact_groups             = undef,
   $event_handler              = undef,

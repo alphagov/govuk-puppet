@@ -56,10 +56,9 @@
             name: vhost
             choices:
                 - PLEASE CHOOSE ONE
-                - www
-                <% if @allow_deploy_to_mirror %>
-                - mirror
-                <% end %>
+                <%- @services.each do |service| -%>
+                - <%= service %>
+                <%- end -%>
         - password:
             name: FASTLY_API_KEY
             default: false

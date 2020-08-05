@@ -91,3 +91,12 @@
         - description-setter:
             regexp: ""
             description: "$TARGET_APPLICATION $TAG"
+        - slack:
+            team-domain: <%= @slack_team_domain %>
+            auth-token-id: <%= @slack_credential_id %>
+            auth-token-credential-id: <%= @slack_credential_id %>
+            build-server-url: <%= @slack_build_server_url %>
+            notify-failure: true
+            room: "<%= @slack_channel %>"
+            include-custom-message: true
+            custom-message: "Automatic deployment failed for $TARGET_APPLICATION $TAG"
