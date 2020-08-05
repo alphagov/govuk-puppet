@@ -26,7 +26,9 @@ end
 
 all_machines = `/usr/local/bin/govuk_node_list`.split("\n")
 
-unsafe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::careful,govuk_safe_to_reboot::no`.split("\n")
+out_of_hours_unsafe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::no`.split("\n")
+in_hours_unsafe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::careful`.split("\n")
+unsafe_machines = out_of_hours_unsafe_machines + in_hours_unsafe_machines
 safe_machines = `/usr/local/bin/govuk_node_list --puppet-class govuk_safe_to_reboot::yes,govuk_safe_to_reboot::overnight`.split("\n")
 
 machines_names_hash = create_machines_hash
