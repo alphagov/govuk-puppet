@@ -21,7 +21,13 @@ def hostname_with_node_name(hostname, machines_names_hash)
   else
     hostname
   end
+end
 
+def print_hostnames(hostnames, machines_names_hash)
+  hostnames.sort.each do |hostname|
+    hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
+    puts "- #{hydrated_name}"
+  end
 end
 
 all_machines = `/usr/local/bin/govuk_node_list`.split("\n")
@@ -58,21 +64,18 @@ if safe_machines.length + unsafe_machines.length == 0
   exit 0
 else
   puts 'Some hosts need to be rebooted to apply updates'
+
   if unsafe_machines.length > 0
     puts "\n"
     puts 'These hosts need to be rebooted manually:'
-    unsafe_machines.sort.each do |hostname|
-      hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
-      puts "- #{hydrated_name}"
-    end
+    print_hostnames(unsafe_machines, machines_names_hash)
   end
+
   if safe_machines.length > 0
     puts "\n"
     puts "These hosts should reboot automatically overnight (you'll need to manually step down any primary MongoDB machines):"
-    safe_machines.sort.each do |hostname|
-      hydrated_name = hostname_with_node_name(hostname, machines_names_hash)
-      puts "- #{hydrated_name}"
-    end
+    print_hostnames(safe_machines, machines_names_hash)
   end
+
   exit 1
 end
