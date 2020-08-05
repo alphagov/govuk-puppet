@@ -7,7 +7,12 @@ class govuk::apps::email_alert_api::checks(
 ) {
 
   sidekiq_queue_check {
-    'delivery_transactional':
+    [
+      'process_and_generate_emails',
+      'default',
+      'email_generation_digest',
+      'cleanup',
+    ]:
       latency_warning  => '300', # 5 minutes
       latency_critical => '600'; # 10 minutes
 
