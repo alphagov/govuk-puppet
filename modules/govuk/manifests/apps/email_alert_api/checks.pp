@@ -46,10 +46,10 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
   }
 
-  @@icinga::check::graphite { 'email-alert-api-critical-content-changes':
+  @@icinga::check::graphite { 'email-alert-api-unprocessed-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.content_changes.critical_total)))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.content_changes.unprocessed_total)))',
     warning   => '0',
     critical  => '0',
     from      => '15minutes',
@@ -68,10 +68,10 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
   }
 
-  @@icinga::check::graphite { 'email-alert-api-critical-messages':
+  @@icinga::check::graphite { 'email-alert-api-unprocessed-messages':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.critical_total)))',
+    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.unprocessed_total)))',
     warning   => '0',
     critical  => '0',
     from      => '1hour',
