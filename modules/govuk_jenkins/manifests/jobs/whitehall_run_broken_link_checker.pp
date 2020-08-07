@@ -7,7 +7,7 @@ class govuk_jenkins::jobs::whitehall_run_broken_link_checker {
 
   $service_description = 'Runs a rake task on Whitehall that generates a broken link report'
   $job_slug = 'whitehall_run_broken_link_checker'
-  $job_url = "https://deploy.${app_domain}/job/${job_slug}"
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_slug}"
 
   file { '/etc/jenkins_jobs/jobs/whitehall_run_broken_link_checker.yaml':
     ensure  => present,
