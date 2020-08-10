@@ -1061,9 +1061,6 @@ govuk_sudo::sudo_conf:
 govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_splunk::repos::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
-govuk_safe_to_reboot::can_reboot: 'no'
-govuk_safe_to_reboot::reason: 'Grub2 is broken, a reboot will break the machine'
-
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: false
 govuk_unattended_reboot::mongodb::enabled: false

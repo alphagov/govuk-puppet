@@ -798,9 +798,6 @@ govuk_sudo::sudo_conf:
 govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_sysdig::ensure: 'absent'
 
-govuk_safe_to_reboot::can_reboot: 'no'
-govuk_safe_to_reboot::reason: 'Grub2 is broken, a reboot will break the machine'
-
 govuk_unattended_reboot::enabled: false
 govuk_unattended_reboot::mongodb::enabled: false
 
