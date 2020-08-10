@@ -1018,6 +1018,11 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   smartanswers:
     repository: 'smart-answers'
   publishing-api: {}
+  travel-advice-publisher: {}
+  government-frontend: {}
+  finder-frontend: {}
+  collections: {}
+  publisher: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
