@@ -1,9 +1,8 @@
----
 - job:
-    name: email-alert-check
-    display-name: EmailAlertCheck
+    name: medical-safety-email-alert-check
+    display-name: MedicalSafetyEmailAlertCheck
     project-type: freestyle
-    description: "This job checks if drug device email alerts have been emailed"
+    description: "This job checks if medical safety email alerts have been emailed"
     logrotate:
         numToKeep: 100
     triggers:
@@ -34,13 +33,13 @@
         - project: Success_Passive_Check
           condition: 'SUCCESS'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @drug_service_description %>
-            NSCA_OUTPUT=<%= @drug_service_description %> success
+            NSCA_CHECK_DESCRIPTION=<%= @medical_safety_service_description %>
+            NSCA_OUTPUT=<%= @medical_safety_service_description %> success
         - project: Failure_Passive_Check
           condition: 'FAILED'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @drug_service_description %>
-            NSCA_OUTPUT=<%= @drug_service_description %> failed
+            NSCA_CHECK_DESCRIPTION=<%= @medical_safety_service_description %>
+            NSCA_OUTPUT=<%= @medical_safety_service_description %> failed
     wrappers:
         - ansicolor:
             colormap: xterm
