@@ -252,7 +252,13 @@ class govuk::apps::whitehall(
       $whitehall_frontend_aliases = ["draft-whitehall-frontend.${app_domain}"]
     }
 
+    @@icinga::servicegroup_members { "${title}_${::fqdn}":
+      ensure            => $ensure,
+      servicegroup_name => $title,
+    }
+
     govuk::app::nginx_vhost { 'whitehall-frontend':
+      app_name                => 'whitehall',
       vhost                   => $whitehall_frontend_vhost_,
       aliases                 => $whitehall_frontend_aliases,
       protected               => $vhost_protected,
@@ -291,6 +297,7 @@ class govuk::apps::whitehall(
 
     govuk::app::nginx_vhost { 'whitehall-admin':
       vhost                   => $whitehall_admin_vhost_,
+      app_name                => 'whitehall',
       app_port                => $port,
       protected               => $vhost_protected,
       protected_location      => '/government/admin/fact_check_requests/',

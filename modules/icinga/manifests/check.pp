@@ -58,6 +58,8 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
+# [*servicegroup*]
+#   The group to associate this check with (if any).
 define icinga::check (
   $host_name,
   $ensure                     = 'present',
@@ -74,6 +76,7 @@ define icinga::check (
   $attempts_before_hard_state = undef,
   $contact_groups             = undef,
   $event_handler              = undef,
+  $servicegroup               = undef,
 ) {
 
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
@@ -104,6 +107,10 @@ width=${graph_width}&height=${graph_height}&target=${linked_metric}"
     $check_content = template('icinga/service.erb')
 
     Icinga::Host[$host_name] -> Icinga::Check[$title]
+
+    #if $servicegroup {
+      #Icinga::Servicegroup_members["${servicegroup}_${host_name}"] -> Icinga::Check[$title]
+    #}
 
   } else {
     $check_content = ''

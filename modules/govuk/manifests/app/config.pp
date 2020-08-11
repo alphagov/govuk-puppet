@@ -314,6 +314,11 @@ define govuk::app::config (
   $title_underscore = regsubst($title, '\.', '_', 'G')
 
   # Set up monitoring
+  @@icinga::servicegroup_members { "${title}_${::fqdn}":
+    ensure            => $ensure,
+    servicegroup_name => $title,
+  }
+
   if $app_type in ['rack', 'bare', 'procfile'] {
     $default_collectd_process_regex = $app_type ? {
       'rack' => "unicorn (master|worker\\[[0-9]+\\]).* -P ${govuk_app_run}/app\\.pid",
@@ -334,6 +339,7 @@ define govuk::app::config (
       desc         => "No processes found for ${title_underscore}",
       host_name    => $::fqdn,
       from         => '30seconds',
+      servicegroup => $title,
     }
     @@icinga::check::graphite { "check_${title}_app_cpu_usage${::hostname}":
       ensure         => $ensure,
@@ -343,6 +349,7 @@ define govuk::app::config (
       desc           => "high CPU usage for ${title} app",
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
+      servicegroup   => $title,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
       ensure                     => $ensure,
@@ -355,6 +362,7 @@ define govuk::app::config (
       notes_url                  => monitoring_docs_url(high-memory-for-application),
       attempts_before_hard_state => 3,
       contact_groups             => $additional_check_contact_groups,
+      servicegroup               => $title,
     }
     @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
       ensure         => $ensure,
@@ -366,6 +374,7 @@ define govuk::app::config (
       desc           => "${title} restarts per day due to memory usage",
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
+      servicegroup   => $title,
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
@@ -377,6 +386,7 @@ define govuk::app::config (
         host_name                  => $::fqdn,
         attempts_before_hard_state => 3,
         contact_groups             => $additional_check_contact_groups,
+        servicegroup               => $title,
       }
     }
     if $alert_when_file_handles_exceed {
@@ -390,6 +400,7 @@ define govuk::app::config (
         attempts_before_hard_state => 3,
         notes_url                  => monitoring_docs_url(process-file-handle-count-exceeds),
         contact_groups             => $additional_check_contact_groups,
+        servicegroup               => $title,
       }
     }
   }
@@ -420,6 +431,7 @@ define govuk::app::config (
       host_name      => $::fqdn,
       notes_url      => monitoring_docs_url(established-connections-exceed),
       contact_groups => $additional_check_contact_groups,
+      servicegroup   => $title,
     }
   }
 
@@ -454,6 +466,7 @@ define govuk::app::config (
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url($healthcheck_opsmanual),
         contact_groups      => $additional_check_contact_groups,
+        servicegroup        => $title,
       }
     } else {
       @@icinga::check { "check_app_${title}_up_on_${::hostname}":
@@ -464,6 +477,7 @@ define govuk::app::config (
         host_name           => $::fqdn,
         notes_url           => monitoring_docs_url(app-healthcheck-failed),
         contact_groups      => $additional_check_contact_groups,
+        servicegroup        => $title,
       }
     }
   }
@@ -475,6 +489,7 @@ define govuk::app::config (
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(unicorn-herder),
       contact_groups      => $additional_check_contact_groups,
+      servicegroup        => $title,
     }
   }
   if $app_type == 'rack' {
@@ -486,6 +501,7 @@ define govuk::app::config (
       host_name           => $::fqdn,
       notes_url           => monitoring_docs_url(ruby-version),
       contact_groups      => $additional_check_contact_groups,
+      servicegroup        => $title,
     }
   }
   @@icinga::check { "check_app_${title}_upstart_up_${::hostname}":
@@ -496,5 +512,6 @@ define govuk::app::config (
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
     contact_groups      => $additional_check_contact_groups,
+    servicegroup        => $title,
   }
 }

@@ -30,4 +30,7 @@ define service {
 <%- if @event_handler -%>
         event_handler             <%= @event_handler %>
 <%- end -%>
+<%- if @servicegroup -%>
+        servicegroups             <%= @servicegroup %>
+<%- end -%>
 }

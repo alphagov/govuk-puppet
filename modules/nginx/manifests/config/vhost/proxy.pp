@@ -56,6 +56,9 @@
 # [*ensure*]
 #   Whether to create the nginx vhost, present/absent
 #
+# [*alert_app_name*]
+#   The app associated with alerts (if different to the title)
+#
 # [*alert_5xx_warning_rate*]
 #   The error percentage that triggers a warning alert
 #
@@ -90,12 +93,17 @@ define nginx::config::vhost::proxy(
   $single_page_app = false,
   $read_timeout = 15,
   $ensure = 'present',
+  $alert_app_name = undef,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $proxy_http_version_1_1_enabled = false,
   $http_host = undef,
   $deny_crawlers = false,
 ) {
+  unless $alert_app_name {
+    $alert_app_name = $title
+  }
+
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
   include govuk_htpasswd
@@ -148,15 +156,16 @@ define nginx::config::vhost::proxy(
 
   statsd::counter { "${counter_basename}.http_500": }
 
-  @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
-    ensure    => $ensure,
-    target    => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
-    warning   => $alert_5xx_warning_rate,
-    critical  => $alert_5xx_critical_rate,
-    from      => '5minutes',
-    desc      => "${title} high nginx 5xx rate",
-    host_name => $::fqdn,
-    notes_url => monitoring_docs_url(high-nginx-5xx-rate),
+  @@icinga::check::graphite { "check_nginx_5xx_${alert_app_name}_on_${::hostname}":
+    ensure       => $ensure,
+    target       => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
+    warning      => $alert_5xx_warning_rate,
+    critical     => $alert_5xx_critical_rate,
+    from         => '5minutes',
+    desc         => "${alert_app_name} high nginx 5xx rate",
+    host_name    => $::fqdn,
+    notes_url    => monitoring_docs_url(high-nginx-5xx-rate),
+    servicegroup => $alert_app_name,
   }
 
 }

@@ -7,6 +7,9 @@
 # [*vhost*]
 #   Title of the vhost
 #
+# [*app_name*]
+#   The name of the app (if different to the vhost)
+#
 # [*app_port*]
 #   Port the app runs on
 #
@@ -65,6 +68,7 @@
 define govuk::app::nginx_vhost (
   $vhost,
   $app_port,
+  $app_name = undef,
   $aliases = [],
   $protected = false,
   $protected_location = '/',
@@ -83,7 +87,6 @@ define govuk::app::nginx_vhost (
   $alert_5xx_critical_rate = 0.1,
   $proxy_http_version_1_1_enabled = false,
 ) {
-
   # added to whitelist in lib/puppet-lint/plugins/check_hiera.rb
   # this is necessary because it is a global override in a defined type
   $global_asset_pipeline_enabled = hiera('govuk::app::nginx_vhost::asset_pipeline_enabled', true)
@@ -112,6 +115,7 @@ define govuk::app::nginx_vhost (
     hidden_paths                   => $hidden_paths,
     single_page_app                => $single_page_app,
     read_timeout                   => $read_timeout,
+    alert_app_name                 => $app_name,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,

@@ -64,6 +64,8 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
+# [*servicegroup*]
+#   The group to associate this check with (if any).
 define icinga::check::graphite(
   $target,
   $desc,
@@ -81,6 +83,7 @@ define icinga::check::graphite(
   $notification_period = undef,
   $attempts_before_hard_state = 1,
   $event_handler = undef,
+  $servicegroup = undef,
 ) {
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
@@ -132,5 +135,6 @@ ${crit_line}${warn_line}\
     contact_groups             => $contact_groups,
     notification_period        => $notification_period,
     event_handler              => $event_handler,
+    servicegroup               => $servicegroup,
   }
 }

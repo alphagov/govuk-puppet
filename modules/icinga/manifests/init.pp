@@ -12,9 +12,12 @@ class icinga {
 
   Class['icinga::package'] ~> Class['icinga::service']
 
-  Icinga::Host            <<||>> { notify => Class['icinga::service'] }
-  Icinga::Check           <<||>> { notify => Class['icinga::service'] }
-  Icinga::Check::Graphite <<||>> { notify => Class['icinga::service'] }
-  Icinga::Passive_check   <<||>> { notify => Class['icinga::service'] }
+  Icinga::Host                   <<||>> { notify => Class['icinga::service'] }
+  Icinga::Check                  <<||>> { notify => Class['icinga::service'] }
+  Icinga::Servicegroup_members   <<||>> { notify => Class['icinga::service'] }
+  Icinga::Check::Graphite        <<||>> { notify => Class['icinga::service'] }
+  Icinga::Passive_check          <<||>> { notify => Class['icinga::service'] }
+
+  Icinga::Servicegroup_members <| |> -> Icinga::Check <| |>
 }
 
