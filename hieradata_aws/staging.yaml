@@ -437,8 +437,6 @@ monitoring::checks::smokey::features:
     feature: csv_preview
   check_draft_environment:
     feature: draft_environment
-  check_email_sign_up:
-    feature: email_sign_up
   check_feedback:
     feature: feedback
   check_finder_frontend:
@@ -465,8 +463,6 @@ monitoring::checks::smokey::features:
     feature: publishing_tools
   check_router:
     feature: router
-  check_search:
-    feature: search
   check_service_manual:
     feature: service_manual
   check_signon:
