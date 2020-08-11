@@ -46,20 +46,6 @@
               "fill": 0,
               "lines": true,
               "linewidth": 6
-            },
-            {
-              "alias": "Last 30 day average - 50% (target)",
-              "bars": false,
-              "fill": 0,
-              "lines": true,
-              "linewidth": 4
-            },
-            {
-              "alias": "Target",
-              "bars": false,
-              "fill": 0,
-              "lines": true,
-              "linewidth": 4
             }
           ],
           "spaceLength": 10,
@@ -129,8 +115,8 @@
     "list": []
   },
   "time": {
-    "from": "now-90d",
-    "to": "now"
+    "from": "2019-10-06T23:00:00.000Z",
+    "to": "2019-11-30T00:00:00.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -159,5 +145,5 @@
   },
   "timezone": "",
   "title": "Platform Health - Q2 (20-21) Bouncer errors",
-  "version": 2
+  "version": 3
 }
