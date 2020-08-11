@@ -115,8 +115,8 @@
     "list": []
   },
   "time": {
-    "from": "2019-10-06T23:00:00.000Z",
-    "to": "2019-11-30T00:00:00.000Z"
+    "from": "now-90d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
