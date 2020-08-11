@@ -6,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": null,
+  "id": 42,
   "links": [],
   "refresh": false,
   "rows": [
@@ -48,13 +48,6 @@
               "linewidth": 6
             },
             {
-              "alias": "Last 30 day average - 50% (target)",
-              "bars": false,
-              "fill": 0,
-              "lines": true,
-              "linewidth": 4
-            },
-            {
               "alias": "Target",
               "bars": false,
               "fill": 0,
@@ -70,20 +63,17 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "alias(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', false), 'Errors per day')"
+              "target": "alias(summarize(stats.gauges.sentry-error-count-last-hour.bouncer, '1d', 'sum', false), 'Errors per day')"
             },
             {
               "refId": "B",
-              "target": "alias(movingAverage(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d'), '30 day average')"
+              "target": "alias(movingAverage(summarize(stats.gauges.sentry-error-count-last-hour.bouncer, '1d', 'sum', true), '30d'), '30 day average')"
             },
             {
-              "hide": true,
+              "hide": false,
               "refId": "C",
-              "target": "alias(timeShift(scale(summarize(summarize(stats.gauges.sentry-error-count-last-hour.whitehall, '1d', 'sum', true), '30d', 'avg', false), 0.5), '30d'), 'Last 30 day average - 50% (target)')"
-            },
-            {
-              "refId": "D",
-              "target": "alias(constantLine(6000), 'Target')"
+              "target": "alias(constantLine(5500), 'Target')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -138,8 +128,8 @@
     "list": []
   },
   "time": {
-    "from": "2019-10-06T23:00:00.000Z",
-    "to": "2019-11-30T00:00:00.000Z"
+    "from": "now-90d",
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -167,6 +157,6 @@
     ]
   },
   "timezone": "",
-  "title": "Platform Health - Q3 (19-20) Whitehall errors",
+  "title": "Platform Health - Q2 (20-21) Bouncer errors",
   "version": 4
 }
