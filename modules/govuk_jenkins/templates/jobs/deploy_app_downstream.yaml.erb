@@ -20,7 +20,7 @@
 
           if $DEPLOY_FREEZE; then
             echo "This application is under a deploy freeze in Release app. Aborting"
-            exit 0 # Don't alert about predictable failures
+            exit 1
           fi
       <% if @smokey_pre_check %>
       - shell: |
@@ -53,12 +53,12 @@
 
           if [ "$LATEST_TAG_NAME" != "\"$TAG\"" ]; then
             echo "The TAG parameter does not match the latest release. Aborting."
-            exit 0 # Don't alert about unactionable failures
+            exit 1
           fi
 
           if [ "$LATEST_TAG_SHA" != "$LATEST_MASTER_SHA" ]; then
             echo "The TAG to deploy is supserseded, or not on master. Aborting."
-            exit 0 # Don't alert about unactionable failures
+            exit 1
           fi
       - shell: |
           # Deploy to downstream environment
