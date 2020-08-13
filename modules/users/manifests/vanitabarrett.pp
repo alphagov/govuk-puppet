@@ -1,6 +1,7 @@
 #create the vanitabarrett user
 class users::vanitabarrett {
   govuk_user { 'vanitabarrett':
+    ensure   => absent,
     fullname => 'Vanita Barrett',
     email    => 'vanita.barrett@digital.cabinet-office.gov.uk',
     ssh_key  => [
