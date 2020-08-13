@@ -95,7 +95,7 @@
             auth-token-id: <%= @slack_credential_id %>
             auth-token-credential-id: <%= @slack_credential_id %>
             build-server-url: <%= @slack_build_server_url %>
-            notify-failure: true
+            notify-every-failure: true
             room: "<%= @slack_channel %>"
             include-custom-message: true
             custom-message: "Automatic deployment failed for $TARGET_APPLICATION $TAG"
