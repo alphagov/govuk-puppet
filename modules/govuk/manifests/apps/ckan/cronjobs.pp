@@ -35,7 +35,7 @@ class govuk::apps::ckan::cronjobs(
     false => 'absent',
   }
 
-  govuk::apps::ckan::paster_cronjob { 'harvester reindex':
+  govuk::apps::ckan::paster_cronjob { 'index missing packages':
     ensure         => $ensure_solr_reindex,
     paster_command => 'search-index rebuild -o',
     plugin         => 'ckan',
