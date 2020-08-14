@@ -183,11 +183,6 @@ sub vcl_fetch {
   set beresp.http.x-url = req.url;
 }
 
-sub vcl_hash {
-  hash_data(req.url);
-  return(hash);
-}
-
 sub vcl_deliver {
   # Add a custom header to indicate whether we hit the cache or not
   if (obj.hits > 0) {
