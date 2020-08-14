@@ -9,6 +9,15 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
+      <% if @smokey_pre_check %>
+      - shell: |
+          # Wait for any app restarts to complete before running Smokey
+          sleep 60
+      - trigger-builds:
+          - project: Smokey
+            current-parameters: true
+            block: true
+      <% end %>
       - shell: |
           # Check for deploy freeze set in Release App
           APPLICATION_METADATA=$(curl -s \
@@ -20,18 +29,9 @@
 
           if $DEPLOY_FREEZE; then
             echo "This application is under a deploy freeze in Release app. Aborting"
-            exit 1
+            exit 0 # Don't alert about predictable failures
           fi
-      <% if @smokey_pre_check %>
-      - shell: |
-          # Wait for any app restarts to complete before running Smokey
-          sleep 60
-      - trigger-builds:
-          - project: Smokey
-            current-parameters: true
-            block: true
-      <% end %>
-      - shell: |
+
           # Workaround for our inconsistent repo vs. deployment naming
           case "$TARGET_APPLICATION" in
           <% @applications.keys.each do |app| %>
@@ -53,14 +53,14 @@
 
           if [ "$LATEST_TAG_NAME" != "\"$TAG\"" ]; then
             echo "The TAG parameter does not match the latest release. Aborting."
-            exit 1
+            exit 0 # Don't alert about predictable failures
           fi
 
           if [ "$LATEST_TAG_SHA" != "$LATEST_MASTER_SHA" ]; then
             echo "The TAG to deploy is supserseded, or not on master. Aborting."
-            exit 1
+            exit 0 # Don't alert about predictable failures
           fi
-      - shell: |
+
           # Deploy to downstream environment
           JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"deploy\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"
           CRUMB=$(curl https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
@@ -95,7 +95,7 @@
             auth-token-id: <%= @slack_credential_id %>
             auth-token-credential-id: <%= @slack_credential_id %>
             build-server-url: <%= @slack_build_server_url %>
-            notify-failure: true
+            notify-every-failure: true
             room: "<%= @slack_channel %>"
             include-custom-message: true
             custom-message: "Automatic deployment failed for $TARGET_APPLICATION $TAG"
