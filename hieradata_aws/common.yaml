@@ -961,6 +961,159 @@ govuk_cdnlogs::service_port_map:
   assets: 6515
   bouncer: 6516
 
+govuk_ci::master::pipeline_jobs:
+  <<: *deployable_applications
+  # Applications migrated to AWS
+  authenticating-proxy: {}
+  bouncer: {}
+  cache-clearing-service: {}
+  calculators: {}
+  collections: {}
+  content-store: {}
+  email-alert-api: {}
+  email-alert-frontend: {}
+  email-alert-service: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  imminence: {}
+  info-frontend: {}
+  content-data-admin: {}
+  content-data-api: {}
+  licencefinder:
+    repository: 'licence-finder'
+  link-checker-api: {}
+  local-links-manager: {}
+  manuals-frontend: {}
+  mapit: {}
+  publishing-api: {}
+  release: {}
+  router: {}
+  router-api: {}
+  search-api: {}
+  service-manual-frontend: {}
+  smartanswers:
+    repository: 'smart-answers'
+  static: {}
+  support-api: {}
+  support: {}
+  transition: {}
+  # Other repositories
+  asset_bom_removal-rails: {}
+  backdrop-transactions-explorer-collector: {}
+  deprecated_columns: {}
+  gds-api-adapters: {}
+  gds-sso: {}
+  gds_zendesk: {}
+  govspeak: {}
+  govuk_ab_testing: {}
+  govuk_app_config: {}
+  govuk-cdn-config: {}
+  govuk-csp-forwarder: {}
+  govuk-dummy_content_store: {}
+  govuk_document_types: {}
+  govuk-guix: {}
+  govuk-jenkinslib: {}
+  govuk_message_queue_consumer: {}
+  govuk-provisioning: {}
+  govuk_publishing_components: {}
+  govuk_seed_crawler: {}
+  govuk_schemas: {}
+  govuk_sidekiq: {}
+  govuk-taxonomy-supervised-learning: {}
+  govuk_taxonomy_helpers: {}
+  govuk_test: {}
+  licensify:
+    branches_to_exclude:
+      - 'release*'
+      - 'deployed-to-integration'
+      - 'licensify-deployed-to-integration'
+      - 'licensify-admin-deployed-to-integration'
+      - 'licensify-feed-deployed-to-integration'
+      - 'deployed-to-staging'
+      - 'licensify-deployed-to-staging'
+      - 'licensify-admin-deployed-to-staging'
+      - 'licensify-feed-deployed-to-staging'
+      - 'deployed-to-production'
+      - 'licensify-deployed-to-production'
+      - 'licensify-admin-deployed-to-production'
+      - 'licensify-feed-deployed-to-production'
+      - 'integration'
+      - 'staging'
+      - 'production'
+  middleman-search: {}
+  omniauth-gds: {}
+  optic14n: {}
+  performanceplatform-client.py: {}
+  performanceplatform-collector: {}
+  performanceplatform-documentation: {}
+  plek: {}
+  publishing-e2e-tests: {}
+  rack-logstasher: {}
+  rails_translation_manager: {}
+  router-data: {}
+  scss-lint-govuk: {}
+  search-api: {}
+  shared_mustache: {}
+  slimmer: {}
+  smokey: {}
+  special-route-publisher: {}
+  ubuntu_unused_kernels:
+    repo_owner: 'gds-operations'
+  vcloud-core:
+    repo_owner: 'gds-operations'
+  vcloud-edge_gateway:
+    repo_owner: 'gds-operations'
+  vcloud-launcher:
+    repo_owner: 'gds-operations'
+  vcloud-net_launcher:
+    repo_owner: 'gds-operations'
+  vcloud-tools:
+    repo_owner: 'gds-operations'
+  vcloud-tools-tester:
+    repo_owner: 'gds-operations'
+  vcloud-walker:
+    repo_owner: 'gds-operations'
+
+govuk_ci::master::ci_agents:
+  ci-agent-1:
+    agent_hostname: 'ci-agent-1.ci'
+    labels: 'mongodb-2.4 ci-agent-1 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-2:
+    agent_hostname: 'ci-agent-2.ci'
+    labels: 'mongodb-2.4 ci-agent-2 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-3:
+    agent_hostname: 'ci-agent-3.ci'
+    labels: 'mongodb-2.4 ci-agent-3 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-4:
+    agent_hostname: 'ci-agent-4.ci'
+    labels: 'mongodb-3.2 ci-agent-4 elasticsearch-6.7 terraform postgresql-9.6'
+  ci-agent-5:
+    agent_hostname: 'ci-agent-5.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-6:
+    agent_hostname: 'ci-agent-6.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-7:
+    agent_hostname: 'ci-agent-7.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-8:
+    agent_hostname: 'ci-agent-8.ci'
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+
+govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
+
+govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+
+
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=production"
   - "NODE_ENV=production"
