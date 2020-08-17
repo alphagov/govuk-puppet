@@ -1,3 +1,25 @@
+
+<%- if @maintenance_mode -%>
+error_page 503 /scheduled_maintenance.html;
+
+location = /scheduled_maintenance.html {
+  root /usr/share/nginx/www;
+}
+location = /scheduled-maintenance {
+  return 503;
+}
+
+# doing an internal redirect from within a `server` block like this will cause
+# `error_page` to be ignored and an ugly error page to be returned. to get
+# around this, we have to do an *external* redirect to the error page (for
+# any request that *isn't* already requesting the error page, obviously).
+# we *have* to do the redirect from the `server` block because the base template
+# that this config is injected into specifies a number of `location`s itself that
+# we wouldn't otherwise be able to override.
+absolute_redirect off;
+rewrite ^/(?!(scheduled-maintenance))$ /scheduled-maintenance redirect;
+<%- end -%>
+
 # Guard against open redirects from CKAN for requests with paths like
 # the following, starting with two forward slashes and a trailing
 # slash: //www.gov.uk/

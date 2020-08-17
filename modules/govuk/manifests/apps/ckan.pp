@@ -55,6 +55,7 @@
 #
 class govuk::apps::ckan (
   $enabled                        = false,
+  $maintenance_mode               = false,
   $port,
   $pycsw_port,
   $db_hostname                    = undef,
@@ -187,6 +188,8 @@ class govuk::apps::ckan (
         varname => 'PYCSW_CONFIG',
         value   => $pycsw_config;
     }
+
+    include maintenance
 
     govuk::app::nginx_vhost { 'ckan':
       vhost              => 'ckan',
