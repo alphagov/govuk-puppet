@@ -22,7 +22,7 @@
 
               cd email-alert-monitoring
               bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-              bundle exec rake run
+              bundle exec rake run_medical_alerts
             unstable-return: 1
     publishers:
       - text-finder:
