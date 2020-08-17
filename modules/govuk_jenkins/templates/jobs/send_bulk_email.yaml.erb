@@ -13,7 +13,7 @@
           #!/usr/bin/env bash
 
           hostname=$(govuk_node_list -c email_alert_api --single-node)
-          command="cd /var/apps/email-alert-api && govuk_setenv email-alert-api bundle exec rake \"bulk:email[$SUBSCRIBER_LIST_IDS]\""
+          command="cd /var/apps/email-alert-api && govuk_setenv email-alert-api bundle exec rake \"bulk_email:for_lists[$SUBSCRIBER_LIST_IDS]\""
 
           echo "Running $command on $hostname"
 
