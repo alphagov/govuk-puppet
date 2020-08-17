@@ -13,9 +13,6 @@
 # [*google_client_secret*]
 #   Google app client secret.
 #
-# [*email_addresses_to_check*]
-#   Email addresses to check.
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -23,7 +20,6 @@ class govuk_jenkins::jobs::email_alert_check (
   $google_oauth_credentials = undef,
   $google_client_id = undef,
   $google_client_secret = undef,
-  $email_addresses_to_check = undef,
   $app_domain = hiera('app_domain'),
   $sentry_dsn = undef,
 ) {
