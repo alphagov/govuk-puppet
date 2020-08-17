@@ -297,7 +297,7 @@ govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
 govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 0,6,12,18 * * *' # every six hours
 
-govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: true
+govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: false
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '0 12 * * 0'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 3 * * *'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '0 4 * * *'
