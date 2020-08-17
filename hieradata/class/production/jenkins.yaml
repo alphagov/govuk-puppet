@@ -16,7 +16,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::network_config_deploy
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::run_rake_task
-  - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::trigger_data_sync_complete

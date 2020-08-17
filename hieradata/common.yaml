@@ -19,7 +19,6 @@ node_class: &node_class
     apps:
       - canary-backend
       - sidekiq-monitoring
-      - signon
 
 govuk::node::s_base::node_apps:
   <<: *node_class
