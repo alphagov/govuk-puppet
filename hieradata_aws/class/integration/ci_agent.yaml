@@ -16,6 +16,9 @@ govuk_mysql::server::innodb_flush_log_at_trx_commit: 2
 govuk_mysql::server::innodb_buffer_pool_size_proportion: 0.05
 govuk_mysql::server::query_cache_size: 0
 
+govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_sysdig::ensure: 'absent'
+
 govuk_solr6::present: false
 
 lv:
