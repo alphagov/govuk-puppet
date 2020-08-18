@@ -1,9 +1,8 @@
----
 - job:
-    name: email-alert-check
-    display-name: EmailAlertCheck
+    name: medical-safety-email-alert-check
+    display-name: MedicalSafetyEmailAlertCheck
     project-type: freestyle
-    description: "This job checks if drug device email alerts have been emailed"
+    description: "This job checks if medical safety email alerts have been emailed"
     logrotate:
         numToKeep: 100
     triggers:
@@ -23,7 +22,7 @@
 
               cd email-alert-monitoring
               bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-              bundle exec rake run
+              bundle exec rake run_medical_alerts
             unstable-return: 1
     publishers:
       - text-finder:
@@ -34,13 +33,13 @@
         - project: Success_Passive_Check
           condition: 'SUCCESS'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @drug_service_description %>
-            NSCA_OUTPUT=<%= @drug_service_description %> success
+            NSCA_CHECK_DESCRIPTION=<%= @medical_safety_service_description %>
+            NSCA_OUTPUT=<%= @medical_safety_service_description %> success
         - project: Failure_Passive_Check
           condition: 'FAILED'
           predefined-parameters: |
-            NSCA_CHECK_DESCRIPTION=<%= @drug_service_description %>
-            NSCA_OUTPUT=<%= @drug_service_description %> failed
+            NSCA_CHECK_DESCRIPTION=<%= @medical_safety_service_description %>
+            NSCA_OUTPUT=<%= @medical_safety_service_description %> failed
     wrappers:
         - ansicolor:
             colormap: xterm
@@ -57,11 +56,6 @@
               - name: GOOGLE_CLIENT_SECRET
                 password:
                   '<%= @google_client_secret %>'
-              - name: EMAILS_THAT_SHOULD_RECEIVE_DRUG_ALERTS
-                password:
-                  '<%= @emails_that_should_receive_drug_alerts %>'
-              - name: EMAIL_ADDRESSES_TO_CHECK
-                password: '<%= @email_addresses_to_check %>'
               - name: SENTRY_DSN
                 password:
                   '<%= @sentry_dsn %>'
