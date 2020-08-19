@@ -1,8 +1,14 @@
 server {
+
+  <%- if scope.lookupvar('::aws_migration') %>
+  listen 80;
+  proxy_set_header Host $http_host;
+  <%- else %>
   listen 443 ssl;
 
   ssl_certificate     /etc/nginx/ssl/jenkins.crt;
   ssl_certificate_key /etc/nginx/ssl/jenkins.key;
+  <%- end %>
 
   location / {
     proxy_pass http://localhost:8080;
