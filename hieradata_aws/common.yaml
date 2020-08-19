@@ -1077,34 +1077,34 @@ govuk_ci::master::pipeline_jobs:
 
 govuk_ci::master::ci_agents:
   ci-agent-1:
-    agent_hostname: 'ci-agent-1.ci'
+    agent_hostname: 'ci-agent-1.blue.%{hiera('app_domain_internal')}'
     labels: 'mongodb-2.4 ci-agent-1 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-2:
-    agent_hostname: 'ci-agent-2.ci'
+    agent_hostname: 'ci-agent-2.blue.%{hiera('app_domain_internal')}'
     labels: 'mongodb-2.4 ci-agent-2 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-3:
-    agent_hostname: 'ci-agent-3.ci'
+    agent_hostname: 'ci-agent-3.blue.%{hiera('app_domain_internal')}'
     labels: 'mongodb-2.4 ci-agent-3 elasticsearch-6.7 terraform postgresql-9.3'
   ci-agent-4:
-    agent_hostname: 'ci-agent-4.ci'
+    agent_hostname: 'ci-agent-4.blue.%{hiera('app_domain_internal')}'
     labels: 'mongodb-3.2 ci-agent-4 elasticsearch-6.7 terraform postgresql-9.6'
   ci-agent-5:
-    agent_hostname: 'ci-agent-5.ci'
+    agent_hostname: 'ci-agent-5.blue.%{hiera('app_domain_internal')}'
     exclusive: true
     executors: 1
     labels: 'publishing-e2e-tests'
   ci-agent-6:
-    agent_hostname: 'ci-agent-6.ci'
+    agent_hostname: 'ci-agent-6.blue.%{hiera('app_domain_internal')}'
     exclusive: true
     executors: 1
     labels: 'publishing-e2e-tests'
   ci-agent-7:
-    agent_hostname: 'ci-agent-7.ci'
+    agent_hostname: 'ci-agent-7.blue.%{hiera('app_domain_internal')}'
     exclusive: true
     executors: 1
     labels: 'publishing-e2e-tests'
   ci-agent-8:
-    agent_hostname: 'ci-agent-8.ci'
+    agent_hostname: 'ci-agent-8.blue.%{hiera('app_domain_internal')}'
     exclusive: true
     executors: 1
     labels: 'publishing-e2e-tests'
