@@ -114,7 +114,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     _
     backup::offsite::jobs
-    govuk::deploy::actionmailer_enable_delivery
     govuk::node::s_apt::real_ip_header
     govuk::node::s_backup::offsite_backups
     govuk::node::s_monitoring::enable_fastly_metrics
