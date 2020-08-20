@@ -111,10 +111,32 @@ class govuk_jenkins (
     provider => 'pip',
   }
 
+  package { 'setuptools':
+    ensure   => '38.4.0',
+    provider => 'pip',
+  }
+
   package { 'pipenv':
     ensure   => '11.8.0',
     provider => 'pip',
+    require  => Package['setuptools'],
   }
+
+  package { 'requests':
+    ensure   => '2.22.0',
+    provider => 'pip3',
+  }
+
+  package { 'urllib3':
+    ensure   => '1.25.3',
+    provider => 'pip3',
+  }
+
+  package { 'stevedore':
+    ensure   => '1.30.1',
+    provider => 'pip3',
+  }
+
 
   # Runtime dependency of: https://github.com/alphagov/search-analytics
   ensure_packages(['libffi-dev'])
