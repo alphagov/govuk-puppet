@@ -31,13 +31,16 @@ class postfix (
 ) {
 
   anchor { 'postfix::begin':
+    ensure => absent,
     notify => Class['postfix::service'];
   }
   class { 'postfix::package':
+    ensure => absent,
     require => Anchor['postfix::begin'],
     notify  => Class['postfix::service'];
   }
   class { 'postfix::config':
+    ensure => absent,
     smarthost           => $smarthost,
     smarthost_user      => $smarthost_user,
     smarthost_pass      => $smarthost_pass,
@@ -46,8 +49,11 @@ class postfix (
     require             => Class['postfix::package'],
     notify              => Class['postfix::service'];
   }
-  class { 'postfix::service': }
+  class { 'postfix::service':
+    ensure => absent,
+  }
   anchor { 'postfix::end':
+    ensure => absent,
     require => Class['postfix::service'],
   }
 
