@@ -2,8 +2,8 @@
 #
 # Manage the postfix package
 #
-class postfix::package {
+class postfix::package($ensure = installed) {
   package { 'postfix':
-    ensure => installed,
+    ensure  => $ensure,
   }
 }
