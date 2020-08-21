@@ -22,6 +22,9 @@ jenkins_admin_permission_list: &jenkins_admin_permission_list
 
 govuk_jenkins::config::user_permissions:
   -
+    user: 'jenkins_api_user'
+    permissions: *jenkins_admin_permission_list
+  -
     user: 'ci_alphagov'
     permissions: *jenkins_admin_permission_list
   -
