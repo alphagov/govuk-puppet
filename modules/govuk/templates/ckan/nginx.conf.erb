@@ -1,3 +1,7 @@
+<%- if @blanket_redirect_url -%>
+return 302 <%= @blanket_redirect_url %>;
+<%- end -%>
+
 # Guard against open redirects from CKAN for requests with paths like
 # the following, starting with two forward slashes and a trailing
 # slash: //www.gov.uk/
