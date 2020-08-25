@@ -17,7 +17,7 @@ location = /scheduled-maintenance {
 # that this config is injected into specifies a number of `location`s itself that
 # we wouldn't otherwise be able to override.
 absolute_redirect off;
-rewrite ^/(?!(scheduled-maintenance))$ /scheduled-maintenance redirect;
+rewrite ^/(?!(scheduled-maintenance)).*$ /scheduled-maintenance redirect;
 <%- end -%>
 
 # Guard against open redirects from CKAN for requests with paths like
