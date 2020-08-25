@@ -1,3 +1,10 @@
 ---
 
 govuk::apps::ckan::enabled: true
+govuk::apps::ckan::blanket_redirect_url: https://staging.data.gov.uk/ckan_maintenance
+
+govuk::apps::ckan::enable_harvester_fetch: false
+govuk::apps::ckan::enable_harvester_gather: false
+
+govuk::apps::ckan::cronjobs::enable: false
+govuk::apps::ckan::cronjobs::enable_solr_reindex: false
