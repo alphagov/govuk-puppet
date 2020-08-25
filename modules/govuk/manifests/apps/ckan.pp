@@ -11,6 +11,10 @@
 # [*pycsw_port*]
 #   What port should the PyCSW companion app run on?
 #
+# [*blanket_redirect_url*]
+#   If defined, all requests will be redirected to this absolute url. Useful
+#   for maintenance.
+#
 # [*db_hostname*]
 #   The postgres instance for CKAN to connect to
 #
@@ -57,6 +61,7 @@ class govuk::apps::ckan (
   $enabled                        = false,
   $port,
   $pycsw_port,
+  $blanket_redirect_url           = undef,
   $db_hostname                    = undef,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
