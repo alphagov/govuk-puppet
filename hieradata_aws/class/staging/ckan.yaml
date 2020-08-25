@@ -1,3 +1,6 @@
 ---
 
 govuk::apps::ckan::enabled: true
+
+govuk::apps::ckan::enable_harvester_fetch: false
+govuk::apps::ckan::enable_harvester_gather: false
