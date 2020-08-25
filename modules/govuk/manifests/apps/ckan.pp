@@ -55,7 +55,7 @@
 #
 class govuk::apps::ckan (
   $enabled                        = false,
-  $maintenance_mode               = false,
+  $maintenance_mode               = true,
   $port,
   $pycsw_port,
   $db_hostname                    = undef,
