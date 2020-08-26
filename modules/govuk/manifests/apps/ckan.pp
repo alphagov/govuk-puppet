@@ -15,6 +15,10 @@
 #   If defined, all requests will be redirected to this absolute url. Useful
 #   for maintenance.
 #
+# [*blanket_redirect_skip_key*]
+#   A request supplying this value under the header x-ckan-skip-blanket-redirect-key will
+#   be allowed to skip the blanket redirect (e.g. to allow for testing).
+#
 # [*db_hostname*]
 #   The postgres instance for CKAN to connect to
 #
@@ -62,6 +66,7 @@ class govuk::apps::ckan (
   $port,
   $pycsw_port,
   $blanket_redirect_url           = undef,
+  $blanket_redirect_skip_key      = undef,
   $db_hostname                    = undef,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
