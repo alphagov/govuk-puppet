@@ -1,5 +1,11 @@
 <%- if @blanket_redirect_url -%>
-return 302 <%= @blanket_redirect_url %>;
+<%- if @blanket_redirect_skip_key -%>
+if ($http_x_ckan_skip_blanket_redirect_key != "<%= @blanket_redirect_skip_key %>") {
+<%- end -%>
+  return 302 <%= @blanket_redirect_url %>;
+<%- if @blanket_redirect_skip_key -%>
+}
+<%- end -%>
 <%- end -%>
 
 # Guard against open redirects from CKAN for requests with paths like
