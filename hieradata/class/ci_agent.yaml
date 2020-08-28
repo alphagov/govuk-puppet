@@ -16,7 +16,9 @@ govuk_mysql::server::innodb_flush_log_at_trx_commit: 2
 govuk_mysql::server::innodb_buffer_pool_size_proportion: 0.05
 govuk_mysql::server::query_cache_size: 0
 
-govuk_solr6::present: false
+govuk_solr::disable: true
+
+govuk_solr6::present: true
 
 lv:
   data:
