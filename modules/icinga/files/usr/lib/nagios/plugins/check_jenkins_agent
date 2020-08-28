@@ -11,7 +11,13 @@ then
   exit 3
 fi
 
-if /usr/bin/curl -sk 'https://localhost:443/computer/api/json' \
+if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
+  URL='http://localhost:80/computer/api/json'
+else
+  URL='https://localhost:443/computer/api/json'
+fi
+
+if /usr/bin/curl -sk "${URL}" \
    | /usr/bin/jq ".computer[] | select(.displayName==\"${1}\")" \
    | /usr/bin/jq "{offline}" \
    | /bin/grep -q "false"
