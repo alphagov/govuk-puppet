@@ -860,21 +860,22 @@
           "cacheTimeout": "",
           "dashLength": 10,
           "dashes": false,
-          "datasource": "Elasticsearch",
+          "datasource": "Graphite",
           "fill": 2,
           "id": 8,
           "interval": "",
           "legend": {
-            "alignAsTable": false,
-            "avg": false,
-            "current": false,
-            "max": false,
+            "alignAsTable": true,
+            "avg": true,
+            "current": true,
+            "hideEmpty": true,
+            "max": true,
             "min": false,
             "show": true,
             "sort": "total",
             "sortDesc": true,
-            "total": false,
-            "values": false
+            "total": true,
+            "values": true
           },
           "lines": true,
           "linewidth": 2,
@@ -888,49 +889,12 @@
           "seriesOverrides": [],
           "spaceLength": 10,
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "bucketAggs": [
-                {
-                  "fake": true,
-                  "field": "route",
-                  "id": "4",
-                  "settings": {
-                    "min_doc_count": 1,
-                    "order": "desc",
-                    "orderBy": "_term",
-                    "size": "0"
-                  },
-                  "type": "terms"
-                },
-                {
-                  "fake": true,
-                  "field": "@timestamp",
-                  "id": "3",
-                  "settings": {
-                    "interval": "$Interval",
-                    "min_doc_count": 0,
-                    "trimEdges": 0
-                  },
-                  "type": "date_histogram"
-                }
-              ],
-              "dsType": "elasticsearch",
-              "hide": false,
-              "metrics": [
-                {
-                  "field": "view",
-                  "id": "1",
-                  "meta": {},
-                  "settings": {},
-                  "type": "count"
-                }
-              ],
-              "query": "application: email-alert-api AND status: [200 TO 299] AND route: status_updates*",
               "refId": "A",
-              "timeField": "@timestamp"
+              "target": "aliasByMetric(groupByNode(consolidateBy(summarize(stats_counts.govuk.app.email-alert-api.*.status_update.status.*, '$Interval', 'sum', false), 'sum'), 7, 'sum'))"
             }
           ],
           "thresholds": [],
