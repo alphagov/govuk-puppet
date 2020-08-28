@@ -54,6 +54,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::data_sync_complete_staging
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_app_downstream
+  - govuk_jenkins::jobs::deploy_cdn
+  - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
@@ -77,7 +79,20 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_load_site_config
+  - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::whitehall_publisher_notifications
 
-govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: false
+govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
+govuk_jenkins::jobs::deploy_cdn::services:
+  - assets
+  - mirror
+  - performanceplatform
+  - www
+
+govuk_jenkins::jobs::update_cdn_dictionaries::services:
+  - assets
+  - mirror
+  - performanceplatform
+  - www
+
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: false
