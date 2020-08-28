@@ -17,6 +17,11 @@ location ~* "//" {
   rewrite ^ $uri permanent;
 }
 
+# CKAN 2.8 release is 404ing on fanstatic font-awesome fonts, so use CDN for now until we fix it
+location ~ /fanstatic/vendor/(:version:.*/)?font-awesome/fonts/fontawesome-webfont.woff {
+  return 302 https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/fonts/fontawesome-webfont.woff;
+}
+
 # Some API paths expose PII, so we block access by default. We allow access to
 # specific paths required by other apps which do not expose PII.
 
