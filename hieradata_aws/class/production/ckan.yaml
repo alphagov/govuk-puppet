@@ -7,4 +7,3 @@ govuk::apps::ckan::solr_core: ckan
 govuk::apps::ckan::solr_core_configset: ckan28
 
 govuk::apps::ckan::enabled: true
-govuk::apps::ckan::blanket_redirect_url: https://data.gov.uk/ckan_maintenance
