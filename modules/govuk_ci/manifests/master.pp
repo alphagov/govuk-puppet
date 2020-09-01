@@ -85,4 +85,11 @@ class govuk_ci::master (
   # Required for a job that issues Jenkins Crumbs
   ensure_packages(['jq'])
 
+  file { '/var/lib/jenkins/.ssh/known_host':
+    ensure => present,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    mode   => '0644',
+  }
+
 }
