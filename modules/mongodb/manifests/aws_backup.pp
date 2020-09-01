@@ -65,11 +65,13 @@ class mongodb::aws_backup (
     require => File['/usr/local/bin/mongodump-to-s3'],
   }
 
-  @@icinga::passive_check { "check-mongodb-backup-to-s3-${::hostname}":
-    ensure              => $_ensure,
-    service_description => $service_desc,
-    freshness_threshold => $threshold_secs,
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(backup-passive-checks),
+  if ($_ensure == 'present') {
+    @@icinga::passive_check { "check-mongodb-backup-to-s3-${::hostname}":
+      ensure              => $_ensure,
+      service_description => $service_desc,
+      freshness_threshold => $threshold_secs,
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(backup-passive-checks),
+    }
   }
 }

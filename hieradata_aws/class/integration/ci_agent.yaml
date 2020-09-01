@@ -1,5 +1,5 @@
 ---
-mongodb::aws_backup:ensure: 'absent'
+mongodb::aws_backup::ensure: 'absent'
 mongodb::server::version: '3.2.7'
 mongodb::server::development: true
 mongodb::server::replicaset_members:
