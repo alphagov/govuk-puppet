@@ -49,7 +49,7 @@ def report(exit_code, message, detail_message=None):
 
 def report_error(message):
     """Report an error running this check, then exit."""
-    report(UNKNOWN, message)
+    report(STATUSES.index("critical"), message)
 
 
 def handle_exception(exc_type, exception, traceback):
