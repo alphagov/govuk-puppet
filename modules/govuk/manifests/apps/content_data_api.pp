@@ -134,6 +134,7 @@ class govuk::apps::content_data_api(
     asset_pipeline                  => true,
     read_timeout                    => 60,
     additional_check_contact_groups => ['slack-channel-data-informed'],
+    unicorn_worker_processes        => 4,
   }
 
   Govuk::App::Envvar {
