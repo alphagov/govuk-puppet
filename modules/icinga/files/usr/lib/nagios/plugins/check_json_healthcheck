@@ -33,8 +33,6 @@ from urllib.request import urlopen, Request, HTTPError
 from urllib.parse import urlunparse
 
 
-OK, WARNING, CRITICAL, UNKNOWN = 0, 1, 2, 3
-
 STATUSES = ["ok", "warning", "critical", "unknown"]
 
 
@@ -54,7 +52,7 @@ def report_error(message):
 
 def handle_exception(exc_type, exception, traceback):
     """Report uncaught exceptions to Nagios as UNKNOWN (exit code 3)."""
-    report(UNKNOWN, "unhandled exception: %s" % (exception,))
+    report(STATUSES.index("unknown"), "unhandled exception: %s" % (exception,))
 
 
 def url_from_arguments(arguments):
