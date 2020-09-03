@@ -1,6 +1,0 @@
-/.env
-/.foreman
-/.ruby-version
-/replication/backups/
-/replication/es_archives/
-/replication/.temporary_aws_credentials

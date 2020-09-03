@@ -20,9 +20,12 @@ govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::contacts::enabled: false
+govuk::apps::content_publisher::enabled: false
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::collections_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::publisher::email_group_dev: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
@@ -30,24 +33,40 @@ govuk::apps::publisher::email_group_business: 'mainstream-publisher-notification
 govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::fact_check_subject_prefix: 'staging'
-govuk::apps::publisher::fact_check_reply_to_id: 'c07e5ba1-08fe-4080-acec-70e66f961c55'
-govuk::apps::publisher::fact_check_reply_to_address: 'factcheck@alphagov.co.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '88f713ff-7de0-43a6-8221-8721bedd103c'
+govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-staging@digital.cabinet-office.gov.uk'
 govuk::apps::search_admin::govuk_notify_template_id: '112842bb-d8a4-4511-90de-57dc5c8f27ec'
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::short_url_manager::instance_name: 'staging'
 govuk::apps::short_url_manager::govuk_notify_template_id: '112842bb-d8a4-4511-90de-57dc5c8f27ec'
 govuk::apps::signon::instance_name: 'staging'
+govuk::apps::signon::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: false
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: false
+govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+
+govuk::apps::contacts::ensure: 'absent'
+govuk::apps::collections_publisher::ensure: 'absent'
+govuk::apps::content_publisher::ensure: 'absent'
+govuk::apps::content_tagger::ensure: 'absent'
+govuk::apps::hmrc_manuals_api::ensure: 'absent'
+govuk::apps::manuals_publisher::ensure: 'absent'
+govuk::apps::maslow::ensure: 'absent'
+govuk::apps::publisher::ensure: 'absent'
+govuk::apps::search_admin::ensure: 'absent'
+govuk::apps::service_manual_publisher::ensure: 'absent'
+govuk::apps::short_url_manager::ensure: 'absent'
+govuk::apps::specialist_publisher::ensure: 'absent'
+govuk::apps::travel_advice_publisher::ensure: 'absent'
 
 govuk::apps::content_tagger::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.staging.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.staging.govuk.digital'
 
-govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::setup::ssh_keys:
     jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
@@ -260,7 +279,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-publisher'
   - 'content-tagger'
-  - 'docs'
   - 'hmrc-manuals-api'
   - 'maslow'
   - 'manuals-publisher'
@@ -268,7 +286,6 @@ hosts::production::backend::app_hostnames:
   - 'search-admin'
   - 'service-manual-publisher'
   - 'short-url-manager'
-  - 'signon'
   - 'specialist-publisher'
   - 'specialist-publisher-rebuild'
   - 'specialist-publisher-rebuild-standalone'

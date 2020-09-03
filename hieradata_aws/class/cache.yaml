@@ -1,8 +1,5 @@
 ---
 
-govuk_safe_to_reboot::can_reboot: 'careful'
-govuk_safe_to_reboot::reason: 'Handles requests, traffic should be drained before restarting'
-
 govuk::apps::authenticating_proxy::mongodb_nodes:
   - 'router-backend-1'
   - 'router-backend-2'
@@ -19,3 +16,19 @@ varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
 # Increase the maximum number of file descriptors usable by the router
 # A file descriptor is used per connection
 govuk::deploy::config::nofile_limit: 65536
+
+router::nginx::app_specific_static_asset_routes:
+  '/assets/calculators/': 'calculators'
+  '/assets/collections/': 'collections'
+  '/assets/email-alert-frontend/': 'email-alert-frontend'
+  '/assets/feedback/': 'feedback'
+  '/assets/finder-frontend/': 'finder-frontend'
+  '/assets/info-frontend/': 'info-frontend'
+  '/assets/frontend/': 'frontend'
+  '/assets/government-frontend/': 'government-frontend'
+  '/assets/licencefinder/': 'licencefinder'
+  '/assets/manuals-frontend/': 'manuals-frontend'
+  '/assets/service-manual-frontend/': 'service-manual-frontend'
+  '/assets/smartanswers/': 'smartanswers'
+  '/assets/static/': 'static'
+  '/assets/whitehall/': 'whitehall-frontend'

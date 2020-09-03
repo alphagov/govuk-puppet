@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.#
+#
 # [*port*]
 #   The port that publishing API is served on.
 #
@@ -57,7 +60,17 @@
 #   Redis port for Sidekiq.
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
+# [*publish_without_2i_email*]
+#   The email address which will receive publishing without 2i alerts.
+#
 class govuk::apps::collections_publisher(
+  $ensure = 'present',
   $port,
   $secret_key_base = undef,
   $sentry_dsn = undef,
@@ -73,10 +86,16 @@ class govuk::apps::collections_publisher(
   $redis_host = undef,
   $redis_port = undef,
   $jwt_auth_secret = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $publish_without_2i_email = undef,
 ) {
   $app_name = 'collections-publisher'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -87,41 +106,55 @@ class govuk::apps::collections_publisher(
     deny_framing       => true,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
+  govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
   }
 
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
-
-  if $secret_key_base {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
     }
-  }
 
-  govuk::app::envvar {
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-        value   => $link_checker_api_bearer_token;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-JWT_AUTH_SECRET":
-      varname => 'JWT_AUTH_SECRET',
-      value   => $jwt_auth_secret;
-  }
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
 
-  if $::govuk_node_class !~ /^development$/ {
+    if $secret_key_base {
+      govuk::app::envvar { "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      }
+    }
+
+    govuk::app::envvar {
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+          value   => $link_checker_api_bearer_token;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-JWT_AUTH_SECRET":
+        varname => 'JWT_AUTH_SECRET',
+        value   => $jwt_auth_secret;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+      "${title}-PUBLISH_WITHOUT_2I_EMAIL":
+        varname => 'PUBLISH_WITHOUT_2I_EMAIL',
+        value   => $publish_without_2i_email;
+    }
+
     govuk::app::envvar::database_url { $app_name:
       type     => 'mysql2',
       username => $db_username,
@@ -129,9 +162,6 @@ class govuk::apps::collections_publisher(
       host     => $db_hostname,
       database => $db_name,
     }
-  }
 
-  govuk::procfile::worker { $app_name:
-    enable_service => $enable_procfile_worker,
   }
 }

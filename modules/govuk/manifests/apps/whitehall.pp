@@ -22,6 +22,10 @@
 #   Rack limit for how many form parameters it will parse.
 #   Default: undef
 #
+# [*asset_host*]
+#   The URL that will be used as a prefix for whitehall assets.
+#   Default: undef
+#
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
@@ -135,6 +139,17 @@
 #   `configure_frontend` is disabled.
 #   Default: 4
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
+# [*aws_region*]
+#   The Region for AWS to access S3 buckets.
+#
+# [*aws_s3_bucket_name*]
+#   The S3 Bucket for AWS to access.
 
 class govuk::apps::whitehall(
   $admin_db_name = undef,
@@ -143,6 +158,7 @@ class govuk::apps::whitehall(
   $admin_db_username = undef,
   $admin_key_space_limit = undef,
   $asset_manager_bearer_token = undef,
+  $asset_host = undef,
   $basic_auth_credentials = undef,
   $configure_frontend = false,
   $configure_admin = false,
@@ -177,6 +193,10 @@ class govuk::apps::whitehall(
   $override_search_location = undef,
   $frontend_unicorn_worker_processes = 8,
   $backend_unicorn_worker_processes = 4,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
+  $aws_region = 'eu-west-1',
+  $aws_s3_bucket_name = undef,
 ) {
 
   $app_name = 'whitehall'
@@ -224,13 +244,6 @@ class govuk::apps::whitehall(
   }
 
   if $configure_frontend == true {
-
-    if $::govuk_node_class == 'development' {
-      $app_protocol = 'http'
-    } else {
-      $app_protocol = 'https'
-    }
-
     if $::aws_migration {
       $whitehall_frontend_vhost_  = 'whitehall-frontend'
       $whitehall_frontend_aliases = ['draft-whitehall-frontend']
@@ -245,7 +258,7 @@ class govuk::apps::whitehall(
       protected               => $vhost_protected,
       app_port                => $port,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets'],
+      asset_pipeline_prefixes => ['assets/whitehall'],
     }
 
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
@@ -258,14 +271,12 @@ class govuk::apps::whitehall(
       }
     }
 
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'mysql2',
-        username => $db_username,
-        password => $db_password,
-        host     => $db_hostname,
-        database => $db_name,
-      }
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      database => $db_name,
     }
   }
 
@@ -286,7 +297,7 @@ class govuk::apps::whitehall(
       deny_framing            => true,
       deny_crawlers           => true,
       asset_pipeline          => true,
-      asset_pipeline_prefixes => ['government/assets'],
+      asset_pipeline_prefixes => ['assets/whitehall'],
       hidden_paths            => [$health_check_path],
       nginx_extra_config      => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
@@ -344,17 +355,10 @@ class govuk::apps::whitehall(
       memory_critical_threshold => 14000,
     }
 
-    # NOTE. The GOVUK_ASSET_ROOT environment variable uses a protocol relative
-    # URL so assets in admin are on the same domain but work in production and
-    # development. (This is needed for IE8)
     govuk::app::envvar {
       "${title}-ASSET_MANAGER_BEARER_TOKEN":
         varname => 'ASSET_MANAGER_BEARER_TOKEN',
         value   => $asset_manager_bearer_token;
-      "${title}-GOVUK_ASSET_ROOT":
-        app     => $app_name,
-        varname => 'GOVUK_ASSET_ROOT',
-        value   => "//whitehall-admin.${app_domain}";
       "${title}-HIGHLIGHT_WORDS_TO_AVOID":
         varname => 'HIGHLIGHT_WORDS_TO_AVOID',
         value   => bool2str($highlight_words_to_avoid);
@@ -373,85 +377,26 @@ class govuk::apps::whitehall(
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
           varname => 'LINK_CHECKER_API_BEARER_TOKEN',
           value   => $link_checker_api_bearer_token;
+      "${title}-GOVUK_NOTIFY_API_KEY":
+        varname => 'GOVUK_NOTIFY_API_KEY',
+        value   => $govuk_notify_api_key;
+      "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+        varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+        value   => $govuk_notify_template_id;
+      "${title}-AWS_REGION":
+        varname => 'AWS_REGION',
+        value   => $aws_region;
+      "${title}-AWS_S3_BUCKET_NAME":
+        varname => 'AWS_S3_BUCKET_NAME',
+        value   => $aws_s3_bucket_name;
     }
 
-    if $::govuk_node_class !~ /^development$/ {
-      govuk::app::envvar::database_url { $app_name:
-        type     => 'mysql2',
-        username => $admin_db_username,
-        password => $admin_db_password,
-        host     => $admin_db_hostname,
-        database => $admin_db_name,
-      }
-    }
-
-    if $::govuk_node_class =~ /^development$/ {
-      # Create the directory structure for whitehall assets in development
-      $asset_directories = [
-        '/data/uploads/whitehall',
-        '/data/uploads/whitehall/asset-manager-tmp',
-        '/data/uploads/whitehall/attachment-cache',
-        '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
-        '/data/uploads/whitehall/carrierwave-tmp',
-        '/data/uploads/whitehall/clean',
-        '/data/uploads/whitehall/draft-clean',
-        '/data/uploads/whitehall/draft-incoming',
-        '/data/uploads/whitehall/draft-infected',
-        '/data/uploads/whitehall/fatality_notices',
-        '/data/uploads/whitehall/incoming',
-        '/data/uploads/whitehall/infected',
-      ]
-
-      file { $asset_directories:
-        ensure => directory,
-        mode   => '0775',
-        owner  => 'assets',
-        group  => 'assets',
-      }
-
-      # Symlink directories in the whitehall app root to the assets directories
-      # Use `force` since some of these are created on git checkout.
-      file { '/var/govuk/whitehall/asset-manager-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/asset-manager-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/attachment-cache':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/attachment-cache',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/bulk-upload-zip-file-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/bulk-upload-zip-file-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/carrierwave-tmp':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/carrierwave-tmp',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/clean-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/clean',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/incoming-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/incoming',
-        force  => true,
-      }
-
-      file { '/var/govuk/whitehall/infected-uploads':
-        ensure => symlink,
-        target => '/data/uploads/whitehall/infected',
-        force  => true,
-      }
+    govuk::app::envvar::database_url { $app_name:
+      type     => 'mysql2',
+      username => $admin_db_username,
+      password => $admin_db_password,
+      host     => $admin_db_hostname,
+      database => $admin_db_name,
     }
   }
 
@@ -470,6 +415,14 @@ class govuk::apps::whitehall(
     "${title}-RUMMAGER_BEARER_TOKEN":
       varname => 'RUMMAGER_BEARER_TOKEN',
       value   => $rummager_bearer_token;
+  }
+
+  if $asset_host != undef {
+    govuk::app::envvar {
+      "${title}-ASSET_HOST":
+        varname => 'ASSET_HOST',
+        value   => $asset_host;
+    }
   }
 
   if $basic_auth_credentials != undef {

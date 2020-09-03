@@ -77,6 +77,8 @@ server {
   }
 
   <%- if @deny_crawlers -%>
+  add_header X-Robots-Tag "noindex";
+
   location = /robots.txt {
     add_header content-type text/plain;
     return 200 'User-agent: *\nDisallow: /';

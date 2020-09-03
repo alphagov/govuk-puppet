@@ -11,7 +11,7 @@
 # for historical purposes.  This should be the first option specified 
 # in the config file!!!
 
-log_file=/var/lib/icinga/log/nagios.log
+log_file=/var/log/icinga/nagios.log
 
 # Commands definitions
 cfg_file=/etc/icinga/commands.cfg
@@ -260,7 +260,7 @@ event_broker_options=-1
 #	w	= Weekly rotation (midnight on Saturday evening)
 #	m	= Monthly rotation (midnight last day of month)
 
-log_rotation_method=d
+log_rotation_method=n
 
 
 
@@ -268,7 +268,7 @@ log_rotation_method=d
 # This is the directory where archived (rotated) log files should be 
 # placed (assuming you've chosen to do log rotation).
 
-log_archive_path=/var/lib/icinga/log/archives
+log_archive_path=/var/log/icinga
 
 
 

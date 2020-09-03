@@ -4,7 +4,7 @@
 #
 # === Parameters
 # [*port*]
-#   What port should the app run on? Find the next free one in development-vm/Procfile
+#   What port should the app run on?
 #
 # [*enabled*]
 #   Whether to install or uninstall the app. Defaults to true (install on all enviroments)

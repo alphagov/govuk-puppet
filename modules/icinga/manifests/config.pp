@@ -26,7 +26,6 @@ class icinga::config (
   validate_bool($enable_event_handlers)
 
   include govuk_htpasswd
-  contain icinga::config::pingdom
   contain icinga::config::smokey
 
   $app_domain = hiera('app_domain','dev.gov.uk')
@@ -58,15 +57,12 @@ class icinga::config (
   }
 
   if $::aws_migration {
-
-    file { '/var/lib/icinga/log':
-      ensure => directory,
-      owner  => 'nagios',
-      group  => 'adm',
-      mode   => '2755',
+    @logrotate::conf { 'icinga':
+      matches => '/var/log/icinga/*.log',
+      maxsize => '100M',
     }
 
-    file { '/var/lib/icinga/log/archives':
+    file { '/var/log/icinga':
       ensure => directory,
       owner  => 'nagios',
       group  => 'adm',

@@ -168,13 +168,11 @@ class govuk::apps::bouncer(
     document_root => '/var/apps/bouncer/assets-directgov/directgov_campaigns',
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { 'bouncer':
-      type     => 'postgresql',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
-    }
+  govuk::app::envvar::database_url { 'bouncer':
+    type     => 'postgresql',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    database => $db_name,
   }
 }

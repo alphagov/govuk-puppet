@@ -79,7 +79,7 @@ class govuk::apps::frontend(
     health_check_path        => '/',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    asset_pipeline_prefixes  => ['frontend', 'assets/frontend'],
+    asset_pipeline_prefixes  => ['assets/frontend'],
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
     vhost                    => $vhost,

@@ -37,7 +37,7 @@ class govuk_containers::memcached(
 
   @@icinga::check { "check_memcached_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!memcached',
-    service_description => 'memcached running',
+    service_description => 'memcached not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

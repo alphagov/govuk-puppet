@@ -6,13 +6,34 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": null,
+  "id": 35,
   "links": [],
   "refresh": "1m",
   "rows": [
     {
       "collapse": false,
-      "height": "200",
+      "height": "0",
+      "panels": [
+        {
+          "content": "- [AWS RDS Stats for databases](/dashboard/file/aws-rds.json?orgId=1&var-region=eu-west-1&var-dbinstanceidentifier=blue-postgresql-primary)",
+          "id": 77,
+          "links": [],
+          "mode": "markdown",
+          "span": 12,
+          "title": "",
+          "type": "text"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 248,
       "panels": [
         {
           "aliasColors": {},
@@ -56,7 +77,7 @@
             }
           ],
           "spaceLength": 10,
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -112,19 +133,7 @@
               "show": true
             }
           ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": "350px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -141,12 +150,12 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
           "percentage": false,
@@ -156,11 +165,15 @@
           "seriesOverrides": [
             {
               "alias": "/user/",
-              "linewidth": 2
+              "color": "#3F6833"
+            },
+            {
+              "alias": "/system/",
+              "color": "#0A50A1"
             }
           ],
           "spaceLength": 10,
-          "span": 12,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -175,7 +188,7 @@
           "title": "CPU",
           "tooltip": {
             "msResolution": true,
-            "shared": true,
+            "shared": false,
             "sort": 0,
             "value_type": "cumulative"
           },
@@ -205,19 +218,7 @@
               "show": true
             }
           ]
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
-      "height": "450px",
-      "panels": [
+        },
         {
           "aliasColors": {},
           "bars": false,
@@ -230,16 +231,19 @@
           "grid": {},
           "id": 2,
           "legend": {
-            "avg": false,
+            "alignAsTable": true,
+            "avg": true,
             "current": false,
-            "max": false,
-            "min": false,
-            "show": true,
+            "max": true,
+            "min": true,
+            "show": false,
+            "sort": null,
+            "sortDesc": null,
             "total": false,
-            "values": false
+            "values": true
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
           "percentage": false,
@@ -249,44 +253,42 @@
           "seriesOverrides": [
             {
               "alias": "Total",
-              "color": "#890F02",
-              "stack": false
+              "color": "#890F02"
             },
             {
-              "alias": "Used",
-              "color": "#629E51",
-              "fill": 2,
-              "linewidth": 3
+              "alias": "/memory-used/",
+              "color": "#629E51"
             },
             {
-              "alias": "Buffered",
+              "alias": "/memory-buffered/",
               "color": "#0A50A1"
             },
             {
-              "alias": "Cached",
+              "alias": "/memory-cached/",
               "color": "#E5AC0E"
             }
           ],
           "spaceLength": 10,
-          "span": 12,
-          "stack": true,
+          "span": 4,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "alias(consolidateBy($hostname.memory.memory-used, 'max'), 'Used')"
+              "target": "aliasByNode(maximumAbove(consolidateBy($hostname.memory.memory-used, 'max'), 0), 0, 2)"
             },
             {
               "refId": "C",
-              "target": "alias(consolidateBy($hostname.memory.memory-buffered, 'max'), 'Buffered')"
+              "target": "aliasByNode(maximumAbove(consolidateBy($hostname.memory.memory-buffered, 'max'), 0), 0, 2)"
             },
             {
               "refId": "B",
-              "target": "alias(consolidateBy($hostname.memory.memory-cached, 'max'), 'Cached')"
+              "target": "aliasByNode(maximumAbove(consolidateBy($hostname.memory.memory-cached, 'max'), 0), 0, 2)"
             },
             {
               "refId": "D",
-              "target": "alias(sumSeries($hostname.memory.memory-*), 'Total')"
+              "target": "alias(maximumAbove(groupByNode($hostname.memory.memory-*, 0, 'sum'), 0), 'Total')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -295,7 +297,7 @@
           "title": "Memory",
           "tooltip": {
             "msResolution": true,
-            "shared": true,
+            "shared": false,
             "sort": 2,
             "value_type": "individual"
           },
@@ -330,8 +332,8 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "New row",
+      "showTitle": true,
+      "title": "Processor and memory",
       "titleSize": "h6"
     },
     {
@@ -365,6 +367,601 @@
           "points": false,
           "renderer": "flot",
           "repeat": "filesystem",
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "dev",
+              "value": "dev"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 78,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "root",
+              "value": "root"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 79,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "run",
+              "value": "run"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 80,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "run-lock",
+              "value": "run-lock"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 81,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "run-shm",
+              "value": "run-shm"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 82,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "run-user",
+              "value": "run-user"
+            }
+          },
+          "seriesOverrides": [
+            {
+              "alias": "Total",
+              "color": "#BF1B00",
+              "fill": 0,
+              "stack": false
+            }
+          ],
+          "spaceLength": 10,
+          "span": 1.7142857142857142,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "B",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-reserved, 'max'), 2)"
+            },
+            {
+              "refId": "A",
+              "target": "aliasByNode(consolidateBy($hostname.df-$filesystem.df_complex-used, 'max'), 2)"
+            },
+            {
+              "refId": "C",
+              "target": "alias(sumSeries($hostname.df-$filesystem.df_complex-*), 'Total')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "$filesystem",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 83,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "minSpan": 1,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 4,
+          "scopedVars": {
+            "filesystem": {
+              "selected": false,
+              "text": "sys-fs-cgroup",
+              "value": "sys-fs-cgroup"
+            }
+          },
           "seriesOverrides": [
             {
               "alias": "Total",
@@ -431,8 +1028,8 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
+      "showTitle": true,
+      "title": "File Systems",
       "titleSize": "h6"
     },
     {
@@ -452,7 +1049,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -466,9 +1063,16 @@
           "points": false,
           "renderer": "flot",
           "repeat": "disk",
+          "scopedVars": {
+            "disk": {
+              "selected": false,
+              "text": "nvme0n1",
+              "value": "nvme0n1"
+            }
+          },
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 1,
+          "span": 12,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -483,7 +1087,7 @@
           "timeShift": null,
           "title": "$disk disk time",
           "tooltip": {
-            "shared": true,
+            "shared": false,
             "sort": 0,
             "value_type": "individual"
           },
@@ -519,8 +1123,8 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
+      "showTitle": true,
+      "title": "Disks",
       "titleSize": "h6"
     },
     {
@@ -540,7 +1144,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -578,7 +1182,7 @@
           "timeShift": null,
           "title": "TCP (Transmission Control Protocol)",
           "tooltip": {
-            "shared": true,
+            "shared": false,
             "sort": 2,
             "value_type": "individual"
           },
@@ -613,13 +1217,13 @@
       "repeat": null,
       "repeatIteration": null,
       "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
+      "showTitle": true,
+      "title": "TCP Signals",
       "titleSize": "h6"
     },
     {
       "collapse": false,
-      "height": 250,
+      "height": 253,
       "panels": [
         {
           "aliasColors": {},
@@ -634,22 +1238,30 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
           "lines": true,
           "linewidth": 1,
           "links": [],
+          "minSpan": 3,
           "nullPointMode": "null",
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
           "repeat": "tcpconnslocal",
+          "scopedVars": {
+            "tcpconnslocal": {
+              "selected": false,
+              "text": "22",
+              "value": "22"
+            }
+          },
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -664,7 +1276,259 @@
           "timeShift": null,
           "title": "Local $tcpconnslocal",
           "tooltip": {
-            "shared": true,
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 84,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 56,
+          "scopedVars": {
+            "tcpconnslocal": {
+              "selected": false,
+              "text": "3088",
+              "value": "3088"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnslocal-local.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Local $tcpconnslocal",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 85,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 56,
+          "scopedVars": {
+            "tcpconnslocal": {
+              "selected": false,
+              "text": "443",
+              "value": "443"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnslocal-local.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Local $tcpconnslocal",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 86,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 56,
+          "scopedVars": {
+            "tcpconnslocal": {
+              "selected": false,
+              "text": "80",
+              "value": "80"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnslocal-local.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Local $tcpconnslocal",
+          "tooltip": {
+            "shared": false,
             "sort": 0,
             "value_type": "individual"
           },
@@ -720,7 +1584,7 @@
             "current": false,
             "max": false,
             "min": false,
-            "show": true,
+            "show": false,
             "total": false,
             "values": false
           },
@@ -734,9 +1598,16 @@
           "points": false,
           "renderer": "flot",
           "repeat": "tcpconnsremote",
+          "scopedVars": {
+            "tcpconnsremote": {
+              "selected": false,
+              "text": "22",
+              "value": "22"
+            }
+          },
           "seriesOverrides": [],
           "spaceLength": 10,
-          "span": 4,
+          "span": 3,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -751,7 +1622,259 @@
           "timeShift": null,
           "title": "Remote $tcpconnsremote",
           "tooltip": {
-            "shared": true,
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 87,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 60,
+          "scopedVars": {
+            "tcpconnsremote": {
+              "selected": false,
+              "text": "3088",
+              "value": "3088"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnsremote-remote.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Remote $tcpconnsremote",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 88,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 60,
+          "scopedVars": {
+            "tcpconnsremote": {
+              "selected": false,
+              "text": "443",
+              "value": "443"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnsremote-remote.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Remote $tcpconnsremote",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 89,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": false,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "minSpan": 3,
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "repeat": null,
+          "repeatIteration": 1593182436260,
+          "repeatPanelId": 60,
+          "scopedVars": {
+            "tcpconnsremote": {
+              "selected": false,
+              "text": "80",
+              "value": "80"
+            }
+          },
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 3,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "aliasByNode(aliasSub($hostname.tcpconns-$tcpconnsremote-remote.*, 'tcp_connections-(.*)', '\\1'), 2)",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Remote $tcpconnsremote",
+          "tooltip": {
+            "shared": false,
             "sort": 0,
             "value_type": "individual"
           },
@@ -798,7 +1921,10 @@
     "list": [
       {
         "allValue": "*",
-        "current": {},
+        "current": {
+          "text": "email*",
+          "value": "email*"
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": false,
@@ -819,11 +1945,9 @@
       {
         "allValue": "*",
         "current": {
-          "text": "cpu-system + cpu-user",
-          "value": [
-            "cpu-system",
-            "cpu-user"
-          ]
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
         },
         "datasource": "Graphite",
         "hide": 0,
@@ -844,7 +1968,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": true,
@@ -864,7 +1992,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": true,
@@ -884,7 +2016,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": true,
@@ -904,7 +2040,11 @@
       },
       {
         "allValue": null,
-        "current": {},
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
         "datasource": "Graphite",
         "hide": 0,
         "includeAll": true,
@@ -925,7 +2065,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-1h",
     "to": "now"
   },
   "timepicker": {
@@ -955,5 +2095,5 @@
   },
   "timezone": "browser",
   "title": "Machine",
-  "version": 10
+  "version": 6
 }

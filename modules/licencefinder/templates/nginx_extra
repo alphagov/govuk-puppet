@@ -1,0 +1,2 @@
+limit_req_status 429;
+limit_req zone=licencefinder burst=40 nodelay;

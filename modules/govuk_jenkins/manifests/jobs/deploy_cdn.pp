@@ -5,6 +5,7 @@
 class govuk_jenkins::jobs::deploy_cdn(
   $app_domain = hiera('app_domain'),
   $enable_slack_notifications = false,
+  $services = [],
 ) {
 
   $environment_variables = $govuk_jenkins::environment_variables

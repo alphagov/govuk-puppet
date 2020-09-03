@@ -4,13 +4,12 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*asset_manager_bearer_token*]
 #   The bearer token to use when communicating with Asset Manager.
 #   Default: undef
-#
-# [*enable_email_alerts*]
-#   Send email alerts via the email-alert-api
-#   Default: false
 #
 # [*enable_procfile_worker*]
 #   Enables the sidekiq background worker.
@@ -72,8 +71,8 @@
 #   Default: undef
 #
 class govuk::apps::travel_advice_publisher(
+  $ensure = 'present',
   $asset_manager_bearer_token = undef,
-  $enable_email_alerts = false,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $mongodb_name = undef,
@@ -94,7 +93,10 @@ class govuk::apps::travel_advice_publisher(
 ) {
   $app_name = 'travel-advice-publisher'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -106,51 +108,6 @@ class govuk::apps::travel_advice_publisher(
     deny_framing       => true,
   }
 
-  Govuk::App::Envvar {
-    app     => $app_name,
-  }
-
-  if $mongodb_nodes != undef {
-    govuk::app::envvar::mongodb_uri { $app_name:
-      hosts    => $mongodb_nodes,
-      database => $mongodb_name,
-      username => $mongodb_username,
-      password => $mongodb_password,
-    }
-  }
-
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
-  }
-
-  govuk::app::envvar {
-    "${title}-ASSET_MANAGER_BEARER_TOKEN":
-      varname => 'ASSET_MANAGER_BEARER_TOKEN',
-      value   => $asset_manager_bearer_token;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
-      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
-      value   => $email_alert_api_bearer_token;
-    "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
-    "${title}-LINK_CHECKER_API_SECRET_TOKEN":
-        varname => 'LINK_CHECKER_API_SECRET_TOKEN',
-        value   => $link_checker_api_secret_token;
-    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-        value   => $link_checker_api_bearer_token;
-  }
-
   validate_bool($show_historical_edition_link)
   if ($show_historical_edition_link) {
     govuk::app::envvar {
@@ -160,17 +117,56 @@ class govuk::apps::travel_advice_publisher(
     }
   }
 
-  validate_bool($enable_email_alerts)
-  if ($enable_email_alerts) {
-    govuk::app::envvar {
-      "${title}-SEND_EMAIL_ALERTS":
-        varname => 'SEND_EMAIL_ALERTS',
-        value   => '1';
-    }
-  }
-
   validate_bool($enable_procfile_worker)
   govuk::procfile::worker { $app_name:
+    ensure         => $ensure,
     enable_service => $enable_procfile_worker,
+  }
+
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app     => $app_name,
+    }
+
+    if $mongodb_nodes != undef {
+      govuk::app::envvar::mongodb_uri { $app_name:
+        hosts    => $mongodb_nodes,
+        database => $mongodb_name,
+        username => $mongodb_username,
+        password => $mongodb_password,
+      }
+    }
+
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
+
+    govuk::app::envvar {
+      "${title}-ASSET_MANAGER_BEARER_TOKEN":
+        varname => 'ASSET_MANAGER_BEARER_TOKEN',
+        value   => $asset_manager_bearer_token;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+      "${title}-LINK_CHECKER_API_SECRET_TOKEN":
+          varname => 'LINK_CHECKER_API_SECRET_TOKEN',
+          value   => $link_checker_api_secret_token;
+      "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+          value   => $link_checker_api_bearer_token;
+    }
   }
 }

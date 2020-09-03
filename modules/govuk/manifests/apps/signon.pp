@@ -66,6 +66,12 @@
 #   The number of unicorn worker processes to run
 #   Default: undef
 #
+# [*govuk_notify_api_key*]
+#   The API key used to send email via GOV.UK Notify.
+#
+# [*govuk_notify_template_id*]
+#   The template ID used to send email via GOV.UK Notify.
+#
 class govuk::apps::signon(
   $db_hostname = undef,
   $db_name = undef,
@@ -86,6 +92,8 @@ class govuk::apps::signon(
   $splunk_event_log_endpoint_hec_token = undef,
   $sso_push_user_email = undef,
   $unicorn_worker_processes = undef,
+  $govuk_notify_api_key = undef,
+  $govuk_notify_template_id = undef,
 ) {
   $app_name = 'signon'
 
@@ -122,6 +130,12 @@ class govuk::apps::signon(
     "${title}-SSO_PUSH_USER_EMAIL":
       varname => 'SSO_PUSH_USER_EMAIL',
       value   => $sso_push_user_email;
+    "${title}-GOVUK_NOTIFY_API_KEY":
+      varname => 'GOVUK_NOTIFY_API_KEY',
+      value   => $govuk_notify_api_key;
+    "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
+      varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
+      value   => $govuk_notify_template_id;
   }
 
   govuk::app::envvar::redis { $app_name:
@@ -155,14 +169,12 @@ class govuk::apps::signon(
     }
   }
 
-  if $::govuk_node_class !~ /^development$/ {
-    govuk::app::envvar::database_url { $app_name:
-      type     => 'mysql2',
-      username => $db_username,
-      password => $db_password,
-      host     => $db_hostname,
-      database => $db_name,
-    }
+  govuk::app::envvar::database_url { $app_name:
+    type     => 'mysql2',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    database => $db_name,
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

@@ -111,7 +111,6 @@ class govuk::deploy::config(
 
     'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
     'SENTRY_CURRENT_ENV': value        => $errbit_environment_name;
-    'GOVUK_ASSET_HOST': value          => $asset_root;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
     'GOVUK_CSP_REPORT_ONLY': value     => $csp_report_only_value;

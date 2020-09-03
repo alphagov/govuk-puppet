@@ -20,10 +20,21 @@ server {
 }
 
 server {
-  server_name         www.* www-origin.* draft-origin.*;
+  server_name         www.* www-origin.*;
   listen 80;
   # Send the Strict-Transport-Security header
   include             /etc/nginx/add-sts.conf;
 
   include             /etc/nginx/router_include.conf;
+}
+
+server {
+  server_name         draft-origin.*;
+  listen 80;
+  # Send the Strict-Transport-Security header
+  include             /etc/nginx/add-sts.conf;
+
+  include             /etc/nginx/router_include.conf;
+
+  add_header X-Robots-Tag "noindex";
 }

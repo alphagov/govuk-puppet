@@ -86,7 +86,7 @@ begin
     iam.list_access_keys(user_name: user.user_name).access_key_metadata.each do |key|
       age = (Date.today - key.create_date.to_date).to_i
       puts "#{key.access_key_id}: #{key.create_date.to_date}" if options[:debug]
-      if age >= options[:days]
+      if age >= options[:days] && key.status == "Active"
         failed_keys << "#{user.user_name} (#{age} days)"
       end
     end

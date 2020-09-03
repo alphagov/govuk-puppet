@@ -38,6 +38,7 @@ node_class: &node_class
       - service-manual-publisher
       - short-url-manager
       - sidekiq-monitoring
+      - signon
       - specialist-publisher
       - support
       - support-api
@@ -140,6 +141,7 @@ govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.u
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
 govuk::apps::ckan::cronjobs::enable_solr_reindex: true
+govuk::apps::contacts::enabled: true
 govuk::apps::content_data_admin::google_tag_manager_auth: 'xcAlGBhKTIeO6y_JhmEapQ'
 govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
@@ -151,7 +153,10 @@ govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
+govuk::apps::content_publisher::enabled: true
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::collections_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-staging.cloudapps.digital'
 
@@ -164,6 +169,8 @@ govuk::apps::email_alert_api::email_address_override: 'success@simulator.amazons
 govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
+govuk::apps::feedback::govuk_notify_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
+govuk::apps::feedback::govuk_notify_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
@@ -175,7 +182,6 @@ govuk::apps::manuals_publisher::mongodb_password: "%{hiera('govuk::apps::asset_m
 govuk::apps::maslow::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::maslow::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::maslow::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
-govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+staging-{id}@alphagov.co.uk'
 govuk::apps::publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
@@ -186,8 +192,8 @@ govuk::apps::publisher::email_group_business: 'mainstream-publisher-notification
 govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::fact_check_subject_prefix: 'staging'
-govuk::apps::publisher::fact_check_reply_to_id: 'c07e5ba1-08fe-4080-acec-70e66f961c55'
-govuk::apps::publisher::fact_check_reply_to_address: 'factcheck@alphagov.co.uk'
+govuk::apps::publisher::fact_check_reply_to_id: '88f713ff-7de0-43a6-8221-8721bedd103c'
+govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
@@ -203,23 +209,40 @@ govuk::apps::short_url_manager::mongodb_nodes: "%{hiera('govuk::apps::asset_mana
 govuk::apps::short_url_manager::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::short_url_manager::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
 govuk::apps::signon::instance_name: 'staging'
+govuk::apps::signon::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-staging-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: true
 govuk::apps::travel_advice_publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
+govuk::apps::whitehall::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-staging-whitehall-csvs'
+
+govuk::apps::contacts::ensure: 'present'
+govuk::apps::collections_publisher::ensure: 'present'
+govuk::apps::content_publisher::ensure: 'present'
+govuk::apps::content_tagger::ensure: 'present'
+govuk::apps::hmrc_manuals_api::ensure: 'present'
+govuk::apps::manuals_publisher::ensure: 'present'
+govuk::apps::maslow::ensure: 'present'
+govuk::apps::publisher::ensure: 'present'
+govuk::apps::search_admin::ensure: 'present'
+govuk::apps::service_manual_publisher::ensure: 'present'
+govuk::apps::short_url_manager::ensure: 'present'
+govuk::apps::specialist_publisher::ensure: 'present'
+govuk::apps::travel_advice_publisher::ensure: 'present'
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 
-govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'staging'
 govuk::deploy::setup::ssh_keys:
     jenkins_staging_carrenza: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDCtuq8uMfbwh7asChk/F/VD5gPnnBD7pLeN1W4iOrkq3KbzdLErzK3W0EpCA2C07JU55egolaO7lDUF6MtmAiGLfHApju5lZ6ziUq+zebEbkwtpLUNop2zp51pZl5/meMEF9pQEcHD46iZGs1sLuZGNzzu12PKvpAHDFK9GPHrYez7asKh4JVCi5DNusOMFUFE+BW8w37zJZ4ksdeZ58w1PTS8+Q65k6MQdWDAUr9BLcsacZ2kzRHsMxP3bd3lljY9HT0lh1qPgwRcWqbfVjB8dAzTxiQHJm0w3xywcx/IUKMSL1WCJV7rZ5nt0XgOfU/cGRXDtRHPvMMrMfKqFGbyTTCjix4Y0k1FD2udXxvv03GjL12qohrsb1JxFv5CdLbV8Yn96IDIjEVKA+1GIwxl0w4TtMVCLqImIMaTD00tdY58fAb2uIy9xSTxu2jKdsEKCcbbC9ipE5lUM/3/kgl06OljBwgAcLgsbbWAHip59E3l6xO+BmW7f7PeepZMRDr15Xwr4RiEu76SQPoRFM5honi7yPLTNwscEgxEjZgKjOkNfVeABeJhJ5rOElAYx7K1bIsW/93DXtTWPDMxGGkiTM279Evy0LJjdVu6XGDmd9qw8usdKjfjASHe9mMFfSXZflHA6VW2o1Zjo40KWHXxJSdPN4bTujpahjd8QOb6Sw=='
@@ -362,7 +385,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger
-      - backend-docs
       - backend-hmrc-manuals-api
       - backend-kibana
       - backend-manuals-publisher
@@ -414,8 +436,6 @@ monitoring::checks::smokey::features:
     feature: csv_preview
   check_draft_environment:
     feature: draft_environment
-  check_email_sign_up:
-    feature: email_sign_up
   check_feedback:
     feature: feedback
   check_finder_frontend:
@@ -442,8 +462,6 @@ monitoring::checks::smokey::features:
     feature: publishing_tools
   check_router:
     feature: router
-  check_search:
-    feature: search
   check_service_manual:
     feature: service_manual
   check_signon:

@@ -51,7 +51,7 @@ class govuk::apps::collections(
     health_check_path        => '/topic/oil-and-gas',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    asset_pipeline_prefixes  => ['collections', 'assets/collections'],
+    asset_pipeline_prefixes  => ['assets/collections'],
     vhost                    => $vhost,
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,

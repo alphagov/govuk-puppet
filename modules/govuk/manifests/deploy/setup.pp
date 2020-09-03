@@ -5,14 +5,6 @@
 #
 # === Parameters
 #
-# [*setup_actionmailer_ses_config*]
-# [*actionmailer_enable_delivery*]
-#   Determines whether email deliveries are enabled in the ActionMailer config.
-#
-# [*aws_ses_smtp_host*]
-# [*aws_ses_smtp_username*]
-# [*aws_ses_smtp_host*]
-#
 # [*ssh_keys*]
 #   Hash of SSH authorized_keys entries to allow deployments from.
 #
@@ -22,11 +14,6 @@
 # [*deploy_gid*]
 #   Deploy GID
 class govuk::deploy::setup (
-    $setup_actionmailer_ses_config,
-    $actionmailer_enable_delivery,
-    $aws_ses_smtp_host,
-    $aws_ses_smtp_username,
-    $aws_ses_smtp_password,
     $gemstash_server = 'http://gemstash.cluster',
     $ssh_keys = { 'not set in hiera' => 'NONE_IN_HIERA' },
     $deploy_uid = undef,
@@ -109,14 +96,6 @@ class govuk::deploy::setup (
     group   => 'deploy',
     mode    => '0600',
     content => template('govuk/home/deploy/.ssh/authorized_keys.erb'),
-  }
-
-  if ($setup_actionmailer_ses_config) {
-    file { '/etc/govuk/actionmailer_ses_smtp_config.rb':
-      ensure  => present,
-      content => template('govuk/etc/govuk/actionmailer_ses_smtp_config.erb'),
-      require => File['/etc/govuk'],
-    }
   }
 
   govuk_bundler::config { 'deploy-bundler':

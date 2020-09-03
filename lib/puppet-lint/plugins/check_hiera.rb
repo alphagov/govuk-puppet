@@ -58,6 +58,10 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # nginx virtual host configuration
     'router::assets_origin::asset_manager_uploaded_assets_routes',
 
+    # Allow deploy_app.pp to share knowledge about the applications supported
+    # by deploy_app_downstream. This will become redundant once all apps support Continuous Deployment.
+    'govuk_jenkins::jobs::deploy_app_downstream::applications',
+
     'mysql_replica_password',
     'mysql_root',
     'nginx_enable_ssl',

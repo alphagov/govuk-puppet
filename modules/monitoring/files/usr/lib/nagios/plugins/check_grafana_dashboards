@@ -8,7 +8,7 @@ while getopts ":h:" opt; do
   esac
 done
 
-DASHBOARDS=$(curl -s https://$GRAFANA_HOST/api/search | jq -c '.[]' | grep 'db/' | jq '.title')
+DASHBOARDS=$(curl -s https://$GRAFANA_HOST/api/search | jq -c '.[]' | grep 'db/' | jq '.title' | grep -v 'TEMPORARY')
 
 if [ -z "$DASHBOARDS" ]; then
   echo "OK: All dashboards are in version control"

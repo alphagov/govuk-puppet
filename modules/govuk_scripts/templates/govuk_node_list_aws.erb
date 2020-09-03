@@ -8,6 +8,7 @@ import string
 import sys
 import urllib
 import boto3
+import operator
 
 stackname = '<%= @aws_stackname -%>'
 region = '<%= @aws_region -%>'
@@ -40,9 +41,12 @@ def ec2_nodes(stackname, nodeclass=None):
     for reservation in reservations:
         instances = reservation['Instances']
         for instance in instances:
-            hosts.append((instance['PrivateDnsName']))
+            hostname = next(tag['Value'] for tag in instance['Tags'] if tag['Key'] == 'aws_hostname')
+            hosts.append((instance['PrivateDnsName'], hostname))
 
-    return(hosts)
+    hosts.sort(key=operator.itemgetter(1))
+    sorted_hosts = [host[0] for host in hosts]
+    return(sorted_hosts)
 
 def ec2_nodes_list_with_puppet_class(stackname):
     client = boto3.client('ec2', region_name=region)

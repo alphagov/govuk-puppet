@@ -9,7 +9,29 @@
           days-to-keep: 30
           artifact-num-to-keep: 5
     builders:
+      <% if @smokey_pre_check %>
       - shell: |
+          # Wait for any app restarts to complete before running Smokey
+          sleep 60
+      - trigger-builds:
+          - project: Smokey
+            current-parameters: true
+            block: true
+      <% end %>
+      - shell: |
+          # Check for deploy freeze set in Release App
+          APPLICATION_METADATA=$(curl -s \
+            -H "Accept: application/json" \
+            -H "Authorization: Bearer $RELEASE_APP_BEARER_TOKEN" \
+            "https://release.publishing.service.gov.uk/applications/$TARGET_APPLICATION")
+
+          DEPLOY_FREEZE=$(echo "$APPLICATION_METADATA" | jq .deploy_freeze)
+
+          if $DEPLOY_FREEZE; then
+            echo "This application is under a deploy freeze in Release app. Aborting"
+            exit 0 # Don't alert about predictable failures
+          fi
+
           # Workaround for our inconsistent repo vs. deployment naming
           case "$TARGET_APPLICATION" in
           <% @applications.keys.each do |app| %>
@@ -20,11 +42,10 @@
           esac
 
           # Check release to deploy is genuine and we're not going backwards
-          GITHUB_AUTH="-H 'Authorization: token <%= @github_api_token %>'"
           GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
 
-          LATEST_TAGS=$(curl $GITHUB_AUTH -s "$GITHUB_API/tags?per_page=1")
-          LATEST_MASTER=$(curl $GITHUB_AUTH -s "$GITHUB_API/commits?per_page=1")
+          LATEST_TAGS=$(curl -H "Authorization: token $GITHUB_API_TOKEN" -s "$GITHUB_API/tags?per_page=1")
+          LATEST_MASTER=$(curl -H "Authorization: token $GITHUB_API_TOKEN" -s "$GITHUB_API/commits?per_page=1")
 
           LATEST_MASTER_SHA=$(echo "$LATEST_MASTER" | jq '.[].sha' | head -1)
           LATEST_TAG_SHA=$(echo "$LATEST_TAGS" | jq '.[].commit.sha' | head -1)
@@ -32,21 +53,31 @@
 
           if [ "$LATEST_TAG_NAME" != "\"$TAG\"" ]; then
             echo "The TAG parameter does not match the latest release. Aborting."
-            exit 1
+            exit 0 # Don't alert about predictable failures
           fi
 
           if [ "$LATEST_TAG_SHA" != "$LATEST_MASTER_SHA" ]; then
             echo "The TAG to deploy is supserseded, or not on master. Aborting."
-            exit 1
+            exit 0 # Don't alert about predictable failures
           fi
-      - shell: |
+
           # Deploy to downstream environment
-          JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"$DEPLOY_TASK\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"
+          JSON="{\"parameter\": [{\"name\": \"TARGET_APPLICATION\", \"value\": \"$TARGET_APPLICATION\"}, {\"name\": \"TAG\", \"value\": \"$TAG\"}, {\"name\": \"DEPLOY_TASK\", \"value\": \"deploy\"}, {\"name\": \"NOTIFY_RELEASE_APP\", \"value\": \"true\"}, {\"name\": \"SLACK_NOTIFICATIONS\", \"value\": \"true\"}], \"\": \"\"}"
           CRUMB=$(curl https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
           curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/job/Deploy_App/build --data-urlencode json="$JSON"
     wrappers:
         - ansicolor:
             colormap: xterm
+        - inject-passwords:
+            global: false
+            mask-password-params: true
+            job-passwords:
+              - name: GITHUB_API_TOKEN
+                password:
+                  '<%= @github_api_token %>'
+              - name: RELEASE_APP_BEARER_TOKEN
+                password:
+                  '<%= @release_app_bearer_token %>'
     parameters:
         - choice:
             name: TARGET_APPLICATION
@@ -55,14 +86,16 @@
         - string:
             name: TAG
             description: 'Git tag/committish to deploy.'
-        - choice:
-            name: DEPLOY_TASK
-            description: 'Task to run (available as $DEPLOY_TASK to deploy.sh and passed explicitly to Capistrano).'
-            choices:
-              - deploy
-              - deploy:migrations
-              - deploy:setup
     publishers:
         - description-setter:
             regexp: ""
             description: "$TARGET_APPLICATION $TAG"
+        - slack:
+            team-domain: <%= @slack_team_domain %>
+            auth-token-id: <%= @slack_credential_id %>
+            auth-token-credential-id: <%= @slack_credential_id %>
+            build-server-url: <%= @slack_build_server_url %>
+            notify-every-failure: true
+            room: "<%= @slack_channel %>"
+            include-custom-message: true
+            custom-message: "Automatic deployment failed for $TARGET_APPLICATION $TAG"

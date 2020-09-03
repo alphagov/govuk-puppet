@@ -521,7 +521,7 @@
               "name": "Drilldown dashboard",
               "title": "Sentry dashboard",
               "type": "absolute",
-              "url": "/dashboard/db/sentry-errors"
+              "url": "/dashboard/file/sentry_errors_across_all_environments.json"
             }
           ],
           "maxDataPoints": 100,

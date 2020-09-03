@@ -20,11 +20,4 @@ class golang {
 
   # Ensure that scm tools used by `go get` are present.
   ensure_packages(['bzr', 'git', 'mercurial'])
-
-  if $::domain == 'development'{
-    file { '/etc/profile.d/gopath.sh':
-      ensure => present,
-      source => 'puppet:///modules/golang/etc/profile.d/gopath.sh',
-    }
-  }
 }

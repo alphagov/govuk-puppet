@@ -46,14 +46,21 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::clear_frontend_memcache
   - govuk_jenkins::jobs::clear_template_cache
   - govuk_jenkins::jobs::clear_varnish_cache
+  - govuk_jenkins::jobs::configure_github_repos
   - govuk_jenkins::jobs::content_data_api
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
+  - govuk_jenkins::jobs::monitor_taxonomy_health
   - govuk_jenkins::jobs::email_alert_check
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::passive_checks
+  - govuk_jenkins::jobs::publication_delay_report
+  - govuk_jenkins::jobs::record_superfluous_taggings_metrics
+  - govuk_jenkins::jobs::content_data_api_re_run
   - govuk_jenkins::jobs::publish_special_routes
+  - govuk_jenkins::jobs::record_taxonomy_metrics
   - govuk_jenkins::jobs::publishing_api_archive_events
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
@@ -65,6 +72,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_relevancy_rank_evaluation
   - govuk_jenkins::jobs::search_relevancy_metrics_etl
   - govuk_jenkins::jobs::send_bulk_email
+  - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::smokey_deploy

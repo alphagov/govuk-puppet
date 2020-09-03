@@ -1,0 +1,42 @@
+---
+mongodb::aws_backup::ensure: 'absent'
+mongodb::server::version: '3.2.7'
+mongodb::server::development: true
+mongodb::server::replicaset_members:
+  "%{::hostname}":
+
+clamav::use_service: false
+
+govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
+govuk_ci::agent::postgresql::email_alert_api_role_password: 'email-alert-api'
+govuk_ci::agent::gdal_version: "1.11.5"
+govuk_containers::elasticsearch::secondary::enable: false
+postgresql::globals::version: '9.3'
+govuk_postgresql::server::enable_collectd: false
+
+govuk_mysql::server::innodb_flush_log_at_trx_commit: 2
+govuk_mysql::server::innodb_buffer_pool_size_proportion: 0.05
+govuk_mysql::server::query_cache_size: 0
+
+govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_sysdig::ensure: 'absent'
+
+govuk_solr6::present: false
+
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'jenkins'
+  docker:
+    pv: '/dev/nvme2n1'
+    vg: 'data'
+
+mount:
+  /var/lib/jenkins:
+    disk: '/dev/mapper/jenkins-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+  /var/lib/docker:
+    disk: '/dev/mapper/data-docker'
+    govuk_lvm: 'docker'
+    mountoptions: 'defaults'

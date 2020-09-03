@@ -20,6 +20,7 @@ server {
   proxy_set_header X-Forwarded-Server $host;
   proxy_set_header X-Forwarded-Host $host;
   proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  add_header X-Robots-Tag "noindex";
 
 <% if @real_ip_header != '' -%>
   # use an unspoofable header from an upstream cdn or l7 load balancer.

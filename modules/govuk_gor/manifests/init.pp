@@ -86,7 +86,7 @@ class govuk_gor(
     check_command       => 'check_nrpe!check_proc_running!goreplay',
     check_period        => 'not_data_sync',
     host_name           => $::fqdn,
-    service_description => 'gor running',
+    service_description => 'gor not running',
     notes_url           => monitoring_docs_url(gor),
   }
 }

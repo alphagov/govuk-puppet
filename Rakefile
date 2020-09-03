@@ -96,11 +96,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_frontend_lb::whitehall_frontend_servers
     govuk::node::s_mysql_backup::s3_bucket_name
     govuk::node::s_mysql_master::s3_bucket_name
-    govuk::node::s_postgresql_standby::aws_access_key_id
-    govuk::node::s_postgresql_standby::aws_secret_access_key
-    govuk::node::s_postgresql_standby::s3_bucket_url
-    govuk::node::s_postgresql_standby::wale_private_gpg_key
-    govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint
     govuk_jenkins::config::banner_colour_background
     govuk_jenkins::config::banner_colour_text
     govuk_jenkins::config::banner_string
@@ -119,7 +114,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     _
     backup::offsite::jobs
-    govuk::deploy::actionmailer_enable_delivery
     govuk::node::s_apt::real_ip_header
     govuk::node::s_backup::offsite_backups
     govuk::node::s_monitoring::enable_fastly_metrics
@@ -220,6 +214,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::redis_host
     govuk::apps::email_alert_api::redis_port
     govuk::apps::email_alert_api::unicorn_worker_processes
+    govuk::apps::email_alert_frontend::redis_host
+    govuk::apps::email_alert_frontend::redis_port
     govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enable_unpublishing_queue_consumer
     govuk::apps::email_alert_service::enabled
@@ -227,6 +223,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold
     govuk::apps::email_alert_service::rabbitmq_hosts
     govuk::apps::email_alert_service::redis_host
+    govuk::apps::feedback::govuk_notify_reply_to_id
+    govuk::apps::feedback::govuk_notify_template_id
     govuk::apps::finder_frontend::enabled
     govuk::apps::finder_frontend::nagios_memory_critical
     govuk::apps::finder_frontend::nagios_memory_warning
@@ -392,6 +390,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::whitehall::jwt_auth_secret
     govuk::apps::whitehall::redis_host
     govuk::apps::whitehall::redis_port
+    govuk::apps::whitehall::aws_s3_bucket_name
     govuk::deploy::setup::gemstash_server
     govuk::deploy::sync::auth_token
     govuk::deploy::sync::jenkins_domain
@@ -409,7 +408,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_licensing_backend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_licensing_frontend::apt_mirror_hostname
     govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint
-    govuk::node::s_postgresql_primary::alert_hostname
     govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
     govuk_containers::apps::router::envvars
@@ -423,10 +421,10 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::deploy_all_apps::apps_on_nodes
     govuk_jenkins::deploy_all_apps::deploy_environment
     govuk_jenkins::jobs::content_data_api::rake_etl_master_process_cron_schedule
+    govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_master_process_cron_schedule
     govuk_jenkins::jobs::deploy_app::graphite_host
     govuk_jenkins::jobs::deploy_app::graphite_port
     govuk_jenkins::jobs::deploy_emergency_banner::clear_cdn_cache
-    govuk_jenkins::jobs::email_alert_check::email_addresses_to_check
     govuk_jenkins::jobs::passive_checks::alert_hostname
     govuk_pgbouncer::admin::rds
     govuk_pgbouncer::db::lb_ip_range
@@ -492,7 +490,7 @@ task :check_consistency_between_aws_and_carrenza do
     grafana::dashboards::machine_suffix_metrics
     monitoring::checks::sidekiq::enable_support_check
     monitoring::pagerduty_drill::enabled
-    router::nginx::app_specific_static_asset_routes
+    router::assets_origin::website_root
     router::nginx::robotstxt
     govuk::apps::govuk_crawler_worker::blacklist_paths
     govuk_awscloudwatch::apt_mirror_hostname

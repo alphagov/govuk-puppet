@@ -74,7 +74,7 @@ ckan.google_analytics_tracking_id = nil
 ## Search Settings
 
 ckan.site_id = dgu
-solr_url = http://127.0.0.1:8983/solr
+solr_url = <%= "http://#{@solr_host}:#{@solr_port}/solr" %><%= @solr_core == nil ? "" : "/#{@solr_core}" %>
 
 ## CORS Settings
 
@@ -111,11 +111,14 @@ ckan.harvest.mq.type = redis
 ckan.harvest.mq.hostname = <%= @redis_host%>
 ckan.harvest.mq.port = <%= @redis_port%>
 ckan.harvest.mq.redis_db = 1
+# 12 hours timeout
+ckan.harvest.timeout = 720
 
 ckan.redis.url = redis://<%= @redis_host%>:<%= @redis_port%>/1
 
 ckan.spatial.validator.profiles = iso19139eden,constraints-1.4,gemini2-1.3
 ckan.spatial.validator.reject = true
+ckan.spatial.validator.use_default_tag_schema = true
 ckan.spatial.srid = 4258
 
 # Define which views should be created by default

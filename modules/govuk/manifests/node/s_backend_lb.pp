@@ -50,24 +50,12 @@ class govuk::node::s_backend_lb (
   }
 
   loadbalancer::balance { [
-    'collections-publisher',
-    'contacts-admin',
     'content-data',
     'content-data-admin',
     'content-data-api',
-    'content-publisher',
-    'content-tagger',
-    'manuals-publisher',
-    'maslow',
-    'publisher',
     'release',
-    'search-admin',
-    'service-manual-publisher',
     'signon',
-    'specialist-publisher',
-    'short-url-manager',
     'support',
-    'travel-advice-publisher',
     ]:
       servers => $backend_servers,
   }
@@ -97,15 +85,6 @@ class govuk::node::s_backend_lb (
 
   nginx::config::vhost::redirect { "backdrop-admin.${app_domain}" :
     to => "https://admin.${perfplat_public_app_domain}/",
-  }
-
-  # Allthough there are different staging, integration and production buckets
-  # created by Terraform on S3, we do not intend to use them. To avoid confusion
-  # we proxy all domains to the production bucket.
-  nginx::config::vhost::proxy { "docs.${app_domain}" :
-    to        => ['govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com'],
-    protected => false,
-    http_host => 'govuk-developer-documentation-production.s3-website-eu-west-1.amazonaws.com',
   }
 
   nginx::config::vhost::proxy { "content-api.${app_domain}" :
@@ -151,19 +130,6 @@ class govuk::node::s_backend_lb (
         logstream => present;
     }
 
-    $graphite_429_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.assets-carrenza.http_429,0)"
-
-    @@icinga::check::graphite { "check_nginx_429_assets_on_${::hostname}":
-      target              => $graphite_429_target,
-      args                => '--ignore-missing',
-      warning             => 3,
-      critical            => 5,
-      from                => '5minutes',
-      desc                => '429 rate for assets-carrenza [in office hours]',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
-      notification_period => 'inoffice',
-    }
     # Custom vhost to proxy draft-assets-origin to asset-manager and whitehall in Carrenza
     nginx::config::site { $draft_assets_carrenza_vhost_name:
       content => template('govuk/node/s_backend_lb/draft-assets-carrenza.conf.erb'),

@@ -11,6 +11,14 @@
 # [*pycsw_port*]
 #   What port should the PyCSW companion app run on?
 #
+# [*blanket_redirect_url*]
+#   If defined, all requests will be redirected to this absolute url. Useful
+#   for maintenance.
+#
+# [*blanket_redirect_skip_key*]
+#   A request supplying this value under the header x-ckan-skip-blanket-redirect-key will
+#   be allowed to skip the blanket redirect (e.g. to allow for testing).
+#
 # [*db_hostname*]
 #   The postgres instance for CKAN to connect to
 #
@@ -29,6 +37,20 @@
 # [*redis_port*]
 #   The Redis port that CKAN should use
 #
+# [*solr_host*]
+#   The Solr host that CKAN should use
+#
+# [*solr_port*]
+#   The Solr port that CKAN should use
+#
+# [*solr_core*]
+#   The Solr core that CKAN should use. This will be provisioned if it doesn't
+#   already exist, and if left undef, ckan will expect to use a single-core
+#   Solr.
+#
+# [*solr_core_configset*]
+#   The configset name to use when provisioning $solr_core
+#
 # [*secret*]
 #   The secret token that CKAN uses for session encryption
 #
@@ -43,12 +65,18 @@ class govuk::apps::ckan (
   $enabled                        = false,
   $port,
   $pycsw_port,
+  $blanket_redirect_url           = undef,
+  $blanket_redirect_skip_key      = undef,
   $db_hostname                    = undef,
   $db_username                    = 'ckan',
   $db_password                    = 'foo',
   $db_name                        = 'ckan_production',
   $redis_host                     = undef,
   $redis_port                     = '6379',
+  $solr_host                      = '127.0.0.1',
+  $solr_port                      = '8983',
+  $solr_core                      = undef,
+  $solr_core_configset            = undef,
   $secret                         = undef,
   $ckan_site_url                  = undef,
   $gunicorn_worker_processes      = '1',
@@ -178,6 +206,7 @@ class govuk::apps::ckan (
       hidden_paths       => ['/api/'],
       read_timeout       => $request_timeout,
       nginx_extra_config => template('govuk/ckan/nginx.conf.erb'),
+      deny_crawlers      => true,
     }
 
     file { $ckan_home:
@@ -221,6 +250,14 @@ class govuk::apps::ckan (
     exec { 'setup_pycsw_tables':
       command => "${ckan_bin}/paster --plugin=ckanext-spatial ckan-pycsw setup -p ${pycsw_config} && sudo touch ${pycsw_tables_created}",
       creates => $pycsw_tables_created,
+    }
+
+    if ($solr_core != undef) {
+      govuk_solr6::core { $solr_core:
+        solr_host => $solr_host,
+        solr_port => $solr_port,
+        configset => $solr_core_configset,
+      }
     }
   }
 }

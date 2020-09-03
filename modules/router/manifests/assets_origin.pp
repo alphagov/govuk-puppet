@@ -4,9 +4,6 @@
 #
 # === Parameters
 #
-# [*app_specific_static_asset_routes*]
-#   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
-#
 # [*asset_manager_uploaded_assets_routes*]
 #   Hash of paths => vhost_names.  Each entry will be added as a route in the vhost
 #
@@ -23,13 +20,16 @@
 # [*vhost_name*]
 #   Primary vhost that assets should be served on at origin
 #
+# [*website_root*]
+#   The URL to the root of the main GOV.UK host for redirects
+#
 class router::assets_origin(
-  $app_specific_static_asset_routes = {},
   $asset_manager_uploaded_assets_routes = [],
   $whitehall_uploaded_assets_routes = [],
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',
+  $website_root = undef,
 ) {
   validate_array($vhost_aliases)
 
@@ -55,19 +55,5 @@ class router::assets_origin(
                           value => 'request_time'}];
     "${vhost_name}-error.log":
       logstream => present;
-  }
-
-  $graphite_429_target = "transformNull(stats.${::fqdn_metrics}.nginx_logs.assets-origin.http_429,0)"
-
-  @@icinga::check::graphite { "check_nginx_429_assets_on_${::hostname}":
-    target              => $graphite_429_target,
-    args                => '--ignore-missing',
-    warning             => 3,
-    critical            => 5,
-    from                => '5minutes',
-    desc                => '429 rate for assets-origin [in office hours]',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(nginx-429-too-many-requests),
-    notification_period => 'inoffice',
   }
 }

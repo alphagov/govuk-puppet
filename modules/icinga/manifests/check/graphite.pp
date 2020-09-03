@@ -64,7 +64,6 @@
 # [*event_handler*]
 #   A command to run when the check changes state
 #
-
 define icinga::check::graphite(
   $target,
   $desc,

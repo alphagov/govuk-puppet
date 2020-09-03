@@ -1,9 +1,0 @@
-# You may want to change the memory or CPU number in the VM. The
-# example below sets memory to 8192MB and the number of CPUs to 8.
-#
-# To make this happen, make a copy of this file called
-# `Vagrantfile.localconfig`.
-
-config.vm.provider :virtualbox do |vm|
-  vm.customize [ "modifyvm", :id, "--memory", "8192", "--cpus", "8" ]
-end

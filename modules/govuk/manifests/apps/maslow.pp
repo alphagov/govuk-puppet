@@ -2,6 +2,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Allow govuk app to be removed.
+#
 # [*port*]
 #   The port the app will listen on.
 #
@@ -38,6 +41,7 @@
 #   The application's OAuth Secret from Signon
 #
 class govuk::apps::maslow(
+  $ensure = 'present',
   $port,
   $mongodb_nodes,
   $mongodb_name,
@@ -51,7 +55,10 @@ class govuk::apps::maslow(
 ) {
   $app_name = 'maslow'
 
+  validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
+
   govuk::app { $app_name:
+    ensure             => $ensure,
     app_type           => 'rack',
     port               => $port,
     sentry_dsn         => $sentry_dsn,
@@ -60,29 +67,31 @@ class govuk::apps::maslow(
     log_format_is_json => true,
   }
 
-  Govuk::App::Envvar {
-    app => $app_name,
-  }
+  unless $ensure == 'absent' {
+    Govuk::App::Envvar {
+      app => $app_name,
+    }
 
-  govuk::app::envvar::mongodb_uri { $app_name:
-    hosts    => $mongodb_nodes,
-    database => $mongodb_name,
-    username => $mongodb_username,
-    password => $mongodb_password,
-  }
+    govuk::app::envvar::mongodb_uri { $app_name:
+      hosts    => $mongodb_nodes,
+      database => $mongodb_name,
+      username => $mongodb_username,
+      password => $mongodb_password,
+    }
 
-  govuk::app::envvar {
-    "${title}-PUBLISHING_API_BEARER_TOKEN":
-      varname => 'PUBLISHING_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base;
+    govuk::app::envvar {
+      "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
+      "${title}-OAUTH_ID":
+        varname => 'OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-OAUTH_SECRET":
+        varname => 'OAUTH_SECRET',
+        value   => $oauth_secret;
+      "${title}-SECRET_KEY_BASE":
+        varname => 'SECRET_KEY_BASE',
+        value   => $secret_key_base;
+    }
   }
 }

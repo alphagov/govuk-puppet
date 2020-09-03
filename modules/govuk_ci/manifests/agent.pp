@@ -53,6 +53,16 @@ class govuk_ci::agent(
     mode => '0555',
   }
 
+  file { '/var/lib/jenkins':
+    owner => 'jenkins',
+    group => 'jenkins',
+  } ->
+  file { '/var/lib/jenkins/.ssh':
+    ensure => directory,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    mode   => '0700',
+  } ->
   ssh_authorized_key { 'ci-master-1.ci':
     ensure  => present,
     user    => 'jenkins',

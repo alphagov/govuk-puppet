@@ -7,6 +7,7 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automongodbbackup/
     fq_dn: mongo-1.backend.%{hiera('app_domain')}
     priority: '001'
+    ensure: 'absent'
   backup_mysql_backups_mysql_backup_1:
     directory: /var/lib/automysqlbackup/
     fq_dn: mysql-backup-1.backend.%{hiera('app_domain')}

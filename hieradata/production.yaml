@@ -43,10 +43,13 @@ govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk"
+govuk::apps::contacts::enabled: false
+govuk::apps::content_publisher::enabled: false
 govuk::apps::government-frontend::cpu_warning: 200
 govuk::apps::government-frontend::cpu_critical: 300
 govuk::apps::hmrc_manuals_api::publish_topics: false
-govuk::apps::publisher::run_fact_check_fetcher: true
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publisher::fact_check_reply_to_id: 'e739d23a-b761-44af-9a99-a1eba0b75c7e'
 govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check@digital.cabinet-office.gov.uk'
@@ -55,21 +58,36 @@ govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital
 govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::signon::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::govuk_notify_template_id: 'e00e89f5-b622-4dcb-8f30-e6c70231a940'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: false
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: false
+govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+
+govuk::apps::contacts::ensure: 'absent'
+govuk::apps::collections_publisher::ensure: 'absent'
+govuk::apps::content_publisher::ensure: 'absent'
+govuk::apps::content_tagger::ensure: 'absent'
+govuk::apps::hmrc_manuals_api::ensure: 'absent'
+govuk::apps::manuals_publisher::ensure: 'absent'
+govuk::apps::maslow::ensure: 'absent'
+govuk::apps::publisher::ensure: 'absent'
+govuk::apps::search_admin::ensure: 'absent'
+govuk::apps::service_manual_publisher::ensure: 'absent'
+govuk::apps::short_url_manager::ensure: 'absent'
+govuk::apps::specialist_publisher::ensure: 'absent'
+govuk::apps::travel_advice_publisher::ensure: 'absent'
 
 govuk::apps::content_tagger::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::hmrc_manuals_api::override_search_location: 'https://search-api.production.govuk.digital'
 govuk::apps::search_admin::override_search_location: 'https://search-api.production.govuk.digital'
 
-govuk::deploy::actionmailer_enable_delivery: true
 
-govuk::deploy::aws_ses_smtp_host: 'email-smtp.us-east-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
@@ -92,7 +110,7 @@ govuk_jenkins::jobs::network_config_deploy::environments:
   - 'carrenza-production-dr'
   - 'skyscape-production'
 
-govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: true
+govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: false
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '0 12 * * 0'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 3 * * *'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '0 4 * * *'
@@ -174,23 +192,6 @@ hosts::production::api::hosts:
 
 hosts::production::backend::app_hostnames:
   - 'canary-backend'
-  - 'collections-publisher'
-  - 'contacts-admin'
-  - 'content-publisher'
-  - 'content-tagger'
-  - 'docs'
-  - 'hmrc-manuals-api'
-  - 'maslow'
-  - 'manuals-publisher'
-  - 'publisher'
-  - 'search-admin'
-  - 'service-manual-publisher'
-  - 'short-url-manager'
-  - 'signon'
-  - 'specialist-publisher'
-  - 'specialist-publisher-rebuild'
-  - 'specialist-publisher-rebuild-standalone'
-  - 'travel-advice-publisher'
 
 hosts::production::backend::hosts:
   asset-master-1:
@@ -377,3 +378,5 @@ postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 mongodb::s3backup::backup::s3_bucket: 'govuk-mongodb-backup-s3-production'
 mongodb::s3backup::backup::s3_bucket_daily: 'govuk-mongodb-backup-s3-daily-production'
+
+govuk_jenkins::jobs::deploy_app::deploy_downstream: false

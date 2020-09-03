@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_maslow_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "21"
     action: "push"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_publisher_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "25"
     action: "push"
@@ -22,7 +22,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_short_url_manager_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "29"
     action: "push"
@@ -33,7 +33,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_travel_advice_publisher_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "33"
     action: "push"
@@ -44,7 +44,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_govuk_content_production":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "51"
     action: "push"

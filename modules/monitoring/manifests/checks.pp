@@ -35,7 +35,6 @@ class monitoring::checks (
   }
 
   include monitoring::checks::mirror
-  include monitoring::checks::pingdom
   include monitoring::checks::sidekiq
   include monitoring::checks::smokey
   include monitoring::checks::cache
@@ -48,6 +47,7 @@ class monitoring::checks (
 
   if $::aws_migration {
     include govuk::apps::email_alert_api::checks
+    include govuk::apps::publisher::unprocessed_emails_count_check
   }
 
   $app_domain = hiera('app_domain')

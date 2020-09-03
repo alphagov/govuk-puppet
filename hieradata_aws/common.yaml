@@ -513,9 +513,9 @@ govuk::apps::content_publisher::aws_region: "eu-west-1"
 govuk::apps::content_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::content_store::nagios_memory_warning: 3000
-govuk::apps::content_store::nagios_memory_critical: 3800
-govuk::apps::content_store::unicorn_worker_processes: "12"
+govuk::apps::content_store::nagios_memory_warning: 4000
+govuk::apps::content_store::nagios_memory_critical: 5000
+govuk::apps::content_store::unicorn_worker_processes: "18"
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
@@ -556,7 +556,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - jennifer.allum@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
   - kelvin.gan@digital.cabinet-office.gov.uk
-  - laurent.curau@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
   - michael.s.walker@digital.cabinet-office.gov.uk
   - neil.hayes@digital.cabinet-office.gov.uk
@@ -566,6 +565,9 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - thomas.leese@digital.cabinet-office.gov.uk
   - tom.whitwell@digital.cabinet-office.gov.uk
   - vanita.barrett@digital.cabinet-office.gov.uk
+
+govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
@@ -876,9 +878,12 @@ govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_ho
 govuk_jenkins::packages::terraform::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::govuk_python::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_jenkins::packages::sops::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_jenkins::jobs::deploy_app::graphite_host: "graphite.%{hiera('app_domain_internal')}"
 govuk_jenkins::jobs::deploy_app::graphite_port: '443'
+govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_master_process_cron_schedule: '0 3 * * *'
 
 govuk_jenkins::deploy_all_apps::deploy_environment: "%{hiera('govuk_jenkins::job_builder::environment')}"
 
@@ -896,7 +901,6 @@ govuk::node::s_base::log_remote: false
 
 govuk::node::s_backend_lb::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
-  '/government/assets/': "whitehall-frontend"
 govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'
   - '/media/'
@@ -933,9 +937,6 @@ govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_b
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
 
-govuk::node::s_postgresql_primary::alert_hostname: 'alert'
-
-
 govuk::node::s_transition_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk_bundler::config::service: 'http://gemstash'
@@ -961,6 +962,159 @@ govuk_cdnlogs::service_port_map:
   assets: 6515
   bouncer: 6516
 
+govuk_ci::master::pipeline_jobs:
+  <<: *deployable_applications
+  # Applications migrated to AWS
+  authenticating-proxy: {}
+  bouncer: {}
+  cache-clearing-service: {}
+  calculators: {}
+  collections: {}
+  content-store: {}
+  email-alert-api: {}
+  email-alert-frontend: {}
+  email-alert-service: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  imminence: {}
+  info-frontend: {}
+  content-data-admin: {}
+  content-data-api: {}
+  licencefinder:
+    repository: 'licence-finder'
+  link-checker-api: {}
+  local-links-manager: {}
+  manuals-frontend: {}
+  mapit: {}
+  publishing-api: {}
+  release: {}
+  router: {}
+  router-api: {}
+  search-api: {}
+  service-manual-frontend: {}
+  smartanswers:
+    repository: 'smart-answers'
+  static: {}
+  support-api: {}
+  support: {}
+  transition: {}
+  # Other repositories
+  asset_bom_removal-rails: {}
+  backdrop-transactions-explorer-collector: {}
+  deprecated_columns: {}
+  gds-api-adapters: {}
+  gds-sso: {}
+  gds_zendesk: {}
+  govspeak: {}
+  govuk_ab_testing: {}
+  govuk_app_config: {}
+  govuk-cdn-config: {}
+  govuk-csp-forwarder: {}
+  govuk-dummy_content_store: {}
+  govuk_document_types: {}
+  govuk-guix: {}
+  govuk-jenkinslib: {}
+  govuk_message_queue_consumer: {}
+  govuk-provisioning: {}
+  govuk_publishing_components: {}
+  govuk_seed_crawler: {}
+  govuk_schemas: {}
+  govuk_sidekiq: {}
+  govuk-taxonomy-supervised-learning: {}
+  govuk_taxonomy_helpers: {}
+  govuk_test: {}
+  licensify:
+    branches_to_exclude:
+      - 'release*'
+      - 'deployed-to-integration'
+      - 'licensify-deployed-to-integration'
+      - 'licensify-admin-deployed-to-integration'
+      - 'licensify-feed-deployed-to-integration'
+      - 'deployed-to-staging'
+      - 'licensify-deployed-to-staging'
+      - 'licensify-admin-deployed-to-staging'
+      - 'licensify-feed-deployed-to-staging'
+      - 'deployed-to-production'
+      - 'licensify-deployed-to-production'
+      - 'licensify-admin-deployed-to-production'
+      - 'licensify-feed-deployed-to-production'
+      - 'integration'
+      - 'staging'
+      - 'production'
+  middleman-search: {}
+  omniauth-gds: {}
+  optic14n: {}
+  performanceplatform-client.py: {}
+  performanceplatform-collector: {}
+  performanceplatform-documentation: {}
+  plek: {}
+  publishing-e2e-tests: {}
+  rack-logstasher: {}
+  rails_translation_manager: {}
+  router-data: {}
+  scss-lint-govuk: {}
+  search-api: {}
+  shared_mustache: {}
+  slimmer: {}
+  smokey: {}
+  special-route-publisher: {}
+  ubuntu_unused_kernels:
+    repo_owner: 'gds-operations'
+  vcloud-core:
+    repo_owner: 'gds-operations'
+  vcloud-edge_gateway:
+    repo_owner: 'gds-operations'
+  vcloud-launcher:
+    repo_owner: 'gds-operations'
+  vcloud-net_launcher:
+    repo_owner: 'gds-operations'
+  vcloud-tools:
+    repo_owner: 'gds-operations'
+  vcloud-tools-tester:
+    repo_owner: 'gds-operations'
+  vcloud-walker:
+    repo_owner: 'gds-operations'
+
+govuk_ci::master::ci_agents:
+  ci-agent-1:
+    agent_hostname: ci-agent-1.blue.%{hiera('app_domain_internal')}
+    labels: 'mongodb-2.4 ci-agent-1 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-2:
+    agent_hostname: ci-agent-2.blue.%{hiera('app_domain_internal')}
+    labels: 'mongodb-2.4 ci-agent-2 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-3:
+    agent_hostname: ci-agent-3.blue.%{hiera('app_domain_internal')}
+    labels: 'mongodb-2.4 ci-agent-3 elasticsearch-6.7 terraform postgresql-9.3'
+  ci-agent-4:
+    agent_hostname: ci-agent-4.blue.%{hiera('app_domain_internal')}
+    labels: 'mongodb-3.2 ci-agent-4 elasticsearch-6.7 terraform postgresql-9.6'
+  ci-agent-5:
+    agent_hostname: ci-agent-5.blue.%{hiera('app_domain_internal')}
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-6:
+    agent_hostname: ci-agent-6.blue.%{hiera('app_domain_internal')}
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-7:
+    agent_hostname: ci-agent-7.blue.%{hiera('app_domain_internal')}
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+  ci-agent-8:
+    agent_hostname: ci-agent-8.blue.%{hiera('app_domain_internal')}
+    exclusive: true
+    executors: 1
+    labels: 'publishing-e2e-tests'
+
+govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
+
+govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
+
+
 govuk_containers::app::config::global_envvars:
   - "GOVUK_ENV=production"
   - "NODE_ENV=production"
@@ -970,7 +1124,6 @@ govuk_containers::app::config::global_envvars:
   - "SENTRY_CURRENT_ENV=%{hiera('govuk::deploy::config::errbit_environment_name')}-%{hiera('stackname')}-aws"
   - "GOVUK_APP_DOMAIN=%{hiera('app_domain_internal')}"
   - "GOVUK_APP_DOMAIN_EXTERNAL=%{hiera('app_domain')}"
-  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
@@ -995,15 +1148,6 @@ govuk_jenkins::config::github_api_uri: "https://api.github.com"
 govuk_jenkins::config::github_web_uri: "https://github.com"
 govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
-govuk_jenkins::jobs::email_alert_check::email_addresses_to_check: >-
-  govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  ,
-  govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  :
-  govuk_email_check@digital.cabinet-office.gov.uk
-  ,
-  gov.uk.email@notifications.service.gov.uk
-
 govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
 govuk_jenkins::jobs::smokey::auth_username: "%{hiera('http_username')}"
@@ -1018,6 +1162,12 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   smartanswers:
     repository: 'smart-answers'
+  publishing-api: {}
+  travel-advice-publisher: {}
+  government-frontend: {}
+  finder-frontend: {}
+  collections: {}
+  publisher: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
@@ -1032,6 +1182,9 @@ govuk_rabbitmq::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_finge
 
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rbenv::all::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
+govuk_solr6::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_solr6::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_sudo::sudo_conf:
   deploy_docker_image:
@@ -1192,6 +1345,9 @@ grafana::dashboards::application_dashboards:
   service-manual-publisher: {}
   sidekiq-monitoring: {}
   short-url-manager: {}
+  signon:
+    show_sidekiq_graphs: true
+    has_workers: true
   smartanswers:
     docs_name: 'smart-answers'
   specialist-publisher:
@@ -1283,8 +1439,6 @@ monitoring::checks::smokey::features:
     feature: csv_preview
   check_draft_environment:
     feature: draft_environment
-  check_email_sign_up:
-    feature: email_sign_up
   check_feedback:
     feature: feedback
   check_finder_frontend:
@@ -1315,8 +1469,6 @@ monitoring::checks::smokey::features:
     feature: publishing_tools
   check_router:
     feature: router
-  check_search:
-    feature: search
   check_service_manual:
     feature: service_manual
   check_signon:
@@ -1353,7 +1505,7 @@ nginx::package::nginx_version: "1.14.0-1~trusty"
 
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 nodejs::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-nodejs::version: '6.14.3-1nodesource1'
+nodejs::version: '12.18.2-1nodesource1'
 
 ntp::server_list:
   - 'ntp.ubuntu.com'
@@ -1380,30 +1532,6 @@ rabbitmq::config_stomp: true
 rcs::fsckfix: 'YES'
 rcs::tmptime: '7'
 
-router::nginx::app_specific_static_asset_routes:
-  '/assets/collections/': 'collections'
-  '/assets/frontend/': 'frontend'
-  '/assets/government-frontend/': 'government-frontend'
-  '/assets/static/': 'static'
-
-# Note: it's important that all targets here have matching host entries both in
-# production, and on the dev VM, otherwise nginx will fail to start.
-router::assets_origin::app_specific_static_asset_routes:
-  '/asset-manager': "asset-manager"
-  '/calculators/': "calculators"
-  '/collections/': "collections"
-  '/email-alert-frontend/': "email-alert-frontend"
-  '/feedback/': "feedback"
-  '/finder-frontend/': "finder-frontend"
-  '/frontend/': "frontend"
-  '/government/assets/': "whitehall-frontend"
-  '/government-frontend/': "government-frontend"
-  '/info-frontend/': "info-frontend"
-  '/manuals-frontend/': "manuals-frontend"
-  '/licencefinder/': "licencefinder"
-  '/service-manual-frontend/': "service-manual-frontend"
-  '/smartanswers/': "smartanswers"
-
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
   - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
@@ -1416,6 +1544,8 @@ router::assets_origin::vhost_aliases:
   - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
   - 'assets.production.govuk.digital'
+
+router::assets_origin::website_root: "%{hiera('govuk::deploy::config::website_root')}"
 
 router::nginx::check_requests_warning: '@10'
 router::nginx::check_requests_critical: '@8'
@@ -1443,6 +1573,11 @@ router::nginx::robotstxt: |
   User-agent: MS Search 6.0 Robot
   Disallow: /
 
+  # Google's crawler was sending requests for each variation of query param for the sectors page of licence-finder
+  # resulting in millions of requests a day.
+  User-agent: Googlebot
+  Disallow: /licence-finder/*
+
 sidekiq_host: 'backend-redis'
 sidekiq_port: '6379'
 
@@ -1467,7 +1602,7 @@ unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
-unicornherder::version: '0.1.0'
+unicornherder::version: '0.2.1'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 yarn::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"

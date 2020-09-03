@@ -20,17 +20,31 @@ node_class: &node_class
       - asset-manager
       - cache-clearing-service
       - canary-backend
+      - contacts
       - content-data-admin
       - content-data-api
-      - transition
+      - content-publisher
+      - content-tagger
+      - collections-publisher
+      - hmrc-manuals-api
       - imminence
+      - manuals-publisher
+      - maslow
+      - publisher
       - link-checker-api
       - local-links-manager
       - release
+      - search-admin
+      - service-manual-publisher
+      - short-url-manager
       - sidekiq-monitoring
+      - signon
+      - specialist-publisher
       - support
       - support-api
       - support_api_csv_env_sync
+      - transition
+      - travel-advice-publisher
   bouncer:
     apps:
       - bouncer
@@ -130,13 +144,31 @@ govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-production-content-data-csvs'
 govuk::apps::content_data_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '9'
+govuk::apps::contacts::enabled: true
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-production-content-publisher-activestorage"
-govuk::apps::content_publisher::google_tag_manager_auth: "O0DrItJxJeQ5Q2W6YCZzvw"
+govuk::apps::content_publisher::enabled: true
+govuk::apps::content_publisher::google_tag_manager_auth: "sxvBI4QvwgTRX5e76vdIHA"
 govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
-govuk::apps::content_publisher::google_tag_manager_preview: "env-7"
+govuk::apps::content_publisher::google_tag_manager_preview: "env-2"
 govuk::apps::content_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
+
+govuk::apps::contacts::ensure: 'present'
+govuk::apps::collections_publisher::ensure: 'present'
+govuk::apps::content_publisher::ensure: 'present'
+govuk::apps::content_tagger::ensure: 'present'
+govuk::apps::hmrc_manuals_api::ensure: 'present'
+govuk::apps::manuals_publisher::ensure: 'present'
+govuk::apps::maslow::ensure: 'present'
+govuk::apps::publisher::ensure: 'present'
+govuk::apps::search_admin::ensure: 'present'
+govuk::apps::service_manual_publisher::ensure: 'present'
+govuk::apps::short_url_manager::ensure: 'present'
+govuk::apps::specialist_publisher::ensure: 'present'
+govuk::apps::travel_advice_publisher::ensure: 'present'
 
 govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/apply-for-a-licence'
@@ -157,6 +189,8 @@ govuk::apps::email_alert_api::email_archive_s3_bucket: 'govuk-production-email-a
 # This shouldn't be enabled at the same time we have carrenza s3 export enabled unless they have separate buckets
 govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
+govuk::apps::feedback::govuk_notify_reply_to_id: 'e8b2d8a6-db5f-4346-9fbd-49b16b531e1c'
+govuk::apps::feedback::govuk_notify_template_id: '54168fa9-3946-4860-a2f8-27ddbb14babe'
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
@@ -165,14 +199,17 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::local_links_manager::run_links_ga_export: true
 
-govuk::apps::publisher::run_fact_check_fetcher: false
 govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publisher::fact_check_reply_to_id: 'e739d23a-b761-44af-9a99-a1eba0b75c7e'
 govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_business: 'publisher-alerts-business@digital.cabinet-office.gov.uk'
+govuk::apps::publisher::email_group_citizen: 'publisher-alerts-citizen@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-force-publishing-alerts@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-production'
 govuk::apps::router::sentry_environment: 'production'
+govuk::apps::signon::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_admin::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-production-search-relevancy'
@@ -184,6 +221,7 @@ govuk::apps::short_url_manager::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f
 govuk::apps::short_url_manager::instance_name: 'production'
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-specialist-publisher-csvs'
+govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
 govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
@@ -194,12 +232,13 @@ govuk::apps::support_api::zendesk_anonymous_ticket_email: 'zd-api-public@digital
 govuk::apps::support_api::pp_data_url: 'https://www.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
-govuk::apps::travel_advice_publisher::enable_email_alerts: true
+govuk::apps::travel_advice_publisher::enable_procfile_worker: true
+govuk::apps::whitehall::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
+govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-production-whitehall-csvs'
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 
-govuk::deploy::aws_ses_smtp_host: 'email-smtp.eu-west-1.amazonaws.com'
 govuk::deploy::config::errbit_environment_name: 'production'
 govuk::deploy::config::website_root: 'https://www.gov.uk'
 govuk::deploy::setup::ssh_keys:
@@ -256,6 +295,12 @@ govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
 govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
 govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 0,6,12,18 * * *' # every six hours
+
+govuk_jenkins::jobs::signon_cron_rake_tasks::configure_jobs: true
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_oauth_access_grants_delete_expired_frequency: '0 12 * * 0'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency: '0 3 * * *'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '0 4 * * *'
+govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '0 6 * * *'
 
 govuk_jenkins::jobs::smokey::environment: production_aws
 
@@ -355,7 +400,6 @@ monitoring::checks::lb::loadbalancers:
       - backend-content-performance-m
       - backend-content-publisher
       - backend-content-tagger
-      - backend-docs
       - backend-hmrc-manuals-api
       - backend-kibana
       - backend-manuals-publisher
@@ -398,3 +442,5 @@ postfix::rewrite_mail_domain: 'digital.cabinet-office.gov.uk'
 postfix::rewrite_mail_list: 'machine.email.carrenza'
 
 nginx::config::stack_network_prefix: '10.13.0'
+
+govuk_jenkins::jobs::deploy_app::deploy_downstream: false

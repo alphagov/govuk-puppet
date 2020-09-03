@@ -26,12 +26,29 @@ access_log /var/log/nginx/lb-access.log timed_combined;
 access_log /var/log/nginx/lb-json.event.access.log json_event;
 error_log  /var/log/nginx/lb-error.log;
 
+# Endpoint that isn't cached, which is used to assert that an external
+# service can receive a response from GOV.UK origin on www hostname. It
+# is intended for pingdom monitoring
+location /__canary__ {
+  default_type application/json;
+  add_header cache-control "max-age=0,no-store,no-cache";
+  return 200 '{"message": "Tweet tweet"}\n';
+}
+
 # If slug contains no lowercase letters then lowercase it
 # eg www.gov.uk/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
 # eg WWW.GOV.UK/GOVERNMENT/GUIDANCE -> www.gov.uk/government/guidance
 location ~ ^\/[A-Z]+[A-Z\W\d]+$ {
   rewrite ^(.*)$ https://$host$uri_lowercase permanent;
 }
+
+# Rewrite the path of legacy Whitehall assets.
+# Whitehall writes paths to the applications assets inside content items, which
+# can make it very hard to change the URL. This rewrites any request to
+# /government/assets/* to the new path of /assets/whitehall. A redirect isn't
+# used because there are lots of these and this would cause a substantial
+# number of extra requests.
+rewrite ^/government/assets/(.*)$ /assets/whitehall/$1;
 
 <%- @app_specific_static_asset_routes.each do |alias_path, vhost_name| -%>
 <%- proxy_host = "#{vhost_name}.#{@app_domain_internal}" -%>
@@ -73,12 +90,12 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
   proxy_pass http://varnish;
 }
 
-
 location / {
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
-  add_header Link "<https://assets.<%= @app_domain %>>; rel=preconnect; crossorigin";
-
+  <% if @aws_migration == 'draft_cache' -%>
+  add_header X-Robots-Tag "noindex";
+  <% end -%>
   # HTML verification for DWP YouTube channel
   location = /dla-ending/google6db9c061ce178960.html {
     add_header Content-Type text/html;

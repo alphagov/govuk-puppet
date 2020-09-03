@@ -360,7 +360,7 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
-  pg_restore "${dumpfile}" | sed -r "${sed_cmds}"
+  pg_restore -j 2 "${dumpfile}" | sed -r "${sed_cmds}"
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
@@ -448,8 +448,22 @@ function dump_mysql {
   # without holding locks for the duration of the dump.
   # https://dev.mysql.com/doc/refman/5.6/en/mysqldump.html#option_mysqldump_single-transaction
   log "Running mysqldump..."
-  sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
-  log "completed."
+  if [ -z "${excluded_tables:-}" ] ; then
+    sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" | gzip > "${tempdir}/${filename}"
+  else
+    log "excluded tables specified: ${excluded_tables}"
+
+    IFS=',' read -r -a excluded_tables_array <<< "${excluded_tables}"
+
+    ignored_tables_string=''
+    for table in "${excluded_tables_array[@]}" ; do
+      ignored_tables_string+=" --ignore-table=${database}.${table}"
+    done
+
+    # shellcheck disable=SC2086
+    sudo -H mysqldump -u "$DB_USER" --single-transaction --quick "${database}" ${ignored_tables_string} | gzip > "${tempdir}/${filename}"
+  fi
+  log "mysqldump completed."
 }
 
 function restore_mysql {
@@ -493,23 +507,41 @@ function get_timestamp_elasticsearch {
   sed "s/-${database}$//")"
 }
 
-function postprocess_signon_production {
-  source_domain_query="SELECT home_uri FROM oauth_applications WHERE name='Publisher';"
-  source_domain=$(echo "${source_domain_query}" |\
-                  sudo -H mysql -h mysql-primary --database=signon_production | grep publisher | sed s#https://publisher.##g)
-  # local_domain comes from env.d/LOCAL_DOMAIN (see above).
+function postprocess_mysl_cmd_signon_production {
+  source_domain="${1}"
+  new_domain="${2}"
 
   update_home_uri_query="UPDATE oauth_applications\
-     SET home_uri = REPLACE(home_uri, '${source_domain}', '${local_domain}')\
+     SET home_uri = REPLACE(home_uri, '${source_domain}', '${new_domain}')\
      WHERE home_uri LIKE '%${source_domain}%'"
 
   echo "${update_home_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
 
   update_redirect_uri_query="UPDATE oauth_applications\
-     SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${local_domain}')\
+     SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${new_domain}')\
      WHERE redirect_uri LIKE '%${source_domain}%'"
 
   echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+}
+
+function postprocess_signon_production {
+  log "Starting the postprocessing for Signon..."
+
+  aws_environment="$(get_aws_environment)"
+  if [ "${aws_environment}" == "production" ] || [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "" ] ; then
+      # For production, we don't want any processing to be done for production as the URLs are the originals
+      # For integration, we don't want any processing as integration has its own signon database which is not derived
+      # from production or staging
+      log "No postprocessing for Signon because in AWS Production or Integration or Carrenza"
+      return
+  fi
+
+  postprocess_mysl_cmd_signon_production "publishing.service.gov.uk" "staging.publishing.service.gov.uk"
+  postprocess_mysl_cmd_signon_production "performance.service.gov.uk" "staging.performance.service.gov.uk"
+  postprocess_mysl_cmd_signon_production "-production.cloudapps.digital" "-staging.cloudapps.digital"
+  postprocess_mysl_cmd_signon_production "-production.london.cloudapps.digital" "-staging.london.cloudapps.digital"
+
+  log "Completed the postprocessing for Signon"
 }
 
 function get_aws_environment {
@@ -631,6 +663,14 @@ function postprocess_database {
   esac
 }
 
+function s3_sync {
+  if "${delete}"; then
+    aws s3 sync --acl bucket-owner-full-control --delete --only-show-errors s3://"${source_bucket}" s3://"${destination_bucket}"
+  else
+    aws s3 sync --acl bucket-owner-full-control --only-show-errors s3://"${source_bucket}" s3://"${destination_bucket}"
+  fi
+}
+
 usage() {
   printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
   exit 0
@@ -651,33 +691,45 @@ do
     p) path="$OPTARG" ;;
     s) transformation_sql_file="$OPTARG" ;;
     F) pre_dump_transformation_sql_file="$OPTARG" ;;
+    e) excluded_tables="$OPTARG" ;;
     t) timestamp="$OPTARG" ;;
     *) usage ;;
   esac
 done
 
 : "${action?"No action specified (pass -a option)"}"
-: "${dbms?"No DBMS specified (pass -D option)"}"
-: "${storagebackend?"No storagebackend specified (pass -S option)"}"
-: "${temppath?"No temppath specified (pass -T option)"}"
-: "${database?"No database name specified (pass -d option)"}"
-: "${url?"No storage url specified (pass -u option)"}"
-: "${path?"No storage path specified (pass -p option)"}"
+if [ "${action}" == "s3_sync" ]; then
+  : "${source_bucket?"No source S3 bucket specified (set in config file)"}"
+  : "${destination_bucket?"No destination S3 bucket specified (set in config file)"}"
+else
+  : "${dbms?"No DBMS specified (pass -D option)"}"
+  : "${storagebackend?"No storagebackend specified (pass -S option)"}"
+  : "${temppath?"No temppath specified (pass -T option)"}"
+  : "${database?"No database name specified (pass -d option)"}"
+  : "${url?"No storage url specified (pass -u option)"}"
+  : "${path?"No storage path specified (pass -p option)"}"
 
-if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
-  echo "$dbms is only compatible with the elasticsearch storage backend"
-  exit 1
-fi
-if [[ "$storagebackend" == "elasticsearch" ]] && [[ "$dbms" != "elasticsearch" ]]; then
-  echo "$dbms is not compatible with the $storagebackend storage backend"
-  exit 1
+  if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
+    echo "$dbms is only compatible with the elasticsearch storage backend"
+    exit 1
+  fi
+
+  if [[ "$storagebackend" == "elasticsearch" ]] && [[ "$dbms" != "elasticsearch" ]]; then
+    echo "$dbms is not compatible with the $storagebackend storage backend"
+    exit 1
+  fi
+
 fi
 
 # Let syslog know we are here
 log "Starting \"$0 ${args[*]:-''}\""
 
 # Setting default nagios response to failed
-nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+if [ "${action}" == "s3_sync" ]; then
+  nagios_message="CRITICAL: govuk_env_sync.sh ${action} of ${destination_bucket} from ${source_bucket}"
+else
+  nagios_message="CRITICAL: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+fi
 nagios_code=2
 
 case ${action} in
@@ -706,9 +758,16 @@ case ${action} in
       postprocess_database
     fi
     ;;
+  s3_sync)
+    s3_sync
+    ;;
 esac
 
 # The script arrived here without detour to throw_error/exit
-nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+if [ "${action}" == "s3_sync" ]; then
+  nagios_message="OK: govuk_env_sync.sh ${action} of ${destination_bucket} from ${source_bucket}"
+else
+  nagios_message="OK: govuk_env_sync.sh ${action} ${database}: ${storagebackend}://${url}/${path}/ <-> $dbms"
+fi
 nagios_code=0
 log "Completed \"$0 ${args[*]:-''}\""

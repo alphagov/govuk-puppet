@@ -13,7 +13,7 @@ describe 'govuk::procfile::worker', :type => :define do
     it { is_expected.to contain_service("giraffe-procfile-worker").with(:ensure => true) }
   end
 
-  context "in development environments" do
+  context "without enabling the service" do
     let(:params) { {:enable_service => false} }
 
     it do

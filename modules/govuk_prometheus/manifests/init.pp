@@ -50,7 +50,7 @@ class govuk_prometheus (
 
   @@icinga::check { "check_prometheus_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!prometheus',
-    service_description => 'prometheus running',
+    service_description => 'prometheus not running',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(check-process-running),
   }

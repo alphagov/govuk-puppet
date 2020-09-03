@@ -35,11 +35,15 @@ class govuk_jenkins::jobs::signon_cron_rake_tasks (
   $rake_users_suspend_inactive_frequency = undef,
   $rake_users_send_suspension_reminders_frequency = undef,
 ) {
-  if $configure_jobs {
+
+    $file_ensure = $configure_jobs ? {
+      true    => present,
+      default => absent,
+    }
+
     file { '/etc/jenkins_jobs/jobs/signon_cron_rake_tasks.yaml':
-      ensure  => present,
+      ensure  => $file_ensure,
       content => template('govuk_jenkins/jobs/signon_cron_rake_tasks.yaml.erb'),
       notify  => Exec['jenkins_jobs_update'],
     }
-  }
 }

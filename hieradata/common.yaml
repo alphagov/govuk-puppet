@@ -18,21 +18,7 @@ node_class: &node_class
   backend:
     apps:
       - canary-backend
-      - collections-publisher
-      - contacts
-      - content-publisher
-      - content-tagger
-      - hmrc-manuals-api
-      - manuals-publisher
-      - maslow
-      - publisher
-      - search-admin
-      - service-manual-publisher
-      - short-url-manager
       - sidekiq-monitoring
-      - signon
-      - specialist-publisher
-      - travel-advice-publisher
 
 govuk::node::s_base::node_apps:
   <<: *node_class
@@ -440,7 +426,6 @@ govuk::node::s_asset_base::firewall_allow_ip_range: "%{hiera('environment_ip_pre
 # production, and on the dev VM, otherwise nginx will fail to start.
 govuk::node::s_backend_lb::app_specific_static_asset_routes:
   '/asset-manager': "asset-manager"
-  '/government/assets/': "whitehall-frontend"
 govuk::node::s_backend_lb::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'
   - '/media/'
@@ -463,12 +448,6 @@ govuk::node::s_graphite::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fi
 govuk::node::s_mysql_master::aws_access_key_id: "%{hiera('govuk::node::s_mysql_backup::aws_access_key_id')}"
 govuk::node::s_mysql_master::aws_secret_access_key: "%{hiera('govuk::node::s_mysql_backup::aws_secret_access_key')}"
 govuk::node::s_mysql_master::encryption_key: "%{hiera('govuk::node::s_mysql_backup::encryption_key')}"
-
-govuk::node::s_postgresql_standby::aws_access_key_id: "%{hiera('govuk::node::s_postgresql_primary::aws_access_key_id')}"
-govuk::node::s_postgresql_standby::aws_secret_access_key: "%{hiera('govuk::node::s_postgresql_primary::aws_secret_access_key')}"
-govuk::node::s_postgresql_standby::s3_bucket_url: "%{hiera('govuk::node::s_postgresql_primary::s3_bucket_url')}"
-govuk::node::s_postgresql_standby::wale_private_gpg_key: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key')}"
-govuk::node::s_postgresql_standby::wale_private_gpg_key_fingerprint: "%{hiera('govuk::node::s_postgresql_primary::wale_private_gpg_key_fingerprint')}"
 
 govuk_postgresql::mirror::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_postgresql::mirror::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
@@ -532,7 +511,6 @@ govuk_ci::master::pipeline_jobs:
   asset_bom_removal-rails: {}
   backdrop-transactions-explorer-collector: {}
   deprecated_columns: {}
-  email-alert-monitoring: {}
   gds-api-adapters: {}
   gds-sso: {}
   gds_zendesk: {}
@@ -540,7 +518,6 @@ govuk_ci::master::pipeline_jobs:
   govuk_ab_testing: {}
   govuk_app_config: {}
   govuk-cdn-config: {}
-  govuk-content-schema-test-helpers: {}
   govuk-csp-forwarder: {}
   govuk-dummy_content_store: {}
   govuk_document_types: {}
@@ -549,14 +526,12 @@ govuk_ci::master::pipeline_jobs:
   govuk_message_queue_consumer: {}
   govuk-provisioning: {}
   govuk_publishing_components: {}
-  govuk-secrets: {}
   govuk_seed_crawler: {}
   govuk_schemas: {}
   govuk_sidekiq: {}
   govuk-taxonomy-supervised-learning: {}
   govuk_taxonomy_helpers: {}
   govuk_test: {}
-  govuk-user-reviewer: {}
   licensify:
     branches_to_exclude:
       - 'release*'
@@ -592,7 +567,6 @@ govuk_ci::master::pipeline_jobs:
   slimmer: {}
   smokey: {}
   special-route-publisher: {}
-  transition-config: {}
   ubuntu_unused_kernels:
     repo_owner: 'gds-operations'
   vcloud-core:
@@ -657,7 +631,6 @@ govuk_containers::app::config::global_envvars:
   - "SENTRY_CURRENT_ENV=%{hiera('govuk::deploy::config::errbit_environment_name')}"
   - "GOVUK_APP_DOMAIN=%{hiera('app_domain')}"
   - "GOVUK_APP_DOMAIN_EXTERNAL=%{hiera('app_domain')}"
-  - "GOVUK_ASSET_HOST=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
   - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
 
@@ -787,6 +760,9 @@ govuk_rabbitmq::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_finge
 
 govuk_rbenv::all::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rbenv::all::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
+govuk_solr6::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_solr6::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_sudo::sudo_conf:
   deploy_docker_image:
@@ -990,7 +966,6 @@ hosts::production::backend::app_hostnames:
   - 'contacts-admin'
   - 'content-publisher'
   - 'content-tagger'
-  - 'docs'
   - 'hmrc-manuals-api'
   - 'maslow'
   - 'manuals-publisher'
@@ -1139,7 +1114,7 @@ nginx::package::nginx_version: "1.14.0-1~trusty"
 
 nodejs::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 nodejs::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-nodejs::version: '6.14.3-1nodesource1'
+nodejs::version: '12.18.2-1nodesource1'
 
 ntp::server_list:
   - 'ntp.ubuntu.com'
@@ -1189,24 +1164,6 @@ resolvconf::nameservers:
 resolvconf::options:
    - 'single-request-reopen'
 
-# Note: it's important that all targets here have matching host entries both in
-# production, and on the dev VM, otherwise nginx will fail to start.
-router::assets_origin::app_specific_static_asset_routes:
-  '/asset-manager': "asset-manager"
-  '/calculators/': "calculators"
-  '/collections/': "collections"
-  '/email-alert-frontend/': "email-alert-frontend"
-  '/feedback/': "feedback"
-  '/finder-frontend/': "finder-frontend"
-  '/frontend/': "frontend"
-  '/government/assets/': "whitehall-frontend"
-  '/government-frontend/': "government-frontend"
-  '/info-frontend/': "info-frontend"
-  '/manuals-frontend/': "manuals-frontend"
-  '/licencefinder/': "licencefinder"
-  '/service-manual-frontend/': "service-manual-frontend"
-  '/smartanswers/': "smartanswers"
-
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
   - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
@@ -1248,6 +1205,11 @@ router::nginx::robotstxt: |
   User-agent: MS Search 6.0 Robot
   Disallow: /
 
+  # Google's crawler was sending requests for each variation of query param for the sectors page of licence-finder
+  # resulting in millions of requests a day.
+  User-agent: Googlebot
+  Disallow: /licence-finder/*
+
 sidekiq_host: 'redis-1.backend'
 sidekiq_port: '6379'
 
@@ -1272,7 +1234,7 @@ unattended_upgrades::origins:
  - "%{::lsbdistid} stable"
  - "%{::lsbdistid} %{::lsbdistcodename}-security"
 
-unicornherder::version: '0.1.0'
+unicornherder::version: '0.2.1'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 yarn::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
