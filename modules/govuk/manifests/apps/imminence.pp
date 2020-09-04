@@ -88,6 +88,7 @@ class govuk::apps::imminence(
     nagios_memory_warning    => $nagios_memory_warning,
     nagios_memory_critical   => $nagios_memory_critical,
     unicorn_worker_processes => $unicorn_worker_processes,
+    read_timeout             => 60,
   }
 
   govuk::app::envvar {
