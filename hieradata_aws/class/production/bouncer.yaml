@@ -1,4 +1,4 @@
 ---
 
 govuk_bouncer::gor::enabled: true
-govuk_bouncer::gor::target: bouncer.blue.staging.govuk.digital
+govuk_bouncer::gor::target: bouncer.staging.govuk.digital
