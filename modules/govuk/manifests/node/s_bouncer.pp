@@ -10,7 +10,7 @@
 #   we would expect to see.
 #
 class govuk::node::s_bouncer (
-  $minimum_request_rate = 5,
+  $minimum_request_rate = 3,
 ) inherits govuk::node::s_base {
 
   include govuk_bouncer::gor
