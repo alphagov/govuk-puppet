@@ -45,12 +45,14 @@ define backup::directory (
         mode    => '0755',
     }
 
-    @@icinga::passive_check { "check_backup-${fq_dn}-${sanitised_dir}-${::hostname}":
-      ensure              => $ensure,
-      service_description => $service_desc,
-      host_name           => $::fqdn,
-      freshness_threshold => $threshold_secs,
-      action_url          => 'https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.carrenza/backup-1$20run-parts$20$2Fetc$2Fbackup$2Fdaily%7Csort:date',
-      notes_url           => monitoring_docs_url(onsite-backups),
+    if ($ensure == 'present') {
+      @@icinga::passive_check { "check_backup-${fq_dn}-${sanitised_dir}-${::hostname}":
+        ensure              => $ensure,
+        service_description => $service_desc,
+        host_name           => $::fqdn,
+        freshness_threshold => $threshold_secs,
+        action_url          => 'https://groups.google.com/a/digital.cabinet-office.gov.uk/forum/#!searchin/machine.email.carrenza/backup-1$20run-parts$20$2Fetc$2Fbackup$2Fdaily%7Csort:date',
+        notes_url           => monitoring_docs_url(onsite-backups),
+      }
     }
 }
