@@ -156,8 +156,8 @@ if __name__ == "__main__":
             healthcheck_info = HealthCheckInfo(json.loads(response.read().decode('UTF-8')))
     except HTTPError as e:
         report_error("healthcheck returned HTTP error %d" % (e.code,))
-    except timeout:
-        report_error("healthcheck timed out")
+    except:
+        report_error(sys.exc_info()[1])
 
     if healthcheck_info.check_statuses:
         # Each status formatted as, for example, "foo_working: ok"
