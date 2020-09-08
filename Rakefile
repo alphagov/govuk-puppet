@@ -125,6 +125,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency
     govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency
+
+    govuk_bundler::config::service
   ]
 
   # Keys that are AWS-only
