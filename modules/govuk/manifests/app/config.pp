@@ -460,10 +460,10 @@ define govuk::app::config (
     @@icinga::check::graphite { "check_${title_underscore}_app_process_count_${::hostname}":
       ensure       => $ensure,
       target       => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.processes",
-      warning      => '@0', # WARN if there are 0 processes
-      critical     => '@-1', # Don't use the CRITICAL status for now
+      warning      => '@-1',
+      critical     => '@0',
       check_period => $check_period,
-      desc         => "No processes found for ${title_underscore}",
+      desc         => "${title_underscore} has no running processes",
       host_name    => $::fqdn,
       from         => '30seconds',
     }
