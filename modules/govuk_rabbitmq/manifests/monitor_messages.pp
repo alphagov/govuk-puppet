@@ -43,7 +43,7 @@ define govuk_rabbitmq::monitor_messages (
       check_command       => "check_nrpe!check_rabbitmq_messages!${rabbitmq_hostname} ${rabbitmq_admin_port} ${rabbitmq_queue} ${rabbitmq_user} ${critical_threshold} ${warning_threshold}",
       service_description => "Check that messages are being processed in rabbitmq queue ${rabbitmq_queue}",
       host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(rabbitmq-no-consumers-consuming),
+      notes_url           => monitoring_docs_url(rabbitmq-high-number-of-unprocessed-messages),
     }
   }
 }
