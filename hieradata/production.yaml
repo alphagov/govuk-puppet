@@ -318,13 +318,6 @@ hosts::production::management::hosts:
       - 'graphite'
   backup-1:
     ip: '10.3.0.50'
-  apt-1:
-    ip: '10.3.0.75'
-    legacy_aliases:
-      - "%{hiera('apt_mirror_hostname')}"
-    service_aliases:
-      - 'apt'
-      - 'gemstash'
   docker-management-1:
     ip: '10.3.0.80'
     service_aliases:
