@@ -382,38 +382,60 @@ monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 320
 
 monitoring::checks::lb::region: 'eu-west-1'
-monitoring::checks::lb::loadbalancers:
+monitoring::checks::lb::loadbalancers: # prefer "internal"
+  blue-apt-internal:
+    healthyhosts_warning: 0
+  blue-backend-internal:
+    healthyhosts_ignore:
+      - backend-i-backdrop-admin # no idea what this is
+      - backend-i-content-performance-m # no idea what this is
+      - backend-i-event-store # no idea what this is
+      - backend-i-performanceplatform-a # no idea what this is
+      - blue-backend-internal-HTTP-80 # no idea what this is
+  blue-bouncer-internal: {}
+  blue-cache: {}
   blue-calculators-frontend-int: {}
+  blue-ckan-internal:
+    healthyhosts_warning: 0
+  blue-content-store-internal: {}
+  blue-db-admin:
+    healthyhosts_warning: 0
+  blue-deploy-internal:
+    healthyhosts_warning: 0
+  blue-docker-management-etcd:
+    healthyhosts_warning: 0
+  blue-draft-cache: {}
+  blue-draft-content-store-int: {}
   blue-draft-frontend-internal:
     healthyhosts_ignore:
-      - draft-fron-draft-finder-frontend
+      - draft-fron-draft-finder-frontend # no idea what this is
+  blue-email-alert-api-internal: {}
   blue-frontend-internal:
     healthyhosts_ignore:
-      - frontend-i-designprinciples
-      - frontend-i-spotlight
-  govuk-backend-public:
-    healthyhosts_ignore:
-      - backend-collections-publisher
-      - backend-contacts-admin
-      - backend-content-api
-      - backend-content-audit-tool
-      - backend-content-performance-m
-      - backend-content-publisher
-      - backend-content-tagger
-      - backend-hmrc-manuals-api
-      - backend-kibana
-      - backend-manuals-publisher
-      - backend-maslow
-      - backend-policy-publisher
-      - backend-publisher
-      - backend-release
-      - backend-search-admin
-      - backend-service-manual-publis
-      - backend-short-url-manager
-      - backend-signon
-      - backend-specialist-publisher
-      - backend-travel-advice-publish
-  govuk-cache-public: {}
+      - frontend-i-designprinciples # no idea what this is
+      - frontend-i-spotlight # no idea what this is
+  blue-graphite-internal:
+    healthyhosts_warning: 0
+  blue-jumpbox:
+    healthyhosts_warning: 0
+  blue-licensify-frontend-internal: {}
+  blue-mapit-internal: {}
+  blue-monitoring:
+    healthyhosts_warning: 0
+  blue-publishing-api-internal: {}
+  blue-puppetmaster:
+    healthyhosts_warning: 0
+  blue-rabbitmq-internal: {}
+  blue-router-api: {}
+  blue-search: {}
+  blue-transition-db-admin:
+    healthyhosts_warning: 0
+  blue-whitehall-frontend: {}
+  govuk-static-public: {}
+  govuk-support-api-public: {}
+  licensify-backend-internal:
+    healthyhosts_warning: 0
+  whitehall-backend-internal: {}
 
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::contacts::notify_pager: true
