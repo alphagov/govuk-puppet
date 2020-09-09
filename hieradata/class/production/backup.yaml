@@ -12,6 +12,7 @@ govuk::node::s_backup::directories:
     directory: /var/lib/automysqlbackup/
     fq_dn: mysql-backup-1.backend.%{hiera('app_domain')}
     priority: '001'
+    ensure: 'absent'
   backup_graphite_storage_whisper_graphite-1:
     directory: /opt/graphite/storage/backups
     fq_dn: graphite-1.management.%{hiera('app_domain')}
