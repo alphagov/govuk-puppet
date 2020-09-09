@@ -142,17 +142,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/govuk_content_production"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
-  "pull_govuk_content_production":
-    ensure: "disabled"
-    hour: "2"
-    minute: "20"
-    action: "pull"
-    dbms: "documentdb"
-    storagebackend: "s3"
-    database: "govuk_content_production"
-    temppath: "/tmp/govuk_content_production"
-    url: "govuk-production-database-backups"
-    path: "mongo-normal"
   "push_local-links-manager_production_daily":
     ensure: "present"
     hour: "3"
