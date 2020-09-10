@@ -32,7 +32,7 @@ class govuk_jenkins::jobs::user_monitor (
       service_description => $service_description,
       host_name           => $::fqdn,
       freshness_threshold => 5400, # 90 minutes
-      action_url          => "https://deploy.${app_domain}/job/user-monitor/",
+      action_url          => "https://deploy.${::aws_stackname}.${::aws_environment}.govuk.digital/job/user-monitor/",
       notes_url           => monitoring_docs_url(user-monitor);
   }
 }
