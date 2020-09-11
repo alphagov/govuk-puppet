@@ -15,4 +15,12 @@ class govuk::node::s_ci_master inherits govuk::node::s_base {
     content => template('govuk/node/s_ci_master/jenkins.conf.erb'),
     require => Nginx::Config::Ssl['jenkins'],
   }
+
+  if $::aws_migration {
+    # Close connection if vhost not known
+    nginx::config::vhost::default { 'default':
+      status         => '444',
+      status_message => '',
+    }
+  }
 }
