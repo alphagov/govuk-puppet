@@ -166,7 +166,6 @@ class govuk::apps::publishing_api(
     sentry_dsn                       => $sentry_dsn,
     vhost_ssl_only                   => true,
     health_check_path                => '/healthcheck',
-    health_check_custom_doc          => true,
     health_check_service_template    => 'govuk_urgent_priority',
     health_check_notification_period => '24x7',
     unicorn_worker_processes         => $unicorn_worker_processes,

@@ -164,7 +164,6 @@ class govuk::apps::email_alert_api(
     sentry_dsn               => $sentry_dsn,
     log_format_is_json       => true,
     health_check_path        => '/healthcheck',
-    health_check_custom_doc  => true,
     json_health_check        => true,
     unicorn_worker_processes => $unicorn_worker_processes,
     nagios_memory_warning    => $nagios_memory_warning,
