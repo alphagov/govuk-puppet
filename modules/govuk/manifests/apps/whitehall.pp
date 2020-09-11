@@ -225,6 +225,7 @@ class govuk::apps::whitehall(
     sentry_dsn               => $sentry_dsn,
     log_format_is_json       => true,
     health_check_path        => $health_check_path,
+    health_check_custom_doc  => true,
     expose_health_check      => false,
     json_health_check        => true,
     depends_on_nfs           => true,
