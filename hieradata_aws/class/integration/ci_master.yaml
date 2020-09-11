@@ -60,6 +60,9 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   travel-advice-publisher: {}
   whitehall: {}
 
+govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.integration.publishing.service.gov.uk'
+govuk_jenkins::jobs::deploy_app_downstream::smokey_pre_check: false
+
 jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.Hudson.Administer'
   - 'hudson.model.Hudson.Read'
@@ -110,7 +113,7 @@ govuk_jenkins::config::user_permissions:
       - 'hudson.model.Item.Read'
 
 govuk_jenkins::config::url_prefix: 'ci'
-govuk_jenkins::config::app_domain: blue.%{hiera('app_domain_internal')}
+govuk_jenkins::config::app_domain: blue.%{hiera('app_domain')}
 govuk_jenkins::config::banner_colour_background: '#009ACD'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'Carrenza CI'
