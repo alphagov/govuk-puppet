@@ -1,5 +1,65 @@
 ---
 
+govuk_jenkins::jobs::deploy_app_downstream::applications:
+  asset-manager: {}
+  authenticating-proxy: {}
+  bouncer: {}
+  cache-clearing-service: {}
+  calculators: {}
+  ckan:
+    repository: 'ckanext-datagovuk'
+  collections: {}
+  collections-publisher: {}
+  contacts:
+    repository: 'contacts-admin'
+  content-publisher: {}
+  content-tagger: {}
+  content-store: {}
+  email-alert-api: {}
+  email-alert-frontend: {}
+  email-alert-service: {}
+  feedback: {}
+  finder-frontend: {}
+  frontend: {}
+  government-frontend: {}
+  govuk-content-schemas: {}
+  govuk_crawler_worker: {}
+  govuk-puppet: {}
+  hmrc-manuals-api: {}
+  imminence: {}
+  info-frontend: {}
+  content-data-admin: {}
+  content-data-api: {}
+  licencefinder:
+    repository: 'licence-finder'
+  link-checker-api: {}
+  local-links-manager: {}
+  manuals-frontend: {}
+  manuals-publisher: {}
+  mapit: {}
+  maslow: {}
+  publisher: {}
+  publishing-api: {}
+  release: {}
+  router: {}
+  router-api: {}
+  search-admin: {}
+  search-api: {}
+  service-manual-publisher: {}
+  service-manual-frontend: {}
+  short-url-manager: {}
+  sidekiq-monitoring: {}
+  signon: {}
+  smartanswers:
+    repository: 'smart-answers'
+  specialist-publisher: {}
+  static: {}
+  support-api: {}
+  support: {}
+  transition: {}
+  travel-advice-publisher: {}
+  whitehall: {}
+
 jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.Hudson.Administer'
   - 'hudson.model.Hudson.Read'
