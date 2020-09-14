@@ -27,10 +27,10 @@ govuk_solr6::present: false
 lv:
   data:
     pv: '/dev/nvme1n1'
-    vg: 'data'
+    vg: 'jenkins'
   docker:
     pv: '/dev/nvme2n1'
-    vg: 'jenkins'
+    vg: 'data'
 
 mount:
   /var/lib/jenkins:
