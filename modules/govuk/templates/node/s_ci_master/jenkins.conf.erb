@@ -2,6 +2,7 @@ server {
 
   <%- if scope.lookupvar('::aws_migration') %>
   listen 80;
+  server_name ci.*;
   proxy_set_header Host $http_host;
   <%- else %>
   listen 443 ssl;
