@@ -103,6 +103,7 @@ class govuk::apps::signon(
     sentry_dsn               => $sentry_dsn,
     vhost_ssl_only           => true,
     health_check_path        => '/healthcheck',
+    health_check_custom_doc  => true,
     json_health_check        => true,
     asset_pipeline           => true,
     deny_framing             => true,

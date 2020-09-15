@@ -5,6 +5,13 @@
 # === Parameters
 #
 # FIXME: Document all parameters
+# [*health_check_path*]
+#   The URL path to the healthcheck endpoint of the app, which
+#   will be requested as "localhost:<port>/<health_check_path>".
+#
+# [*health_check_custom_doc*]
+#   By default the alert doc will be "app-healthcheck-not-ok".
+#   Set to true to change this to "<app>-app-healthcheck-not-ok".
 #
 # [*health_check_service_template*]
 #   The title of a `Icinga::Service_template` from which the
@@ -91,6 +98,7 @@ define govuk::app::config (
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
   $health_check_path = 'NOTSET',
+  $health_check_custom_doc = false,
   $expose_health_check = true,
   $json_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
@@ -432,7 +440,12 @@ define govuk::app::config (
       include icinga::client::check_json_healthcheck
 
       $healthcheck_desc      = "${title} app healthcheck not ok"
-      $healthcheck_opsmanual = regsubst($healthcheck_desc, ' ', '-', 'G')
+
+      if $health_check_custom_doc {
+        $healthcheck_doc_slug = regsubst($healthcheck_desc, ' ', '-', 'G')
+      } else {
+        $healthcheck_doc_slug = 'app-healthcheck-not-ok'
+      }
 
       @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
         ensure              => $ensure,
@@ -442,7 +455,7 @@ define govuk::app::config (
         use                 => $health_check_service_template,
         notification_period => $health_check_notification_period,
         host_name           => $::fqdn,
-        notes_url           => monitoring_docs_url($healthcheck_opsmanual),
+        notes_url           => monitoring_docs_url($healthcheck_doc_slug),
         contact_groups      => $additional_check_contact_groups,
       }
     } else {
