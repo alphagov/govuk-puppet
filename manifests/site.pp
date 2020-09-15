@@ -28,6 +28,7 @@ Class['apt::update'] -> Package <|
 # Top-level variable also used by `hiera.yml`.
 # Cannot be spoofed by Facter from `puppet agent`.
 $govuk_node_class = govuk_node_class()
+$ec2_aws_hostname = ec2_aws_hostname()
 
 if chomp(hiera('HIERA_EYAML_GPG_CHECK')) != "It's all OK penguins" {
   fail("Hiera eYAML GPG encryption backend is not working; you should read: \
