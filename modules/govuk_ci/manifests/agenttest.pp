@@ -11,5 +11,5 @@ class govuk_ci::agenttest(
   $version = undef,
 ) {
 
-  notify {"hiera value of postgresql in ci agent $version":}
+  notify {"hiera value of postgresql in ci agent ${version}":}
 }
