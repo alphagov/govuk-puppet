@@ -116,8 +116,8 @@ govuk_jenkins::config::url_prefix: 'ci'
 govuk_jenkins::config::app_domain: blue.%{hiera('app_domain')}
 govuk_jenkins::config::banner_colour_background: '#009ACD'
 govuk_jenkins::config::banner_colour_text: 'black'
-govuk_jenkins::config::banner_string: 'Carrenza CI'
-govuk_jenkins::config::theme_colour: '#009ACD'
+govuk_jenkins::config::banner_string: 'AWS CI'
+govuk_jenkins::config::theme_colour: '#CD5900'
 govuk_jenkins::config::theme_text_colour: 'black'
 govuk_jenkins::config::theme_environment_name: 'CI'
 govuk_jenkins::config::views:
