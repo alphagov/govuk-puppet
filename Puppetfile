@@ -2,6 +2,7 @@ forge "https://forgeapi.puppetlabs.com"
 
 mod 'adrien/alternatives'
 mod 'attachmentgenie/ufw', '1.0.3'
+mod 'bryana/ec2tagfacts', '0.3.0'
 mod 'camptocamp/augeas', '1.1.0'
 mod 'fsalum/redis'
 mod 'jamesnetherton/google_chrome', '0.4.0'
