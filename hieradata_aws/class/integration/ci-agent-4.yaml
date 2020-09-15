@@ -1,4 +1,2 @@
 ---
-postgresql::globals::version: '9.6'
-postgresql::globals::manage_package_repo: true
 govuk_ci::agenttest::version: 'hello my version print here one step above'
