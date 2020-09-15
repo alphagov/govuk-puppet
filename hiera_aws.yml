@@ -1,6 +1,6 @@
 ---
 :hierarchy:
-  - 'class/%{::environment}/ci-agent-4'
+  - 'class/%{::environment}/ci_agent_4'
   - 'class/%{::aws_stackname}/%{::environment}/%{::govuk_node_class}'
   - 'class/%{::aws_stackname}/%{::govuk_node_class}'
   - 'class/%{::environment}/%{::govuk_node_class}'
