@@ -12,6 +12,5 @@ EOS
     end
 
     return "none"
-    end
   end
 end
