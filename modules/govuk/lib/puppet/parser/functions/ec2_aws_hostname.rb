@@ -6,11 +6,10 @@ EOS
 
     aws_hostname = lookupvar('::aws_hostname')
 
-    # Puppet apply on AWS
-    if authenticated == "local"
-      return aws_hostname unless (aws_hostname.nil? || aws_hostname.empty?)
+    if (aws_hostname.nil? || aws_hostname.empty?)
+      return "none"
+    else
+      return aws_hostname
     end
-
-    return "none"
   end
 end
