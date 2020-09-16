@@ -412,7 +412,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
-    govuk_containers::apps::router::envvars
     govuk_crawler::alert_hostname
     govuk_crawler::amqp_host
     govuk_crawler::seed_enable

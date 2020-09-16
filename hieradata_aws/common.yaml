@@ -1114,26 +1114,6 @@ govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
 govuk_ci::agent::master_ssh_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
 
-
-govuk_containers::app::config::global_envvars:
-  - "GOVUK_ENV=production"
-  - "NODE_ENV=production"
-  - "RACK_ENV=production"
-  - "RAILS_ENV=production"
-  - "ERRBIT_ENVIRONMENT_NAME=%{hiera('govuk::deploy::config::errbit_environment_name')}"
-  - "SENTRY_CURRENT_ENV=%{hiera('govuk::deploy::config::errbit_environment_name')}-%{hiera('stackname')}-aws"
-  - "GOVUK_APP_DOMAIN=%{hiera('app_domain_internal')}"
-  - "GOVUK_APP_DOMAIN_EXTERNAL=%{hiera('app_domain')}"
-  - "GOVUK_ASSET_ROOT=%{hiera('govuk::deploy::config::asset_root')}"
-  - "GOVUK_WEBSITE_ROOT=%{hiera('govuk::deploy::config::website_root')}"
-
-govuk_containers::apps::router::envvars:
-  - "ROUTER_PUBADDR=localhost:3054"
-  - "ROUTER_APIADDR=:3055"
-  - "ROUTER_MONGO_DB=router"
-  - "ROUTER_MONGO_URL=router-backend-1,router-backend-2,router-backend-3"
-  - "ROUTER_BACKEND_HEADER_TIMEOUT=20s"
-
 govuk_crawler::alert_hostname: 'alert'
 govuk_crawler::amqp_host: 'localhost'
 govuk_crawler::site_root: "https://www.%{hiera('app_domain')}"

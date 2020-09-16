@@ -30,15 +30,11 @@
 #
 #   Default: false
 #
-# [*router_as_container*]
-#   Set to true to run Router as a container in Docker.
-#
 class govuk::node::s_cache (
   $protect_cache_servers = false,
   $real_ip_header = undef,
   $denied_ip_addresses = undef,
   $enable_authenticating_proxy = false,
-  $router_as_container = false,
 ) inherits govuk::node::s_base {
 
   include govuk_htpasswd
@@ -66,10 +62,6 @@ class govuk::node::s_cache (
   # take up tracked connection slots
   govuk_harden::sysctl::conf { 'cache-nf-conntrack-tcp-timeout-established':
     content => "net.netfilter.nf_conntrack_tcp_timeout_established = 600\n",
-  }
-
-  if $router_as_container {
-    include ::govuk_containers::apps::router
   }
 
   class { 'nginx':
