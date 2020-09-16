@@ -41,9 +41,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_ci::master::ci_agents
     govuk_ci::master::credentials_id
     govuk_ci::master::pipeline_jobs
-    govuk_containers::frontend::haproxy::backend_mappings
-    govuk_containers::frontend::haproxy::wildcard_publishing_certificate
-    govuk_containers::frontend::haproxy::wildcard_publishing_key
     govuk_jenkins::config::user_permissions
     govuk_jenkins::packages::sops::apt_mirror_hostname
     govuk_jenkins::packages::sops::apt_mirror_gpg_key_fingerprint
@@ -412,7 +409,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::node::s_licensing_frontend::apt_mirror_gpg_key_fingerprint
     govuk::node::s_transition_db_admin::apt_mirror_hostname
     govuk_bundler::config::service
-    govuk_containers::apps::router::envvars
     govuk_crawler::alert_hostname
     govuk_crawler::amqp_host
     govuk_crawler::seed_enable
