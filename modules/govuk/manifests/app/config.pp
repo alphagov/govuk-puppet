@@ -465,7 +465,7 @@ define govuk::app::config (
         check_period        => $check_period,
         service_description => "${title} app healthcheck",
         host_name           => $::fqdn,
-        notes_url           => monitoring_docs_url(app-healthcheck-failed),
+        notes_url           => monitoring_docs_url(app-healthcheck-not-ok),
         contact_groups      => $additional_check_contact_groups,
       }
     }

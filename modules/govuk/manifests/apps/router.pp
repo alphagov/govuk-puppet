@@ -88,7 +88,7 @@ class govuk::apps::router (
     check_command       => "check_app_health!check_app_up!${api_port} ${api_healthcheck}",
     service_description => 'router app healthcheck',
     host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(app-healthcheck-failed),
+    notes_url           => monitoring_docs_url(app-healthcheck-not-ok),
   }
 
   govuk_logging::logstream { 'router-error-json-log':
