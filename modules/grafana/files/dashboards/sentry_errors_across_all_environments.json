@@ -6,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 13,
+  "id": 47,
   "links": [],
   "refresh": false,
   "rows": [
@@ -246,6 +246,194 @@
       "showTitle": true,
       "title": "Stats for this environment",
       "titleSize": "h3"
+    },
+    {
+      "collapse": false,
+      "height": 250,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 10,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "30 day average",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 3
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum'), 'Errors per day')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(movingAverage(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum'), '30d'), '30 day average')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "now-90d",
+          "timeShift": null,
+          "title": "Errors sent to Sentry",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Sentry error count per day",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "fill": 1,
+          "id": 11,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "30 day average",
+              "bars": false,
+              "fill": 0,
+              "lines": true,
+              "linewidth": 3
+            },
+            {
+              "alias": "Errors rate-limited per day",
+              "color": "#BF1B00"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 6,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum'), 'Errors rate-limited per day')",
+              "textEditor": true
+            },
+            {
+              "refId": "B",
+              "target": "alias(movingAverage(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum'), '30d'), '30 day average')",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "now-90d",
+          "timeShift": null,
+          "title": "Errors rate-limited by Sentry",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": "Sentry error count per day",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
     },
     {
       "collapse": false,
@@ -620,8 +808,8 @@
     ]
   },
   "time": {
-    "from": "now-12h",
-    "to": "now"
+    "from": "now/d",
+    "to": "now/d"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -650,5 +838,5 @@
   },
   "timezone": "browser",
   "title": "Sentry errors",
-  "version": 3
+  "version": 5
 }
