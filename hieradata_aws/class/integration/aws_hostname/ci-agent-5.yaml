@@ -2,6 +2,36 @@
 govuk_containers::elasticsearch::primary::enable: false
 govuk_containers::elasticsearch::secondary::enable: false
 
+govuk_sudo::sudo_conf:
+  deploy_docker_image:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
+  deploy_init_ctl:
+    content: 'deploy ALL=NOPASSWD:/sbin/initctl'
+  deploy_service_docker:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/docker-*'
+  deploy_service_memcached:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/memcached'
+  deploy_service_nginx:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/nginx'
+  deploy_service_varnish:
+    content: 'deploy ALL=NOPASSWD:/etc/init.d/varnish'
+  deploy_varnishadm:
+    content: 'deploy ALL=NOPASSWD:/usr/bin/varnishadm'
+  icinga_init_ctl:
+    content: 'nagios ALL=NOPASSWD:/sbin/initctl reload *'
+  icinga_initctl_restart:
+    content: 'nagios ALL=NOPASSWD:/sbin/initctl restart *'
+  ubuntu:
+    content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
+  control_clamav:
+    content: >-
+     Cmnd_Alias CLAMAV_SERVICE = /usr/sbin/service clamav-daemon start,
+     /usr/sbin/service clamav-daemon restart,
+     /usr/sbin/service clamav-daemon stop,
+     /usr/sbin/service clamav-daemon status
+
+     jenkins ALL=(root) NOPASSWD: CLAMAV_SERVICE
+
 # prevents puppet stopping the service which is does by default as
 # clamav::use_service is set to false for it
 clamav::service::puppet_lifecycle_enable: false
