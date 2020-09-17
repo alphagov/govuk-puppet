@@ -22,7 +22,8 @@ govuk_mysql::server::query_cache_size: 0
 govuk_sysdig::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_sysdig::ensure: 'absent'
 
-govuk_solr6::present: false
+govuk_solr::disable: true
+govuk_solr6::present: true
 
 lv:
   data:
