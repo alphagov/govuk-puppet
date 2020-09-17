@@ -126,19 +126,6 @@ class govuk::deploy::config(
       'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
     }
 
-    # 1. Signon is still in Carrenza Staging and Production.
-    if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
-      # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
-      # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
-      # signon URL with 'draft-'. We therefore mustn't override it here, otherwise
-      # we're duplicating the resource.
-      unless $::govuk_node_class == 'draft_content_store' {
-        govuk_envvar {
-          'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
-        }
-      }
-    }
-
   } else {
     govuk_envvar {
       'GOVUK_APP_DOMAIN':           value => $app_domain;
