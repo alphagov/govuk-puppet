@@ -24,17 +24,6 @@ class govuk::apps::email_alert_api::checks(
       latency_critical => '5400'; # 90 minutes
   }
 
-  @@icinga::check::graphite { 'email-alert-api-warning-digest-runs':
-    ensure    => $ensure,
-    host_name => $::fqdn,
-    target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.digest_runs.warning_total)))',
-    warning   => '0',
-    critical  => '100000000',
-    from      => '1hour',
-    desc      => 'email-alert-api - incomplete digest runs - warning',
-    notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
-  }
-
   @@icinga::check::graphite { 'email-alert-api-unprocessed-content-changes':
     ensure    => $ensure,
     host_name => $::fqdn,
