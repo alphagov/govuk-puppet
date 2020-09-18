@@ -57,9 +57,11 @@ class icinga::config (
   }
 
   if $::aws_migration {
-    @logrotate::conf { 'icinga':
-      matches => '/var/log/icinga/*.log',
-      maxsize => '100M',
+    cron { 'remove_old_icinga_archived_files':
+      command => 'find /var/log/icinga/archives -mtime +14 -exec rm {} \;',
+      user    => 'nagios',
+      hour    => 1,
+      minute  => 0,
     }
 
     file { '/var/log/icinga':
@@ -70,7 +72,7 @@ class icinga::config (
     }
 
     file { '/etc/icinga/icinga.cfg':
-      content  => template('icinga/etc/icinga/icinga-aws.cfg.erb'),
+      content  => template('icinga/etc/icinga/icinga.cfg.erb'),
     }
 
     $graphite_url = "https://${graphite_hostname}"
