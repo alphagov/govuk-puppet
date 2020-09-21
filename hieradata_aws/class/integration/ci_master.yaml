@@ -113,7 +113,7 @@ govuk_jenkins::config::user_permissions:
       - 'hudson.model.Item.Read'
 
 govuk_jenkins::config::url_prefix: 'ci'
-govuk_jenkins::config::app_domain: 'blue.integration.govuk.digital'
+govuk_jenkins::config::app_domain: "%{hiera('app_domain')"
 govuk_jenkins::config::banner_colour_background: '#CD5900'
 govuk_jenkins::config::banner_colour_text: 'black'
 govuk_jenkins::config::banner_string: 'AWS CI'
