@@ -71,6 +71,13 @@ class icinga::config (
       mode   => '2755',
     }
 
+    file { '/var/log/icinga/archives':
+      ensure => directory,
+      owner  => 'nagios',
+      group  => 'adm',
+      mode   => '2755',
+    }
+
     file { '/etc/icinga/icinga.cfg':
       content  => template('icinga/etc/icinga/icinga.cfg.erb'),
     }
