@@ -47,6 +47,15 @@ class govuk_ci::master (
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
 
+  # Only add this configuration for CI master Jenkins instances
+  file { '/var/lib/jenkins/github-plugin-configuration.xml':
+    ensure => file,
+    owner  => 'jenkins',
+    group  => 'jenkins',
+    source => 'puppet:///modules/govuk_ci/github-plugin-configuration.xml',
+    notify => Class['Govuk_jenkins::Reload'],
+  }
+
   ufw::allow {'jenkins-slave-to-jenkins-master-on-tcp':
     port  => '32768:65535',
     proto => 'tcp',
