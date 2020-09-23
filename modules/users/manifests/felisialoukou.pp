@@ -1,5 +1,6 @@
 # Creates the felisialoukou user
 class users::felisialoukou { govuk_user { 'felisialoukou':
+    ensure   => absent,
     fullname => 'Felisia Loukou',
     email    => 'felisia.loukou@digital.cabinet-office.gov.uk',
     ssh_key  => [
