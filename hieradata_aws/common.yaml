@@ -554,6 +554,7 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - edward.kerry@digital.cabinet-office.gov.uk
   - huw.diprose@digital.cabinet-office.gov.uk
   - jennifer.allum@digital.cabinet-office.gov.uk
+  - jessica.jones@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
   - kelvin.gan@digital.cabinet-office.gov.uk
   - leanne.cummings@digital.cabinet-office.gov.uk
