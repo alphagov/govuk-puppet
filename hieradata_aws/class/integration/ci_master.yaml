@@ -143,6 +143,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet_downstream
   - govuk_jenkins::jobs::build_fpm_package
 
+govuk_jenkins::jobs::deploy_app_downstream::jenkins_downstream_api_password: "%{hiera('govuk_jenkins::jobs::deploy_app_downstream::ci_jenkins_downstream_api_password')}"
+
 jenkins::params::default_plugins: []
 
 govuk_jenkins::plugins:
