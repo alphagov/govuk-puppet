@@ -42,10 +42,11 @@ set -o errtrace
 #     Path to use on storage backend, prefix in case of S3.
 #
 #   s) transformation_sql_file
-#     Optional path to a file containing additional SQL statements to run
-#     within the transaction when restoring a Postgres database, after the data
-#     has been inserted. Intended for data scrubbing / anonymisation when
-#     restoring to the Integration environment.
+#     Optional path to a file containing additional SQL statements to
+#     run within the transaction when restoring a Postgres or MySQL
+#     database, after the data has been inserted. Intended for data
+#     scrubbing / anonymisation when restoring to the Integration
+#     environment.
 #
 #   F) pre_dump_transformation_sql_file
 #     Optional path to a file containing additional SQL statements to run
@@ -468,6 +469,10 @@ function dump_mysql {
 
 function restore_mysql {
   gunzip < "${tempdir}/${filename}" | sudo -H mysql -h mysql-primary "${database}"
+  if [ "${transformation_sql_file:-}" ]; then
+    # shellcheck disable=SC2024
+    sudo -H mysql -h mysql-primary "${database}" < "${transformation_sql_file}"
+  fi
 }
 
 function push_s3 {
