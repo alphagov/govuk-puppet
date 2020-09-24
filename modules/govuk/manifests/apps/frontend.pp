@@ -67,7 +67,7 @@ class govuk::apps::frontend(
   $unicorn_worker_processes = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
 ) {
   $app_name = 'frontend'
 
