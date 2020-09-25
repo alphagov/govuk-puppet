@@ -49,10 +49,6 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
-# [*enable_procfile_worker*]
-#   Whether to enable the procfile worker
-#   Default: true
-#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port,
@@ -67,7 +63,6 @@ class govuk::apps::frontend(
   $unicorn_worker_processes = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $enable_procfile_worker = false,
 ) {
   $app_name = 'frontend'
 
@@ -113,9 +108,5 @@ class govuk::apps::frontend(
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
     }
-  }
-
-  govuk::procfile::worker { $app_name:
-    enable_service => $enable_procfile_worker,
   }
 }
