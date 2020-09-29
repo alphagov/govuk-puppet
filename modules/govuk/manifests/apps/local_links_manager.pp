@@ -137,7 +137,9 @@ class govuk::apps::local_links_manager(
     sentry_dsn               => $sentry_dsn,
     vhost_ssl_only           => true,
     health_check_path        => '/healthcheck',
-    unicorn_worker_processes =>  $unicorn_worker_processes,
+    unicorn_worker_processes => $unicorn_worker_processes,
+    nagios_memory_warning    => 800,
+    nagios_memory_critical   => 900,
   }
 
   Govuk::App::Envvar {
