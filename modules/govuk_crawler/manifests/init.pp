@@ -167,6 +167,7 @@ class govuk_crawler(
       service_description => $sync_service_desc,
       host_name           => $::fqdn,
       freshness_threshold => $threshold_secs,
+      notes_url           => monitoring_docs_url(mirror-sync),
     }
   }
 
