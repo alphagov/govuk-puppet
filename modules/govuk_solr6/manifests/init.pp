@@ -23,6 +23,10 @@ class govuk_solr6 (
   }
 
   if $present {
+    config { 'solr.init':
+      init_file => 'puppet:///modules/govuk_solr6/solr.init.sh',
+    }
+
     configset { 'ckan28':
       schema_xml => 'puppet:///modules/govuk_solr6/ckan28.schema.xml',
     }
