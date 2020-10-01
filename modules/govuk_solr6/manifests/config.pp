@@ -3,7 +3,7 @@
 # Configures solr according to data.gov.uk needs.
 #
 define govuk_solr6::config (
-  $init_file = 'puppet:///modules/govuk_solr6/solr.init.sh',
+  $init_file = 'puppet:///modules/govuk_solr6/solr.in.sh',
 ) {
   file {'/etc/init.d/solr.init.sh':
     ensure => file,

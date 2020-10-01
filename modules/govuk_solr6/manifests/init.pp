@@ -24,7 +24,7 @@ class govuk_solr6 (
 
   if $present {
     config { 'solr.init':
-      init_file => 'puppet:///modules/govuk_solr6/solr.init.sh',
+      init_file => 'puppet:///modules/govuk_solr6/solr.in.sh',
     }
 
     configset { 'ckan28':
