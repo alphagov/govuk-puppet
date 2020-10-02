@@ -41,7 +41,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.digest_runs.critical_total)))',
     warning   => '0',
     critical  => '0',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - incomplete digest runs - critical',
     notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
   }
@@ -52,7 +52,7 @@ class govuk::apps::email_alert_api::checks(
     target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.unprocessed_total)))',
     warning   => '0',
     critical  => '0',
-    from      => '1hour',
+    from      => '15minutes',
     desc      => 'email-alert-api - unprocessed messages older than 120 minutes',
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-messages),
   }
