@@ -10,7 +10,7 @@ lv:
     vg: 'monitoring'
 
 mount:
-  /var/lib/icinga:
+  /var/log/icinga:
     disk: '/dev/mapper/monitoring-data'
     govuk_lvm: 'data'
     mountoptions: 'defaults'
