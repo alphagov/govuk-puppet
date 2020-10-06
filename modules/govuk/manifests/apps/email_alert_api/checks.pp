@@ -32,7 +32,7 @@ class govuk::apps::email_alert_api::checks(
     critical  => '0',
     from      => '15minutes',
     desc      => 'email-alert-api - unprocessed content changes older than 2 hours',
-    notes_url => monitoring_docs_url(email-alert-api-unprocessed-content-changes),
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-work),
   }
 
   @@icinga::check::graphite { 'email-alert-api-critical-digest-runs':
@@ -43,7 +43,7 @@ class govuk::apps::email_alert_api::checks(
     critical  => '0',
     from      => '15minutes',
     desc      => 'email-alert-api - incomplete digest runs older than 2 hours',
-    notes_url => monitoring_docs_url(email-alert-api-incomplete-digest-runs),
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-work),
   }
 
   @@icinga::check::graphite { 'email-alert-api-unprocessed-messages':
@@ -54,6 +54,6 @@ class govuk::apps::email_alert_api::checks(
     critical  => '0',
     from      => '15minutes',
     desc      => 'email-alert-api - unprocessed messages older than 2 hours',
-    notes_url => monitoring_docs_url(email-alert-api-unprocessed-messages),
+    notes_url => monitoring_docs_url(email-alert-api-unprocessed-work),
   }
 }
