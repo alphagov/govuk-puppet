@@ -308,6 +308,8 @@ govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::manuals_publisher::nagios_memory_warning: 1000
+govuk::apps::manuals_publisher::nagios_memory_critical: 1200
 
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"

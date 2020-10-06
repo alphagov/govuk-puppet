@@ -602,6 +602,8 @@ govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::manuals_publisher::nagios_memory_warning: 1000
+govuk::apps::manuals_publisher::nagios_memory_critical: 1200
 
 govuk::apps::mapit::gdal_version: "1.11.5"
 
