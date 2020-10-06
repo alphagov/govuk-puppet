@@ -25,6 +25,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*link_checker_api_bearer_token*]
+#   The bearer token to use when communicating with Link Checker API.
+#   Default: undef
+#
 # [*nagios_memory_warning*]
 #   Memory use at which Nagios should generate a warning.
 #
@@ -48,6 +52,7 @@ class govuk::apps::smartanswers(
   $show_draft_flows = false,
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
+  $link_checker_api_bearer_token = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $secret_key_base = undef,
@@ -77,6 +82,9 @@ class govuk::apps::smartanswers(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-LINK_CHECKER_API_BEARER_TOKEN":
+      varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+      value   => $link_checker_api_bearer_token;
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
