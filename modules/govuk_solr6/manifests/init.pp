@@ -8,12 +8,16 @@
 # [*present*]
 #   Whether package should _actually_ be present.
 #
+# [*version*]
+#   Default version is 6.6.2, can be overridden if needed
+#
 class govuk_solr6 (
   $present = true,
+  $version = '6.6.2'
 ) {
   $package_ensure = $present ? {
     false => absent,
-    true  => present,
+    true  => $version,
   }
 
   include govuk_solr6::repo
