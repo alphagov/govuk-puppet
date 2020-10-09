@@ -58,6 +58,7 @@ class icinga::config (
 
   if $::aws_migration {
     cron { 'remove_old_icinga_archived_files':
+      ensure  => 'absent',
       command => 'find /var/log/icinga/archives -mtime +14 -exec rm {} \;',
       user    => 'nagios',
       hour    => 1,
