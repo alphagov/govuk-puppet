@@ -101,7 +101,7 @@ class govuk::apps::router (
     paths  => [$error_log],
     tags   => ['error'],
     fields => {'application' => 'router'},
-    json   => {'add_error_key' => true},
+    json   => {'ignore_decoding_errors' => true},
   }
 
 }

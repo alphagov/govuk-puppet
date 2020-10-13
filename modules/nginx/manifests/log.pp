@@ -25,7 +25,7 @@ define nginx::log (
   }
 
   if $json {
-    $json_hash = {add_error_key => true}
+    $json_hash = {ignore_decoding_errors => true}
   } else {
     $json_hash = {}
   }

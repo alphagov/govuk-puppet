@@ -93,12 +93,16 @@ filebeat:
           overwrite_keys: true
           <%- end -%>
 
+          <%- if @json['ignore_decoding_errors'] -%>
+          # An optional configuration setting that specifies if JSON decoding errors should be logged or not.
+          # If set to true, errors will not be logged. The default is false.
+          ignore_decoding_errors: true
+          <%- else %>
           # If this setting is enabled, Filebeat adds a "json_error" key in case of JSON
           # unmarshaling errors or when a text key is defined in the configuration but cannot
           # be used.
-          <%- if [true, false].include? @json['add_error_key'] -%>
-          add_error_key: <%= @json['add_error_key'] %>
-          <%- end -%>
+          add_error_key: true
+          <%- end %>
       <%- end -%>
 
       <%- if @multiline.length > 0 -%>
@@ -146,7 +150,7 @@ filebeat:
       # Time strings like 2h (2 hours), 5m (5 minutes) can be used.
       <%- if @close_inactive -%>
       close_inactive: <%= @close_inactive %>
-      <%- end -%>      
+      <%- end -%>
 
       # Close renamed closes a file handler when the file is renamed or rotated.
       # Note: Potential data loss. Make sure to read and understand the docs for this option.

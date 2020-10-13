@@ -16,21 +16,21 @@ describe 'filebeat::prospector', :type => :define do
     ) }
   end
 
-  context 'if add_error_key set to true' do
+  context 'if ignore_decoding_errors set to true' do
     let(:params) { default_params.merge({
-      :json => {'add_error_key' => true}
+      :json => {'ignore_decoding_errors' => true}
     })}
 
     it { should contain_file('filebeat-apple').with_path(
       '/etc/filebeat/conf.d/apple.yml'
     ).with_content(
-      /add_error_key: true/
+      /ignore_decoding_errors: true/
     ) }
   end
 
-  context 'if add_error_key set to undef' do
+  context 'if ignore_decoding_errors set to undef' do
     let(:params) { default_params.merge({
-      :json => {'add_error_key' => 'undef'}
+      :json => {}
     })}
 
     it { should_not contain_file('filebeat-apple').with_path(
