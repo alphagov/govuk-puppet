@@ -98,6 +98,11 @@
 #   The external subdomain used by the app
 #   Default: undef
 #
+# [*nagios_memory_warning*]
+#   The threshold that memory must be reached to be triggered as a warning
+# [*nagios_memory_critical*]
+#   The threshold that memory must be reached to be triggered as a critical issue
+#
 class govuk::apps::local_links_manager(
   $ensure = 'present',
   $port,
@@ -126,6 +131,8 @@ class govuk::apps::local_links_manager(
   $run_links_ga_export = false,
   $unicorn_worker_processes = undef,
   $app_domain = undef,
+  $nagios_memory_warning = undef,
+  $nagios_memory_critical = undef,
 ) {
   $app_name = 'local-links-manager'
 
@@ -138,8 +145,8 @@ class govuk::apps::local_links_manager(
     vhost_ssl_only           => true,
     health_check_path        => '/healthcheck',
     unicorn_worker_processes => $unicorn_worker_processes,
-    nagios_memory_warning    => 800,
-    nagios_memory_critical   => 900,
+    nagios_memory_warning    => $nagios_memory_warning,
+    nagios_memory_critical   => $nagios_memory_critical,
   }
 
   Govuk::App::Envvar {
