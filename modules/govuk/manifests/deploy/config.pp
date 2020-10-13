@@ -78,6 +78,16 @@ class govuk::deploy::config(
     mode   => '0755',
   }
 
+  # govuk_unicorn_reload is a wrapper around the upstart command to reload
+  # unicorn following a deploy. It supervises the reloading to delay confirming
+  # a reload as complete until the new process is running and the old one is
+  # stopped.
+  file { '/usr/local/bin/govuk_unicorn_reload':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_unicorn_reload',
+    mode   => '0755',
+  }
+
   # govuk_setenv is a simple script that loads the environment for a GOV.UK
   # application and execs its arguments
   # daemontools provides envdir, used by govuk_setenv
