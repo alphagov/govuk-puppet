@@ -17,11 +17,11 @@ fi
 cd /var/apps/$1
 
 if [ -f bin/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./bin/rails console
+  sudo -u deploy -H govuk_setenv $1 bundle exec ./bin/rails console
 elif [ -f script/rails ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./script/rails console
+  sudo -u deploy -H govuk_setenv $1 bundle exec ./script/rails console
 elif [ -f console ]; then
-  sudo -u deploy govuk_setenv $1 bundle exec ./console
+  sudo -u deploy -H govuk_setenv $1 bundle exec ./console
 else
   echo "I don't know how to run a console for $1"
   exit 1
