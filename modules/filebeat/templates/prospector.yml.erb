@@ -65,44 +65,21 @@ filebeat:
       force_close_files: <%= @force_close_files %>
       <%- end -%>
 
-      <%- if @json.length > 0 -%>
+      <%- if @json -%>
       ### JSON configuration
       json:
-          # Decode JSON options. Enable this if your logs are structured in JSON.
-          # JSON key on which to apply the line filtering and multiline settings. This key
-          # must be top level and its value must be string, otherwise it is ignored. If
-          # no text key is defined, the line filtering and multiline features cannot be used.
-          <%- if @json['message_key'] -%>
-          message_key: '<%= @json['message_key'] %>'
-          <%- end -%>
-
           # By default, the decoded JSON is placed under a "json" key in the output document.
           # If you enable this setting, the keys are copied top level in the output document.
-          <%- if @json['keys_under_root'] -%>
-          keys_under_root: <%= @json['keys_under_root'] %>
-          <%- else -%>
           keys_under_root: true
-          <%- end -%>
 
           # If keys_under_root and this setting are enabled, then the values from the decoded
           # JSON object overwrite the fields that Filebeat normally adds (type, source, offset, etc.)
           # in case of conflicts.
-          <%- if @json['overwrite_keys'] -%>
-          overwrite_keys: <%= @json['overwrite_keys'] %>
-          <%- else -%>
           overwrite_keys: true
-          <%- end -%>
 
-          <%- if @json['ignore_decoding_errors'] -%>
           # An optional configuration setting that specifies if JSON decoding errors should be logged or not.
           # If set to true, errors will not be logged. The default is false.
           ignore_decoding_errors: true
-          <%- else %>
-          # If this setting is enabled, Filebeat adds a "json_error" key in case of JSON
-          # unmarshaling errors or when a text key is defined in the configuration but cannot
-          # be used.
-          add_error_key: true
-          <%- end %>
       <%- end -%>
 
       <%- if @multiline.length > 0 -%>

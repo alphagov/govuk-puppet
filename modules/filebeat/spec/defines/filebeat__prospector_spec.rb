@@ -16,9 +16,9 @@ describe 'filebeat::prospector', :type => :define do
     ) }
   end
 
-  context 'if ignore_decoding_errors set to true' do
+  context 'if json set to true' do
     let(:params) { default_params.merge({
-      :json => {'ignore_decoding_errors' => true}
+      :json => true
     })}
 
     it { should contain_file('filebeat-apple').with_path(
@@ -28,15 +28,11 @@ describe 'filebeat::prospector', :type => :define do
     ) }
   end
 
-  context 'if ignore_decoding_errors set to undef' do
-    let(:params) { default_params.merge({
-      :json => {}
-    })}
-
+  context 'if json set to undef' do
     it { should_not contain_file('filebeat-apple').with_path(
       '/etc/filebeat/conf.d/apple.yml'
     ).with_content(
-      /add_error_key: true/
+      /ignore_decoding_errors: true/
     ) }
   end
 end

@@ -345,7 +345,7 @@ class govuk::apps::whitehall(
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
       paths  => ['/var/apps/whitehall/log/production_scheduled_publishing.json.log'],
       fields => {'application' => 'whitehall'},
-      json   => {'ignore_decoding_errors' => true},
+      json   => true,
     }
 
     govuk::procfile::worker { 'whitehall-admin':

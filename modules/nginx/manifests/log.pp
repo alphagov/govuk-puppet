@@ -24,16 +24,10 @@ define nginx::log (
     statsd_timers => $statsd_timers,
   }
 
-  if $json {
-    $json_hash = {ignore_decoding_errors => true}
-  } else {
-    $json_hash = {}
-  }
-
   @filebeat::prospector { $name:
     ensure => $logstream,
     paths  => [$path],
-    json   => $json_hash,
+    json   => $json,
     tags   => $tags,
     fields => $fields,
   }
