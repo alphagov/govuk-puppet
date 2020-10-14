@@ -30,14 +30,14 @@ define filebeat::prospector (
   $exclude_lines         = [],
   $max_bytes             = '10485760',
   $multiline             = {},
-  $json                  = {},
+  $json                  = false,
   $tags                  = [],
   $symlinks              = false,
 ) {
 
-  validate_hash($fields, $multiline, $json)
+  validate_hash($fields, $multiline)
   validate_array($paths, $exclude_files, $include_lines, $exclude_lines, $tags)
-  validate_bool($tail_files, $close_renamed, $close_removed, $close_eof, $clean_removed, $symlinks)
+  validate_bool($tail_files, $close_renamed, $close_removed, $close_eof, $clean_removed, $symlinks, $json)
 
   file { "filebeat-${name}":
     ensure  => $ensure,
