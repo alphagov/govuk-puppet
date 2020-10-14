@@ -242,8 +242,8 @@ class govuk::apps::sidekiq_monitoring (
     enable_nginx_vhost     => false,
     hasrestart             => true,
     collectd_process_regex => '/data/apps/sidekiq-monitoring/shared/bundle/ruby/.*/bin/rackup .*',
-    nagios_memory_warning  => 1500,
-    nagios_memory_critical => 1600,
+    nagios_memory_warning  => 1650,
+    nagios_memory_critical => 1800,
   }
 
   govuk::app::envvar::redis{
