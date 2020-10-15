@@ -1,8 +1,0 @@
----
-
-lv:
-  data:
-    pv:
-      - /dev/sdb1
-      - /dev/sdc1
-    vg: graphite
