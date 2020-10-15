@@ -48,7 +48,7 @@ class govuk::apps::collections(
     app_type                 => 'rack',
     port                     => $port,
     unicorn_worker_processes => $unicorn_worker_processes,
-    health_check_path        => '/topic/oil-and-gas',
+    health_check_path        => '/healthcheck',
     log_format_is_json       => true,
     asset_pipeline           => true,
     asset_pipeline_prefixes  => ['assets/collections'],
