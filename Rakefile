@@ -99,7 +99,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_jenkins::config::theme_colour
     govuk_jenkins::config::theme_environment_name
     govuk_jenkins::config::theme_text_colour
-    govuk_postgresql::server::standby::pgpassfile_enabled
     hosts::production::ip_bouncer
     mongodb::s3backup::backup::s3_bucket
     mongodb::s3backup::backup::s3_bucket_daily
@@ -142,7 +141,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold
     govuk::apps::cache_clearing_service::rabbitmq_hosts
     govuk::apps::ckan::ckan_site_url
-    govuk::apps::ckan::cronjobs::enable_solr_reindex
     govuk::apps::ckan::db::allow_auth_from_lb
     govuk::apps::ckan::db::backend_ip_range
     govuk::apps::ckan::db::lb_ip_range
@@ -193,17 +191,13 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::govuk_crawler_worker::root_urls
     govuk::apps::govuk_crawler_worker::nagios_memory_critical
     govuk::apps::govuk_crawler_worker::nagios_memory_warning
-    govuk::apps::govuk_crawler_worker::disable_during_data_sync
     govuk::apps::email_alert_api::db::allow_auth_from_lb
     govuk::apps::email_alert_api::db::backend_ip_range
     govuk::apps::email_alert_api::db::lb_ip_range
     govuk::apps::email_alert_api::db::rds
     govuk::apps::email_alert_api::db_hostname
     govuk::apps::email_alert_api::db_password
-    govuk::apps::email_alert_api::delivery_request_threshold
-    govuk::apps::email_alert_api::email_address_override
     govuk::apps::email_alert_api::email_address_override_whitelist
-    govuk::apps::email_alert_api::email_address_override_whitelist_only
     govuk::apps::email_alert_api::email_archive_s3_bucket
     govuk::apps::email_alert_api::email_archive_s3_enabled
     govuk::apps::email_alert_api::enabled
@@ -215,7 +209,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::unicorn_worker_processes
     govuk::apps::email_alert_frontend::redis_host
     govuk::apps::email_alert_frontend::redis_port
-    govuk::apps::email_alert_frontend::subscription_management_enabled
     govuk::apps::email_alert_service::enable_unpublishing_queue_consumer
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold
@@ -278,16 +271,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::local_links_manager::unicorn_worker_processes
     govuk::apps::mapit::enabled
     govuk::apps::mapit::gdal_version
-    govuk::apps::manuals_publisher::mongodb_nodes
-    govuk::apps::manuals_publisher::mongodb_username
-    govuk::apps::manuals_publisher::mongodb_password
-    govuk::apps::maslow::mongodb_nodes
-    govuk::apps::maslow::mongodb_username
-    govuk::apps::maslow::mongodb_password
     govuk::apps::publisher::alert_hostname
-    govuk::apps::publisher::mongodb_nodes
-    govuk::apps::publisher::mongodb_username
-    govuk::apps::publisher::mongodb_password
     govuk::apps::publishing_api::content_store
     govuk::apps::publishing_api::db::allow_auth_from_lb
     govuk::apps::publishing_api::db::backend_ip_range
@@ -346,9 +330,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::service_manual_publisher::db::lb_ip_range
     govuk::apps::service_manual_publisher::db::rds
     govuk::apps::service_manual_publisher::db_hostname
-    govuk::apps::short_url_manager::mongodb_nodes
-    govuk::apps::short_url_manager::mongodb_username
-    govuk::apps::short_url_manager::mongodb_password
     govuk::apps::specialist_publisher::aws_s3_bucket_name
     govuk::apps::support::aws_s3_bucket_name
     govuk::apps::support::redis_host
@@ -373,9 +354,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::transition::postgresql_db::rds
     govuk::apps::transition::redis_host
     govuk::apps::transition::redis_port
-    govuk::apps::travel_advice_publisher::mongodb_nodes
-    govuk::apps::travel_advice_publisher::mongodb_username
-    govuk::apps::travel_advice_publisher::mongodb_password
     govuk::apps::whitehall::admin_db_hostname
     govuk::apps::whitehall::admin_db_name
     govuk::apps::whitehall::admin_db_password
@@ -439,7 +417,6 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::client::alert_hostname
     monitoring::checks::sidekiq::enable_signon_check
     monitoring::checks::smokey::features
-    monitoring::checks::smokey::disable_during_data_sync
     monitoring::client::graphite_hostname
     monitoring::uptime_collector::aws
     nginx_enable_ssl
@@ -454,7 +431,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::ckan::s3_bucket_name
     govuk::node::s_base::node_apps
     govuk::node::s_cache::real_ip_header
-    govuk::node::s_cache::router_as_container
     monitoring::checks::cache::region
     monitoring::checks::rds::region
     nginx::config::stack_network_prefix
@@ -462,8 +438,6 @@ task :check_consistency_between_aws_and_carrenza do
 
     backup::server::backup_hour
     cron::daily_hour
-    govuk::apps::content_data_admin::google_tag_manager_auth
-    govuk::apps::content_data_admin::google_tag_manager_preview
     govuk::apps::link_checker_api::govuk_basic_auth_credentials
     govuk::apps::short_url_manager::instance_name
     govuk::apps::support::zendesk_anonymous_ticket_email
@@ -486,7 +460,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk_mysql::server::slow_query_log
     govuk_sudo::sudo_conf
     grafana::dashboards::machine_suffix_metrics
-    monitoring::checks::sidekiq::enable_support_check
     monitoring::pagerduty_drill::enabled
     router::assets_origin::website_root
     router::nginx::robotstxt
@@ -501,7 +474,6 @@ task :check_consistency_between_aws_and_carrenza do
     licensify::apps::configfile::elms_admin_host
     licensify::apps::configfile::elms_frontend_host
     licensify::apps::configfile::elms_max_app_process_attempt_count
-    licensify::apps::configfile::email_override_recipient
     licensify::apps::configfile::email_periodic_enabled
     licensify::apps::configfile::feed_actor
     licensify::apps::configfile::google_analytics_account_admin
@@ -530,8 +502,6 @@ task :check_consistency_between_aws_and_carrenza do
     licensify::apps::configfile::uncollected_expiry_start_days
     licensify::apps::configfile::upload_url_base
     licensify::apps::configfile::user_details_url
-    licensify::apps::licensify::alert_5xx_critical_rate
-    licensify::apps::licensify::alert_5xx_warning_rate
     licensify::apps::licensify::environment
     licensify::apps::licensify_admin::environment
     licensify::apps::licensify_feed::environment
@@ -539,7 +509,7 @@ task :check_consistency_between_aws_and_carrenza do
 
   failed = false
 
-  hieradata_file_names = %w[common staging production]
+  hieradata_file_names = %w[common production]
 
   hieradata_file_names.each do |environment|
     carrenza = YAML.load_file("hieradata/#{environment}.yaml")
