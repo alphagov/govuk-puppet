@@ -2,7 +2,7 @@
 
 govuk_solr::disable: true
 govuk_solr6::present: true
-govuk_solr6::version: 6.4.2-1
+govuk_solr6::schema: ckan28.schema-6.6.2.xml
 
 govuk::apps::ckan::solr_core: ckan
 govuk::apps::ckan::solr_core_configset: ckan28

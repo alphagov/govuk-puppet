@@ -13,7 +13,8 @@
 #
 class govuk_solr6 (
   $present = true,
-  $version = '6.6.2'
+  $version = '6.6.2',
+  $schema = 'ckan28.schema.xml'
 ) {
   $package_ensure = $present ? {
     false => absent,
@@ -32,7 +33,7 @@ class govuk_solr6 (
     }
 
     configset { 'ckan28':
-      schema_xml => 'puppet:///modules/govuk_solr6/ckan28.schema.xml',
+      schema_xml => "puppet:///modules/govuk_solr6/${schema}",
     }
 
     service { 'solr':
