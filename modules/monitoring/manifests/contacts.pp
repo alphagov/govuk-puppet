@@ -54,9 +54,8 @@ class monitoring::contacts (
   $midday = '11:00'
   $office_day_end = '16:30'
   $midnight_day_end = '24:00'
-  # This should match up with the govuk_data_sync_in_progress class
-  $data_sync_start = '22:00'
-  $data_sync_end = '08:00'
+  $data_sync_start = data_sync_times('start_time')
+  $data_sync_end = data_sync_times('finish_time')
 
   $all_day = "${midnight_day_start}-${midnight_day_end}"
   $office_day = "${office_day_start}-${office_day_end}"

@@ -17,12 +17,6 @@ define govuk_data_sync_in_progress(
 ) {
   $fact_path = '/etc/govuk/env.d/FACTER_data_sync_in_progress'
 
-  $start_hour = 22
-  $start_minute = 0
-
-  $finish_hour = 8
-  $finish_minute = 00
-
   if !defined(File[$fact_path]) {
     file { $fact_path:
       ensure  => present,
@@ -35,8 +29,8 @@ define govuk_data_sync_in_progress(
     cron { 'data_sync_started':
       command => "echo 'true' > ${fact_path}",
       user    => 'deploy',
-      hour    => $start_hour,
-      minute  => $start_minute,
+      hour    => data_sync_times('start_hour'),
+      minute  => data_sync_times('start_minute'),
     }
   }
 
@@ -44,8 +38,8 @@ define govuk_data_sync_in_progress(
     cron { 'data_sync_finished':
       command => "echo '' > ${$fact_path}",
       user    => 'deploy',
-      hour    => $finish_hour,
-      minute  => $finish_minute,
+      hour    => data_sync_times('finish_hour'),
+      minute  => data_sync_times('finish_minute'),
     }
   }
 
@@ -53,8 +47,8 @@ define govuk_data_sync_in_progress(
     cron { "data_sync_started_${title}":
       command => $start_command,
       user    => 'deploy',
-      hour    => $start_hour,
-      minute  => $start_minute,
+      hour    => data_sync_times('start_hour'),
+      minute  => data_sync_times('start_minute'),
     }
   }
 
@@ -62,8 +56,8 @@ define govuk_data_sync_in_progress(
     cron { "data_sync_finished_${title}":
       command => $finish_command,
       user    => 'deploy',
-      hour    => $finish_hour,
-      minute  => $finish_minute,
+      hour    => data_sync_times('finish_hour'),
+      minute  => data_sync_times('finish_minute'),
     }
   }
 }

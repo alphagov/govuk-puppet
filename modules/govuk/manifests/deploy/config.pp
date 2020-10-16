@@ -129,7 +129,7 @@ class govuk::deploy::config(
 
   if $::aws_migration and ($::aws_environment != 'production') {
     govuk_envvar {
-      'GOVUK_DATA_SYNC_PERIOD': value => '22:00-8:00'; # This should match up with the govuk_data_sync_in_progress class
+      'GOVUK_DATA_SYNC_PERIOD': value => data_sync_times('time_range');
     }
   }
 
