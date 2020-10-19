@@ -11,6 +11,7 @@
 #
 define govuk_solr6::configset (
   $schema_xml,
+  $solrconfig_xml
 ) {
   file{'/var/lib/solr/configsets':
     ensure    => directory,
@@ -33,6 +34,12 @@ define govuk_solr6::configset (
     owner  => 'solr',
     group  => 'solr',
     source => $schema_xml,
+  } ~>
+
+  file{"/var/lib/solr/configsets/${name}/conf/solrconfig.xml":
+    owner  => 'solr',
+    group  => 'solr',
+    source => $solrconfig_xml,
   } ~>
 
   file{"/var/lib/solr/configsets/${name}/conf/managed-schema":
