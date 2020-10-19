@@ -171,6 +171,7 @@ govuk::apps::email_alert_api::delivery_request_threshold: "3000"
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::feedback::govuk_notify_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
 govuk::apps::feedback::govuk_notify_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
+govuk::apps::finder_frontend::feature_flag_accounts: false
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
