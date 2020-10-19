@@ -199,7 +199,7 @@ class monitoring::checks (
 
   if ($::aws_migration and $::aws_environment == 'production') {
     icinga::check { 'check_uk_cloud_vpn_up':
-      check_command       => 'check_uk_cloud_vpn!www.civicaepay.co.uk!/NottinghamXML/QueryPayments/QueryPayments.asmx',
+      check_command       => 'check_uk_cloud_vpn!www.civicaepay.co.uk!/ReadingXML/QueryPayments/QueryPayments.asmx',
       host_name           => $::fqdn,
       service_description => 'check that the VPN between UKCloud/Licensify and AWS is still up',
       notes_url           => monitoring_docs_url(vpn-down),
