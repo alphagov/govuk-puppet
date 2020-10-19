@@ -218,6 +218,8 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::feedback::govuk_notify_reply_to_id
     govuk::apps::feedback::govuk_notify_template_id
     govuk::apps::finder_frontend::enabled
+    govuk::apps::finder_frontend::feature_flag_accounts
+    govuk::apps::finder_frontend::plek_account_manager_uri
     govuk::apps::finder_frontend::nagios_memory_critical
     govuk::apps::finder_frontend::nagios_memory_warning
     govuk::apps::finder_frontend::unicorn_worker_processes
