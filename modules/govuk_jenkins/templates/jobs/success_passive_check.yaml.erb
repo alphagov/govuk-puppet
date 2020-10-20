@@ -14,7 +14,9 @@
       - shell: |
           IPADDRESS=$(facter ipaddress_eth0)
           NSCA_CODE=0
-          printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
+          until printf "$IPADDRESS\t$NSCA_CHECK_DESCRIPTION\t$NSCA_CODE\t$NSCA_OUTPUT\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %>; do
+            sleep 1
+          done
     wrappers:
         - ansicolor:
             colormap: xterm
