@@ -79,7 +79,7 @@ class govuk::apps::finder_frontend(
     app => 'finder-frontend',
   }
 
-  $feature_flag_accounts = $feature_flag_accounts ? {
+  $feature_flag_accounts_var = $feature_flag_accounts ? {
                 true    => 'enabled',
                 default => undef
         }
@@ -105,7 +105,7 @@ class govuk::apps::finder_frontend(
         value   => $account_jwt_key_pem;
     "${title}-FEATURE-FLAG-ACCOUNTS":
         varname => 'FEATURE_FLAG_ACCOUNTS',
-        value   => $feature_flag_accounts;
+        value   => $feature_flag_accounts_var;
     "${title}-PLEK-ACCOUNT-MANAGER-URI":
         varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
         value   => $plek_account_manager_uri;
