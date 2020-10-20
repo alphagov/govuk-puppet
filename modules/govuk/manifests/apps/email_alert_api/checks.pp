@@ -7,6 +7,7 @@ class govuk::apps::email_alert_api::checks(
 ) {
 
   sidekiq_queue_check {
+    # Legacy queues: to be removed once replaced
     'delivery_transactional':
       latency_warning  => '300', # 5 minutes
       latency_critical => '600'; # 10 minutes
@@ -20,6 +21,23 @@ class govuk::apps::email_alert_api::checks(
       latency_critical => '600'; # 10 minutes
 
     'delivery_digest':
+      latency_warning  => '3600', # 60 minutes
+      latency_critical => '5400'; # 90 minutes
+
+    # These replace the delivery_* queues
+    'send_email_transactional':
+      latency_warning  => '300', # 5 minutes
+      latency_critical => '600'; # 10 minutes
+
+    'send_email_immediate':
+      latency_warning  => '1200', # 20 minutes
+      latency_critical => '1800'; # 30 minutes
+
+    'send_email_immediate_high':
+      latency_warning  => '300', # 5 minutes
+      latency_critical => '600'; # 10 minutes
+
+    'send_email_digest':
       latency_warning  => '3600', # 60 minutes
       latency_critical => '5400'; # 90 minutes
   }
