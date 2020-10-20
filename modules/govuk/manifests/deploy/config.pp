@@ -127,6 +127,12 @@ class govuk::deploy::config(
     'GOVUK_CSP_REPORT_URI': value      => $csp_report_uri;
   }
 
+  if $::aws_migration and ($::aws_environment != 'production') {
+    govuk_envvar {
+      'GOVUK_DATA_SYNC_PERIOD': value => data_sync_times('time_range');
+    }
+  }
+
   if $::aws_migration {
     $app_domain_internal = hiera('app_domain_internal')
 
