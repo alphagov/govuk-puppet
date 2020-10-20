@@ -21,7 +21,7 @@
 #   should only be applied to mongo instances acting as PRIMARY
 #
 class mongodb::backup(
-  $replicaset_members,
+  $replicaset_members = { '%{::hostname}' => ''},
   $enabled = true,
   $domonthly = true,
   $s3_backups = false,

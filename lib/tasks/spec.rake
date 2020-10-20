@@ -6,9 +6,12 @@ desc "Use the basic rspec rake task with no options WARNING: slow"
 RSpec::Core::RakeTask.new(:rspec_basic_mode)
 
 CARRENZA_EXCLUDED_NODE_CLASSES = %w[
+  apt
   bouncer
   cache
   calculators_frontend
+  ci_agent
+  ci_master
   ckan
   content_data_api_db_admin
   content_store
@@ -23,6 +26,7 @@ CARRENZA_EXCLUDED_NODE_CLASSES = %w[
   licensing_backend
   mapit
   mirrorer
+  mongo
   publishing_api
   router_backend
   search
@@ -33,8 +37,6 @@ AWS_EXCLUDED_NODE_CLASSES = %w[
   api_lb
   api_mongo
   api_redis
-  ci_agent
-  ci_master
   development
   email_alert_api
   email_alert_api_postgresql

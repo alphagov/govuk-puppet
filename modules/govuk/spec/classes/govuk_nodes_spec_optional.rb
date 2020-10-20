@@ -39,6 +39,7 @@ ENV.fetch('classes').split(",").each do |class_name|
 
   describe "govuk::node::s_#{class_name}", :type => :class do
     let(:node) { "#{node_hostname}-1.example.com" }
+
     let(:facts) do
       {
         :environment => ('vagrant'),
@@ -53,6 +54,28 @@ ENV.fetch('classes').split(",").each do |class_name|
 
     let(:hiera_config) { temporary_hiera_file.path }
 
+
+    # The tests for ci_agent class requires the mount variable to be set.
+    # Before migration to AWS, ci_agent hiera was accessible under hiera/class
+    # but now resides under hiera_aws/class/integration and is not accessible since
+    # the tests are using environment vagrant rather than integration.
+    if class_name != "ci_agent"
+      default_mount = {}
+    else
+      default_mount = {
+          '/var/lib/jenkins' => {
+            'disk' => '/dev/mapper/jenkins-data',
+            'govuk_lvm' => 'data',
+            'mountoptions' => 'defaults',
+          },
+          '/var/lib/docker' => {
+            'disk' => '/dev/mapper/data-docker',
+            'govuk_lvm' => 'docker',
+            'mountoptions' => 'defaults',
+          },
+        }
+    end
+
     # Pull in some required bits from top-level site.pp
     let(:pre_condition) do
       <<-EOT
@@ -60,7 +83,7 @@ ENV.fetch('classes').split(",").each do |class_name|
 
         $lv = hiera('lv',{})
         create_resources('govuk_lvm', $lv)
-        $mount = hiera('mount',{})
+        $mount = hiera('mount', #{default_mount})
         create_resources('govuk_mount', $mount)
       EOT
     end

@@ -31,6 +31,7 @@ describe 'mongodb::server', :type => :class do
   describe "not setting the replica set members" do
     let(:params) { {
       'version' => '2.0.7',
+      'replicaset_members' => {},  
     } }
 
     it do
