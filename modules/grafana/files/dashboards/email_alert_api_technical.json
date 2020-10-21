@@ -169,7 +169,7 @@
             {
               "hide": true,
               "refId": "C",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.delivery_request_worker.rate_limit_exceeded, '30s', 'sum', false))",
+              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.send_email_worker.rate_limit_exceeded, '30s', 'sum', false))",
               "textEditor": false
             },
             {
@@ -179,7 +179,7 @@
             {
               "refId": "D",
               "target": "alias(consolidateBy(sumSeries(#A, #C), 'sum'), 'per minute rate')",
-              "targetFull": "alias(consolidateBy(sumSeries(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false)), sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.delivery_request_worker.rate_limit_exceeded, '30s', 'sum', false))), 'sum'), 'per minute rate')"
+              "targetFull": "alias(consolidateBy(sumSeries(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false)), sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.send_email_worker.rate_limit_exceeded, '30s', 'sum', false))), 'sum'), 'per minute rate')"
             }
           ],
           "thresholds": [],
@@ -252,12 +252,12 @@
           "targets": [
             {
               "refId": "D",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '$Interval', 'max')), 'upper')",
+              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_until_email_sent.upper, '$Interval', 'max')), 'upper')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_to_first_delivery_attempt.mean, '$Interval', 'avg')), 'mean')",
+              "target": "alias(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_until_email_sent.mean, '$Interval', 'avg')), 'mean')",
               "textEditor": false
             }
           ],
@@ -539,26 +539,26 @@
             {
               "hide": false,
               "refId": "A",
-              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
+              "target": "aliasByNode(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.workers.SendEmailWorker.failure, '$Interval', 'sum', false)), 'sum'), 7)",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.send_email_immediate.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.delivery_immediate_high.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.send_email_immediate_high.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delivery Jobs (per $Interval)",
+          "title": "Send Email Jobs (per $Interval)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -625,19 +625,19 @@
           "targets": [
             {
               "refId": "C",
-              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.SendEmailWorker.processing_time.upper, '$Interval', 'max', false)), 'max'), 9)",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.DeliveryRequestWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
+              "target": "aliasByNode(consolidateBy(averageSeries(summarize(stats.timers.govuk.app.email-alert-api.*.workers.SendEmailWorker.processing_time.mean, '$Interval', 'avg', false)), 'average'), 9)",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Delivery Jobs (Duration)",
+          "title": "Send Email Jobs (Duration)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -675,7 +675,7 @@
       "repeatIteration": null,
       "repeatRowId": null,
       "showTitle": true,
-      "title": "Delivery Requests",
+      "title": "Send Email Workers",
       "titleSize": "h6"
     },
     {
@@ -1668,5 +1668,5 @@
   },
   "timezone": "",
   "title": "Email Alert API Technical",
-  "version": 16
+  "version": 17
 }
