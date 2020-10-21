@@ -29,7 +29,6 @@ class govuk_jenkins::jobs::search_relevancy_rank_evaluation (
       host_name           => $::fqdn,
       freshness_threshold => 86400,
       action_url          => $job_url,
-      contact_groups      => ['slack-channel-search-team'],
     }
   }
 }
