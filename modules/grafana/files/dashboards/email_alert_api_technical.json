@@ -252,7 +252,7 @@
           "targets": [
             {
               "refId": "D",
-              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_until_email_sent.mean, '$Interval', 'max')), 'upper')",
+              "target": "alias(maxSeries(summarize(stats.timers.govuk.app.email-alert-api.*.content_change_created_until_email_sent.upper, '$Interval', 'max')), 'upper')",
               "textEditor": false
             },
             {
