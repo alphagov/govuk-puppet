@@ -68,9 +68,6 @@
 # [*email_address_override_whitelist_only*]
 #   Specify that only emails that are whitelisted should be sent out.
 #
-# [*delivery_request_threshold*]
-#   Configure the number of requests that the rate limit will allow to be made in one minute.
-#
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
@@ -134,7 +131,6 @@ class govuk::apps::email_alert_api(
   $email_address_override = undef,
   $email_address_override_whitelist = undef,
   $email_address_override_whitelist_only = false,
-  $delivery_request_threshold = undef,
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -272,13 +268,6 @@ class govuk::apps::email_alert_api(
         varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
         value   => join($email_address_override_whitelist, ',');
       }
-    }
-  }
-
-  if $delivery_request_threshold {
-    govuk::app::envvar { "${title}-DELIVERY_REQUEST_THRESHOLD":
-      varname => 'DELIVERY_REQUEST_THRESHOLD',
-      value   => $delivery_request_threshold;
     }
   }
 
