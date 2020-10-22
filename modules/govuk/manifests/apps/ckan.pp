@@ -115,6 +115,8 @@ class govuk::apps::ckan (
       local_tcpconns_established_warning => $gunicorn_worker_processes,
       sentry_dsn                         => $sentry_dsn,
       enable_nginx_vhost                 => false,
+      alert_5xx_warning_rate             => 0.02,
+      alert_5xx_critical_rate            => 0.05,
     }
 
     $toggled_priority_ensure = $priority_worker_processes ? {
