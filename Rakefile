@@ -151,6 +151,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::ckan::redis_port
     govuk::apps::ckan::s3_aws_access_key_id
     govuk::apps::ckan::s3_aws_secret_access_key
+    govuk::apps::collections::feature_flag_accounts
     govuk::apps::collections::unicorn_worker_processes
     govuk::apps::collections::nagios_memory_critical
     govuk::apps::collections::nagios_memory_warning
