@@ -56,6 +56,9 @@
 #   The critical memory threshold for the app.
 #   Default: undef
 #
+# [*plek_account_manager_uri*]
+#   Path to the GOV.UK Account Manager
+#
 class govuk::apps::static(
   $vhost = 'static',
   $port,
@@ -70,6 +73,7 @@ class govuk::apps::static(
   $unicorn_worker_processes = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
+  $plek_account_manager_uri = undef,
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
@@ -120,6 +124,9 @@ class govuk::apps::static(
     "${title}-ASSET_HOST":
       varname => 'ASSET_HOST',
       value   => $asset_host;
+    "${title}-PLEK-ACCOUNT-MANAGER-URI":
+      varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
+      value   => $plek_account_manager_uri;
   }
 
   if $ga_universal_id != undef {
