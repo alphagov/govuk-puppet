@@ -11,8 +11,8 @@
 #  The password for the email-alert-api role.
 #
 class govuk_ci::agent::postgresql (
-  $mapit_role_password = undef,
-  $email_alert_api_role_password = undef,
+  $mapit_role_password = 'mapit',
+  $email_alert_api_role_password = 'email-alert-api',
 ) {
   contain ::govuk_postgresql::mirror
   include ::govuk_postgresql::server::standalone

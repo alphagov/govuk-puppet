@@ -13,7 +13,7 @@
 class govuk_ci::agent(
   $master_ssh_key = undef,
   $gemstash_server = 'http://gemstash.cluster',
-  $gdal_version,
+  $gdal_version =  '1.11.5',
 ) {
   include ::govuk_java::openjdk8::jre
   include ::govuk_java::openjdk8::jdk

@@ -29,10 +29,10 @@
 #   between environments.
 #
 class mongodb::server (
-  $version,
+  $version= '2.6',
   $dbpath = '/var/lib/mongodb',
   $oplog_size = undef,
-  $replicaset_members = {},
+  $replicaset_members = { '%{::hostname}' => ''},
   $development = false,
   $syncpath = '/var/lib/mongo-sync'
 ) {

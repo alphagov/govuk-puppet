@@ -1,7 +1,0 @@
----
-
-govuk_safe_to_reboot::can_reboot: overnight
-govuk_safe_to_reboot::reason: >
-  Traffic is balanced between backend-lb-1 and backend-lb-2.
-
-nginx::logging::days_to_keep: '45'

@@ -10,7 +10,7 @@
 #
 class govuk_sysdig (
   $ensure = 'present',
-  $apt_mirror_hostname,
+  $apt_mirror_hostname = "%{hiera('apt_mirror_hostname')}",
 ) {
 
   apt::source { 'sysdig':
