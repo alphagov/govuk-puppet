@@ -1,0 +1,1 @@
+command[check_rabbitmq_dead_nodes]=/usr/lib/nagios/plugins/check_http_timeout_noncrit -a '<%= @monitoring_user %>:<%= @monitoring_password %>' -I '127.0.0.1' -p 15672 -u '/api/nodes' -r '"running":false' --invert-regex

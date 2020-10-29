@@ -12,6 +12,11 @@ class govuk_rabbitmq::monitoring (
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
+  @icinga::nrpe_config { 'check_rabbitmq_dead_nodes':
+    content => template('govuk_rabbitmq/check_rabbitmq_dead_nodes.cfg.erb'),
+    require => Icinga::Plugin['check_http_timeout_noncrit'],
+  }
+
   @@icinga::check { "check_rabbitmq_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running!rabbitmq-server',
     service_description => 'rabbitmq-server not running',
@@ -23,6 +28,13 @@ class govuk_rabbitmq::monitoring (
     check_command       => 'check_nrpe_1arg!check_rabbitmq_network_partition',
     service_description => 'RabbitMQ network partition has occurred',
     host_name           => $::fqdn,
+  }
+
+  @@icinga::check { "check_rabbitmq_dead_nodes_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_rabbitmq_dead_nodes',
+    service_description => 'RabbitMQ has dead nodes in its cluster',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(rabbitmq-dead-nodes),
   }
 
   @@icinga::check { "check_rabbitmq_watermark_${::hostname}":
