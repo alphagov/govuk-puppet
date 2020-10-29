@@ -411,7 +411,7 @@ define govuk::app::config (
 
     @@icinga::check::graphite { "check_${title}_app_local_tcpconns_${::hostname}":
       ensure         => $ensure,
-      target         => "${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED",
+      target         => "movingMedian(${::fqdn_metrics}.tcpconns-${port}-local.tcp_connections-ESTABLISHED,\"5min\")",
       warning        => $local_tcpconns_warning,
       critical       => $local_tcpconns_critical,
       desc           => "Established connections for ${title_underscore} exceeds ${local_tcpconns_warning}",
