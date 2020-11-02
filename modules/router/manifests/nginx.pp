@@ -138,14 +138,26 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
-  $graphite_5xx_target = "movingMedian(transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0),\"5min\")"
+  $graphite_5xx_warning_target = "movingMedian(transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0),\"5min\")"
+  $graphite_5xx_critical_target = "movingMedian(transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0),\"10min\")"
 
-  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target              => $graphite_5xx_target,
+  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_warning":
+    target              => $graphite_5xx_target_warning,
     warning             => 0.3,
+    critical            => 9999999, # the metric for this alert is only used for warnings
+    from                => '8minutes', # average over three 5 min windows
+    desc                => '5xx rate for www-origin [in office hours]',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
+    notification_period => 'inoffice',
+  }
+
+  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_critical":
+    target              => $graphite_5xx_target_critical,
+    warning             => 0.6, # the metric for this alert is only used for criticals
     critical            => 0.6,
     use                 => 'govuk_urgent_priority',
-    from                => '8minutes',
+    from                => '13minutes', # average over three 10 min windows
     desc                => '5xx rate for www-origin [in office hours]',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
@@ -153,11 +165,11 @@ class router::nginx (
   }
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_oncall":
-    target              => $graphite_5xx_target,
+    target              => $graphite_5xx_target_critical,
     warning             => 0.5,
     critical            => 0.9,
     use                 => 'govuk_urgent_priority',
-    from                => '8minutes',
+    from                => '13minutes', # average over three 10 min windows
     desc                => '5xx rate for www-origin [on call]',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(high-nginx-5xx-rate),

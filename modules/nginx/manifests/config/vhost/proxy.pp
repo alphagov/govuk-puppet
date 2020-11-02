@@ -148,15 +148,28 @@ define nginx::config::vhost::proxy(
 
   statsd::counter { "${counter_basename}.http_500": }
 
-  @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}":
+  $graphite_5xx_warning_target = "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")"
+  $graphite_5xx_critical_target = "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"10min\")"
+
+  @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}_warning":
     ensure    => $ensure,
-    target    => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
+    target    => $graphite_5xx_warning_target,
     warning   => $alert_5xx_warning_rate,
-    critical  => $alert_5xx_critical_rate,
-    from      => '5minutes',
+    critical  => 999999, # the metric for this alert is only used for warnings
+    from      => '8minutes', # average over three 5 min windows
     desc      => "${title} high nginx 5xx rate",
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(high-nginx-5xx-rate),
   }
 
+  @@icinga::check::graphite { "check_nginx_5xx_${title}_on_${::hostname}_critical":
+    ensure    => $ensure,
+    target    => $graphite_5xx_critical_target,
+    warning   => $alert_5xx_critical_rate, # the metric for this alert is only used for criticals
+    critical  => $alert_5xx_critical_rate,
+    from      => '13minutes', # average of three 10 min windows
+    desc      => "${title} high nginx 5xx rate",
+    host_name => $::fqdn,
+    notes_url => monitoring_docs_url(high-nginx-5xx-rate),
+  }
 }
