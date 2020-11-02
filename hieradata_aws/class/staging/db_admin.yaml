@@ -298,7 +298,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/signon_production"
     url: "govuk-production-database-backups"
     path: "mysql"
-    transformation_sql_filename: "enable_staging_only_signon_accounts.sql"
   "push_whitehall_staging_daily":
     ensure: "present"
     hour: "0"
