@@ -36,6 +36,10 @@ class govuk_docker (
     manage_kernel               => false,
   }
 
+  if $::aws_environment == 'integration'{
+    include ::docker::registry_auth
+  }
+
   package { 'ctop':
     ensure   => 'present',
     provider => pip,
