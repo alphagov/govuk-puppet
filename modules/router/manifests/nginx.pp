@@ -145,7 +145,7 @@ class router::nginx (
     warning   => 0.3,
     critical  => 0.9,
     use       => 'govuk_urgent_priority',
-    from      => '8minutes',
+    from      => '15minutes',
     desc      => '5xx rate for www-origin',
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(high-nginx-5xx-rate),
