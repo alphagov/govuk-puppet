@@ -141,27 +141,14 @@ class router::nginx (
   $graphite_5xx_target = "movingMedian(transformNull(stats.${::fqdn_metrics}.nginx_logs.www-origin.http_5xx,0),\"5min\")"
 
   @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}":
-    target              => $graphite_5xx_target,
-    warning             => 0.3,
-    critical            => 0.6,
-    use                 => 'govuk_urgent_priority',
-    from                => '8minutes',
-    desc                => '5xx rate for www-origin [in office hours]',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
-    notification_period => 'inoffice',
-  }
-
-  @@icinga::check::graphite { "check_nginx_5xx_on_${::hostname}_oncall":
-    target              => $graphite_5xx_target,
-    warning             => 0.5,
-    critical            => 0.9,
-    use                 => 'govuk_urgent_priority',
-    from                => '8minutes',
-    desc                => '5xx rate for www-origin [on call]',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(high-nginx-5xx-rate),
-    notification_period => 'oncall',
+    target    => $graphite_5xx_target,
+    warning   => 0.3,
+    critical  => 0.9,
+    use       => 'govuk_urgent_priority',
+    from      => '8minutes',
+    desc      => '5xx rate for www-origin',
+    host_name => $::fqdn,
+    notes_url => monitoring_docs_url(high-nginx-5xx-rate),
   }
 
   @@icinga::check::graphite { "check_nginx_requests_${::hostname}":
