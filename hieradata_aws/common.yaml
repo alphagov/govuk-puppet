@@ -1143,14 +1143,14 @@ govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
+  finder-frontend: {}
+  government-frontend: {}
+  info-frontend: {}
+  manuals-frontend: {}
+  publisher: {}
   smartanswers:
     repository: 'smart-answers'
   travel-advice-publisher: {}
-  government-frontend: {}
-  finder-frontend: {}
-  publisher: {}
-  info-frontend: {}
-  manuals-frontend: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
