@@ -191,8 +191,6 @@ govuk::apps::email_alert_api::email_archive_s3_enabled: true
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::feedback::govuk_notify_reply_to_id: 'e8b2d8a6-db5f-4346-9fbd-49b16b531e1c'
 govuk::apps::feedback::govuk_notify_template_id: '54168fa9-3946-4860-a2f8-27ddbb14babe'
-govuk::apps::collections::feature_flag_accounts: false
-govuk::apps::finder_frontend::feature_flag_accounts: false
 govuk::apps::finder_frontend::plek_account_manager_uri: 'https://www.account.publishing.service.gov.uk'
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::hmrc_manuals_api::publish_topics: false

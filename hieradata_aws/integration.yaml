@@ -39,8 +39,6 @@ govuk::apps::email_alert_api::email_address_override_whitelist_only: true
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::feedback::govuk_notify_reply_to_id: 'fee22233-2f28-4b0b-8b6c-4410979f2275'
 govuk::apps::feedback::govuk_notify_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
-govuk::apps::collections::feature_flag_accounts: false
-govuk::apps::finder_frontend::feature_flag_accounts: false
 govuk::apps::finder_frontend::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
 govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
 govuk::apps::govuk_crawler_worker::enabled: false
