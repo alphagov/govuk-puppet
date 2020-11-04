@@ -6,7 +6,7 @@
   "gnetId": null,
   "graphTooltip": 0,
   "hideControls": false,
-  "id": 47,
+  "id": 16,
   "links": [],
   "refresh": false,
   "rows": [
@@ -72,11 +72,12 @@
           "targets": [
             {
               "refId": "A",
-              "target": "summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum')",
+              "target": "hitcount(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 2, 'sum')), '1d')",
               "textEditor": true
             }
           ],
           "thresholds": "",
+          "timeFrom": null,
           "title": "Total app errors sent to Sentry",
           "type": "singlestat",
           "valueFontSize": "200%",
@@ -146,8 +147,8 @@
           "tableColumn": "",
           "targets": [
             {
-              "refId": "A",
-              "target": "summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum')",
+              "refId": "B",
+              "target": "hitcount(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 2, 'sum')), '1d')",
               "textEditor": true
             }
           ],
@@ -220,13 +221,12 @@
           "tableColumn": "",
           "targets": [
             {
-              "hide": false,
-              "refId": "A",
-              "target": "asPercent(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum'), summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum'))",
+              "refId": "B",
+              "target": "asPercent(hitcount(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 2, 'sum')), '1d') , hitcount(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 2, 'sum')), '1d'))",
               "textEditor": true
             }
           ],
-          "thresholds": "20,50",
+          "thresholds": "5, 20",
           "title": "Failure rate (rate limiting)",
           "type": "singlestat",
           "valueFontSize": "200%",
@@ -291,18 +291,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum'), 'Errors per day')",
-              "textEditor": true
-            },
-            {
-              "refId": "B",
-              "target": "alias(movingAverage(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.errors_occurred, 3, 'sum')), '1d', 'sum'), '30d'), '30 day average')",
+              "refId": "C",
+              "target": "alias(hitcount(groupByNode(stats.govuk.app.*.*.errors_occurred, 2, 'sum'), '1d'), \"Errors per day\")",
               "textEditor": true
             }
           ],
           "thresholds": [],
-          "timeFrom": "now-90d",
+          "timeFrom": "now-30d",
           "timeShift": null,
           "title": "Errors sent to Sentry",
           "tooltip": {
@@ -381,18 +376,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum'), 'Errors rate-limited per day')",
-              "textEditor": true
-            },
-            {
               "refId": "B",
-              "target": "alias(movingAverage(summarize(sumSeries(groupByNode(stats.govuk.app.*.*.error_reports_failed, 3, 'sum')), '1d', 'sum'), '30d'), '30 day average')",
+              "target": "alias(hitcount(groupByNode(stats.govuk.app.*.*.error_reports_failed, 2, 'sum'), '1d'), \"Errors rate-limited per day\")",
               "textEditor": true
             }
           ],
           "thresholds": [],
-          "timeFrom": "now-90d",
+          "timeFrom": "now-30d",
           "timeShift": null,
           "title": "Errors rate-limited by Sentry",
           "tooltip": {
@@ -809,7 +799,7 @@
   },
   "time": {
     "from": "now/d",
-    "to": "now/d"
+    "to": "now"
   },
   "timepicker": {
     "refresh_intervals": [
