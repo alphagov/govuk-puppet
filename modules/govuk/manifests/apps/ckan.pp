@@ -207,7 +207,7 @@ class govuk::apps::ckan (
       protected          => $vhost_protected,
       ssl_only           => true,
       app_port           => $port,
-      hidden_paths       => ['/api/'],
+      hidden_paths       => ['/api/', '/revision'],
       read_timeout       => $request_timeout,
       nginx_extra_config => template('govuk/ckan/nginx.conf.erb'),
       deny_crawlers      => true,
