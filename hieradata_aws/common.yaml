@@ -1149,6 +1149,8 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   government-frontend: {}
   finder-frontend: {}
   publisher: {}
+  info-frontend: {}
+  manuals-frontend: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
