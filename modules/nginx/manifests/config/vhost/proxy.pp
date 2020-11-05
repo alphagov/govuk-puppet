@@ -153,7 +153,7 @@ define nginx::config::vhost::proxy(
     target    => "movingMedian(transformNull(stats.${counter_basename}.http_5xx,0),\"5min\")",
     warning   => $alert_5xx_warning_rate,
     critical  => $alert_5xx_critical_rate,
-    from      => '5minutes',
+    from      => '15minutes',
     desc      => "${title} high nginx 5xx rate",
     host_name => $::fqdn,
     notes_url => monitoring_docs_url(high-nginx-5xx-rate),
