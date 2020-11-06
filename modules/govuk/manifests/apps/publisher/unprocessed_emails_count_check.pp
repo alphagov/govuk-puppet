@@ -15,7 +15,7 @@ class govuk::apps::publisher::unprocessed_emails_count_check(
   @@icinga::check::graphite { 'check_publisher_unprocessed_fact_check_emails':
     ensure    => $ensure,
     host_name => $::fqdn,
-    target    => 'transformNull(stats.gauges.govuk.app.publisher.*.unprocessed_emails.count,0)',
+    target    => 'summarize(stats.gauges.govuk.app.publisher.*.unprocessed_emails.count,"5min","max")',
     warning   => '0',
     critical  => '0.1',
     from      => '1hour',
