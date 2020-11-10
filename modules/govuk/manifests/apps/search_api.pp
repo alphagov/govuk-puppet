@@ -219,21 +219,12 @@ class govuk::apps::search_api(
     "${title}-UNICORN_TIMEOUT":
       varname => 'UNICORN_TIMEOUT',
       value   => $unicorn_timeout;
-  }
-
-  govuk::app::envvar {
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-  }
-
-  govuk::app::envvar {
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
       varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
       value   => $email_alert_api_bearer_token;
-  }
-
-  govuk::app::envvar {
     "${title}-GOOGLE_ANALYTICS_GOVUK_VIEW_ID":
       varname => 'GOOGLE_ANALYTICS_GOVUK_VIEW_ID',
       value   => $google_analytics_govuk_view_id;
@@ -255,35 +246,18 @@ class govuk::apps::search_api(
     "${title}-GOOGLE_EXPORT_WEB_PROPERTY_ID":
       varname => 'GOOGLE_EXPORT_WEB_PROPERTY_ID',
       value   => $google_export_web_property_id;
-  }
-
-  govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-    varname => 'ELASTICSEARCH_URI',
-    value   => $elasticsearch_hosts,
-  }
-
-  if $elasticsearch_b_uri != 'null' {
-    govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
-      varname => 'ELASTICSEARCH_B_URI',
-      value   => $elasticsearch_b_uri,
-    }
-  }
-
-  govuk::app::envvar { "${title}-ELASTICSEARCH_HOSTS":
-    varname => 'ELASTICSEARCH_HOSTS',
-    value   => $elasticsearch_hosts,
-  }
-
-  govuk::app::envvar {
+    "${title}-ELASTICSEARCH_URI":
+      varname => 'ELASTICSEARCH_URI',
+      value   => $elasticsearch_hosts;
+    "${title}-ELASTICSEARCH_HOSTS":
+      varname => 'ELASTICSEARCH_HOSTS',
+      value   => $elasticsearch_hosts;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
     "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
-  }
-
-  govuk::app::envvar {
     "${title}-AWS_REGION":
       varname => 'AWS_REGION',
       value   => $aws_region;
@@ -293,9 +267,6 @@ class govuk::apps::search_api(
     "${title}-AWS_S3_SITEMAPS_BUCKET_NAME":
       varname => 'AWS_S3_SITEMAPS_BUCKET_NAME',
       value   => $sitemaps_bucket_name;
-  }
-
-  govuk::app::envvar {
     "${title}-ENABLE_LTR":
       varname => 'ENABLE_LTR',
       value   => bool2str($enable_learning_to_rank);
@@ -305,5 +276,12 @@ class govuk::apps::search_api(
     "${title}-TENSORFLOW_SAGEMAKER_VARIANTS":
       varname => 'TENSORFLOW_SAGEMAKER_VARIANTS',
       value   => $tensorflow_sagemaker_variants;
+  }
+
+  if $elasticsearch_b_uri != 'null' {
+    govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
+      varname => 'ELASTICSEARCH_B_URI',
+      value   => $elasticsearch_b_uri,
+    }
   }
 }
