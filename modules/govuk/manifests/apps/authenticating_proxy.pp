@@ -78,35 +78,22 @@ class govuk::apps::authenticating_proxy(
     }
   }
 
-  if $oauth_id != undef {
-    govuk::app::envvar { "${title}-OAUTH_ID":
-      app     => $app_name,
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
+  govuk::app::envvar {
+    "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
-      value   => $oauth_id,
-    }
-  }
-
-  if $oauth_secret != undef {
-    govuk::app::envvar { "${title}-OAUTH_SECRET":
-      app     => $app_name,
+      value   => $oauth_id;
+    "${title}-OAUTH_SECRET":
       varname => 'OAUTH_SECRET',
-      value   => $oauth_secret,
-    }
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      app     => $app_name,
+      value   => $oauth_secret;
+    "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
-  }
-
-  if $jwt_auth_secret != undef {
-    govuk::app::envvar { "${title}-JWT_AUTH_SECRET":
-      app     => $app_name,
+      value   => $secret_key_base;
+    "${title}-JWT_AUTH_SECRET":
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret,
-    }
   }
 }
