@@ -128,6 +128,12 @@ class govuk::apps::content_store(
     "${title}-DEFAULT_TTL":
       varname => 'DEFAULT_TTL',
       value   => $default_ttl;
+    "${title}-GDS_SSO_OAUTH_ID":
+      varname => 'GDS_SSO_OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-GDS_SSO_OAUTH_SECRET":
+      varname => 'GDS_SSO_OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

@@ -366,6 +366,12 @@ class govuk::apps::whitehall(
       "${title}-KEY_SPACE_LIMIT":
         varname => 'KEY_SPACE_LIMIT',
         value   => $admin_key_space_limit;
+      "${title}-GDS_SSO_OAUTH_ID":
+        varname => 'GDS_SSO_OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-GDS_SSO_OAUTH_SECRET":
+        varname => 'GDS_SSO_OAUTH_SECRET',
+        value   => $oauth_secret;
       "${title}-OAUTH_ID":
         varname => 'OAUTH_ID',
         value   => $oauth_id;

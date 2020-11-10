@@ -7,7 +7,7 @@
 #
 # [*ensure*]
 #   Allow govuk app to be removed.
-#   
+#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -126,6 +126,12 @@ class govuk::apps::search_admin(
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+      "${title}-GDS_SSO_OAUTH_ID":
+        varname => 'GDS_SSO_OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-GDS_SSO_OAUTH_SECRET":
+        varname => 'GDS_SSO_OAUTH_SECRET',
+        value   => $oauth_secret;
       "${title}-OAUTH_ID":
         varname => 'OAUTH_ID',
         value   => $oauth_id;
