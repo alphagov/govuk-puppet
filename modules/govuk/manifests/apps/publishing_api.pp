@@ -217,6 +217,12 @@ class govuk::apps::publishing_api(
       "${title}-SUPPRESS_DRAFT_STORE_502_ERROR":
         varname => 'SUPPRESS_DRAFT_STORE_502_ERROR',
         value   => $suppress_draft_store_502_error;
+      "${title}-GDS_SSO_OAUTH_ID":
+        varname => 'GDS_SSO_OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-GDS_SSO_OAUTH_SECRET":
+        varname => 'GDS_SSO_OAUTH_SECRET',
+        value   => $oauth_secret;
       "${title}-OAUTH_ID":
         varname => 'OAUTH_ID',
         value   => $oauth_id;

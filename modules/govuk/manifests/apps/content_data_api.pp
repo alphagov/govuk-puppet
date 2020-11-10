@@ -175,6 +175,12 @@ class govuk::apps::content_data_api(
     "${title}-GOOGLE_CLIENT_EMAIL":
       varname => 'GOOGLE_CLIENT_EMAIL',
       value   => $google_client_email;
+    "${title}-GDS_SSO_OAUTH_ID":
+      varname => 'GDS_SSO_OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-GDS_SSO_OAUTH_SECRET":
+      varname => 'GDS_SSO_OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;

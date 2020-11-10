@@ -144,6 +144,12 @@ class govuk::apps::manuals_publisher(
       "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
+      "${title}-GDS_SSO_OAUTH_ID":
+        varname => 'GDS_SSO_OAUTH_ID',
+        value   => $oauth_id;
+      "${title}-GDS_SSO_OAUTH_SECRET":
+        varname => 'GDS_SSO_OAUTH_SECRET',
+        value   => $oauth_secret;
       "${title}-OAUTH_ID":
         varname => 'OAUTH_ID',
         value   => $oauth_id;

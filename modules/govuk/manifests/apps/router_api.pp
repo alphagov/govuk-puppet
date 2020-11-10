@@ -76,6 +76,12 @@ class govuk::apps::router_api(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-GDS_SSO_OAUTH_ID":
+      varname => 'GDS_SSO_OAUTH_ID',
+      value   => $oauth_id;
+    "${title}-GDS_SSO_OAUTH_SECRET":
+      varname => 'GDS_SSO_OAUTH_SECRET',
+      value   => $oauth_secret;
     "${title}-OAUTH_ID":
       varname => 'OAUTH_ID',
       value   => $oauth_id;
