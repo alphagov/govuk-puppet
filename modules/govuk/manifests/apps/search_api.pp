@@ -135,7 +135,6 @@ class govuk::apps::search_api(
   $nagios_memory_critical = undef,
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
-  $elasticsearch_b_uri = undef,
   $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
@@ -282,12 +281,5 @@ class govuk::apps::search_api(
     "${title}-TENSORFLOW_SAGEMAKER_VARIANTS":
       varname => 'TENSORFLOW_SAGEMAKER_VARIANTS',
       value   => $tensorflow_sagemaker_variants;
-  }
-
-  if $elasticsearch_b_uri != 'null' {
-    govuk::app::envvar { "${title}-ELASTICSEARCH_B_URI":
-      varname => 'ELASTICSEARCH_B_URI',
-      value   => $elasticsearch_b_uri,
-    }
   }
 }
