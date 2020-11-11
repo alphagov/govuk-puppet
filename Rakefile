@@ -245,6 +245,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::smartanswers::nagios_memory_critical
     govuk::apps::smartanswers::nagios_memory_warning
     govuk::apps::smartanswers::unicorn_worker_processes
+    govuk::apps::smartanswers::zendesk_client_username
     govuk::apps::static::plek_account_manager_uri
     govuk::apps::static::ga_universal_id
     govuk::apps::static::nagios_memory_critical
