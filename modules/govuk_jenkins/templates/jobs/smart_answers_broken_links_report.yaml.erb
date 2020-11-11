@@ -1,0 +1,36 @@
+---
+- job:
+    name: smart_answers_broken_links_report
+    display-name: Smart Answers Broken Links Report
+    project-type: freestyle
+    description: "<p>Searches Smart Answer flows for broken links, by quering link checker api and sends a report to zendesk</p>"
+    builders:
+      - trigger-builds:
+          - project: run-rake-task
+            block: true
+            predefined-parameters: |
+              TARGET_APPLICATION=smartanswers
+              MACHINE_CLASS=calculators_frontend
+              RAKE_TASK=links:send_report[govuk-coronavirus-nsv@govuk.zendesk.com]
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+  <% if @cron_schedule %>
+    triggers:
+      - timed: <%= @cron_schedule %>
+  <% end %>
+    logrotate:
+        numToKeep: 10
+    publishers:
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: 'SUCCESS'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: 'FAILED'
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
+                NSCA_CODE=2
