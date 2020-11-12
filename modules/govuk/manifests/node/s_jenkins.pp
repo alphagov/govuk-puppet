@@ -26,7 +26,6 @@ class govuk::node::s_jenkins (
   include nginx
   include govuk_postgresql::client
   include govuk_rbenv::all
-  include ::chromedriver
   include ::selenium
 
   class { 'govuk_jenkins':

@@ -3,7 +3,6 @@
 # Installs packages required by testing environments such as CI agents
 #
 class govuk_testing_tools {
-  include chromedriver
   include google_chrome
   include imagemagick
   include selenium
