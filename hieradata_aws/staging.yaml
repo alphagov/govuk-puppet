@@ -359,7 +359,7 @@ licensify::apps::licensify::alert_5xx_warning_rate: 0.1
 licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
-monitoring::checks::whitehall_overdue_check_period: 'inoffice'
+monitoring::checks::whitehall_overdue_check_period: 'never'
 monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::sidekiq::enable_support_check: false
 monitoring::checks::rds::region: 'eu-west-1'
