@@ -45,6 +45,12 @@
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
 #
+# [*zendesk_client_password*]
+#   Password for connection to GDS zendesk client.
+#
+# [*zendesk_client_username*]
+#   Username for connection to GDS zendesk client.
+#
 class govuk::apps::smartanswers(
   $vhost = 'smartanswers',
   $port,
@@ -57,6 +63,8 @@ class govuk::apps::smartanswers(
   $nagios_memory_critical = undef,
   $secret_key_base = undef,
   $unicorn_worker_processes = undef,
+  $zendesk_client_password = undef,
+  $zendesk_client_username = undef,
 ) {
   Govuk::App::Envvar {
     app => 'smartanswers',
@@ -88,6 +96,12 @@ class govuk::apps::smartanswers(
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-ZENDESK_CLIENT_PASSWORD":
+      varname => 'ZENDESK_CLIENT_PASSWORD',
+      value   => $zendesk_client_password;
+    "${title}-ZENDESK_CLIENT_USERNAME":
+      varname => 'ZENDESK_CLIENT_USERNAME',
+      value   => $zendesk_client_username;
   }
 
   govuk::app { 'smartanswers':
