@@ -1146,6 +1146,7 @@ govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
+  authenticating-proxy: {}
   finder-frontend: {}
   government-frontend: {}
   info-frontend: {}
