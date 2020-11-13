@@ -59,7 +59,7 @@
 #   Default: undef
 #
 # [*sentry_dsn*]
-#   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
+#   The app-specific URL used by Sentry to report exceptions
 #
 class govuk::apps::ckan (
   $enabled                        = false,

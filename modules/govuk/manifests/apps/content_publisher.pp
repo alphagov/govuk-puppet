@@ -10,10 +10,10 @@
 #   Whether to install the app. Don't change the default (false) until production-ready
 #
 # [*secret_key_base*]
-#   The key for Rails to use when signing/encrypting sessions (in govuk-secrets)
+#   The key for Rails to use when signing/encrypting sessions
 #
 # [*sentry_dsn*]
-#   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
+#   The app-specific URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
 #   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
