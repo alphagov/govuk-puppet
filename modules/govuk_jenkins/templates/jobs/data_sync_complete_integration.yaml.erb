@@ -41,8 +41,3 @@
                 TARGET_APPLICATION=<%= app %>
                 DEPLOY_TASK=app:migrate_and_hard_restart
             <%- end -%>
-            - project: run-rake-task
-              predefined-parameters: |
-                TARGET_APPLICATION=whitehall
-                MACHINE_CLASS=whitehall_backend
-                RAKE_TASK=publishing:scheduled:requeue_all_jobs
