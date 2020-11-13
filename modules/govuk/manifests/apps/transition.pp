@@ -15,10 +15,10 @@
 #   Default: true
 #
 # [*oauth_id*]
-#   The Signon OAuth identifier for this app
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The Signon OAuth secret for this app
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.

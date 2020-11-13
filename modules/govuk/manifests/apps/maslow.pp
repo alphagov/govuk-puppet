@@ -33,12 +33,11 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*oauth_id*]
-#   The application's OAuth ID from Signon
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon#
 #
 # [*oauth_secret*]
-#   The application's OAuth Secret from Signon
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 class govuk::apps::maslow(
   $ensure = 'present',

@@ -23,10 +23,10 @@
 #   Default: undef
 #
 # [*oauth_id*]
-#   Sets the OAuth ID
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure

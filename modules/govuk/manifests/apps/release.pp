@@ -31,11 +31,11 @@
 # [*github_access_token*]
 #   The access token to use when accessing the Github API.
 #
-# [*oauth_secret*]
-#   Sets the OAuth Secret Key
+# [*oauth_id*]
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 class govuk::apps::release(
   $port,

@@ -27,10 +27,10 @@
 #   The name of the MongoDB database to use
 #
 # [*oauth_id*]
-#   Sets the OAuth ID
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.

@@ -82,10 +82,10 @@
 #   The number of unicorn workers to run for an instance of this app
 #
 # [*oauth_id*]
-#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*aws_region*]
 #   The AWS region of the S3 bucket.

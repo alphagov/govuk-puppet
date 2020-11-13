@@ -23,10 +23,10 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
 #
 # [*oauth_id*]
-#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon (in govuk-secrets)
 #
 # [*oauth_secret*]
-#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon (in govuk-secrets)
 #
 # [*db_hostname*]
 #   The hostname of the database server to use for in DATABASE_URL environment variable

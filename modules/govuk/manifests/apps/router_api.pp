@@ -24,7 +24,6 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -33,10 +32,10 @@
 #   after app deployment. Acceptable formats are "cache" or "cache,draft_cache"
 #
 # [*oauth_id*]
-#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 
 class govuk::apps::router_api(

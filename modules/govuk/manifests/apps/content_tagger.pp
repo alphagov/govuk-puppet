@@ -17,7 +17,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -39,10 +38,10 @@
 #   The database name to use in the DATABASE_URL.
 #
 # [*oauth_id*]
-#   Sets the OAuth ID
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*email_alert_api_bearer_token*]
 #   The bearer token to use when communicating with the email-alert-api.

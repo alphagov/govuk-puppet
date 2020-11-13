@@ -20,11 +20,11 @@
 #   The URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
-#   Sets the OAuth ID for using GDS-SSO
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #   Default: undef
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key for using GDS-SSO
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #   Default: undef
 #
 # [*publish_topics*]

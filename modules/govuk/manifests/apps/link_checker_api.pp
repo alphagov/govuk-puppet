@@ -44,11 +44,10 @@
 #   Default: undef
 #
 # [*oauth_id*]
-# The Oauth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-# The Oauth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
-#
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*port*]
 #   The port that it is served on.
