@@ -1,0 +1,6 @@
+---
+# Disable Sentry in test env for Search API; see
+# https://trello.com/c/X1iGVbmo/269-stop-sending-so-many-errors-to-sentry
+# TODO: consider removing once the version of Search API deployed in test is
+# using govuk_app_config >= 2.6.0
+govuk::apps::search_api::sentry_dsn: ''
