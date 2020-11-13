@@ -82,12 +82,6 @@ class govuk::apps::router_api(
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
       value   => $oauth_secret;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
-      value   => $oauth_secret;
   }
 
   govuk::app::envvar::mongodb_uri { $app_name:

@@ -215,12 +215,6 @@ class govuk::apps::publisher(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-FACT_CHECK_ADDRESS_FORMAT":
         varname => 'FACT_CHECK_ADDRESS_FORMAT',
         value   => $fact_check_address_format;

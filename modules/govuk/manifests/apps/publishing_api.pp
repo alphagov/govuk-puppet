@@ -223,12 +223,6 @@ class govuk::apps::publishing_api(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
         varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
         value   => $govuk_content_schemas_path;

@@ -132,12 +132,6 @@ class govuk::apps::search_admin(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-RUMMAGER_BEARER_TOKEN":
         varname => 'RUMMAGER_BEARER_TOKEN',
         value   => $rummager_bearer_token;

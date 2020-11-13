@@ -372,12 +372,6 @@ class govuk::apps::whitehall(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
