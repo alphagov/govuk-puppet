@@ -136,8 +136,8 @@ class govuk::apps::collections_publisher(
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-          value   => $link_checker_api_bearer_token;
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;

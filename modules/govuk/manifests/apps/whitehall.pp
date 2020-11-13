@@ -376,8 +376,8 @@ class govuk::apps::whitehall(
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-          value   => $link_checker_api_bearer_token;
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
       "${title}-GOVUK_NOTIFY_API_KEY":
         varname => 'GOVUK_NOTIFY_API_KEY',
         value   => $govuk_notify_api_key;
