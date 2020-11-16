@@ -36,7 +36,7 @@ class govuk_docker (
     manage_kernel               => false,
   }
 
-  if $::aws_environment == 'integration'{
+  if (($::aws_environment == 'integration') or ($::aws_environment == 'staging') or ($::aws_environment == 'production')) {
     include ::docker::registry_auth
   }
 
