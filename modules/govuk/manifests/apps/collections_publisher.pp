@@ -17,12 +17,11 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*oauth_id*]
-#   Sets the OAuth ID used by gds-sso
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key used by gds-sso
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*enable_procfile_worker*]
 #   Whether to enable the procfile worker
@@ -135,15 +134,9 @@ class govuk::apps::collections_publisher(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-          value   => $link_checker_api_bearer_token;
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;

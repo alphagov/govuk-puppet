@@ -17,16 +17,16 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 #   Whether to install or uninstall the app. Defaults to true (install on all enviroments)
 #
 # [*secret_key_base*]
-#   The key for Rails to use when signing/encrypting sessions (in govuk-secrets)
+#   The key for Rails to use when signing/encrypting sessions
 #
 # [*sentry_dsn*]
-#   The app-specific URL used by Sentry to report exceptions (in govuk-secrets)
+#   The app-specific URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
-#   The OAuth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The OAuth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*db_hostname*]
 #   The hostname of the database server to use for in DATABASE_URL environment variable
@@ -96,12 +96,6 @@ class govuk::apps::myapp (
       value          => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname        => 'GDS_SSO_OAUTH_SECRET',
-      value          => $oauth_secret;
-    "${title}-OAUTH_ID":
-      varname        => 'OAUTH_ID',
-      value          => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname        => 'OAUTH_SECRET',
       value          => $oauth_secret;
   }
 

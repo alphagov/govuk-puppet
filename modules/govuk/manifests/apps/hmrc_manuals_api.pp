@@ -20,11 +20,11 @@
 #   The URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
-#   Sets the OAuth ID for using GDS-SSO
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #   Default: undef
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key for using GDS-SSO
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #   Default: undef
 #
 # [*publish_topics*]
@@ -91,12 +91,6 @@ class govuk::apps::hmrc_manuals_api(
         value   => $oauth_id;
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',

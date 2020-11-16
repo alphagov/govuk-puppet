@@ -45,10 +45,10 @@
 #   The key for Rails to use when signing/encrypting sessions.
 #
 # [*oauth_id*]
-#   Sets the OAuth ID
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*email_alert_auth_token*]
 #   Sets the secret token used for encrypting and decrypting messages shared
@@ -230,12 +230,6 @@ class govuk::apps::email_alert_api(
         value   => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
-        value   => $oauth_secret;
-    "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',

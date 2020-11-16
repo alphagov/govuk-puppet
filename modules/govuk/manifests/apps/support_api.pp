@@ -38,10 +38,10 @@
 #   The URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
-# The Oauth ID used to identify the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-# The Oauth secret used to authenticate the app to GOV.UK Signon (in govuk-secrets)
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*port*]
 #   The port where the Rails app is running.
@@ -138,12 +138,6 @@ class govuk::apps::support_api(
       value   => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-PP_DATA_BEARER_TOKEN":
       varname => 'PP_DATA_BEARER_TOKEN',

@@ -31,11 +31,11 @@
 # [*github_access_token*]
 #   The access token to use when accessing the Github API.
 #
-# [*oauth_secret*]
-#   Sets the OAuth Secret Key
+# [*oauth_id*]
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 class govuk::apps::release(
   $port,
@@ -81,12 +81,6 @@ class govuk::apps::release(
       value   => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-GITHUB_USERNAME":
       varname => 'GITHUB_USERNAME',

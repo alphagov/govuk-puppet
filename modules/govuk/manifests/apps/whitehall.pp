@@ -63,11 +63,11 @@
 #   Memory use at which Nagios should generate a critical alert.
 #
 # [*oauth_id*]
-#   Sets the OAuth ID for using GDS-SSO
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #   Default: undef
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key for using GDS-SSO
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #   Default: undef
 #
 # [*port*]
@@ -372,18 +372,12 @@ class govuk::apps::whitehall(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
-        value   => $oauth_secret;
       "${title}-LINK_CHECKER_API_SECRET_TOKEN":
         varname => 'LINK_CHECKER_API_SECRET_TOKEN',
         value   => $link_checker_api_secret_token;
       "${title}-LINK_CHECKER_API_BEARER_TOKEN":
-          varname => 'LINK_CHECKER_API_BEARER_TOKEN',
-          value   => $link_checker_api_bearer_token;
+        varname => 'LINK_CHECKER_API_BEARER_TOKEN',
+        value   => $link_checker_api_bearer_token;
       "${title}-GOVUK_NOTIFY_API_KEY":
         varname => 'GOVUK_NOTIFY_API_KEY',
         value   => $govuk_notify_api_key;

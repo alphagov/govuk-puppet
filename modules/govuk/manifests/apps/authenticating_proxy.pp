@@ -23,10 +23,10 @@
 #   Default: undef
 #
 # [*oauth_id*]
-#   Sets the OAuth ID
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   Sets the OAuth Secret Key
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*secret_key_base*]
 #   Used to set the app ENV var SECRET_KEY_BASE which is used to configure
@@ -88,12 +88,6 @@ class govuk::apps::authenticating_proxy(
       value   => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
-      value   => $oauth_secret;
-    "${title}-OAUTH_ID":
-      varname => 'OAUTH_ID',
-      value   => $oauth_id;
-    "${title}-OAUTH_SECRET":
-      varname => 'OAUTH_SECRET',
       value   => $oauth_secret;
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',

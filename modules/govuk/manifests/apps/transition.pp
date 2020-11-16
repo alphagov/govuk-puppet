@@ -15,10 +15,10 @@
 #   Default: true
 #
 # [*oauth_id*]
-#   The Signon OAuth identifier for this app
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The Signon OAuth secret for this app
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*redis_host*]
 #   Redis host for Sidekiq.
@@ -128,12 +128,6 @@ class govuk::apps::transition(
           value   => $oauth_id;
         "${title}-GDS_SSO_OAUTH_SECRET":
           varname => 'GDS_SSO_OAUTH_SECRET',
-          value   => $oauth_secret;
-        "${title}-OAUTH_ID":
-          varname => 'OAUTH_ID',
-          value   => $oauth_id;
-        "${title}-OAUTH_SECRET":
-          varname => 'OAUTH_SECRET',
           value   => $oauth_secret;
         "${title}-SECRET_KEY_BASE":
           varname => 'SECRET_KEY_BASE',

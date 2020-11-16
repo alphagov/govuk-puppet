@@ -55,10 +55,10 @@
 #   The URL used by Sentry to report exceptions
 #
 # [*oauth_id*]
-#   The application's OAuth ID from Signon
+#   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
-#   The application's OAuth Secret from Signon
+#   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
 # [*fact_check_address_format*]
 #   The address format used for sending fact checks
@@ -214,12 +214,6 @@ class govuk::apps::publisher(
         value   => $oauth_id;
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
-        value   => $oauth_secret;
-      "${title}-OAUTH_ID":
-        varname => 'OAUTH_ID',
-        value   => $oauth_id;
-      "${title}-OAUTH_SECRET":
-        varname => 'OAUTH_SECRET',
         value   => $oauth_secret;
       "${title}-FACT_CHECK_ADDRESS_FORMAT":
         varname => 'FACT_CHECK_ADDRESS_FORMAT',
