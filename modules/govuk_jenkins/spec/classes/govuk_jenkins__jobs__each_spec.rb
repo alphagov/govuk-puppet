@@ -5,12 +5,10 @@ FILES = Dir.entries(job_directory).reject{ |f| f == "." || f == ".." }
 
 # TODO: make the specs work for these
 BROKEN_SPECS = %w[
-  copy_data_from_staging_to_aws.pp
   deploy_cdn.pp
   deploy_puppet.pp
   smokey.pp
   update_cdn_dictionaries.pp
-  whitehall_update_integration_data.pp
 ]
 
 # test everything apart from known broken exceptions
