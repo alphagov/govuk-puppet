@@ -3,7 +3,7 @@ govuk_env_sync::tasks:
   # changing the name later
   "push_content_data_api_production_daily":
     ensure: "present"
-    hour: "3"
+    hour: "23"
     minute: "0"
     action: "push"
     dbms: "postgresql"
