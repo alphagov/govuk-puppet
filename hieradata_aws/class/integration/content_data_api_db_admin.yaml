@@ -3,7 +3,7 @@ govuk_env_sync::tasks:
   # changing the name later
   "pull_content_data_api_production_daily":
     ensure: "present"
-    hour: "4"
+    hour: "0"
     minute: "0"
     action: "pull"
     dbms: "postgresql"
@@ -14,7 +14,7 @@ govuk_env_sync::tasks:
     path: "content-data-api-postgresql"
   "push_content_data_api_production_daily":
     ensure: "present"
-    hour: "9"
+    hour: "5"
     minute: "0"
     action: "push"
     dbms: "postgresql"
