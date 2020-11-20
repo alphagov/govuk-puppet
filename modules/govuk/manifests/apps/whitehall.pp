@@ -226,7 +226,6 @@ class govuk::apps::whitehall(
     log_format_is_json       => true,
     health_check_path        => $health_check_path,
     health_check_custom_doc  => true,
-    expose_health_check      => false,
     json_health_check        => true,
     depends_on_nfs           => true,
     enable_nginx_vhost       => false,
@@ -299,7 +298,6 @@ class govuk::apps::whitehall(
       deny_crawlers           => true,
       asset_pipeline          => true,
       asset_pipeline_prefixes => ['assets/whitehall'],
-      hidden_paths            => [$health_check_path],
       nginx_extra_config      => '
       proxy_set_header X-Sendfile-Type X-Accel-Redirect;
 
@@ -320,13 +318,6 @@ class govuk::apps::whitehall(
       # permissions.
       location /auth/gds {
         auth_basic off;
-        try_files $uri @app;
-      }
-
-      # Don\'t block access to the overdue healthcheck page.  Icinga needs to be
-      # able to access this from the monitoring machine.
-      # This is necessary because "/healthcheck*" is blocked by the hidden_paths option above.
-      location /healthcheck/overdue {
         try_files $uri @app;
       }
     ',

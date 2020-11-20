@@ -62,7 +62,6 @@ class govuk::apps::finder_frontend(
       port                     => $port,
       sentry_dsn               => $sentry_dsn,
       health_check_path        => '/healthcheck.json',
-      expose_health_check      => false,
       json_health_check        => true,
       log_format_is_json       => true,
       asset_pipeline           => true,
