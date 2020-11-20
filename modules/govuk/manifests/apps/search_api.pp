@@ -158,7 +158,6 @@ class govuk::apps::search_api(
     sentry_dsn               => $sentry_dsn,
     health_check_path        => '/healthcheck',
     health_check_custom_doc  => true,
-    expose_health_check      => false,
     json_health_check        => true,
 
     vhost_aliases            => ['search'],

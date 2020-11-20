@@ -45,37 +45,6 @@ describe 'govuk::app', :type => :define do
     it { is_expected.to raise_error(Puppet::Error, /Invalid \$command parameter/) }
   end
 
-  context 'health check hidden' do
-    let(:params) do
-      {
-        :app_type => 'rack',
-        :port => '8000',
-        :health_check_path => '/healthcheck',
-        :expose_health_check => false,
-      }
-    end
-
-    it "should hide the healthcheck paths" do
-      is_expected.to contain_govuk__app__nginx_vhost('giraffe').with(
-        'hidden_paths' => ['/healthcheck']
-      )
-    end
-  end
-
-  context 'health check path not provided, health check hidden' do
-    let(:params) do
-      {
-        :app_type => 'rack',
-        :port => 8000,
-        :expose_health_check => false,
-      }
-    end
-
-    it "should fail to compile" do
-      is_expected.to raise_error(Puppet::Error, /Cannot hide/)
-    end
-  end
-
   context 'with ensure' do
     context 'ensure => absent' do
       let(:params) {{

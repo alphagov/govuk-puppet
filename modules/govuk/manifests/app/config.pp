@@ -99,7 +99,6 @@ define govuk::app::config (
   $nginx_extra_config = '',
   $health_check_path = 'NOTSET',
   $health_check_custom_doc = false,
-  $expose_health_check = true,
   $json_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
@@ -273,16 +272,6 @@ define govuk::app::config (
   }
 
   if $enable_nginx_vhost {
-
-    if $expose_health_check {
-      $hidden_paths = []
-    } else {
-      if $health_check_path == 'NOTSET' {
-        fail('Cannot hide an unset health check path')
-      }
-      $hidden_paths = [$health_check_path]
-    }
-
     # Expose this application from nginx
     govuk::app::nginx_vhost { $title:
       ensure                         => $ensure,
@@ -295,7 +284,7 @@ define govuk::app::config (
       deny_framing                   => $deny_framing,
       asset_pipeline                 => $asset_pipeline,
       asset_pipeline_prefixes        => $asset_pipeline_prefixes,
-      hidden_paths                   => $hidden_paths,
+      hidden_paths                   => [],
       read_timeout                   => $read_timeout,
       alert_5xx_warning_rate         => $alert_5xx_warning_rate,
       alert_5xx_critical_rate        => $alert_5xx_critical_rate,

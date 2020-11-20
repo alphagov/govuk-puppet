@@ -64,16 +64,6 @@
 #   By default the alert doc will be "app-healthcheck-not-ok".
 #   Set to true to change this to "<app>-app-healthcheck-not-ok".
 #
-# [*expose_health_check*]
-# whether to expose the health check to the proxy.
-#
-# In some apps, such as bouncer, this must be exposed so load balancers know
-# whether to send requests to a particular server; in other apps, such as
-# publisher, this must not be exposed, because then it would provide an
-# uncached, unauthenticated, publicly accessible point of access into the
-# state of our admin systems.
-#
-#
 # [*json_health_check*]
 # whether the app's health check is exposed as JSON.
 #
@@ -288,7 +278,6 @@ define govuk::app (
   $log_format_is_json = false,
   $health_check_path = 'NOTSET',
   $health_check_custom_doc = undef,
-  $expose_health_check = true,
   $json_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
@@ -382,7 +371,6 @@ define govuk::app (
     nginx_extra_config                  => $nginx_extra_config,
     health_check_path                   => $health_check_path,
     health_check_custom_doc             => $health_check_custom_doc,
-    expose_health_check                 => $expose_health_check,
     json_health_check                   => $json_health_check,
     health_check_service_template       => $health_check_service_template,
     health_check_notification_period    => $health_check_notification_period,
