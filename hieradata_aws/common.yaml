@@ -562,11 +562,10 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - michael.s.walker@digital.cabinet-office.gov.uk
   - neil.hayes@digital.cabinet-office.gov.uk
   - sean.rankine@digital.cabinet-office.gov.uk
-  - steve.messer@digital.cabinet-office.gov.uk
+  - simon.hughesdon@digital.cabinet-office.gov.uk
   - tim.blair@digital.cabinet-office.gov.uk
   - thomas.leese@digital.cabinet-office.gov.uk
   - tom.whitwell@digital.cabinet-office.gov.uk
-  - vanita.barrett@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
