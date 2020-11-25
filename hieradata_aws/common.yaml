@@ -543,6 +543,11 @@ govuk::apps::email_alert_api::email_address_override_whitelist:
   - jessica.jones@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
 
+govuk::apps::email_alert_api::govuk_notify_recipients:
+  - ben.thorner@digital.cabinet-office.gov.uk
+  - jessica.jones@digital.cabinet-office.gov.uk
+  - kevin.dew@digital.cabinet-office.gov.uk
+
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
 
