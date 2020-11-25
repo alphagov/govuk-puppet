@@ -539,34 +539,9 @@ govuk::apps::email_alert_api::nagios_memory_critical: 3000
 govuk::apps::email_alert_api::unicorn_worker_processes: '10'
 # This list should be kept in sync with https://www.notifications.service.gov.uk/services/ecfc7e2f-5145-45a6-9413-5d9b6e813ea9/users
 govuk::apps::email_alert_api::email_address_override_whitelist:
-  - govuk-email-courtesy-copies@digital.cabinet-office.gov.uk
-  - alan.gabbianelli@digital.cabinet-office.gov.uk
-  - alex.jurubita@digital.cabinet-office.gov.uk
-  - andy.maidment@digital.cabinet-office.gov.uk
   - ben.thorner@digital.cabinet-office.gov.uk
-  - bevan.loon@digital.cabinet-office.gov.uk
-  - bruce.bolt@digital.cabinet-office.gov.uk
-  - camille.descartes@digital.cabinet-office.gov.uk
-  - chris.banks@digital.cabinet-office.gov.uk
-  - complaint@simulator.amazonses.com
-  - conor.delahunty@digital.cabinet-office.gov.uk
-  - deborah.chua@digital.cabinet-office.gov.uk
-  - dilwoar.hussain@digital.cabinet-office.gov.uk
-  - edward.kerry@digital.cabinet-office.gov.uk
-  - huw.diprose@digital.cabinet-office.gov.uk
-  - jennifer.allum@digital.cabinet-office.gov.uk
   - jessica.jones@digital.cabinet-office.gov.uk
   - kevin.dew@digital.cabinet-office.gov.uk
-  - kelvin.gan@digital.cabinet-office.gov.uk
-  - leanne.cummings@digital.cabinet-office.gov.uk
-  - michael.s.walker@digital.cabinet-office.gov.uk
-  - neil.hayes@digital.cabinet-office.gov.uk
-  - sean.rankine@digital.cabinet-office.gov.uk
-  - steve.messer@digital.cabinet-office.gov.uk
-  - tim.blair@digital.cabinet-office.gov.uk
-  - thomas.leese@digital.cabinet-office.gov.uk
-  - tom.whitwell@digital.cabinet-office.gov.uk
-  - vanita.barrett@digital.cabinet-office.gov.uk
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
