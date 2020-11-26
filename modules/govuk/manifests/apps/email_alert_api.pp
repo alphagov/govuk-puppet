@@ -35,6 +35,11 @@
 # [*govuk_notify_api_key*]
 #   API key for integration with GOV.UK Notify for sending emails
 #
+# [*govuk_notify_recipients*]
+#   Indicates email addresses that will receive emails from Notify. This can
+#   can be a string of "*" to indicate everyone or it can be an email address
+#   or an array of email addressses.
+#
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
@@ -122,6 +127,7 @@ class govuk::apps::email_alert_api(
   $sentry_dsn = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_base_url = undef,
+  $govuk_notify_recipients = undef,
   $govuk_notify_template_id = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
@@ -268,6 +274,18 @@ class govuk::apps::email_alert_api(
         varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
         value   => join($email_address_override_whitelist, ',');
       }
+    }
+  }
+
+  if $govuk_notify_recipients {
+    $recipients = is_array($govuk_notify_recipients) ? {
+      true  => join($govuk_notify_recipients, ','),
+      false => $govuk_notify_recipients
+    }
+
+    govuk::app::envvar { "${title}-GOVUK_NOTIFY_RECIPIENTS":
+      varname => 'GOVUK_NOTIFY_RECIPIENTS',
+      value   => $recipients;
     }
   }
 

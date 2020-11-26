@@ -202,6 +202,7 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::email_archive_s3_bucket
     govuk::apps::email_alert_api::email_archive_s3_enabled
     govuk::apps::email_alert_api::enabled
+    govuk::apps::email_alert_api::govuk_notify_recipients
     govuk::apps::email_alert_api::govuk_notify_template_id
     govuk::apps::email_alert_api::nagios_memory_critical
     govuk::apps::email_alert_api::nagios_memory_warning
