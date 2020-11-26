@@ -56,6 +56,7 @@ class govuk::apps::collections(
     json_health_check        => true,
     log_format_is_json       => true,
     asset_pipeline           => true,
+    read_timeout             => 1,
     asset_pipeline_prefixes  => ['assets/collections'],
     vhost                    => $vhost,
     nagios_memory_warning    => $nagios_memory_warning,
