@@ -43,9 +43,6 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
-# [*govuk_notify_base_url*]
-#   Deprecated env var to switch notify environments.
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -58,20 +55,6 @@
 # [*email_alert_auth_token*]
 #   Sets the secret token used for encrypting and decrypting messages shared
 #   between email alert applications
-#
-# [*email_service_provider*]
-#   Configure which provider to use for sending emails.
-#    PSUEDO - Don't actually send emails, instead just log them.
-#    NOTIFY - Use GOV.UK Notify to send the emails.
-#
-# [*email_address_override*]
-#   Configure all emails to be sent to this address instead.
-#
-# [*email_address_override_whitelist*]
-#   Allow a whitelist of email addresses that ignore the override option.
-#
-# [*email_address_override_whitelist_only*]
-#   Specify that only emails that are whitelisted should be sent out.
 #
 # [*unicorn_worker_processes*]
 #   The number of unicorn workers to run for an instance of this app
@@ -119,17 +102,12 @@ class govuk::apps::email_alert_api(
   $redis_port = undef,
   $sentry_dsn = undef,
   $govuk_notify_api_key = undef,
-  $govuk_notify_base_url = undef,
   $govuk_notify_recipients = undef,
   $govuk_notify_template_id = undef,
   $secret_key_base = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $email_alert_auth_token = undef,
-  $email_service_provider = 'NOTIFY',
-  $email_address_override = undef,
-  $email_address_override_whitelist = undef,
-  $email_address_override_whitelist_only = false,
   $db_username = 'email-alert-api',
   $db_password = undef,
   $db_hostname = undef,
@@ -231,12 +209,6 @@ class govuk::apps::email_alert_api(
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',
         value   => $email_alert_auth_token;
-    "${title}-EMAIL_SERVICE_PROVIDER":
-        varname => 'EMAIL_SERVICE_PROVIDER',
-        value   => $email_service_provider;
-    "${title}-EMAIL_ADDRESS_OVERRIDE":
-        varname => 'EMAIL_ADDRESS_OVERRIDE',
-        value   => $email_address_override;
     "${title}-AWS_ACCESS_KEY_ID":
         varname => 'AWS_ACCESS_KEY_ID',
         value   => $aws_access_key_id;
@@ -249,20 +221,6 @@ class govuk::apps::email_alert_api(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
-  }
-
-  if $email_address_override_whitelist_only {
-    govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY":
-      varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST_ONLY',
-      value   => 'yes';
-    }
-
-    if $email_address_override_whitelist {
-      govuk::app::envvar { "${title}-EMAIL_ADDRESS_OVERRIDE_WHITELIST":
-        varname => 'EMAIL_ADDRESS_OVERRIDE_WHITELIST',
-        value   => join($email_address_override_whitelist, ',');
-      }
-    }
   }
 
   if $govuk_notify_recipients {
