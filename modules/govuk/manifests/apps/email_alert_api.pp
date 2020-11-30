@@ -86,13 +86,6 @@
 #   The AWS region which is used for AWS Services
 #   default: eu-west-1
 #
-# [*email_archive_s3_bucket*]
-#   An S3 bucket in the specified AWS region which can be used to write the
-#   archived data too
-#
-# [*email_archive_s3_enabled*]
-#   Whether or not to perform S3 archiving in the current environment
-#
 # [*db_port*]
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
@@ -147,8 +140,6 @@ class govuk::apps::email_alert_api(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
-  $email_archive_s3_bucket = undef,
-  $email_archive_s3_enabled = undef,
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $publishing_api_bearer_token = undef,
@@ -255,9 +246,6 @@ class govuk::apps::email_alert_api(
     "${title}-AWS_REGION":
         varname => 'AWS_REGION',
         value   => $aws_region;
-    "${title}-EMAIL_ARCHIVE_S3_BUCKET":
-        varname => 'EMAIL_ARCHIVE_S3_BUCKET',
-        value   => $email_archive_s3_bucket;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
@@ -286,13 +274,6 @@ class govuk::apps::email_alert_api(
     govuk::app::envvar { "${title}-GOVUK_NOTIFY_RECIPIENTS":
       varname => 'GOVUK_NOTIFY_RECIPIENTS',
       value   => $recipients;
-    }
-  }
-
-  if $email_archive_s3_enabled {
-    govuk::app::envvar { "${title}-EMAIL_ARCHIVE_S3_ENABLED":
-      varname => 'EMAIL_ARCHIVE_S3_ENABLED',
-      value   => 'yes';
     }
   }
 
