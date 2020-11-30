@@ -199,8 +199,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::db_hostname
     govuk::apps::email_alert_api::db_password
     govuk::apps::email_alert_api::email_address_override_whitelist
-    govuk::apps::email_alert_api::email_archive_s3_bucket
-    govuk::apps::email_alert_api::email_archive_s3_enabled
     govuk::apps::email_alert_api::enabled
     govuk::apps::email_alert_api::govuk_notify_recipients
     govuk::apps::email_alert_api::govuk_notify_template_id
