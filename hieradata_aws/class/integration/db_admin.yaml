@@ -145,8 +145,8 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "push_publishing_api_integration_daily":
     ensure: "present"
-    hour: "3"
-    minute: "50"
+    hour: "4"
+    minute: "30"
     action: "push"
     dbms: "postgresql"
     storagebackend: "s3"
