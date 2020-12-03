@@ -12,16 +12,16 @@ class govuk::apps::email_alert_api::checks(
       latency_critical => '600'; # 10 minutes
 
     'send_email_immediate':
-      latency_warning  => '1200', # 20 minutes
-      latency_critical => '1800'; # 30 minutes
+      latency_warning  => '43200', # 12 hours
+      latency_critical => '86400'; # 24 hours
 
     'send_email_immediate_high':
-      latency_warning  => '300', # 5 minutes
-      latency_critical => '600'; # 10 minutes
+      latency_warning  => '10800', # 3 hours
+      latency_critical => '86400'; # 24 hours
 
     'send_email_digest':
-      latency_warning  => '3600', # 60 minutes
-      latency_critical => '5400'; # 90 minutes
+      latency_warning  => '43200', # 12 hours
+      latency_critical => '86400'; # 24 hours
   }
 
   @@icinga::check::graphite { 'email-alert-api-unprocessed-content-changes':
