@@ -162,6 +162,8 @@ govuk::apps::content_store::performance_platform_spotlight_url: 'https://perform
 
 govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
+govuk::apps::email_alert_api::govuk_notify_recipients:
+  - email-alert-api-staging@digital.cabinet-office.gov.uk
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::feedback::govuk_notify_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
 govuk::apps::feedback::govuk_notify_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
