@@ -1121,6 +1121,7 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   authenticating-proxy: {}
+  bouncer: {}
   content-publisher: {}
   finder-frontend: {}
   government-frontend: {}
