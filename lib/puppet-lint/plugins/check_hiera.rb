@@ -69,6 +69,9 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     'wildcard_publishing_key',
     'www_crt',
     'www_key',
+
+    # accounts feature flag, a temporary thing
+    'govuk::apps::finder_frontend::feature_flag_accounts'
   ]
   def check
     tokens.select { |t| t.type == :NAME and t.value == 'hiera' }.each do |func_token|
