@@ -1121,6 +1121,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   content-publisher: {}
   finder-frontend: {}
   government-frontend: {}
+  hmrc-manuals-api: {}
   info-frontend: {}
   manuals-frontend: {}
   manuals-publisher: {}
