@@ -1123,6 +1123,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   government-frontend: {}
   info-frontend: {}
   manuals-frontend: {}
+  manuals-publisher: {}
   publisher: {}
   smartanswers:
     repository: 'smart-answers'
