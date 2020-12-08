@@ -1119,6 +1119,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   authenticating-proxy: {}
   bouncer: {}
   content-data-admin: {}
+  content-data-api: {}
   content-publisher: {}
   finder-frontend: {}
   government-frontend: {}
