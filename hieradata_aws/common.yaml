@@ -1128,6 +1128,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   manuals-frontend: {}
   manuals-publisher: {}
   publisher: {}
+  short-url-manager: {}
   smartanswers:
     repository: 'smart-answers'
   travel-advice-publisher: {}
