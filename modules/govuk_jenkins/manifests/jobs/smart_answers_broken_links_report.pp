@@ -27,7 +27,7 @@ class govuk_jenkins::jobs::smart_answers_broken_links_report (
     @@icinga::passive_check { "${check_name}_${::hostname}":
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 86400,
+      freshness_threshold => 1468800, # every 17 days
       action_url          => $job_url,
     }
   }
