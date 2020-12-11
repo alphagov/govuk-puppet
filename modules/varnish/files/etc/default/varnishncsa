@@ -6,3 +6,4 @@
 #
 # NCSA log format, to be used by HTTP log analyzers
 VARNISHNCSA_ENABLED=1
+DAEMON_OPTS="${DAEMON_OPTS} -F {\"timestamp\":\"%{%Y-%m-%dT%H:%M:%S%z}t\",\"remote_user\":\"%u\",\"http_x_forwarded_for\":\"%{X-Forwarded-For}i\",\"hit_miss\":\"%{Varnish:hitmiss}x\",\"bytes\":%b,\"duration_usec\":%D,\"status\":%s,\"request\":\"%r\",\"http_host\":\"%{host}i\",\"request_method\":\"%m\",\"time_first_byte\":\"%{Varnish:time_firstbyte}x\",\"handling\":\"%{Varnish:handling}x\",\"http_referrer\":\"%{Referrer}i\",\"http_user_agent\":\"%{User-agent}i\",\"govuk_request_id\":\"%{GOVUK-Request-Id}i\"}"
