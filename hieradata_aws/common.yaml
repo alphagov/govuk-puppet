@@ -469,9 +469,9 @@ govuk::apps::ckan::s3_aws_access_key_id: "%{hiera('s3_aws_access_key_id')}"
 govuk::apps::ckan::s3_aws_secret_access_key: "%{hiera('s3_aws_secret_access_key')}"
 
 govuk::apps::collections::feature_flag_accounts: true
-govuk::apps::collections::unicorn_worker_processes: 4
-govuk::apps::collections::nagios_memory_warning: 1500
-govuk::apps::collections::nagios_memory_critical: 1700
+govuk::apps::collections::unicorn_worker_processes: 8
+govuk::apps::collections::nagios_memory_warning: 3000
+govuk::apps::collections::nagios_memory_critical: 3400
 
 govuk::apps::collections_publisher::db_hostname: "mysql-primary"
 govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
