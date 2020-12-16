@@ -20,6 +20,7 @@ class varnish::monitoring {
   @filebeat::prospector { 'varnishncsa':
     paths  => ['/var/log/varnish/varnishncsa.log'],
     fields => {'application' => 'varnish'},
+    json   => true,
   }
 
   @@icinga::check { "check_varnish_running_${::hostname}":
