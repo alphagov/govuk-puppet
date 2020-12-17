@@ -161,31 +161,26 @@
           "steppedLine": false,
           "targets": [
             {
-              "hide": true,
+              "hide": false,
               "refId": "A",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false))",
+              "target": "alias(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false)), 'max'), 'notify estimated rate')",
               "textEditor": false
             },
             {
-              "hide": true,
+              "hide": false,
               "refId": "C",
-              "target": "sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.send_email_worker.rate_limit_exceeded, '30s', 'sum', false))",
+              "target": "alias(consolidateBy(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.pseudo.email_send_request, '30s', 'sum', false)), 'max'), 'pseudo estimated rate')",
               "textEditor": false
             },
             {
               "refId": "B",
               "target": "alias(constantLine(10500), 'per minute rate limit')"
-            },
-            {
-              "refId": "D",
-              "target": "alias(consolidateBy(sumSeries(#A, #C), 'sum'), 'per minute rate')",
-              "targetFull": "alias(consolidateBy(sumSeries(sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.notify.email_send_request.*, '30s', 'sum', false)), sumSeries(summarize(stats_counts.govuk.app.email-alert-api.*.send_email_worker.rate_limit_exceeded, '30s', 'sum', false))), 'sum'), 'per minute rate')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Email Send Attempts (per 30s)",
+          "title": "Email Send Attempts",
           "tooltip": {
             "shared": true,
             "sort": 0,
