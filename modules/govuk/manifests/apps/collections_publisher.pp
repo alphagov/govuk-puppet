@@ -68,6 +68,9 @@
 # [*publish_without_2i_email*]
 #   The email address which will receive publishing without 2i alerts.
 #
+# [*unreleased_features_enabled*]
+#   Whether unreleased features should be enabled
+#
 class govuk::apps::collections_publisher(
   $ensure = 'present',
   $port,
@@ -88,6 +91,7 @@ class govuk::apps::collections_publisher(
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
   $publish_without_2i_email = undef,
+  $unreleased_features_enabled = false,
 ) {
   $app_name = 'collections-publisher'
 
@@ -152,6 +156,14 @@ class govuk::apps::collections_publisher(
       "${title}-PUBLISH_WITHOUT_2I_EMAIL":
         varname => 'PUBLISH_WITHOUT_2I_EMAIL',
         value   => $publish_without_2i_email;
+    }
+
+    if $unreleased_features_enabled {
+      govuk::app::envvar {
+        "${title}-UNRELEASED_FEATURES":
+          varname => 'UNRELEASED_FEATURES',
+          value   => '1';
+      }
     }
 
     govuk::app::envvar::database_url { $app_name:
