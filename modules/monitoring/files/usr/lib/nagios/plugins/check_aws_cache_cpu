@@ -1,8 +1,8 @@
 #!/opt/python2.7/bin/python
 
 ##########################################################
-# This script will cpture and report on AWS ElastiCache #
-# CPUUtilization         	                         #
+# This script will capture and report on AWS ElastiCache #
+# EngineCPUUtilization         	                         #
 ##########################################################
 
 ###########################################################
@@ -12,7 +12,7 @@
 # 1) Check whether a valid AWS region is specified        #
 # 2) Check whether the redis instance ID provided exisits.#
 # 3) If 1 and 2 are correct, check whether the average    #
-#    CPUUtilization is in the WARNING or CRITICAL state.  #
+#    EngineCPUUtilization is in the WARNING or CRITICAL state.  #
 #    Else, mark the status as OK.                         #
 ###########################################################
 
@@ -45,7 +45,7 @@
 #                                                                             			#
 #                                                                             			#
 # The result should look like the example below.                              			#
-# OK: Current AWS:ElastiCache CPU Utilization for blue-backend-redis-002 is 0.666759284986 %	#
+# OK: Current AWS:ElastiCache Engine CPU Utilization for blue-backend-redis-002 is 0.666759284986 %	#
 #################################################################################################
 
 ####################
@@ -64,8 +64,8 @@ import datetime
 #################################
 parser = argparse.ArgumentParser()
 parser.add_argument("-r","--region", type=str, choices=['us-east-1','eu-west-1','eu-west-2'], help="AWS region to check")
-parser.add_argument("-w","--warning", type=float, help="Percentage at which to raise a warning alert (80)", default=80)
-parser.add_argument("-c","--critical", type=float, help="Percentage at which to raise a critical alert (90)", default=90)
+parser.add_argument("-w","--warning", type=float, help="Percentage at which to raise a warning alert (90)", default=90)
+parser.add_argument("-c","--critical", type=float, help="Percentage at which to raise a critical alert (95)", default=95)
 parser.add_argument("-i","--instanceid", type=str, help="Instanceid", default=0)
 args = parser.parse_args()
 
@@ -139,8 +139,8 @@ end = datetime.datetime.now()
 #          output (very important. Nagios will only take one result)   		        #
 # 'start'- This will pass the start time.                               		#
 # 'end'  - This will pass the end time.                                 		#
-# 'CPUUtilization' - This is the matric that we are asking for from     		#
-#                    CloudWatch.                                        		#
+# 'EngineCPUUtilization' - This is the metric that we are asking for from     		#
+#                          CloudWatch.                                        		#
 # 'AWS/AWS/ElastiCache' - This is the CloudWatch space/area where RDS stats reside. 	#
 # 'Average' - We are defining that we won't the average for the matric. 		#
 # 'CacheClusterId' - The unique identifier which we use to query. 			#
@@ -149,7 +149,7 @@ data = cw_conn.get_metric_statistics(
    300,
    start,
    end,
-   'CPUUtilization',
+   'EngineCPUUtilization',
    'AWS/ElastiCache',
    'Average',
    {'CacheClusterId': [args.instanceid]},
@@ -205,10 +205,10 @@ average = item["Average"]
 # 3) Compare the check vs actual.                       #
 #########################################################
 if float(average) > args.critical:
-  print "CRITICAL: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "CRITICAL: Current AWS:ElastiCache Engine CPU Utilization for {} is {} %".format(args.instanceid, average)
   sys.exit(2)
 elif float(average) > args.warning:
-  print "WARNING: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "WARNING: Current AWS:ElastiCache Engine CPU Utilization for {} is {} %".format(args.instanceid, average)
   sys.exit(1)
 else:
-  print "OK: Current AWS:ElastiCache CPU Utilization for {} is {} %".format(args.instanceid, average)
+  print "OK: Current AWS:ElastiCache Engine CPU Utilization for {} is {} %".format(args.instanceid, average)
