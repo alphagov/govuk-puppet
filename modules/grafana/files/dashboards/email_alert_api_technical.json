@@ -548,6 +548,12 @@
               "refId": "C",
               "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.send_email_immediate_high.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
               "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "D",
+              "target": "aliasByNode(consolidateBy(maxSeries(summarize(stats.gauges.govuk.app.email-alert-api.*.workers.queues.send_email_digest.enqueued, '$Interval', 'max', false)), 'max'), 8, 9)",
+              "textEditor": false
             }
           ],
           "thresholds": [],
