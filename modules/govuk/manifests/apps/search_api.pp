@@ -153,22 +153,23 @@ class govuk::apps::search_api(
   }
 
   govuk::app { 'search-api':
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/healthcheck',
-    health_check_custom_doc  => true,
-    json_health_check        => true,
+    app_type                       => 'rack',
+    port                           => $port,
+    sentry_dsn                     => $sentry_dsn,
+    health_check_path              => '/healthcheck',
+    health_check_custom_doc        => true,
+    json_health_check              => true,
 
-    vhost_aliases            => ['search'],
+    vhost_aliases                  => ['search'],
 
-    log_format_is_json       => true,
-    nginx_extra_config       => '
+    log_format_is_json             => true,
+    nginx_extra_config             => '
     client_max_body_size 500m;
     ',
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
-    unicorn_worker_processes => $unicorn_worker_processes,
+    nagios_memory_warning          => $nagios_memory_warning,
+    nagios_memory_critical         => $nagios_memory_critical,
+    unicorn_worker_processes       => $unicorn_worker_processes,
+    alert_when_file_handles_exceed => 4000,
   }
 
   govuk::app::envvar::rabbitmq { 'search-api':
