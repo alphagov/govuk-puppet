@@ -23,7 +23,7 @@ def user_list
   Dir.glob("#{class_dir}/*.pp").collect { |user_manifest|
     user_manifest.gsub(/^#{class_dir}\/(.+)\.pp$/, '\1')
   }.delete_if { |username|
-    username == 'init' or username == 'null_user'
+    username == 'init' or username == 'null_user' or %w[chrisfarmiloe isabelllong marksutton sebastianschmieschek].include?(username)
   }
 end
 
