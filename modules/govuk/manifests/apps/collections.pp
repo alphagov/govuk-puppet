@@ -37,6 +37,12 @@
 # [*feature_flag_accounts*]
 #   Feature flag to switch GOV.UK Accounts on or off for the Transition Checker
 #
+# [*memcache_servers*]
+#   URL of a shared memcache cluster. Defaults to 127.0.0.1:11211 which is the
+#   default in "Dalli" our memcached client (
+#     https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
+#   )
+#
 class govuk::apps::collections(
   $vhost = 'collections',
   $port,
@@ -47,6 +53,7 @@ class govuk::apps::collections(
   $nagios_memory_critical = undef,
   $email_alert_api_bearer_token = undef,
   $feature_flag_accounts = false,
+  $memcache_servers = '127.0.0.1:11211',
 ) {
   govuk::app { 'collections':
     app_type                 => 'rack',
@@ -82,5 +89,10 @@ class govuk::apps::collections(
     "${title}-FEATURE-FLAG-ACCOUNTS":
         varname => 'FEATURE_FLAG_ACCOUNTS',
         value   => $feature_flag_accounts_var;
+    # MEMCACHE_SERVERS is used by "Dalli", our memcached client gem
+    # https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
+    "${title}-MEMCACHE_SERVERS":
+        varname => 'MEMCACHE_SERVERS',
+        value   => $memcache_servers;
   }
 }
