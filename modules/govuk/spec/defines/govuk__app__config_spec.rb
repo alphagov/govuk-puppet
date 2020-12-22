@@ -247,7 +247,7 @@ describe 'govuk::app::config', :type => :define do
       })}
 
       it 'raises an error' do
-        is_expected.to raise_error(Puppet::Error, /Expected 111000 to be smaller or equal to 12000/)
+        is_expected.to raise_error(Puppet::Error, /Expected 111000 to be smaller or equal to 20000/)
       end
     end
   end

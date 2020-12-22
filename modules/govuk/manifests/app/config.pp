@@ -140,8 +140,8 @@ define govuk::app::config (
   }
 
   # Check memory thresholds are approximately right
-  validate_integer($nagios_memory_warning, 12000, 100)
-  validate_integer($nagios_memory_critical, 14000, 200)
+  validate_integer($nagios_memory_warning, 20000, 100)
+  validate_integer($nagios_memory_critical, 22000, 200)
 
   # Use the International System of Units (SI) value of 1 million bytes in a MB
   # as it makes it simpler to evaluate memory usage when looking at our
