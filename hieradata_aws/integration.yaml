@@ -29,7 +29,6 @@ govuk::apps::content_publisher::google_tag_manager_id: "GTM-NQXC4TG"
 govuk::apps::content_publisher::google_tag_manager_preview: "env-6"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-integration@digital.cabinet-office.gov.uk"
 govuk::apps::content_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
-govuk::apps::collections::memcache_servers: 'frontend-memcached:11211'
 govuk::apps::collections_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk"
 govuk::apps::collections_publisher::unreleased_features_enabled: true

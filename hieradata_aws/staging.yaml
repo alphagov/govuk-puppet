@@ -155,7 +155,6 @@ govuk::apps::content_publisher::google_tag_manager_preview: "env-5"
 govuk::apps::content_publisher::email_address_override: "content-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::content_publisher::enabled: true
 govuk::apps::content_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
-govuk::apps::collections::memcache_servers: 'frontend-memcached:11211'
 govuk::apps::collections_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-publisher-notifications-staging@digital.cabinet-office.gov.uk"
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-staging.cloudapps.digital'
