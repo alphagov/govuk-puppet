@@ -200,7 +200,7 @@ govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-staging-search-ltr-endpoint'
-govuk::apps::search_api::unicorn_worker_processes: "18"
+govuk::apps::search_api::unicorn_worker_processes: "36"
 govuk::apps::search_api::nagios_memory_warning: 9000
 govuk::apps::search_api::nagios_memory_critical: 10000
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
