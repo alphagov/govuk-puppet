@@ -134,7 +134,7 @@ class router::nginx (
     require => File['/usr/share/nginx/www'],
   }
 
-  router::errorpage {['400', '401', '403', '404', '405', '406', '410', '422', '429', '500', '503', '504']:
+  router::errorpage {['400', '401', '403', '404', '405', '406', '410', '422', '429', '500', '502', '503', '504']:
     require => File['/usr/share/nginx/www'],
   }
 
