@@ -151,6 +151,15 @@ class govuk::apps::email_alert_api(
     memory_critical_threshold => 10000,
   }
 
+  govuk::procfile::worker {'email-alert-api-send-email':
+    ensure                    => $ensure,
+    enable_service            => $enable_procfile_worker,
+    process_type              => 'send_email_worker',
+    alert_when_threads_exceed => 100,
+    memory_warning_threshold  => 8000,
+    memory_critical_threshold => 10000,
+  }
+
   Govuk::App::Envvar {
     ensure          => $ensure,
     app             => 'email-alert-api',
