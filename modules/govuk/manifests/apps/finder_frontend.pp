@@ -58,19 +58,20 @@ class govuk::apps::finder_frontend(
 
   if $enabled {
     govuk::app { 'finder-frontend':
-      app_type                 => 'rack',
-      port                     => $port,
-      sentry_dsn               => $sentry_dsn,
-      health_check_path        => '/healthcheck.json',
-      json_health_check        => true,
-      log_format_is_json       => true,
-      asset_pipeline           => true,
-      asset_pipeline_prefixes  => ['assets/finder-frontend'],
-      nagios_memory_warning    => $nagios_memory_warning,
-      nagios_memory_critical   => $nagios_memory_critical,
-      unicorn_worker_processes => $unicorn_worker_processes,
-      cpu_warning              => 175,
-      cpu_critical             => 225,
+      app_type                       => 'rack',
+      port                           => $port,
+      sentry_dsn                     => $sentry_dsn,
+      health_check_path              => '/healthcheck.json',
+      json_health_check              => true,
+      log_format_is_json             => true,
+      asset_pipeline                 => true,
+      asset_pipeline_prefixes        => ['assets/finder-frontend'],
+      nagios_memory_warning          => $nagios_memory_warning,
+      nagios_memory_critical         => $nagios_memory_critical,
+      alert_when_file_handles_exceed => 4000,
+      unicorn_worker_processes       => $unicorn_worker_processes,
+      cpu_warning                    => 175,
+      cpu_critical                   => 225,
     }
   }
 
