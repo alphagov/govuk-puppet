@@ -81,9 +81,6 @@ class monitoring::checks (
     }
   }
 
-  $warning_time = 5
-  $critical_time = 10
-
   icinga::check {'check_mapit_responding':
     check_command       => 'check_mapit',
     host_name           => $::fqdn,
