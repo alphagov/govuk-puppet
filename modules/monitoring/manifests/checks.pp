@@ -76,8 +76,8 @@ class monitoring::checks (
       action_url                 => "https://${whitehall_hostname}${whitehall_overdue_url}",
       event_handler              => 'publish_overdue_whitehall',
       check_period               => $whitehall_overdue_check_period,
-      attempts_before_hard_state => 2,
-      retry_interval             => 10,
+      attempts_before_hard_state => 10,
+      retry_interval             => 1,
     }
   }
 
