@@ -19,6 +19,8 @@
             H 7 * * 1-5
     builders:
        - shell: |
+          # Update routes in Router
+          ssh deploy@$(govuk_node_list -c router_backend --single-node) 'cd /var/apps/router-api && govuk_setenv router-api bundle exec rake routes:reload'
            # Clear the Sidekiq queues to stop any residual 'stale' jobs running
            <%- if scope.lookupvar('::aws_migration') %>
            ssh deploy@$(govuk_node_list -c backend --single-node) 'redis-cli -h backend-redis flushall'
