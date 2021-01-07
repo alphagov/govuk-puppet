@@ -41,11 +41,12 @@ class monitoring::pagerduty_drill (
     }
 
     @@icinga::check { "pagerduty_drill_on_${::hostname}":
-      check_command       => "check_nrpe!check_file_not_exists!${filename}",
-      use                 => 'govuk_urgent_priority',
-      service_description => 'PagerDuty test drill in progress',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(pagerduty),
+      check_command              => "check_nrpe!check_file_not_exists!${filename}",
+      use                        => 'govuk_urgent_priority',
+      service_description        => 'PagerDuty test drill in progress',
+      host_name                  => $::fqdn,
+      notes_url                  => monitoring_docs_url(pagerduty),
+      attempts_before_hard_state => 1,
     }
   }
 }
