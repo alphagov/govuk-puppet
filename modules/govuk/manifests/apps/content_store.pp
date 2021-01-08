@@ -97,7 +97,7 @@ class govuk::apps::content_store(
     nagios_memory_critical      => $nagios_memory_critical,
     unicorn_worker_processes    => $unicorn_worker_processes,
     alert_when_threads_exceed   => 155,
-    create_default_nginx_config => $create_default_nginx_config,
+    create_default_nginx_config => false,
   }
 
   Govuk::App::Envvar {
