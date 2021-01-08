@@ -245,10 +245,6 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
-# [*create_default_nginx_config*]
-#   Create the default.conf site in nginx
-#   Default: false
-#
 # [*monitor_unicornherder*]
 #   Whether to set up Icinga alerts that monitor unicornherder. This is true if
 #   the app_type is set to 'rack' but this is useful if your app uses a Procfile
@@ -311,7 +307,6 @@ define govuk::app (
   $alert_when_threads_exceed = 100,
   $alert_when_file_handles_exceed = 500,
   $override_search_location = undef,
-  $create_default_nginx_config = false,
   $monitor_unicornherder = undef,
   $local_tcpconns_established_warning = undef,
   $local_tcpconns_established_critical = undef,
@@ -396,7 +391,6 @@ define govuk::app (
     alert_when_threads_exceed           => $alert_when_threads_exceed,
     alert_when_file_handles_exceed      => $alert_when_file_handles_exceed,
     override_search_location            => $override_search_location,
-    create_default_nginx_config         => $create_default_nginx_config,
     monitor_unicornherder               => $monitor_unicornherder,
     local_tcpconns_established_warning  => $local_tcpconns_established_warning,
     local_tcpconns_established_critical => $local_tcpconns_established_critical,
