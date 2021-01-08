@@ -25,10 +25,13 @@ class govuk_jenkins::packages::govuk_python (
     key          => $apt_mirror_gpg_key_fingerprint,
   }
 
-  package { 'govuk-python':
-    ensure  => $govuk_python_version,
-    require => Apt::Source['govuk-python'],
-  }
+  ensure_packages(
+    ['govuk-python'],
+    {
+      ensure  => $govuk_python_version,
+      require => Apt::Source['govuk-python'],
+    }
+  )
 
   package { 'govuk-python-setuptools':
     ensure  => $govuk_python_setuptools_version,
