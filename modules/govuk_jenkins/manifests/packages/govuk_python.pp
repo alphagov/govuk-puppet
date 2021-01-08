@@ -14,16 +14,8 @@ class govuk_jenkins::packages::govuk_python (
   $govuk_python_version = '2.7.14',
   $govuk_python_setuptools_version = '39.0.1',
   $govuk_python_pip_version = '10.0.1',
-  $apt_mirror_hostname,
-  $apt_mirror_gpg_key_fingerprint,
 ){
-
-  apt::source { 'govuk-python':
-    location     => "http://${apt_mirror_hostname}/govuk-python",
-    release      => 'stable',
-    architecture => $::architecture,
-    key          => $apt_mirror_gpg_key_fingerprint,
-  }
+  include govuk_python::apt_source
 
   ensure_packages(
     ['govuk-python'],
