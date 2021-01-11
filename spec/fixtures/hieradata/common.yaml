@@ -112,6 +112,9 @@ govuk_unattended_reboot::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mir
 grafana::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 grafana::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk_python::apt_source::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_python::apt_source::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
 hosts::production::backend::hosts:
   whitehall-backend-1:
     ip: '10.3.0.25'

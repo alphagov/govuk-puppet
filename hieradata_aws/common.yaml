@@ -852,8 +852,6 @@ govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostn
 govuk_jenkins::packages::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::sops::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
@@ -1153,8 +1151,8 @@ govuk_rbenv::all::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerpri
 govuk_solr6::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_solr6::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
-govuk_python3::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_python3::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+govuk_python::apt_source::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_python::apt_source::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk_sudo::sudo_conf:
   deploy_docker_image:
