@@ -1,3 +1,0 @@
----
-
-govuk::apps::content_store::create_default_nginx_config: true

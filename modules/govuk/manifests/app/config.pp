@@ -66,10 +66,6 @@
 # [*override_search_location*]
 #   Alternative hostname to use for Plek("search") and Plek("rummager")
 #
-# [*create_default_nginx_config*]
-#   Create the default.conf site in nginx
-#   Default: false
-#
 # [*monitor_unicornherder*]
 #   Whether to set up Icinga alerts that monitor unicornherder. This is true if
 #   the app_type is set to 'rack' but this is useful if your app uses a Procfile
@@ -125,7 +121,6 @@ define govuk::app::config (
   $alert_when_threads_exceed = undef,
   $alert_when_file_handles_exceed = undef,
   $override_search_location = undef,
-  $create_default_nginx_config = false,
   $monitor_unicornherder = undef,
   $local_tcpconns_established_warning = undef,
   $local_tcpconns_established_critical = undef,
@@ -289,16 +284,6 @@ define govuk::app::config (
       alert_5xx_warning_rate         => $alert_5xx_warning_rate,
       alert_5xx_critical_rate        => $alert_5xx_critical_rate,
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
-    }
-
-    if ($create_default_nginx_config == true) and ($::aws_environment == 'staging' or $::aws_environment == 'production') {
-      nginx::config::vhost::app_default { 'default':
-        ensure                  => $ensure,
-        app_healthcheck_url     => $health_check_path,
-        app_hostname            => $title,
-        app_port                => $port,
-        default_healthcheck_url => '/_healthcheck',
-      }
     }
 
     if $ensure == 'present' and defined(Concat['/etc/nginx/lb_healthchecks.conf']) and $health_check_path != 'NOTSET' {
