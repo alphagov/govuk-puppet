@@ -1,4 +1,4 @@
-#!/opt/python2.7/bin/python
+#!/usr/bin/python2.7
 
 ##########################################################
 # This script will capture and report on AWS ElastiCache #
