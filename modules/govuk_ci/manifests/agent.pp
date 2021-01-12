@@ -42,7 +42,6 @@ class govuk_ci::agent(
   include ::govuk_jenkins::user
   include ::govuk_rbenv::all
   include ::govuk_python
-  include ::govuk_python3
   include ::govuk_sysdig
   include ::govuk_testing_tools
   include ::yarn
