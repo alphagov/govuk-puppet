@@ -1,6 +1,6 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_python (
-  $govuk_python_version = '3.6.12',
+  $govuk_python_version = '2.7.14',
 ) {
 
   include govuk_python::apt_source
