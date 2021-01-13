@@ -61,6 +61,19 @@ class grafana::datasources(
     '2>/dev/null','|','grep',shellquote('{"message":"Data source not found"}'),
   ], ' ')
 
+  $prometheussourcejson = '{ "name":"Prometheus","type":"prometheus","url":"https://prometheus","access":"proxy" }'
+
+  $prometheussourceadd = shellquote([
+    'curl','-f',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
+    '-X','POST','-H','Content-Type: application/json;charset=UTF-8',
+    '--data-binary',$prometheussourcejson,
+  ])
+
+  $prometheussourcemisses = join([
+    'curl',shellquote("http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/Prometheus"),
+    '2>/dev/null','|','grep',shellquote('{"message":"Data source not found"}'),
+  ], ' ')
+
   exec{'ensure-graphite-source':
     require => [Package['curl']],
     command => $graphitesourceadd,
@@ -72,4 +85,11 @@ class grafana::datasources(
     command => $elasticsearchsourceadd,
     onlyif  => $elasticsearchsourcemisses,
   }
+
+  exec{'ensure-prometheus-source':
+    require => [Package['curl']],
+    command => $prometheussourceadd,
+    onlyif  => $prometheussourcemisses,
+  }
+
 }
