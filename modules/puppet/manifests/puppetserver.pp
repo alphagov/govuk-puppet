@@ -3,15 +3,7 @@
 # Install and configure a puppetserver.
 # Includes PuppetDB on the same host.
 #
-# === Parameters
-#
-# [*sentry_dsn*]
-#   This is the Sentry DSN to send Puppet reports to.
-#   If unset, Sentry reporting is disabled.
-#
-class puppet::puppetserver (
-  $sentry_dsn = undef,
-)
+class puppet::puppetserver ()
 {
   require '::puppet'
 
@@ -39,13 +31,6 @@ class puppet::puppetserver (
 
   Class['::puppet::puppetserver::generate_cert']
     ~> Class['::puppet::puppetserver::nginx']
-
-  if $sentry_dsn {
-    class { '::puppet::puppetserver::sentry':
-      require => Class['::puppet::puppetserver::package'],
-      notify  => Class['::puppet::puppetserver::service'],
-    }
-  }
 
   file { '/etc/puppet/gpg':
     ensure  => directory,

@@ -54,8 +54,6 @@ mod 'alphagov/puppet-rcs',
 mod 'elasticsearch/logstash',
   :git => 'git://github.com/electrical/puppet-logstash.git',
   :ref => '694fa1a'
-mod 'alphagov/puppet-reporter-sentry',
-  :git => 'git://github.com/alphagov/puppet-reporter-sentry.git'
 mod 'puppetlabs/postgresql',
   :git => 'git://github.com/alphagov/puppetlabs-postgresql.git',
   :ref => '2b30e3e1cbb2772bee848d802f6f00cc790a2947'

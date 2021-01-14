@@ -122,13 +122,6 @@ GIT
       puppetlabs-stdlib (>= 4.0.0)
 
 GIT
-  remote: git://github.com/alphagov/puppet-reporter-sentry.git
-  ref: master
-  sha: bb4ef6f5407cbff17ee734ea54e2b2ecdc7e84e7
-  specs:
-    alphagov-puppet-reporter-sentry (0.1.0)
-
-GIT
   remote: git://github.com/alphagov/puppetlabs-postgresql.git
   ref: 2b30e3e1cbb2772bee848d802f6f00cc790a2947
   sha: 2b30e3e1cbb2772bee848d802f6f00cc790a2947
@@ -185,7 +178,6 @@ DEPENDENCIES
   alphagov-duplicity (>= 0)
   alphagov-gor (>= 0)
   alphagov-puppet-rcs (>= 0)
-  alphagov-puppet-reporter-sentry (>= 0)
   attachmentgenie-ufw (= 1.0.3)
   camptocamp-augeas (= 1.1.0)
   covermymeds-pgbouncer (= 0.3.3)
