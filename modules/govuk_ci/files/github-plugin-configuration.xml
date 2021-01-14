@@ -11,4 +11,4 @@
   <hookSecretConfig>
     <credentialsId></credentialsId>
   </hookSecretConfig>
-</github-pluginconfiguration>
+</github-plugin-configuration>
