@@ -35,7 +35,7 @@ class puppet::master::package(
   }
 
   package { 'sentry-raven':
-    ensure   => '2.2.0',
+    ensure   => absent,
     provider => 'system_gem',
   }
 

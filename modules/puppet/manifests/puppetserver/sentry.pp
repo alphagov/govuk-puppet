@@ -4,12 +4,8 @@
 # Sentry DSN in /etc/puppet/sentry.conf.
 #
 class puppet::puppetserver::sentry {
-  exec { '/usr/bin/puppetserver gem install sentry-raven --version "= 2.13.0"':
-    unless  => '/usr/bin/puppetserver gem list | /bin/grep sentry-raven',
-  }
-
   file { "${settings::confdir}/sentry.conf":
-    ensure  => present,
+    ensure  => absent,
     owner   => 'puppet',
     group   => 'puppet',
     mode    => '0400',
