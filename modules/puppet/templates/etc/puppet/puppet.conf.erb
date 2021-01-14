@@ -20,7 +20,7 @@ certname = <%= scope.lookupvar('::aws_instanceid') %>
 <%- end -%>
 
 [master]
-reports = store,sentry
+reports = store
 report = true
 storeconfigs = true
 storeconfigs_backend = puppetdb
@@ -37,5 +37,5 @@ autosign = /etc/puppet/certsigner.rb
 <%- end -%>
 
 [agent]
-report = true
+report = false
 configtimeout = 600

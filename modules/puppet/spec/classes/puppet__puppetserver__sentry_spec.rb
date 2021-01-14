@@ -12,7 +12,6 @@ describe 'puppet::puppetserver::sentry', :type => :class do
   Puppet.settings[:confdir] = '/etc/puppet'
 
   it do
-	  is_expected.to contain_exec('/usr/bin/puppetserver gem install sentry-raven --version "= 2.13.0"')
     is_expected.to contain_file('/etc/puppet/sentry.conf').with_content('dsn=rspec dsn')
   end
 end
