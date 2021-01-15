@@ -1,6 +1,6 @@
 # == Define: govuk::app::envvar::redis
 #
-# Defines Redis env var for an app.
+# Defines Redis env vars for an app.
 #
 # === Parameters
 #
@@ -29,9 +29,17 @@ define govuk::app::envvar::redis (
     app => pick($app, $title),
   }
 
+  $host_key = join(delete_undef_values([$prefix, 'redis', 'host']), '_')
+  $port_key = join(delete_undef_values([$prefix, 'redis', 'port']), '_')
   $url_key  = join(delete_undef_values([$prefix, 'redis', 'url']), '_')
 
   govuk::app::envvar {
+    "${title}-${host_key}":
+      varname => upcase($host_key),
+      value   => $host;
+    "${title}-${port_key}":
+      varname => upcase($port_key),
+      value   => $port;
     "${title}-${url_key}":
       varname => upcase($url_key),
       value   => "redis://${host}:${port}";
