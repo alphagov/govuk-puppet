@@ -1125,6 +1125,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   government-frontend: {}
   hmrc-manuals-api: {}
   info-frontend: {}
+  local-links-manager: {}
   manuals-frontend: {}
   manuals-publisher: {}
   publisher: {}
