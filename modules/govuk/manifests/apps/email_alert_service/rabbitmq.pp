@@ -60,7 +60,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::queue_with_binding { $amqp_unpublishing_queue:
-    ensure        => $ensure,
+    ensure        => absent,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_unpublishing_queue,
     routing_key   => 'redirect.unpublish.#',
@@ -68,7 +68,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::monitor_messages {"${amqp_unpublishing_queue}_message_monitoring":
-    ensure             => $ensure,
+    ensure             => absent,
     rabbitmq_hostname  => 'localhost',
     rabbitmq_queue     => $amqp_unpublishing_queue,
     critical_threshold => $queue_size_critical_threshold,
