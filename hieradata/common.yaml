@@ -526,6 +526,7 @@ govuk_ci::master::pipeline_jobs:
   govuk_message_queue_consumer: {}
   govuk-provisioning: {}
   govuk_publishing_components: {}
+  govuk-search-relevance-tool: {}
   govuk_seed_crawler: {}
   govuk_schemas: {}
   govuk_sidekiq: {}
