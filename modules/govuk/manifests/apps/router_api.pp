@@ -105,7 +105,7 @@ class govuk::apps::router_api(
     $router_nodes_file = '/etc/router_nodes'
 
     cron::crondotdee { 'update-router-nodes':
-      command => "/usr/local/bin/govuk_node_list -c ${router_nodes_class} | sed 's/$/:${router_port}/g' > ${router_nodes_file}",
+      command => "/usr/local/bin/govuk_node_list -c ${router_nodes_class} | sed 's/$/:${router_port}/g' > ${router_nodes_file}.new && [ -s ${router_nodes_file}.new ] && mv ${router_nodes_file}.new ${router_nodes_file}",
       hour    => '*',
       minute  => '*/5',
       mailto  => '""',
