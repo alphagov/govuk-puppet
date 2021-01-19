@@ -208,7 +208,6 @@ task :check_consistency_between_aws_and_carrenza do
     govuk::apps::email_alert_api::unicorn_worker_processes
     govuk::apps::email_alert_frontend::redis_host
     govuk::apps::email_alert_frontend::redis_port
-    govuk::apps::email_alert_service::enable_unpublishing_queue_consumer
     govuk::apps::email_alert_service::enabled
     govuk::apps::email_alert_service::rabbitmq::queue_size_critical_threshold
     govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold
