@@ -53,13 +53,6 @@ class govuk::apps::email_alert_service(
     command                => 'bundle exec rake message_queues:major_change_consumer',
   }
 
-  govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
-    ensure        => absent,
-    setenv_as     => $app_name,
-    process_type  => 'unpublishing-queue-consumer',
-    process_regex => '\/rake message_queues:unpublishing_consumer',
-  }
-
   Govuk::App::Envvar {
     ensure          => $ensure,
     app             => 'email-alert-service',
