@@ -62,7 +62,7 @@ class govuk::apps::email_alert_service::rabbitmq (
     ensure               => $ensure,
     amqp_pass            => $amqp_pass,
     read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_exchange})\$",
-    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}\$",
-    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}\$",
+    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue})\$",
+    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue})\$",
   }
 }
