@@ -13,7 +13,7 @@ govuk_ci::agent::gdal_version: "1.11.5"
 govuk_ci::agent::gemstash_server: 'http://gemstash'
 govuk_containers::elasticsearch::secondary::enable: false
 postgresql::globals::version: '9.6'
-postgresql::globals::postgis_version: '2.5'
+postgresql::globals::postgis_version: '2.4'
 govuk_postgresql::server::enable_collectd: false
 govuk_python::govuk_python_version: '3.6.12'
 
