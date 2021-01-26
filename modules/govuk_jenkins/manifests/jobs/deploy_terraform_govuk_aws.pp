@@ -8,5 +8,6 @@ class govuk_jenkins::jobs::deploy_terraform_govuk_aws {
   }
 
   include ::govuk_jenkins::packages::terraform
+  include ::govuk_jenkins::packages::tfenv
   include ::govuk_jenkins::packages::sops
 }
