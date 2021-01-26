@@ -1,4 +1,4 @@
-postgresql::globals::postgis_version: '2.2'
+postgresql::globals::postgis_version: '2.5'
 
 lv:
   data:
