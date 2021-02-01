@@ -25,6 +25,13 @@
 # [*nginx_extra_config*]
 #   A string containing additional nginx config
 #
+# [*nginx_cache*]
+#   Configuration to enable caching within ngnix
+#
+#   This parameter can be used to set up a nginx cache and takes a hash with
+#   values for the following keys: `key_name`, `key_size`, `max_age` and
+#   `max_size`. Use of this option is discouraged.
+#
 # [*deny_framing*]
 #   Boolean, whether nginx should instruct browsers to not allow framing the page
 #
@@ -73,6 +80,7 @@ define govuk::app::nginx_vhost (
   $protected_location = '/',
   $ssl_only = false,
   $nginx_extra_config = '',
+  $nginx_cache = {},
   $deny_framing = false,
   $deny_crawlers = false,
   $is_default_vhost = false,
@@ -120,5 +128,9 @@ define govuk::app::nginx_vhost (
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
     proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     http_host                      => $http_host,
+    cache_key_name                 => $nginx_cache['key_name'],
+    cache_key_size                 => $nginx_cache['key_size'],
+    cache_max_size                 => $nginx_cache['max_size'],
+    cache_max_age                  => $nginx_cache['max_age'],
   }
 }

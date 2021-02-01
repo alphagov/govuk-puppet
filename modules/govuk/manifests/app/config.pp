@@ -82,6 +82,12 @@
 #   established TCP connections to $port.
 #   Default: undef
 #
+# [*nginx_cache*]
+#   This parameter can be used to set up a nginx cache and takes a hash with
+#   values for the following keys: `key_name`, `key_size`, `max_age` and
+#   `max_size`. Use of this option is discouraged.
+#   Default: {}
+#
 define govuk::app::config (
   $app_type,
   $domain,
@@ -93,6 +99,7 @@ define govuk::app::config (
   $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
+  $nginx_cache = {},
   $health_check_path = 'NOTSET',
   $health_check_custom_doc = false,
   $json_health_check = false,
@@ -276,6 +283,7 @@ define govuk::app::config (
       app_port                       => $port,
       ssl_only                       => $vhost_ssl_only,
       nginx_extra_config             => $nginx_extra_config,
+      nginx_cache                    => $nginx_cache,
       deny_framing                   => $deny_framing,
       asset_pipeline                 => $asset_pipeline,
       asset_pipeline_prefixes        => $asset_pipeline_prefixes,

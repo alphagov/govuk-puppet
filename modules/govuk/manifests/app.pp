@@ -143,6 +143,14 @@
 # possible number of "special cases". As such, use of this option is
 # discouraged, and it is included for backwards compatibility purposes only.
 #
+# [*nginx_cache*]
+# configuration to enable caching within ngnix
+#
+# This parameter can be used to set up a nginx cache and takes a hash with
+# values for the following keys: `key_name`, `key_size`, `max_age` and
+# `max_size`. Use of this option is discouraged.
+#
+# Default: {}
 #
 # [*nagios_memory_warning*]
 # memory use at which Nagios should generate a warning
@@ -286,6 +294,7 @@ define govuk::app (
   $vhost_protected = false,
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
+  $nginx_cache = {},
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $nagios_memory_warning = undef,
@@ -364,6 +373,7 @@ define govuk::app (
     vhost_protected                     => $vhost_protected,
     vhost_ssl_only                      => $vhost_ssl_only,
     nginx_extra_config                  => $nginx_extra_config,
+    nginx_cache                         => $nginx_cache,
     health_check_path                   => $health_check_path,
     health_check_custom_doc             => $health_check_custom_doc,
     json_health_check                   => $json_health_check,
