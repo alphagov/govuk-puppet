@@ -38,6 +38,12 @@ class govuk::apps::mapit (
       sentry_dsn                         => $sentry_dsn,
       monitor_unicornherder              => true,
       local_tcpconns_established_warning => 16,
+      nginx_cache                        => {
+        'key_name' => 'mapit_cache',
+        'key_size' => '50m',
+        'max_size' => '5g',
+        'max_age'  => '24h',
+      },
     }
 
     govuk_postgresql::db { 'mapit':

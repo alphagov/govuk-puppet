@@ -73,6 +73,20 @@
 #   Boolean, whether Nginx should serve a robots.txt that
 #   prevents crawlers from indexing the thing being proxied.
 #
+# [*cache_key_name*]
+#   String, the name of the ngnix cache key_zone. Setting this enables a ngnix
+#   cache.
+#
+# [*cache_key_size*]
+#   String, the size of the ngnix cache key_zone.
+#
+# [*cache_max_size*]
+#   String, the maximum size for the nginx cache.
+#
+# [*cache_max_age*]
+#   String, the maximum age of the nginx cache. Sets when items are invalidated
+#   and sets the Cache-Control max age header.
+#
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
@@ -95,6 +109,10 @@ define nginx::config::vhost::proxy(
   $proxy_http_version_1_1_enabled = false,
   $http_host = undef,
   $deny_crawlers = false,
+  $cache_key_name = undef,
+  $cache_key_size = undef,
+  $cache_max_size = undef,
+  $cache_max_age = undef,
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
