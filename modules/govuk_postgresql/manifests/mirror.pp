@@ -13,5 +13,12 @@ class govuk_postgresql::mirror (
       architecture => $::architecture,
       key          => $apt_mirror_gpg_key_fingerprint,
     }
+
+    apt::source { 'postgis':
+      location     => "http://${apt_mirror_hostname}/postgis",
+      release      => $::lsbdistcodename,
+      architecture => $::architecture,
+      key          => $apt_mirror_gpg_key_fingerprint,
+    }
   }
 }

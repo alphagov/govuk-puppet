@@ -74,6 +74,8 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
+    'libgeos-dev',
+    'libproj-dev',
     'shellcheck',
   ]
 
