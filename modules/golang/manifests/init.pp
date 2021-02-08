@@ -7,11 +7,11 @@ class golang {
   include govuk_ppa
 
   class { 'goenv':
-    global_version => '1.9.1',
+    global_version => '1.15.8',
     require        => Class['govuk_ppa'],
   }
 
-  goenv::version { ['1.11.13', '1.15.8']: }
+  goenv::version { ['1.11.13', '1.12.1', '1.15.8']: }
 
   package { ['godep']:
     ensure  => latest,
