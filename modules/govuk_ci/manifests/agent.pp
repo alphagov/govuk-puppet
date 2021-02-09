@@ -10,10 +10,18 @@
 # [*gdal_version*]
 #   The version of the GDAL library to install for mapit
 #
+# [*geos_version*]
+#   The version of the GEOS library to install for mapit
+#
+# [*proj_version*]
+#   The version of the PROJ library to install for mapit
+#
 class govuk_ci::agent(
   $master_ssh_key = undef,
   $gemstash_server = 'http://gemstash.cluster',
   $gdal_version =  '2.4.4',
+  $geos_version = '3.9.0',
+  $proj_version = '4.9.3',
 ) {
   include ::govuk_java::openjdk8::jre
   include ::govuk_java::openjdk8::jdk
@@ -74,18 +82,35 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
-    'libgeos-dev',
-    'libproj-dev',
     'shellcheck',
   ]
 
+  $deb_absent_packages = [
+    'libgdal-dev',
+    'libgeos-c1',
+    'libgeos-dev',
+    'libproj-dev',
+    'proj-bin',
+    'proj-data',
+  ]
+
   ensure_packages($deb_packages, {'ensure' => 'installed'})
-  ensure_packages(['libgdal-dev'], {'ensure' => 'absent'})
+  ensure_packages($deb_absent_packages, {'ensure' => 'absent'})
 
   include gdal::repo
   package { 'gdal':
     ensure  => $gdal_version,
     require => Class['gdal::repo'],
+  }
+
+  package { 'geos':
+    ensure  => $geos_version,
+    require => Apt::Source['postgis'],
+  }
+
+  package { 'proj':
+    ensure  => $proj_version,
+    require => Apt::Source['postgis'],
   }
 
   package { 's3cmd':
