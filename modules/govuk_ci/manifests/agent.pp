@@ -82,6 +82,8 @@ class govuk_ci::agent(
   $deb_packages = [
     'jq',
     'libfreetype6-dev', # govuk-taxonomy-supervised-learning
+    'libhdf4-0-alt',
+    'libnetcdf-dev',
     'shellcheck',
   ]
 
