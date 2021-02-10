@@ -85,6 +85,7 @@ class govuk_ci::agent(
     'libhdf4-0-alt',
     'libnetcdf-dev',
     'shellcheck',
+    'unixodbc-dev',
   ]
 
   $deb_absent_packages = [
