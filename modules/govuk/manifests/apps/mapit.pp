@@ -17,6 +17,15 @@
 # [*sentry_dsn*]
 #   Configuration for Sentry error reporting
 #
+# [*gdal_version*]
+#   The version of the GDAL library to install for mapit
+#
+# [*geos_version*]
+#   The version of the GEOS library to install for mapit
+#
+# [*proj_version*]
+#   The version of the PROJ library to install for mapit
+#
 class govuk::apps::mapit (
   $enabled = false,
   $port,
@@ -24,6 +33,8 @@ class govuk::apps::mapit (
   $django_secret_key = undef,
   $sentry_dsn = undef,
   $gdal_version,
+  $geos_version = '3.9.0',
+  $proj_version = '4.9.3',
 ) {
   if $enabled {
     govuk::app { 'mapit':
@@ -46,33 +57,52 @@ class govuk::apps::mapit (
       },
     }
 
-    govuk_postgresql::db { 'mapit':
-      user                => 'mapit',
-      password            => $db_password,
-      extensions          => ['plpgsql', 'postgis'],
-      enable_in_pgbouncer => false,
-    }
+    include ::postgresql::server::postgis # Required to load the PostGIS extension for mapit
 
-    class { 'postgresql::server::postgis': }
+    $deb_absent_packages = [
+      'libgdal-dev',
+      'libgdal1h',
+      'libgeos-c1',
+      'libgeos-dev',
+      'libproj0',
+      'libproj-dev',
+      'proj-bin',
+      'proj-data',
+    ]
 
-    package {
-      [
-        # These packages are recommended when installing geospatial
-        # support for Django:
-        # https://docs.djangoproject.com/en/1.8/ref/contrib/gis/install/geolibs/
-        'binutils',
-        'libproj-dev',
-      ]:
-      ensure => present,
-    }
+    ensure_packages($deb_absent_packages, {'ensure' => 'absent'})
 
-    # Install postgrest developments dependencies
+    $deb_packages = [
+      'libhdf4-0-alt',
+      'libnetcdf-dev',
+      'unixodbc-dev',
+    ]
+
+    ensure_packages($deb_packages, {'ensure' => 'installed'})
+
     include postgresql::lib::devel
 
     include gdal::repo
     package { 'gdal':
       ensure  => $gdal_version,
       require => Class['gdal::repo'],
+    }
+
+    package { 'geos':
+      ensure  => $geos_version,
+      require => Apt::Source['postgis'],
+    }
+
+    package { 'proj':
+      ensure  => $proj_version,
+      require => Apt::Source['postgis'],
+    }
+
+    govuk_postgresql::db { 'mapit':
+      user                => 'mapit',
+      password            => $db_password,
+      extensions          => ['plpgsql', 'postgis'],
+      enable_in_pgbouncer => false,
     }
   }
 

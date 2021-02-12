@@ -1,3 +1,5 @@
+---
+
 postgresql::globals::version: '9.6'
 postgresql::globals::postgis_version: '3.1.1'
 

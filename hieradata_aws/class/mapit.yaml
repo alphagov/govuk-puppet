@@ -12,3 +12,6 @@ mount:
 
 govuk_postgresql::server::listen_addresses: localhost
 govuk_python::govuk_python_version: '3.6.12'
+
+postgresql::globals::version: '9.6'
+postgresql::globals::postgis_version: '3.1.1'
