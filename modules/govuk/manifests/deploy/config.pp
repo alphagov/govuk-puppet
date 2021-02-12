@@ -88,6 +88,12 @@ class govuk::deploy::config(
     mode   => '0755',
   }
 
+  file { '/usr/local/bin/govuk_supervised_initctl':
+    ensure => present,
+    source => 'puppet:///modules/govuk/usr/local/bin/govuk_supervised_initctl',
+    mode   => '0755',
+  }
+
   # govuk_setenv is a simple script that loads the environment for a GOV.UK
   # application and execs its arguments
   # daemontools provides envdir, used by govuk_setenv

@@ -1173,6 +1173,8 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/usr/bin/varnishadm'
   deploy_govuk_unicorn_reload:
     content: 'deploy ALL=NOPASSWD:/usr/local/bin/govuk_unicorn_reload'
+  deploy_govuk_supervised_initctl:
+    content: 'deploy ALL=NOPASSWD:/usr/local/bin/govuk_supervised_initctl'
   icinga_init_ctl:
     content: 'nagios ALL=NOPASSWD:/sbin/initctl reload *'
   icinga_initctl_restart:
