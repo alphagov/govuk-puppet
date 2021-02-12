@@ -66,6 +66,10 @@ class govuk::apps::mapit (
       ensure => present,
     }
 
+    package { 'libgdal1h':
+      ensure => 'absent',
+    }
+
     # Install postgrest developments dependencies
     include postgresql::lib::devel
 
