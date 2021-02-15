@@ -336,17 +336,6 @@ define govuk::app::config (
       attempts_before_hard_state => 3,
       contact_groups             => $additional_check_contact_groups,
     }
-    @@icinga::check::graphite { "check_${title}_app_memory_restarts${::hostname}":
-      ensure         => $ensure,
-      target         => "summarize(transformNull(stats_counts.govuk.app.${title}.memory_restarts,0),\"1d\",\"sum\",false)",
-      args           => '--ignore-missing',
-      from           => '1days',
-      warning        => 4,
-      critical       => 10 ,
-      desc           => "${title} restarts per day due to memory usage",
-      host_name      => $::fqdn,
-      contact_groups => $additional_check_contact_groups,
-    }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
         ensure                     => $ensure,
