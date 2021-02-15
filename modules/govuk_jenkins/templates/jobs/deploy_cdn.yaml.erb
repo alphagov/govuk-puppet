@@ -5,7 +5,7 @@
         - git:
             url: git@github.com:alphagov/govuk-cdn-config.git
             branches:
-              - master
+              - $GOVUK_CDN_CONFIG_BRANCH
             wipe-workspace: true
             clean:
                 after: true
@@ -64,3 +64,7 @@
         - password:
             name: FASTLY_API_KEY
             default: false
+        - string:
+            name: GOVUK_CDN_CONFIG_BRANCH
+            description: Branch of govuk-cdn-config to use.
+            default: master
