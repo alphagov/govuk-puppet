@@ -82,7 +82,7 @@ class govuk::apps::static(
     app_type                 => 'rack',
     port                     => $port,
     sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/templates/wrapper.html.erb',
+    health_check_path        => '/templates/core_layout.html.erb',
     log_format_is_json       => true,
     nginx_extra_config       => template('govuk/static_extra_nginx_config.conf.erb'),
     asset_pipeline           => true,
