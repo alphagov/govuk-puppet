@@ -23,6 +23,8 @@ class monitoring (
   include monitoring::contacts
   include monitoring::event_handlers
 
+  include monitoring::gcloud
+
   unless $ci_environment {
     # Monitoring server only.
     include monitoring::checks
