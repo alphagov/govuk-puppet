@@ -27,12 +27,6 @@
 # [*account_oauth_client_secret*]
 #   Client secret for the Transition Checker in GOV.UK Account Manager
 #
-# [*account_jwt_key_uuid*]
-#   An arbitrary UUID (used to identify the JWT signing key for Transition Checker
-#
-# [*account_jwt_key_pem*]
-#   Private key used to sign the JWT for Transition Checker
-#
 # [*feature_flag_accounts*]
 #   Feature flag to switch GOV.UK Accounts on or off for the Transition Checker
 #
@@ -50,8 +44,6 @@ class govuk::apps::finder_frontend(
   $unicorn_worker_processes = undef,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
-  $account_jwt_key_uuid = undef,
-  $account_jwt_key_pem = undef,
   $feature_flag_accounts = false,
   $plek_account_manager_uri = undef,
 ) {
@@ -97,12 +89,6 @@ class govuk::apps::finder_frontend(
     "${title}-ACCOUNT-OAUTH-CLIENT-SECRET":
         varname => 'GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET',
         value   => $account_oauth_client_secret;
-    "${title}-ACCOUNT-JWT-KEY-UUID":
-        varname => 'GOVUK_ACCOUNT_JWT_KEY_UUID',
-        value   => $account_jwt_key_uuid;
-    "${title}-ACCOUNT-JWT-KEY-PEM":
-        varname => 'GOVUK_ACCOUNT_JWT_KEY_PEM',
-        value   => $account_jwt_key_pem;
     "${title}-FEATURE-FLAG-ACCOUNTS":
         varname => 'FEATURE_FLAG_ACCOUNTS',
         value   => $feature_flag_accounts_var;
