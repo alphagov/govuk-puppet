@@ -30,6 +30,7 @@ class govuk_jenkins::jobs::content_data_api (
       freshness_threshold => 104400,
       action_url          => $job_url,
       contact_groups      => ['slack-channel-data-informed'],
+      notes_url           => monitoring_docs_url(content-data-api-app-healthcheck-not-ok),
     }
   }
 }
