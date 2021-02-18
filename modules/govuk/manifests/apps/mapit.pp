@@ -8,6 +8,9 @@
 # [*port*]
 #   What port should the app run on?
 #
+# [*memcache_servers*]
+#   The memcached location formatted <host>:<port>
+#
 # [*db_password*]
 #   The password for the mapit postgresql role
 #
@@ -30,6 +33,7 @@ class govuk::apps::mapit (
   $enabled = false,
   $port,
   $db_password,
+  $memcache_servers = undef,
   $django_secret_key = undef,
   $sentry_dsn = undef,
   $gdal_version,
@@ -105,6 +109,9 @@ class govuk::apps::mapit (
   }
 
   govuk::app::envvar {
+    "${title}-MEMCACHE_SERVERS":
+        varname => 'MEMCACHE_SERVERS',
+        value   => $memcache_servers;
     "${title}-DB_PASSWORD":
         varname => 'MAPIT_DB_PASS',
         value   => $db_password;
