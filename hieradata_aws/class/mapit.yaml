@@ -10,6 +10,8 @@ mount:
     govuk_lvm: 'data'
     mountoptions: 'defaults'
 
+govuk::apps::mapit::memcache_servers: 'mapit-memcached:11211'
+
 govuk_postgresql::server::listen_addresses: localhost
 govuk_python::govuk_python_version: '3.6.12'
 
