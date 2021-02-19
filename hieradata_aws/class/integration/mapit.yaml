@@ -5,5 +5,5 @@ postgresql::globals::postgis_version: '3.1.1'
 
 lv:
   data:
-    pv: '/dev/xvdf'
+    pv: '/dev/nvme1n1'
     vg: 'postgresql'
