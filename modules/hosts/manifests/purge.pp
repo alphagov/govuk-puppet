@@ -15,13 +15,14 @@ class hosts::purge {
   # Specifically for hosts that exist as a node class but do not use the Govuk_host defined type
   # eg hosts that are only present in AWS
   $whitelist = [
+    'account-1',
     'db-admin-1',
     'email-alert-api-postgresql',
-    'publishing-api-postgresql-1',
+    'gatling-1',
     'mongo-api-1',
     'prometheus-1',
+    'publishing-api-postgresql-1',
     'search-1',
-    'gatling-1',
   ]
 
   if ! ($::hostname in $whitelist) {

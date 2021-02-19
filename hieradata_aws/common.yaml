@@ -11,6 +11,8 @@ app_domain_internal: '%{::aws_stackname}.govuk-internal.digital'
 backup::mysql::alert_hostname: 'alert'
 
 node_class: &node_class
+  account:
+    apps: []
   asset_master:
     apps:
       - asset_env_sync
