@@ -1,0 +1,156 @@
+#!/bin/bash
+
+# This script is a wrapper around upstart initctl start/restart/reload
+# commands and is intended for applications/service that have their main
+# process in a pid file at /var/run/$service/app.pid - which is the case for
+# most GOV.UK applications
+#
+# The purpose of this script is to determine whether running `initctl
+# start|restart|reload` actually results in running processes with the old
+# one stopped. This is particularly to handle the case where upstart creates
+# a new process and it subsequently fails to boot. We handle this by waiting
+# a period of time before checking the process is running.
+#
+# This script is pretty heavily nuanced towards GOV.UK's use cases and quirks,
+# - it isn't intended to be a generic initctl wrapper for all use cases. I'm
+# convinced there are better ways to manage this problem that don't involve
+# this type of script, so I hope as GOV.UK moves into the future this script
+# becomes redundant.
+
+if [ "$#" -ne "2" ]; then
+  echo "Usage: sudo govuk_supervised_initctl <COMMAND> <SERVICE>"
+  exit 1
+fi
+
+set -eu
+
+status () {
+  echo "---> ${@}"
+}
+
+error () {
+  echo "ERROR: ${@}" >&2
+  exit 1
+}
+
+pid_running () {
+  ps -p ${@} &> /dev/null
+}
+
+command=$1
+service=$2
+pid_file=/var/run/$service/app.pid
+original_pid=""
+if [ -e $pid_file ]; then
+  original_pid=$(cat $pid_file)
+fi
+
+case $command in
+  start)
+    status "Checking if ${service} is running"
+
+    if [ ! -z $original_pid ] && pid_running $original_pid; then
+      if [[ $(initctl status $service) =~ "running" ]]; then
+        status "${service} is running"
+        exit 1
+      else
+        # Bail out in the unlikely event that Upstart thinks the process isn't
+        # running but there is a running pid for it.
+        error "${service} seems to be running outside of Upstart on process ${original_pid}"
+      fi
+    elif [[ $(initctl status $service) =~ "running" ]]; then
+      # Checking `initctl status` doesn't necessarily mean a GOV.UK service is
+      # running. For example, unicornherder processes have two PIDs: one for
+      # the parent "herder" process and one for the child "master" process; the
+      # former is tracked by Upstart, the latter by the pidfile. If Upstart believes
+      # the process is running it will need to be stopped before another attempt
+      # to start the service. This is a convenience to avoid manual intervention.
+      status "${service} is an inconsistent state, stopping before starting..."
+      initctl stop $service
+    else
+      status "${service} is not running, starting..."
+    fi
+
+    initctl start $service
+
+    sleep 10 # modest amount of time to check if the process is stable
+
+    if [ -e $pid_file ]; then
+      new_pid=$(cat $pid_file)
+    else
+      error "${service} hasn't started properly, there is no pid file at ${pid_file}"
+    fi
+
+    if pid_running $new_pid; then
+      status "${service} has started with process ${new_pid}"
+    else
+      error "${service} has failed to start"
+    fi
+    ;;
+  restart)
+    ([ ! -z $original_pid ] && pid_running $original_pid) || error "${service} is not running"
+
+    status "${service} is running with process ${original_pid}. Restarting..."
+
+    initctl restart $service
+
+    sleep 10 # modest amount of time to allow the restart to occur and new process to become stable
+
+    if [ -e $pid_file ]; then
+      new_pid=$(cat $pid_file)
+    else
+      error "${service} hasn't restarted properly, there is no pid file at ${pid_file}"
+    fi
+
+    if ! pid_running $new_pid; then
+      error "${service} failed to restart, a new process hasn't started"
+    elif pid_running $original_pid; then
+      error "${service} failed to restart, the old process (${original_pid}) hasn't exited"
+    else
+      status "${service} has restarted with process ${new_pid}"
+    fi
+    ;;
+  # This is intended for applications, such as Unicorn, where a reload signal
+  # results in the process referenced by the pid file being replaced with
+  # and the old process gradually terminated.
+  reload)
+    ([ ! -z $original_pid ] && pid_running $original_pid) || error "${service} is not running"
+
+    status "${service} is running with process ${original_pid}. Reloading..."
+    initctl reload $service
+
+    waiting_for=0
+    new_pid=""
+
+    while true; do
+      sleep 10
+      waiting_for=$(($waiting_for+10))
+      current_pid=$(cat $pid_file) || error "Couldn't establish the current pid"
+
+      if [ -z $new_pid ] && [ $original_pid -ne $current_pid ]; then
+        new_pid=$current_pid
+        status "New process ${new_pid} started"
+      fi
+
+      if ! pid_running $original_pid; then
+        status "Process ${original_pid} has exited"
+        break
+      # we expect 3 minutes to be amble time to allow an app to restart and
+      # if we reach this long a wait then something has gone wrong.
+      elif [ $waiting_for -gt 180 ]; then
+        error "Process ${original_pid} is still running after 3 minutes, something has gone wrong"
+      else
+        status "Waiting for processes to swap over"
+      fi
+    done
+
+    if pid_running $new_pid; then
+      status "Successfully reloaded ${service}"
+    else
+      error "The new process for ${service} doesn't appear to be running"
+    fi
+    ;;
+  *)
+    error "Unsupported command '${command}'. Only start, restart and reload are supported"
+    ;;
+esac
