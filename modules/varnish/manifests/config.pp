@@ -21,7 +21,6 @@ class varnish::config(
   include varnish::restart
 
   $app_domain  = hiera('app_domain')
-  $allow_finder_frontend_cookies = hiera('govuk::apps::finder_frontend::feature_flag_accounts', false)
 
   file { '/etc/default/varnish':
     ensure  => file,
