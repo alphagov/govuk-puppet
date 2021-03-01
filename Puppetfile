@@ -58,7 +58,7 @@ mod 'puppetlabs/postgresql',
   :git => 'git://github.com/alphagov/puppetlabs-postgresql.git',
   :ref => '2b30e3e1cbb2772bee848d802f6f00cc790a2947'
 mod 'gdsoperations/aptly',
-  :git => 'git://github.com/gds-operations/puppet-aptly.git',
+  :git => 'git://github.com/alphagov/puppet-aptly.git',
   :ref => '143919794c96450ef887dc757cea002345161870'
 
 # Our modules on the Forge.

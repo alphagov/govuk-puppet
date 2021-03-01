@@ -140,7 +140,7 @@ GIT
       puppetlabs-stdlib (>= 3.0.0)
 
 GIT
-  remote: git://github.com/gds-operations/puppet-aptly.git
+  remote: git://github.com/alphagov/puppet-aptly.git
   ref: 143919794c96450ef887dc757cea002345161870
   sha: 143919794c96450ef887dc757cea002345161870
   specs:
