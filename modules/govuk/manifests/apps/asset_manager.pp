@@ -111,6 +111,7 @@ class govuk::apps::asset_manager(
       nagios_memory_critical    => $nagios_memory_critical,
       cpu_warning               => 350,
       cpu_critical              => 400,
+      read_timeout              => 60,
     }
 
     govuk::app::envvar {
