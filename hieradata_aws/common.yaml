@@ -1117,6 +1117,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   manuals-publisher: {}
   publisher: {}
   short-url-manager: {}
+  service-manual-frontend: {}
   service-manual-publisher: {}
   smartanswers:
     repository: 'smart-answers'
