@@ -1454,6 +1454,13 @@ monitoring::checks::rds::servers:
    - 'mysql-primary'
    - 'mysql-replica'
 
+monitoring::checks::mirror::gcp_mirror_sync_project_id: "%{hiera('monitoring::gcp_mirror_sync_project_id')}"
+monitoring::checks::mirror::gcp_mirror_sync_transfer_job_auth_json: "%{hiera('monitoring::gcp_mirror_sync_transfer_job_auth_json')}"
+monitoring::checks::mirror::gcp_mirror_sync_transfer_job_name: "%{hiera('monitoring::gcp_mirror_sync_transfer_job_name')}"
+
+monitoring::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+monitoring::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
 monitoring::uptime_collector::aws: true
 
 # FIXME: this has been added to avoid a bug until we move to v3 of the module

@@ -387,6 +387,7 @@ licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
+monitoring::checks::mirror::enabled: true
 monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::enabled: true
@@ -456,7 +457,6 @@ monitoring::contacts::slack_channel: '#govuk-alerts'
 monitoring::contacts::slack_username: 'Production (AWS)'
 monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
-
 
 monitoring::checks::rds::servers:
    - 'postgresql-primary'
