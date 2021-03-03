@@ -1118,6 +1118,7 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   authenticating-proxy: {}
   bouncer: {}
+  collections: {}
   collections-publisher: {}
   content-data-admin: {}
   content-data-api: {}
