@@ -159,15 +159,17 @@ class govuk_crawler(
         provider => pip,
   }
 
-  $sync_service_desc = 'Mirror sync'
-  $threshold_secs = 24 * (60 * 60)
+  $sync_service_desc = 'Mirror GOV.UK content to S3'
+  $threshold_hours = 24
 
   if !empty($targets) {
     @@icinga::passive_check { "check-mirror-sync-${::hostname}":
-      service_description => $sync_service_desc,
-      host_name           => $::fqdn,
-      freshness_threshold => $threshold_secs,
-      notes_url           => monitoring_docs_url(mirror-sync),
+      service_description     => $sync_service_desc,
+      host_name               => $::fqdn,
+      freshness_threshold     => $threshold_hours * 60 * 60,
+      freshness_alert_level   => 'critical',
+      freshness_alert_message => "S3 mirror is more than ${threshold_hours}h old. If www-origin becomes unavailable we will be serving stale or missing content.",
+      notes_url               => monitoring_docs_url(mirror-sync),
     }
   }
 
