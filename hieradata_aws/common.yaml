@@ -430,6 +430,7 @@ govuk::apps::content_data_api::port: 3235
 # content-data-api sidekiq monitoring uses 3239
 # content-data-admin sidekiq monitoring uses 3240
 # search-admin sidekiq monitoring uses 3241
+# sidekiq monitoring uses 3242
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
