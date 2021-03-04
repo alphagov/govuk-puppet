@@ -20,12 +20,8 @@ OPTIONS:
                                                     to download upon the creation of a key pair. See https://cloud.google.com/docs/authentication/getting-started 
                                                     for more details.
 
-    --gcp_project_id=x                              Required: Enter the GCP project id for the project which owns the Transfer Job specified in the transfer_job_name
+    --gcp_project_id=x                              Required: Enter the GCP project id for the project which owns the Transfer Job.
                                                     parameter. 
-
-    --transfer_job_name=x                           Required: Enter the Transfer Job name for the job which syncs mirror content to GCP. This can be found in the 
-                                                    configuration for the job. If the name starts with transferJobs/, omit this when entering this parameter.
-
 EOF
 }
 
@@ -47,11 +43,6 @@ case ${i} in
 
   --gcp_project_id=* )
     GCP_PROJECT_ID="${i#*=}"
-    shift
-    ;;
-
-  --transfer_job_name=* )
-    TRANSFER_JOB_NAME="${i#*=}"
     shift
     ;;
 
@@ -85,19 +76,19 @@ if [[ "${GCP_PROJECT_ID}" == "" ]]; then
     exit ${STATE_UNKNOWN}
 fi
 
-if [[ "${TRANSFER_JOB_NAME}" == "" ]]; then
-    error "You have to supply a transfer job name"
-    usage
-    exit ${STATE_UNKNOWN}
-fi
-
 export GOOGLE_APPLICATION_CREDENTIALS="$GOOGLE_APPLICATION_CREDENTIALS_FILE_PATH"
 
 GCP_TRANSFER_SERVICE_TOKEN=$(gcloud auth application-default print-access-token)
 
-latest_operation_name=$(curl --header "Content-Type: application/json" \
+transferJobs=$(curl --silent --header "Content-Type: application/json" \
   --header "Authorization: Bearer $GCP_TRANSFER_SERVICE_TOKEN" \
-  --request GET "https://storagetransfer.googleapis.com/v1/transferJobs/$TRANSFER_JOB_NAME?projectId=$GCP_PROJECT_ID" \
+  --request GET "https://storagetransfer.googleapis.com/v1/transferJobs?filter=%7B%22projectId%22%3A%22$GCP_PROJECT_ID%22%7D")
+
+job_name=$(echo $transferJobs | jq -c -r '.transferJobs[] | select(.description | contains("$GCP_PROJECT_ID")) | .latestOperationName')
+
+latest_operation_name=$(curl --silent --header "Content-Type: application/json" \
+  --header "Authorization: Bearer $GCP_TRANSFER_SERVICE_TOKEN" \
+  --request GET "https://storagetransfer.googleapis.com/v1/transferJobs/$job_name?projectId=$GCP_PROJECT_ID" \
   | jq -r '.latestOperationName')
 
 latest_operation_details=$(curl --header "Content-Type: application/json" \
