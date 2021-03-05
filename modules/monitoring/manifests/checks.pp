@@ -88,7 +88,7 @@ class monitoring::checks (
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  if $::aws_migration {
+  if $::aws_migration and $::aws_environment == 'production' {
     icinga::check { "check_whitehall_scheduled_from_${::hostname}":
       check_command              => 'check_whitehall_scheduled',
       service_description        => 'scheduled publications in Whitehall not queued',
