@@ -423,8 +423,6 @@ monitoring::checks::smokey::features:
     feature: benchmarking
   check_caching:
     feature: caching
-  check_calculators:
-    feature: calculators
   check_collections:
     feature: collections
   check_contacts:
