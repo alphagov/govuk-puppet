@@ -5,7 +5,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service: {}
-  calculators: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
