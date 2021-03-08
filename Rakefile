@@ -418,7 +418,6 @@ task :check_consistency_between_aws_and_carrenza do
     monitoring::checks::mirror::enabled
     monitoring::checks::mirror::gcp_mirror_sync_project_id
     monitoring::checks::mirror::gcp_mirror_sync_transfer_job_auth_json
-    monitoring::checks::mirror::gcp_mirror_sync_transfer_job_name
     monitoring::checks::rds::servers
     monitoring::client::alert_hostname
     monitoring::checks::sidekiq::enable_signon_check
