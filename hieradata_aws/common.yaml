@@ -57,7 +57,6 @@ node_class: &node_class
       - content-store
   calculators_frontend:
     apps:
-      - calculators
       - finder-frontend
       - licencefinder
       - smartanswers
@@ -369,7 +368,6 @@ govuk::apps::release::port: 3036
 govuk::apps::asset_manager::port: 3037
 # asset-manager sidekiq monitoring uses 3038
 govuk::apps::transition::port: 3044
-govuk::apps::calculators::port: 3047
 govuk::apps::bouncer::port: 3049
 govuk::apps::contacts::port: 3051
 govuk::apps::maslow::port: 3053
@@ -1189,7 +1187,6 @@ grafana::dashboards::application_dashboards:
     has_workers: true
   authenticating-proxy: {}
   cache-clearing-service: {}
-  calculators: {}
   ckan:
     docs_name: 'ckanext-datagovuk'
     # No data in kibana

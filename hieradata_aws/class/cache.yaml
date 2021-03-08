@@ -18,7 +18,6 @@ varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
 govuk::deploy::config::nofile_limit: 65536
 
 router::nginx::app_specific_static_asset_routes:
-  '/assets/calculators/': 'calculators'
   '/assets/collections/': 'collections'
   '/assets/email-alert-frontend/': 'email-alert-frontend'
   '/assets/feedback/': 'feedback'

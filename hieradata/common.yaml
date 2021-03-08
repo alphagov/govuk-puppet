@@ -207,7 +207,6 @@ govuk::apps::release::port: 3036
 govuk::apps::asset_manager::port: 3037
 # asset-manager sidekiq monitoring uses 3038
 govuk::apps::transition::port: 3044
-govuk::apps::calculators::port: 3047
 govuk::apps::bouncer::port: 3049
 govuk::apps::contacts::port: 3051
 govuk::apps::maslow::port: 3053
@@ -476,7 +475,6 @@ govuk_ci::master::pipeline_jobs:
   authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service: {}
-  calculators: {}
   collections: {}
   content-store: {}
   email-alert-api: {}
@@ -634,7 +632,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service: {}
-  calculators: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
