@@ -149,7 +149,6 @@ deployable_applications: &deployable_applications
   authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service: {}
-  calculators: {}
   ckan:
     repository: 'ckanext-datagovuk'
   collections: {}
@@ -943,7 +942,6 @@ govuk_ci::master::pipeline_jobs:
   authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service: {}
-  calculators: {}
   collections: {}
   content-store: {}
   email-alert-api: {}
