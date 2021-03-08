@@ -84,14 +84,9 @@ transferJobs=$(curl --silent --header "Content-Type: application/json" \
   --header "Authorization: Bearer $GCP_TRANSFER_SERVICE_TOKEN" \
   --request GET "https://storagetransfer.googleapis.com/v1/transferJobs?filter=%7B%22projectId%22%3A%22$GCP_PROJECT_ID%22%7D")
 
-job_name=$(echo $transferJobs | jq -c -r '.transferJobs[] | select(.description | contains("$GCP_PROJECT_ID")) | .latestOperationName')
+latest_operation_name=$(echo $transferJobs | jq -c -r ".transferJobs[] | select(.description | contains(\"${GCP_PROJECT_ID}\")) | .latestOperationName")
 
-latest_operation_name=$(curl --silent --header "Content-Type: application/json" \
-  --header "Authorization: Bearer $GCP_TRANSFER_SERVICE_TOKEN" \
-  --request GET "https://storagetransfer.googleapis.com/v1/transferJobs/$job_name?projectId=$GCP_PROJECT_ID" \
-  | jq -r '.latestOperationName')
-
-latest_operation_details=$(curl --header "Content-Type: application/json" \
+latest_operation_details=$(curl --silent --header "Content-Type: application/json" \
   --header "Authorization: Bearer $GCP_TRANSFER_SERVICE_TOKEN" \
   --request GET "https://storagetransfer.googleapis.com/v1/$latest_operation_name")
 
