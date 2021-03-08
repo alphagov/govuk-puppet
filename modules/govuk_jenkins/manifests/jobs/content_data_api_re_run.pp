@@ -1,16 +1,16 @@
 # == Class: govuk_jenkins::jobs::content_data_api_re_run
 #
 # Create a jenkins job to periodically run rake for the following tasks:
-# - etl:rerun_master
+# - etl:rerun_main
 #
 # === Parameters:
 #
-# [*re_run_rake_etl_master_process_cron_schedule *]
-#   The cron timings for the etl:master process
+# [*re_run_rake_etl_main_process_cron_schedule *]
+#   The cron timings for the etl:main process
 #   Default: undef
 #
 class govuk_jenkins::jobs::content_data_api_re_run (
-  $re_run_rake_etl_master_process_cron_schedule,
+  $re_run_rake_etl_main_process_cron_schedule,
   $app_domain = hiera('app_domain'),
 ) {
 

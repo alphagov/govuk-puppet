@@ -1,9 +1,9 @@
 ---
 - job:
-    name: content_data_api_import_etl_master_process
+    name: content_data_api_import_etl_main_process
     display-name: Content Data API - ETL master
     project-type: freestyle
-    description: "<p>Run the etl:master rake task.</p>"
+    description: "<p>Run the etl:main rake task.</p>"
     builders:
       - trigger-builds:
           - project: run-rake-task
@@ -11,13 +11,13 @@
             predefined-parameters: |
               TARGET_APPLICATION=content-data-api
               MACHINE_CLASS=backend
-              RAKE_TASK=etl:master
+              RAKE_TASK=etl:main
     wrappers:
       - ansicolor:
           colormap: xterm
-  <% if @rake_etl_master_process_cron_schedule %>
+  <% if @rake_etl_main_process_cron_schedule %>
     triggers:
-      - timed: <%= @rake_etl_master_process_cron_schedule %>
+      - timed: <%= @rake_etl_main_process_cron_schedule %>
   <% end %>
     logrotate:
         daysToKeep: 365
