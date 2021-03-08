@@ -506,7 +506,7 @@
           "steppedLine": false,
           "targets": [
             {
-              "target": "aliasSub(groupByNode(stats.{calculators,draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*gov*.http_503,3,\"sum\"),\"_.*\",\"\")",
+              "target": "aliasSub(groupByNode(stats.{draft-email-campaign,draft,email-campaign,performance,whitehall}-frontend-*.nginx_logs.*gov*.http_503,3,\"sum\"),\"_.*\",\"\")",
               "refId": "A"
             },
             {
