@@ -109,6 +109,14 @@
 #   Redis port for Publishing API Sidekiq.
 #   Default: undef
 #
+# [*redis_host*]
+#   Redis host for Sidekiq Monitoring Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq Monitoring Sidekiq.
+#   Default: undef
+#
 # [*search_admin_redis_host*]
 #   Redis host for Search Admin Sidekiq.
 #   Default: undef
@@ -200,6 +208,8 @@ class govuk::apps::sidekiq_monitoring (
   $publisher_redis_port = undef,
   $publishing_api_redis_host = undef,
   $publishing_api_redis_port = undef,
+  $redis_host = undef,
+  $redis_port = undef,
   $search_admin_redis_host = undef,
   $search_admin_redis_port = undef,
   $search_api_redis_host = undef,
@@ -234,6 +244,12 @@ class govuk::apps::sidekiq_monitoring (
 
   Govuk::App::Envvar::Redis {
     app => $app_name,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    prefix => 'sidekiq_monitoring',
+    host   => $redis_host,
+    port   => $redis_port,
   }
 
   govuk::app { $app_name:
