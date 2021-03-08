@@ -56,7 +56,6 @@ node_class: &node_class
       - content-store
   calculators_frontend:
     apps:
-      - calculators
       - finder-frontend
       - licencefinder
       - smartanswers
