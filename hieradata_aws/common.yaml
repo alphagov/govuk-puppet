@@ -427,6 +427,7 @@ govuk::apps::content_data_api::port: 3235
 # content-data-api sidekiq monitoring uses 3239
 # content-data-admin sidekiq monitoring uses 3240
 # search-admin sidekiq monitoring uses 3241
+# sidekiq monitoring uses 3242
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
@@ -731,6 +732,8 @@ govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::pu
 govuk::apps::sidekiq_monitoring::publisher_redis_port: "%{hiera('govuk::apps::publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_host: "%{hiera('govuk::apps::publishing_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::publishing_api_redis_port: "%{hiera('govuk::apps::publishing_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::sidekiq_monitoring::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::sidekiq_monitoring::search_admin_redis_host: "%{hiera('govuk::apps::search_admin::redis_host')}"
 govuk::apps::sidekiq_monitoring::search_admin_redis_port: "%{hiera('govuk::apps::search_admin::redis_port')}"
 govuk::apps::sidekiq_monitoring::search_api_redis_host: "%{hiera('govuk::apps::search_api::redis_host')}"

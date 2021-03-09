@@ -18,6 +18,10 @@ server {
     try_files $uri/index.html $uri.html $uri @app;
   }
 
+  location /healthcheck {
+    proxy_pass http://localhost:3242;
+  }
+
   location /asset-manager {
     proxy_pass http://localhost:3038;
   }
