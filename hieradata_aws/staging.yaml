@@ -386,7 +386,9 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
       - blue-backend-internal-HTTP-80 # no idea what this is
   blue-bouncer-internal: {}
   blue-cache: {}
-  blue-calculators-frontend-int: {}
+  blue-calculators-frontend-int:
+    healthyhosts_ignore:
+      - calculator-calculators
   blue-ckan-internal:
     healthyhosts_warning: 0
   blue-content-store-internal: {}
