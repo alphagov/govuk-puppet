@@ -12,7 +12,8 @@ backup::mysql::alert_hostname: 'alert'
 
 node_class: &node_class
   account:
-    apps: []
+    apps:
+      - account-api
   asset_master:
     apps:
       - asset_env_sync
@@ -144,6 +145,7 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
 # we don't need to explicitly declare the repository, but we
 # need to add an empty hash
 deployable_applications: &deployable_applications
+  account-api: {}
   asset-manager: {}
   authenticating-proxy: {}
   bouncer: {}
@@ -428,6 +430,7 @@ govuk::apps::content_data_api::port: 3235
 # content-data-admin sidekiq monitoring uses 3240
 # search-admin sidekiq monitoring uses 3241
 # sidekiq monitoring uses 3242
+govuk::apps::account_api::port: 3243
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
@@ -811,6 +814,11 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::account_api::db_hostname: "postgresql-primary"
+govuk::apps::account_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::account_api::db::allow_auth_from_lb: true
+govuk::apps::account_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
@@ -825,6 +833,7 @@ govuk::apps::local_links_manager::db::rds: true
 govuk::apps::publishing_api::db::rds: true
 govuk::apps::service_manual_publisher::db::rds: true
 govuk::apps::support_api::db::rds: true
+govuk::apps::account_api::db::rds: true
 govuk::apps::transition::postgresql_db::rds: true
 
 govuk_pgbouncer::admin::rds: true
@@ -1185,6 +1194,7 @@ grafana::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint'
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
+  account-api: {}
   asset-manager:
     show_sidekiq_graphs: true
     has_workers: true
