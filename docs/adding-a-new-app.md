@@ -81,7 +81,7 @@ class govuk::apps::myapp (
     asset_pipeline    => true,
   }
 
-  govuk::app::Envvar {
+  Govuk::App::Envvar {
     app               => $app_name,
     ensure            => $ensure,
     notify_service    => $enabled,
@@ -89,14 +89,14 @@ class govuk::apps::myapp (
 
   govuk::app::envvar {
     "${title}-SECRET_KEY_BASE":
-      varname        => 'SECRET_KEY_BASE',
-      value          => $secret_key_base;
+      varname => 'SECRET_KEY_BASE',
+      value   => $secret_key_base;
     "${title}-GDS_SSO_OAUTH_ID":
-      varname        => 'GDS_SSO_OAUTH_ID',
-      value          => $oauth_id;
+      varname => 'GDS_SSO_OAUTH_ID',
+      value   => $oauth_id;
     "${title}-GDS_SSO_OAUTH_SECRET":
-      varname        => 'GDS_SSO_OAUTH_SECRET',
-      value          => $oauth_secret;
+      varname => 'GDS_SSO_OAUTH_SECRET',
+      value   => $oauth_secret;
   }
 
   govuk::app::envvar::database_url { $app_name:
@@ -107,7 +107,7 @@ class govuk::apps::myapp (
     port                      => $db_port,
     allow_prepared_statements => $db_allow_prepared_statements,
     database                  => $db_name,
- }
+  }
 }
 ```
 
@@ -148,7 +148,7 @@ class govuk::apps::myapp::db (
   $rds = false,
   $username = 'myapp',
   $password = undef,
-  $name = 'myapp_production',
+  $db_name = 'myapp_production',
 ) {
   govuk_postgresql::db { $db_name:
     user                    => $username,
