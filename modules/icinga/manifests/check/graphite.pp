@@ -47,7 +47,7 @@
 #
 # [*from*]
 #   Single string representing a time period passed to `check_graphite_args`.
-#   Default: '5minutes'
+#   Default: '10minutes'
 #
 # [*notes_url*]
 #   Passed to `icinga::check`. See there for documentation.
@@ -73,7 +73,7 @@ define icinga::check::graphite(
   $check_period = undef,
   $use  = undef,
   $args = '',
-  $from = '5minutes',
+  $from = '10minutes',
   $action_url = undef,
   $notes_url = undef,
   $ensure = 'present',
