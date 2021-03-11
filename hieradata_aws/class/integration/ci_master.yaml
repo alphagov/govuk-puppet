@@ -1,6 +1,7 @@
 ---
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
+  account-api: {}
   asset-manager: {}
   authenticating-proxy: {}
   bouncer: {}
