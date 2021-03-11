@@ -413,7 +413,6 @@ govuk::apps::manuals_publisher::port: 3205
 govuk::apps::link_checker_api::port: 3208
 # link-checker-api sidekiq monitoring uses 3209
 # specialist-publisher sidekiq monitoring uses 3210
-govuk::apps::sidekiq_monitoring::port: 3211
 govuk::apps::publishing_components::port: 3212
 # manuals-publisher sidekiq monitoring uses 3214
 # support-api sidekiq monitoring uses 3215

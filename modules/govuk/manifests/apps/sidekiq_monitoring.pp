@@ -3,11 +3,6 @@
 # App to monitor Sidekiq for multiple GOV.UK apps.
 #
 # === Parameters
-# [*port*]
-#   Port that the sidekiq monitoring web frontend listens
-#   on and proxies requests to the individual app sidekiq
-#   interfaces.
-#
 # [*nginx_location*]
 #   Path on the server where the public folder of the
 #   sidekiq-monitoring app can be found.
@@ -182,7 +177,6 @@
 #   Default: undef
 #
 class govuk::apps::sidekiq_monitoring (
-  $port,
   $nginx_location = undef,
   $asset_manager_redis_host = undef,
   $asset_manager_redis_port = undef,
