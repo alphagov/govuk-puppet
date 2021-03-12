@@ -12,6 +12,9 @@ cron::daily_hour: 6
 environment_ip_prefix: '10.13'
 
 node_class: &node_class
+  account:
+    apps:
+      - account-api
   asset_master:
     apps:
       - asset_env_sync
