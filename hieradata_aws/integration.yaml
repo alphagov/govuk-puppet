@@ -185,6 +185,7 @@ govuk_ppa::path: 'preview'
 
 grafana::dashboards::machine_suffix_metrics: '_integration'
 grafana::dashboards::application_dashboards:
+  account-api: {}
   asset-manager:
     show_sidekiq_graphs: true
     has_workers: true
