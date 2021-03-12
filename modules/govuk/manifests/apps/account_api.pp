@@ -74,6 +74,8 @@ class govuk::apps::account_api (
     asset_pipeline    => true,
   }
 
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
   Govuk::App::Envvar {
     app               => $app_name,
     ensure            => $ensure,
