@@ -513,6 +513,7 @@ task :check_consistency_between_aws_and_carrenza do
     licensify::apps::licensify::environment
     licensify::apps::licensify_admin::environment
     licensify::apps::licensify_feed::environment
+    govuk::apps::account_api::plek_account_manager_uri
     govuk::apps::account_api::db::allow_auth_from_lb
     govuk::apps::account_api::db::backend_ip_range
     govuk::apps::account_api::db::lb_ip_range
