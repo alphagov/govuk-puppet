@@ -41,6 +41,15 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*account_oauth_client_id*]
+#   Client ID for the Transition Checker in GOV.UK Account Manager
+#
+# [*account_oauth_client_secret*]
+#   Client secret for the Transition Checker in GOV.UK Account Manager
+#
+# [*plek_account_manager_uri*]
+#   Path to the GOV.UK Account Manager
+#
 class govuk::apps::account_api (
   $port,
   $enabled = true,
@@ -54,6 +63,9 @@ class govuk::apps::account_api (
   $db_allow_prepared_statements = undef,
   $db_password = undef,
   $db_name = 'account-api_production',
+  $account_oauth_client_id = undef,
+  $account_oauth_client_secret = undef,
+  $plek_account_manager_uri = undef,
 ) {
   $app_name = 'account-api'
 
@@ -92,6 +104,15 @@ class govuk::apps::account_api (
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-ACCOUNT-OAUTH-CLIENT-ID":
+        varname => 'GOVUK_ACCOUNT_OAUTH_CLIENT_ID',
+        value   => $account_oauth_client_id;
+    "${title}-ACCOUNT-OAUTH-CLIENT-SECRET":
+        varname => 'GOVUK_ACCOUNT_OAUTH_CLIENT_SECRET',
+        value   => $account_oauth_client_secret;
+    "${title}-PLEK-ACCOUNT-MANAGER-URI":
+        varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
+        value   => $plek_account_manager_uri;
   }
 
   govuk::app::envvar::database_url { $app_name:

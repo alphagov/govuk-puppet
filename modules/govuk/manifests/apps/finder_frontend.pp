@@ -21,6 +21,9 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*account_api_bearer_token*]
+#   Bearer token for communication with the account-api
+#
 # [*account_oauth_client_id*]
 #   Client ID for the Transition Checker in GOV.UK Account Manager
 #
@@ -41,6 +44,7 @@ class govuk::apps::finder_frontend(
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $email_alert_api_bearer_token = undef,
+  $account_api_bearer_token = undef,
   $unicorn_worker_processes = undef,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
@@ -77,6 +81,9 @@ class govuk::apps::finder_frontend(
         }
 
   govuk::app::envvar {
+    "${title}-ACCOUNT_API_BEARER_TOKEN":
+        varname => 'ACCOUNT_API_BEARER_TOKEN',
+        value   => $account_api_bearer_token;
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
