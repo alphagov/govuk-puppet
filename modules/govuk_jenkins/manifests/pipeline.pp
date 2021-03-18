@@ -19,7 +19,7 @@ class govuk_jenkins::pipeline (
       'org'             => 'alphagov',
       'repository'      => 'govuk-jenkinslib',
       'implicit_load'   => false,
-      'default_version' => 'master',
+      'default_version' => 'main',
     },
   }
 
