@@ -256,6 +256,11 @@ class govuk::apps::sidekiq_monitoring (
     nagios_memory_critical => 1900,
   }
 
+  concat::fragment { "${app_name}_lb_healthcheck":
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck_${app_name} {\n  proxy_pass http://localhost/healthcheck;\n  proxy_set_header Host ${app_name};\n}\n",
+  }
+
   govuk::app::envvar::redis{
     "${app_name}_asset_manager":
       prefix => 'asset_manager',
