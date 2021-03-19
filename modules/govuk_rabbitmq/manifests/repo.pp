@@ -12,9 +12,9 @@ class govuk_rabbitmq::repo (
   $apt_mirror_hostname,
   $apt_mirror_gpg_key_fingerprint,
 ) {
-  apt::source { 'rabbitmq':
+  apt::source { 'govuk-rabbitmq':
     location     => "http://${apt_mirror_hostname}/rabbitmq",
-    release      => 'testing',
+    release      => 'stable',
     architecture => $::architecture,
     key          => $apt_mirror_gpg_key_fingerprint,
   }

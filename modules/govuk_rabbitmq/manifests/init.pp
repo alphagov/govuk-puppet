@@ -15,9 +15,7 @@ class govuk_rabbitmq (
     monitoring_password => $monitoring_password,
   }
 
-  if ! $::aws_migration {
-    include govuk_rabbitmq::repo
-  }
+  include govuk_rabbitmq::repo
 
   if $::aws_migration {
     package { 'urllib3':
@@ -31,7 +29,9 @@ class govuk_rabbitmq (
     }
   }
 
-  include '::rabbitmq'
+  class { 'rabbitmq':
+    manage_repos => false,
+  }
 
   rabbitmq_plugin { 'rabbitmq_stomp':
     ensure => present,

@@ -105,10 +105,6 @@ class govuk::node::s_apt (
       repos    => ['PC1'],
       release  => 'xenial',
       key      => 'EF8D349F';
-    'rabbitmq':
-      location => 'http://www.rabbitmq.com/debian',
-      release  => 'testing',
-      key      => '6026DFCA';
     'sysdig':
       location => 'http://download.draios.com/stable/deb',
       release  => 'stable-amd64/',
@@ -141,6 +137,7 @@ class govuk::node::s_apt (
   aptly::repo { 'locksmithctl': }
   aptly::repo { 'logstash': }
   aptly::repo { 'postgis': }
+  aptly::repo { 'rabbitmq': }
   aptly::repo { 'rbenv-ruby': }
   aptly::repo { 'rbenv-ruby-xenial':
     distribution => 'xenial',
