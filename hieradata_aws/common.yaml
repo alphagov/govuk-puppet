@@ -1129,6 +1129,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   service-manual-publisher: {}
   smartanswers:
     repository: 'smart-answers'
+  support: {}
   travel-advice-publisher: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
