@@ -5,7 +5,7 @@
         - git:
             url: git@github.com:alphagov/special-route-publisher.git
             branches:
-              - master
+              - $SPECIAL_ROUTE_PUBLISHER_BRANCH
             wipe-workspace: true
             clean:
                 after: true
@@ -32,6 +32,11 @@
     wrappers:
         - ansicolor:
             colormap: xterm
+    parameters:
+      - string:
+          name: SPECIAL_ROUTE_PUBLISHER_BRANCH
+          description: Branch of special-route-publisher to use.
+          default: master
 
 - job:
     name: Publish_Single_Special_Route
@@ -59,3 +64,7 @@
       - string:
           name: BASE_PATH
           description: The base path of the route to be published
+      - string:
+          name: SPECIAL_ROUTE_PUBLISHER_BRANCH
+          description: Branch of special-route-publisher to use.
+          default: master
