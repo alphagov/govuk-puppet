@@ -49,6 +49,9 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
+# [*plek_account_manager_uri*]
+#   Path to the GOV.UK Account Manager
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port,
@@ -63,6 +66,7 @@ class govuk::apps::frontend(
   $unicorn_worker_processes = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $plek_account_manager_uri = undef,
 ) {
   $app_name = 'frontend'
 
@@ -100,6 +104,9 @@ class govuk::apps::frontend(
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
+    "${title}-PLEK-ACCOUNT-MANAGER-URI":
+        varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
+        value   => $plek_account_manager_uri;
   }
 
   if $secret_key_base != undef {

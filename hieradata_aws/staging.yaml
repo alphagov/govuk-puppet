@@ -177,6 +177,7 @@ govuk::apps::finder_frontend::unicorn_worker_processes: 24
 govuk::apps::finder_frontend::nagios_memory_warning: 10000
 govuk::apps::finder_frontend::nagios_memory_critical: 14000
 
+govuk::apps::frontend::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
