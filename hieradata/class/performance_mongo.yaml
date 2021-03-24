@@ -1,0 +1,44 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'overnight'
+govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
+
+lv:
+  mongodb:
+    pv: '/dev/sdb1'
+    vg: 'backup'
+  data:
+    pv:
+      - '/dev/sdc1'
+      - '/dev/sde1'
+      - '/dev/sdf1'
+    vg: 'mongodb'
+  s3backups:
+    pv: '/dev/sdd1'
+    vg: 'mongo'
+
+mount:
+  /var/lib/mongodb:
+    disk: '/dev/mapper/mongodb-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 40
+    percent_threshold_critical: 15
+  /var/lib/automongodbbackup:
+    disk: '/dev/mapper/backup-mongodb'
+    govuk_lvm: 'mongodb'
+    mountoptions: 'defaults'
+  /var/lib/s3backup:
+    disk: '/dev/mapper/mongo-s3backups'
+    govuk_lvm: 's3backups'
+    mountoptions: 'defaults'
+
+mongodb::server::version: '2.4.9'
+mongodb::server::oplog_size: 7168 # 7 * 1024
+mongodb::server::replicaset_members:
+  'performance-mongo-1':
+  'performance-mongo-2':
+  'performance-mongo-3':
+  'performance-mongo-4':
+    hidden: true
+    priority: 0

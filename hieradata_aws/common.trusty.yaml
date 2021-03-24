@@ -40,7 +40,3 @@ apt::sources:
 base::esm_repo: true
 base::esm::esm_user: "%{hiera('base::esm::esm_trusty_user')}"
 base::esm::esm_password: "%{hiera('base::esm::esm_trusty_password')}"
-
-govuk_ppa::repo_ensure: 'present'
-
-nodejs::version: '12.18.2-1nodesource1'

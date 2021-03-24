@@ -9,9 +9,18 @@ require_relative '../../../../spec_helper'
 # eagerly evaluated.
 
 hosting = ENV['hosting']
-hiera_yml_name = 'hiera.yml'
-datadir = 'hieradata'
-aws_migration = true
+case hosting
+when 'carrenza'
+  hiera_yml_name = 'hiera.yml'
+  datadir = 'hieradata'
+  aws_migration = false
+when 'aws'
+  hiera_yml_name = 'hiera_aws.yml'
+  datadir = 'hieradata_aws'
+  aws_migration = true
+else
+  raise "Unknown hosting: #{hosting}"
+end
 
 standard_hiera_config = YAML.load_file(
   File.expand_path("../../../../../#{hiera_yml_name}", __FILE__)
