@@ -42,11 +42,6 @@ govuk_mount::no_op: true
 
 govuk::deploy::setup::gemstash_server: 'https://rubygems.org'
 
-govuk::node::s_api_lb::api_servers:
-  - "api-1.api"
-  - "api-2.api"
-govuk::node::s_api_lb::mapit_servers:
-  - "mapit-1.api"
 govuk::node::s_asset_base::firewall_allow_ip_range: '127.0.0.1'
 govuk::node::s_backend_lb::backend_servers:
   - 'backend-1.backend'
@@ -63,6 +58,9 @@ govuk::node::s_backend_lb::whitehall_frontend_servers:
 
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 
+govuk::node::s_frontend_lb::calculators_frontend_servers:
+  - 'calculators-frontend-1.frontend'
+  - 'calculators-frontend-2.frontend'
 govuk::node::s_frontend_lb::draft_frontend_servers:
   - 'draft-frontend-1.frontend'
   - 'draft-frontend-2.frontend'

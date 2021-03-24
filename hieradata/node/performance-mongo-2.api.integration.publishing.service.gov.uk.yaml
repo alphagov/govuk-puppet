@@ -1,2 +1,0 @@
-mongodb::backup::s3_backups: true
-mongodb::s3backup::cron::frequent_backups: false

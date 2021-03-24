@@ -162,14 +162,11 @@ class govuk::apps::myapp::db (
 }
 ```
 
-Find the next available port number by looking in `hieradata_aws/common.yaml`
+Find the next available port number by looking in `hieradata/common.yaml`
 and finding the block of port numbers for the existing apps.
 
 ```
 # hieradata/common.yaml
-govuk::apps::myapp::port: 999999
-
-# hieradata_aws/common.yaml
 govuk::apps::myapp::port: 999999
 ```
 
@@ -177,12 +174,6 @@ Start with the following configuration for the app module variables.
 
 ```
 # hieradata/common.yaml
-govuk::apps::myapp::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::myapp::db_port: 6432
-govuk::apps::myapp::db_allow_prepared_statements: false
-govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-
-# hieradata_aws/common.yaml
 govuk::apps::myapp::db_hostname: "postgresql-primary"
 govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::myapp::db::allow_auth_from_lb: true
@@ -197,12 +188,7 @@ Check if your app appears in these files (use existing apps as examples).
 
   * hieradata/common.yaml (node_class)
   * hieradata/common.yaml (deployable_applications)
-  * hieradata/common.yaml (govuk_ci::master::pipeline_jobs)
   * hieradata/common.yaml (grafana::dashboards::application_dashboards)
-  * hieradata/common.yaml (hosts::production::backend::app_hostnames)
-  * hieradata_aws/common.yaml (node_class)
-  * hieradata_aws/common.yaml (deployable_applications)
-  * hieradata_aws/common.yaml (grafana::dashboards::application_dashboards)
   * modules/govuk/manifests/node/s_db_admin.pp
   * modules/govuk/manifests/node/s_postgresql_base.pp
   * modules/grafana/files/dashboards/processes.json
