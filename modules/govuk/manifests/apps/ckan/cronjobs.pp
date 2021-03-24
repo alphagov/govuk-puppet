@@ -30,6 +30,41 @@ class govuk::apps::ckan::cronjobs(
     false => 'absent',
   }
 
+  govuk::apps::ckan::paster_cronjob { 'Find a Tender harvester run':
+    ensure         => $ensure,
+    paster_command => 'harvester run_test find-tender-data-harvest',
+    plugin         => 'ckanext-harvest',
+    hour           => '2',
+    minute         => '30',
+  }
+
+  govuk::apps::ckan::paster_cronjob { 'Environment Agency harvester run':
+    ensure         => $ensure,
+    paster_command => 'harvester run_test environment-agency-data-sharing-platform',
+    plugin         => 'ckanext-harvest',
+    weekday        => '5',
+    hour           => '16',
+    minute         => '0',
+  }
+
+  govuk::apps::ckan::paster_cronjob { 'Vale of White Horse harvester run':
+    ensure         => $ensure,
+    paster_command => 'harvester run_test vale-of-white-horse-district-council-2',
+    plugin         => 'ckanext-harvest',
+    weekday        => '5',
+    hour           => '16',
+    minute         => '15',
+  }
+
+  govuk::apps::ckan::paster_cronjob { 'South Oxfordshire harvester run':
+    ensure         => $ensure,
+    paster_command => 'harvester run_test south-oxfordshire-district-council-2',
+    plugin         => 'ckanext-harvest',
+    weekday        => '5',
+    hour           => '16',
+    minute         => '30',
+  }
+
   govuk::apps::ckan::paster_cronjob { 'harvester run':
     ensure         => $ensure,
     paster_command => 'harvester run',
