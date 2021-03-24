@@ -110,6 +110,7 @@ namespace :spec do
     exit_status = true
     [
       ['aws', aws_node_classes],
+      ['carrenza', carrenza_node_classes]
     ].each do |(hosting, hosting_node_classes)|
       pids = []
       spec_file = File.expand_path('../../../modules/govuk/spec/classes/govuk_nodes_spec_optional.rb', __FILE__)

@@ -1,0 +1,21 @@
+---
+
+govuk_safe_to_reboot::can_reboot: 'careful'
+govuk_safe_to_reboot::reason: 'We lose alerting when this machine is down'
+
+govuk_cdnlogs::log_dir: '/var/log/cdn'
+
+icinga::client::checks::disk_space_warn: 12
+
+lv:
+  data:
+    pv: '/dev/nvme1n1'
+    vg: 'monitoring'
+
+mount:
+  /var/log/icinga:
+    disk: '/dev/mapper/monitoring-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
+    percent_threshold_warning: 16
+    percent_threshold_critical: 11
