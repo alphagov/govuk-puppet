@@ -46,6 +46,22 @@ class govuk::apps::ckan::cronjobs(
     minute         => '30',
   }
 
+  govuk::apps::ckan::paster_cronjob { 'Contract Finder harvester stop existing processes':
+    ensure         => $ensure,
+    paster_command => 'harvester job_abort contracts-finder-ocds-data-harvest',
+    plugin         => 'ckanext-harvest',
+    hour           => '5',
+    minute         => '25',
+  }
+
+  govuk::apps::ckan::paster_cronjob { 'Contract Finder harvester run':
+    ensure         => $ensure,
+    paster_command => 'harvester run_test contracts-finder-ocds-data-harvest',
+    plugin         => 'ckanext-harvest',
+    hour           => '5',
+    minute         => '30',
+  }
+
   govuk::apps::ckan::paster_cronjob { 'Environment Agency harvester stop existing processes':
     ensure         => $ensure,
     paster_command => 'harvester job_abort environment-agency-data-sharing-platform',
