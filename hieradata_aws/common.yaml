@@ -1127,6 +1127,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   short-url-manager: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
+  sidekiq-monitoring: {}
   smartanswers:
     repository: 'smart-answers'
   support: {}
