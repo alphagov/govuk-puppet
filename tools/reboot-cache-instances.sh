@@ -56,7 +56,7 @@ do
   sleep 3
 done
 
-echo "Waiting for requests to complete... one minute"
+echo "Waiting for requests to complete... 30 seconds"
 sleep 30
 
 echo "Rebooting instance via ssh"
