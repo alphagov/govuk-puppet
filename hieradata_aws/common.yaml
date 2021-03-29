@@ -1168,8 +1168,6 @@ govuk_sudo::sudo_conf:
     content: 'deploy ALL=NOPASSWD:/etc/init.d/varnish'
   deploy_varnishadm:
     content: 'deploy ALL=NOPASSWD:/usr/bin/varnishadm'
-  deploy_govuk_unicorn_reload:
-    content: 'deploy ALL=NOPASSWD:/usr/local/bin/govuk_unicorn_reload'
   deploy_govuk_supervised_initctl:
     content: 'deploy ALL=NOPASSWD:/usr/local/bin/govuk_supervised_initctl'
   icinga_init_ctl:
