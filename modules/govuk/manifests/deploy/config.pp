@@ -83,6 +83,10 @@ class govuk::deploy::config(
     ensure => absent,
   }
 
+  # govuk_supervised_initctl is a wrapper script around initctl that is
+  # used to confirm that new processes are started, stopped or reloaded after
+  # an initctl operation is called. It is used as part of the deployment
+  # process to ensure a new deploy results in at least one running process.
   file { '/usr/local/bin/govuk_supervised_initctl':
     ensure => present,
     source => 'puppet:///modules/govuk/usr/local/bin/govuk_supervised_initctl',
