@@ -78,16 +78,15 @@ class govuk::deploy::config(
     mode   => '0755',
   }
 
-  # govuk_unicorn_reload is a wrapper around the upstart command to reload
-  # unicorn following a deploy. It supervises the reloading to delay confirming
-  # a reload as complete until the new process is running and the old one is
-  # stopped.
+  # FIXME: remove this declaration once this has been run in all environments
   file { '/usr/local/bin/govuk_unicorn_reload':
-    ensure => present,
-    source => 'puppet:///modules/govuk/usr/local/bin/govuk_unicorn_reload',
-    mode   => '0755',
+    ensure => absent,
   }
 
+  # govuk_supervised_initctl is a wrapper script around initctl that is
+  # used to confirm that new processes are started, stopped or reloaded after
+  # an initctl operation is called. It is used as part of the deployment
+  # process to ensure a new deploy results in at least one running process.
   file { '/usr/local/bin/govuk_supervised_initctl':
     ensure => present,
     source => 'puppet:///modules/govuk/usr/local/bin/govuk_supervised_initctl',
