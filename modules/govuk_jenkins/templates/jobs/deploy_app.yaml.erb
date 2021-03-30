@@ -40,7 +40,7 @@
               export APP_DEPLOYMENT_GIT_URL="git@github.com:alphagov/govuk-app-deployment.git"
             fi
 
-            git clone ${APP_DEPLOYMENT_GIT_URL} --branch master --single-branch --depth 1 ./
+            git clone ${APP_DEPLOYMENT_GIT_URL} --branch ${APP_DEPLOYMENT_BRANCH} --single-branch --depth 1 ./
             ./jenkins.sh
         <% if @deploy_downstream %>
         - conditional-step:
@@ -122,6 +122,10 @@
               comma-delimited list of FQDN of the servers to deploy to. Sets
               the HOSTFILTER environment variable for Capistrano.
             default: all
+        - string:
+            name: APP_DEPLOYMENT_BRANCH
+            description: Branch of govuk-app-deployment to use.
+            default: master
         - bool:
             name: DEPLOY_FROM_AWS_CODECOMMIT
             default: false
