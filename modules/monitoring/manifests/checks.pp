@@ -19,6 +19,7 @@ class monitoring::checks (
   $http_password                  = 'UNSET',
   $whitehall_overdue_check_period = undef,
   $whitehall_scheduled_check_period = undef,
+  $content_data_api_check_period  = undef,
 ) {
 
   ensure_packages(['jq'])
@@ -57,6 +58,36 @@ class monitoring::checks (
   }
 
   include icinga::plugin::check_http_timeout_noncrit
+
+  $content_data_api_hostname    = "content-data-api.${app_domain}"
+  $content_data_api_metrics_path = '/healthcheck/metrics'
+  $content_data_api_search_path = '/healthcheck/search'
+
+  if $::aws_migration {
+    include icinga::client::check_json_healthcheck
+
+    icinga::check { "content_data_api_search_${::hostname}":
+      check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_search_path} ${content_data_api_hostname} https",
+      service_description        => 'search healthcheck for content-data-api',
+      use                        => 'govuk_urgent_priority',
+      host_name                  => $::fqdn,
+      notes_url                  => monitoring_docs_url(content-data-api-app-healthcheck-not-ok),
+      check_period               => $content_data_api_check_period,
+      attempts_before_hard_state => 5,
+      retry_interval             => 1,
+    }
+
+    icinga::check { "content_data_api_metrics_${::hostname}":
+      check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_metrics_path} ${content_data_api_hostname} https",
+      service_description        => 'metrics healthcheck for content-data-api',
+      use                        => 'govuk_urgent_priority',
+      host_name                  => $::fqdn,
+      notes_url                  => monitoring_docs_url(content-data-api-app-healthcheck-not-ok),
+      check_period               => $content_data_api_check_period,
+      attempts_before_hard_state => 5,
+      retry_interval             => 1,
+    }
+  }
 
   # Used in template and icinga::check.
   $whitehall_hostname    = "whitehall-admin.${app_domain}"
