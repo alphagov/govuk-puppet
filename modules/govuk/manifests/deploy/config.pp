@@ -78,11 +78,6 @@ class govuk::deploy::config(
     mode   => '0755',
   }
 
-  # FIXME: remove this declaration once this has been run in all environments
-  file { '/usr/local/bin/govuk_unicorn_reload':
-    ensure => absent,
-  }
-
   # govuk_supervised_initctl is a wrapper script around initctl that is
   # used to confirm that new processes are started, stopped or reloaded after
   # an initctl operation is called. It is used as part of the deployment
