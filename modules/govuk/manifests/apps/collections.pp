@@ -34,9 +34,6 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
-# [*feature_flag_accounts*]
-#   Feature flag to switch GOV.UK Accounts on or off for the Transition Checker
-#
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
 #
@@ -49,7 +46,6 @@ class govuk::apps::collections(
   $nagios_memory_warning = undef,
   $nagios_memory_critical = undef,
   $email_alert_api_bearer_token = undef,
-  $feature_flag_accounts = false,
   $memcache_servers = undef,
 ) {
   govuk::app { 'collections':
@@ -71,11 +67,6 @@ class govuk::apps::collections(
     app => 'collections',
   }
 
-  $feature_flag_accounts_var = $feature_flag_accounts ? {
-                true    => 'enabled',
-                default => undef
-        }
-
   govuk::app::envvar {
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
@@ -83,9 +74,6 @@ class govuk::apps::collections(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
-    "${title}-FEATURE-FLAG-ACCOUNTS":
-        varname => 'FEATURE_FLAG_ACCOUNTS',
-        value   => $feature_flag_accounts_var;
     # MEMCACHE_SERVERS is used by "Dalli", our memcached client gem
     # https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
     "${title}-MEMCACHE_SERVERS":
