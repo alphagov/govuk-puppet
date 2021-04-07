@@ -53,11 +53,6 @@
 # [*lb_ip_range*]
 # Network range for the load balancer.
 #
-# [*enable_in_pgbouncer*]
-# Whether to allow access to this database from pgbouncer.  This is always
-# overridden to false if using RDS.
-# Default: true
-#
 # [*ssl_only*]
 # Whether to configure the pg_hba.conf rules to only respond to clients who
 # connect over SSL. If it is false it will allow either.
@@ -76,7 +71,6 @@ define govuk_postgresql::db (
     $allow_auth_from_lb      = false,
     $lb_ip_range             = undef,
     $ssl_only                = false,
-    $enable_in_pgbouncer     = true,
     $rds                     = false,
     $rds_root_user           = 'aws_db_admin',
 ) {
@@ -173,20 +167,6 @@ define govuk_postgresql::db (
           database => $db_name,
         }
       }
-    }
-  }
-
-  if $enable_in_pgbouncer and ! $rds {
-    govuk_pgbouncer::db { $title:
-      user                    => $user,
-      password_hash           => $password_hash,
-      database                => $db_name,
-      allow_auth_from_backend => $allow_auth_from_backend,
-      backend_ip_range        => $backend_ip_range,
-      allow_auth_from_lb      => $allow_auth_from_lb,
-      lb_ip_range             => $lb_ip_range,
-      hba_type                => $hba_type,
-      host                    => '127.0.0.1',
     }
   }
 }
