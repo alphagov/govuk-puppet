@@ -23,6 +23,6 @@ class monitoring::checks::grafana_dashboards (
     service_description => 'At least 1 Grafana dashboard is not in version control',
     require             => Icinga::Check_config['check_grafana_dashboards'],
     notes_url           => monitoring_docs_url(grafana-dashboards),
-    action_url          => "https://grafana.${app_domain}",
+    action_url          => "https://grafana.blue.${::aws_environment}.govuk.digital/",
   }
 }
