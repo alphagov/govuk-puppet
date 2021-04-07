@@ -1,13 +1,33 @@
-[govuk-secrets]: https://github.com/alphagov/govuk-secrets
+[account-api]: https://github.com/alphagov/account-api
+[dev-docs]: https://docs.publishing.service.gov.uk/manual/setting-up-new-rails-app.html
 
-# Adding a new app to GOV.UK (Rails+PostgreSQL)
+# Adding a new Rails app to GOV.UK
 
-Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
+See also the developer docs page on [setting up a new Rails application][dev-docs].
 
-```
-# == Class: govuk::apps::myapp
+In the below code examples and filenames, replace `my-app` and
+`my_app` with your application's name.
+
+If your application's name has dashes in it:
+
+- `my-app` should have dashes in it
+- `my_app` should have dashes replaced with underscores
+
+For example, the [account-api][] Puppet class file is called
+`account_api.pp`, and its `db_name` is `account-api_production`.
+
+## Create the Puppet class definitions
+
+### Create the app class
+
+Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`.
+
+First add the Puppet class documentation:
+
+```puppet
+# == Class: govuk::apps::my_app
 #
-# Read more: https://github.com/alphagov/myapp
+# Read more: https://github.com/alphagov/my-app
 #
 # === Parameters
 # [*port*]
@@ -22,12 +42,23 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 # [*sentry_dsn*]
 #   The app-specific URL used by Sentry to report exceptions
 #
+```
+
+If your app uses GDS-SSO for authentication, include the `oauth_`
+parameters:
+
+```puppet
 # [*oauth_id*]
 #   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
 # [*oauth_secret*]
 #   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
+```
+
+If your app uses a database, include the `db_` parameters:
+
+```puppet
 # [*db_hostname*]
 #   The hostname of the database server to use for in DATABASE_URL environment variable
 #
@@ -48,21 +79,27 @@ Create a new file in `modules/govuk/manifests/apps` named `my_app.pp`:
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
-class govuk::apps::myapp (
+```
+
+Then add the class.  Omit the `oauth_` and `db_` parameters if your
+app does not need them:
+
+```puppet
+class govuk::apps::my_app (
   $port,
   $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $db_username = 'myapp',
+  $db_username = 'my-app',
   $db_hostname = undef,
   $db_port = undef,
   $db_allow_prepared_statements = undef,
   $db_password = undef,
-  $db_name = 'myapp_production',
+  $db_name = 'my-app_production',
 ) {
-  $app_name = 'myapp'
+  $app_name = 'my-app'
 
   $ensure = $enabled ? {
     true  => 'present',
@@ -91,6 +128,13 @@ class govuk::apps::myapp (
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+  }
+```
+
+If your app uses GDS-SSO, set the required environment variables:
+
+```puppet
+  govuk::app::envvar {
     "${title}-GDS_SSO_OAUTH_ID":
       varname => 'GDS_SSO_OAUTH_ID',
       value   => $oauth_id;
@@ -98,7 +142,11 @@ class govuk::apps::myapp (
       varname => 'GDS_SSO_OAUTH_SECRET',
       value   => $oauth_secret;
   }
+```
 
+If your app uses a database, set the database URL:
+
+```puppet
   govuk::app::envvar::database_url { $app_name:
     type                      => 'postgresql',
     username                  => $db_username,
@@ -108,13 +156,23 @@ class govuk::apps::myapp (
     allow_prepared_statements => $db_allow_prepared_statements,
     database                  => $db_name,
   }
+```
+
+Then end the class definition:
+
+```puppet
 }
 ```
 
-Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
+### Create the database class
 
-```
-# == Class: govuk::apps::myapp::db
+If your app does not use a database, skip this subsection.
+
+Create a new file in `modules/govuk/manifests/apps/my_app` named
+`db.pp`, with the following contents:
+
+```puppet
+# == Class: govuk::apps::my_app::db
 #
 # === Parameters
 #
@@ -141,14 +199,14 @@ Also add a file in `modules/govuk/manifests/apps/my_app` named `db.pp`:
 # [*db_name*]
 #   The DB instance name.
 #
-class govuk::apps::myapp::db (
+class govuk::apps::my_app::db (
   $backend_ip_range = '10.3.0.0/16',
   $allow_auth_from_lb = false,
   $lb_ip_range = undef,
   $rds = false,
-  $username = 'myapp',
+  $username = 'my-app',
   $password = undef,
-  $db_name = 'myapp_production',
+  $db_name = 'my-app_production',
 ) {
   govuk_postgresql::db { $db_name:
     user                    => $username,
@@ -162,50 +220,87 @@ class govuk::apps::myapp::db (
 }
 ```
 
-Find the next available port number by looking in `hieradata_aws/common.yaml`
-and finding the block of port numbers for the existing apps.
+Include the class in the `modules/govuk/manifests/nodes/db_admin.pp`
+file:
 
-```
-# hieradata/common.yaml
-govuk::apps::myapp::port: 999999
-
-# hieradata_aws/common.yaml
-govuk::apps::myapp::port: 999999
+```puppet
+-> class { '::govuk::apps::my_app::db': }
 ```
 
-Start with the following configuration for the app module variables.
+## Configure the hieradata
 
-```
-# hieradata/common.yaml
-govuk::apps::myapp::db_hostname: "postgresql-primary-1.backend"
-govuk::apps::myapp::db_port: 6432
-govuk::apps::myapp::db_allow_prepared_statements: false
-govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+### Choose a port number
 
-# hieradata_aws/common.yaml
-govuk::apps::myapp::db_hostname: "postgresql-primary"
-govuk::apps::myapp::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
-govuk::apps::myapp::db::allow_auth_from_lb: true
-govuk::apps::myapp::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::myapp::db::rds: true
+Find the list of used port numbers by looking in
+ `hieradata_aws/common.yaml`, then give your app the next unassigned
+ number:
 
-# hieradata/vagrant_credentials.yaml
-govuk::apps::myapp::db_password: '...'
+```yaml
+govuk::apps::my_app::port: 999999
 ```
 
-Check if your app appears in these files (use existing apps as examples).
+### Configure database access
 
-  * hieradata/common.yaml (node_class)
-  * hieradata/common.yaml (deployable_applications)
-  * hieradata/common.yaml (govuk_ci::master::pipeline_jobs)
-  * hieradata/common.yaml (grafana::dashboards::application_dashboards)
-  * hieradata/common.yaml (hosts::production::backend::app_hostnames)
-  * hieradata_aws/common.yaml (node_class)
-  * hieradata_aws/common.yaml (deployable_applications)
-  * hieradata_aws/common.yaml (grafana::dashboards::application_dashboards)
-  * modules/govuk/manifests/node/s_db_admin.pp
-  * modules/govuk/manifests/node/s_postgresql_base.pp
-  * modules/grafana/files/dashboards/processes.json
-  * modules/govuk/manifests/node/s_backend_lb.pp (if a backend app)
-  * modules/govuk/manifests/node/s_frontend_lb.pp (if a frontend app)
-  * modules/govuk_jenkins/templates/jobs/data_sync_complete_integration.yaml.erb
+If your app does not use a database, skip this subsection.
+
+Add the following configuration to `hieradata_aws/common.yaml`:
+
+```yaml
+govuk::apps::my_app::db_hostname: "postgresql-primary"
+govuk::apps::my_app::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::my_app::db::allow_auth_from_lb: true
+govuk::apps::my_app::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+govuk::apps::my_app::db::rds: true
+```
+
+### Add your application to the list of deployable applications
+
+Add your application to the `deployable_applications` list in
+`hieradata_aws/common.yaml`:
+
+```yaml
+deployable_applications: &deployable_applications
+  my-app: {}
+```
+
+### Enable deployments from CI to integration
+
+Add your application to the `govuk_jenkins::jobs::deploy_app_downstream::applications` list in
+`hieradata_aws/class/integration/ci_master.yaml`.
+
+```yaml
+govuk_jenkins::jobs::deploy_app_downstream::applications:
+  my-app: {}
+```
+
+### Enable the deployment dashboard
+
+Add your application to the `grafana::dashboards::application_dashboards` lists in:
+
+- `hieradata_aws/common.yaml`
+- `hieradata_aws/integration.yaml`
+
+```yaml
+grafana::dashboards::application_dashboards:
+  my-app: {}
+```
+
+### Enable your app in all environments
+
+Add your app to the `apps` list for the relevant `node_class` in:
+
+- `hieradata_aws/common.yaml`
+- `hieradata_aws/production.yaml`
+- `hieradata_aws/staging.yaml`
+
+```yaml
+node_class: &node_class
+  machine_class:
+    apps:
+      - my-app
+```
+
+## Deploy Puppet
+
+Once these changes are merged and deployed, you should be able to
+deploy your app with the `Deploy_App` Jenkins job.
