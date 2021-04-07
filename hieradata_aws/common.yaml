@@ -1122,6 +1122,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   local-links-manager: {}
   manuals-frontend: {}
   manuals-publisher: {}
+  maslow: {}
   publisher: {}
   release: {}
   short-url-manager: {}
