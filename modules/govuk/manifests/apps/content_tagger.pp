@@ -30,10 +30,6 @@
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
 #
-# [*db_allow_prepared_statements*]
-#   The ?prepared_statements= parameter to use in the DATABASE_URL.
-#   Default: undef
-#
 # [*db_name*]
 #   The database name to use in the DATABASE_URL.
 #
@@ -75,7 +71,6 @@ class govuk::apps::content_tagger(
   $db_username = 'content_tagger',
   $db_password = undef,
   $db_port = undef,
-  $db_allow_prepared_statements = undef,
   $db_name = 'content_tagger_production',
   $oauth_id = '',
   $oauth_secret = '',
@@ -139,13 +134,12 @@ class govuk::apps::content_tagger(
     }
 
     govuk::app::envvar::database_url { $app_name:
-      type                      => 'postgresql',
-      username                  => $db_username,
-      password                  => $db_password,
-      host                      => $db_hostname,
-      port                      => $db_port,
-      allow_prepared_statements => $db_allow_prepared_statements,
-      database                  => $db_name,
+      type     => 'postgresql',
+      username => $db_username,
+      password => $db_password,
+      host     => $db_hostname,
+      port     => $db_port,
+      database => $db_name,
     }
 
   }

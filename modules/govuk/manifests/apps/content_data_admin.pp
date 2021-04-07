@@ -82,17 +82,16 @@
 #
 class govuk::apps::content_data_admin (
   $port,
-  $enabled                      = true,
-  $secret_key_base              = undef,
-  $sentry_dsn                   = undef,
-  $oauth_id                     = undef,
-  $oauth_secret                 = undef,
-  $db_username                  = 'content_data_admin',
-  $db_hostname                  = undef,
-  $db_port                      = undef,
-  $db_allow_prepared_statements = undef,
-  $db_password                  = undef,
-  $db_name                      = 'content_data_admin_production',
+  $enabled = true,
+  $secret_key_base = undef,
+  $sentry_dsn = undef,
+  $oauth_id = undef,
+  $oauth_secret = undef,
+  $db_username = 'content_data_admin',
+  $db_hostname = undef,
+  $db_port = undef,
+  $db_password = undef,
+  $db_name = 'content_data_admin_production',
   $content_data_api_bearer_token = undef,
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
@@ -194,13 +193,12 @@ class govuk::apps::content_data_admin (
   }
 
   govuk::app::envvar::database_url { $app_name:
-    type                      => 'postgresql',
-    username                  => $db_username,
-    password                  => $db_password,
-    host                      => $db_hostname,
-    port                      => $db_port,
-    database                  => $db_name,
-    allow_prepared_statements => $db_allow_prepared_statements,
+    type     => 'postgresql',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    port     => $db_port,
+    database => $db_name,
   }
 
   govuk::procfile::worker { $app_name:
