@@ -9,11 +9,10 @@ class govuk::apps::content_data_api::db (
   $password = undef,
 ) {
   govuk_postgresql::db { 'content_performance_manager_production':
-    user                => 'content_performance_manager',
-    password            => $password,
-    rds                 => true,
-    extensions          => ['plpgsql'],
-    enable_in_pgbouncer => false,
+    user       => 'content_performance_manager',
+    password   => $password,
+    rds        => true,
+    extensions => ['plpgsql'],
   }
 
   @@monitoring::checks::rds_config { 'content-data-api-postgresql-primary':
