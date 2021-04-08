@@ -289,7 +289,6 @@ govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_publisher::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_publisher::db_port: 6432
-govuk::apps::content_publisher::db_allow_prepared_statements: false
 govuk::apps::content_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::content_publisher::aws_region: "eu-west-1"
@@ -298,7 +297,6 @@ govuk::apps::content_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::content_tagger::db_hostname: "postgresql-primary-1.backend"
 govuk::apps::content_tagger::db_port: 6432
-govuk::apps::content_tagger::db_allow_prepared_statements: false
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::enable_procfile_worker: true
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
@@ -332,7 +330,6 @@ govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
 
 govuk::apps::service_manual_publisher::db_port: 6432
-govuk::apps::service_manual_publisher::db_allow_prepared_statements: false
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
