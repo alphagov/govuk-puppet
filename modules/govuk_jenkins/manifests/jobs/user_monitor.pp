@@ -9,6 +9,7 @@
 #
 class govuk_jenkins::jobs::user_monitor (
   $github_token = undef,
+  $sentry_auth_token = undef,
   $app_domain = hiera('app_domain'),
   $enable_icinga_check = false,
 ) {

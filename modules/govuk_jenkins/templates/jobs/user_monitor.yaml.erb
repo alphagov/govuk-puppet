@@ -24,6 +24,7 @@
             artifact-num-to-keep: 5
     builders:
         - shell: |
+            export SENTRY_AUTH_TOKEN=<%= @sentry_auth_token %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run
     publishers:
