@@ -1,6 +1,6 @@
 ---
 - scm:
-    name: special-route-publisher_Publish_Special_Routes
+    name: special-route-publisher_Git
     scm:
         - git:
             url: git@github.com:alphagov/special-route-publisher.git
@@ -22,7 +22,7 @@
         - github:
             url: https://github.com/alphagov/special-route-publisher/
     scm:
-      - special-route-publisher_Publish_Special_Routes
+      - special-route-publisher_Git
     builders:
         - shell: |
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
@@ -50,7 +50,7 @@
         - github:
             url: https://github.com/alphagov/special-route-publisher/
     scm:
-      - special-route-publisher_Publish_Special_Routes
+      - special-route-publisher_Git
     builders:
         - shell: |
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
@@ -81,7 +81,7 @@
         - github:
             url: https://github.com/alphagov/special-route-publisher/
     scm:
-      - special-route-publisher_Publish_Special_Routes
+      - special-route-publisher_Git
     builders:
         - shell: |
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
