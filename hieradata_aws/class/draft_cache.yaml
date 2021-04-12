@@ -20,8 +20,6 @@ govuk::apps::router::mongodb_nodes:
   - 'router-backend-2'
   - 'router-backend-3'
 
-govuk::apps::router_api::router_nodes_class: 'draft_cache'
-
 govuk::apps::router_api::vhost: 'draft-router-api'
 
 router::nginx::app_specific_static_asset_routes:

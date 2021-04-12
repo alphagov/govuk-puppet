@@ -5,8 +5,6 @@ govuk::apps::router_api::mongodb_nodes:
   - 'router-backend-2'
   - 'router-backend-3'
 
-govuk::apps::router_api::router_nodes_class: 'cache'
-
 govuk_safe_to_reboot::can_reboot: 'overnight'
 govuk_safe_to_reboot::reason: 'Secondaries will reboot overnight if cluster is healthy'
 
