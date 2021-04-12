@@ -34,8 +34,8 @@
           )
 
           for node in `govuk_node_list -c cache`; do
-            for hostname in hostnames; do
-              for path in paths; do
+            for hostname in "${hostnames[@]}"; do
+              for path in "${paths[@]}"; do
                 ssh deploy@$node "curl -s -X PURGE $hostname$path"
               done
             done
