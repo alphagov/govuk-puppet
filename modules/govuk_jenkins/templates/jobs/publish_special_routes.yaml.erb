@@ -68,3 +68,34 @@
           name: SPECIAL_ROUTE_PUBLISHER_BRANCH
           description: Branch of special-route-publisher to use.
           default: master
+
+- job:
+    name: Unpublish_Single_Special_Route
+    display-name: "Unpublish single special route"
+    project-type: freestyle
+    description: "Unpublish a single special route, with a type of 'gone'"
+    properties:
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - github:
+            url: https://github.com/alphagov/special-route-publisher/
+    scm:
+      - special-route-publisher_Publish_Special_Routes
+    builders:
+        - shell: |
+            export GOVUK_APP_DOMAIN=<%= @app_domain %>
+            export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
+            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle exec rake unpublish_one_special_route["${BASE_PATH}"]
+    wrappers:
+        - ansicolor:
+            colormap: xterm
+    parameters:
+      - string:
+          name: BASE_PATH
+          description: The base path of the route to be unpublished
+      - string:
+          name: SPECIAL_ROUTE_PUBLISHER_BRANCH
+          description: Branch of special-route-publisher to use.
+          default: master
