@@ -69,8 +69,6 @@ class licensify::apps::licensify (
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
     collectd_process_regex         => $collectd_process_regex,
-    nagios_memory_warning          => 1350,
-    nagios_memory_critical         => 1500,
     alert_5xx_warning_rate         => $alert_5xx_warning_rate,
     alert_5xx_critical_rate        => $alert_5xx_critical_rate,
   }

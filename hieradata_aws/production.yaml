@@ -195,8 +195,6 @@ govuk::apps::feedback::govuk_notify_template_id: '54168fa9-3946-4860-a2f8-27ddbb
 
 # https://docs.google.com/document/d/1kdRhmMUIyNZQmgo4FvXswJaDN2CWS2vlH9PVu21a68k/edit#
 govuk::apps::finder_frontend::unicorn_worker_processes: 24
-govuk::apps::finder_frontend::nagios_memory_warning: 10000
-govuk::apps::finder_frontend::nagios_memory_critical: 14000
 
 govuk::apps::frontend::plek_account_manager_uri: 'https://www.account.publishing.service.gov.uk'
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
@@ -225,8 +223,6 @@ govuk::apps::search_api::sitemaps_bucket_name: 'govuk-production-sitemaps'
 govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-production-search-ltr-endpoint'
 govuk::apps::search_api::enable_learning_to_rank: true
 govuk::apps::search_api::unicorn_worker_processes: "36"
-govuk::apps::search_api::nagios_memory_warning: 16000
-govuk::apps::search_api::nagios_memory_critical: 19000
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::short_url_manager::instance_name: 'production'

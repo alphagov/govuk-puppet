@@ -48,14 +48,6 @@
 #   The number of unicorn worker processes to run.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   The warning memory threshold for the app.
-#   Default: undef
-#
-# [*nagios_memory_critical*]
-#   The critical memory threshold for the app.
-#   Default: undef
-#
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
 #
@@ -71,8 +63,6 @@ class govuk::apps::static(
   $redis_host = undef,
   $redis_port = undef,
   $unicorn_worker_processes = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $plek_account_manager_uri = undef,
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
@@ -89,8 +79,6 @@ class govuk::apps::static(
     asset_pipeline_prefixes  => ['assets/static'],
     vhost                    => $vhost,
     unicorn_worker_processes => $unicorn_worker_processes,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
   }
 
   Govuk::App::Envvar {

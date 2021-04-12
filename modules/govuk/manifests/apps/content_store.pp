@@ -33,12 +33,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -71,8 +65,6 @@ class govuk::apps::content_store(
   $performance_platform_big_screen_view_url = undef,
   $performance_platform_spotlight_url = undef,
   $publishing_api_bearer_token = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
   $unicorn_worker_processes = undef,
@@ -92,8 +84,6 @@ class govuk::apps::content_store(
     health_check_path         => '/healthcheck',
     log_format_is_json        => true,
     vhost                     => $vhost,
-    nagios_memory_warning     => $nagios_memory_warning,
-    nagios_memory_critical    => $nagios_memory_critical,
     unicorn_worker_processes  => $unicorn_worker_processes,
     alert_when_threads_exceed => 155,
   }

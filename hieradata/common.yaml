@@ -274,8 +274,6 @@ govuk::apps::asset_manager::mongodb_nodes:
 govuk::apps::asset_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::asset_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::asset_manager::unicorn_worker_processes: "16"
-govuk::apps::asset_manager::nagios_memory_warning: 3000
-govuk::apps::asset_manager::nagios_memory_critical: 3300
 
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
@@ -304,8 +302,6 @@ govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::manuals_publisher::nagios_memory_warning: 1000
-govuk::apps::manuals_publisher::nagios_memory_critical: 1200
 
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
@@ -364,13 +360,9 @@ govuk::apps::signon::db_username: 'signon'
 govuk::apps::signon::redis_url: "redis://redis-1.backend:6379/0"
 govuk::apps::signon::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::signon::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::signon::nagios_memory_warning: 1300
-govuk::apps::signon::nagios_memory_critical: 1450
 govuk::apps::signon::unicorn_worker_processes: "4"
 
 govuk::apps::specialist_publisher::enabled: true
-govuk::apps::specialist_publisher::nagios_memory_warning: 1100
-govuk::apps::specialist_publisher::nagios_memory_critical: 1200
 govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 

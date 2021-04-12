@@ -46,8 +46,6 @@ class licensify::apps::licensify_admin(
     proxy_http_version_1_1_enabled => true,
     log_format_is_json             => true,
     collectd_process_regex         => $collectd_process_regex,
-    nagios_memory_warning          => 1350,
-    nagios_memory_critical         => 1500,
   }
 
   licensify::apps::envvars { 'licensify-admin':

@@ -110,8 +110,6 @@ class govuk::apps::ckan (
       log_format_is_json                 => false,
       read_timeout                       => $request_timeout,
       collectd_process_regex             => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
-      nagios_memory_warning              => 2400,
-      nagios_memory_critical             => 2500,
       local_tcpconns_established_warning => $gunicorn_worker_processes,
       sentry_dsn                         => $sentry_dsn,
       enable_nginx_vhost                 => false,

@@ -29,12 +29,6 @@
 #   The bearer token to use when communicating with Link Checker API.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -62,8 +56,6 @@ class govuk::apps::smartanswers(
   $sentry_dsn = undef,
   $publishing_api_bearer_token = undef,
   $link_checker_api_bearer_token = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $secret_key_base = undef,
   $unicorn_worker_processes = undef,
   $zendesk_client_password = undef,
@@ -120,8 +112,6 @@ class govuk::apps::smartanswers(
     asset_pipeline           => true,
     asset_pipeline_prefixes  => ['assets/smartanswers'],
     vhost                    => $vhost,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     alert_5xx_warning_rate   => 0.001,
     alert_5xx_critical_rate  => 0.005,
     repo_name                => 'smart-answers',

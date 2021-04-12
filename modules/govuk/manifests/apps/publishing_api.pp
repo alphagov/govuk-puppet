@@ -108,12 +108,6 @@
 # [*content_api_prototype*]
 #  Set to true if you want to enable the Content API prototypes within the app
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 class govuk::apps::publishing_api(
   $ensure = 'present',
   $port,
@@ -145,8 +139,6 @@ class govuk::apps::publishing_api(
   $event_log_aws_access_id  = undef,
   $event_log_aws_secret_key = undef,
   $content_api_prototype = false,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
 ) {
   $app_name = 'publishing-api'
 
@@ -167,8 +159,6 @@ class govuk::apps::publishing_api(
     json_health_check                => true,
     log_format_is_json               => true,
     deny_framing                     => true,
-    nagios_memory_warning            => $nagios_memory_warning,
-    nagios_memory_critical           => $nagios_memory_critical,
   }
 
   govuk::procfile::worker {'publishing-api':

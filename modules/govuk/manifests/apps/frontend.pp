@@ -19,12 +19,6 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -57,8 +51,6 @@ class govuk::apps::frontend(
   $port,
   $vhost_protected = false,
   $publishing_api_bearer_token = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
   $sentry_dsn = undef,
@@ -79,8 +71,6 @@ class govuk::apps::frontend(
     log_format_is_json       => true,
     asset_pipeline           => true,
     asset_pipeline_prefixes  => ['assets/frontend'],
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     vhost                    => $vhost,
     unicorn_worker_processes => $unicorn_worker_processes,
   }

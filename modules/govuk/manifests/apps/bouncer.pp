@@ -22,12 +22,6 @@
 # [*db_name*]
 #   The database name to use in DATABASE_URL.
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run
 #   Default: undef
@@ -39,8 +33,6 @@ class govuk::apps::bouncer(
   $db_hostname = '',
   $db_name = 'transition_production',
   $port,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,
 ) {
 
@@ -57,8 +49,6 @@ class govuk::apps::bouncer(
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
     enable_nginx_vhost       => false,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     unicorn_worker_processes => $unicorn_worker_processes,
   }
 

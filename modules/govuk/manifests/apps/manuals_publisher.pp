@@ -71,12 +71,6 @@
 #   The bearer token that will be used to authenticate with link-checker-api
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   The threshold that memory must be reached to be triggered as a warning
-#
-# [*nagios_memory_critical*]
-#   The threshold that memory must be reached to be triggered as a critical issue
-#
 class govuk::apps::manuals_publisher(
   $ensure = 'present',
   $port,
@@ -96,23 +90,19 @@ class govuk::apps::manuals_publisher(
   $secret_key_base = undef,
   $link_checker_api_secret_token = undef,
   $link_checker_api_bearer_token = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
 ) {
   $app_name = 'manuals-publisher'
 
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
-    ensure                 => $ensure,
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    health_check_path      => '/healthcheck',
-    log_format_is_json     => true,
-    nginx_extra_config     => 'client_max_body_size 500m;',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
+    ensure             => $ensure,
+    app_type           => 'rack',
+    port               => $port,
+    sentry_dsn         => $sentry_dsn,
+    health_check_path  => '/healthcheck',
+    log_format_is_json => true,
+    nginx_extra_config => 'client_max_body_size 500m;',
   }
 
   govuk::procfile::worker {'manuals-publisher':

@@ -25,12 +25,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
@@ -43,8 +37,6 @@ class govuk::apps::collections(
   $unicorn_worker_processes = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $email_alert_api_bearer_token = undef,
   $memcache_servers = undef,
 ) {
@@ -58,8 +50,6 @@ class govuk::apps::collections(
     asset_pipeline           => true,
     asset_pipeline_prefixes  => ['assets/collections'],
     vhost                    => $vhost,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     sentry_dsn               => $sentry_dsn,
   }
 

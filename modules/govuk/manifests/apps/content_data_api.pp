@@ -136,8 +136,6 @@ class govuk::apps::content_data_api(
     read_timeout                    => 60,
     additional_check_contact_groups => ['slack-channel-data-informed'],
     unicorn_worker_processes        => 4,
-    nagios_memory_warning           => 1200,
-    nagios_memory_critical          => 1500,
   }
 
   Govuk::App::Envvar {

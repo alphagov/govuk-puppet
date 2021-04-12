@@ -1,8 +1,6 @@
 ---
 govuk::apps::whitehall::asset_host: "%{hiera('govuk::deploy::config::website_root')}"
 govuk::apps::whitehall::configure_frontend: true
-govuk::apps::whitehall::nagios_memory_warning: 10737
-govuk::apps::whitehall::nagios_memory_critical: 12884
 govuk::apps::whitehall::vhost: 'whitehall-frontend'
 govuk::apps::whitehall::vhost_protected: false
 

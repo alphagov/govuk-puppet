@@ -41,12 +41,6 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*unicorn_worker_processes*]
 #   The number of unicorn worker processes to run
 #   Default: undef
@@ -63,8 +57,6 @@ class govuk::apps::imminence(
   $oauth_id = undef,
   $oauth_secret = undef,
   $secret_key_base = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $unicorn_worker_processes = undef,
   $app_domain = undef,
 ) {
@@ -85,8 +77,6 @@ class govuk::apps::imminence(
     health_check_path        => '/',
     log_format_is_json       => true,
     asset_pipeline           => true,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     unicorn_worker_processes => $unicorn_worker_processes,
     read_timeout             => 60,
   }
