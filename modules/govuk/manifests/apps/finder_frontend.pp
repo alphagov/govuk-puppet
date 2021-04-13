@@ -9,12 +9,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions.
 #
@@ -27,8 +21,6 @@
 class govuk::apps::finder_frontend(
   $port,
   $enabled = false,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $sentry_dsn = undef,
   $secret_key_base = undef,
   $email_alert_api_bearer_token = undef,
@@ -46,8 +38,6 @@ class govuk::apps::finder_frontend(
       log_format_is_json             => true,
       asset_pipeline                 => true,
       asset_pipeline_prefixes        => ['assets/finder-frontend'],
-      nagios_memory_warning          => $nagios_memory_warning,
-      nagios_memory_critical         => $nagios_memory_critical,
       alert_when_file_handles_exceed => 4000,
       unicorn_worker_processes       => $unicorn_worker_processes,
       cpu_warning                    => 175,

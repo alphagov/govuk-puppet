@@ -33,12 +33,6 @@
 #   Environment specific name used when sending emails.
 #   Default: undef
 #
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
 # [*port*]
 #   The port that it is served on.
 #
@@ -82,8 +76,6 @@ class govuk::apps::signon(
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $instance_name = undef,
-  $nagios_memory_critical = undef,
-  $nagios_memory_warning = undef,
   $port,
   $redis_host = undef,
   $redis_port = undef,
@@ -108,8 +100,6 @@ class govuk::apps::signon(
     asset_pipeline           => true,
     deny_framing             => true,
     log_format_is_json       => true,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     unicorn_worker_processes => $unicorn_worker_processes,
   }
 

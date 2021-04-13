@@ -69,12 +69,6 @@
 #   The credentials to use to fetch data from BigQuery
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*spelling_dependencies*]
 #   Install the spelling package dependencies
 #
@@ -131,8 +125,6 @@ class govuk::apps::search_api(
   $rabbitmq_password = 'search-api',
   $redis_host = undef,
   $redis_port = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $spelling_dependencies = 'present',
   $elasticsearch_hosts = undef,
   $unicorn_worker_processes = undef,
@@ -166,8 +158,6 @@ class govuk::apps::search_api(
     nginx_extra_config             => '
     client_max_body_size 500m;
     ',
-    nagios_memory_warning          => $nagios_memory_warning,
-    nagios_memory_critical         => $nagios_memory_critical,
     unicorn_worker_processes       => $unicorn_worker_processes,
     alert_when_file_handles_exceed => 4000,
   }

@@ -143,24 +143,6 @@
 # possible number of "special cases". As such, use of this option is
 # discouraged, and it is included for backwards compatibility purposes only.
 #
-#
-# [*nagios_memory_warning*]
-# memory use at which Nagios should generate a warning
-#
-# This parameter is used to change the threshold of the exported nagios
-# memory check. It defaults to 2GB for a warning and does not generally
-# need to be altered. Default is `undef` so we can explicitly pass `undef`
-# to use the default value.
-#
-#
-# [*nagios_memory_critical*]
-# memory use at which Nagios should generate a critical
-#
-# This parameter is used to change the threshold of the exported nagios
-# memory check. It defaults to 3GB for a critical and does not generally
-# need to be altered. Default is `undef` so we can explicitly pass `undef`
-# to use the default value.
-#
 # [*alert_5xx_warning_rate*]
 # the 5xx error percentage that should generate a warning
 #
@@ -288,8 +270,6 @@ define govuk::app (
   $nginx_extra_config = '',
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $unicorn_herder_timeout = undef,
   $asset_pipeline = false,
   $asset_pipeline_prefixes = ['assets'],
@@ -373,8 +353,6 @@ define govuk::app (
     check_period                        => $check_period,
     deny_framing                        => $deny_framing,
     enable_nginx_vhost                  => $enable_nginx_vhost,
-    nagios_memory_warning               => $nagios_memory_warning,
-    nagios_memory_critical              => $nagios_memory_critical,
     alert_5xx_warning_rate              => $alert_5xx_warning_rate,
     alert_5xx_critical_rate             => $alert_5xx_critical_rate,
     unicorn_herder_timeout              => $unicorn_herder_timeout,

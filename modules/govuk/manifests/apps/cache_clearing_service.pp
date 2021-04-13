@@ -31,12 +31,6 @@
 #   The region in AWS the app is running in.
 #   Default: eu-west-1
 #
-# [*nagios_memory_warning*]
-#   The threshold that memory must be reached to be triggered as a warning
-#
-# [*nagios_memory_critical*]
-#   The threshold that memory must be reached to be triggered as a critical issue
-#
 class govuk::apps::cache_clearing_service (
   $enabled = false,
   $sentry_dsn = undef,
@@ -45,8 +39,6 @@ class govuk::apps::cache_clearing_service (
   $rabbitmq_password = 'cache_clearing_service',
   $puppetdb_node_url = undef,
   $aws_region = 'eu-west-1',
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
 ) {
   $ensure = $enabled ? {
     true  => 'present',
@@ -62,8 +54,6 @@ class govuk::apps::cache_clearing_service (
     sentry_dsn                => $sentry_dsn,
     command                   => 'bundle exec foreman start',
     collectd_process_regex    => 'cache-clearing-service/.*rake message_queue:consumer',
-    nagios_memory_warning     => $nagios_memory_warning,
-    nagios_memory_critical    => $nagios_memory_critical,
     alert_when_threads_exceed => 250,
   }
 

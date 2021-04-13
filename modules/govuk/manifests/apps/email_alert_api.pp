@@ -73,12 +73,6 @@
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -113,8 +107,6 @@ class govuk::apps::email_alert_api(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $publishing_api_bearer_token = undef,
 ) {
 
@@ -132,8 +124,6 @@ class govuk::apps::email_alert_api(
     health_check_path        => '/healthcheck',
     json_health_check        => true,
     unicorn_worker_processes => $unicorn_worker_processes,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

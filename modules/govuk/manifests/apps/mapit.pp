@@ -47,8 +47,6 @@ class govuk::apps::mapit (
       port                               => $port,
       vhost_ssl_only                     => true,
       health_check_path                  => '/',
-      nagios_memory_warning              => 1200,
-      nagios_memory_critical             => 2000,
       log_format_is_json                 => false,
       sentry_dsn                         => $sentry_dsn,
       monitor_unicornherder              => true,

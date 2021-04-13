@@ -32,12 +32,6 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-# [*nagios_memory_warning*]
-#   Memory use, in MB, at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use, in MB, at which Nagios should generate a critical alert.
-#
 # [*proxy_http_version_1_1_enabled*]
 #   Boolean, whether to enable HTTP/1.1 for proxying from the Nginx vhost
 #   to the app server.
@@ -103,8 +97,6 @@ define govuk::app::config (
   $deny_framing = false,
   $enable_nginx_vhost = true,
   $unicorn_herder_timeout = 'NOTSET',
-  $nagios_memory_warning = 700,
-  $nagios_memory_critical = 800,
   $alert_5xx_warning_rate = 0.05,
   $alert_5xx_critical_rate = 0.1,
   $asset_pipeline = false,
@@ -133,17 +125,6 @@ define govuk::app::config (
     'present' => 'file',
     'absent'  => 'absent',
   }
-
-  # Check memory thresholds are approximately right
-  validate_integer($nagios_memory_warning, 20000, 100)
-  validate_integer($nagios_memory_critical, 22000, 200)
-
-  # Use the International System of Units (SI) value of 1 million bytes in a MB
-  # as it makes it simpler to evaluate memory usage when looking at our
-  # metrics, which record memory usage in bytes
-  $si_megabyte = 1000000
-  $nagios_memory_warning_real = $nagios_memory_warning * $si_megabyte
-  $nagios_memory_critical_real = $nagios_memory_critical * $si_megabyte
 
   # Ensure config dir exists
   file { "/etc/govuk/${title}":
@@ -315,18 +296,6 @@ define govuk::app::config (
       desc           => "high CPU usage for ${title} app",
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
-    }
-    @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-      ensure                     => $ensure,
-      target                     => "movingMedian(${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss,\"5min\")",
-      warning                    => $nagios_memory_warning_real,
-      critical                   => $nagios_memory_critical_real,
-      desc                       => "high memory for ${title} app",
-      host_name                  => $::fqdn,
-      event_handler              => "govuk_app_high_memory!${title}",
-      notes_url                  => monitoring_docs_url(high-memory-for-application),
-      attempts_before_hard_state => 3,
-      contact_groups             => $additional_check_contact_groups,
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":

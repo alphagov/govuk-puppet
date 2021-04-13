@@ -73,12 +73,6 @@
 #   The S3 Bucket for AWS to access.
 #   Default: undef
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*redis_host*]
 #   Redis host for sidekiq.
 #
@@ -115,8 +109,6 @@ class govuk::apps::specialist_publisher(
   $aws_secret_access_key = undef,
   $aws_s3_bucket_name = undef,
   $aws_region = undef,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $redis_host = undef,
   $redis_port = undef,
   $secret_key_base = undef,
@@ -132,19 +124,15 @@ class govuk::apps::specialist_publisher(
   }
 
   govuk::app { $app_name:
-    ensure                 => $ensure,
-    app_type               => 'rack',
-    port                   => $port,
-    sentry_dsn             => $sentry_dsn,
-    health_check_path      => '/healthcheck',
-    json_health_check      => true,
-    log_format_is_json     => true,
-    nginx_extra_config     => '
-client_max_body_size 500m;
-',
-    nagios_memory_warning  => $nagios_memory_warning,
-    nagios_memory_critical => $nagios_memory_critical,
-    asset_pipeline         => true,
+    ensure             => $ensure,
+    app_type           => 'rack',
+    port               => $port,
+    sentry_dsn         => $sentry_dsn,
+    health_check_path  => '/healthcheck',
+    json_health_check  => true,
+    log_format_is_json => true,
+    nginx_extra_config => 'client_max_body_size 500m;',
+    asset_pipeline     => true,
   }
 
   govuk::procfile::worker { $app_name:

@@ -56,12 +56,6 @@
 #   Boolean to turn on active highlighting of words to avoid.
 #   Default: false
 #
-# [*nagios_memory_warning*]
-#   Memory use at which Nagios should generate a warning.
-#
-# [*nagios_memory_critical*]
-#   Memory use at which Nagios should generate a critical alert.
-#
 # [*oauth_id*]
 #   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #   Default: undef
@@ -170,8 +164,6 @@ class govuk::apps::whitehall(
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
   $highlight_words_to_avoid = false,
-  $nagios_memory_warning = undef,
-  $nagios_memory_critical = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $port,
@@ -229,8 +221,6 @@ class govuk::apps::whitehall(
     json_health_check        => true,
     depends_on_nfs           => true,
     enable_nginx_vhost       => false,
-    nagios_memory_warning    => $nagios_memory_warning,
-    nagios_memory_critical   => $nagios_memory_critical,
     unicorn_herder_timeout   => 45,
     require                  => Package['unzip'],
     unicorn_worker_processes => $unicorn_worker_processes,
