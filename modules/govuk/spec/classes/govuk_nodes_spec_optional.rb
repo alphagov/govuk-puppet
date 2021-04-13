@@ -10,10 +10,6 @@ require_relative '../../../../spec_helper'
 
 hosting = ENV['hosting']
 case hosting
-when 'carrenza'
-  hiera_yml_name = 'hiera.yml'
-  datadir = 'hieradata'
-  aws_migration = false
 when 'aws'
   hiera_yml_name = 'hiera_aws.yml'
   datadir = 'hieradata_aws'

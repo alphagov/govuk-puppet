@@ -4,7 +4,7 @@
     tokens etc.) within Puppet. To do so means that even if you specify that a
     secret applies to one particular environment it is available on the
     PuppetMaster for every environment. It is good practise to store
-    secrets in the `govuk-secrets` repo at `puppet/hieradata/${environment}.yaml`.
+    secrets in the `govuk-secrets` repo at `puppet/hieradata_aws/${environment}.yaml`.
     Please make sure where necessary you have different secrets for each value.
 
 -   **Per-environment switches**. The Puppet repo should not know the

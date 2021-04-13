@@ -5,34 +5,6 @@ require 'rspec/core/rake_task'
 desc "Use the basic rspec rake task with no options WARNING: slow"
 RSpec::Core::RakeTask.new(:rspec_basic_mode)
 
-CARRENZA_EXCLUDED_NODE_CLASSES = %w[
-  apt
-  bouncer
-  cache
-  calculators_frontend
-  ci_agent
-  ci_master
-  ckan
-  content_data_api_db_admin
-  content_store
-  db_admin
-  draft_cache
-  draft_content_store
-  draft_frontend
-  email_alert_api
-  frontend
-  gatling
-  licensing_frontend
-  licensing_backend
-  mapit
-  mirrorer
-  mongo
-  publishing_api
-  router_backend
-  search
-  transition_db_admin
-]
-
 AWS_EXCLUDED_NODE_CLASSES = %w[
   api_lb
   api_mongo
@@ -96,13 +68,11 @@ namespace :spec do
 
     node_classes = get_node_classes
 
-    carrenza_node_classes = node_classes - CARRENZA_EXCLUDED_NODE_CLASSES
     aws_node_classes = node_classes - AWS_EXCLUDED_NODE_CLASSES
 
     NUM_PROCESSES = [
       Facter.value('processorcount').to_i,
       (
-        carrenza_node_classes.length +
         aws_node_classes.length
       )
     ].min
@@ -110,7 +80,6 @@ namespace :spec do
     exit_status = true
     [
       ['aws', aws_node_classes],
-      ['carrenza', carrenza_node_classes]
     ].each do |(hosting, hosting_node_classes)|
       pids = []
       spec_file = File.expand_path('../../../modules/govuk/spec/classes/govuk_nodes_spec_optional.rb', __FILE__)
