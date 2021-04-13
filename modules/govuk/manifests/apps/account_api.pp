@@ -46,6 +46,9 @@
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
 #
+# [*session_signing_key*]
+#   Secret key to sign user session data with
+#
 class govuk::apps::account_api (
   $port,
   $enabled = true,
@@ -61,6 +64,7 @@ class govuk::apps::account_api (
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $plek_account_manager_uri = undef,
+  $session_signing_key = undef,
 ) {
   $app_name = 'account-api'
 
@@ -108,6 +112,9 @@ class govuk::apps::account_api (
     "${title}-PLEK-ACCOUNT-MANAGER-URI":
         varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
         value   => $plek_account_manager_uri;
+    "${title}-SESSION_SIGNING_KEY":
+        varname => 'SESSION_SIGNING_KEY',
+        value   => $session_signing_key;
   }
 
   govuk::app::envvar::database_url { $app_name:
