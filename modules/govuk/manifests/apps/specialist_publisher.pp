@@ -131,7 +131,7 @@ class govuk::apps::specialist_publisher(
     health_check_path  => '/healthcheck',
     json_health_check  => true,
     log_format_is_json => true,
-    nginx_extra_config => 'client_max_body_size 500m;',
+    nginx_extra_config => template('govuk/specialist_publisher_nginx_extra.conf.erb'),
     asset_pipeline     => true,
   }
 

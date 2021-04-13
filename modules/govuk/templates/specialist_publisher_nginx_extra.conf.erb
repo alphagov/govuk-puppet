@@ -1,0 +1,7 @@
+client_max_body_size 500m;
+
+# Extended timeout to allow the processing of large attachments
+location ~* attachments {
+  proxy_read_timeout 30s;
+  proxy_pass http://specialist-publisher-proxy;
+}
