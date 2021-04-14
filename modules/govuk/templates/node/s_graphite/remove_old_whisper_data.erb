@@ -5,7 +5,6 @@ whisper_dir='<%= @graphite_path %>/storage/whisper'
 # Delete files which haven't been modified in over 2 years
 find $whisper_dir -type f -mtime +730 -delete
 
-<%- if scope.lookupvar('::aws_migration') %>
 # Delete directories where none of the files inside have been modified in the
 # last 14 days. This effectively removes stats about machines which no longer
 # exist.
@@ -22,7 +21,6 @@ for dir in stats/timers stats_counts; do
     fi
   done
 done
-<% end -%>
 
 # Delete empty directories
 find $whisper_dir -type d -empty -delete
