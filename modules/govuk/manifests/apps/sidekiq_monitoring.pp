@@ -224,11 +224,7 @@ class govuk::apps::sidekiq_monitoring (
   $app_name = 'sidekiq-monitoring'
   $app_domain = hiera('app_domain')
 
-  if $::aws_migration {
-    $full_domain = $app_name
-  } else {
-    $full_domain = "${app_name}.${app_domain}"
-  }
+  $full_domain = $app_name
 
   if $nginx_location == undef {
     $nginx_location_path = "/data/vhost/${full_domain}/current/public"

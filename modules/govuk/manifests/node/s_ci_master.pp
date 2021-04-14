@@ -16,11 +16,9 @@ class govuk::node::s_ci_master inherits govuk::node::s_base {
     require => Nginx::Config::Ssl['jenkins'],
   }
 
-  if $::aws_migration {
-    # Close connection if vhost not known
-    nginx::config::vhost::default { 'default':
-      status         => '444',
-      status_message => '',
-    }
+  # Close connection if vhost not known
+  nginx::config::vhost::default { 'default':
+    status         => '444',
+    status_message => '',
   }
 }

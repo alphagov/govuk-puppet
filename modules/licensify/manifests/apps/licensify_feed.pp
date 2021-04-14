@@ -36,11 +36,7 @@ class licensify::apps::licensify_feed(
   $ws_accept_any_certificate = false,
 ) inherits licensify::apps::base {
 
-  if $::aws_migration {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-feed\/.*'
-  } else {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-feed\..*publishing\.service\.gov\.uk\/licensify-feed-.*'
-  }
+  $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-feed\/.*'
 
   govuk::app { 'licensify-feed':
     app_type                       => 'procfile',
@@ -63,21 +59,15 @@ class licensify::apps::licensify_feed(
   licensify::build_clean { 'licensify-feed': }
 
 
-  if $::aws_migration {
-    # On AWS we need Puppet to create the app's config files (whereas on
-    # Carrenza/UKCloud the deploy.sh script copies them verbatim from the
-    # legacy alphagov-deployments private repo).
+  include licensify::apps::configfile
+  include licensify::apps::certs
 
-    include licensify::apps::configfile
-    include licensify::apps::certs
-
-    file { '/etc/licensing/gds-licensify-feed-config.conf':
-      ensure  => file,
-      content => template('licensify/gds-licensify-feed-config.conf.erb'),
-      mode    => '0644',
-      owner   => 'deploy',
-      group   => 'deploy',
-      notify  => Service['licensify-feed'],
-    }
+  file { '/etc/licensing/gds-licensify-feed-config.conf':
+    ensure  => file,
+    content => template('licensify/gds-licensify-feed-config.conf.erb'),
+    mode    => '0644',
+    owner   => 'deploy',
+    group   => 'deploy',
+    notify  => Service['licensify-feed'],
   }
 }

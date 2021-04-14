@@ -15,15 +15,8 @@ class govuk_testing_tools {
     ensure => installed;
   }
 
-  if $::aws_migration {
-    package { 'brakeman':
-      ensure   => '3.4.1',
-      provider => system_gem,
-    }
-  } else {
-    package { 'brakeman':
-      ensure   => 'installed',
-      provider => system_gem,
-    }
+  package { 'brakeman':
+    ensure   => '3.4.1',
+    provider => system_gem,
   }
 }

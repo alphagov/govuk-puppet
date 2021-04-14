@@ -36,12 +36,6 @@ define govuk_mysql::user (
     password_hash => $password_hash,
   }
 
-  # only depend on a local mysql in non-aws environments (as we use RDS there)
-  if ! $::aws_migration {
-    Mysql_user[$name] {
-      require => Class['govuk_mysql::server'],
-    }
-  }
 
   if $ensure == 'present' {
     mysql_grant { "${name}/${table}":
@@ -49,12 +43,6 @@ define govuk_mysql::user (
       user       => $name,
       table      => $table,
       privileges => $privileges,
-    }
-
-    if ! $::aws_migration {
-      Mysql_grant["${name}/${table}"] {
-        require => Class['govuk_mysql::server'],
-      }
     }
   }
 }

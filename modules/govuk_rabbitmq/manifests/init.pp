@@ -17,7 +17,6 @@ class govuk_rabbitmq (
 
   include govuk_rabbitmq::repo
 
-  if $::aws_migration {
     package { 'urllib3':
       ensure   => '1.25.3',
       provider => pip,
@@ -27,7 +26,6 @@ class govuk_rabbitmq (
       ensure   => '2.22.0',
       provider => pip,
     }
-  }
 
   class { 'rabbitmq':
     manage_repos => false,
@@ -37,7 +35,7 @@ class govuk_rabbitmq (
     ensure => present,
   }
 
-  if $::aws_migration and $aws_clustering {
+  if $aws_clustering {
     staging::file { 'autocluster-0.8.0.ez':
       target => "/usr/lib/rabbitmq/lib/rabbitmq_server-${::rabbitmq_version}/plugins/autocluster-0.8.0.ez",
       source => 'https://github.com/rabbitmq/rabbitmq-autocluster/releases/download/0.8.0/autocluster-0.8.0.ez',

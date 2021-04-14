@@ -81,11 +81,9 @@ class users (
     include $pentest_user_classes
   }
 
-  if $::aws_migration {
-    $licensify_hostname = sprintf('%s', $::govuk_node_class)
-    if ($licensify_hostname in $licensify_machines) {
-      $licensify_user_classes = regsubst($licensify_usernames, '^', 'users::')
-      include $licensify_user_classes
-    }
+  $licensify_hostname = sprintf('%s', $::govuk_node_class)
+  if ($licensify_hostname in $licensify_machines) {
+    $licensify_user_classes = regsubst($licensify_usernames, '^', 'users::')
+    include $licensify_user_classes
   }
 }

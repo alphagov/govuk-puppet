@@ -56,43 +56,33 @@ class icinga::config (
     mode   => undef,
   }
 
-  if $::aws_migration {
-    cron { 'remove_old_icinga_archived_files':
-      ensure  => 'absent',
-      command => 'find /var/log/icinga/archives -mtime +14 -exec rm {} \;',
-      user    => 'nagios',
-      hour    => 1,
-      minute  => 0,
-    }
-
-    file { '/var/log/icinga':
-      ensure => directory,
-      owner  => 'nagios',
-      group  => 'adm',
-      mode   => '2755',
-    }
-
-    file { '/var/log/icinga/archives':
-      ensure => directory,
-      owner  => 'nagios',
-      group  => 'adm',
-      mode   => '2755',
-    }
-
-    file { '/etc/icinga/icinga.cfg':
-      content  => template('icinga/etc/icinga/icinga.cfg.erb'),
-    }
-
-    $graphite_url = "https://${graphite_hostname}"
-
-  } else {
-
-    file { '/etc/icinga/icinga.cfg':
-      content  => template('icinga/etc/icinga/icinga.cfg.erb'),
-    }
-
-    $graphite_url = "http://${graphite_hostname}"
+  cron { 'remove_old_icinga_archived_files':
+    ensure  => 'absent',
+    command => 'find /var/log/icinga/archives -mtime +14 -exec rm {} \;',
+    user    => 'nagios',
+    hour    => 1,
+    minute  => 0,
   }
+
+  file { '/var/log/icinga':
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'adm',
+    mode   => '2755',
+  }
+
+  file { '/var/log/icinga/archives':
+    ensure => directory,
+    owner  => 'nagios',
+    group  => 'adm',
+    mode   => '2755',
+  }
+
+  file { '/etc/icinga/icinga.cfg':
+    content  => template('icinga/etc/icinga/icinga.cfg.erb'),
+  }
+
+  $graphite_url = "https://${graphite_hostname}"
 
   file { '/etc/icinga/conf.d/check_graphite.cfg':
     content => template('icinga/check_graphite.cfg.erb'),

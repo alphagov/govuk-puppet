@@ -5,11 +5,7 @@
 class govuk_jenkins::jobs::publish_special_routes(
   $publishing_api_bearer_token = undef,
 ) {
-  if $::aws_migration {
-    $app_domain = hiera('app_domain_internal')
-  } else {
-    $app_domain = hiera('app_domain')
-  }
+  $app_domain = hiera('app_domain_internal')
 
   file { '/etc/jenkins_jobs/jobs/publish_special_routes.yaml':
     ensure  => present,

@@ -31,11 +31,7 @@ class licensify::apps::licensify_admin(
   $application_secret = undef,
 ) inherits licensify::apps::base {
 
-  if $::aws_migration {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-admin\/.*'
-  } else {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-admin\..*publishing\.service\.gov\.uk\/licensify-admin-.*'
-  }
+  $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify-admin\/.*'
 
   govuk::app { 'licensify-admin':
     app_type                       => 'procfile',
@@ -57,21 +53,15 @@ class licensify::apps::licensify_admin(
 
   licensify::build_clean { 'licensify-admin': }
 
-  if $::aws_migration {
-    # On AWS we need Puppet to create the app's config files (whereas on
-    # Carrenza/UKCloud the deploy.sh script copies them verbatim from the
-    # legacy alphagov-deployments private repo).
+  include licensify::apps::configfile
+  include licensify::apps::certs
 
-    include licensify::apps::configfile
-    include licensify::apps::certs
-
-    file { '/etc/licensing/gds-licensify-admin-config.conf':
-      ensure  => file,
-      content => template('licensify/gds-licensify-admin-config.conf.erb'),
-      mode    => '0644',
-      owner   => 'deploy',
-      group   => 'deploy',
-      notify  => Service['licensify-admin'],
-    }
+  file { '/etc/licensing/gds-licensify-admin-config.conf':
+    ensure  => file,
+    content => template('licensify/gds-licensify-admin-config.conf.erb'),
+    mode    => '0644',
+    owner   => 'deploy',
+    group   => 'deploy',
+    notify  => Service['licensify-admin'],
   }
 }

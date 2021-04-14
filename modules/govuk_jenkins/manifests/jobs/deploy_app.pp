@@ -38,9 +38,7 @@ class govuk_jenkins::jobs::deploy_app (
   $deploy_downstream = true,
   $deploy_downstream_applications = hiera('govuk_jenkins::jobs::deploy_app_downstream::applications'),
 ) {
-  if $::aws_migration {
-    $aws_deploy = true
-  }
+  $aws_deploy = true
 
   file { '/etc/jenkins_jobs/jobs/deploy_app.yaml':
     ensure  => present,

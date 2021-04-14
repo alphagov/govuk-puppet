@@ -12,8 +12,7 @@ class puppet::cronjob (
 ) {
 
   if $enabled {
-    if ((! $::aws_migration) and ($::fqdn =~ /^puppetmaster/)) or
-      (($::aws_migration) and ($::aws_migration =~ /^puppetmaster/)) {
+    if ($::aws_migration =~ /^puppetmaster/){
       $first_run = 0
       $second_run = 30
     } else {

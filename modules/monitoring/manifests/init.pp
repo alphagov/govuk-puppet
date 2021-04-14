@@ -32,9 +32,4 @@ class monitoring (
     include monitoring::pagerduty_drill
     include monitoring::uptime_collector
   }
-
-  if ! $::aws_migration {
-    include monitoring::vpn_gateways
-  }
-
 }

@@ -52,7 +52,7 @@ define govuk_mount(
     }
   }
 
-  if $::aws_migration and ($::aws_environment != 'integration') {
+  if ($::aws_environment != 'integration') {
     $graphite_app_domain = "${::aws_environment}.govuk.digital"
   }
   else {

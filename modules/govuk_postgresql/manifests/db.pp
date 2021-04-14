@@ -115,14 +115,8 @@ define govuk_postgresql::db (
 
     # We do not want to include the entire govuk_postgresql::server wrapper,
     # but require the upstream postgresql::server class to be present
-    if $::aws_migration {
-      Postgresql::Server::Db {
-        require => [Class['postgresql::server'], Postgresql::Server::Role[$user]],
-      }
-    } else {
-      Postgresql::Server::Db {
-        require => [Class['govuk_postgresql::server'], Postgresql::Server::Role[$user]],
-      }
+    Postgresql::Server::Db {
+      require => [Class['postgresql::server'], Postgresql::Server::Role[$user]],
     }
 
     @postgresql::server::db {$db_name:

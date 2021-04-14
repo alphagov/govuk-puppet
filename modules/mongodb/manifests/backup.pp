@@ -30,13 +30,6 @@ class mongodb::backup(
   $threshold_secs = 28 * 3600
   $service_desc = 'AutoMongoDB backup'
 
-  # Sanity-check that replicaset members are defined using hostnames (unless
-  # we're on AWS).
-  if ! ($::aws_migration or $::hostname in $replicaset_members) {
-    $replicaset_members_string = join($replicaset_members, ', ')
-    fail("This machine\'s hostname was not found in the list of MongoDB replicaset members: ${replicaset_members_string}")
-  }
-
   # Backups only needs to run on one member of the replicaset, since the data
   # is the same on each node
   if $::hostname == $replicaset_members[0] {

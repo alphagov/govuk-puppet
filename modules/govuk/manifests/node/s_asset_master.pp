@@ -16,15 +16,7 @@ class govuk::node::s_asset_master (
   $asset_slave_ip_ranges = {},
 ) inherits govuk::node::s_asset_base {
 
-  if $::aws_migration {
-    $cron_user = 'deploy'
-  } else {
-    include assets::ssh_private_key
-
-    create_resources('ufw::allow', $asset_slave_ip_ranges)
-
-    $cron_user = 'assets'
-  }
+  $cron_user = 'deploy'
 
   # daemontools provides setlock
   $cron_requires = [
@@ -33,38 +25,6 @@ class govuk::node::s_asset_master (
     File['/var/run/virus_scan'],
     Package['daemontools'],
   ]
-
-  unless $::aws_migration {
-    cron { 'copy-attachments-to-slaves':
-      user    => 'assets',
-      minute  => '*',
-      command => '/usr/bin/setlock /var/run/virus_scan/copy-attachments-to-slaves.lock /usr/local/bin/copy-attachments-to-slaves.sh /tmp/attachments',
-      require => $cron_requires,
-    }
-
-    # FIXME: There may be a couple of directories underneath /mnt/uploads that shouldn't be synced.
-    # Over time we should exclude directories once we know they're not required.
-    cron { 'rsync-uploads':
-      user    => 'assets',
-      hour    => $copy_attachments_hour,
-      minute  => '18',
-      command => '/usr/bin/setlock -n /var/run/virus_scan/rsync-uploads.lock /usr/local/bin/copy-attachments.sh /mnt/uploads',
-      require => $cron_requires,
-    }
-
-    @@icinga::passive_check { "copy_attachments_to_slaves_${::hostname}":
-      service_description => 'Copy attachments to asset slaves',
-      host_name           => $::fqdn,
-      freshness_threshold => 1800,
-      notes_url           => monitoring_docs_url(asset-master-attachment-processing),
-    }
-
-    @@icinga::passive_check { "full_attachments_sync_${::hostname}":
-      service_description => 'Full attachments sync',
-      host_name           => $::fqdn,
-      freshness_threshold => 100800,
-    }
-  }
 
   cron { 'process-incoming-files':
     user    => $cron_user,
