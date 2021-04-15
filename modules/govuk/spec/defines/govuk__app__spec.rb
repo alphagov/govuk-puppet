@@ -21,7 +21,7 @@ describe 'govuk::app', :type => :define do
 
     it do
       is_expected.to contain_govuk__app__package('giraffe').with(
-        'vhost_full' => 'giraffe.environment.example.com',
+        'vhost_full' => 'giraffe',
       )
       is_expected.to contain_govuk__app__config('giraffe').with(
         'domain' => 'environment.example.com',
@@ -112,20 +112,20 @@ describe 'govuk::app', :type => :define do
 
       it "collects the app production.log as plain text by default" do
         expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
-          .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.log")
+          .with_logfile("/data/vhost/#{title}/shared/log/production.log")
 
         expect(subject).to contain_filebeat__prospector("#{title}-production-log")
-          .with_paths(["/data/vhost/#{title}.environment.example.com/shared/log/production.log"])
+          .with_paths(["/data/vhost/#{title}/shared/log/production.log"])
       end
 
       it "collects the app production.json.log as JSON when requested" do
         params[:log_format_is_json] = true
 
         expect(subject).to contain_govuk_logging__logstream("#{title}-production-log")
-          .with_logfile("/data/vhost/#{title}.environment.example.com/shared/log/production.json.log")
+          .with_logfile("/data/vhost/#{title}/shared/log/production.json.log")
 
         expect(subject).to contain_filebeat__prospector("#{title}-production-log")
-          .with_paths(["/data/vhost/#{title}.environment.example.com/shared/log/production.json.log"])
+          .with_paths(["/data/vhost/#{title}/shared/log/production.json.log"])
       end
 
       describe 'app_type => bare, which logs JSON to STDERR' do
