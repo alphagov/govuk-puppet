@@ -7,16 +7,6 @@ describe 'mongodb::backup', :type => :class do
   }}
 
   describe 'whether enabled or not' do
-    context 'on a machine not defined as a member of the replicaset' do
-      let(:facts) {{
-        :hostname => 'geronimo',
-      }}
-
-      it {
-        is_expected.to raise_error(Puppet::Error, /This machine's hostname was not found in the list of MongoDB replicaset members/)
-      }
-    end
-
     context 'on a machine defined as a member of the replicaset' do
       let(:facts) {{
         :hostname => 'foo',
