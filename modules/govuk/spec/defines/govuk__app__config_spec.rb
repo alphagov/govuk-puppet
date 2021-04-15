@@ -56,7 +56,7 @@ describe 'govuk::app::config', :type => :define do
         }
       end
 
-      it { is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with_aliases(['foo.example.com','bar.example.com']) }
+      it { is_expected.to contain_nginx__config__vhost__proxy('giraffe.example.com').with_aliases(['foo','bar']) }
     end
 
     context 'without vhost' do
