@@ -34,26 +34,6 @@ class govuk::node::s_monitoring (
     include collectd::plugin::cdn_fastly
   }
 
-  if ! $::aws_migration {
-    nginx::config::vhost::proxy { 'graphite-proxy':
-      to           => ['graphite.cluster'],
-      aliases      => ['graphite.*'],
-      ssl_only     => true,
-      ssl_certtype => 'wildcard_publishing',
-      protected    => false,
-      root         => '/dev/null',
-    }
-
-    nginx::config::vhost::proxy { 'grafana-proxy':
-      to           => ['graphite.cluster'],
-      aliases      => ['grafana', 'grafana.*'],
-      ssl_only     => true,
-      ssl_certtype => 'wildcard_publishing',
-      protected    => false,
-      root         => '/dev/null',
-    }
-  }
-
   limits::limits { 'nagios_nofile':
     ensure     => present,
     user       => 'nagios',

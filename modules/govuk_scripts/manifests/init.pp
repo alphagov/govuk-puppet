@@ -33,32 +33,24 @@ class govuk_scripts {
   # govuk_node_list is a simple script that lists nodes of specified classes
   # using puppetdb. In AWS, we use tags to find the relevant hosts rather than
   # PuppetDB, except when we're searching for specific Puppet classes.
-  if $::aws_migration {
-    package { 'boto3':
-      ensure   => 'present',
-      provider => 'pip',
-    }
+  package { 'boto3':
+    ensure   => 'present',
+    provider => 'pip',
+  }
 
-    # Make sure boto3 is installed for Python3 as required by govuk_node_list_aws
-    exec { 'check_boto':
-      path    => ['/usr/bin', '/usr/sbin'],
-      command => '/usr/bin/pip3 install boto3',
-      require => Class['base::packages'],
-      unless  => 'test -d /usr/local/lib/python3.4/dist-packages/boto3',
-    }
+  # Make sure boto3 is installed for Python3 as required by govuk_node_list_aws
+  exec { 'check_boto':
+    path    => ['/usr/bin', '/usr/sbin'],
+    command => '/usr/bin/pip3 install boto3',
+    require => Class['base::packages'],
+    unless  => 'test -d /usr/local/lib/python3.4/dist-packages/boto3',
+  }
 
-    $app_domain_internal = hiera('app_domain_internal')
+  $app_domain_internal = hiera('app_domain_internal')
 
-    file { '/usr/local/bin/govuk_node_list':
-      ensure  => present,
-      content => template('govuk_scripts/govuk_node_list_aws.erb'),
-      mode    => '0755',
-    }
-  } else {
-    file { '/usr/local/bin/govuk_node_list':
-      ensure => present,
-      source => 'puppet:///modules/govuk_scripts/usr/local/bin/govuk_node_list',
-      mode   => '0755',
-    }
+  file { '/usr/local/bin/govuk_node_list':
+    ensure  => present,
+    content => template('govuk_scripts/govuk_node_list_aws.erb'),
+    mode    => '0755',
   }
 }

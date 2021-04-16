@@ -9,7 +9,7 @@ describe 'nginx::config::vhost::redirect', :type => :define do
     }}
 
     it { is_expected.to contain_nginx__config__site('gruffalo.example.com').with(
-      :content => /^\s+server_name gruffalo\.example\.com;$/
+	    :content => /^\s+server_name gruffalo\.example\.com\ gruffalo\.example\.com\.\*;$/
     )}
     it { is_expected.to contain_nginx__config__site('gruffalo.example.com').with(
       :content => /^\s+rewrite \^\/\(\.\*\)\ https:\/\/mouse\.example\.com\/\$1 permanent;$/

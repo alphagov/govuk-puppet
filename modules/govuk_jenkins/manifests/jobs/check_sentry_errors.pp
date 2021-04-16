@@ -15,7 +15,7 @@ class govuk_jenkins::jobs::check_sentry_errors (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  if $::aws_migration and ($::aws_environment != 'integration') {
+  if ($::aws_environment != 'integration') {
     $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
   }
   else {

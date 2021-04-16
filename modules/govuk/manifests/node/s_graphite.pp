@@ -87,13 +87,8 @@ class govuk::node::s_graphite (
   add_header "Access-Control-Allow-Headers" "origin, authorization, accept";
 '
 
-  if $::aws_migration {
-    nginx::config::vhost::default { 'default': }
-
-    $graphite_aliases = undef
-  } else {
-    $graphite_aliases = ['graphite.*', 'ci-graphite.*']
-  }
+  nginx::config::vhost::default { 'default': }
+  $graphite_aliases = undef
 
   nginx::config::vhost::proxy { 'graphite':
     to           => ['localhost:33333'],
@@ -120,72 +115,32 @@ class govuk::node::s_graphite (
   }
 
   ## Backing up whisper database directly to S3 using the whisper-backup script
-  if $::aws_migration {
-    apt::source { 'whisper-backup':
-      ensure       => present,
-      location     => "http://${apt_mirror_hostname}/whisper-backup",
-      release      => $::lsbdistcodename,
-      architecture => $::architecture,
-      key          => $apt_mirror_gpg_key_fingerprint,
-    }
+  apt::source { 'whisper-backup':
+    ensure       => present,
+    location     => "http://${apt_mirror_hostname}/whisper-backup",
+    release      => $::lsbdistcodename,
+    architecture => $::architecture,
+    key          => $apt_mirror_gpg_key_fingerprint,
+  }
 
-    package { 'whisper-backup':
-      ensure  => installed,
-      require => Apt::Source['whisper-backup'],
-    }
+  package { 'whisper-backup':
+    ensure  => installed,
+    require => Apt::Source['whisper-backup'],
+  }
 
-    package { 'python-snappy':
-      ensure => installed,
-    }
+  package { 'python-snappy':
+    ensure => installed,
+  }
 
-    $s3_database_backups_bucket = "govuk-${::aws_environment}-database-backups"
-    $source_path = "${graphite_path}/storage/whisper/"
-    $destination_path = '/whisper/'
-    $s3_backup_cmd = "whisper-backup -a sz -b ${s3_database_backups_bucket} -p ${source_path} --storage-path=${destination_path} backup s3 eu-west-1"
+  $s3_database_backups_bucket = "govuk-${::aws_environment}-database-backups"
+  $source_path = "${graphite_path}/storage/whisper/"
+  $destination_path = '/whisper/'
+  $s3_backup_cmd = "whisper-backup -a sz -b ${s3_database_backups_bucket} -p ${source_path} --storage-path=${destination_path} backup s3 eu-west-1"
 
-    cron::crondotdee { 'backup_whisper_database_to_s3':
-      command => $s3_backup_cmd,
-      hour    => $graphite_backup_hour,
-      minute  => 5,
-    }
-  } else {
-
-      ## Make compressed archives of Whisper data to backup off-box rather than
-      ## backing up the raw files
-      file { '/usr/local/bin/govuk_backup_graphite_whisper_files':
-        ensure => present,
-        source => 'puppet:///modules/govuk/usr/local/bin/govuk_backup_graphite_whisper_files',
-        mode   => '0755',
-      }
-
-      file { '/usr/local/bin/govuk_delete_ephemeral_interface_data':
-        ensure => present,
-        source => 'puppet:///modules/govuk/usr/local/bin/govuk_delete_ephemeral_interface_data',
-        mode   => '0755',
-      }
-
-      package { 'pigz':
-        ensure => installed,
-      }
-
-      file { '/opt/graphite/storage/backups':
-        ensure => 'directory',
-        owner  => 'govuk-backup',
-        group  => 'govuk-backup',
-        mode   => '0770',
-      }
-
-      cron::crondotdee { 'create_compressed_archive_of_whisper_data':
-        command => '/usr/local/bin/govuk_backup_graphite_whisper_files',
-        hour    => $graphite_backup_hour,
-        minute  => 45,
-      }
-
-      cron::crondotdee { 'delete_ephemeral_interface_data_from_ci_agents':
-        command => '/usr/local/bin/govuk_delete_ephemeral_interface_data',
-        hour    => $graphite_backup_hour,
-        minute  => 30,
-      }
+  cron::crondotdee { 'backup_whisper_database_to_s3':
+    command => $s3_backup_cmd,
+    hour    => $graphite_backup_hour,
+    minute  => 5,
   }
 
   include grafana

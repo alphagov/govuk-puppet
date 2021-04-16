@@ -16,15 +16,9 @@ class govuk_jenkins::jobs::data_sync_complete_staging (
   $auth_token = undef,
   $signon_domains_to_migrate = [],
 ) {
-  if $::aws_migration {
-    $aws = true
+  $aws = true
 
-    $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/Data_Sync_Complete"
-  } else {
-    $aws = false
-
-    $job_url = "https://deploy.${::app_domain}/job/Data_Sync_Complete"
-  }
+  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/Data_Sync_Complete"
 
   $check_name = 'data_sync_complete'
   $service_description = 'Data Sync Complete'

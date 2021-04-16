@@ -12,12 +12,6 @@ class assets (
   $mount_asset_master = true,
   ) {
 
-  unless $::aws_migration {
-    include assets::user
-
-    Class['assets::user'] -> File['/data/uploads']
-  }
-
   package { 'nfs-common':
     ensure => installed,
   }
@@ -38,12 +32,8 @@ class assets (
   if $mount_asset_master {
     $app_domain = hiera('app_domain')
 
-    if $::aws_migration {
-      $app_domain_internal = hiera('app_domain_internal')
-      $mount_point = "assets.${app_domain_internal}:/"
-    } else {
-      $mount_point = "asset-master.${app_domain}:/mnt/uploads"
-    }
+    $app_domain_internal = hiera('app_domain_internal')
+    $mount_point = "assets.${app_domain_internal}:/"
 
     mount { '/data/uploads':
       ensure   => 'mounted',

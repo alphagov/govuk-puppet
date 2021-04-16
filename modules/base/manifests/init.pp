@@ -39,10 +39,6 @@ class base (
   include ntp
   include puppet
 
-  if ! $::aws_migration {
-    include resolvconf
-  }
-
   include ssh
   include timezone
   include tmpreaper
@@ -52,18 +48,16 @@ class base (
 
   ensure_packages([ 'gcc', 'build-essential' ])
 
-  if $::aws_migration {
-    file { '/etc/motd':
-      ensure  => 'present',
-      content => template('base/motd.erb'),
-    }
+  file { '/etc/motd':
+    ensure  => 'present',
+    content => template('base/motd.erb'),
+  }
 
-    include hosts::migration
-    include govuk_prometheus_node_exporter
+  include hosts::migration
+  include govuk_prometheus_node_exporter
 
-    file { '/etc/profile.d/aws_config.sh':
-      ensure  => 'present',
-      content => template('base/aws_config.erb'),
-    }
+  file { '/etc/profile.d/aws_config.sh':
+    ensure  => 'present',
+    content => template('base/aws_config.erb'),
   }
 }

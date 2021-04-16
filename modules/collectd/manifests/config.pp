@@ -31,11 +31,7 @@ class collectd::config {
     source => 'puppet:///modules/collectd/etc/collectd/conf.d/default.conf',
   }
 
-  if $::aws_migration {
-    $graphite_hostname = 'graphite'
-  } else {
-    $graphite_hostname = 'graphite.cluster'
-  }
+  $graphite_hostname = 'graphite'
 
   file { '/etc/collectd/conf.d/graphite.conf':
     ensure  => present,

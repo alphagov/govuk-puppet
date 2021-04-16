@@ -167,10 +167,6 @@ govuk_jenkins::ssh_key::public_key: 'AAAAB3NzaC1yc2EAAAADAQABAAACAQDQBl40cv64wBa
 
 govuk::node::s_asset_master::copy_attachments_hour: 11
 
-govuk::node::s_backend_lb::backend_servers:
-  - 'backend'
-govuk::node::s_backend_lb::whitehall_backend_servers:
-  - 'whitehall-backend'
 govuk::node::s_bouncer::minimum_request_rate: 0.1
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true

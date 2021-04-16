@@ -54,12 +54,7 @@ class icinga::client (
     $parents = undef
   }
 
-  if $::aws_migration {
-    # If it's in AWS, display the Puppet role and the IP address of the instance.
-    $display_name = "${::aws_migration} (${::ipaddress_eth0})"
-  } else {
-    $display_name = $::fqdn_short
-  }
+  $display_name = "${::aws_migration} (${::ipaddress_eth0})"
 
   @@icinga::host { $::fqdn:
     hostalias      => $::fqdn,

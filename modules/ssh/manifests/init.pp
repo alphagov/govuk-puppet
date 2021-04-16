@@ -31,10 +31,8 @@ class ssh {
     require => Class['ssh::firewall'],
   }
 
-  # On AWS, make sure decommissioned host keys are purged
-  if $::aws_migration {
-    resources { 'sshkey': purge => true }
-  }
+  # Make sure decommissioned host keys are purged
+  resources { 'sshkey': purge => true }
 
   # The "internally-qualified domain name" of a machine is the first two
   # components of its fully-qualified domain name. i.e. the IQDN of a machine with

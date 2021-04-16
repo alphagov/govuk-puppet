@@ -127,38 +127,31 @@ class govuk::deploy::config(
     'GOVUK_CSP_REPORT_URI': value      => $csp_report_uri;
   }
 
-  if $::aws_migration and ($::aws_environment != 'production') {
+  if ($::aws_environment != 'production') {
     govuk_envvar {
       'GOVUK_DATA_SYNC_PERIOD': value => data_sync_times('time_range');
     }
   }
 
-  if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
+  $app_domain_internal = hiera('app_domain_internal')
 
-    govuk_envvar {
-      # By default traffic should route internally
-      'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
-      'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
-    }
+  govuk_envvar {
+    # By default traffic should route internally
+    'GOVUK_APP_DOMAIN':           value => $app_domain_internal;
+    'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
+  }
 
-    # 1. Signon is still in Carrenza Staging and Production.
-    if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
-      # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
-      # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
-      # signon URL with 'draft-'. We therefore mustn't override it here, otherwise
-      # we're duplicating the resource.
-      unless $::govuk_node_class == 'draft_content_store' {
-        govuk_envvar {
-          'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
-        }
+  # 1. Signon is still in Carrenza Staging and Production.
+  if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
+    # draft_content_store overrides PLEK_SERVICE_SIGNON_URI itself because it
+    # uses PLEK_HOSTNAME_PREFIX and therefore has to avoid prefixing the
+    # signon URL with 'draft-'. We therefore mustn't override it here, otherwise
+    # we're duplicating the resource.
+    unless $::govuk_node_class == 'draft_content_store' {
+      govuk_envvar {
+        'PLEK_SERVICE_SIGNON_URI': value => "https://signon.${app_domain}";
       }
     }
-
-  } else {
-    govuk_envvar {
-      'GOVUK_APP_DOMAIN':           value => $app_domain;
-      'GOVUK_APP_DOMAIN_EXTERNAL':  value => $app_domain;
-    }
   }
+
 }

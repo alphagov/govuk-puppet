@@ -317,11 +317,7 @@ define govuk::app (
   }
 
   $app_domain = hiera('app_domain')
-  if $::aws_migration {
-    $vhost_full = $vhost_real
-  } else {
-    $vhost_full = "${vhost_real}.${app_domain}"
-  }
+  $vhost_full = $vhost_real
 
   include govuk::deploy
 

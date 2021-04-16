@@ -33,15 +33,13 @@ define nginx::config::vhost::default(
     certtype => $ssl_certtype,
   }
 
-  # On AWS, we create an (initially empty) lb_healthchecks.conf and hook it
+  # We create an (initially empty) lb_healthchecks.conf and hook it
   # into the default vhost config. App classes add healthcheck routes to that
   # file so that ALBs can reach an app's healthcheck without the ability to
   # specify the Host header.
   # See https://github.com/alphagov/govuk-aws/blob/master/doc/architecture/decisions/0037-alb-health-checks.md
-  if $::aws_migration {
-    concat { '/etc/nginx/lb_healthchecks.conf':
-      ensure => present,
-    }
+  concat { '/etc/nginx/lb_healthchecks.conf':
+    ensure => present,
   }
 
   nginx::config::site { $title:

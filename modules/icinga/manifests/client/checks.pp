@@ -57,16 +57,6 @@ class icinga::client::checks (
     notes_url           => monitoring_docs_url(low-available-disk-inodes),
   }
 
-  if ! $::aws_migration {
-    @@icinga::check { "check_boot_disk_space_${::hostname}":
-      check_command       => 'check_nrpe!check_disk_space_arg!20% 10% /boot',
-      service_description => 'low available disk space on /boot',
-      use                 => 'govuk_high_priority',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(low-available-disk-space),
-    }
-  }
-
   @@icinga::check { "check_zombies_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_zombie_procs',
     service_description => 'high zombie procs',
@@ -74,40 +64,22 @@ class icinga::client::checks (
     notes_url           => monitoring_docs_url(high-zombie-procs),
   }
 
-  if $::aws_migration or ($::aws_environment == 'integration'){
-    $grafana = "grafana.${::aws_environment}.govuk.digital"
-  } else {
-    $app_domain = hiera('app_domain')
-    $grafana = "grafana.${app_domain}"
+  $grafana = "grafana.${::aws_environment}.govuk.digital"
+
+  @icinga::nrpe_config { 'check_ssh_local':
+    source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_ssh_local.cfg',
   }
 
-  if $::aws_migration {
-    @icinga::nrpe_config { 'check_ssh_local':
-      source => 'puppet:///modules/icinga/etc/nagios/nrpe.d/check_ssh_local.cfg',
-    }
-
-    @@icinga::check { "check_ssh_${::hostname}":
-      check_command       => 'check_nrpe_1arg!check_ssh_local',
-      use                 => 'govuk_high_priority',
-      service_description => 'unable to ssh',
-      host_name           => $::fqdn,
-    }
-  } else {
-    @@icinga::check { "check_ssh_${::hostname}":
-      check_command       => 'check_ssh',
-      use                 => 'govuk_high_priority',
-      service_description => 'unable to ssh',
-      host_name           => $::fqdn,
-    }
+  @@icinga::check { "check_ssh_${::hostname}":
+    check_command       => 'check_nrpe_1arg!check_ssh_local',
+    use                 => 'govuk_high_priority',
+    service_description => 'unable to ssh',
+    host_name           => $::fqdn,
   }
 
   # In vCloud, disk names begin with sd, whereas in AWS they begin with either
   # xvd or nvm, hence the regex.
-  if $::aws_migration {
-    $disk_prefix = '{xvd*,nvm*}'
-  } else {
-    $disk_prefix = 'sd'
-  }
+  $disk_prefix = '{xvd*,nvm*}'
 
   @@icinga::check { "check_ntp_time_${::hostname}":
     check_command       => 'check_nrpe_1arg!check_ntp_time',

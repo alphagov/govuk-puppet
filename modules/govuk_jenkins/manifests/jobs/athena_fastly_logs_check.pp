@@ -26,7 +26,7 @@ class govuk_jenkins::jobs::athena_fastly_logs_check (
   $databases = ['govuk_www', 'govuk_assets'],
   $s3_results_bucket = undef,
 ) {
-  if $::aws_migration and ($::aws_environment != 'integration') {
+  if ($::aws_environment != 'integration') {
     $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
   }
   else {

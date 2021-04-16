@@ -60,24 +60,15 @@ class nginx (
     notes_url           => monitoring_docs_url(check-process-running),
   }
 
-  if $::aws_migration {
-    @icinga::nrpe_config { 'check_http_local':
-      source => 'puppet:///modules/nginx/etc/nagios/nrpe.d/check_http_local.cfg',
-    }
+  @icinga::nrpe_config { 'check_http_local':
+    source => 'puppet:///modules/nginx/etc/nagios/nrpe.d/check_http_local.cfg',
+  }
 
-    @@icinga::check { "check_http_response_${::hostname}":
-      check_command       => 'check_nrpe!check_http_local!monitoring-vhost.test 5 10',
-      service_description => 'nginx http port unresponsive',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(check-process-running),
-    }
-  } else {
-    @@icinga::check { "check_http_response_${::hostname}":
-      check_command       => 'check_http_port!monitoring-vhost.test!5!10',
-      service_description => 'nginx http port unresponsive',
-      host_name           => $::fqdn,
-      notes_url           => monitoring_docs_url(check-process-running),
-    }
+  @@icinga::check { "check_http_response_${::hostname}":
+    check_command       => 'check_nrpe!check_http_local!monitoring-vhost.test 5 10',
+    service_description => 'nginx http port unresponsive',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(check-process-running),
   }
 
   collectd::plugin::tcpconn { 'https':

@@ -30,16 +30,7 @@ class govuk::node::s_base (
   include postfix
   include rcs
 
-  if ! $::aws_migration {
-    include hosts
-  }
-
-  if $::aws_migration {
-    $_node_class = $::aws_migration
-  } else {
-    $_hostname = regsubst($::fqdn_short, '-\d\..*$', '')
-    $_node_class = regsubst($_hostname, '-', '_', 'G')
-  }
+  $_node_class = $::aws_migration
 
   $node_class = $node_apps[$_node_class]
 
@@ -57,11 +48,7 @@ class govuk::node::s_base (
     purge_rsyslog_d => true,
   }
 
-  if $::aws_migration {
-    $logging_hostname = 'logging'
-  } else {
-    $logging_hostname = 'logging.cluster'
-  }
+  $logging_hostname = 'logging'
 
   if $log_remote {
     class { 'rsyslog::client':

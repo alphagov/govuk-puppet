@@ -42,27 +42,21 @@ class govuk::node::s_asset_base (
 ) inherits govuk::node::s_base{
   validate_string($firewall_allow_ip_range)
 
-  unless $::aws_migration {
-    include assets::user
+  $app_domain_internal = hiera('app_domain_internal')
+  $mount_point = "assets.${app_domain_internal}:/"
+
+  package { 'nfs-common':
+    ensure => 'present',
   }
 
-  if $::aws_migration {
-    $app_domain_internal = hiera('app_domain_internal')
-    $mount_point = "assets.${app_domain_internal}:/"
-
-    package { 'nfs-common':
-      ensure => 'present',
-    }
-
-    mount { '/mnt/uploads':
-      ensure   => 'mounted',
-      device   => $mount_point,
-      fstype   => 'nfs',
-      options  => 'rw,soft',
-      remounts => false,
-      atboot   => true,
-      require  => [File['/mnt/uploads'], Package['nfs-common']],
-    }
+  mount { '/mnt/uploads':
+    ensure   => 'mounted',
+    device   => $mount_point,
+    fstype   => 'nfs',
+    options  => 'rw,soft',
+    remounts => false,
+    atboot   => true,
+    require  => [File['/mnt/uploads'], Package['nfs-common']],
   }
 
   $directories = [
@@ -80,97 +74,36 @@ class govuk::node::s_asset_base (
     '/mnt/uploads/whitehall/infected',
   ]
 
-  if $::aws_migration {
-    # Ensure that /mnt/uploads dir is created before mounting to EFS, and
-    # the rest of the directories are created after mounting to the EFS share
-    file { '/mnt/uploads':
-      ensure  => directory,
-      owner   => 'deploy',
-      group   => 'deploy',
-      mode    => '0775',
-      purge   => false,
-      require => [
-        Group['deploy'],
-        User['deploy'],
-      ],
-    }
+  # Ensure that /mnt/uploads dir is created before mounting to EFS, and
+  # the rest of the directories are created after mounting to the EFS share
+  file { '/mnt/uploads':
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'deploy',
+    mode    => '0775',
+    purge   => false,
+    require => [
+      Group['deploy'],
+      User['deploy'],
+    ],
+  }
 
-    file { $directories:
-      ensure  => directory,
-      owner   => 'deploy',
-      group   => 'deploy',
-      mode    => '0775',
-      purge   => false,
-      require => [
-        Group['deploy'],
-        User['deploy'],
-        Mount['/mnt/uploads'],
-      ],
-    }
+  file { $directories:
+    ensure  => directory,
+    owner   => 'deploy',
+    group   => 'deploy',
+    mode    => '0775',
+    purge   => false,
+    require => [
+      Group['deploy'],
+      User['deploy'],
+      Mount['/mnt/uploads'],
+    ],
+  }
 
-    file { '/var/run/virus_scan':
-      ensure => directory,
-      owner  => 'deploy',
-    }
-  } else {
-    file { '/mnt/uploads':
-      ensure  => directory,
-      owner   => 'assets',
-      group   => 'assets',
-      mode    => '0775',
-      purge   => false,
-      require => [
-        Group['assets'],
-        User['assets'],
-        Govuk_mount['/mnt/uploads']
-      ],
-    }
-
-    file { $directories:
-      ensure  => directory,
-      owner   => 'assets',
-      group   => 'assets',
-      mode    => '0775',
-      purge   => false,
-      require => [
-        Group['assets'],
-        User['assets'],
-        Govuk_mount['/mnt/uploads']
-      ],
-    }
-
-    file { '/var/run/virus_scan':
-      ensure => directory,
-      owner  => 'assets',
-    }
-
-    file { '/etc/exports':
-      ensure  => present,
-      owner   => 'root',
-      group   => 'root',
-      mode    => '0644',
-      content => '/mnt/uploads     10.0.0.0/8(rw,fsid=0,insecure,no_subtree_check,async,all_squash,anonuid=2900,anongid=2900)',
-      require => File['/mnt/uploads'],
-      notify  => Service['nfs-kernel-server'],
-    }
-
-    ufw::allow { 'Allow all access from backend machines':
-      from => $firewall_allow_ip_range,
-    }
-
-    package { 'nfs-kernel-server':
-      ensure => installed,
-    }
-
-    service { 'nfs-kernel-server':
-      ensure    => running,
-      hasstatus => true,
-      require   => Package['nfs-kernel-server'],
-    }
-
-    collectd::plugin { 'nfs':
-      require   => Package['nfs-kernel-server'],
-    }
+  file { '/var/run/virus_scan':
+    ensure => directory,
+    owner  => 'deploy',
   }
 
   cron { 'tmpreaper-bulk-upload-zip-file-tmp':

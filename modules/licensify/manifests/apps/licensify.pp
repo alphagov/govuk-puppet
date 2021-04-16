@@ -39,11 +39,7 @@ class licensify::apps::licensify (
   $alert_5xx_critical_rate = 0.1,
 ) inherits licensify::apps::base {
 
-  if $::aws_migration {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\/.*'
-  } else {
-    $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\..*publishing\.service\.gov\.uk\/licensify-.*'
-  }
+  $collectd_process_regex = 'java -Duser.dir=\/data\/vhost\/licensify\/.*'
 
   # This is for the nginx_extra_config passed in to govuk::app. The
   # limit_req_zone can't be used within a server block, so use a
@@ -82,22 +78,16 @@ class licensify::apps::licensify (
 
   licensify::build_clean { 'licensify': }
 
-  if $::aws_migration {
-    # On AWS we need Puppet to create the app's config files (whereas on
-    # Carrenza/UKCloud the deploy.sh script copies them verbatim from the
-    # legacy alphagov-deployments private repo).
+  include licensify::apps::configfile
+  include licensify::apps::certs
 
-    include licensify::apps::configfile
-    include licensify::apps::certs
-
-    file { '/etc/licensing/gds-licensify-config.conf':
-      ensure  => file,
-      content => template('licensify/gds-licensify-config.conf.erb'),
-      mode    => '0644',
-      owner   => 'deploy',
-      group   => 'deploy',
-      notify  => Service['licensify'],
-    }
+  file { '/etc/licensing/gds-licensify-config.conf':
+    ensure  => file,
+    content => template('licensify/gds-licensify-config.conf.erb'),
+    mode    => '0644',
+    owner   => 'deploy',
+    group   => 'deploy',
+    notify  => Service['licensify'],
   }
 
   $app_domain = hiera('app_domain')
@@ -105,14 +95,7 @@ class licensify::apps::licensify (
   $vhost_escaped = regsubst($vhost_name, '\.', '_', 'G')
   $counter_basename = "${::fqdn_metrics}.nginx_logs.${vhost_escaped}"
 
-  if $::aws_migration {
-    # On AWS, we terminate TLS at the load balancer instead of at the app's
-    # nginx. licensify-upload-vhost-aws.conf avoids referring to nonexistent
-    # certificate files when running on AWS.
-    $licensify_upload_vhost_conf = 'licensify/licensify-upload-vhost-aws.conf'
-  } else {
-    $licensify_upload_vhost_conf = 'licensify/licensify-upload-vhost.conf'
-  }
+  $licensify_upload_vhost_conf = 'licensify/licensify-upload-vhost-aws.conf'
   nginx::config::ssl { $vhost_name: certtype => 'wildcard_publishing' }
   nginx::config::site { $vhost_name: content => template($licensify_upload_vhost_conf) }
   nginx::log {

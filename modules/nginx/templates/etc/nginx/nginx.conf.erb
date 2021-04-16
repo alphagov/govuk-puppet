@@ -13,9 +13,7 @@ events {
 }
 
 http {
-    <%- if scope.lookupvar('::aws_migration') %>
     resolver <%= @stack_network_prefix -%>.2;
-    <%- end %>
 
     include       /etc/nginx/mime.types;
     include       /etc/nginx/blockips.conf;

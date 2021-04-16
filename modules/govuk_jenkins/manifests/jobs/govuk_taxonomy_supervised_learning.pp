@@ -8,12 +8,7 @@ class govuk_jenkins::jobs::govuk_taxonomy_supervised_learning (
   $app_domain = hiera('app_domain')
 ) {
 
-  if $::aws_migration {
-    $app_domain_to_use = $app_domain_internal
-  } else {
-    $app_domain_to_use = $app_domain
-  }
-
+  $app_domain_to_use = $app_domain_internal
   $rummager_api = "search.${app_domain_to_use}"
   $content_store_api = "content-store.${app_domain_to_use}"
 

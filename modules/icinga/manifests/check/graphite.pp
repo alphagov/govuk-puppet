@@ -104,12 +104,8 @@ define icinga::check::graphite(
   }
 
   if $action_url == undef {
-    if $::aws_migration {
-      # temporary solution while we have two Icinga instances
-      $app_domain = "${::aws_environment}.govuk.digital"
-    } else {
-      $app_domain = hiera('app_domain')
-    }
+    # temporary solution while we have two Icinga instances
+    $app_domain = "${::aws_environment}.govuk.digital"
 
     $action_url_real = "https://graphite.${app_domain}/render/?\
 width=${graph_width}&height=${graph_height}&from=-${from}&colorList=red,orange,blue,green,purple,brown\

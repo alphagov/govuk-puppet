@@ -230,11 +230,7 @@ class govuk::apps::email_alert_api(
       ',
     }
 
-    if $::aws_migration {
-      $vhost_ = 'email-alert-api-public'
-    } else {
-      $vhost_ = "email-alert-api-public.${app_domain}"
-    }
+    $vhost_ = 'email-alert-api-public'
 
     nginx::config::vhost::proxy { $vhost_:
       ensure           => $ensure,

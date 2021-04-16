@@ -83,11 +83,9 @@ class govuk::apps::licencefinder(
     value   => $publishing_api_bearer_token,
   }
 
-  if $::aws_migration  {
-    govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
-      app     => $app_name,
-      varname => 'ELASTICSEARCH_URI',
-      value   => $elasticsearch_uri,
-    }
+  govuk::app::envvar { "${title}-ELASTICSEARCH_URI":
+    app     => $app_name,
+    varname => 'ELASTICSEARCH_URI',
+    value   => $elasticsearch_uri,
   }
 }
