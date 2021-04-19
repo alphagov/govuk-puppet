@@ -20,6 +20,7 @@ class monitoring::checks (
   $whitehall_overdue_check_period = undef,
   $whitehall_scheduled_check_period = undef,
   $content_data_api_check_period  = undef,
+  $signon_api_tokens_check_period = undef,
 ) {
 
   ensure_packages(['jq'])
@@ -83,6 +84,14 @@ class monitoring::checks (
     check_period               => $content_data_api_check_period,
     attempts_before_hard_state => 5,
     retry_interval             => 1,
+  }
+
+  icinga::check { "signon_api_tokens_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/api-tokens signon.${app_domain} https",
+    service_description => 'expiring API tokens in Signon',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(expiring-api-tokens-in-signon),
+    check_period        => $signon_api_tokens_check_period,
   }
 
   # Used in template and icinga::check.
