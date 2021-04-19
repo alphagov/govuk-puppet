@@ -60,6 +60,14 @@
 # This is used to export health checks to ensure the application is running
 # correctly.
 #
+# [*has_liveness_health_check*]
+#   If true, the app should expose a liveness healthcheck at
+#   "localhost:<port>/healthcheck/live".
+#
+# [*has_readiness_health_check*]
+#   If true, the app should expose a readiness healthcheck at
+#   "localhost:<port>/healthcheck/ready".
+#
 # [*health_check_custom_doc*]
 #   By default the alert doc will be "app-healthcheck-not-ok".
 #   Set to true to change this to "<app>-app-healthcheck-not-ok".
@@ -257,6 +265,8 @@ define govuk::app (
   $health_check_path = 'NOTSET',
   $health_check_custom_doc = undef,
   $json_health_check = false,
+  $has_liveness_health_check = false,
+  $has_readiness_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
   $health_check_notification_period = undef,
   $additional_check_contact_groups = undef,
@@ -341,6 +351,8 @@ define govuk::app (
     vhost_ssl_only                      => $vhost_ssl_only,
     nginx_extra_config                  => $nginx_extra_config,
     health_check_path                   => $health_check_path,
+    has_liveness_health_check           => $has_liveness_health_check,
+    has_readiness_health_check          => $has_readiness_health_check,
     health_check_custom_doc             => $health_check_custom_doc,
     json_health_check                   => $json_health_check,
     health_check_service_template       => $health_check_service_template,
