@@ -446,6 +446,16 @@ define govuk::app::config (
         contact_groups      => $additional_check_contact_groups,
       }
     }
+  } elsif $has_liveness_health_check {
+    @@icinga::check { "check_app_${title}_up_on_${::hostname}":
+      ensure              => $ensure,
+      check_command       => "check_app_health!check_app_up!${port} /healthcheck/live",
+      check_period        => $check_period,
+      service_description => "${title} app healthcheck",
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(app-healthcheck-not-ok),
+      contact_groups      => $additional_check_contact_groups,
+    }
   }
   if ($app_type == 'rack') or $monitor_unicornherder {
     @@icinga::check { "check_app_${title}_unicornherder_up_${::hostname}":
