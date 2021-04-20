@@ -8,10 +8,14 @@
 # [*enable_support_check*]
 #   Enable monitoring for check_support_default_queue_size
 #
+# [*enable_publishing_api_check*]
+#   Enable monitoring for check_publishing_api_downstream_high_queue_latency
+#
 #
 class monitoring::checks::sidekiq (
   $enable_signon_check = true,
   $enable_support_check = true,
+  $enable_publishing_api_check = true,
 ) {
   if $enable_signon_check {
     icinga::check::graphite { 'check_signon_queue_sizes':
@@ -45,6 +49,18 @@ class monitoring::checks::sidekiq (
       warning   => 10,
       critical  => 20,
       desc      => 'support app background processing: unexpectedly large default queue size',
+      host_name => $::fqdn,
+    }
+  }
+
+  if $enable_publishing_api_check {
+    icinga::check::graphite { 'check_publishing_api_downstream_high_queue_latency':
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_high.enqueued)), 0)',
+      from      => '24hours',
+      args      => '--dropfirst -36',
+      warning   => 45,
+      critical  => 90,
+      desc      => 'publishing-api downstream_high latency unexpectedly large',
       host_name => $::fqdn,
     }
   }
