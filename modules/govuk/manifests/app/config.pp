@@ -390,7 +390,29 @@ define govuk::app::config (
     maxsize => '100M',
   }
 
-  if $health_check_path != 'NOTSET' {
+  if $has_readiness_health_check {
+    include icinga::client::check_json_healthcheck
+
+    $healthcheck_desc      = "${title} app healthcheck not ok"
+
+    if $health_check_custom_doc {
+      $healthcheck_doc_slug = regsubst($healthcheck_desc, ' ', '-', 'G')
+    } else {
+      $healthcheck_doc_slug = 'app-healthcheck-not-ok'
+    }
+
+    @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
+      ensure              => $ensure,
+      check_command       => "check_app_health!check_json_healthcheck!${port} /healthcheck/ready",
+      check_period        => $check_period,
+      service_description => $healthcheck_desc,
+      use                 => $health_check_service_template,
+      notification_period => $health_check_notification_period,
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url($healthcheck_doc_slug),
+      contact_groups      => $additional_check_contact_groups,
+    }
+  } elsif $health_check_path != 'NOTSET' {
     if $json_health_check {
       include icinga::client::check_json_healthcheck
 
