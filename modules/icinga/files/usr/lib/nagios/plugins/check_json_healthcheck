@@ -135,8 +135,12 @@ class HealthCheckInfo(object):
 
         """
         checks = self._dict.get("checks", {})
-        return [" - ".join(self._check_parts(check_name, check_value))
-                for (check_name, check_value) in checks.items()]
+        messages = []
+        if self._dict.get("message"):
+            messages.append(self._dict.get("message"))
+        messages.extend([" - ".join(self._check_parts(check_name, check_value))
+                         for (check_name, check_value) in checks.items()])
+        return messages
 
     def _check_parts(self, check_name, check_value):
         parts = [check_name, check_value["status"]]
