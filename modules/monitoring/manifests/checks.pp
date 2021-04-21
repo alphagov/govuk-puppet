@@ -53,6 +53,7 @@ class monitoring::checks (
   include govuk::apps::publisher::unprocessed_emails_count_check
 
   $app_domain = hiera('app_domain')
+  $app_domain_internal = hiera('app_domain_internal')
 
   if $app_domain != 'integration.publishing.service.gov.uk' {
     include monitoring::checks::reboots
@@ -97,7 +98,7 @@ class monitoring::checks (
   }
 
   icinga::check { "search_api_reranker_${::hostname}":
-    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/reranker search-api.${app_domain} https",
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/reranker search-api.${app_domain_internal} https",
     service_description => 'search reranker healthcheck is not ok',
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(search-reranker-healthcheck-not-ok),
@@ -105,7 +106,7 @@ class monitoring::checks (
   }
 
   icinga::check { "search_api_elasticsearch_diskspace_${::hostname}":
-    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/elasticsearch-diskspace search-api.${app_domain} https",
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/elasticsearch-diskspace search-api.${app_domain_internal} https",
     service_description => 'elasticsearch diskspace is too low',
     host_name           => $::fqdn,
     check_period        => $search_api_elasticsearch_diskspace_check_period,
