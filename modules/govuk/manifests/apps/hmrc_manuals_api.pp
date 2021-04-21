@@ -54,14 +54,16 @@ class govuk::apps::hmrc_manuals_api(
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { 'hmrc-manuals-api':
-    ensure                   => $ensure,
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    vhost_ssl_only           => true,
-    health_check_path        => '/healthcheck',
-    log_format_is_json       => true,
-    override_search_location => $override_search_location,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    override_search_location   => $override_search_location,
   }
 
   unless $ensure == 'absent' {
