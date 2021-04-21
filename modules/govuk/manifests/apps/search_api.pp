@@ -151,6 +151,8 @@ class govuk::apps::search_api(
     health_check_path              => '/healthcheck',
     health_check_custom_doc        => true,
     json_health_check              => true,
+    has_liveness_health_check      => true,
+    has_readiness_health_check     => true,
 
     vhost_aliases                  => ['search'],
 
