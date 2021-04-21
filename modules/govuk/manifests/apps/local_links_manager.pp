@@ -125,14 +125,16 @@ class govuk::apps::local_links_manager(
   $app_name = 'local-links-manager'
 
   govuk::app { $app_name:
-    ensure                   => $ensure,
-    app_type                 => 'rack',
-    log_format_is_json       => true,
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    vhost_ssl_only           => true,
-    health_check_path        => '/healthcheck',
-    unicorn_worker_processes => $unicorn_worker_processes,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    log_format_is_json         => true,
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {
