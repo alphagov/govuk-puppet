@@ -11,11 +11,14 @@
 # [*enable_publishing_api_check*]
 #   Enable monitoring for check_publishing_api_downstream_high_queue_latency
 #
+# [*enable_search_api_check*]
+#   Enable monitoring for check_search_api_default_queue_latency and check_search_api_bulk_queue_latency
 #
 class monitoring::checks::sidekiq (
   $enable_signon_check = true,
   $enable_support_check = true,
   $enable_publishing_api_check = true,
+  $enable_search_api_check = true,
 ) {
   if $enable_signon_check {
     icinga::check::graphite { 'check_signon_queue_sizes':
@@ -62,6 +65,30 @@ class monitoring::checks::sidekiq (
       critical  => 90,
       desc      => 'publishing-api downstream_high latency unexpectedly large',
       host_name => $::fqdn,
+    }
+  }
+
+  if $enable_search_api_check {
+    icinga::check::graphite { 'check_search_api_default_queue_latency':
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.default.latency)), 0)',
+      from      => '24hours',
+      args      => '--dropfirst -36',
+      warning   => 30,
+      critical  => 60,
+      desc      => 'search-api default queue latency unexpectedly large',
+      host_name => $::fqdn,
+      notes_url => monitoring_docs_url(search-api-queue-latency),
+    }
+
+    icinga::check::graphite { 'check_search_api_bulk_queue_latency':
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.bulk.latency)), 0)',
+      from      => '24hours',
+      args      => '--dropfirst -36',
+      warning   => 300,
+      critical  => 1800,
+      desc      => 'search-api bulk queue latency unexpectedly large',
+      host_name => $::fqdn,
+      notes_url => monitoring_docs_url(search-api-queue-latency),
     }
   }
 }
