@@ -142,17 +142,19 @@ class govuk::apps::publisher(
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    json_health_check  => true,
-    log_format_is_json => true,
-    asset_pipeline     => true,
-    deny_framing       => true,
-    nginx_extra_config => '
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    json_health_check          => true,
+    log_format_is_json         => true,
+    asset_pipeline             => true,
+    deny_framing               => true,
+    nginx_extra_config         => '
     proxy_set_header X-Sendfile-Type X-Accel-Redirect;
     proxy_set_header X-Accel-Mapping /var/apps/publisher/reports/=/raw/;
 
