@@ -77,15 +77,17 @@ class govuk::apps::content_store(
   $app_name = 'content-store'
 
   govuk::app { $app_name:
-    app_type                  => 'rack',
-    port                      => $port,
-    sentry_dsn                => $sentry_dsn,
-    vhost_ssl_only            => true,
-    health_check_path         => '/healthcheck',
-    log_format_is_json        => true,
-    vhost                     => $vhost,
-    unicorn_worker_processes  => $unicorn_worker_processes,
-    alert_when_threads_exceed => 155,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    vhost                      => $vhost,
+    unicorn_worker_processes   => $unicorn_worker_processes,
+    alert_when_threads_exceed  => 155,
   }
 
   Govuk::App::Envvar {
