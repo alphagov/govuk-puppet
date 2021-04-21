@@ -61,12 +61,14 @@ class govuk::apps::authenticating_proxy(
   }
 
   govuk::app { $app_name:
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    log_format_is_json         => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
   }
 
   if $govuk_upstream_uri {
