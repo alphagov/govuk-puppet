@@ -96,16 +96,18 @@ class govuk::apps::travel_advice_publisher(
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
-    json_health_check  => true,
-    log_format_is_json => true,
-    asset_pipeline     => true,
-    deny_framing       => true,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    json_health_check          => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    asset_pipeline             => true,
+    deny_framing               => true,
   }
 
   validate_bool($show_historical_edition_link)
