@@ -23,6 +23,8 @@ class monitoring::checks (
   $signon_api_tokens_check_period = undef,
   $search_api_reranker_check_period = undef,
   $search_api_elasticsearch_diskspace_check_period = undef,
+  $content_publisher_active_storage_check_period = undef,
+  $content_publisher_government_data_check_period = undef,
 ) {
 
   ensure_packages(['jq'])
@@ -110,6 +112,21 @@ class monitoring::checks (
     service_description => 'elasticsearch diskspace is too low',
     host_name           => $::fqdn,
     check_period        => $search_api_elasticsearch_diskspace_check_period,
+  }
+
+  icinga::check { "content_publisher_active_storage_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/active-storage content-publisher.${app_domain} https",
+    service_description => 'content-publisher active-storage check is not ok',
+    host_name           => $::fqdn,
+    check_period        => $content_publisher_active_storage_check_period,
+  }
+
+  icinga::check { "content_publisher_government_data_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/government-data content-publisher.${app_domain} https",
+    service_description => 'content-publisher government data check is not ok',
+    host_name           => $::fqdn,
+    check_period        => $content_publisher_government_data_check_period,
+    notes_url           => monitoring_docs_url(content-publisher-government-data-check-not-ok),
   }
 
   # Used in template and icinga::check.
