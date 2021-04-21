@@ -255,6 +255,16 @@ class govuk::apps::sidekiq_monitoring (
     content => "location /_healthcheck_${app_name} {\n  proxy_pass http://localhost/healthcheck;\n  proxy_set_header Host ${app_name};\n}\n",
   }
 
+  concat::fragment { "${app_name}_lb_healthcheck_live":
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-live_${app_name} {\n  proxy_pass http://localhost/healthcheck/live;\n  proxy_set_header Host ${app_name};\n}\n",
+  }
+
+  concat::fragment { "${app_name}_lb_healthcheck_ready":
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-ready_${app_name} {\n  proxy_pass http://localhost/healthcheck/ready;\n  proxy_set_header Host ${app_name};\n}\n",
+  }
+
   govuk::app::envvar::redis{
     "${app_name}_asset_manager":
       prefix => 'asset_manager',
