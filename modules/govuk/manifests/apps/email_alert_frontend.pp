@@ -58,14 +58,16 @@ class govuk::apps::email_alert_frontend(
   $app_name = 'email-alert-frontend'
 
   govuk::app { $app_name:
-    app_type                => 'rack',
-    port                    => $port,
-    sentry_dsn              => $sentry_dsn,
-    asset_pipeline          => true,
-    asset_pipeline_prefixes => ['assets/email-alert-frontend'],
-    vhost                   => $vhost,
-    health_check_path       => '/healthcheck',
-    json_health_check       => true,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    asset_pipeline             => true,
+    asset_pipeline_prefixes    => ['assets/email-alert-frontend'],
+    vhost                      => $vhost,
+    health_check_path          => '/healthcheck',
+    json_health_check          => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
   }
 
   govuk::app::envvar::redis { $app_name:
