@@ -21,6 +21,8 @@ class monitoring::checks (
   $whitehall_scheduled_check_period = undef,
   $content_data_api_check_period  = undef,
   $signon_api_tokens_check_period = undef,
+  $search_api_reranker_check_period = undef,
+  $search_api_elasticsearch_diskspace_check_period = undef,
 ) {
 
   ensure_packages(['jq'])
@@ -92,6 +94,21 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(expiring-api-tokens-in-signon),
     check_period        => $signon_api_tokens_check_period,
+  }
+
+  icinga::check { "search_api_reranker_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/reranker search-api.${app_domain} https",
+    service_description => 'search reranker healthcheck is not ok',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(search-reranker-healthcheck-not-ok),
+    check_period        => $search_api_reranker_check_period,
+  }
+
+  icinga::check { "search_api_elasticsearch_diskspace_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/elasticsearch-diskspace search-api.${app_domain} https",
+    service_description => 'elasticsearch diskspace is too low',
+    host_name           => $::fqdn,
+    check_period        => $search_api_elasticsearch_diskspace_check_period,
   }
 
   # Used in template and icinga::check.
