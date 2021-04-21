@@ -20,6 +20,7 @@ class monitoring::checks (
   $whitehall_overdue_check_period = undef,
   $whitehall_scheduled_check_period = undef,
   $content_data_api_check_period  = undef,
+  $publisher_scheduled_publishing_check_period = undef,
   $signon_api_tokens_check_period = undef,
   $search_api_reranker_check_period = undef,
   $search_api_elasticsearch_diskspace_check_period = undef,
@@ -97,6 +98,14 @@ class monitoring::checks (
     host_name           => $::fqdn,
     notes_url           => monitoring_docs_url(expiring-api-tokens-in-signon),
     check_period        => $signon_api_tokens_check_period,
+  }
+
+  icinga::check { "publisher_scheduled_publishing_${::hostname}":
+    check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/scheduled-publishing publisher.${app_domain} https",
+    service_description => 'more items scheduled for publication than in queue for publisher',
+    host_name           => $::fqdn,
+    notes_url           => monitoring_docs_url(publisher-scheduled-publishing),
+    check_period        => $publisher_scheduled_publishing_check_period,
   }
 
   icinga::check { "search_api_reranker_${::hostname}":
