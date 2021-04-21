@@ -67,6 +67,19 @@ class TestHealthCheckInfo(unittest.TestCase):
         self.assertEqual(hc.check_statuses,
                          ["foo - ok - All 12 foos look good"])
 
+    def test_includes_overall_message(self):
+        hc = HealthCheckInfo(
+            {
+                "status": "warning",
+                "message": "overall message",
+                "checks": {
+                    "foo": {"status": "ok", "message": "All 12 foos look good"}
+                }
+            }
+        )
+        self.assertEqual(hc.check_statuses,
+                         ["overall message", "foo - ok - All 12 foos look good"])
+
 
 if __name__ == "__main__":
     unittest.main()
