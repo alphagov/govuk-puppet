@@ -104,17 +104,19 @@ class govuk::apps::smartanswers(
   }
 
   govuk::app { 'smartanswers':
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/pay-leave-for-parents/y',
-    log_format_is_json       => true,
-    asset_pipeline           => true,
-    asset_pipeline_prefixes  => ['assets/smartanswers'],
-    vhost                    => $vhost,
-    alert_5xx_warning_rate   => 0.001,
-    alert_5xx_critical_rate  => 0.005,
-    repo_name                => 'smart-answers',
-    unicorn_worker_processes => $unicorn_worker_processes,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    health_check_path          => '/pay-leave-for-parents/y',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    asset_pipeline             => true,
+    asset_pipeline_prefixes    => ['assets/smartanswers'],
+    vhost                      => $vhost,
+    alert_5xx_warning_rate     => 0.001,
+    alert_5xx_critical_rate    => 0.005,
+    repo_name                  => 'smart-answers',
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 }
