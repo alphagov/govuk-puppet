@@ -35,6 +35,8 @@ class govuk::apps::finder_frontend(
       sentry_dsn                     => $sentry_dsn,
       health_check_path              => '/healthcheck.json',
       json_health_check              => true,
+      has_liveness_health_check      => true,
+      has_readiness_health_check     => true,
       log_format_is_json             => true,
       asset_pipeline                 => true,
       asset_pipeline_prefixes        => ['assets/finder-frontend'],
