@@ -96,13 +96,15 @@ class govuk::apps::manuals_publisher(
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'rack',
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    health_check_path  => '/healthcheck',
-    log_format_is_json => true,
-    nginx_extra_config => 'client_max_body_size 500m;',
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    nginx_extra_config         => 'client_max_body_size 500m;',
   }
 
   govuk::procfile::worker {'manuals-publisher':
