@@ -132,6 +132,8 @@ class govuk::apps::content_data_api(
     health_check_path               => '/healthcheck',
     health_check_custom_doc         => true,
     json_health_check               => true,
+    has_liveness_health_check       => true,
+    has_readiness_health_check      => true,
     asset_pipeline                  => true,
     read_timeout                    => 60,
     additional_check_contact_groups => ['slack-channel-data-informed'],
