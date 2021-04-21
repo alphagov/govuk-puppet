@@ -135,17 +135,16 @@ class govuk::apps::content_publisher (
 
   # see modules/govuk/manifests/app.pp for more options
   govuk::app { $app_name:
-    ensure                  => $ensure,
-    app_type                => 'rack',
-    port                    => $port,
-    sentry_dsn              => $sentry_dsn,
-    vhost_ssl_only          => true,
-    health_check_path       => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    health_check_custom_doc => true,
-    json_health_check       => true,
-    deny_framing            => true,
-    asset_pipeline          => true,
-    nginx_extra_config      => 'client_max_body_size 500m;',
+    ensure             => $ensure,
+    app_type           => 'rack',
+    port               => $port,
+    sentry_dsn         => $sentry_dsn,
+    vhost_ssl_only     => true,
+    health_check_path  => '/healthcheck', # must return HTTP 200 for an unauthenticated request
+    json_health_check  => true,
+    deny_framing       => true,
+    asset_pipeline     => true,
+    nginx_extra_config => 'client_max_body_size 500m;',
   }
 
   Govuk::App::Envvar {
