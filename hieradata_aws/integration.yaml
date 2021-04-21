@@ -240,7 +240,8 @@ grafana::dashboards::application_dashboards:
         - search_api_request_time
     show_memcached: true
     instance_prefix: 'calculators_frontend'
-  frontend: {}
+  frontend:
+    show_memcached: true
   government-frontend: {}
   hmrc-manuals-api: {}
   imminence:
