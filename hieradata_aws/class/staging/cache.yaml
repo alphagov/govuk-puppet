@@ -8,4 +8,5 @@ router::gor::http_disallow_url:
   - 'apply-for-a-licence/payment'
   - 'apply-for-a-licence/redirect'
   - 'apply-for-a-licence/uploaded'
+  - 'contact-electoral-registration-office'
   - 'transition-check/login/callback'
