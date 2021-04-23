@@ -49,6 +49,12 @@
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
 #
+# [*elections_api_url*]
+#   URL for the Elections API
+#
+# [*elections_api_key*]
+#   API key for the Elections API
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port,
@@ -63,6 +69,8 @@ class govuk::apps::frontend(
   $govuk_notify_template_id = undef,
   $plek_account_manager_uri = undef,
   $memcache_servers = undef,
+  $elections_api_url = undef,
+  $elections_api_key = undef,
 ) {
   $app_name = 'frontend'
 
@@ -106,7 +114,13 @@ class govuk::apps::frontend(
     "${title}-MEMCACHE_SERVERS":
         varname => 'MEMCACHE_SERVERS',
         value   => $memcache_servers;
-}
+    "${title}-ELECTIONS_API_URL":
+        varname => 'ELECTIONS_API_URL',
+        value   => $elections_api_url;
+    "${title}-ELECTIONS_API_KEY":
+        varname => 'ELECTIONS_API_KEY',
+        value   => $elections_api_key;
+  }
 
   if $secret_key_base != undef {
     govuk::app::envvar {
