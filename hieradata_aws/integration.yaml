@@ -242,6 +242,7 @@ grafana::dashboards::application_dashboards:
     show_memcached: true
     instance_prefix: 'calculators_frontend'
   frontend:
+    instance_prefix: 'frontend'
     show_memcached: true
   government-frontend: {}
   hmrc-manuals-api: {}
