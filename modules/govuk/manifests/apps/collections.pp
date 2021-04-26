@@ -44,8 +44,6 @@ class govuk::apps::collections(
     app_type                   => 'rack',
     port                       => $port,
     unicorn_worker_processes   => $unicorn_worker_processes,
-    health_check_path          => '/healthcheck',
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     log_format_is_json         => true,
