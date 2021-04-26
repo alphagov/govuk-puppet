@@ -10,7 +10,23 @@ server {
     proxy_pass http://varnish/__varnish_check__;
   }
 
+  location /_healthcheck-live_www {
+    proxy_pass http://varnish/__varnish_check__;
+  }
+
+  location /_healthcheck-ready_www {
+    proxy_pass http://varnish/__varnish_check__;
+  }
+
   location /_healthcheck_www-origin {
+    proxy_pass http://varnish/__varnish_check__;
+  }
+
+  location /_healthcheck-live_www-origin {
+    proxy_pass http://varnish/__varnish_check__;
+  }
+
+  location /_healthcheck-ready_www-origin {
     proxy_pass http://varnish/__varnish_check__;
   }
 
@@ -18,10 +34,24 @@ server {
     return 200;
   }
 
+  location /_healthcheck-live_assets-origin {
+    return 200;
+  }
+
+  location /_healthcheck-ready_assets-origin {
+    return 200;
+  }
+
   # Send the Strict-Transport-Security header
   include /etc/nginx/add-sts.conf;
   # Required for L7 ALB
   location = /_healthcheck {
+    return 200;
+  }
+  location = /_healthcheck-live {
+    return 200;
+  }
+  location = /_healthcheck-ready {
     return 200;
   }
   location / {
