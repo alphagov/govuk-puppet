@@ -101,8 +101,6 @@ class govuk::apps::contacts(
     vhost                      => $vhost,
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
-    health_check_path          => '/healthcheck',
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     vhost_protected            => $vhost_protected,
