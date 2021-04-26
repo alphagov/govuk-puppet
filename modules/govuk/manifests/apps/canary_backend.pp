@@ -28,4 +28,13 @@ class govuk::apps::canary_backend {
     content => "location /_healthcheck_canary-backend {\n  proxy_pass http://localhost/healthcheck;\n  proxy_set_header Host canary-backend;\n}\n",
   }
 
+  concat::fragment { 'canary-backend_lb_healthcheck_live':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-live_canary-backend {\n  proxy_pass http://localhost/healthcheck/live;\n  proxy_set_header Host canary-backend;\n}\n",
+  }
+
+  concat::fragment { 'canary-backend_lb_healthcheck_ready':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-ready_canary-backend {\n  proxy_pass http://localhost/healthcheck/ready;\n  proxy_set_header Host canary-backend;\n}\n",
+  }
 }
