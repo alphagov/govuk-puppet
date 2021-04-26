@@ -44,7 +44,6 @@ class govuk::apps::licencefinder(
     port                       => $port,
     nginx_extra_config         => template('licencefinder/nginx_extra'),
     sentry_dsn                 => $sentry_dsn,
-    health_check_path          => '/licence-finder/sectors',
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     log_format_is_json         => true,
