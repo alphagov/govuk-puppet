@@ -255,6 +255,14 @@ class govuk::apps::whitehall(
       target  => '/etc/nginx/lb_healthchecks.conf',
       content => "location /_healthcheck_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy${health_check_path};\n}\n",
     }
+    concat::fragment { "${whitehall_frontend_vhost_}_lb_healthcheck_live":
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => "location /_healthcheck-live_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy/healthcheck/live;\n}\n",
+    }
+    concat::fragment { "${whitehall_frontend_vhost_}_lb_healthcheck_ready":
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => "location /_healthcheck-ready_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy/healthcheck/ready;\n}\n",
+    }
 
     govuk::app::envvar::database_url { $app_name:
       type     => 'mysql2',
@@ -310,6 +318,14 @@ class govuk::apps::whitehall(
     concat::fragment { "${whitehall_admin_vhost_}_lb_healthcheck":
       target  => '/etc/nginx/lb_healthchecks.conf',
       content => "location /_healthcheck_${whitehall_admin_vhost_} {\n  proxy_pass http://${whitehall_admin_vhost_}-proxy${health_check_path};\n}\n",
+    }
+    concat::fragment { "${whitehall_admin_vhost_}_lb_healthcheck_live":
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => "location /_healthcheck-live_${whitehall_admin_vhost_} {\n  proxy_pass http://${whitehall_admin_vhost_}-proxy/healthcheck/live;\n}\n",
+    }
+    concat::fragment { "${whitehall_admin_vhost_}_lb_healthcheck_ready":
+      target  => '/etc/nginx/lb_healthchecks.conf',
+      content => "location /_healthcheck-ready_${whitehall_admin_vhost_} {\n  proxy_pass http://${whitehall_admin_vhost_}-proxy/healthcheck/ready;\n}\n",
     }
 
     @filebeat::prospector { 'whitehall_scheduled_publishing_json_log':
