@@ -103,14 +103,15 @@ class govuk::apps::my_app (
 
   # see modules/govuk/manifests/app.pp for more options
   govuk::app { $app_name:
-    ensure            => $ensure,
-    app_type          => 'rack',
-    port              => $port,
-    sentry_dsn        => $sentry_dsn,
-    vhost_ssl_only    => true,
-    health_check_path => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    deny_framing      => true,
-    asset_pipeline    => true,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    deny_framing               => true,
+    asset_pipeline             => true,
   }
 
   Govuk::App::Envvar {
