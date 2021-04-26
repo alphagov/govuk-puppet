@@ -22,4 +22,14 @@ class govuk::apps::canary_frontend {
     target  => '/etc/nginx/lb_healthchecks.conf',
     content => "location /_healthcheck_canary-frontend {\n  return 200;\n}\n",
   }
+
+  concat::fragment { 'canary-frontend_lb_healthcheck_live':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-live_canary-frontend {\n  return 200;\n}\n",
+  }
+
+  concat::fragment { 'canary-frontend_lb_healthcheck_ready':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /_healthcheck-ready_canary-frontend {\n  return 200;\n}\n",
+  }
 }
