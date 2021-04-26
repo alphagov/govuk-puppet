@@ -88,7 +88,6 @@ class govuk::apps::content_tagger(
     app_type                   => 'rack',
     port                       => $port,
     vhost_ssl_only             => true,
-    health_check_path          => '/healthcheck',
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     log_format_is_json         => true,
