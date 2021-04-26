@@ -35,8 +35,6 @@ class govuk::apps::manuals_frontend(
     asset_pipeline             => true,
     asset_pipeline_prefixes    => ['assets/manuals-frontend'],
     vhost                      => $vhost,
-    health_check_path          => '/healthcheck',
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
   }
