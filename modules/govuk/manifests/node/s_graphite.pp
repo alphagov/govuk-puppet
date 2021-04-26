@@ -24,7 +24,7 @@ class govuk::node::s_graphite (
   $apt_mirror_gpg_key_fingerprint,
 ) inherits govuk::node::s_base {
   class { 'graphite':
-    version                    => '0.9.13',
+    version                    => '1.0.0',
     port                       => '33333',
     worker_processes           => 4,
     carbon_aggregator          => true,
@@ -35,25 +35,10 @@ class govuk::node::s_graphite (
     require                    => Govuk_mount[$graphite_path],
   }
 
-  # FIXME: Remove this patch when Graphite is upgraded past 0.9.13
-  # This patch is https://github.com/graphite-project/carbon/pull/351 - the bug
-  # that this fixes was released as part of 0.9.13 which breaks all of our
-  # carbon-aggregator metrics.
-  $service_py = "${graphite_path}/lib/carbon/service.py"
-  $service_patch = "${graphite_path}/graphite_carbon_service.patch"
-  $service_patched_md5 = '0559bf74463b14f4070e3cf8a2584fff'
-  file { $service_patch:
-    ensure => file,
-    source => 'puppet:///modules/govuk/node/s_graphite/graphite_carbon_service.patch',
-  }
-  exec { 'patch graphite 0.9.13 carbon':
-    command => "/usr/bin/patch -b ${service_py} ${service_patch}",
-    unless  => "/usr/bin/md5sum ${service_py} | /bin/grep -qsw ${service_patched_md5}",
+  exec { 'migrate graphite database':
+    command => "env PYTHONPATH=${graphite_path}/webapp ${graphite_path}/bin/django-admin.py migrate --noinput --settings=graphite.settings --run-syncdb",
     notify  => Class['graphite::service'],
-    require => [
-      Class['graphite::install'],
-      File[$service_patch],
-    ],
+    require => Class['graphite::install'],
   }
 
   @@icinga::check { "check_carbon_cache_running_on_${::hostname}":
