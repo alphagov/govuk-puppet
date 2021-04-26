@@ -100,7 +100,6 @@ class govuk::apps::link_checker_api (
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
     vhost_ssl_only             => true,
-    health_check_path          => '/healthcheck',
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
   }
