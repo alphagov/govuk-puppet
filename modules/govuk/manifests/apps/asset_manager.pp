@@ -89,21 +89,23 @@ class govuk::apps::asset_manager(
     $deny_framing = false
 
     govuk::app { $app_name:
-      app_type                  => 'rack',
-      port                      => $port,
-      sentry_dsn                => $sentry_dsn,
-      vhost_ssl_only            => true,
-      health_check_path         => '/healthcheck',
-      json_health_check         => true,
-      log_format_is_json        => true,
-      deny_framing              => $deny_framing,
-      depends_on_nfs            => true,
-      nginx_extra_config        => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
-      unicorn_worker_processes  => $unicorn_worker_processes,
-      alert_when_threads_exceed => 165,
-      cpu_warning               => 350,
-      cpu_critical              => 400,
-      read_timeout              => 60,
+      app_type                   => 'rack',
+      port                       => $port,
+      sentry_dsn                 => $sentry_dsn,
+      vhost_ssl_only             => true,
+      health_check_path          => '/healthcheck',
+      json_health_check          => true,
+      has_liveness_health_check  => true,
+      has_readiness_health_check => true,
+      log_format_is_json         => true,
+      deny_framing               => $deny_framing,
+      depends_on_nfs             => true,
+      nginx_extra_config         => template('govuk/asset_manager_extra_nginx_config.conf.erb'),
+      unicorn_worker_processes   => $unicorn_worker_processes,
+      alert_when_threads_exceed  => 165,
+      cpu_warning                => 350,
+      cpu_critical               => 400,
+      read_timeout               => 60,
     }
 
     govuk::app::envvar {

@@ -84,16 +84,18 @@ class govuk::apps::content_tagger(
   $app_name = 'content-tagger'
 
   govuk::app { $app_name:
-    ensure                   => $ensure,
-    app_type                 => 'rack',
-    port                     => $port,
-    vhost_ssl_only           => true,
-    health_check_path        => '/healthcheck',
-    log_format_is_json       => true,
-    asset_pipeline           => true,
-    deny_framing             => false,
-    sentry_dsn               => $sentry_dsn,
-    override_search_location => $override_search_location,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    asset_pipeline             => true,
+    deny_framing               => false,
+    sentry_dsn                 => $sentry_dsn,
+    override_search_location   => $override_search_location,
   }
 
   govuk::procfile::worker { 'content-tagger':

@@ -36,14 +36,16 @@ class govuk::apps::service_manual_frontend(
     }
 
     govuk::app { 'service-manual-frontend':
-      app_type                => 'rack',
-      port                    => $port,
-      sentry_dsn              => $sentry_dsn,
-      vhost_ssl_only          => true,
-      health_check_path       => '/healthcheck',
-      asset_pipeline          => true,
-      asset_pipeline_prefixes => ['assets/service-manual-frontend'],
-      vhost                   => $vhost,
+      app_type                   => 'rack',
+      port                       => $port,
+      sentry_dsn                 => $sentry_dsn,
+      vhost_ssl_only             => true,
+      health_check_path          => '/healthcheck',
+      has_liveness_health_check  => true,
+      has_readiness_health_check => true,
+      asset_pipeline             => true,
+      asset_pipeline_prefixes    => ['assets/service-manual-frontend'],
+      vhost                      => $vhost,
     }
 
     govuk::app::envvar {

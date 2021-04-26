@@ -87,13 +87,15 @@ class govuk::apps::service_manual_publisher(
   validate_re($ensure, '^(present|absent)$', 'Invalid ensure value')
 
   govuk::app { $app_name:
-    ensure             => $ensure,
-    app_type           => 'rack',
-    log_format_is_json => true,
-    port               => $port,
-    sentry_dsn         => $sentry_dsn,
-    vhost_ssl_only     => true,
-    health_check_path  => '/healthcheck',
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    log_format_is_json         => true,
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => true,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
   }
 
   unless $ensure == 'absent' {

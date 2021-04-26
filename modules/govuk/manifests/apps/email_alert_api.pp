@@ -116,14 +116,16 @@ class govuk::apps::email_alert_api(
   }
 
   govuk::app { 'email-alert-api':
-    ensure                   => $ensure,
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    log_format_is_json       => true,
-    health_check_path        => '/healthcheck',
-    json_health_check        => true,
-    unicorn_worker_processes => $unicorn_worker_processes,
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    log_format_is_json         => true,
+    health_check_path          => '/healthcheck',
+    json_health_check          => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem

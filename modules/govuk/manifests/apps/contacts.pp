@@ -96,19 +96,21 @@ class govuk::apps::contacts(
   }
 
   govuk::app { 'contacts':
-    ensure                  => $ensure,
-    app_type                => 'rack',
-    vhost                   => $vhost,
-    port                    => $port,
-    sentry_dsn              => $sentry_dsn,
-    health_check_path       => '/healthcheck',
-    json_health_check       => true,
-    vhost_protected         => $vhost_protected,
-    asset_pipeline          => true,
-    asset_pipeline_prefixes => ['contacts-assets'],
-    vhost_aliases           => $extra_aliases,
-    repo_name               => 'contacts-admin',
-    nginx_extra_config      => '
+    ensure                     => $ensure,
+    app_type                   => 'rack',
+    vhost                      => $vhost,
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    health_check_path          => '/healthcheck',
+    json_health_check          => true,
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    vhost_protected            => $vhost_protected,
+    asset_pipeline             => true,
+    asset_pipeline_prefixes    => ['contacts-assets'],
+    vhost_aliases              => $extra_aliases,
+    repo_name                  => 'contacts-admin',
+    nginx_extra_config         => '
       # Don\'t ask for basic auth on SSO API pages so we can sync
       # permissions.
       location /auth/gds {

@@ -69,16 +69,18 @@ class govuk::apps::static(
   $app_name = 'static'
 
   govuk::app { $app_name:
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    health_check_path        => '/templates/core_layout.html.erb',
-    log_format_is_json       => true,
-    nginx_extra_config       => template('govuk/static_extra_nginx_config.conf.erb'),
-    asset_pipeline           => true,
-    asset_pipeline_prefixes  => ['assets/static'],
-    vhost                    => $vhost,
-    unicorn_worker_processes => $unicorn_worker_processes,
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    health_check_path          => '/templates/core_layout.html.erb',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
+    log_format_is_json         => true,
+    nginx_extra_config         => template('govuk/static_extra_nginx_config.conf.erb'),
+    asset_pipeline             => true,
+    asset_pipeline_prefixes    => ['assets/static'],
+    vhost                      => $vhost,
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 
   Govuk::App::Envvar {

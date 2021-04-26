@@ -9,6 +9,14 @@
 #   The URL path to the healthcheck endpoint of the app, which
 #   will be requested as "localhost:<port>/<health_check_path>".
 #
+# [*has_liveness_health_check*]
+#   If true, the app should expose a liveness healthcheck at
+#   "localhost:<port>/healthcheck/live".
+#
+# [*has_readiness_health_check*]
+#   If true, the app should expose a readiness healthcheck at
+#   "localhost:<port>/healthcheck/ready".
+#
 # [*health_check_custom_doc*]
 #   By default the alert doc will be "app-healthcheck-not-ok".
 #   Set to true to change this to "<app>-app-healthcheck-not-ok".
@@ -88,6 +96,8 @@ define govuk::app::config (
   $vhost_ssl_only = false,
   $nginx_extra_config = '',
   $health_check_path = 'NOTSET',
+  $has_liveness_health_check = false,
+  $has_readiness_health_check = false,
   $health_check_custom_doc = false,
   $json_health_check = false,
   $health_check_service_template = 'govuk_regular_service',
@@ -263,10 +273,26 @@ define govuk::app::config (
       proxy_http_version_1_1_enabled => $proxy_http_version_1_1_enabled,
     }
 
-    if $ensure == 'present' and defined(Concat['/etc/nginx/lb_healthchecks.conf']) and $health_check_path != 'NOTSET' {
-      concat::fragment { "${title}_lb_healthcheck":
-        target  => '/etc/nginx/lb_healthchecks.conf',
-        content => "location /_healthcheck_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy${health_check_path};\n}\n",
+    if $ensure == 'present' and defined(Concat['/etc/nginx/lb_healthchecks.conf']) {
+      if $health_check_path != 'NOTSET' {
+        concat::fragment { "${title}_lb_healthcheck":
+          target  => '/etc/nginx/lb_healthchecks.conf',
+          content => "location /_healthcheck_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy${health_check_path};\n}\n",
+        }
+      }
+
+      if $has_liveness_health_check {
+        concat::fragment { "${title}_lb_healthcheck_live":
+          target  => '/etc/nginx/lb_healthchecks.conf',
+          content => "location /_healthcheck-live_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy/healthcheck/live;\n}\n",
+        }
+      }
+
+      if $has_readiness_health_check {
+        concat::fragment { "${title}_lb_healthcheck_ready":
+          target  => '/etc/nginx/lb_healthchecks.conf',
+          content => "location /_healthcheck-ready_${vhost_full} {\n  proxy_pass http://${vhost_full}-proxy/healthcheck/ready;\n}\n",
+        }
       }
     }
   }
@@ -364,7 +390,29 @@ define govuk::app::config (
     maxsize => '100M',
   }
 
-  if $health_check_path != 'NOTSET' {
+  if $has_readiness_health_check {
+    include icinga::client::check_json_healthcheck
+
+    $healthcheck_desc      = "${title} app healthcheck not ok"
+
+    if $health_check_custom_doc {
+      $healthcheck_doc_slug = regsubst($healthcheck_desc, ' ', '-', 'G')
+    } else {
+      $healthcheck_doc_slug = 'app-healthcheck-not-ok'
+    }
+
+    @@icinga::check { "check_app_${title}_healthcheck_on_${::hostname}":
+      ensure              => $ensure,
+      check_command       => "check_app_health!check_json_healthcheck!${port} /healthcheck/ready",
+      check_period        => $check_period,
+      service_description => $healthcheck_desc,
+      use                 => $health_check_service_template,
+      notification_period => $health_check_notification_period,
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url($healthcheck_doc_slug),
+      contact_groups      => $additional_check_contact_groups,
+    }
+  } elsif $health_check_path != 'NOTSET' {
     if $json_health_check {
       include icinga::client::check_json_healthcheck
 
@@ -397,6 +445,16 @@ define govuk::app::config (
         notes_url           => monitoring_docs_url(app-healthcheck-not-ok),
         contact_groups      => $additional_check_contact_groups,
       }
+    }
+  } elsif $has_liveness_health_check {
+    @@icinga::check { "check_app_${title}_up_on_${::hostname}":
+      ensure              => $ensure,
+      check_command       => "check_app_health!check_app_up!${port} /healthcheck/live",
+      check_period        => $check_period,
+      service_description => "${title} app healthcheck",
+      host_name           => $::fqdn,
+      notes_url           => monitoring_docs_url(app-healthcheck-not-ok),
+      contact_groups      => $additional_check_contact_groups,
     }
   }
   if ($app_type == 'rack') or $monitor_unicornherder {

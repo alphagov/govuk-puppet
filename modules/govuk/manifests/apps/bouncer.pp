@@ -41,15 +41,17 @@ class govuk::apps::bouncer(
   }
 
   govuk::app { 'bouncer':
-    app_type                 => 'rack',
-    port                     => $port,
-    sentry_dsn               => $sentry_dsn,
-    vhost_ssl_only           => false,
-    health_check_path        => '/healthcheck',
+    app_type                   => 'rack',
+    port                       => $port,
+    sentry_dsn                 => $sentry_dsn,
+    vhost_ssl_only             => false,
+    health_check_path          => '/healthcheck',
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
     # Disable the default nginx config, as we need a custom
     # one to allow us to set up wildcard alias
-    enable_nginx_vhost       => false,
-    unicorn_worker_processes => $unicorn_worker_processes,
+    enable_nginx_vhost         => false,
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 
   include govuk_postgresql::client
