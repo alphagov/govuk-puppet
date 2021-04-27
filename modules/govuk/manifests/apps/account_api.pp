@@ -80,7 +80,6 @@ class govuk::apps::account_api (
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
     vhost_ssl_only             => true,
-    health_check_path          => '/healthcheck', # must return HTTP 200 for an unauthenticated request
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     deny_framing               => true,

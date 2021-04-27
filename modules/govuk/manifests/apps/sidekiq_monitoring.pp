@@ -250,11 +250,6 @@ class govuk::apps::sidekiq_monitoring (
     collectd_process_regex => '/data/apps/sidekiq-monitoring/shared/bundle/ruby/.*/bin/rackup .*',
   }
 
-  concat::fragment { "${app_name}_lb_healthcheck":
-    target  => '/etc/nginx/lb_healthchecks.conf',
-    content => "location /_healthcheck_${app_name} {\n  proxy_pass http://localhost/healthcheck;\n  proxy_set_header Host ${app_name};\n}\n",
-  }
-
   concat::fragment { "${app_name}_lb_healthcheck_live":
     target  => '/etc/nginx/lb_healthchecks.conf',
     content => "location /_healthcheck-live_${app_name} {\n  proxy_pass http://localhost/healthcheck/live;\n  proxy_set_header Host ${app_name};\n}\n",

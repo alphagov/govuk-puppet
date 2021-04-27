@@ -140,8 +140,6 @@ class govuk::apps::content_publisher (
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
     vhost_ssl_only             => true,
-    health_check_path          => '/healthcheck', # must return HTTP 200 for an unauthenticated request
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     deny_framing               => true,

@@ -194,8 +194,6 @@ class govuk::apps::whitehall(
   $app_name = 'whitehall'
   $app_domain = hiera('app_domain')
 
-  $health_check_path = '/healthcheck'
-
   # The number of worker processes differs for frontend vs. backend configs.
   if $configure_frontend {
     $unicorn_worker_processes = $frontend_unicorn_worker_processes
@@ -216,9 +214,7 @@ class govuk::apps::whitehall(
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
     log_format_is_json         => true,
-    health_check_path          => $health_check_path,
     health_check_custom_doc    => true,
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     depends_on_nfs             => true,
@@ -251,10 +247,6 @@ class govuk::apps::whitehall(
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
     # because Whitehall sets $enable_nginx_vhost=false. We therefore need to
     # configure the LB healthcheck explicitly.
-    concat::fragment { "${whitehall_frontend_vhost_}_lb_healthcheck":
-      target  => '/etc/nginx/lb_healthchecks.conf',
-      content => "location /_healthcheck_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy${health_check_path};\n}\n",
-    }
     concat::fragment { "${whitehall_frontend_vhost_}_lb_healthcheck_live":
       target  => '/etc/nginx/lb_healthchecks.conf',
       content => "location /_healthcheck-live_${whitehall_frontend_vhost_} {\n  proxy_pass http://${whitehall_frontend_vhost_}-proxy/healthcheck/live;\n}\n",
@@ -315,10 +307,6 @@ class govuk::apps::whitehall(
     # govuk::app::config doesn't automatically configure Whitehall's LB healthcheck
     # because Whitehall sets $enable_nginx_vhost=false. We therefore need to
     # configure the LB healthcheck explicitly.
-    concat::fragment { "${whitehall_admin_vhost_}_lb_healthcheck":
-      target  => '/etc/nginx/lb_healthchecks.conf',
-      content => "location /_healthcheck_${whitehall_admin_vhost_} {\n  proxy_pass http://${whitehall_admin_vhost_}-proxy${health_check_path};\n}\n",
-    }
     concat::fragment { "${whitehall_admin_vhost_}_lb_healthcheck_live":
       target  => '/etc/nginx/lb_healthchecks.conf',
       content => "location /_healthcheck-live_${whitehall_admin_vhost_} {\n  proxy_pass http://${whitehall_admin_vhost_}-proxy/healthcheck/live;\n}\n",

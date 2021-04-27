@@ -152,13 +152,11 @@ class govuk::apps::publishing_api(
     port                             => $port,
     sentry_dsn                       => $sentry_dsn,
     vhost_ssl_only                   => true,
-    health_check_path                => '/healthcheck',
     health_check_service_template    => 'govuk_urgent_priority',
     health_check_notification_period => '24x7',
     has_liveness_health_check        => true,
     has_readiness_health_check       => true,
     unicorn_worker_processes         => $unicorn_worker_processes,
-    json_health_check                => true,
     log_format_is_json               => true,
     deny_framing                     => true,
   }

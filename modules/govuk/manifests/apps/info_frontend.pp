@@ -40,8 +40,6 @@ class govuk::apps::info_frontend(
     log_format_is_json         => true,
     asset_pipeline             => true,
     asset_pipeline_prefixes    => ['assets/info-frontend'],
-    health_check_path          => '/healthcheck',
-    json_health_check          => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
   }
