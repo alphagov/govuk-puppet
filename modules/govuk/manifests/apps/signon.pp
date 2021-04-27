@@ -92,6 +92,7 @@ class govuk::apps::signon(
   govuk::app { $app_name:
     app_type                   => 'rack',
     port                       => $port,
+    nginx_extra_config         => template('govuk/signon_extra_nginx_config.conf.erb'),
     sentry_dsn                 => $sentry_dsn,
     vhost_ssl_only             => true,
     health_check_path          => '/healthcheck',
