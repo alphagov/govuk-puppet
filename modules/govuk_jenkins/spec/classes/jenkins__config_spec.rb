@@ -34,5 +34,14 @@ describe "govuk_jenkins::config", :type => :class do
       it { is_expected.to contain_file("/var/lib/jenkins/config.xml").with_content(/<authorizationStrategy class="hudson.security.GlobalMatrixAuthorizationStrategy">/) }
       it { is_expected.to contain_file("/var/lib/jenkins/config.xml").with_content(/<permission>jenkins.perm.admin:admin_user<\/permission>\n\s+<permission>jenkins.perm.edit:admin_user<\/permission>/) }
     end
+
+    context "no new line" do
+      let (:params) { default_params.merge(manage_config: true) }
+
+      it do
+        expect(subject).to contain_file("/var/lib/jenkins/config.xml").without_content(/\n\Z/),
+          "Ensure modules/govuk_jenkins/templates/config/config.xml.erb has no newline character at the end of the file. See https://github.com/alphagov/govuk-puppet/pull/11073 for more details."
+      end
+    end
   end
 end
