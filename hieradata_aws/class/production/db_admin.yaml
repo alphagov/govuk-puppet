@@ -339,7 +339,7 @@ govuk_env_sync::tasks:
   "push_release_production_daily":
     ensure: "present"
     hour: "0"
-    minute: "16"
+    minute: "15"
     action: "push"
     dbms: "mysql"
     storagebackend: "s3"
