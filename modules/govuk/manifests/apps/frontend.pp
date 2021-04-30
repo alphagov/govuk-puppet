@@ -15,6 +15,10 @@
 #   Should this vhost be protected with HTTP Basic auth?
 #   Default: undef
 #
+# [*account_api_bearer_token*]
+#   Bearer token for communication with the account-api
+#   Default: undef
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -59,6 +63,7 @@ class govuk::apps::frontend(
   $vhost = 'frontend',
   $port,
   $vhost_protected = false,
+  $account_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
@@ -98,6 +103,9 @@ class govuk::apps::frontend(
   }
 
   govuk::app::envvar {
+    "${title}-ACCOUNT_API_BEARER_TOKEN":
+        varname => 'ACCOUNT_API_BEARER_TOKEN',
+        value   => $account_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
