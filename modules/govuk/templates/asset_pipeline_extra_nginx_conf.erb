@@ -10,6 +10,7 @@
     location ~ "-[0-9a-f]{32,}\." {
       expires max;
       add_header Cache-Control "public, immutable";
+      add_header Surrogate-Key "assets assets-<%= @vhost %>";
 
       # Set CORS allow origin for fonts only
       location ~* \.(eot|otf|ttf|woff|woff2)$ {
