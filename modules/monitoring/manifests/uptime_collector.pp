@@ -8,13 +8,7 @@
 #   The environment the uptime collecting is running in. For example:
 #     production, integration or staging.
 #
-# [*aws*]
-#   Optional. True or false, depending on whether we're running in AWS or not.
-
-class monitoring::uptime_collector (
-  $environment = '',
-  $aws = false,
-) {
+class monitoring::uptime_collector($environment = '') {
   exec { 'install statsd into 2.6 rbenv':
     environment => 'RBENV_VERSION=2.6',
     path        => ['/usr/lib/rbenv/shims', '/usr/local/bin', '/usr/bin', '/bin'],

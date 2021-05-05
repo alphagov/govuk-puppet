@@ -9,11 +9,10 @@ require "time"
 require "statsd"
 
 class Collector
-  def initialize(service_details, environment, aws)
+  def initialize(service_details, environment)
     extract_service_details(service_details)
     @statsd = Statsd.new("127.0.0.1")
     @environment = environment
-    @aws = aws
   end
 
   def call
@@ -25,7 +24,7 @@ class Collector
 
 private
 
-  attr_reader :statsd, :service_name, :environment, :aws, :healthcheck_path
+  attr_reader :statsd, :service_name, :environment, :healthcheck_path
 
   def extract_service_details(details)
     details = details.split(':')
@@ -34,14 +33,7 @@ private
   end
 
   def healthcheck_uri
-    @healthcheck_uri ||= begin
-      if aws
-        URI("https://#{service_name}.#{environment}.govuk.digital/healthcheck/live")
-      else
-        prefix = environment == "production" ? "#{service_name}" : "#{service_name}.#{environment}"
-        URI("https://#{prefix}.publishing.service.gov.uk/#{healthcheck_path}")
-      end
-    end
+    @healthcheck_uri ||= URI("https://#{service_name}.#{environment}.govuk.digital/healthcheck/live")
   end
 
   def check_service_up
@@ -70,11 +62,10 @@ def main
   threads = []
 
   environment = ARGV[0]
-  aws = ARGV[1] == 'true' ? true : false
 
-  ARGV[2..-1].each do |service_details|
+  ARGV[1..-1].each do |service_details|
     threads << Thread.new do
-      Collector.new(service_details, environment, aws).call
+      Collector.new(service_details, environment).call
     end
   end
 

@@ -1414,8 +1414,6 @@ monitoring::checks::mirror::gcp_mirror_sync_transfer_job_auth_json: "%{hiera('mo
 monitoring::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 monitoring::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
-monitoring::uptime_collector::aws: true
-
 # FIXME: this has been added to avoid a bug until we move to v3 of the module
 mysql::client::package_ensure: 'present'
 
