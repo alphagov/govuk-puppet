@@ -131,6 +131,7 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-prometheus': }
   aptly::repo { 'govuk-prometheus-node-exporter': }
   aptly::repo { 'govuk-python': }
+  aptly::repo { 'govuk-python3': }
   aptly::repo { 'govuk-rubygems': }
   aptly::repo { 'govuk-splunk-configurator': }
   aptly::repo { 'jenkins-agent': }
