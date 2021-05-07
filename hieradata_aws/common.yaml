@@ -1098,6 +1098,9 @@ govuk_solr6::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerpr
 govuk_python::apt_source::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_python::apt_source::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk_python3::apt_source::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk_python3::apt_source::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
 govuk_sudo::sudo_conf:
   deploy_docker_image:
     content: 'deploy ALL=NOPASSWD:/usr/bin/docker image *'
