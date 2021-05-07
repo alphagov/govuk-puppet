@@ -19,6 +19,7 @@ class govuk::node::s_ckan inherits govuk::node::s_base {
   }
 
   include govuk_python
+  include govuk_python3
   include nginx
   include postgresql::lib::devel
   include govuk_java::openjdk8::jre
