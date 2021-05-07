@@ -4,12 +4,7 @@ class govuk_python (
 ) {
 
   include govuk_python::apt_source
-
-  class { '::python':
-    pip        => 'present',
-    dev        => 'present',
-    virtualenv => 'present',
-  }
+  include govuk_python::python
 
   Class['python::install'] -> Package <| provider == 'pip' and ensure != absent |>
 
