@@ -138,6 +138,7 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
       - licensify-feed
 
 govuk::apps::account_api::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
+govuk::apps::account_api::feature_flag_enforce_levels_of_authentication: true
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
