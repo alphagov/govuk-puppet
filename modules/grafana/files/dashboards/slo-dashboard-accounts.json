@@ -1,0 +1,869 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 65,
+  "links": [],
+  "refresh": "30s",
+  "rows": [
+    {
+      "collapse": false,
+      "height": -494,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": null,
+          "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 23,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "integral($latency_bad_metric)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "28d",
+          "title": "Bad Events",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": 5,
+          "format": "percentunit",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 20,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "scale(offset(divideSeries(integral($latency_bad_metric),integral($latency_all_metric)),-1),-1)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "28d",
+          "title": "Reliability",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": 5,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 21,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "asPercent(scale(offset(divideSeries(integral($latency_bad_metric),integral($latency_all_metric)),-$latency_error_budget),-1),$latency_error_budget)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "33,66",
+          "timeFrom": "28d",
+          "title": "Error Budget",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 390,
+      "panels": [
+        {
+          "aliasColors": {
+            "90th Percentile Latency": "#6ED0E0",
+            "Error Budget": "#BF1B00",
+            "Error Budget (aspirational)": "#BF1B00",
+            "Errors": "#6ED0E0",
+            "Latency Errors": "#6ED0E0",
+            "Latency Threshold": "#FCE2DE",
+            "Latency Threshold (aspirational)": "#FCE2DE",
+            "Reliability": "#7EB26D",
+            "Reliability (aspirational)": "#7EB26D"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "",
+          "fill": 0,
+          "hideTimeOverride": false,
+          "id": 1,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Error Budget",
+              "linewidth": 2,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(cumulative($latency_bad_metric),\"Errors\")",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(asPercent(scale(offset(divideSeries(integral($latency_bad_metric),integral($latency_all_metric)),-$latency_error_budget),-1),$latency_error_budget),\"Error Budget\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "28d",
+          "timeShift": null,
+          "title": "account-api latency errors",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "decimals": 1,
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 80,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": null,
+          "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 24,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "integral($http_bad_metric)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "28d",
+          "title": "Bad Events",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": false,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": 5,
+          "format": "percentunit",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 10,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "scale(offset(divideSeries(integral($http_bad_metric),integral($http_all_metric)),-1),-1)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "",
+          "timeFrom": "28d",
+          "title": "Reliability",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "decimals": 5,
+          "format": "percent",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "id": 11,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 4,
+          "sparkline": {
+            "fillColor": "rgba(31, 118, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 120, 193)",
+            "show": false
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "asPercent(scale(offset(divideSeries(integral($http_bad_metric),integral($http_all_metric)),-$http_error_budget),-1),$http_error_budget)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "33,66",
+          "timeFrom": "28d",
+          "title": "Error Budget",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 381,
+      "panels": [
+        {
+          "aliasColors": {
+            "90th Percentile Latency": "#6ED0E0",
+            "Error Budget": "#BF1B00",
+            "Error Budget (aspirational)": "#BF1B00",
+            "Error Rate": "#6ED0E0",
+            "Errors": "#6ED0E0",
+            "Latency Threshold": "#FCE2DE",
+            "Latency Threshold (aspirational)": "#FCE2DE",
+            "Reliability": "#7EB26D",
+            "Reliability (aspirational)": "#7EB26D"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "",
+          "fill": 0,
+          "hideTimeOverride": false,
+          "id": 15,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "connected",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Error Budget",
+              "linewidth": 2,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(cumulative($http_bad_metric),\"Errors\")",
+              "textEditor": true
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias(asPercent(scale(offset(divideSeries(integral($http_bad_metric),integral($http_all_metric)),-$http_error_budget),-1),$http_error_budget),\"Error Budget\")",
+              "textEditor": true
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "28d",
+          "timeShift": null,
+          "title": "account-api http errors",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": 0,
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "decimals": 1,
+              "format": "percent",
+              "label": null,
+              "logBase": 1,
+              "max": "100",
+              "min": "0",
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": false,
+      "title": "Dashboard Row",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {
+          "tags": [],
+          "text": "transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))",
+          "value": "transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))"
+        },
+        "hide": 0,
+        "label": "Latency Metric (bad)",
+        "name": "latency_bad_metric",
+        "options": [
+          {
+            "selected": true,
+            "text": "transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))",
+            "value": "transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))"
+          }
+        ],
+        "query": "transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))",
+        "type": "constant"
+      },
+      {
+        "current": {
+          "tags": [],
+          "text": "offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)",
+          "value": "offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)"
+        },
+        "hide": 0,
+        "label": "Latency Metric (all)",
+        "name": "latency_all_metric",
+        "options": [
+          {
+            "selected": true,
+            "text": "offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)",
+            "value": "offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)"
+          }
+        ],
+        "query": "offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)",
+        "type": "constant"
+      },
+      {
+        "current": {
+          "tags": [],
+          "text": "0.01",
+          "value": "0.01"
+        },
+        "hide": 0,
+        "label": "Latency Error Budget",
+        "name": "latency_error_budget",
+        "options": [
+          {
+            "selected": true,
+            "text": "0.01",
+            "value": "0.01"
+          }
+        ],
+        "query": "0.01",
+        "type": "constant"
+      },
+      {
+        "current": {
+          "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
+          "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))"
+        },
+        "hide": 0,
+        "label": "HTTP Metric (bad)",
+        "name": "http_bad_metric",
+        "options": [
+          {
+            "selected": true,
+            "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
+            "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))"
+          }
+        ],
+        "query": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
+        "type": "constant"
+      },
+      {
+        "current": {
+          "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))",
+          "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))"
+        },
+        "hide": 0,
+        "label": "HTTP Metric (all)",
+        "name": "http_all_metric",
+        "options": [
+          {
+            "selected": true,
+            "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))",
+            "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))"
+          }
+        ],
+        "query": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))",
+        "type": "constant"
+      },
+      {
+        "current": {
+          "text": "0.01",
+          "value": "0.01"
+        },
+        "hide": 0,
+        "label": "HTTP Error Budget",
+        "name": "http_error_budget",
+        "options": [
+          {
+            "selected": true,
+            "text": "0.01",
+            "value": "0.01"
+          }
+        ],
+        "query": "0.01",
+        "type": "constant"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-28d",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "SLO dashboard - accounts",
+  "version": 1
+}
