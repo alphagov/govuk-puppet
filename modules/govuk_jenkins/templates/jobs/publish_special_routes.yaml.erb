@@ -73,7 +73,7 @@
     name: Unpublish_Single_Special_Route
     display-name: "Unpublish single special route"
     project-type: freestyle
-    description: "Unpublish a single special route, with a type of 'gone'"
+    description: "Unpublish a single special route, with a type of 'gone' or 'redirect'"
     properties:
         - build-discarder:
             days-to-keep: 30
@@ -87,7 +87,7 @@
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
             export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bundle exec rake unpublish_one_special_route["${BASE_PATH}"]
+            bundle exec rake unpublish_one_special_route["${BASE_PATH}", "${ALTERNATIVE_PATH}"]
     wrappers:
         - ansicolor:
             colormap: xterm
@@ -95,6 +95,9 @@
       - string:
           name: BASE_PATH
           description: The base path of the route to be unpublished
+      - string:
+          name: ALTERNATIVE_PATH
+          description: The base path of the page to redirect the route to (optional)
       - string:
           name: SPECIAL_ROUTE_PUBLISHER_BRANCH
           description: Branch of special-route-publisher to use.
