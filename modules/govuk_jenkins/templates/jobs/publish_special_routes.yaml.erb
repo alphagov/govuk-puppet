@@ -87,7 +87,7 @@
             export GOVUK_APP_DOMAIN=<%= @app_domain %>
             export PUBLISHING_API_BEARER_TOKEN=<%= @publishing_api_bearer_token %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
-            bundle exec rake unpublish_one_special_route["${BASE_PATH}", "${ALTERNATIVE_PATH}"]
+            bundle exec rake unpublish_one_special_route["${BASE_PATH}","${ALTERNATIVE_PATH}"]
     wrappers:
         - ansicolor:
             colormap: xterm
