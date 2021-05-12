@@ -1052,6 +1052,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   account-api: {}
   authenticating-proxy: {}
   bouncer: {}
+  cache-clearing-service: {}
   collections: {}
   collections-publisher: {}
   content-data-admin: {}
