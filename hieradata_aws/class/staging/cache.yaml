@@ -8,4 +8,4 @@ router::gor::http_disallow_url:
   - 'apply-for-a-licence/payment'
   - 'apply-for-a-licence/redirect'
   - 'apply-for-a-licence/uploaded'
-  - 'transition-check/login/callback'
+  - 'sign-in/callback'
