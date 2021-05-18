@@ -58,7 +58,7 @@ class monitoring::checks::sidekiq (
 
   if $enable_publishing_api_check {
     icinga::check::graphite { 'check_publishing_api_downstream_high_queue_latency':
-      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_high.latency)), 0)',
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.publishing-api.*.workers.queues.downstream_high.latency, 36)), 0)',
       from      => '24hours',
       args      => '--dropfirst -36',
       warning   => 45,
@@ -70,7 +70,7 @@ class monitoring::checks::sidekiq (
 
   if $enable_search_api_check {
     icinga::check::graphite { 'check_search_api_default_queue_latency':
-      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.default.latency)), 0)',
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.default.latency, 36)), 0)',
       from      => '24hours',
       args      => '--dropfirst -36',
       warning   => 30,
@@ -81,7 +81,7 @@ class monitoring::checks::sidekiq (
     }
 
     icinga::check::graphite { 'check_search_api_bulk_queue_latency':
-      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.bulk.latency)), 0)',
+      target    => 'transformNull(averageSeries(keepLastValue(stats.gauges.govuk.app.search-api.*.workers.queues.bulk.latency, 36)), 0)',
       from      => '24hours',
       args      => '--dropfirst -36',
       warning   => 300,
