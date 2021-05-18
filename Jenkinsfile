@@ -14,16 +14,16 @@ node {
       govuk.checkoutFromGitHubWithSSH(REPOSITORY)
     }
 
-    stage("Merge master") {
-      govuk.mergeMasterBranch()
+    stage("Merge main") {
+      govuk.mergeIntoBranch("main")
     }
 
     stage("Bundle install") {
       govuk.bundleApp()
     }
 
-    if (env.BRANCH_NAME != 'master') {
-      govuk.runRakeTask('shell:shellcheck[origin/master,HEAD]')
+    if (env.BRANCH_NAME != "main") {
+      govuk.runRakeTask('shell:shellcheck[origin/main,HEAD]')
     }
 
     stage("puppet-librarian install") {
@@ -40,11 +40,11 @@ node {
       govuk.runRakeTask('lint')
     }
 
-    // Deploy on Integration (only master)
-    if (env.BRANCH_NAME == 'master'){
+    // Deploy on Integration (only main)
+    if (env.BRANCH_NAME == "main") {
       stage("Push release tag") {
         echo 'Pushing tag'
-        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER)
+        govuk.pushTag(REPOSITORY, env.BRANCH_NAME, 'release_' + env.BUILD_NUMBER, 'main')
       }
 
       stage("Deploy on Integration") {
