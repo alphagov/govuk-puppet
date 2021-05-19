@@ -4,16 +4,10 @@
 #
 # === Parameters
 #
-# [*overdue_check_period*]
-#   Icinga time period for the overdue documents check.
+# [*check_period*]
+#   Icinga time period for the checks.
 #
-# [*scheduled_check_period*]
-#   Icinga time period for the scheduled documents check.
-#
-class monitoring::checks::whitehall (
-  $overdue_check_period = undef,
-  $scheduled_check_period = undef,
-) {
+class monitoring::checks::whitehall ($check_period = undef) {
   $app_domain = hiera('app_domain')
 
   $whitehall_hostname = "whitehall-admin.${app_domain}"
@@ -33,7 +27,7 @@ class monitoring::checks::whitehall (
     notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
     action_url                 => "https://${whitehall_hostname}${whitehall_overdue_url}",
     event_handler              => 'publish_overdue_whitehall',
-    check_period               => $overdue_check_period,
+    check_period               => $check_period,
     attempts_before_hard_state => 10,
     retry_interval             => 1,
   }
@@ -50,7 +44,7 @@ class monitoring::checks::whitehall (
     host_name                  => $::fqdn,
     notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
     action_url                 => "https://${whitehall_hostname}${whitehall_scheduled_url}",
-    check_period               => $scheduled_check_period,
+    check_period               => $check_period,
     attempts_before_hard_state => 10,
     retry_interval             => 1,
   }

@@ -349,8 +349,7 @@ monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::enabled: true
 monitoring::checks::aws_iam_key::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::max_aws_iam_key_age: 320
-monitoring::checks::whitehall::overdue_check_period: "never"
-monitoring::checks::whitehall::scheduled_check_period: "never"
+monitoring::checks::whitehall::check_period: "never"
 
 monitoring::checks::lb::region: 'eu-west-1'
 monitoring::checks::lb::loadbalancers: # prefer "internal"
