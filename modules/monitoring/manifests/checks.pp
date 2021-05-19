@@ -158,20 +158,17 @@ class monitoring::checks (
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  if $::aws_environment == 'production' {
-    icinga::check { "check_whitehall_scheduled_from_${::hostname}":
-      check_command              => 'check_whitehall_scheduled',
-      service_description        => 'scheduled publications in Whitehall not queued',
-      use                        => 'govuk_urgent_priority',
-      host_name                  => $::fqdn,
-      notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
-      action_url                 => "https://${whitehall_hostname}${whitehall_scheduled_url}",
-      check_period               => $whitehall_scheduled_check_period,
-      attempts_before_hard_state => 10,
-      retry_interval             => 1,
-    }
+  icinga::check { "check_whitehall_scheduled_from_${::hostname}":
+    check_command              => 'check_whitehall_scheduled',
+    service_description        => 'scheduled publications in Whitehall not queued',
+    use                        => 'govuk_urgent_priority',
+    host_name                  => $::fqdn,
+    notes_url                  => monitoring_docs_url(whitehall-scheduled-publishing),
+    action_url                 => "https://${whitehall_hostname}${whitehall_scheduled_url}",
+    check_period               => $whitehall_scheduled_check_period,
+    attempts_before_hard_state => 10,
+    retry_interval             => 1,
   }
-
 
   icinga::check {'check_mapit_responding':
     check_command       => 'check_mapit',
