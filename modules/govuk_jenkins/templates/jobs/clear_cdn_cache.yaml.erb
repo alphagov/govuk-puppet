@@ -1,10 +1,10 @@
 ---
 - job:
     name: clear-cdn-cache
-    display-name: Clear production CDN cache
+    display-name: Clear CDN cache
     project-type: freestyle
     description: >
-      Clears the production CDN cache for the 10 most popular pages on GOV.UK.
+      Clears the CDN cache for the 10 most popular pages on GOV.UK.
     properties:
       - build-discarder:
           num-to-keep: 30
@@ -15,8 +15,8 @@
           set -ex
 
           declare -a hostnames=(
-            "www.gov.uk"
-            "assets.publishing.service.gov.uk"
+            "<%= @website_root_url -%>"
+            "<%= @assets_root_url -%>"
           )
 
           # 10 most popular pages based on GA 1-year stats

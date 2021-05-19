@@ -35,10 +35,8 @@
             block: true
           - project: clear-varnish-cache
             block: true
-      <%- if @clear_cdn_cache -%>
           - project: clear-cdn-cache
             block: true
-      <%- end -%>
     wrappers:
       - ansicolor:
           colormap: xterm
