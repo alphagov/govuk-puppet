@@ -16,4 +16,10 @@ class govuk::node::s_account inherits govuk::node::s_base {
   govuk_envvar {
     'UNICORN_TIMEOUT': value => 15;
   }
+
+  include ::collectd::plugin::memcached
+  class { 'memcached':
+    max_memory => '10%',
+    listen_ip  => '0.0.0.0',
+  }
 }
