@@ -940,6 +940,7 @@ govuk_ci::master::pipeline_jobs:
   govuk-guix: {}
   govuk-jenkinslib: {}
   govuk_message_queue_consumer: {}
+  govuk_personalisation: {}
   govuk-provisioning: {}
   govuk_publishing_components: {}
   govuk_seed_crawler: {}
