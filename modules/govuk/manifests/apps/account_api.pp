@@ -37,6 +37,22 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
+# [*rabbitmq_hosts*]
+#   RabbitMQ hosts to connect to.
+#   Default ['localhost']
+#
+# [*rabbitmq_user*]
+#   RabbitMQ username.
+#   Default 'account_api'
+#
+# [*rabbitmq_password*]
+#   RabbitMQ password.
+#   Default 'account_api'
+#
+# [*enable_publishing_queue_listener*]
+#   Run the worker which processes publishing updates.
+#   Default: false
+#
 # [*account_oauth_client_id*]
 #   Client ID for the Transition Checker in GOV.UK Account Manager
 #
@@ -65,6 +81,10 @@ class govuk::apps::account_api (
   $db_port = undef,
   $db_password = undef,
   $db_name = 'account-api_production',
+  $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_user = 'account_api',
+  $rabbitmq_password = 'account_api',
+  $enable_publishing_queue_listener = false,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $plek_account_manager_uri = undef,
@@ -121,6 +141,19 @@ class govuk::apps::account_api (
     "${title}-SESSION_SIGNING_KEY":
         varname => 'SESSION_SIGNING_KEY',
         value   => $session_signing_key;
+  }
+
+  govuk::app::envvar::rabbitmq { 'account-api':
+    hosts    => $rabbitmq_hosts,
+    user     => $rabbitmq_user,
+    password => $rabbitmq_password,
+  }
+
+  govuk::procfile::worker { 'account-api-publishing-queue-listener':
+    setenv_as      => $app_name,
+    enable_service => $enable_publishing_queue_listener,
+    process_type   => 'publishing-queue-listener',
+    process_regex  => '\/rake message_queue:listen_to_publishing_queue',
   }
 
   if $feature_flag_enforce_levels_of_authentication {
