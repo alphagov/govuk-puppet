@@ -25,5 +25,6 @@ class govuk_jenkins::jobs::validate_published_dns (
     host_name           => $::fqdn,
     freshness_threshold => 104400,
     action_url          => $job_url,
+    notes_url           => monitoring_docs_url(validate-published-dns),
   }
 }
