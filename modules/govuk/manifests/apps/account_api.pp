@@ -153,7 +153,7 @@ class govuk::apps::account_api (
     setenv_as      => $app_name,
     enable_service => $enable_publishing_queue_listener,
     process_type   => 'publishing-queue-listener',
-    process_regex  => '\/rake message_queue:listen_to_publishing_queue',
+    process_regex  => '\/rake message_queue:consumer',
   }
 
   if $feature_flag_enforce_levels_of_authentication {
