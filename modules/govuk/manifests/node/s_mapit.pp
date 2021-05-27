@@ -2,6 +2,7 @@
 #
 class govuk::node::s_mapit inherits govuk::node::s_base {
 
+  include govuk_python3
   include nginx
 
   file { '/etc/postgresql':
