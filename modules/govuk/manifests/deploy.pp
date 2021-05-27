@@ -3,7 +3,6 @@ class govuk::deploy (
 ){
   include govuk_harden
   include govuk_logging
-  include govuk_python
   include unicornherder
 
   anchor { 'govuk::deploy::begin': }

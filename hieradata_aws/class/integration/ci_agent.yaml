@@ -15,7 +15,6 @@ govuk_containers::elasticsearch::secondary::enable: false
 postgresql::globals::version: '9.6'
 postgresql::globals::postgis_version: '3.1.1'
 govuk_postgresql::server::enable_collectd: false
-govuk_python::govuk_python_version: '2.7.14'
 govuk_python3::govuk_python_version: '3.6.12'
 
 govuk_mysql::server::innodb_flush_log_at_trx_commit: 2
