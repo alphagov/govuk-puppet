@@ -71,18 +71,4 @@ class govuk::apps::search_api::rabbitmq (
     write_permission     => "^(amq\\.gen.*|search_api_to_be_indexed|search_api_govuk_index)\$",
     configure_permission => "^(amq\\.gen.*|search_api_to_be_indexed|search_api_govuk_index)\$",
   }
-
-  # todo: remove these expiration times when we have search-api set up
-  # and processing the queues properly.
-  rabbitmq_policy { 'search_api-ttl@/':
-    ensure     => absent,
-    pattern    => 'search_api*',
-    priority   => 0,
-    applyto    => 'queues',
-    definition => {
-      'ha-mode'      => 'all',
-      'ha-sync-mode' => 'automatic',
-      'message-ttl'  => 300000, # 5 minutes
-    },
-  }
 }
