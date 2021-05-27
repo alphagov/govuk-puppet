@@ -81,18 +81,4 @@ class govuk::apps::account_api::rabbitmq (
     write_permission     => "^\$",
     configure_permission => "^\$",
   }
-
-  # todo: remove these expiration times when we have account-api set up
-  # and processing the queues properly.
-  rabbitmq_policy { "${amqp_queue}-ttl@/":
-    ensure     => absent,
-    pattern    => $amqp_queue,
-    priority   => 0,
-    applyto    => 'queues',
-    definition => {
-      'ha-mode'      => 'all',
-      'ha-sync-mode' => 'automatic',
-      'message-ttl'  => 300000, # 5 minutes
-    },
-  }
 }
