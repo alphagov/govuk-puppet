@@ -85,6 +85,7 @@ class govuk::apps::account_api::rabbitmq (
   # todo: remove these expiration times when we have account-api set up
   # and processing the queues properly.
   rabbitmq_policy { "${amqp_queue}-ttl@/":
+    ensure     => absent,
     pattern    => $amqp_queue,
     priority   => 0,
     applyto    => 'queues',
