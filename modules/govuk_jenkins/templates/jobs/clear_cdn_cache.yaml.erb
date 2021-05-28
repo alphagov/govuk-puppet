@@ -10,36 +10,36 @@
           num-to-keep: 30
     builders:
       - shell: |
-          #!/usr/bin/env bash
+          #!/usr/bin/env ruby
+          require 'net/http'
+          require 'uri'
+          require 'json'
 
-          set -ex
 
-          declare -a hostnames=(
-            "<%= @website_root_url -%>"
-            "<%= @assets_root_url -%>"
-          )
+          hostnames = [
+            @website_root_url,
+            @assets_root_url
+          ]
 
-          # 10 most popular pages based on GA 1-year stats
-          declare -a paths=(
-            "/"
-            "/calculate-your-child-maintenance"
-            "/check-vehicle-tax"
-            "/get-information-about-a-company"
-            "/government/organisations/companies-house"
-            "/government/organisations/hm-revenue-customs"
-            "/search"
-            "/sold-bought-vehicle"
-            "/state-pension-age"
-            "/vehicle-tax"
-          )
+          uri = URI('https://www.gov.uk/api/search.json?fields=title&order=-popularity')
+          res = Net::HTTP.get_response(uri)
 
-          for node in `govuk_node_list -c cache`; do
-            for hostname in "${hostnames[@]}"; do
-              for path in "${paths[@]}"; do
-                ssh deploy@$node "curl -s -X PURGE $hostname$path"
-              done
-            done
-          done
+          body = JSON.parse(res.body)
+          paths = body["results"].map {|x| x["_id"]}
+
+          nodes = `govuk_node_list -c cache`.split("\n")
+
+          nodes.each do |node|
+            hostnames.each do |hostname|
+              paths.each do |path|
+                uri = URI(hostname+path)
+                request = Net::HTTPGenericRequest.new("PURGE", false, false, uri)
+                response = Net::HTTP.start(uri.hostname, uri.port, {use_ssl: true}) do |http|
+                  http.request(request)
+                end
+              end
+            end
+          end
     wrappers:
       - ansicolor:
           colormap: xterm
