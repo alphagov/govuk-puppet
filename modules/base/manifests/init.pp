@@ -25,6 +25,7 @@ class base (
   include base::supported_kernel
   include cron
   include curl
+  include govuk_python
   include govuk::deploy
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist

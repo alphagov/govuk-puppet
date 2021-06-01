@@ -74,8 +74,6 @@ govuk_jenkins::jobs::content_data_api_re_run::re_run_rake_etl_main_process_cron_
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_jenkins::packages::govuk_python::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::terraform::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::terraform::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 govuk_jenkins::packages::sops::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

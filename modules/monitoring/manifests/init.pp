@@ -15,7 +15,6 @@ class monitoring (
     ensure => 'installed',
   }
 
-  include ::govuk_jenkins::packages::govuk_python
   include icinga
   include nsca::server
 

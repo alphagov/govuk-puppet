@@ -36,6 +36,7 @@ class govuk_scripts {
   package { 'boto3':
     ensure   => 'present',
     provider => 'pip',
+    require  => File['/usr/bin/pip'],
   }
 
   # Make sure boto3 is installed for Python3 as required by govuk_node_list_aws

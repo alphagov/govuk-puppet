@@ -1,4 +1,4 @@
-Exec { path => '/usr/lib/rbenv/shims:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin' }
+Exec { path => '/opt/python2.7/bin:/usr/lib/rbenv/shims:/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin' }
 
 File {
   owner => 'root',

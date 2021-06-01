@@ -29,7 +29,6 @@ class govuk::node::s_base (
   include monitoring::client
   include postfix
   include rcs
-  include govuk_python
 
   $_node_class = $::aws_migration
 

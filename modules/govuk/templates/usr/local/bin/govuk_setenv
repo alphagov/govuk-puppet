@@ -25,6 +25,9 @@ if which rbenv >/dev/null 2>&1; then
   export PATH="${RBENV_ROOT}/shims:${PATH}"
 fi
 
+# Add python 2.7.14 bin path
+export PATH="/opt/python2.7/bin:${PATH}"
+
 if [ "$APPNAME" = "default" ]; then
   exec envdir "${GOVUK_CONF_ROOT}/${ENVDIR_NAME}" "$@"
 else
