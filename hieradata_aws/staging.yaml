@@ -177,6 +177,7 @@ govuk::apps::finder_frontend::unicorn_worker_processes: 24
 
 govuk::apps::frontend::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
+govuk::apps::frontend::feature_flag_save_a_page: true
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
