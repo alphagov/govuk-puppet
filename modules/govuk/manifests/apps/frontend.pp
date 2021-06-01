@@ -59,6 +59,9 @@
 # [*elections_api_key*]
 #   API key for the Elections API
 #
+# [*feature_flag_save_a_page*]
+#   Feature flag to switch GOV.UK Accounts Save a page feature
+#
 class govuk::apps::frontend(
   $vhost = 'frontend',
   $port,
@@ -76,6 +79,7 @@ class govuk::apps::frontend(
   $memcache_servers = undef,
   $elections_api_url = undef,
   $elections_api_key = undef,
+  $feature_flag_save_a_page = false,
 ) {
   $app_name = 'frontend'
 
@@ -101,6 +105,11 @@ class govuk::apps::frontend(
   Govuk::App::Envvar {
     app => $app_name,
   }
+
+  $feature_flag_save_a_page_var = $feature_flag_save_a_page ? {
+              true    => 'enabled',
+              default => undef
+      }
 
   govuk::app::envvar {
     "${title}-ACCOUNT_API_BEARER_TOKEN":
@@ -129,6 +138,9 @@ class govuk::apps::frontend(
     "${title}-ELECTIONS_API_KEY":
         varname => 'ELECTIONS_API_KEY',
         value   => $elections_api_key;
+    "${title}-FEATURE_FLAG_SAVE_A_PAGE":
+        varname => 'FEATURE_FLAG_SAVE_A_PAGE',
+        value   => $feature_flag_save_a_page_var;
   }
 
   if $secret_key_base != undef {
