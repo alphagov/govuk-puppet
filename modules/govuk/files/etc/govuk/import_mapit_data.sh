@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -x
+
 function stop_mapit_services () {
   # Stop Mapit Services
   sudo service nginx stop
@@ -17,11 +19,20 @@ function restart_mapit_services () {
   sudo service nginx start
 }
 
-stop_mapit_services
-# This script needs to run as a user that can sudo to become the postgres
-# user.  It's easiest if this is passwordless, so we can't use the deploy user
-# who can't sudo without a password
-# Run 'govuk_setenv mapit ./import-db-from-s3.sh' from the '/var/apps/mapit' as
 
-cd /var/apps/mapit && govuk_setenv mapit ./import-db-from-s3.sh
+function import_db_from_s3 () {
+  # get the data from s3
+  aws s3 cp --no-sign-request s3://govuk-custom-formats-mapit-storage-production/source-data/2021-05/mapit-may-2021-update.sql.gz /tmp/mapit.sql.gz
+
+  # drop the old db and bring up a new empty one
+  sudo -u postgres dropdb --if-exists mapit
+  sudo -u postgres createdb --owner mapit mapit
+  sudo -u postgres psql -c "CREATE EXTENSION postgis; CREATE EXTENSION postgis_topology;" mapit
+
+  # load up the downloaded data into this new db
+  zcat /tmp/mapit.sql.gz | sudo -u postgres psql mapit
+}
+
+stop_mapit_services
+import_db_from_s3
 restart_mapit_services

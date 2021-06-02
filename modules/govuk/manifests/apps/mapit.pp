@@ -117,16 +117,19 @@ class govuk::apps::mapit (
         value   => $django_secret_key;
   }
 
-  if ($::mapit_data_present == '0') {
+  if ($::mapit_data_present != '1') {
 
 
     file { '/etc/govuk/import_mapit_data.sh':
-      ensure => file,
-      source => 'puppet:///modules/govuk/etc/govuk/import_mapit_data.sh',
-
+      ensure  => file,
+      mode    => '0755',
+      source  => 'puppet:///modules/govuk/etc/govuk/import_mapit_data.sh',
+      require => Govuk_postgresql::Db['mapit'],
     }
+
     exec { 'populate mapit database':
       command => '/bin/bash /etc/govuk/import_mapit_data.sh 2>&1 | logger',
+      require => File['/etc/govuk/import_mapit_data.sh'],
     }
   }
 
