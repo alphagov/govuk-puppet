@@ -14,6 +14,10 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*account_api_bearer_token*]
+#   Bearer token for communication with the account-api
+#   Default: undef
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -37,6 +41,7 @@ class govuk::apps::government_frontend(
   $port,
   $sentry_dsn = undef,
   $secret_key_base = undef,
+  $account_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
@@ -47,6 +52,9 @@ class govuk::apps::government_frontend(
   }
 
   govuk::app::envvar {
+    "${title}-ACCOUNT_API_BEARER_TOKEN":
+        varname => 'ACCOUNT_API_BEARER_TOKEN',
+        value   => $account_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
