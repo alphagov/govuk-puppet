@@ -22,7 +22,7 @@ function restart_mapit_services () {
 
 function import_db_from_s3 () {
   # get the data from s3
-  aws s3 cp --no-sign-request s3://govuk-custom-formats-mapit-storage-production/source-data/2021-05/mapit-may-2021-update.sql.gz /tmp/mapit.sql.gz
+  aws s3 cp --no-sign-request s3://govuk-custom-formats-mapit-storage-production/source-data/2020-11/mapit-november-2020-update.sql.gz /tmp/mapit.sql.gz
 
   # drop the old db and bring up a new empty one
   sudo -u postgres dropdb --if-exists mapit
