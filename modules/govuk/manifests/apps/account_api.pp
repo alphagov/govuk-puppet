@@ -65,10 +65,6 @@
 # [*session_signing_key*]
 #   Secret key to sign user session data with
 #
-# [*feature_flag_enforce_levels_of_authentication*]
-#   Whether to enforce levels of authentication.
-#   Default: false
-#
 class govuk::apps::account_api (
   $port,
   $enabled = true,
@@ -89,7 +85,6 @@ class govuk::apps::account_api (
   $account_oauth_client_secret = undef,
   $plek_account_manager_uri = undef,
   $session_signing_key = undef,
-  $feature_flag_enforce_levels_of_authentication = false,
 ) {
   $app_name = 'account-api'
 
@@ -154,14 +149,6 @@ class govuk::apps::account_api (
     enable_service => $enable_publishing_queue_listener,
     process_type   => 'publishing-queue-listener',
     process_regex  => '\/rake message_queue:consumer',
-  }
-
-  if $feature_flag_enforce_levels_of_authentication {
-    govuk::app::envvar {
-      "${title}-FEATURE_FLAG_ENFORCE_LEVELS_OF_AUTHENTICATION":
-        varname => 'FEATURE_FLAG_ENFORCE_LEVELS_OF_AUTHENTICATION',
-        value   => 'enabled',
-    }
   }
 
   govuk::app::envvar::database_url { $app_name:
