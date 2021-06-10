@@ -23,21 +23,21 @@ class collectd::plugin::docker(
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
     command => 'pip install "docker>=4.1.0,<4.2"',
     notify  => Class['collectd::service'],
-    unless  => 'pip list | grep "docker (4.1"',
+    unless  => 'pip list | grep "docker.*4.1"',
   }
 
   exec { 'pip install urllib3':
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
     command => 'pip install "urllib3==1.25.3"',
     notify  => Class['collectd::service'],
-    unless  => 'pip list | grep "urllib3 (1.25.3)"',
+    unless  => 'pip list | grep "urllib3.*1.25.3"',
   }
 
   exec { 'pip install requests':
     path    => ['/usr/local/bin', '/usr/bin', '/bin'],
     command => 'pip install "requests==2.22.0"',
     notify  => Class['collectd::service'],
-    unless  => 'pip list | grep "requests (2.22.0)"',
+    unless  => 'pip list | grep "requests.*2.22.0"',
   }
 
   package { 'py-dateutil':
