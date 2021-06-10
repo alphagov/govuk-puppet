@@ -76,3 +76,8 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-integration-database-backups"
     path: "mongo-normal"
+
+mongodb::server::replicaset_members:
+  'mongo-1.integration.govuk-internal.digital':
+  'mongo-2.integration.govuk-internal.digital':
+  'mongo-3.integration.govuk-internal.digital':
