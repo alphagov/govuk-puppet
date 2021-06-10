@@ -95,8 +95,27 @@ class govuk::apps::ckan (
   $sentry_dsn                     = undef,
 ) {
   $ckan_home = '/var/ckan'
-  $ckan_ini  = "${ckan_home}/ckan.ini"
   $pycsw_config = "${ckan_home}/pycsw.cfg"
+
+  if ($::aws_environment == 'integration') {
+    $ckan_ini  = "${ckan_home}/ckan29.ini"
+    $who_ini = "${ckan_home}/who29.ini"
+    $govuk_ckan_ini = 'govuk/ckan/ckan29.ini.erb'
+    $govuk_who_ini = 'govuk/ckan/who29.ini.erb'
+    $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan29\.ini'
+    $fetch_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester fetch-consumer'
+    $gather_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester gather-consumer'
+    $pycsw_cmd = 'ckan ckan-pycsw'
+  } else {
+    $ckan_ini  = "${ckan_home}/ckan.ini"
+    $who_ini = "${ckan_home}/who.ini"
+    $govuk_ckan_ini = 'govuk/ckan/ckan.ini.erb'
+    $govuk_who_ini = 'govuk/ckan/who.ini.erb'
+    $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan\.ini'
+    $fetch_process_regex = '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester fetch\_consumer'
+    $gather_process_regex = '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer'
+    $pycsw_cmd = 'paster --plugin=ckanext-spatial ckan-pycsw'
+  }
 
   $request_timeout = 60
 
@@ -109,7 +128,7 @@ class govuk::apps::ckan (
       health_check_path                  => '/healthcheck',
       log_format_is_json                 => false,
       read_timeout                       => $request_timeout,
-      collectd_process_regex             => '\/gunicorn .* \/var\/ckan\/ckan\.ini',
+      collectd_process_regex             => $collectd_process_regex,
       local_tcpconns_established_warning => $gunicorn_worker_processes,
       sentry_dsn                         => $sentry_dsn,
       enable_nginx_vhost                 => false,
@@ -143,7 +162,7 @@ class govuk::apps::ckan (
       enable_service => $enable_harvester_fetch,
       process_type   => 'harvester_fetch_consumer',
       respawn_count  => 15,
-      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester fetch\_consumer',
+      process_regex  => $fetch_process_regex,
     }
 
     govuk::procfile::worker { 'harvester_gather_consumer':
@@ -151,7 +170,7 @@ class govuk::apps::ckan (
       setenv_as      => 'ckan',
       enable_service => $enable_harvester_gather,
       process_type   => 'harvester_gather_consumer',
-      process_regex  => '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer',
+      process_regex  => $gather_process_regex,
     }
 
     govuk::procfile::worker { 'pycsw_web':
@@ -162,9 +181,16 @@ class govuk::apps::ckan (
       process_regex  => 'pycsw\.wsgi',
     }
 
-    class { 'cronjobs':
-      ckan_port    => $port,
-      pycsw_config => $pycsw_config,
+    if ($::aws_environment == 'integration') {
+      class { 'cronjobs29':
+        ckan_port    => $port,
+        pycsw_config => $pycsw_config,
+      }
+    } else {
+      class { 'cronjobs':
+        ckan_port    => $port,
+        pycsw_config => $pycsw_config,
+      }
     }
 
     Govuk::App::Envvar {
@@ -178,6 +204,9 @@ class govuk::apps::ckan (
       "${title}-CKAN_HOME":
         varname => 'CKAN_HOME',
         value   => $ckan_home;
+      "${title}-CKAN_PORT":
+        varname => 'CKAN_PORT',
+        value   => "${port}"; # lint:ignore:only_variable_string
       "${title}-GUNICORN_TIMEOUT":
         varname => 'GUNICORN_TIMEOUT',
         value   => $request_timeout;
@@ -196,6 +225,12 @@ class govuk::apps::ckan (
       "${title}-PYCSW_CONFIG":
         varname => 'PYCSW_CONFIG',
         value   => $pycsw_config;
+      "${title}-LC_ALL":
+        varname => 'LC_ALL',
+        value   => 'C.UTF-8';
+      "${title}-LANG":
+        varname => 'LANG',
+        value   => 'C.UTF-8';
     }
 
     $app_domain = hiera('app_domain')
@@ -220,15 +255,15 @@ class govuk::apps::ckan (
 
     file { $ckan_ini:
       ensure  => file,
-      content => template('govuk/ckan/ckan.ini.erb'),
+      content => template($govuk_ckan_ini),
       owner   => 'deploy',
       group   => 'deploy',
       notify  => Service['ckan'],
     } ->
 
-    file { "${ckan_home}/who.ini":
+    file { $who_ini:
       ensure  => file,
-      content => template('govuk/ckan/who.ini.erb'),
+      content => template($govuk_who_ini),
       owner   => 'deploy',
       group   => 'deploy',
       notify  => Service['ckan'],
@@ -251,7 +286,7 @@ class govuk::apps::ckan (
     $pycsw_tables_created = "${ckan_home}/pycsw_tables_created.tmp"
 
     exec { 'setup_pycsw_tables':
-      command => "${ckan_bin}/paster --plugin=ckanext-spatial ckan-pycsw setup -p ${pycsw_config} && sudo touch ${pycsw_tables_created}",
+      command => "${ckan_bin}/${pycsw_cmd} setup -p ${pycsw_config} && sudo touch ${pycsw_tables_created}",
       creates => $pycsw_tables_created,
     }
 
