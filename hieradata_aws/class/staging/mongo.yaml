@@ -65,14 +65,8 @@ govuk_env_sync::tasks:
     temppath: "/var/lib/mongodb/.dumps"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
-  "push_imminence_daily":
-    ensure: "present"
-    hour: "3"
-    minute: "25"
-    action: "push"
-    dbms: "mongo"
-    storagebackend: "s3"
-    database: "imminence_production"
-    temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
-    path: "mongo-normal"
+
+mongodb::server::replicaset_members:
+  'mongo-1.staging.govuk-internal.digital':
+  'mongo-2.staging.govuk-internal.digital':
+  'mongo-3.staging.govuk-internal.digital':
