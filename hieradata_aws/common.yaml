@@ -302,7 +302,7 @@ collectd::plugin::tcp::metrics:
 collectd::package::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 collectd::package::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 collectd::plugin::docker::repo: "https://github.com/alphagov/docker-collectd-plugin.git"
-collectd::plugin::docker::commit: "e56ddb84536065786e0a55143faa8c6fc035c119"
+collectd::plugin::docker::commit: "e3e520e665d56a3d0b1d3bb697c0504d4494012d"
 
 duplicity::packages::version: '0.7.11-0ubuntu0ppa1263~ubuntu14.04.1'
 
