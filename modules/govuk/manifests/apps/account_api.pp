@@ -62,6 +62,9 @@
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
 #
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api
+#
 # [*session_signing_key*]
 #   Secret key to sign user session data with
 #
@@ -84,6 +87,7 @@ class govuk::apps::account_api (
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $plek_account_manager_uri = undef,
+  $email_alert_api_bearer_token = undef,
   $session_signing_key = undef,
 ) {
   $app_name = 'account-api'
@@ -133,6 +137,9 @@ class govuk::apps::account_api (
     "${title}-PLEK-ACCOUNT-MANAGER-URI":
         varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
         value   => $plek_account_manager_uri;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
     "${title}-SESSION_SIGNING_KEY":
         varname => 'SESSION_SIGNING_KEY',
         value   => $session_signing_key;
