@@ -780,8 +780,8 @@
       },
       {
         "current": {
-          "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
-          "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))"
+          "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_{422,5*}))",
+          "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_{422,5*}))"
         },
         "hide": 0,
         "label": "HTTP Metric (bad)",
@@ -789,11 +789,11 @@
         "options": [
           {
             "selected": true,
-            "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
-            "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))"
+            "text": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_{422,5*}))",
+            "value": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_{422,5*}))"
           }
         ],
-        "query": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_5*))",
+        "query": "sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_{422,5*}))",
         "type": "constant"
       },
       {
