@@ -15,6 +15,9 @@
 # [*sentry_dsn*]
 #   The app-specific URL used by Sentry to report exceptions
 #
+# [*unicorn_worker_processes*]
+#   The number of unicorn workers to run for an instance of this app
+#
 # [*oauth_id*]
 #   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
 #
@@ -73,6 +76,7 @@ class govuk::apps::account_api (
   $enabled = true,
   $secret_key_base = undef,
   $sentry_dsn = undef,
+  $unicorn_worker_processes = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
   $db_username = 'account-api',
@@ -108,6 +112,7 @@ class govuk::apps::account_api (
     has_readiness_health_check => true,
     deny_framing               => true,
     asset_pipeline             => true,
+    unicorn_worker_processes   => $unicorn_worker_processes,
   }
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
