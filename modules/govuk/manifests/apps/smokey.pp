@@ -19,6 +19,12 @@
 # [*smokey_signon_password*]
 #   Password for $smokey_signon_email
 #
+# [*smokey_govuk_account_email*]
+#   Email address to login to GOV.UK Accounts as a smoke test user
+#
+# [*smokey_govuk_account_password*]
+#   Password for $smokey_govuk_account_email
+#
 # [*smokey_bearer_token*]
 #   Bearer token for something
 #
@@ -28,6 +34,8 @@ class govuk::apps::smokey (
   $rate_limit_token = undef,
   $smokey_signon_email = undef,
   $smokey_signon_password = undef,
+  $smokey_govuk_account_email = undef,
+  $smokey_govuk_account_password = undef,
   $smokey_bearer_token = undef,
 ){
   $app = 'smokey'
@@ -50,6 +58,8 @@ class govuk::apps::smokey (
     'RATE_LIMIT_TOKEN':         value => $rate_limit_token;
     'SIGNON_EMAIL':             value => $smokey_signon_email;
     'SIGNON_PASSWORD':          value => $smokey_signon_password;
+    'GOVUK_ACCOUNT_EMAIL':      value => $smokey_govuk_account_email;
+    'GOVUK_ACCOUNT_PASSWORD':   value => $smokey_govuk_account_password;
     'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
   }
 
