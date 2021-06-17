@@ -51,9 +51,9 @@ printf "COMPRESSION AND ENCRYPTION FINISHED IN: ${TIME}s\n"
 TIME="$(date +%s)"
 if [[ $1 == "daily" ]]; then
 
-    /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET_DAILY --quiet
+    /usr/bin/envdir <%= @env_dir %>/env.d s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET_DAILY --quiet
 else
-    /usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
+    /usr/bin/envdir <%= @env_dir %>/env.d s3cmd put $BACKUP_DIR/mongodump-* s3://$S3_BUCKET --quiet
 fi
 TIME="$(($(date +%s)-TIME))"
 printf "BACKUP UPLOADED IN: ${TIME}s\n"

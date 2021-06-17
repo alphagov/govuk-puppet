@@ -20,8 +20,8 @@ housekeeping
 
 TIME="$(date +%s)"
 # Download and decrypt most recent backup
-LATEST_BACKUP=`/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd ls s3://${S3_BUCKET}/mongodump* | /usr/bin/tail -1 | /usr/bin/awk '{print $4}'`
-/usr/bin/envdir <%= @env_dir %>/env.d /usr/local/bin/s3cmd get --force "$LATEST_BACKUP"
+LATEST_BACKUP=`/usr/bin/envdir <%= @env_dir %>/env.d s3cmd ls s3://${S3_BUCKET}/mongodump* | /usr/bin/tail -1 | /usr/bin/awk '{print $4}'`
+/usr/bin/envdir <%= @env_dir %>/env.d s3cmd get --force "$LATEST_BACKUP"
 
 # Enter the passphrase to unlock the gpg secret key
 /bin/echo "Enter gpg Passphrase: "
@@ -41,4 +41,3 @@ TIME="$(date +%s)"
 
 TIME="$(($(date +%s)-TIME))"
 /usr/bin/printf "RESTORE COMPLETED IN: ${TIME}s\n"
-

@@ -18,4 +18,4 @@ if [ ! "$DIRECTORY_TO_SYNC" ]; then
  usage
 fi
 
-envdir /etc/govuk/aws/env.d /usr/local/bin/s3cmd sync --skip-existing --delete-removed  "s3://<%= @s3_bucket -%>$DIRECTORY_TO_SYNC/" "$DIRECTORY_TO_SYNC/"
+envdir /etc/govuk/aws/env.d s3cmd sync --skip-existing --delete-removed  "s3://<%= @s3_bucket -%>$DIRECTORY_TO_SYNC/" "$DIRECTORY_TO_SYNC/"
