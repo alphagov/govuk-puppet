@@ -139,16 +139,9 @@ class govuk_crawler(
     owner  => $crawler_user,
   }
 
-  package { 'ffi':
-    ensure   => '1.10.0',
-    provider => 'system_gem',
-    require  => Class['base::packages'],
-    before   => Package['govuk_seed_crawler'],
-  }
-
   # This explicitly requires 'base::packages' so that nokogiri will build
   package { 'govuk_seed_crawler':
-        ensure   => '2.0.1',
+        ensure   => '2.1.0',
         provider => system_gem,
         require  => Class['base::packages'],
   }
