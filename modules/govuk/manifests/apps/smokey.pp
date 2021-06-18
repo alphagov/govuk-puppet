@@ -19,6 +19,12 @@
 # [*smokey_signon_password*]
 #   Password for $smokey_signon_email
 #
+# [*account_http_username*]
+#   Basic auth username for accounts domain
+#
+# [*account_http_password*]
+#   Password for $account_http_username
+#
 # [*smokey_govuk_account_email*]
 #   Email address to login to GOV.UK Accounts as a smoke test user
 #
@@ -34,6 +40,8 @@ class govuk::apps::smokey (
   $rate_limit_token = undef,
   $smokey_signon_email = undef,
   $smokey_signon_password = undef,
+  $account_http_username = undef,
+  $account_http_password = undef,
   $smokey_govuk_account_email = undef,
   $smokey_govuk_account_password = undef,
   $smokey_bearer_token = undef,
@@ -58,6 +66,8 @@ class govuk::apps::smokey (
     'RATE_LIMIT_TOKEN':         value => $rate_limit_token;
     'SIGNON_EMAIL':             value => $smokey_signon_email;
     'SIGNON_PASSWORD':          value => $smokey_signon_password;
+    'ACCOUNT_AUTH_PASSWORD':    value => $account_http_password;
+    'ACCOUNT_AUTH_USERNAME':    value => $account_http_username;
     'GOVUK_ACCOUNT_EMAIL':      value => $smokey_govuk_account_email;
     'GOVUK_ACCOUNT_PASSWORD':   value => $smokey_govuk_account_password;
     'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
