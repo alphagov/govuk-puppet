@@ -42,4 +42,8 @@ class collectd::config {
   # Always collect basic processlist info.
   include ::collectd::plugin::processes
   include ::collectd::plugin::tcpconns
+
+file { '/etc/default/collectd':
+    source => 'puppet:///modules/collectd/etc/default/collectd',
+  }
 }
