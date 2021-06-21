@@ -258,4 +258,11 @@ class govuk::apps::publisher(
         value   => $govuk_notify_template_id;
     }
   }
+
+  file { '/data/uploads/publisher/reports':
+    ensure => 'directory',
+    owner  => 'deploy',
+    group  => 'deploy',
+    mode   => '0770',
+  }
 }
