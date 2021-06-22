@@ -67,7 +67,7 @@ class govuk::apps::ckan::cronjobs(
     paster_command => 'harvester job_abort environment-agency-data-sharing-platform',
     plugin         => 'ckanext-harvest',
     weekday        => '5',
-    hour           => '15',
+    hour           => '13',
     minute         => '55',
   }
 
@@ -76,7 +76,7 @@ class govuk::apps::ckan::cronjobs(
     paster_command => 'harvester run_test environment-agency-data-sharing-platform',
     plugin         => 'ckanext-harvest',
     weekday        => '5',
-    hour           => '16',
+    hour           => '14',
     minute         => '0',
   }
 
