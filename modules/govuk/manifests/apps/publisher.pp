@@ -263,6 +263,6 @@ class govuk::apps::publisher(
     ensure => 'directory',
     owner  => 'deploy',
     group  => 'deploy',
-    mode   => '0770',
+    mode   => '0775',
   }
 }
