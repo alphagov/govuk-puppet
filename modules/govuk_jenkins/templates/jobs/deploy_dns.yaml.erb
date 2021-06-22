@@ -27,10 +27,6 @@
             colormap: xterm
         - build-name:
             name: '${ENV,var="PROVIDERS"} ${ENV,var="ZONE"} ${ENV,var="ACTION"}'
-        - credentials-binding:
-            - text:
-               credential-id: <%= @gce_credential_id %>
-               variable: GOOGLE_CREDENTIALS
     builders:
         - shell: |
             export GOOGLE_PROJECT=<%= @gce_project_id %>
@@ -67,6 +63,17 @@
             name: AWS_SESSION_TOKEN
             default: false
             description: This is required for all providers
+        - password:
+            name: GOOGLE_OAUTH_ACCESS_TOKEN
+            default: false
+            description: |
+              This is required for the GCP provider
+
+              Generate a token with using the gcloud CLI (https://cloud.google.com/sdk/docs/quickstart#mac)
+
+              gcloud config set project <%= @gce_project_id %>
+              gcloud auth login --brief
+              gcloud auth print-access-token
         - choice:
             name: ACTION
             description: Choose whether to plan (default) or apply
