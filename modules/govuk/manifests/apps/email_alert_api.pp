@@ -73,6 +73,10 @@
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
 #
+# [*account_api_bearer_token*]
+#   The bearer token to use when communicating with Account API.
+#   Default: undef
+#
 # [*publishing_api_bearer_token*]
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
@@ -107,6 +111,7 @@ class govuk::apps::email_alert_api(
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',
+  $account_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
 ) {
 
@@ -202,6 +207,9 @@ class govuk::apps::email_alert_api(
     "${title}-AWS_REGION":
         varname => 'AWS_REGION',
         value   => $aws_region;
+    "${title}-ACCOUNT_API_BEARER_TOKEN":
+      varname => 'ACCOUNT_API_BEARER_TOKEN',
+      value   => $publishing_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
