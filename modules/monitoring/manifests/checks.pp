@@ -49,6 +49,7 @@ class monitoring::checks (
   include monitoring::checks::grafana_dashboards
   include monitoring::checks::cdn_logs
   include monitoring::checks::whitehall
+  include monitoring::checks::accounts_slos
 
   include govuk::apps::email_alert_api::checks
   include govuk::apps::publisher::unprocessed_emails_count_check
