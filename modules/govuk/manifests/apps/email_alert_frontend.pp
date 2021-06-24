@@ -43,6 +43,9 @@
 # [*subscription_management_enabled*]
 #   Whether the subscription management interface is enabled.
 #
+# [*account_auth_enabled*]
+#   Whether users can log in with their GOV.UK Account.
+#
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port,
@@ -54,6 +57,7 @@ class govuk::apps::email_alert_frontend(
   $email_alert_api_bearer_token = undef,
   $email_alert_auth_token = undef,
   $subscription_management_enabled = false,
+  $account_auth_enabled = false,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -96,6 +100,13 @@ class govuk::apps::email_alert_frontend(
     govuk::app::envvar { "${title}-SUBSCRIPTION_MANAGEMENT_ENABLED":
       varname => 'SUBSCRIPTION_MANAGEMENT_ENABLED',
       value   => 'yes';
+    }
+  }
+
+  if $account_auth_enabled {
+    govuk::app::envvar { "${title}-FEATURE_FLAG_GOVUK_ACCOUNT":
+      varname => 'FEATURE_FLAG_GOVUK_ACCOUNT',
+      value   => 'enabled';
     }
   }
 }
