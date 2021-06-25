@@ -209,7 +209,7 @@ class govuk::apps::email_alert_api(
         value   => $aws_region;
     "${title}-ACCOUNT_API_BEARER_TOKEN":
       varname => 'ACCOUNT_API_BEARER_TOKEN',
-      value   => $publishing_api_bearer_token;
+      value   => $account_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
