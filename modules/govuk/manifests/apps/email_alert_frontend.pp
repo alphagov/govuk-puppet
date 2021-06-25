@@ -43,6 +43,10 @@
 # [*subscription_management_enabled*]
 #   Whether the subscription management interface is enabled.
 #
+# [*account_api_bearer_token*]
+#   The bearer token to use when communicating with Account API.
+#   Default: undef
+#
 # [*account_auth_enabled*]
 #   Whether users can log in with their GOV.UK Account.
 #
@@ -57,6 +61,7 @@ class govuk::apps::email_alert_frontend(
   $email_alert_api_bearer_token = undef,
   $email_alert_auth_token = undef,
   $subscription_management_enabled = false,
+  $account_api_bearer_token = undef,
   $account_auth_enabled = false,
 ) {
   $app_name = 'email-alert-frontend'
@@ -85,6 +90,9 @@ class govuk::apps::email_alert_frontend(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+    "${title}-ACCOUNT_API_BEARER_TOKEN":
+        varname => 'ACCOUNT_API_BEARER_TOKEN',
+        value   => $account_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
