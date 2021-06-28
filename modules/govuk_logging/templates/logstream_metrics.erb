@@ -9,6 +9,9 @@ respawn
 # and should be killed off.
 respawn limit 5 20
 
+# Add the path for Python modules after the upgrade to Python 2.7.14 since logship is a Python module
+env PATH=/opt/python2.7/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+
 # example:
 # initctl start logstream LOG_FILE=/var/log/whitehall/upstart.err.log \
 #                         TAG="whitehall UPSTART STDERR"
