@@ -19,7 +19,7 @@ class monitoring::checks::accounts_slos (
     $http_all_metric = 'sumSeries(transformNull(stats_counts.*.nginx_logs.account-api.http_*))'
 
     @@icinga::check::graphite { 'check_slo_error_rate_10_min_accounts':
-      target         => "divideSeries(integral(${http_bad_metric}), integral(${http_all_metric}))",
+      target         => "divideSeries(integral(${http_bad_metric}),integral(${http_all_metric}))",
       from           => '10mins',
       warning        => $alert_warning_high_http_error_rate,
       critical       => $critical_warning_high_http_error_rate,
@@ -38,7 +38,7 @@ class monitoring::checks::accounts_slos (
     $alert_critical_slow_http_response_rate = 2
 
     @@icinga::check::graphite { 'check_slo_latency_rate_10_min_accounts':
-      target         => "divideSeries(integral(${latency_bad_metric}), integral(${latency_all_metric}))",
+      target         => "divideSeries(integral(${latency_bad_metric}),integral(${latency_all_metric}))",
       from           => '10mins',
       warning        => $alert_warning_slow_http_response_rate,
       critical       => $alert_critical_slow_http_response_rate,
