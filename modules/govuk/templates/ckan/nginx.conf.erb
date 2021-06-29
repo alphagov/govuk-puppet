@@ -71,6 +71,11 @@ location /api/3<%= path %> {
 }
 <% end %>
 
+# Rewrite publisher to organization for CKAN 2.9 in case it has been bookmarked
+location /publisher {
+  rewrite ^(.*)/publisher(/.*)?$ $1/organization$2 last;
+}
+
 location /csw {
   <%- if @protected -%>
   deny all;
