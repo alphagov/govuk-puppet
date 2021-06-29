@@ -71,6 +71,11 @@ location /api/3<%= path %> {
 }
 <% end %>
 
+# Redirect publisher to organization for CKAN 2.9 in case it has been bookmarked
+location ~ "^\/publisher(.*)" {
+  return 301 /organization$1$query_string;
+}
+
 location /csw {
   <%- if @protected -%>
   deny all;
