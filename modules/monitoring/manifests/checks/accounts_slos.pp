@@ -23,6 +23,9 @@ class monitoring::checks::accounts_slos (
       notes_url      => monitoring_docs_url(slo-rate-checks-account),
       host_name      => $::fqdn,
       contact_groups => ['slack-channel-accounts-tech'],
+      # Drop all but the last 6 datapoints (at 5 seconds per
+      # datapoint, this is 30 seconds)
+      args           => '--dropfirst -6',
   }
 
     $latency_bad_metric = 'transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))'
@@ -38,6 +41,9 @@ class monitoring::checks::accounts_slos (
       notes_url      => monitoring_docs_url(slo-rate-checks-account),
       host_name      => $::fqdn,
       contact_groups => ['slack-channel-accounts-tech'],
+      # Drop all but the last 6 datapoints (at 5 seconds per
+      # datapoint, this is 30 seconds)
+      args           => '--dropfirst -6',
     }
   }
 }
