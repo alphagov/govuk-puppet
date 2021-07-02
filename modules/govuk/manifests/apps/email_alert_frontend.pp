@@ -50,6 +50,12 @@
 # [*account_auth_enabled*]
 #   Whether users can log in with their GOV.UK Account.
 #
+# [*account_confirm_email_url*]
+#   URL a user who needs to confirm their account should go to (eg, to request another confirmation email).
+#
+# [*account_change_email_enabled*]
+#   URL a user who needs to change their email address should go to.
+#
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port,
@@ -63,6 +69,8 @@ class govuk::apps::email_alert_frontend(
   $subscription_management_enabled = false,
   $account_api_bearer_token = undef,
   $account_auth_enabled = false,
+  $account_confirm_email_url = undef,
+  $account_change_email_url = undef,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -102,6 +110,12 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',
         value   => $email_alert_auth_token;
+    "${title}-GOVUK_ACCOUNT_CONFIRM_EMAIL_URL":
+        varname => 'GOVUK_ACCOUNT_CONFIRM_EMAIL_URL',
+        value   => $account_confirm_email_url;
+    "${title}-GOVUK_ACCOUNT_CHANGE_EMAIL_URL":
+        varname => 'GOVUK_ACCOUNT_CHANGE_EMAIL_URL',
+        value   => $account_change_email_url;
   }
 
   if $subscription_management_enabled {
