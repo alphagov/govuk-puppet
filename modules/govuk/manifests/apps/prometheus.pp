@@ -26,7 +26,7 @@ class govuk::apps::prometheus (
   # the front end of the LB (unnecessarily confusing).
   concat::fragment { 'prometheus_lb_healthcheck_live':
     target  => '/etc/nginx/lb_healthchecks.conf',
-    content => "location /-/live {\n  proxy_pass http://prometheus-proxy/-/live;\n}\n",
+    content => "location /-/healthy {\n  proxy_pass http://prometheus-proxy/-/healthy;\n}\n",
   }
   concat::fragment { 'prometheus_lb_healthcheck_ready':
     target  => '/etc/nginx/lb_healthchecks.conf',
