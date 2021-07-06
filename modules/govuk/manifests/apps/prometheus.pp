@@ -17,4 +17,19 @@ class govuk::apps::prometheus (
     true  => 'present',
     false => 'absent',
   }
+
+  # Route healthcheck requests (which arrive at nginx on the default vhost)
+  # through to Prometheus. We could use govuk::app::config::health_check_path
+  # for this, but that's closely coupled with a bunch of other stuff that we
+  # don't want, like an Icinga alert which fires whenever the healthcheck fails
+  # (not helpful) and forcing a non-standard (for Prometheus) healthcheck path on
+  # the front end of the LB (unnecessarily confusing).
+  concat::fragment { 'prometheus_lb_healthcheck_live':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /-/live {\n  proxy_pass http://prometheus-proxy/-/live;\n}\n",
+  }
+  concat::fragment { 'prometheus_lb_healthcheck_ready':
+    target  => '/etc/nginx/lb_healthchecks.conf',
+    content => "location /-/ready {\n  proxy_pass http://prometheus-proxy/-/ready;\n}\n",
+  }
 }
