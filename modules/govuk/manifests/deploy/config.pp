@@ -16,6 +16,10 @@
 #   GOV.UK environment
 #   Default: 'production'
 #
+# [*govuk_environment_name*]
+#   Name of the environment used to populate the environment label for 
+#   publishing apps.
+#
 # [*website_root*]
 #   The location that the website is served from, including protocol.
 #
@@ -40,6 +44,7 @@ class govuk::deploy::config(
   $asset_root,
   $errbit_environment_name = '',
   $govuk_env = 'production',
+  $govuk_environment_name = '',
   $website_root,
   $app_domain,
   $csp_report_only = false,
@@ -121,6 +126,7 @@ class govuk::deploy::config(
 
     'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
     'SENTRY_CURRENT_ENV': value        => $errbit_environment_name;
+    'GOVUK_ENVIRONMENT_NAME': value    => $govuk_environment_name;
     'GOVUK_ASSET_ROOT': value          => $asset_root;
     'GOVUK_WEBSITE_ROOT': value        => $website_root;
     'GOVUK_CSP_REPORT_ONLY': value     => $csp_report_only_value;
