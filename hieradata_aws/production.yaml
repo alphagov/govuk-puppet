@@ -159,6 +159,8 @@ govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-force-
 govuk::apps::content_store::performance_platform_big_screen_view_url: 'https://performance-platform-big-screen-view-production.cloudapps.digital'
 govuk::apps::content_store::performance_platform_spotlight_url: 'https://performance-platform-spotlight-production.cloudapps.digital'
 
+govuk::apps::content_store::unicorn_worker_processes: "30"
+
 govuk::apps::contacts::ensure: 'present'
 govuk::apps::collections_publisher::ensure: 'present'
 govuk::apps::content_publisher::ensure: 'present'
