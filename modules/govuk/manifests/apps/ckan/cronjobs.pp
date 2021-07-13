@@ -62,24 +62,6 @@ class govuk::apps::ckan::cronjobs(
     minute         => '30',
   }
 
-  govuk::apps::ckan::paster_cronjob { 'Environment Agency harvester stop existing processes':
-    ensure         => $ensure,
-    paster_command => 'harvester job_abort environment-agency-data-sharing-platform',
-    plugin         => 'ckanext-harvest',
-    weekday        => '5',
-    hour           => '13',
-    minute         => '55',
-  }
-
-  govuk::apps::ckan::paster_cronjob { 'Environment Agency harvester run':
-    ensure         => $ensure,
-    paster_command => 'harvester run_test environment-agency-data-sharing-platform',
-    plugin         => 'ckanext-harvest',
-    weekday        => '5',
-    hour           => '14',
-    minute         => '0',
-  }
-
   govuk::apps::ckan::paster_cronjob { 'Vale of White Horse harvester stop existing processes':
     ensure         => $ensure,
     paster_command => 'harvester job_abort vale-of-white-horse-district-council-2',
