@@ -3,7 +3,15 @@
 govuk_solr::disable: true
 govuk_solr6::present: true
 
+govuk::apps::ckan::enabled: true
+
+govuk::apps::ckan::blanket_redirect_url: https://find-data-beta-staging.cloudapps.digital/ckan_maintenance
+
+govuk::apps::ckan::enable_harvester_fetch: false
+govuk::apps::ckan::enable_harvester_gather: false
+
+govuk::apps::ckan::cronjobs::enable: false
+govuk::apps::ckan::cronjobs::enable_solr_reindex: false
+
 govuk::apps::ckan::solr_core: ckan
 govuk::apps::ckan::solr_core_configset: ckan28
-
-govuk::apps::ckan::enabled: true
