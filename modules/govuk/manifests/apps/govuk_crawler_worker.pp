@@ -85,10 +85,11 @@ class govuk::apps::govuk_crawler_worker (
     }
 
     file { $mirror_root:
-      ensure => directory,
-      mode   => '0755',
-      owner  => 'deploy',
-      group  => 'deploy',
+      ensure  => directory,
+      mode    => '0755',
+      owner   => 'deploy',
+      group   => 'deploy',
+      recurse => true,
     }
 
     if $disable_during_data_sync and $::data_sync_in_progress {
