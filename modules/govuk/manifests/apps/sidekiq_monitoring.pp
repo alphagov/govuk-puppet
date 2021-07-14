@@ -8,6 +8,14 @@
 #   sidekiq-monitoring app can be found.
 #   Default: /data/vhost/{value based on app name and domain}/current/public
 #
+# [*account_api_redis_host*]
+#   Redis host for Account API Sidekiq.
+#   Default: undef
+#
+# [*account_api_redis_port*]
+#   Redis port for Account API Sidekiq.
+#   Default: undef
+#
 # [*asset_manager_redis_host*]
 #   Redis host for Asset Manager Sidekiq.
 #   Default: undef
@@ -178,6 +186,8 @@
 #
 class govuk::apps::sidekiq_monitoring (
   $nginx_location = undef,
+  $account_api_redis_host = undef,
+  $account_api_redis_port = undef,
   $asset_manager_redis_host = undef,
   $asset_manager_redis_port = undef,
   $collections_publisher_redis_host = undef,
@@ -261,6 +271,11 @@ class govuk::apps::sidekiq_monitoring (
   }
 
   govuk::app::envvar::redis{
+    "${app_name}_account_api":
+      prefix => 'account_api',
+      host   => $account_api_redis_host,
+      port   => $account_api_redis_port;
+
     "${app_name}_asset_manager":
       prefix => 'asset_manager',
       host   => $asset_manager_redis_host,

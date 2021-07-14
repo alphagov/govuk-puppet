@@ -432,6 +432,7 @@ govuk::apps::content_data_api::port: 3235
 # search-admin sidekiq monitoring uses 3241
 # sidekiq monitoring uses 3242
 govuk::apps::account_api::port: 3243
+# account-api sidekiq monitoring uses 3244
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:
@@ -680,6 +681,8 @@ govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environme
 govuk::apps::service_manual_publisher::db::allow_auth_from_lb: true
 govuk::apps::service_manual_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 
+govuk::apps::sidekiq_monitoring::account_api_redis_host: "%{hiera('govuk::apps::account_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::account_api_redis_port: "%{hiera('govuk::apps::account_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_host: "%{hiera('govuk::apps::asset_manager::redis_host')}"
 govuk::apps::sidekiq_monitoring::asset_manager_redis_port: "%{hiera('govuk::apps::asset_manager::redis_port')}"
 govuk::apps::sidekiq_monitoring::collections_publisher_redis_host: "%{hiera('govuk::apps::collections_publisher::redis_host')}"
@@ -786,6 +789,8 @@ govuk::apps::account_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.
 govuk::apps::account_api::enable_publishing_queue_listener: true
 govuk::apps::account_api::rabbitmq::enabled: true
 govuk::apps::account_api::rabbitmq_hosts: [rabbitmq]
+govuk::apps::account_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::account_api::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk_awscli::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
@@ -1158,7 +1163,9 @@ grafana::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint'
 grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
-  account-api: {}
+  account-api:
+    show_sidekiq_graphs: true
+    has_workers: true
   asset-manager:
     show_sidekiq_graphs: true
     has_workers: true
