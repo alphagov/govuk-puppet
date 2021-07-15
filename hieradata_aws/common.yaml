@@ -789,6 +789,7 @@ govuk::apps::account_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.
 govuk::apps::account_api::enable_publishing_queue_listener: true
 govuk::apps::account_api::rabbitmq::enabled: true
 govuk::apps::account_api::rabbitmq_hosts: [rabbitmq]
+govuk::apps::account_api::enable_procfile_worker: true
 govuk::apps::account_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::account_api::redis_port: "%{hiera('sidekiq_port')}"
 
