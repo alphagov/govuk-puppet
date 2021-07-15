@@ -52,6 +52,10 @@
 #   RabbitMQ password.
 #   Default 'account_api'
 #
+# [*enable_procfile_worker*]
+#   Run the sidekiq worker.
+#   Default: false
+#
 # [*enable_publishing_queue_listener*]
 #   Run the worker which processes publishing updates.
 #   Default: false
@@ -71,6 +75,14 @@
 # [*session_signing_key*]
 #   Secret key to sign user session data with
 #
+# [*redis_host*]
+#   Redis host for Sidekiq.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Sidekiq.
+#   Default: undef
+#
 class govuk::apps::account_api (
   $port,
   $enabled = true,
@@ -87,12 +99,15 @@ class govuk::apps::account_api (
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'account_api',
   $rabbitmq_password = 'account_api',
+  $enable_procfile_worker = false,
   $enable_publishing_queue_listener = false,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $plek_account_manager_uri = undef,
   $email_alert_api_bearer_token = undef,
   $session_signing_key = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'account-api'
 
@@ -156,7 +171,18 @@ class govuk::apps::account_api (
     password => $rabbitmq_password,
   }
 
+  govuk::app::envvar::redis { 'account-api':
+    host => $redis_host,
+    port => $redis_port,
+  }
+
+  govuk::procfile::worker {'account-api':
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
+  }
+
   govuk::procfile::worker { 'account-api-publishing-queue-listener':
+    ensure         => $ensure,
     setenv_as      => $app_name,
     enable_service => $enable_publishing_queue_listener,
     process_type   => 'publishing-queue-listener',

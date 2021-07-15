@@ -18,6 +18,10 @@ server {
     proxy_pass http://localhost:3242;
   }
 
+  location /account-api {
+    proxy_pass http://localhost:3244;
+  }
+
   location /asset-manager {
     proxy_pass http://localhost:3038;
   }
