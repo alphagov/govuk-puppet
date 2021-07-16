@@ -542,6 +542,7 @@ govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::unicorn_worker_processes: "6"
+govuk::apps::finder_frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 
 govuk::apps::frontend::elections_api_url: "https://api.electoralcommission.org.uk/api/v1"
 govuk::apps::frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
