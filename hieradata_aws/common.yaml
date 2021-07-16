@@ -544,6 +544,7 @@ govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::unicorn_worker_processes: "6"
 
 govuk::apps::frontend::elections_api_url: "https://api.electoralcommission.org.uk/api/v1"
+govuk::apps::frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::frontend::unicorn_worker_processes: "4"
@@ -753,6 +754,7 @@ govuk::apps::smokey::smokey_govuk_account_password: "%{hiera('smokey_govuk_accou
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
+govuk::apps::static::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 govuk::apps::static::asset_host: "%{hiera('govuk::deploy::config::website_root')}"
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"
