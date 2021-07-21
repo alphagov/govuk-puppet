@@ -23,7 +23,7 @@ class govuk_containers::redis(
     ensure  => directory,
     mode    => '0770',
     group   => 'docker',
-    require => Class['govuk_docker'],
+    require => Class['::docker'],
   }
 
   ::docker::image { $image_name:
