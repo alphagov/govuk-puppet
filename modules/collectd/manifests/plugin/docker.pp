@@ -24,6 +24,7 @@ class collectd::plugin::docker(
     command => 'pip install "docker>=4.1.0,<4.2"',
     notify  => Class['collectd::service'],
     unless  => 'pip list | grep "docker.*4.1"',
+    require => File['/usr/bin/pip'],
   }
 
   exec { 'pip install urllib3':
@@ -31,6 +32,7 @@ class collectd::plugin::docker(
     command => 'pip install "urllib3==1.25.3"',
     notify  => Class['collectd::service'],
     unless  => 'pip list | grep "urllib3.*1.25.3"',
+    require => File['/usr/bin/pip'],
   }
 
   exec { 'pip install requests':
@@ -38,6 +40,7 @@ class collectd::plugin::docker(
     command => 'pip install "requests==2.22.0"',
     notify  => Class['collectd::service'],
     unless  => 'pip list | grep "requests.*2.22.0"',
+    require => File['/usr/bin/pip'],
   }
 
   package { 'py-dateutil':
