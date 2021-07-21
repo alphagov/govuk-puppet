@@ -20,9 +20,10 @@ class govuk_containers::redis(
 
   # store the state dumps here on the docker host
   file { '/srv/redis':
-    ensure => directory,
-    mode   => '0770',
-    group  => 'docker',
+    ensure  => directory,
+    mode    => '0770',
+    group   => 'docker',
+    require => Class['govuk_docker'],
   }
 
   ::docker::image { $image_name:
