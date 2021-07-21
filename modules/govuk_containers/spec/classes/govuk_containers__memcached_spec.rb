@@ -1,7 +1,11 @@
 require_relative '../../../../spec_helper'
 
 describe 'govuk_containers::memcached', :type => :class do
-  let(:pre_condition) { 'include ::govuk_docker' }
+  let(:pre_condition) { <<-EOS
+    include ::govuk_python
+    include ::govuk_docker
+    EOS
+  }
   it { is_expected.to compile }
 
   it { is_expected.to compile.with_all_deps }
