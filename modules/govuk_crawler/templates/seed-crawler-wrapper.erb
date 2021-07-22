@@ -20,7 +20,7 @@ trap send_nsca EXIT
 
 export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
 
-OUTPUT=`<%= @seeder_script_path %> <%= @seeder_script_args %>`
+OUTPUT=`rbenv shell 2.6.3 && <%= @seeder_script_path %> <%= @seeder_script_args %>`
 
 logger -p local3.info -t seed-crawler-wrapper "$OUTPUT"
 
