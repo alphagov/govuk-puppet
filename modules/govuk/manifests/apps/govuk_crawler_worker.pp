@@ -89,7 +89,7 @@ class govuk::apps::govuk_crawler_worker (
       mode    => '0755',
       owner   => 'deploy',
       group   => 'deploy',
-      recurse => true,
+      #recurse => true,
     }
 
     if $disable_during_data_sync and $::data_sync_in_progress {
