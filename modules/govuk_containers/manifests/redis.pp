@@ -18,12 +18,16 @@ class govuk_containers::redis(
   # TODO: investigate why this is causing spec failiures and enable
   # include ::collectd::plugin::redis
 
+  group { 'docker':
+    ensure => 'present',
+  }
+
   # store the state dumps here on the docker host
   file { '/srv/redis':
     ensure  => directory,
     mode    => '0770',
     group   => 'docker',
-    require => Class['::docker'],
+    require => Group['docker'],
   }
 
   ::docker::image { $image_name:
