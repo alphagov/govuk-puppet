@@ -1103,6 +1103,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
     repository: 'smart-answers'
   support: {}
   travel-advice-publisher: {}
+  whitehall: {}
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
