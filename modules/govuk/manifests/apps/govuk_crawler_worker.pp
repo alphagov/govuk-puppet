@@ -84,12 +84,15 @@ class govuk::apps::govuk_crawler_worker (
         value => $rate_limit_token;
     }
 
+    # Do not set recurse on this directory as it consists of a hundreds of GBs
+    # of small files and will cause puppet to be take a long time to finish
+    # running and may cause the Mirrorer instance to fail first instantiation.
+    # Instead we set the uid and gid of `deploy` to be the same always via hiera
     file { $mirror_root:
-      ensure  => directory,
-      mode    => '0755',
-      owner   => 'deploy',
-      group   => 'deploy',
-      recurse => true,
+      ensure => directory,
+      mode   => '0755',
+      owner  => 'deploy',
+      group  => 'deploy',
     }
 
     if $disable_during_data_sync and $::data_sync_in_progress {

@@ -13,3 +13,6 @@ mount:
     disk: '/dev/mapper/crawler-worker'
     govuk_lvm: 'worker'
     mountoptions: 'defaults'
+
+govuk::deploy::setup::deploy_uid: 2899
+govuk::deploy::setup::deploy_gid: 2899
