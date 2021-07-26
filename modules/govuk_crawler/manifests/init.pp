@@ -139,11 +139,14 @@ class govuk_crawler(
     owner  => $crawler_user,
   }
 
+  # We install `govuk_seed_crawler` using exec because it requires ruby 2.6.3
+  # which is different compared to the system ruby (a.k.a 1.9.3).
   # This explicitly requires 'base::packages' so that nokogiri will build
-  package { 'govuk_seed_crawler':
-        ensure   => '3.0.0',
-        provider => system_gem,
-        require  => Class['base::packages'],
+  exec { 'gem install govuk_seed_crawler':
+    environment => ['RBENV_VERSION=2.6.3'],
+    command     => 'gem install govuk_seed_crawler -v 3.0.0',
+    unless      => 'gem list | grep "govuk_seed_crawler.*3.0.0"',
+    require     => Class['base::packages'],
   }
 
   # Needed to copy to AWS S3
