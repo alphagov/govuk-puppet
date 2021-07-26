@@ -20,7 +20,6 @@ class govuk_jenkins::jobs::email_alert_check (
   $google_oauth_credentials = undef,
   $google_client_id = undef,
   $google_client_secret = undef,
-  $app_domain = hiera('app_domain'),
   $sentry_dsn = undef,
 ) {
 

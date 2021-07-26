@@ -11,7 +11,6 @@
 #
 class govuk_jenkins::jobs::smart_answers_broken_links_report (
   $cron_schedule = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'smart-answers-broken-links-report'
   $service_description = 'Smart Answers Broken Links Report'

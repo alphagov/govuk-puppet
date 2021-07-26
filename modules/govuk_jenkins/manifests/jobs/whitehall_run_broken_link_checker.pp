@@ -3,7 +3,6 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::jobs::whitehall_run_broken_link_checker {
-  $app_domain = hiera('app_domain')
   $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
 
   $service_description = 'Runs a rake task on Whitehall that generates a broken link report'

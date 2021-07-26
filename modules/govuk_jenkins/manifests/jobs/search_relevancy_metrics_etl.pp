@@ -12,7 +12,6 @@
 #
 class govuk_jenkins::jobs::search_relevancy_metrics_etl (
   $cron_schedule = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'search-relevancy-metrics-etl'
   $service_description = 'Search Relevancy Metrics ETL'

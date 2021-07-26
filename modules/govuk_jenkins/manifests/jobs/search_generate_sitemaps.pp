@@ -3,7 +3,6 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::jobs::search_generate_sitemaps{
-  $app_domain = hiera('app_domain')
   $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
 
   $service_description = 'Runs a rake task on Search API that generates the sitemap files. It is safe to re-run in-hours.'

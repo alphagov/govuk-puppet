@@ -3,7 +3,6 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
-  $app_domain = hiera('app_domain'),
   $auth_username = undef,
   $auth_password = undef,
   $rate_limit_token = undef,

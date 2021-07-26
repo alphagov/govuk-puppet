@@ -9,7 +9,6 @@
 #
 class govuk_jenkins::jobs::transition_import_hits(
   $s3_bucket = '',
-  $app_domain = hiera('app_domain'),
 ) {
   $service_description = 'Import daily hits into Transition'
 

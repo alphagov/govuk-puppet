@@ -16,7 +16,6 @@
 class govuk_jenkins::jobs::bouncer_cdn (
   $api_key = undef,
   $service_id = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $service_description = 'Configure Bouncer CDN service with transitioning sites'
 

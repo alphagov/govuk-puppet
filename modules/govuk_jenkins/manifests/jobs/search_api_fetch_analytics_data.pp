@@ -4,7 +4,6 @@
 #
 class govuk_jenkins::jobs::search_api_fetch_analytics_data (
   $ga_auth_password = undef,
-  $app_domain = hiera('app_domain'),
   $skip_page_traffic_load = false,
   $cron_schedule = '5 4 * * *',
 ) {

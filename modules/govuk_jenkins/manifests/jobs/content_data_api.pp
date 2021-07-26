@@ -11,7 +11,6 @@
 #
 class govuk_jenkins::jobs::content_data_api (
   $rake_etl_main_process_cron_schedule = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'etl-content-data-api'
   $service_description = 'Content Data API ETL [Extract - transform - load]'

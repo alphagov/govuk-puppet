@@ -11,7 +11,6 @@
 #
 class govuk_jenkins::jobs::content_data_api_re_run (
   $re_run_rake_etl_main_process_cron_schedule,
-  $app_domain = hiera('app_domain'),
 ) {
 
   file { '/etc/jenkins_jobs/jobs/content_data_api_re_run.yaml':

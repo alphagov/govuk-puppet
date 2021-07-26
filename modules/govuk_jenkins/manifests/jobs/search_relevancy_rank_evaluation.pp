@@ -11,7 +11,6 @@
 #
 class govuk_jenkins::jobs::search_relevancy_rank_evaluation (
   $cron_schedule = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'search-relevancy-rank-evaluation'
   $service_description = 'Search Relevancy Rank Evaluation'
