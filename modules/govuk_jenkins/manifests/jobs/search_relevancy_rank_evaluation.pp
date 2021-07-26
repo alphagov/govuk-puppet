@@ -15,7 +15,8 @@ class govuk_jenkins::jobs::search_relevancy_rank_evaluation (
 ) {
   $check_name = 'search-relevancy-rank-evaluation'
   $service_description = 'Search Relevancy Rank Evaluation'
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/search_relevancy_rank_evaluation/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/search_relevancy_rank_evaluation/"
 
   file { '/etc/jenkins_jobs/jobs/search_relevancy_rank_evaluation.yaml':
     ensure  => present,

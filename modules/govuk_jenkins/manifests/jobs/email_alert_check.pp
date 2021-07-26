@@ -24,12 +24,13 @@ class govuk_jenkins::jobs::email_alert_check (
   $sentry_dsn = undef,
 ) {
 
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
   $medical_safety_check_name = 'medical_safety_email_alert_check'
   $medical_safety_service_description = 'Medical Safety Email alert check'
-  $medical_safety_job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/medical-safety-email-alert-check/"
+  $medical_safety_job_url = "https://${deploy_jenkins_domain}/job/medical-safety-email-alert-check/"
   $travel_advice_check_name = 'travel_advice_email_alert_check'
   $travel_advice_service_description = 'Travel Advice email alert check'
-  $travel_advice_job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/travel-advice-email-alert-check/"
+  $travel_advice_job_url = "https://${deploy_jenkins_domain}/job/travel-advice-email-alert-check/"
 
   file {
     '/etc/jenkins_jobs/jobs/medical_safety_email_alert_check.yaml':

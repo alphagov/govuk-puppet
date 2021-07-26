@@ -4,7 +4,6 @@
 #
 class govuk_jenkins::jobs::check_sentry_errors (
   $sentry_auth_token = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'check_sentry_errors'
   $service_description = 'Report the number of errors in Sentry to Graphite'
@@ -15,14 +14,8 @@ class govuk_jenkins::jobs::check_sentry_errors (
     notify  => Exec['jenkins_jobs_update'],
   }
 
-  if ($::aws_environment != 'integration') {
-    $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
-  }
-  else {
-    $hosting_env_domain = $app_domain
-  }
-
-  $job_url = "https://deploy.${hosting_env_domain}/job/Check_Sentry_Errors/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/Check_Sentry_Errors/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,

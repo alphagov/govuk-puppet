@@ -3,7 +3,6 @@
 # Test rebuilding the search indexes and reindexing all content
 #
 class govuk_jenkins::jobs::search_api_reindex_with_new_schema (
-  $app_domain = hiera('app_domain'),
   $icinga_check_enabled = false,
   $cron_schedule = undef,
 ) {
@@ -12,7 +11,8 @@ class govuk_jenkins::jobs::search_api_reindex_with_new_schema (
   $service_description = 'Rebuild new Search API indexes with up to date settings and mappings and reindex all content from the existing indexes.'
   $job_name = 'search_api_reindex_with_new_schema'
   $job_display_name = 'Search API reindex with new schema'
-  $job_url = "https://deploy.${app_domain}/job/search-reindex-with-new-schema/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/search-reindex-with-new-schema/"
   $target_application = 'search-api'
 
   file { '/etc/jenkins_jobs/jobs/search_api_reindex_with_new_schema.yaml':

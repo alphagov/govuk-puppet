@@ -27,7 +27,8 @@ class govuk_jenkins::jobs::bouncer_cdn (
   }
 
   $check_name = 'bouncer-cdn-configuration'
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/Bouncer_CDN/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/Bouncer_CDN/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,

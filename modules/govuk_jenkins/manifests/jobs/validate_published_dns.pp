@@ -8,11 +8,11 @@
 #
 class govuk_jenkins::jobs::validate_published_dns (
   $run_daily = false,
-  $app_domain = hiera('app_domain'),
 ){
   $check_name = 'validate_published_dns'
   $service_description = 'Check that the published DNS records match those in the govuk-dns-config repo'
-  $job_url = "https://deploy.${app_domain}/job/Validate_published_DNS/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/Validate_published_DNS/"
 
   file { '/etc/jenkins_jobs/jobs/validate_published_dns.yaml':
     ensure  => present,

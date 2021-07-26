@@ -15,6 +15,7 @@ class govuk_jenkins::jobs::user_monitor (
 ) {
 
   $service_description = 'Check that correct users have access'
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
 
   file { '/etc/jenkins_jobs/jobs/user_monitor.yaml':
     ensure  => present,
@@ -33,7 +34,7 @@ class govuk_jenkins::jobs::user_monitor (
       service_description => $service_description,
       host_name           => $::fqdn,
       freshness_threshold => 5400, # 90 minutes
-      action_url          => "https://deploy.${::aws_stackname}.${::aws_environment}.govuk.digital/job/user-monitor/",
+      action_url          => "https://${deploy_jenkins_domain}/job/user-monitor/",
       notes_url           => monitoring_docs_url(user-monitor);
   }
 }
