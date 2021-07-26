@@ -1,5 +1,6 @@
 app_domain: 'environment.example.com'
 app_domain_internal: 'dev.govuk-internal.digital'
+deploy_jenkins_domain: 'deploy.example.govuk.digital'
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 apt_mirror_gpg_key_fingerprint: '0000111122223333444455556666777788889999'
