@@ -3,7 +3,6 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
-  $app_domain = hiera('app_domain'),
   $auth_username = undef,
   $auth_password = undef,
   $rate_limit_token = undef,
@@ -11,7 +10,8 @@ class govuk_jenkins::jobs::enhanced_ecommerce_search_api (
 ) {
   $job_name = 'enhanced_ecommerce_search_api'
   $service_description = 'Enhanced Ecommerce ETL from Search API to Google Analytics'
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_name}/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/${job_name}/"
   $target_application = 'search-api'
 
   file { '/etc/jenkins_jobs/jobs/enhanced_ecommerce_search_api.yaml':

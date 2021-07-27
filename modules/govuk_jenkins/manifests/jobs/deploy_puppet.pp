@@ -17,12 +17,12 @@ class govuk_jenkins::jobs::deploy_puppet (
   $auth_token = undef,
   $commitish   = 'release',
   $enable_slack_notifications = false,
-  $app_domain = hiera('app_domain')
 ) {
   $environment_variables = $govuk_jenkins::environment_variables
   $slack_team_domain = 'gds'
   $slack_room = 'govuk-deploy'
-  $slack_build_server_url = "https://deploy.${app_domain}/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $slack_build_server_url = "https://${deploy_jenkins_domain}/"
 
   file { '/etc/jenkins_jobs/jobs/deploy_puppet.yaml':
     ensure  => present,

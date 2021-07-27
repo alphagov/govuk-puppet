@@ -9,7 +9,6 @@
 #
 class govuk_jenkins::jobs::transition_import_hits(
   $s3_bucket = '',
-  $app_domain = hiera('app_domain'),
 ) {
   $service_description = 'Import daily hits into Transition'
 
@@ -21,7 +20,8 @@ class govuk_jenkins::jobs::transition_import_hits(
 
   $check_name = 'transition-import-hits'
 
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/transition_import_hits/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/transition_import_hits/"
 
   @@icinga::passive_check { "${check_name}_${::hostname}":
     service_description => $service_description,

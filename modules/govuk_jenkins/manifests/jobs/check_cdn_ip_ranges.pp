@@ -3,12 +3,11 @@
 # Create a jenkins-job-builder config file for checking that CDN
 # IP ranges are configured correctly.
 #
-class govuk_jenkins::jobs::check_cdn_ip_ranges(
-  $app_domain = hiera('app_domain'),
-) {
+class govuk_jenkins::jobs::check_cdn_ip_ranges {
   $check_name = 'check_cdn_ip_ranges'
   $service_description = 'Compare the IP ranges that Fastly publishes against the ranges configured in govuk-provisioning'
-  $job_url = "https://deploy.${app_domain}/job/Check_CDN_IP_Ranges/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/Check_CDN_IP_Ranges/"
 
   file { '/etc/jenkins_jobs/jobs/check_cdn_ip_ranges.yaml':
     ensure  => present,

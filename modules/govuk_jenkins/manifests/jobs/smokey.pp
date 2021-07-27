@@ -12,7 +12,7 @@ class govuk_jenkins::jobs::smokey (
 ) {
   $environment_variables = $govuk_jenkins::environment_variables
   $smokey_task = "test:${environment}"
-  $app_domain = hiera('app_domain')
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
 
   include govuk::apps::smokey
 
@@ -25,14 +25,7 @@ class govuk_jenkins::jobs::smokey (
     require => Class['govuk::apps::smokey'],
   }
 
-  if ($::aws_environment != 'integration') {
-    $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
-  }
-  else {
-    $hosting_env_domain = $app_domain
-  }
-
-  $job_url = "https://deploy.${hosting_env_domain}/job/smokey/"
+  $job_url = "https://${deploy_jenkins_domain}/job/smokey/"
 
   @@icinga::passive_check { "smokey_${::hostname}":
     service_description => $service_description,

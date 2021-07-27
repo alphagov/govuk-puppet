@@ -26,14 +26,8 @@ class govuk_jenkins::jobs::athena_fastly_logs_check (
   $databases = ['govuk_www', 'govuk_assets'],
   $s3_results_bucket = undef,
 ) {
-  if ($::aws_environment != 'integration') {
-    $hosting_env_domain = "blue.${::aws_environment}.govuk.digital"
-  }
-  else {
-    $hosting_env_domain = hiera('app_domain')
-  }
-
-  $jenkins_url = "https://deploy.${hosting_env_domain}/job/athena-fastly-logs-check/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $jenkins_url = "https://${deploy_jenkins_domain}/job/athena-fastly-logs-check/"
   $jenkins_service_description = "Athena has recent results for fastly_logs \${DATABASE}"
 
   file {

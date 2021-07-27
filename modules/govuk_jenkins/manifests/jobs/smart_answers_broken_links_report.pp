@@ -11,11 +11,11 @@
 #
 class govuk_jenkins::jobs::smart_answers_broken_links_report (
   $cron_schedule = undef,
-  $app_domain = hiera('app_domain'),
 ) {
   $check_name = 'smart-answers-broken-links-report'
   $service_description = 'Smart Answers Broken Links Report'
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/smart_answers_broken_links_report/"
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $job_url = "https://${deploy_jenkins_domain}/job/smart_answers_broken_links_report/"
 
   file { '/etc/jenkins_jobs/jobs/smart_answers_broken_links_report.yaml':
     ensure  => present,

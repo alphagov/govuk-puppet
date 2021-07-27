@@ -3,11 +3,11 @@
 # Create a file on disk that can be parsed by jenkins-job-builder
 #
 class govuk_jenkins::jobs::search_generate_sitemaps{
-  $app_domain = hiera('app_domain')
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
 
   $service_description = 'Runs a rake task on Search API that generates the sitemap files. It is safe to re-run in-hours.'
   $job_slug = 'search_generate_sitemaps'
-  $job_url = "https://deploy.blue.${::aws_environment}.govuk.digital/job/${job_slug}/"
+  $job_url = "https://${deploy_jenkins_domain}/job/${job_slug}/"
 
   file { '/etc/jenkins_jobs/jobs/search_generate_sitemaps.yaml':
     ensure  => present,

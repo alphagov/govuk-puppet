@@ -30,6 +30,11 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # Used in AWS, will be used everywhere eventually ;)
     'app_domain_internal',
 
+    # We have different hostname structure for Jenkins deploy in integration
+    # and other environments, can be removed if we resolve integration being
+    # special
+    'deploy_jenkins_domain',
+
     # disk noops due to defined classes not doing magical hiera lookups
     'govuk_mount::no_op',
     'govuk_lvm::no_op',
