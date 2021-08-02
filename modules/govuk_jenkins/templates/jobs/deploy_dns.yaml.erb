@@ -67,13 +67,11 @@
             name: GOOGLE_OAUTH_ACCESS_TOKEN
             default: false
             description: |
-              This is required for the GCP provider
+              This is required for the GCP provider.
 
-              Generate a token with using the gcloud CLI (https://cloud.google.com/sdk/docs/quickstart#mac)
+              Generate a token with using the gcloud CLI (https://cloud.google.com/sdk/docs/quickstart#mac).
 
-              gcloud config set project <%= @gce_project_id %>
-              gcloud auth login --brief
-              gcloud auth print-access-token
+              Run: gcloud config set project <%= @gce_project_id %>; gcloud auth login --brief; gcloud auth print-access-token
         - choice:
             name: ACTION
             description: Choose whether to plan (default) or apply
