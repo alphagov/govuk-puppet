@@ -533,6 +533,7 @@ govuk::apps::email_alert_api::unicorn_worker_processes: '10'
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::email_alert_frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
