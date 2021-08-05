@@ -170,7 +170,7 @@ class govuk::apps::ckan (
       process_regex  => 'pycsw\.wsgi',
     }
 
-    class { 'cronjobs29':
+    class { 'cronjobs':
       ckan_port    => $port,
       pycsw_config => $pycsw_config,
     }
