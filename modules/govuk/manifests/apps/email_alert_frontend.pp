@@ -56,6 +56,10 @@
 # [*account_change_email_enabled*]
 #   URL a user who needs to change their email address should go to.
 #
+# [*plek_account_manager_uri*]
+#   Path to the GOV.UK Account Manager
+#
+
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
   $port,
@@ -71,6 +75,7 @@ class govuk::apps::email_alert_frontend(
   $account_auth_enabled = false,
   $account_confirm_email_url = undef,
   $account_change_email_url = undef,
+  $plek_account_manager_uri = undef,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -116,6 +121,9 @@ class govuk::apps::email_alert_frontend(
     "${title}-GOVUK_ACCOUNT_CHANGE_EMAIL_URL":
         varname => 'GOVUK_ACCOUNT_CHANGE_EMAIL_URL',
         value   => $account_change_email_url;
+    "${title}-PLEK-ACCOUNT-MANAGER-URI":
+      varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
+      value   => $plek_account_manager_uri;
   }
 
   if $subscription_management_enabled {
