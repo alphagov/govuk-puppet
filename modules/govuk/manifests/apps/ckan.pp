@@ -97,25 +97,14 @@ class govuk::apps::ckan (
   $ckan_home = '/var/ckan'
   $pycsw_config = "${ckan_home}/pycsw.cfg"
 
-  if ($::aws_environment == 'integration') {
-    $ckan_ini  = "${ckan_home}/ckan29.ini"
-    $who_ini = "${ckan_home}/who29.ini"
-    $govuk_ckan_ini = 'govuk/ckan/ckan29.ini.erb'
-    $govuk_who_ini = 'govuk/ckan/who29.ini.erb'
-    $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan29\.ini'
-    $fetch_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester fetch-consumer'
-    $gather_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester gather-consumer'
-    $pycsw_cmd = 'ckan ckan-pycsw'
-  } else {
-    $ckan_ini  = "${ckan_home}/ckan.ini"
-    $who_ini = "${ckan_home}/who.ini"
-    $govuk_ckan_ini = 'govuk/ckan/ckan.ini.erb'
-    $govuk_who_ini = 'govuk/ckan/who.ini.erb'
-    $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan\.ini'
-    $fetch_process_regex = '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester fetch\_consumer'
-    $gather_process_regex = '\/python \.\/venv\/bin\/paster --plugin=ckanext-harvest harvester gather\_consumer'
-    $pycsw_cmd = 'paster --plugin=ckanext-spatial ckan-pycsw'
-  }
+  $ckan_ini = "${ckan_home}/ckan29.ini"
+  $who_ini = "${ckan_home}/who29.ini"
+  $govuk_ckan_ini = 'govuk/ckan/ckan29.ini.erb'
+  $govuk_who_ini = 'govuk/ckan/who29.ini.erb'
+  $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan29\.ini'
+  $fetch_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester fetch-consumer'
+  $gather_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester gather-consumer'
+  $pycsw_cmd = 'ckan ckan-pycsw'
 
   $request_timeout = 60
 
@@ -181,16 +170,9 @@ class govuk::apps::ckan (
       process_regex  => 'pycsw\.wsgi',
     }
 
-    if ($::aws_environment == 'integration') {
-      class { 'cronjobs29':
-        ckan_port    => $port,
-        pycsw_config => $pycsw_config,
-      }
-    } else {
-      class { 'cronjobs':
-        ckan_port    => $port,
-        pycsw_config => $pycsw_config,
-      }
+    class { 'cronjobs':
+      ckan_port    => $port,
+      pycsw_config => $pycsw_config,
     }
 
     Govuk::App::Envvar {
@@ -282,7 +264,7 @@ class govuk::apps::ckan (
       group   => 'deploy',
     }
 
-    $ckan_bin = '/var/apps/ckan/venv/bin'
+    $ckan_bin = '/var/apps/ckan/venv3/bin'
     $pycsw_tables_created = "${ckan_home}/pycsw_tables_created.tmp"
 
     exec { 'setup_pycsw_tables':
