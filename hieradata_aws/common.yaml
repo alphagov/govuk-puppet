@@ -153,8 +153,6 @@ deployable_applications: &deployable_applications
   cache-clearing-service: {}
   ckan:
     repository: 'ckanext-datagovuk'
-  ckan29:
-    repository: 'ckanext-datagovuk'
   collections: {}
   collections-publisher: {}
   contacts:
