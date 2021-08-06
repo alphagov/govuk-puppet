@@ -5,8 +5,6 @@ govuk_solr6::present: true
 
 govuk::apps::ckan::enabled: true
 
-govuk::apps::ckan::blanket_redirect_url: https://data.gov.uk/ckan_maintenance
-
 govuk::apps::ckan::enable_harvester_fetch: true
 govuk::apps::ckan::enable_harvester_gather: true
 
