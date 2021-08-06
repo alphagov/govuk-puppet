@@ -104,7 +104,7 @@ class govuk::apps::ckan (
   $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan29\.ini'
   $fetch_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester fetch-consumer'
   $gather_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester gather-consumer'
-  $pycsw_cmd = 'ckan ckan-pycsw'
+  $pycsw_cmd = "ckan -c ${ckan_ini} ckan-pycsw"
 
   $request_timeout = 60
 

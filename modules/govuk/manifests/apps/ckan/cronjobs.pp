@@ -59,7 +59,7 @@ class govuk::apps::ckan::cronjobs(
   }
 
   govuk::apps::ckan::ckan_cronjob { 'Environment Agency harvester stop existing processes':
-    ensure       => $ensure,
+    ensure       => 'absent',
     ckan_command => 'harvester job-abort environment-agency-data-sharing-platform',
     weekday      => '5',
     hour         => '15',
@@ -67,7 +67,7 @@ class govuk::apps::ckan::cronjobs(
   }
 
   govuk::apps::ckan::ckan_cronjob { 'Environment Agency harvester run':
-    ensure       => $ensure,
+    ensure       => 'absent',
     ckan_command => 'harvester run-test environment-agency-data-sharing-platform',
     weekday      => '5',
     hour         => '16',
