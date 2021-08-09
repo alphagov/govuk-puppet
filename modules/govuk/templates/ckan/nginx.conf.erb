@@ -76,6 +76,10 @@ location ~ "^\/publisher(.*)" {
   return 301 /organization$1$query_string;
 }
 
+location /_healthcheck {
+  rewrite /_healthcheck /healthcheck last;
+}
+
 location /csw {
   <%- if @protected -%>
   deny all;
