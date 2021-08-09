@@ -1090,6 +1090,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   frontend: {}
   government-frontend: {}
   hmrc-manuals-api: {}
+  imminence: {}
   info-frontend: {}
   local-links-manager: {}
   manuals-frontend: {}
