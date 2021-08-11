@@ -48,12 +48,12 @@ class govuk_splunk(
   include govuk_splunk::repos
 
   package { 'splunkforwarder':
-    ensure  => latest,
+    ensure  => absent,
     require => Apt::Source['splunk'],
   }
 
   file {'/opt/splunkforwarder/var':
-    ensure  => directory,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0710',
@@ -66,15 +66,15 @@ class govuk_splunk(
   }
 
   user { 'splunk':
-    ensure => present,
+    ensure => absent,
   }
 
   group { 'splunk':
-    ensure => present,
+    ensure => absent,
   }
 
   package { 'govuk-splunk-configurator':
-    ensure  => latest,
+    ensure  => absent,
     require => [ Package['splunkforwarder', 'acl'],
                 Apt::Source['govuk-splunk-configurator'],
                 User['splunk'],
@@ -83,7 +83,7 @@ class govuk_splunk(
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem':
-    ensure  => file,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -93,7 +93,7 @@ class govuk_splunk(
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem':
-    ensure  => file,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -103,7 +103,7 @@ class govuk_splunk(
   }
 
   file { '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf':
-    ensure  => present,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -113,7 +113,7 @@ class govuk_splunk(
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkUFCombinedCertificate.pem':
-    ensure  => file,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -123,7 +123,7 @@ class govuk_splunk(
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkCACertificate.pem':
-    ensure  => file,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -133,7 +133,7 @@ class govuk_splunk(
   }
 
   file { '/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf':
-    ensure  => present,
+    ensure  => absent,
     owner   => 'splunk',
     group   => 'splunk',
     mode    => '0600',
@@ -143,7 +143,8 @@ class govuk_splunk(
   }
 
   service { 'splunk':
-    ensure    => running,
+    ensure    => stopped,
+    enabled   => false,
     subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf',
@@ -154,6 +155,7 @@ class govuk_splunk(
   }
 
   @@icinga::check { "check_splunk_running_${::hostname}":
+    ensure              => absent,
     check_command       => 'check_nrpe!check_proc_running!splunkd',
     service_description => 'splunk universal forwarder not running',
     host_name           => $::fqdn,
