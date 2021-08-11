@@ -60,7 +60,7 @@ echo "Waiting for requests to complete... 30 seconds"
 sleep 30
 
 echo "Rebooting instance via ssh"
-gds govuk connect ssh -e "$govuk_env" "$instance_private_dns_name" -- -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "sudo shutdown -r now"
+gds govuk connect ssh -e "$govuk_env" "$instance_private_dns_name" -- -o CheckHostIP=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "sudo shutdown -r now"
 
 echo "Rebooted, waiting for instance to come back up..."
 sleep 10
@@ -68,7 +68,7 @@ sleep 10
 aws ec2 wait instance-status-ok --instance-ids "$instance_id"
 
 function appStatusCode {
-  gds govuk connect ssh -e "$govuk_env" "$instance_private_dns_name" -- -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "curl -s -o /dev/null -w '%{http_code}' localhost:80/_healthcheck_www"
+  gds govuk connect ssh -e "$govuk_env" "$instance_private_dns_name" -- -o CheckHostIP=no -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no "curl -s -o /dev/null -w '%{http_code}' localhost:80/_healthcheck_www"
 }
 
 until [ "$(appStatusCode)" == "200" ]
