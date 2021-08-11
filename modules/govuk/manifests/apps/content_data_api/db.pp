@@ -16,6 +16,7 @@ class govuk::apps::content_data_api::db (
   }
 
   @@monitoring::checks::rds_config { "content-data-api-postgresql-primary_${::hostname}":
+    instance_id      => 'content-data-api-postgresql-primary',
     memory_warning   => 2,
     memory_critical  => 1,
     storage_warning  => 50,

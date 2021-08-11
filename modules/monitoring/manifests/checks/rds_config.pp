@@ -8,10 +8,13 @@
 #   Which AWS region should be checked ['us-east-1','eu-west-1']
 #
 # [*cpu_warning*]
-#   Defines the percentage of cpu usage for which a warning alert will be triggered. 
+#   Defines the percentage of cpu usage for which a warning alert will be triggered.
 #
 # [*cpu_critical*]
-#  Defines the percentage of cpu usage for which a critical alert will be triggered. 
+#  Defines the percentage of cpu usage for which a critical alert will be triggered.
+#
+# [*instance_id*]
+# Defines the name of the Database instance in AWS. It is used to look up metrics in CloudWatch.
 #
 # [*memory_warning*]
 #  Defines the percentage of free usable memory that will trigger a warning.
@@ -23,13 +26,14 @@ define monitoring::checks::rds_config (
   $region = undef,
   $cpu_warning = 80,
   $cpu_critical = 90,
+  $instance_id = undef,
   $memory_warning = 2,
   $memory_critical = 1,
   $storage_warning = 20,
   $storage_critical = 10,
 ){
   icinga::check { "check_aws_rds_cpu-${title}":
-    check_command       => "check_aws_rds_cpu!${region}!${cpu_warning}!${cpu_critical}!${::aws_stackname}-${title}",
+    check_command       => "check_aws_rds_cpu!${region}!${cpu_warning}!${cpu_critical}!${::aws_stackname}-${instance_id}",
     host_name           => $::fqdn,
     service_description => "${title} - AWS RDS CPU Utilization",
     notes_url           => monitoring_docs_url(aws-rds-cpu),
@@ -37,7 +41,7 @@ define monitoring::checks::rds_config (
   }
 
   icinga::check { "check_aws_rds_memory-${title}":
-    check_command       => "check_aws_rds_memory!${region}!${memory_warning}!${memory_critical}!${::aws_stackname}-${title}",
+    check_command       => "check_aws_rds_memory!${region}!${memory_warning}!${memory_critical}!${::aws_stackname}-${instance_id}",
     host_name           => $::fqdn,
     service_description => "${title} - AWS RDS Memory Utilization",
     notes_url           => monitoring_docs_url(aws-rds-memory),
@@ -45,7 +49,7 @@ define monitoring::checks::rds_config (
   }
 
   icinga::check { "check_aws_rds_storage-${title}":
-    check_command       => "check_aws_rds_storage!${region}!${storage_warning}!${storage_critical}!${::aws_stackname}-${title}",
+    check_command       => "check_aws_rds_storage!${region}!${storage_warning}!${storage_critical}!${::aws_stackname}-${instance_id}",
     host_name           => $::fqdn,
     service_description => "${title} - AWS RDS Storage Utilization",
     notes_url           => monitoring_docs_url(aws-rds-storage),
