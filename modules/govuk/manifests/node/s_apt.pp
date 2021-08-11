@@ -133,7 +133,6 @@ class govuk::node::s_apt (
   aptly::repo { 'govuk-python': }
   aptly::repo { 'govuk-python3': }
   aptly::repo { 'govuk-rubygems': }
-  aptly::repo { 'govuk-splunk-configurator': }
   aptly::repo { 'jenkins-agent': }
   aptly::repo { 'locksmithctl': }
   aptly::repo { 'logstash': }
@@ -144,7 +143,6 @@ class govuk::node::s_apt (
     distribution => 'xenial',
   }
   aptly::repo { 'sops': }
-  aptly::repo { 'splunk': }
   aptly::repo { 'statsd': }
   aptly::repo { 'terraform': }
   aptly::repo { 'whisper-backup': }

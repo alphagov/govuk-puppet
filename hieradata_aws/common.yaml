@@ -1155,9 +1155,6 @@ govuk_sudo::sudo_conf:
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
-govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_splunk::repos::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
