@@ -54,9 +54,6 @@ class govuk_splunk(
 
   file {'/opt/splunkforwarder/var':
     ensure  => absent,
-    owner   => 'splunk',
-    group   => 'splunk',
-    mode    => '0710',
     recurse => true,
   }
 
