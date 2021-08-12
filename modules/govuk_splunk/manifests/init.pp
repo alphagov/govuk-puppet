@@ -75,11 +75,6 @@ class govuk_splunk(
 
   package { 'govuk-splunk-configurator':
     ensure  => absent,
-    require => [ Package['splunkforwarder', 'acl'],
-                Apt::Source['govuk-splunk-configurator'],
-                User['splunk'],
-                Group['splunk'],
-                ],
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem':
@@ -88,8 +83,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => $gds_server_cert,
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem':
@@ -98,8 +91,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => $gds_root_ca_cert,
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
   }
 
   file { '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf':
@@ -108,8 +99,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf'),
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkUFCombinedCertificate.pem':
@@ -118,8 +107,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => $cyber_server_cert,
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
   }
 
   file {'/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkCACertificate.pem':
@@ -128,8 +115,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => $cyber_root_ca_cert,
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
   }
 
   file { '/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf':
@@ -138,28 +123,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0600',
     content => template('govuk_splunk/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf'),
-    require => Package['govuk-splunk-configurator'],
-    notify  => Service['splunk'],
-  }
-
-  service { 'splunk':
-    ensure    => stopped,
-    enable    => false,
-    subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
-                      '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem',
-                      '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf',
-                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkUFCombinedCertificate.pem',
-                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/CyberSplunkCACertificate.pem',
-                      '/opt/splunkforwarder/etc/apps/100_hf_connect/default/outputs.conf'
-                      ],
-  }
-
-  @@icinga::check { "check_splunk_running_${::hostname}":
-    ensure              => absent,
-    check_command       => 'check_nrpe!check_proc_running!splunkd',
-    service_description => 'splunk universal forwarder not running',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(check-process-running),
   }
 
 }
