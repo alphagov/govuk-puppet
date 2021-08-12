@@ -19,6 +19,7 @@ class govuk_splunk::repos (
   $apt_mirror_gpg_key_fingerprint,
 ) {
   apt::source { 'splunk':
+    ensure       => absent,
     location     => "http://${apt_mirror_hostname}/splunk",
     release      => 'stable',
     architecture => $::architecture,
@@ -26,6 +27,7 @@ class govuk_splunk::repos (
   }
 
   apt::source { 'govuk-splunk-configurator':
+    ensure       => absent,
     location     => "http://${apt_mirror_hostname}/govuk-splunk-configurator",
     release      => 'stable',
     architecture => $::architecture,
