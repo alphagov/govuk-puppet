@@ -154,7 +154,7 @@ govuk_jenkins::plugins:
   github:
     version: '1.33.1'
   github-oauth:
-    version: '0.32'
+    version: '0.33'
   git-server:
     version: '1.7'
   google-container-registry-auth:
