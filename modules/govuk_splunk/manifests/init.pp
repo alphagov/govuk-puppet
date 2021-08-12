@@ -58,7 +58,6 @@ class govuk_splunk(
     group   => 'splunk',
     mode    => '0710',
     recurse => true,
-    require => Package['splunkforwarder'],
   }
 
   package { 'acl':
