@@ -53,8 +53,11 @@ class monitoring::checks::rds (
       monitoring::checks::rds_config { $servers:
         region => $region,
       }
-      Monitoring::Checks::Rds_config <<| |>> {
-        region => $region,
+      Monitoring::Checks::Rds_config['content-data-api-postgresql-primary'] {
+        memory_warning   => 2,
+        memory_critical  => 1,
+        storage_warning  => 50,
+        storage_critical => 25,
       }
     }
 }
