@@ -144,7 +144,7 @@ class govuk_splunk(
 
   service { 'splunk':
     ensure    => stopped,
-    enabled   => false,
+    enable    => false,
     subscribe => File['/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_server.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/gds_cacert.pem',
                       '/opt/splunkforwarder/etc/apps/100_gds_splunkcloud/default/outputs.conf',
