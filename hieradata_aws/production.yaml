@@ -460,6 +460,7 @@ monitoring::edge::enabled: true
 monitoring::pagerduty_drill::enabled: true
 
 monitoring::checks::rds::servers:
+   - 'content-data-api-postgresql-primary'
    - 'postgresql-primary'
    - 'postgresql-standby'
    - 'transition-postgresql-primary'
