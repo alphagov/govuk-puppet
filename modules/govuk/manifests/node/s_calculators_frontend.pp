@@ -17,8 +17,4 @@ class govuk::node::s_calculators_frontend inherits govuk::node::s_base {
     'UNICORN_TIMEOUT': value => 15;
   }
 
-  # Only for testing
-  if $::aws_environment == 'staging' {
-    include govuk_splunk
-  }
 }
