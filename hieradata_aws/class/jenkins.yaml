@@ -76,7 +76,7 @@ govuk_jenkins::plugins:
   bootstrap5-api:
     version: '5.1.0-1'
   bouncycastle-api:
-    version: '2.17'
+    version: '2.20'
   brakeman:
     version: '0.12'
   branch-api:
@@ -202,7 +202,7 @@ govuk_jenkins::plugins:
   junit:
     version: '1.52'
   ldap:
-    version: '1.20'
+    version: '2.0'
   lockable-resources:
     version: '2.5'
   mailer:
@@ -210,7 +210,7 @@ govuk_jenkins::plugins:
   mapdb-api:
     version: '1.0.9.0'
   matrix-auth:
-    version: '2.3'
+    version: '2.6.6'
   matrix-project:
     version: '1.19'
   maven-plugin:
@@ -230,7 +230,7 @@ govuk_jenkins::plugins:
   okhttp-api:
     version: '3.14.9'
   pam-auth:
-    version: '1.4.1'
+    version: '1.5.1'
   parameterized-scheduler:
     version: '0.6.3'
   parameterized-trigger:
@@ -283,6 +283,8 @@ govuk_jenkins::plugins:
     version: '1.5'
   saferestart:
     version: '0.3'
+  saml:
+    version: '2.0.7'
   sbt:
     version: '1.5'
   scm-api:
