@@ -101,9 +101,9 @@ class govuk::apps::ckan (
   $who_ini = "${ckan_home}/who29.ini"
   $govuk_ckan_ini = 'govuk/ckan/ckan29.ini.erb'
   $govuk_who_ini = 'govuk/ckan/who29.ini.erb'
-  $collectd_process_regex = '\/gunicorn .* \/var\/ckan\/ckan29\.ini'
-  $fetch_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester fetch-consumer'
-  $gather_process_regex = '\/python \.\/venv3\/bin\/ckan -c \/var\/ckan\/ckan29\.ini harvester gather-consumer'
+  $collectd_process_regex = '\/gunicorn -p /var/run/ckan/unicornherder.pid'
+  $fetch_process_regex = '\/ckan .* harvester fetch-consumer'
+  $gather_process_regex = '\/ckan .* harvester gather-consumer'
   $pycsw_cmd = "ckan -c ${ckan_ini} ckan-pycsw"
 
   $request_timeout = 60
