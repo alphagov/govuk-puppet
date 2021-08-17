@@ -1153,9 +1153,6 @@ govuk_sudo::sudo_conf:
   ubuntu:
     content: 'ubuntu ALL=(ALL) NOPASSWD:ALL'
 
-govuk_splunk::repos::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-govuk_splunk::repos::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
-
 govuk_unattended_reboot::alert_hostname: 'alert'
 govuk_unattended_reboot::enabled: true
 govuk_unattended_reboot::mongodb::enabled: true
@@ -1434,6 +1431,11 @@ monitoring::checks::cache::servers:
   - 'backend-redis-002'
 
 monitoring::checks::rds::servers:
+   # NOTE: content-data-api-postgresql-primary is overridden in
+   # modules/monitoring/manifests/checks/rds.pp. If it is removed from this
+   # list, the override will also need to be removed.
+   - 'content-data-api-postgresql-primary'
+
    - 'postgresql-primary'
    - 'postgresql-standby'
    - 'transition-postgresql-primary'

@@ -441,16 +441,6 @@ monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts-staging'
 monitoring::contacts::slack_username: 'Staging (AWS)'
 
-
-monitoring::checks::rds::servers:
-   - 'postgresql-primary'
-   - 'postgresql-standby'
-   - 'transition-postgresql-primary'
-   - 'transition-postgresql-standby'
-   - 'mysql-primary'
-   - 'mysql-replica'
-
-
 monitoring::checks::smokey::environment: 'staging_aws'
 monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::checks::smokey::features:

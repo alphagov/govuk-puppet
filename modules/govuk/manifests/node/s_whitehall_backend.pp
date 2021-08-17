@@ -36,4 +36,8 @@ class govuk::node::s_whitehall_backend (
     max_memory => '12%',
     listen_ip  => '0.0.0.0',
   }
+
+  govuk_envvar {
+    'RUN_S3_HEALTHCHECK_FOR_WHITEHALL_BACKEND': value => 'yes';
+  }
 }
