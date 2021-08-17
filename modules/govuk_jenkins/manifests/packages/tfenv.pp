@@ -10,7 +10,7 @@
 #
 #
 class govuk_jenkins::packages::tfenv (
-  $terraform_versions = ['0.11.14', '0.11.15', '0.13.6'],
+  $terraform_versions = ['0.11.14', '0.11.15', '0.12.30', '0.13.6'],
 ){
 
   include ::tfenv
