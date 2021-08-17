@@ -254,8 +254,6 @@ govuk_jenkins::plugins:
     version: '1.1.1'
   htmlpublisher:
     version: '1.25'
-  icon-shim:
-    version: '2.0.3'
   jackson2-api:
     version: '2.12.4'
   javadoc:
@@ -272,8 +270,6 @@ govuk_jenkins::plugins:
     version: '1.2.1'
   jquery:
     version: '1.12.4-0'
-  jquery-ui:
-    version: '1.0.2'
   jsch:
     version: '0.1.55.2'
   junit:
