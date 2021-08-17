@@ -153,13 +153,13 @@ govuk_jenkins::plugins:
   analysis-core:
     version: '1.96'
   analysis-model-api:
-    version: '5.1.1'
+    version: '10.3.0'
   ansicolor:
     version: '0.5.3'
   ant:
     version: '1.9'
   antisamy-markup-formatter:
-    version: '1.5'
+    version: '2.1'
   apache-httpcomponents-client-4-api:
     version: '4.5.13-1.0'
   authentication-tokens:
@@ -393,7 +393,7 @@ govuk_jenkins::plugins:
   violations:
     version: '0.7.11'
   warnings-ng:
-    version: '5.1.0'
+    version: '9.5.0'
   warnings:
     version: '5.0.1'
   windows-slaves:
