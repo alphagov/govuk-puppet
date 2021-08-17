@@ -60,6 +60,10 @@
 #   Run the worker which processes publishing updates.
 #   Default: false
 #
+# [*account_oauth_provider_uri*]
+#   URI of the OAuth / OpenID Connect provider.
+#   "#{account_oauth_provider_uri}/.well-known/openid-configuration" should exist.
+#
 # [*account_oauth_client_id*]
 #   Client ID for the Transition Checker in GOV.UK Account Manager
 #
@@ -110,6 +114,7 @@ class govuk::apps::account_api (
   $rabbitmq_password = 'account_api',
   $enable_procfile_worker = false,
   $enable_publishing_queue_listener = false,
+  $account_oauth_provider_uri = undef,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $account_oauth_private_key = undef,
@@ -160,6 +165,9 @@ class govuk::apps::account_api (
     "${title}-GDS_SSO_OAUTH_SECRET":
       varname => 'GDS_SSO_OAUTH_SECRET',
       value   => $oauth_secret;
+    "${title}-ACCOUNT-OAUTH-PROVIDER-URI":
+        varname => 'GOVUK_ACCOUNT_OAUTH_PROVIDER_URI',
+        value   => $account_oauth_provider_uri;
     "${title}-ACCOUNT-OAUTH-CLIENT-ID":
         varname => 'GOVUK_ACCOUNT_OAUTH_CLIENT_ID',
         value   => $account_oauth_client_id;
