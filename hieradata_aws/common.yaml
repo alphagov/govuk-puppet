@@ -931,6 +931,7 @@ govuk_ci::master::pipeline_jobs:
     repository: 'licence-finder'
   link-checker-api: {}
   local-links-manager: {}
+  locations-api: {}
   manuals-frontend: {}
   mapit: {}
   publishing-api: {}
