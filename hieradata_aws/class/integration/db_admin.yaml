@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "pull_ckan_production":
-    ensure: "enabled"
+    ensure: "present"
     hour: "0"
     minute: "0"
     action: "pull"
