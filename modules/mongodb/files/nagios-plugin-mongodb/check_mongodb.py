@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/opt/python2.7/bin/python
 
 #
 # A MongoDB Nagios check script
