@@ -27,7 +27,7 @@ define govuk::apps::ckan::ckan_cronjob (
   $weekday = undef,
   $ckan_command = undef,
   $timeout = undef,
-  $ckan_ini = '/var/ckan/ckan29.ini',
+  $ckan_ini = '/var/ckan/ckan.ini',
 ) {
   validate_string($ckan_command)
 

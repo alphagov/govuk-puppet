@@ -75,6 +75,7 @@ ckan.google_analytics_tracking_id = nil
 
 ckan.site_id = dgu
 solr_url = <%= "http://#{@solr_host}:#{@solr_port}/solr" %><%= @solr_core == nil ? "" : "/#{@solr_core}" %>
+ckan.group_and_organization_list_max = 2000
 
 ## CORS Settings
 
