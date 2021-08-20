@@ -97,10 +97,10 @@ class govuk::apps::ckan (
   $ckan_home = '/var/ckan'
   $pycsw_config = "${ckan_home}/pycsw.cfg"
 
-  $ckan_ini = "${ckan_home}/ckan29.ini"
-  $who_ini = "${ckan_home}/who29.ini"
-  $govuk_ckan_ini = 'govuk/ckan/ckan29.ini.erb'
-  $govuk_who_ini = 'govuk/ckan/who29.ini.erb'
+  $ckan_ini = "${ckan_home}/ckan.ini"
+  $who_ini = "${ckan_home}/who.ini"
+  $govuk_ckan_ini = 'govuk/ckan/ckan.ini.erb'
+  $govuk_who_ini = 'govuk/ckan/who.ini.erb'
   $collectd_process_regex = '\/gunicorn -p /var/run/ckan/unicornherder.pid'
   $fetch_process_regex = '\/ckan .* harvester fetch-consumer'
   $gather_process_regex = '\/ckan .* harvester gather-consumer'
