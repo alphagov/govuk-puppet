@@ -106,7 +106,7 @@ govuk_jenkins::plugins:
   conditional-buildstep:
     version: '1.4.1'
   copyartifact:
-    version: '1.42.1'
+    version: '1.46.1'
   credentials-binding:
     version: '1.27'
   credentials:
@@ -160,7 +160,7 @@ govuk_jenkins::plugins:
   google-container-registry-auth:
     version: '0.3'
   google-oauth-plugin:
-    version: '0.8'
+    version: '1.0.6'
   gradle:
     version: '1.37.1'
   greenballs:
