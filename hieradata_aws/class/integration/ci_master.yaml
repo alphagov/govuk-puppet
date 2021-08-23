@@ -396,8 +396,6 @@ govuk_jenkins::plugins:
     version: '9.5.0'
   warnings:
     version: '5.0.1'
-  windows-slaves:
-    version: '1.8'
   workflow-aggregator:
     version: '2.6'
   workflow-api:
