@@ -72,8 +72,12 @@ location /api/3<%= path %> {
 <% end %>
 
 # Redirect publisher to organization for CKAN 2.9 in case it has been bookmarked
-location ~ "^\/publisher(.*)" {
-  return 301 /organization$1$query_string;
+location ~ "^\/publisher\/(.*)" {
+  return 301 /organization/$1$is_args$args;
+}
+# match this exactly as /publisher-files is also in use for organogram files
+location = "/publisher" {
+  return 301 /organization;
 }
 
 location /_healthcheck {
