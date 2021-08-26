@@ -66,7 +66,7 @@ define govuk_jenkins::ssh_slave (
   }
 
   include icinga::client::check_jenkins_agent
-  @@icinga::check { "check_jenkins_agent_status_${agent_name}":
+  @@icinga::check { "check_jenkins_agent_status_${agent_name}_${::hostname}":
     check_command       => "check_nrpe!check_jenkins_agent!${agent_name}",
     service_description => "${title} is not connected to the Jenkins master",
     host_name           => $::fqdn,

@@ -20,7 +20,7 @@ define monitoring::network_checks (
       use                 => 'third-party-host',
     }
 
-    icinga::check { "check_ping_${title}":
+    icinga::check { "check_ping_${title}_${::hostname}":
       check_command       => 'check_ping!100.0,20%!500.0,60%',
       notification_period => '24x7',
       use                 => 'govuk_high_priority',
