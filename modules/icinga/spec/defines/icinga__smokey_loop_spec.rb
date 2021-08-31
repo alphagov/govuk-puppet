@@ -14,6 +14,6 @@ describe 'icinga::smokey_loop', :type => :define do
   }}
   it {
     is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_test_host.blah.blah/'\
-      'smokey_loop_for_test_feature.cfg')
+      'smokey_loop_for_test_feature_test_host.cfg')
   }
 end
