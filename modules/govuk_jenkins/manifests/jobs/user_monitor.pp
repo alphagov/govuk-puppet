@@ -27,8 +27,7 @@ class govuk_jenkins::jobs::user_monitor (
     false => 'absent'
   }
 
-  @@icinga::passive_check {
-    "user_monitor_${::hostname}":
+  @@icinga::passive_check { "user_monitor_${::hostname}":
       ensure              => $icinga_check_ensure,
       service_description => $service_description,
       host_name           => $::fqdn,
