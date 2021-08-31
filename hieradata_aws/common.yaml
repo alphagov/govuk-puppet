@@ -1076,12 +1076,17 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   account-api: {}
-  authenticating-proxy: {}
+  authenticating-proxy:
+    healthcheck_urls:
+      - "https://draft-origin.%{hiera('app_domain')}/healthcheck/ready"
   bouncer: {}
-  cache-clearing-service: {}
+  cache-clearing-service:
+    healthcheck_urls: [] # done implicitly as part of app restart script
   collections: {}
   collections-publisher: {}
-  content-data-admin: {}
+  content-data-admin:
+    healthcheck_urls:
+      - "https://content-data.%{hiera('app_domain_internal')}/healthcheck/ready"
   content-data-api: {}
   content-publisher: {}
   email-alert-frontend: {}
@@ -1105,7 +1110,10 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
     repository: 'smart-answers'
   support: {}
   travel-advice-publisher: {}
-  whitehall: {}
+  whitehall:
+    healthcheck_urls:
+      - "https://whitehall-admin.%{hiera('app_domain_internal')}/healthcheck/ready"
+      - "https://whitehall-frontend.%{hiera('app_domain_internal')}/healthcheck/ready"
 
 govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
   - 'email_alert_notifications'
