@@ -19,7 +19,7 @@ class monitoring::checks::whitehall ($check_period = undef) {
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  icinga::check { "check_whitehall_overdue_from_${::hostname}":
+  icinga::check { 'check_whitehall_overdue':
     check_command              => 'check_whitehall_overdue',
     service_description        => 'overdue publications in Whitehall',
     use                        => 'govuk_urgent_priority',
@@ -37,7 +37,7 @@ class monitoring::checks::whitehall ($check_period = undef) {
     require => Icinga::Plugin['check_http_timeout_noncrit'],
   }
 
-  icinga::check { "check_whitehall_scheduled_from_${::hostname}":
+  icinga::check { 'check_whitehall_scheduled':
     check_command              => 'check_whitehall_scheduled',
     service_description        => 'scheduled publications in Whitehall not queued',
     use                        => 'govuk_urgent_priority',
