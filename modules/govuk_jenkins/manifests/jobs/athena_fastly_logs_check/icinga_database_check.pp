@@ -24,8 +24,7 @@ define govuk_jenkins::jobs::athena_fastly_logs_check::icinga_database_check (
   $jenkins_url = undef,
   $service_description = undef,
 ) {
-  @@icinga::passive_check {
-    "athena_fastly_logs_check_${name}_${::hostname}":
+  @@icinga::passive_check { "athena_fastly_logs_check_${name}_${::hostname}":
       service_description     => regsubst($service_description, '\$\{DATABASE\}', $name),
       host_name               => $::fqdn,
       freshness_threshold     => 86400, # 24 hours

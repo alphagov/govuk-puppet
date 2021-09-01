@@ -33,7 +33,7 @@ class monitoring::uptime_collector($environment = '') {
     enable => true,
   }
 
-  @@icinga::check { 'check_uptime_collector_running':
+  @@icinga::check { "check_uptime_collector_running_${::hostname}":
     check_command       => 'check_nrpe!check_proc_running_with_arg!ruby /usr/local/bin/govuk_uptime_collector',
     service_description => 'govuk_uptime_collector not running',
     host_name           => $::fqdn,

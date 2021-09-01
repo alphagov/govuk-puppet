@@ -24,7 +24,7 @@ class govuk::apps::email_alert_api::checks(
       latency_critical => '86400'; # 24 hours
   }
 
-  @@icinga::check::graphite { 'email-alert-api-unprocessed-content-changes':
+  @@icinga::check::graphite { "email-alert-api-unprocessed-content-changes_${::hostname}":
     ensure    => $ensure,
     host_name => $::fqdn,
     target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.content_changes.unprocessed_total)))',
@@ -35,7 +35,7 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-work),
   }
 
-  @@icinga::check::graphite { 'email-alert-api-critical-digest-runs':
+  @@icinga::check::graphite { "email-alert-api-critical-digest-runs_${::hostname}":
     ensure    => $ensure,
     host_name => $::fqdn,
     target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.digest_runs.critical_total)))',
@@ -46,7 +46,7 @@ class govuk::apps::email_alert_api::checks(
     notes_url => monitoring_docs_url(email-alert-api-unprocessed-work),
   }
 
-  @@icinga::check::graphite { 'email-alert-api-unprocessed-messages':
+  @@icinga::check::graphite { "email-alert-api-unprocessed-messages_${::hostname}":
     ensure    => $ensure,
     host_name => $::fqdn,
     target    => 'transformNull(keepLastValue(averageSeries(stats.gauges.govuk.app.email-alert-api.*.messages.unprocessed_total)))',

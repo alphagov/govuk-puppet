@@ -69,7 +69,7 @@ class monitoring::checks (
 
   include icinga::client::check_json_healthcheck
 
-  icinga::check { "content_data_api_search_${::hostname}":
+  icinga::check { 'content_data_api_search':
     check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_search_path} ${content_data_api_hostname} https",
     service_description        => 'search healthcheck for content-data-api',
     use                        => 'govuk_urgent_priority',
@@ -80,7 +80,7 @@ class monitoring::checks (
     retry_interval             => 1,
   }
 
-  icinga::check { "content_data_api_metrics_${::hostname}":
+  icinga::check { 'content_data_api_metrics':
     check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_metrics_path} ${content_data_api_hostname} https",
     service_description        => 'metrics healthcheck for content-data-api',
     use                        => 'govuk_urgent_priority',
@@ -91,7 +91,7 @@ class monitoring::checks (
     retry_interval             => 1,
   }
 
-  icinga::check { "signon_api_tokens_${::hostname}":
+  icinga::check { 'signon_api_tokens':
     check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/api-tokens signon.${app_domain} https",
     service_description => 'expiring API tokens in Signon',
     host_name           => $::fqdn,
@@ -99,7 +99,7 @@ class monitoring::checks (
     check_period        => $signon_api_tokens_check_period,
   }
 
-  icinga::check { "publisher_scheduled_publishing_${::hostname}":
+  icinga::check { 'publisher_scheduled_publishing':
     check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/scheduled-publishing publisher.${app_domain} https",
     service_description => 'more items scheduled for publication than in queue for publisher',
     host_name           => $::fqdn,
@@ -107,7 +107,7 @@ class monitoring::checks (
     check_period        => $publisher_scheduled_publishing_check_period,
   }
 
-  icinga::check { "search_api_reranker_${::hostname}":
+  icinga::check { 'search_api_reranker':
     check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/reranker search-api.${app_domain_internal} https",
     service_description => 'search reranker healthcheck is not ok',
     host_name           => $::fqdn,
@@ -115,14 +115,14 @@ class monitoring::checks (
     check_period        => $search_api_reranker_check_period,
   }
 
-  icinga::check { "search_api_elasticsearch_diskspace_${::hostname}":
+  icinga::check { 'search_api_elasticsearch_diskspace':
     check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/elasticsearch-diskspace search-api.${app_domain_internal} https",
     service_description => 'elasticsearch diskspace is too low',
     host_name           => $::fqdn,
     check_period        => $search_api_elasticsearch_diskspace_check_period,
   }
 
-  icinga::check { "content_publisher_government_data_${::hostname}":
+  icinga::check { 'content_publisher_government_data':
     check_command       => "check_app_health!check_json_healthcheck!443 /healthcheck/government-data content-publisher.${app_domain} https",
     service_description => 'content-publisher government data check is not ok',
     host_name           => $::fqdn,

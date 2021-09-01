@@ -42,8 +42,7 @@ class govuk_jenkins::jobs::email_alert_check (
       notify  => Exec['jenkins_jobs_update'];
   }
 
-  @@icinga::passive_check {
-    "${medical_safety_check_name}_${::hostname}":
+  @@icinga::passive_check { "${medical_safety_check_name}_${::hostname}":
       service_description     => $medical_safety_service_description,
       host_name               => $::fqdn,
       freshness_threshold     => 5400, # 90 minutes
