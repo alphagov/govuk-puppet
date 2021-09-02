@@ -262,6 +262,9 @@ grafana::dashboards::application_dashboards:
   info-frontend: {}
   licencefinder:
     docs_name: 'licence-finder'
+  licensify: {}
+  licensify-admin: {}
+  licensify-feed: {}
   link-checker-api:
     show_sidekiq_graphs: true
     has_workers: true
