@@ -78,6 +78,8 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-integration-specia
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::static::ga_universal_id: 'UA-26179049-22'
+govuk::apps::static::govuk_personalisation_manage_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=manage-account'
+govuk::apps::static::govuk_personalisation_security_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=security-privacy'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
