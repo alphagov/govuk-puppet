@@ -30,13 +30,29 @@
           fi
 
           # Workaround for our inconsistent repo vs. deployment naming
+          # and multiple / different healthcheck URLs
           case "$TARGET_APPLICATION" in
           <% @applications.keys.each do |app| %>
+            <% default_healthcheck_urls = [
+              "https://#{app}.#{@app_domain}/healthcheck/ready"
+            ] %>
+
             <%= app %>)
               REPO="<%= @applications[app].fetch("repository", app) %>"
+
+              HEALTHCHECK_URLS="<%= @applications[app].fetch(
+                "healthcheck_urls", default_healthcheck_urls
+              ).join(" ")%>"
               ;;
           <% end %>
           esac
+
+          <% if @smokey_pre_check %>
+          # Check healthcheck endpoints return 200 OK
+          for url in $HEALTHCHECK_URLS; do
+            curl --fail $url;
+          done
+          <% end %>
 
           # Check release to deploy is genuine and we're not going backwards
           GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
