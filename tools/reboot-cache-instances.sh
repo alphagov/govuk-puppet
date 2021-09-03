@@ -43,8 +43,9 @@ echo "It has instance_id $instance_id"
 
 asg_name=$(aws autoscaling describe-auto-scaling-instances --instance-ids "$instance_id" | jq .AutoScalingInstances[0].AutoScalingGroupName -r)
 
+echo "Setting $instance_id to standby in ASG $asg_name"
 aws autoscaling enter-standby --instance-ids "$instance_id" \
-  --auto-scaling-group-name "$asg_name" --should-decrement-desired-capacity
+  --auto-scaling-group-name "$asg_name" --should-decrement-desired-capacity | jq .Activities[0].Cause -r
 
 function instanceState {
   aws autoscaling describe-auto-scaling-instances --instance-ids "$instance_id" | jq .AutoScalingInstances[0].LifecycleState -r
@@ -79,7 +80,7 @@ done
 
 echo "Putting instance back into service..."
 
-aws autoscaling exit-standby --instance-ids "$instance_id" --auto-scaling-group-name "$asg_name"
+aws autoscaling exit-standby --instance-ids "$instance_id" --auto-scaling-group-name "$asg_name" | jq .Activities[0].Cause -r
 
 until [ "$(instanceState)" == "InService" ]
 do
