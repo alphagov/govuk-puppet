@@ -79,8 +79,8 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
-# [*session_signing_key*]
-#   Secret key to sign user session data with
+# [*session_secret*]
+#   Secret used to secure user session data
 #
 # [*govuk_notify_api_key*]
 #   API key for GOV.UK Notify
@@ -120,7 +120,7 @@ class govuk::apps::account_api (
   $account_oauth_private_key = undef,
   $plek_account_manager_uri = undef,
   $email_alert_api_bearer_token = undef,
-  $session_signing_key = undef,
+  $session_secret = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
   $redis_host = undef,
@@ -183,9 +183,9 @@ class govuk::apps::account_api (
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
-    "${title}-SESSION_SIGNING_KEY":
-        varname => 'SESSION_SIGNING_KEY',
-        value   => $session_signing_key;
+    "${title}-SESSION_SECRET":
+        varname => 'SESSION_SECRET',
+        value   => $session_secret;
     "${title}-GOVUK_NOTIFY_API_KEY":
         varname => 'GOVUK_NOTIFY_API_KEY',
         value   => $govuk_notify_api_key;
