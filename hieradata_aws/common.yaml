@@ -1090,6 +1090,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   content-data-api: {}
   content-publisher: {}
   email-alert-frontend: {}
+  email-alert-service: {}
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
