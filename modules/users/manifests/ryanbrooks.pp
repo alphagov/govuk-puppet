@@ -1,3 +1,4 @@
+# Create the ryanbrooks user
 class users::ryanbrooks {
   govuk_user { 'ryanbrooks':
     fullname => 'Ryan Brooks',
