@@ -170,4 +170,11 @@ class govuk_jenkins (
     require => Class['govuk_jenkins::user'],
   }
 
+  service { "jenkins":
+    ensure     => running,
+    # provider   => 'upstart',
+    # hasrestart => false,
+    restart    => '/etc/init.d/jenkins safeRestart',
+  }
+
 }
