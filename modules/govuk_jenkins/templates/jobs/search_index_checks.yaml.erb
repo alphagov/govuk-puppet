@@ -17,7 +17,6 @@
     dsl: |
         build job: "run-rake-task"
         parameters: [
-          string(name: 'TARGET_APPLICATION', value: <%= @target_application %>),
           string(name: 'MACHINE_CLASS', value: 'search'),
           string(name: 'RAKE_TASK', value: 'search:monitor_indices')
         ]
