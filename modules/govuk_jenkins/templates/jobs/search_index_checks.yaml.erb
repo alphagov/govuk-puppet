@@ -2,7 +2,7 @@
 - job:
     name: <%= @job_name %>
     display-name: <%= @job_display_name %>
-    project-type: freestyle
+    project-type: pipeline
     description: |
       This job monitors the GOV.UK search indexes and sends data to statsd.
       Just making sure my changes are actually taking effect.
@@ -14,15 +14,13 @@
         - build-discarder:
             days-to-keep: 30
             artifact-num-to-keep: 5
-    publishers:
-      - trigger-parameterized-builds:
-          - project: run-rake-task
-            node-parameters: true
-            block: true
-            predefined-parameters: |
-              TARGET_APPLICATION=<%= @target_application %>
-              MACHINE_CLASS=search
-              RAKE_TASK=search:monitor_indices
+    dsl: |
+        build job: "run-rake-task"
+        parameters: [
+          string(name: 'TARGET_APPLICATION', value: <%= @target_application %>),
+          string(name: 'MACHINE_CLASS', value: 'search'),
+          string(name: 'RAKE_TASK', value: 'search:monitor_indices')
+        ]
     wrappers:
       - ansicolor:
           colormap: xterm
