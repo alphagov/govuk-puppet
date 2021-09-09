@@ -100,7 +100,7 @@ govuk_jenkins::plugins:
   cobertura:
     version: '1.16'
   code-coverage-api:
-    version: '1.4.0'
+    version: '1.4.1'
   command-launcher:
     version: '1.6'
   conditional-buildstep:
@@ -276,7 +276,7 @@ govuk_jenkins::plugins:
   saferestart:
     version: '0.3'
   saml:
-    version: '2.0.7'
+    version: '2.0.8'
   sbt:
     version: '1.5'
   scm-api:
