@@ -112,7 +112,7 @@ class govuk_jenkins::config (
   $executors = '8',
   $agent_tcp_port = '0',
   $csrf_version = true,
-  $markup_formatter_version = '1.5',
+  $markup_formatter_version = '2.1',
 ) {
 
   $url = "${url_prefix}.${app_domain}"
