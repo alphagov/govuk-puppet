@@ -7,6 +7,7 @@
       - trigger-builds:
         - project: run-rake-rask
           block: true
+          same-node: true
           predefined-parameters: |
             TARGET_APPLICATION=publishing-api
             MACHINE_CLASS=publishing_api

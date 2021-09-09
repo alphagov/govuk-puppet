@@ -8,6 +8,7 @@
       - trigger-builds:
           - project: run-rake-task
             block: true
+            same-node: true
             predefined-parameters: |
               TARGET_APPLICATION=smartanswers
               MACHINE_CLASS=calculators_frontend

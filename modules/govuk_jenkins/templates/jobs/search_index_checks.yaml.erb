@@ -17,6 +17,7 @@
       - trigger-builds:
           - project: run-rake-task
             block: true
+            same-node: true
             predefined-parameters: |
               TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
