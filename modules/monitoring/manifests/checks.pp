@@ -72,7 +72,6 @@ class monitoring::checks (
   icinga::check { 'content_data_api_search':
     check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_search_path} ${content_data_api_hostname} https",
     service_description        => 'search healthcheck for content-data-api',
-    use                        => 'govuk_urgent_priority',
     host_name                  => $::fqdn,
     notes_url                  => monitoring_docs_url(content-data-api-app-healthcheck-not-ok),
     check_period               => $content_data_api_check_period,
@@ -83,7 +82,6 @@ class monitoring::checks (
   icinga::check { 'content_data_api_metrics':
     check_command              => "check_app_health!check_json_healthcheck!443 ${content_data_api_metrics_path} ${content_data_api_hostname} https",
     service_description        => 'metrics healthcheck for content-data-api',
-    use                        => 'govuk_urgent_priority',
     host_name                  => $::fqdn,
     notes_url                  => monitoring_docs_url(content-data-api-app-healthcheck-not-ok),
     check_period               => $content_data_api_check_period,
