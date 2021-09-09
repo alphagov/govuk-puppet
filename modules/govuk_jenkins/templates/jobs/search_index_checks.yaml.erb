@@ -15,12 +15,10 @@
             days-to-keep: 30
             artifact-num-to-keep: 5
     builders:
-      - trigger-builds:
+      - trigger-parameterized-builds:
           - project: run-rake-task
+            node-parameters: true
             block: true
-            same-node: true
-            node-label: "${NODE_NAME}"
-            node-label-name: "${NODE_NAME}"
             predefined-parameters: |
               TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
