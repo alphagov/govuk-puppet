@@ -5,6 +5,7 @@
     project-type: freestyle
     description: |
       This job monitors the GOV.UK search indexes and sends data to statsd.
+      Just making sure my changes are actually taking effect.
     logrotate:
       numToKeep: 10
     triggers:
@@ -18,6 +19,8 @@
           - project: run-rake-task
             block: true
             same-node: true
+            node-label: "${NODE_NAME}"
+            node-label-name: "${NODE_NAME}"
             predefined-parameters: |
               TARGET_APPLICATION=<%= @target_application %>
               MACHINE_CLASS=search
