@@ -187,7 +187,7 @@ govuk_jenkins::plugins:
   cobertura:
     version: '1.16'
   code-coverage-api:
-    version: '1.4.0'
+    version: '1.4.1'
   command-launcher:
     version: '1.6'
   conditional-buildstep:
