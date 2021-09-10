@@ -319,6 +319,9 @@ define govuk::app::config (
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
     }
+    @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
+      ensure => 'absent',
+    }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
         ensure                     => $ensure,
