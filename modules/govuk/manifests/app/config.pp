@@ -320,7 +320,15 @@ define govuk::app::config (
       contact_groups => $additional_check_contact_groups,
     }
     @@icinga::check::graphite { "check_${title}_app_mem_usage${::hostname}":
-      ensure => 'absent',
+      ensure                     => 'absent',
+      target                     => "movingMedian(${::fqdn_metrics}.processes-app-${title_underscore}.ps_rss,\"5min\")",
+      warning                    => 700 * 1000000,
+      critical                   => 800 * 1000000,
+      desc                       => "high memory for ${title} app",
+      host_name                  => $::fqdn,
+      event_handler              => "govuk_app_high_memory!${title}",
+      attempts_before_hard_state => 3,
+      contact_groups             => $additional_check_contact_groups,
     }
     if $alert_when_threads_exceed {
       @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
