@@ -496,6 +496,7 @@ router::nginx::check_requests_critical: '@0.25'
 users::usernames:
   - alexandrujurubita
   - alexnewton
+  - alexsmith
   - andysellick
   - benjamineskola
   - benthorner
