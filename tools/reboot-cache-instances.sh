@@ -33,6 +33,12 @@ then
   show_help
 fi
 
+if ! [ -x "$(command -v jq)" ]
+then
+  echo "[Error] You must install 'jq' before running this script."
+  show_help
+fi
+
 echo "Going to reboot $instance_private_dns_name in $govuk_env"
 
 instance_id=$(aws ec2 describe-instances \
