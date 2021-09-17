@@ -79,6 +79,9 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*publishing_api_bearer_token*]
+#   Bearer token for communication with the publishing-api
+#
 # [*session_secret*]
 #   Secret used to secure user session data
 #
@@ -120,6 +123,7 @@ class govuk::apps::account_api (
   $account_oauth_private_key = undef,
   $plek_account_manager_uri = undef,
   $email_alert_api_bearer_token = undef,
+  $publishing_api_bearer_token = undef,
   $session_secret = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
@@ -183,6 +187,9 @@ class govuk::apps::account_api (
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;
+    "${title}-PUBLISHING_API_BEARER_TOKEN":
+        varname => 'PUBLISHING_API_BEARER_TOKEN',
+        value   => $publishing_api_bearer_token;
     "${title}-SESSION_SECRET":
         varname => 'SESSION_SECRET',
         value   => $session_secret;
