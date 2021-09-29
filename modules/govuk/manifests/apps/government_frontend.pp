@@ -36,9 +36,6 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
-# [*feature_flag_save_a_page*]
-#   Feature flag to switch GOV.UK Accounts Save a page feature
-#
 class govuk::apps::government_frontend(
   $vhost = 'government-frontend',
   $port,
@@ -49,7 +46,6 @@ class govuk::apps::government_frontend(
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
-  $feature_flag_save_a_page = false,
 ) {
   Govuk::App::Envvar {
     app => 'government-frontend',
@@ -65,14 +61,6 @@ class govuk::apps::government_frontend(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
-  }
-
-  if $feature_flag_save_a_page {
-    govuk::app::envvar {
-      "${title}-FEATURE_FLAG_SAVE_A_PAGE":
-        varname => 'FEATURE_FLAG_SAVE_A_PAGE',
-        value   => 'enabled';
-    }
   }
 
   govuk::app { 'government-frontend':

@@ -43,7 +43,6 @@ govuk::apps::feedback::govuk_notify_reply_to_id: 'fee22233-2f28-4b0b-8b6c-441097
 govuk::apps::feedback::govuk_notify_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
 govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
-govuk::apps::frontend::feature_flag_save_a_page: true
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
