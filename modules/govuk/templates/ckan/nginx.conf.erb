@@ -8,6 +8,9 @@ if ($http_x_ckan_skip_blanket_redirect_key != "<%= @blanket_redirect_skip_key %>
 <%- end -%>
 <%- end -%>
 
+# Allow large uploads
+client_max_body_size 100M;
+
 # Guard against open redirects from CKAN for requests with paths like
 # the following, starting with two forward slashes and a trailing
 # slash: //www.gov.uk/
