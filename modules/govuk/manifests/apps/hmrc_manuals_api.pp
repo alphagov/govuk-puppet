@@ -63,6 +63,7 @@ class govuk::apps::hmrc_manuals_api(
     has_readiness_health_check => true,
     log_format_is_json         => true,
     override_search_location   => $override_search_location,
+    read_timeout               => 300,
   }
 
   unless $ensure == 'absent' {
@@ -95,7 +96,10 @@ class govuk::apps::hmrc_manuals_api(
         value   => $oauth_secret;
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
-        value   => $publishing_api_bearer_token,
+        value   => $publishing_api_bearer_token;
+      "${title}-UNICORN_TIMEOUT":
+        varname => 'UNICORN_TIMEOUT',
+        value   => 300;
     }
 
   }
