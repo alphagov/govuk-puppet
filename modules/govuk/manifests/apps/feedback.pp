@@ -33,6 +33,9 @@
 # [*govuk_notify_reply_to_id*]
 #   Email address reply_to ID for GOV.UK Notify
 #
+# [*govuk_notify_survey_signup_reply_to_id*]
+#   Survey signup email address reply_to ID for GOV.UK Notify
+#
 class govuk::apps::feedback(
   $port,
   $sentry_dsn = undef,
@@ -47,6 +50,7 @@ class govuk::apps::feedback(
   $govuk_notify_template_id,
   $govuk_notify_survey_signup_template_id,
   $govuk_notify_reply_to_id,
+  $govuk_notify_survey_signup_reply_to_id,
 ) {
   $app_name = 'feedback'
 
@@ -130,5 +134,10 @@ class govuk::apps::feedback(
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
     varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
     value   => $govuk_notify_reply_to_id,
+  }
+
+  govuk::app::envvar { "${title}-GOVUK_NOTIFY_SURVEY_SIGNUP_REPLY_TO_ID":
+    varname => 'GOVUK_NOTIFY_SURVEY_SIGNUP_REPLY_TO_ID',
+    value   => $govuk_notify_survey_signup_reply_to_id,
   }
 }
