@@ -1090,6 +1090,8 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   content-data-api: {}
   content-publisher: {}
   email-alert-frontend: {}
+  email-alert-service:
+    healthcheck_urls: [] # done implicitly as part of app restart script https://github.com/alphagov/email-alert-service/pull/470
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
