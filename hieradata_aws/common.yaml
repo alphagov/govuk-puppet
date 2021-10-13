@@ -1076,9 +1076,7 @@ govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
   account-api: {}
-  authenticating-proxy:
-    healthcheck_urls:
-      - "https://draft-origin.%{hiera('app_domain')}/healthcheck/ready"
+  authenticating-proxy: {}
   bouncer: {}
   cache-clearing-service:
     healthcheck_urls: [] # done implicitly as part of app restart script
