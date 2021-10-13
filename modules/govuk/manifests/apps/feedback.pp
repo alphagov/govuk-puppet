@@ -24,14 +24,8 @@
 #   The API key to allow this app to talk to GOV.UK Notify and send emails
 #   to people who want to sign up to take a survey
 #
-# [*govuk_notify_template_id*]
-#   Template ID for GOV.UK Notify
-#
 # [*govuk_notify_survey_signup_template_id*]
 #   Survey signup template ID for GOV.UK Notify
-#
-# [*govuk_notify_reply_to_id*]
-#   Email address reply_to ID for GOV.UK Notify
 #
 # [*govuk_notify_survey_signup_reply_to_id*]
 #   Survey signup email address reply_to ID for GOV.UK Notify
@@ -47,9 +41,7 @@ class govuk::apps::feedback(
   $google_client_email = undef,
   $google_private_key = undef,
   $govuk_notify_api_key,
-  $govuk_notify_template_id,
   $govuk_notify_survey_signup_template_id,
-  $govuk_notify_reply_to_id,
   $govuk_notify_survey_signup_reply_to_id,
 ) {
   $app_name = 'feedback'
@@ -121,19 +113,9 @@ class govuk::apps::feedback(
     value   => $govuk_notify_api_key,
   }
 
-  govuk::app::envvar { "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
-    varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
-    value   => $govuk_notify_template_id,
-  }
-
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_SURVEY_SIGNUP_TEMPLATE_ID":
     varname => 'GOVUK_NOTIFY_SURVEY_SIGNUP_TEMPLATE_ID',
     value   => $govuk_notify_survey_signup_template_id,
-  }
-
-  govuk::app::envvar { "${title}-GOVUK_NOTIFY_REPLY_TO_ID":
-    varname => 'GOVUK_NOTIFY_REPLY_TO_ID',
-    value   => $govuk_notify_reply_to_id,
   }
 
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_SURVEY_SIGNUP_REPLY_TO_ID":
