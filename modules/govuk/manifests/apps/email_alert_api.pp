@@ -81,6 +81,9 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*plek_account_manager_uri*]
+#   Path to the GOV.UK Account Manager
+#
 class govuk::apps::email_alert_api(
   $port,
   $enabled = false,
@@ -113,6 +116,7 @@ class govuk::apps::email_alert_api(
   $aws_region = 'eu-west-1',
   $account_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
+  $plek_account_manager_uri = undef,
 ) {
 
   $ensure = $enabled ? {
@@ -213,6 +217,9 @@ class govuk::apps::email_alert_api(
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
+    "${title}-PLEK-ACCOUNT-MANAGER-URI":
+      varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
+      value   => $plek_account_manager_uri;
   }
 
   if $govuk_notify_recipients {
