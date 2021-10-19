@@ -56,6 +56,10 @@
               "refId": "A",
               "target": "aliasByNode(summarize(stats.gauges.uptime.*, '1d', 'avg'), 3)",
               "textEditor": false
+            },
+            {
+              "refId": "B",
+              "target": "alias(averageSeries(summarize(stats.gauges.uptime.*, '1d', 'avg')), 'Average')"
             }
           ],
           "title": "Uptimes",
