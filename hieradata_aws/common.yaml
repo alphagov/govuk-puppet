@@ -528,11 +528,10 @@ govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::email_alert_api::db_hostname: "postgresql-primary"
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
 govuk::apps::email_alert_api::unicorn_worker_processes: '10'
-govuk::apps::email_alert_api::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
+govuk::apps::email_alert_api::govuk_personalisation_feedback_uri: "%{hiera('govuk::apps::static::govuk_personalisation_feedback_uri')}"
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
-govuk::apps::email_alert_frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
@@ -543,9 +542,11 @@ govuk::apps::email_alert_service::rabbitmq::queue_size_warning_threshold: 5
 
 govuk::apps::finder_frontend::enabled: true
 govuk::apps::finder_frontend::unicorn_worker_processes: "6"
+# TODO: remove after DI migration
 govuk::apps::finder_frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 
 govuk::apps::frontend::elections_api_url: "https://api.electoralcommission.org.uk/api/v1"
+# TODO: remove after DI migration
 govuk::apps::frontend::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 govuk::apps::frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::frontend::redis_port: "%{hiera('sidekiq_port')}"
@@ -756,7 +757,6 @@ govuk::apps::smokey::smokey_govuk_account_password: "%{hiera('smokey_govuk_accou
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
-govuk::apps::static::plek_account_manager_uri: "%{hiera('govuk::apps::account_api::plek_account_manager_uri')}"
 govuk::apps::static::asset_host: "%{hiera('govuk::deploy::config::website_root')}"
 govuk::apps::static::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::static::redis_port: "%{hiera('sidekiq_port')}"

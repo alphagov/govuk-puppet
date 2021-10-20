@@ -48,14 +48,14 @@
 #   The number of unicorn worker processes to run.
 #   Default: undef
 #
-# [*plek_account_manager_uri*]
-#   Path to the GOV.UK Account Manager
-#
 # [*govuk_personalisation_manage_uri*]
-#   URI for the account management page.  If unset, this is derived from plek_account_manager_uri.
+#   URI for the account management page.
 #
 # [*govuk_personalisation_security_uri*]
-#   URI for the account security page.  If unset, this is derived from plek_account_manager_uri.
+#   URI for the account security page.
+#
+# [*govuk_personalisation_feedback_uri*]
+#   URI for the account feedback page.
 #
 class govuk::apps::static(
   $vhost = 'static',
@@ -69,9 +69,9 @@ class govuk::apps::static(
   $redis_host = undef,
   $redis_port = undef,
   $unicorn_worker_processes = undef,
-  $plek_account_manager_uri = undef,
   $govuk_personalisation_manage_uri = undef,
   $govuk_personalisation_security_uri = undef,
+  $govuk_personalisation_feedback_uri = undef,
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
@@ -121,15 +121,15 @@ class govuk::apps::static(
     "${title}-ASSET_HOST":
       varname => 'ASSET_HOST',
       value   => $asset_host;
-    "${title}-PLEK-ACCOUNT-MANAGER-URI":
-      varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
-      value   => $plek_account_manager_uri;
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
       varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
       value   => $govuk_personalisation_manage_uri;
     "${title}-GOVUK-PERSONALISATION-SECURITY-URI":
       varname => 'GOVUK_PERSONALISATION_SECURITY_URI',
       value   => $govuk_personalisation_security_uri;
+    "${title}-GOVUK-PERSONALISATION-FEEDBACK-URI":
+      varname => 'GOVUK_PERSONALISATION_FEEDBACK_URI',
+      value   => $govuk_personalisation_feedback_uri;
   }
 
   if $ga_universal_id != undef {

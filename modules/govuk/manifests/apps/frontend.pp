@@ -49,6 +49,10 @@
 #
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
+#   TODO: Remove after DI migration
+#
+# [*govuk_personalisation_manage_uri*]
+#   URI for the account management page.
 #
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
@@ -73,6 +77,7 @@ class govuk::apps::frontend(
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
   $plek_account_manager_uri = undef,
+  $govuk_personalisation_manage_uri = undef,
   $memcache_servers = undef,
   $elections_api_url = undef,
   $elections_api_key = undef,
@@ -118,6 +123,9 @@ class govuk::apps::frontend(
     "${title}-PLEK-ACCOUNT-MANAGER-URI":
         varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
         value   => $plek_account_manager_uri;
+    "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
+        varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
+        value   => $govuk_personalisation_manage_uri;
     # MEMCACHE_SERVERS is used by "Dalli", our memcached client gem
     # https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
     "${title}-MEMCACHE_SERVERS":
