@@ -20,6 +20,7 @@
 #
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
+#   TODO: Remove after DI migration
 #
 class govuk::apps::finder_frontend(
   $port,

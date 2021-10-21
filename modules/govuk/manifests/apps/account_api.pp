@@ -75,6 +75,7 @@
 #
 # [*plek_account_manager_uri*]
 #   Path to the GOV.UK Account Manager
+#   TODO: Remove after DI migration
 #
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
