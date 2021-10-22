@@ -11,7 +11,7 @@ cron::daily_hour: 6
 
 environment_ip_prefix: '10.1'
 
-govuk::apps::account_api::account_oauth_provider_uri: 'https://api.integration.auth.ida.digital.cabinet-office.gov.uk'
+govuk::apps::account_api::account_oauth_provider_uri: 'https://oidc.integration.account.gov.uk'
 # TODO: remove after DI migration
 govuk::apps::account_api::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
@@ -40,11 +40,11 @@ govuk::apps::email_alert_api::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b
 govuk::apps::email_alert_api::govuk_notify_recipients:
   - email-alert-api-integration@digital.cabinet-office.gov.uk
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
-govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=manage-account'
+govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'fee22233-2f28-4b0b-8b6c-4410979f2275'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
 govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
-govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=manage-account'
+govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
@@ -78,9 +78,9 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-integration-specia
 govuk::apps::specialist_publisher::publish_pre_production_finders: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::static::ga_universal_id: 'UA-26179049-22'
-govuk::apps::static::govuk_personalisation_manage_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=manage-account'
-govuk::apps::static::govuk_personalisation_security_uri: 'https://account-management.integration.auth.ida.digital.cabinet-office.gov.uk/?link=security-privacy'
-govuk::apps::static::govuk_personalisation_feedback_uri: 'https://www.account.staging.publishing.service.gov.uk/feedback'
+govuk::apps::static::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
+govuk::apps::static::govuk_personalisation_security_uri: 'https://integration.account.gov.uk?link=security-privacy'
+govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
