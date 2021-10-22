@@ -11,6 +11,7 @@ class govuk_jenkins::jobs::user_monitor (
   $github_token = undef,
   $sentry_auth_token = undef,
   $fastly_auth_token = undef,
+  $pagerduty_auth_token = undef,
   $enable_icinga_check = false,
 ) {
 
