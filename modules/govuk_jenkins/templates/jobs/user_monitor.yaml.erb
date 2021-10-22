@@ -26,6 +26,7 @@
         - shell: |
             export SENTRY_AUTH_TOKEN=<%= @sentry_auth_token %>
             export FASTLY_AUTH_TOKEN=<%= @fastly_auth_token %>
+            export PAGERDUTY_AUTH_TOKEN=<%= @pagerduty_auth_token %>
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             bundle exec rake run
     publishers:
