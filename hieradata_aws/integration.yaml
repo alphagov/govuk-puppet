@@ -12,8 +12,6 @@ cron::daily_hour: 6
 environment_ip_prefix: '10.1'
 
 govuk::apps::account_api::account_oauth_provider_uri: 'https://oidc.integration.account.gov.uk/'
-# TODO: remove after DI migration
-govuk::apps::account_api::plek_account_manager_uri: 'https://www.account.staging.publishing.service.gov.uk'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-integration'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.integration.publishing.service.gov.uk'

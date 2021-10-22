@@ -73,10 +73,6 @@
 # [*account_oauth_private_key*]
 #   RSA private key for communication with the Digital Identity auth service.
 #
-# [*plek_account_manager_uri*]
-#   Path to the GOV.UK Account Manager
-#   TODO: Remove after DI migration
-#
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
@@ -122,7 +118,6 @@ class govuk::apps::account_api (
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
   $account_oauth_private_key = undef,
-  $plek_account_manager_uri = undef,
   $email_alert_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $session_secret = undef,
@@ -182,9 +177,6 @@ class govuk::apps::account_api (
     "${title}-ACCOUNT-OAUTH-PRIVATE_KEY":
         varname => 'GOVUK_ACCOUNT_OAUTH_PRIVATE_KEY',
         value   => $account_oauth_private_key;
-    "${title}-PLEK-ACCOUNT-MANAGER-URI":
-        varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
-        value   => $plek_account_manager_uri;
     "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
         varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
         value   => $email_alert_api_bearer_token;

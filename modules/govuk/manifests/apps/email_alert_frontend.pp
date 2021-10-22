@@ -50,9 +50,6 @@
 # [*account_auth_enabled*]
 #   Whether users can log in with their GOV.UK Account.
 #
-# [*plek_account_manager_uri*]
-#   Path to the GOV.UK Account Manager
-#
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
@@ -70,7 +67,6 @@ class govuk::apps::email_alert_frontend(
   $subscription_management_enabled = false,
   $account_api_bearer_token = undef,
   $account_auth_enabled = false,
-  $plek_account_manager_uri = undef,
   $govuk_personalisation_manage_uri = undef,
 ) {
   $app_name = 'email-alert-frontend'
@@ -111,9 +107,6 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',
         value   => $email_alert_auth_token;
-    "${title}-PLEK-ACCOUNT-MANAGER-URI":
-      varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
-      value   => $plek_account_manager_uri;
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
       varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
       value   => $govuk_personalisation_manage_uri;

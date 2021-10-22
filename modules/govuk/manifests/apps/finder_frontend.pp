@@ -18,10 +18,6 @@
 # [*account_api_bearer_token*]
 #   Bearer token for communication with the account-api
 #
-# [*plek_account_manager_uri*]
-#   Path to the GOV.UK Account Manager
-#   TODO: Remove after DI migration
-#
 class govuk::apps::finder_frontend(
   $port,
   $enabled = false,
@@ -30,7 +26,6 @@ class govuk::apps::finder_frontend(
   $email_alert_api_bearer_token = undef,
   $account_api_bearer_token = undef,
   $unicorn_worker_processes = undef,
-  $plek_account_manager_uri = undef,
 ) {
 
   if $enabled {
@@ -64,8 +59,5 @@ class govuk::apps::finder_frontend(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
-    "${title}-PLEK-ACCOUNT-MANAGER-URI":
-        varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
-        value   => $plek_account_manager_uri;
   }
 }
