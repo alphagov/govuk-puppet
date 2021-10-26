@@ -22,6 +22,14 @@
   </orphanedItemStrategy>
   <triggers/>
   <disabled>false</disabled>
+  <buildWrappers>
+    <hudson.plugins.ws__cleanup.PreBuildCleanup plugin="ws-cleanup@0.39">
+      <deleteDirs>false</deleteDirs>
+      <cleanupParameter/>
+      <externalDelete/>
+      <disableDeferredWipeout>false</disableDeferredWipeout>
+    </hudson.plugins.ws__cleanup.PreBuildCleanup>
+  </buildWrappers>
   <sources class="jenkins.branch.MultiBranchProject$BranchSourceList" plugin="branch-api@2.0.21">
     <data>
       <jenkins.branch.BranchSource>
