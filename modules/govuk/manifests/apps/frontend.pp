@@ -47,10 +47,6 @@
 # [*govuk_notify_template_id*]
 #   Template ID for GOV.UK Notify
 #
-# [*plek_account_manager_uri*]
-#   Path to the GOV.UK Account Manager
-#   TODO: Remove after DI migration
-#
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
@@ -76,7 +72,6 @@ class govuk::apps::frontend(
   $unicorn_worker_processes = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $plek_account_manager_uri = undef,
   $govuk_personalisation_manage_uri = undef,
   $memcache_servers = undef,
   $elections_api_url = undef,
@@ -120,9 +115,6 @@ class govuk::apps::frontend(
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
-    "${title}-PLEK-ACCOUNT-MANAGER-URI":
-        varname => 'PLEK_SERVICE_ACCOUNT_MANAGER_URI',
-        value   => $plek_account_manager_uri;
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
         varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
         value   => $govuk_personalisation_manage_uri;

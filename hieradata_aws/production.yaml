@@ -137,9 +137,7 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
       - licensify-admin
       - licensify-feed
 
-govuk::apps::account_api::account_oauth_provider_uri: 'https://www.account.publishing.service.gov.uk'
-# TODO: remove after DI migration
-govuk::apps::account_api::plek_account_manager_uri: 'https://www.account.publishing.service.gov.uk'
+govuk::apps::account_api::account_oauth_provider_uri: 'https://oidc.account.gov.uk/'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-production'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
 govuk::apps::ckan::ckan_site_url: 'https://ckan.publishing.service.gov.uk'
@@ -192,7 +190,7 @@ govuk::apps::govuk_crawler_worker::crawler_threads: '32'
 govuk::apps::email_alert_api::db::backend_ip_range: '10.13.3.0/24'
 govuk::apps::email_alert_api::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
 govuk::apps::email_alert_api::govuk_notify_recipients: '*'
-govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://www.account.publishing.service.gov.uk/account/manage'
+govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://account.gov.uk?link=manage-account'
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'e8b2d8a6-db5f-4346-9fbd-49b16b531e1c'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: '54168fa9-3946-4860-a2f8-27ddbb14babe'
 
@@ -200,7 +198,7 @@ govuk::apps::feedback::govuk_notify_survey_signup_template_id: '54168fa9-3946-48
 govuk::apps::finder_frontend::unicorn_worker_processes: 48
 
 govuk::apps::frontend::govuk_notify_template_id: 'cb633abc-6ae6-4843-ae6f-82ca500b6de2'
-govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://www.account.publishing.service.gov.uk/account/manage'
+govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://account.gov.uk?link=manage-account'
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-2hnib7uydv3tgebhabx74gdelq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
@@ -235,9 +233,9 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-special
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
-govuk::apps::static::govuk_personalisation_manage_uri: 'https://www.account.publishing.service.gov.uk/account/manage'
-govuk::apps::static::govuk_personalisation_security_uri: 'https://www.account.publishing.service.gov.uk/account/security'
-govuk::apps::static::govuk_personalisation_feedback_uri: 'https://www.account.publishing.service.gov.uk/feedback'
+govuk::apps::static::govuk_personalisation_manage_uri: 'https://account.gov.uk?link=manage-account'
+govuk::apps::static::govuk_personalisation_security_uri: 'https://account.gov.uk?link=security-privacy'
+govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'
 govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cabinet-office.gov.uk'
 govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-production-support-api-csvs'
