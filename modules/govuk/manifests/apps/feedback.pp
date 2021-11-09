@@ -49,8 +49,8 @@ class govuk::apps::feedback(
   $govuk_notify_api_key,
   $govuk_notify_survey_signup_template_id,
   $govuk_notify_survey_signup_reply_to_id,
-  $govuk_notify_accessible_format_request_template_id,
-  $govuk_notify_accessible_format_request_reply_to_id,
+  $govuk_notify_accessible_format_request_template_id = undef,
+  $govuk_notify_accessible_format_request_reply_to_id = undef,
 ) {
   $app_name = 'feedback'
 
