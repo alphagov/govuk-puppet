@@ -19,10 +19,14 @@
 #   Bearer token for communication with the account-api
 #   Default: undef
 #
-# [*publishing_api_bearer_token*]
-#   The bearer token to use when communicating with Publishing API.
+# [*email_alert_api_bearer_token*]
+#   Bearer token for communication with the email-alert-api
 #   Default: undef
 #
+# [*publishing_api_bearer_token*]
+#   The bearer token to use when communicating with Publishing API.#
+#   Default: undef
+
 # [*redis_host*]
 #   Redis host for Sidekiq.
 #   Default: undef
@@ -64,6 +68,7 @@ class govuk::apps::frontend(
   $port,
   $vhost_protected = false,
   $account_api_bearer_token = undef,
+  $email_alert_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
@@ -106,6 +111,9 @@ class govuk::apps::frontend(
     "${title}-ACCOUNT_API_BEARER_TOKEN":
         varname => 'ACCOUNT_API_BEARER_TOKEN',
         value   => $account_api_bearer_token;
+    "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+      varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+      value   => $email_alert_api_bearer_token;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
       varname => 'PUBLISHING_API_BEARER_TOKEN',
       value   => $publishing_api_bearer_token;
