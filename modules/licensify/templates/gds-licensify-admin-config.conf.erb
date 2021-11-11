@@ -8,7 +8,7 @@ include "application"
 # ~~~~~
 # The secret key is used to secure cryptographics functions.
 # If you deploy your application to several instances be sure to use the same key!
-application.secret="<%= @application_secret %>"
+play.crypto.secret="<%= @application_secret %>"
 
 # Root logger:
 logger.root=ERROR
