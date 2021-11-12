@@ -167,6 +167,7 @@ govuk::apps::email_alert_api::db::backend_ip_range: '10.12.3.0/24'
 govuk::apps::email_alert_api::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::email_alert_api::govuk_notify_recipients:
   - email-alert-api-staging@digital.cabinet-office.gov.uk
+  - dana.cotoran@digital.cabinet-office.gov.uk
   - michael.s.walker+accounts-qa-1@digital.cabinet-office.gov.uk
   - michael.s.walker+accounts-qa-2@digital.cabinet-office.gov.uk
   - michael.s.walker+accounts-qa-3@digital.cabinet-office.gov.uk
