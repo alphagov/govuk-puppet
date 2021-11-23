@@ -15,7 +15,7 @@
           set -ex
 
           for node in `govuk_node_list -c frontend`; do
-            ssh deploy@$node "rm -f /var/apps/static/public/templates/{wrapper,homepage,header_footer_only,core_layout}.html.erb"
+            ssh deploy@$node "rm -f /var/apps/static/public/templates/*.html.erb"
             ssh deploy@$node "rm -rf /var/apps/{,government-}frontend/tmp/cache/*"
           done
 
