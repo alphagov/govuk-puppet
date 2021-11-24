@@ -8,6 +8,7 @@ router::gor::http_disallow_url:
   - 'apply-for-a-licence/payment'
   - 'apply-for-a-licence/redirect'
   - 'apply-for-a-licence/uploaded'
+  - 'contact-electoral-registration-office'
   - 'sign-in/callback'
 govuk_safe_to_reboot::can_reboot: 'careful'
 govuk_safe_to_reboot::reason: 'Handles requests, traffic should be drained before restarting'
