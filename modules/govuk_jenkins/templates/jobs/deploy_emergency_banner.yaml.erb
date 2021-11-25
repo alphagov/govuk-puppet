@@ -29,7 +29,11 @@
 
           ssh deploy@$(govuk_node_list -c frontend --single-node) "cd /var/apps/static && govuk_setenv static bundle exec rake \"emergency_banner:deploy[$CAMPAIGN_CLASS,$HEADING,$SHORT_DESCRIPTION,$LINK,$LINK_TEXT]\""
       - trigger-builds:
-          - project: clear-template-cache
+          - project: Deploy_App
+            predefined-parameters: |
+              TARGET_APPLICATION=static
+              DEPLOY_TASK=deploy
+              TAG=release
             block: true
           - project: clear-frontend-memcache
             block: true
