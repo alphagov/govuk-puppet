@@ -47,12 +47,6 @@
 #   The bearer token to use when communicating with Account API.
 #   Default: undef
 #
-# [*account_auth_enabled*]
-#   Whether users can log in with their GOV.UK Account.
-#
-# [*govuk_personalisation_manage_uri*]
-#   URI for the account management page.
-#
 
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
@@ -66,8 +60,6 @@ class govuk::apps::email_alert_frontend(
   $email_alert_auth_token = undef,
   $subscription_management_enabled = false,
   $account_api_bearer_token = undef,
-  $account_auth_enabled = false,
-  $govuk_personalisation_manage_uri = undef,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -107,22 +99,12 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',
         value   => $email_alert_auth_token;
-    "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
-      varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
-      value   => $govuk_personalisation_manage_uri;
   }
 
   if $subscription_management_enabled {
     govuk::app::envvar { "${title}-SUBSCRIPTION_MANAGEMENT_ENABLED":
       varname => 'SUBSCRIPTION_MANAGEMENT_ENABLED',
       value   => 'yes';
-    }
-  }
-
-  if $account_auth_enabled {
-    govuk::app::envvar { "${title}-FEATURE_FLAG_GOVUK_ACCOUNT":
-      varname => 'FEATURE_FLAG_GOVUK_ACCOUNT',
-      value   => 'enabled';
     }
   }
 }
