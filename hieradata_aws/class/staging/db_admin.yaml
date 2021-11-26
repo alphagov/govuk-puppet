@@ -288,7 +288,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mysql"
   "pull_signon_production_daily":
-    ensure: "disabled"
+    ensure: "present"
     hour: "1"
     minute: "30"
     action: "pull"
