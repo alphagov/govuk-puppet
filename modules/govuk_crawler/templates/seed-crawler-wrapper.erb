@@ -19,6 +19,7 @@ function send_nsca {
 trap send_nsca EXIT
 
 export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
+export RBENV_ROOT=/usr/lib/rbenv
 
 OUTPUT=`eval "$(rbenv init -)" && rbenv shell 2.6.3 && <%= @seeder_script_path %> <%= @seeder_script_args %>`
 
