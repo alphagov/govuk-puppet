@@ -3,6 +3,14 @@
 # Installs and configures mysql-server
 #
 class govuk_ci::agent::mysql {
+  # Docker instances of MySQL server versions that are installed in parallel
+  # with the Ubuntu Trusty version
+  include ::govuk_docker
+  ::govuk_containers::ci_mysql { 'ci-mysql-8':
+    tag  => '8',
+    port => 33068,
+  }
+
   contain ::govuk_mysql::server
 
   # We want to run MySQL on a ramdisk, so this creates the directory so that it
