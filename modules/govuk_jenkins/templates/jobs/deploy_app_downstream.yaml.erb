@@ -57,12 +57,12 @@
           # Check release to deploy is genuine and we're not going backwards
           GITHUB_API="https://api.github.com/repos/alphagov/$REPO"
 
-          LATEST_TAGS=$(curl -H "Authorization: token $GITHUB_API_TOKEN" -s "$GITHUB_API/tags?per_page=1")
-          LATEST_MASTER=$(curl -H "Authorization: token $GITHUB_API_TOKEN" -s "$GITHUB_API/commits?per_page=1")
+          LATEST_TAGS=$(curl -H 'Content-Type: application/json' -H "Authorization: bearer $GITHUB_API_TOKEN" -d '{"query": "query {repository(owner: \"alphagov\", name: \"'"$REPO"'\") {refs(orderBy: { field: TAG_COMMIT_DATE, direction: DESC}, first: 1, refPrefix: \"refs/tags/\") { nodes { name target{commitResourcePath} } } }}"}' https://api.github.com/graphql)
+          LATEST_MASTER=$(curl -H 'Content-Type: application/json' -H "Authorization: bearer $GITHUB_API_TOKEN" -d '{"query": "query {repository(owner: \"alphagov\", name: \"'"$REPO"'\" ) {defaultBranchRef { name target{commitResourcePath} }  }}"}' https://api.github.com/graphql)
 
-          LATEST_MASTER_SHA=$(echo "$LATEST_MASTER" | jq '.[].sha' | head -1)
-          LATEST_TAG_SHA=$(echo "$LATEST_TAGS" | jq '.[].commit.sha' | head -1)
-          LATEST_TAG_NAME=$(echo "$LATEST_TAGS" | jq '.[].name' | head -1)
+          LATEST_MASTER_SHA=$(echo "$LATEST_MASTER" | jq '.data[][].target.commitResourcePath' | grep -E -o '[a-f0-9]{40}')
+          LATEST_TAG_SHA=$(echo "$LATEST_TAGS" | jq '.data[][].nodes[0].target.commitResourcePath' | grep -E -o '[a-f0-9]{40}')
+          LATEST_TAG_NAME=$(echo "$LATEST_TAGS" | jq '.data[][].nodes[0].name')
 
           if [ "$LATEST_TAG_NAME" != "\"$TAG\"" ]; then
             echo "The TAG parameter does not match the latest release. Aborting."
