@@ -41,15 +41,16 @@ define govuk_containers::elasticsearch(
     volumes => ['/usr/share/elasticsearch/data', '/usr/share/elasticsearch/import', "/etc/elasticsearch-docker-${image_version}.yml:/usr/share/elasticsearch/config/elasticsearch.yml"],
   }
 
+  # FIXME: once this has been run in production this definition and the source file can be removed.
   @icinga::nrpe_config { "check_dockerised_elasticsearch_${image_version}_responding":
-    ensure => $ensure,
+    ensure => 'absent',
     source => 'puppet:///modules/govuk_containers/nrpe_check_dockerised_elasticsearch_responding.cfg',
   }
 
   @@icinga::check { "check_dockerised_elasticsearch_${image_version}_responding_${::hostname}":
     ensure              => $ensure,
-    check_command       => "check_nrpe!check_dockerised_elasticsearch_responding!${elasticsearch_port}",
-    service_description => 'dockerised elasticsearch port not responding',
+    check_command       => "check_nrpe!check_tcp!127.0.0.1 ${elasticsearch_port}",
+    service_description => "Docker Elasticsearch ${image_version} not accepting TCP connections",
     host_name           => $::fqdn,
   }
 }
