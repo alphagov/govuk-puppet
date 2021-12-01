@@ -14,6 +14,14 @@ class govuk_ci::agent::postgresql (
   $mapit_role_password = 'mapit',
   $email_alert_api_role_password = 'email-alert-api',
 ) {
+  # Docker instances of PostgreSQL server versions that are installed in
+  # parallel with the Ubuntu Trusty version
+  include ::govuk_docker
+  ::govuk_containers::ci_postgresql { 'ci-postgresql-13':
+    version => '13',
+    port    => 54313,
+  }
+
   contain ::govuk_postgresql::mirror
   include ::govuk_postgresql::server::standalone
   include ::postgresql::server::contrib
