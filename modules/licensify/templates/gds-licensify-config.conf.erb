@@ -14,6 +14,15 @@ play.http.secret.key="<%= @application_secret %>"
 # Set session cookies to https only (not set in dev)
 session.secure=true
 
+# Some payment providers send responses using an HTML form which POSTs data
+# from the user's browser to Licensing. For this to work, the POST request
+# needs to include the session cookie. This means the SameSite attribute on the
+# session cookie has to be set to None (rather than the default which is "Lax"
+# as of 2021).
+#
+# https://web.dev/samesite-cookies-explained/
+play.http.session.sameSite="None"
+
 play.akka.actor.retrieveBodyParserTimeout = 30 seconds
 
 # In integration, disable TLS cert validation as the test PDF processing server
