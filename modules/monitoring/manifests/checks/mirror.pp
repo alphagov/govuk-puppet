@@ -48,6 +48,7 @@ class monitoring::checks::mirror (
     icinga::check { 'check_mirror_file_sync':
       check_command       => "check_mirror_file_sync!${google_application_credentials_file_path}!${gcp_mirror_sync_project_id}",
       service_description => 'Check status of latest GCP mirror sync job',
+      notes_url           => monitoring_docs_url(check-status-gcp-mirror-sync-job),
       use                 => 'govuk_normal_priority',
       check_interval      => 1440,
       host_name           => $::fqdn,
