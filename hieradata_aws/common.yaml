@@ -1450,7 +1450,6 @@ monitoring::checks::rds::servers:
    - 'transition-postgresql-primary'
    - 'transition-postgresql-standby'
    - 'mysql-primary'
-   - 'mysql-replica'
 
 monitoring::checks::mirror::gcp_mirror_sync_project_id: "%{hiera('monitoring::gcp_mirror_sync_project_id')}"
 monitoring::checks::mirror::gcp_mirror_sync_transfer_job_auth_json: "%{hiera('monitoring::gcp_mirror_sync_transfer_job_auth_json')}"
