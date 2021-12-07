@@ -6,6 +6,7 @@ govuk_jenkins::config::theme_text_colour: 'white'
 govuk_jenkins::config::theme_environment_name: 'AWS Integration'
 
 govuk_jenkins::job_builder::jobs:
+  - govuk_jenkins::jobs::ask_export
   - govuk_jenkins::jobs::athena_fastly_logs_check
   - govuk_jenkins::jobs::clear_cdn_cache
   - govuk_jenkins::jobs::clear_frontend_memcache
@@ -49,6 +50,13 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::transition_load_site_config
   - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::whitehall_publisher_notifications
+
+govuk_jenkins::jobs::ask_export::smart_survey_config: 'draft'
+govuk_jenkins::jobs::ask_export::aws_region: 'eu-west-1'
+govuk_jenkins::jobs::ask_export::folder_id_cabinet_office: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
+govuk_jenkins::jobs::ask_export::folder_id_third_party: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
+govuk_jenkins::jobs::ask_export::s3_bucket_name_gcs_public_questions: 'govuk-uk-integration-ask-export'
+govuk_jenkins::jobs::ask_export::run_daily: false
 
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
 govuk_jenkins::jobs::deploy_cdn::services:

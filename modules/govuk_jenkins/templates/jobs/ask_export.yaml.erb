@@ -1,0 +1,81 @@
+---
+- scm:
+    name: govuk-ask-export
+    scm:
+      - git:
+          url: git@github.com:alphagov/govuk-ask-export.git
+          branches:
+            - master
+
+- job:
+    name: govuk-ask-export
+    display-name: GOV.UK Ask Export
+    project-type: freestyle
+    <% daily_description = "This job performs a daily export of responses from the Ask service using the #{@smart_survey_config} Smart Survey Configuration" %>
+    <% on_demand_description = "This job performs on demand exports of responses from the Ask service using the #{@smart_survey_config} Smart Survey Configuration" %>
+    description: <%= @run_daily ? daily_description : on_demand_description %>
+    scm:
+      - govuk-ask-export
+    logrotate:
+        numToKeep: 100
+    <% if @run_daily %>
+    triggers:
+      - timed: |
+          TZ=Europe/London
+          0 1 * * *
+    <% end %>
+    properties:
+      - build-discarder:
+          days-to-keep: 30
+          artifact-num-to-keep: 5
+    parameters:
+      - string:
+          name: SINCE_TIME
+          description: The time (or date time to start this export from) - defaults to midnight of the previous day
+          default: 00:00
+      - string:
+          name: UNTIL_TIME
+          description: The time (or date time to end this export) - defaults to midnight of the current day
+          default: 00:00
+    builders:
+      - shell: |
+          set -e
+          export SMART_SURVEY_CONFIG=<%= @smart_survey_config %>
+          export AWS_REGION=<%= @aws_region %>
+          export GOOGLE_ACCOUNT_TYPE='service_account'
+          export GOOGLE_CLOUD_PROJECT='govuk-ask-export-1589383422955'
+          export FOLDER_ID_CABINET_OFFICE=<%= @folder_id_cabinet_office %>
+          export FOLDER_ID_THIRD_PARTY=<%= @folder_id_third_party %>
+          export S3_BUCKET_NAME_GCS_PUBLIC_QUESTIONS=<%= @s3_bucket_name_gcs_public_questions %>
+          bundle install --deployment
+          bundle exec rake run_exports
+          bundle exec rake run_cleanup
+          bundle exec rake delete_data
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+      - inject-passwords:
+          global: false
+          mask-password-params: true
+          job-passwords:
+            - name: SMART_SURVEY_API_TOKEN
+              password:
+                '<%= @smart_survey_api_token %>'
+            - name: SMART_SURVEY_API_TOKEN_SECRET
+              password:
+                '<%= @smart_survey_api_token_secret %>'
+            - name: GOOGLE_CLIENT_ID
+              password:
+                '<%= @google_client_id %>'
+            - name: GOOGLE_CLIENT_EMAIL
+              password:
+                '<%= @google_client_email %>'
+            - name: GOOGLE_PRIVATE_KEY
+              password:
+                '<%= @google_private_key %>'
+            - name: AWS_ACCESS_KEY
+              password:
+                '<%= @aws_access_key %>'
+            - name: AWS_SECRET_ACCESS_KEY
+              password:
+                '<%= @aws_secret_access_key %>'
