@@ -1,0 +1,72 @@
+---
+- job:
+    name: run-related-links-generation
+    display-name: Run related links generation process
+    project-type: freestyle
+    description: >
+      Runs the related links generation process to create new links.
+    properties:
+      - build-discarder:
+          num-to-keep: 10
+    builders:
+      - shell: |
+          #!/usr/bin/env bash
+          set -eo pipefail
+          
+          aws autoscaling set-desired-capacity \
+            --auto-scaling-group-name related-links-generation \
+            --desired-capacity 1 \
+            --region eu-west-1
+
+          function resetAsg {
+            aws autoscaling set-desired-capacity \
+              --auto-scaling-group-name related-links-generation \
+              --desired-capacity 0 \
+              --region eu-west-1
+          }
+          trap resetAsg EXIT
+
+          echo "Sleeping for 30s to give AWS chance to start EC2..."
+          sleep 30
+
+          instance_id=$(aws ec2 describe-instances --region eu-west-1 --query "Reservations[*].Instances[*].InstanceId" --filters Name=instance-state-name,Values=running,pending  Name=tag:Name,Values=related-links-generation --output=text)
+
+          echo "Waiting on instance ${instance_id}..."
+
+          aws ec2 wait instance-status-ok \
+            --region eu-west-1 \
+            --instance-ids ${instance_id}
+
+          echo "Instance available and ready"
+
+          instance_ip=$(aws ec2 describe-instances --region eu-west-1 --query "Reservations[*].Instances[*].PrivateIpAddress" --filter Name=tag:Name,Values=related-links-generation --output=text)
+
+          echo "Connecting to instance..."
+          ssh -o ServerAliveInterval=300 ubuntu@${instance_ip} <<EOF
+            echo "Connected!"
+
+            # Create data dir for Related Links
+            sudo mkdir /var/data
+            sudo chown -R ubuntu:ubuntu /var/data
+
+            # Setup GitHub directory
+            mkdir /var/data/github
+            cd /var/data/github
+
+            # Clone related links repository
+            git clone https://github.com/alphagov/govuk-related-links-recommender.git
+            cd govuk-related-links-recommender
+            cd /var/data/github/govuk-related-links-recommender
+
+            chmod +x ./provision_generation_machine
+            ./provision_generation_machine
+            ./run_link_generation > /var/tmp/related_links_process.log 2>&1 &
+            ./monitor_related_links_process
+          EOF
+    wrappers:
+      - ansicolor:
+          colormap: xterm
+  <% if @cron_schedule %>
+    triggers:
+      - timed: <%= @cron_schedule %>
+  <% end %>

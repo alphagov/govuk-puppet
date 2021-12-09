@@ -66,6 +66,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::publishing_api_archive_events
   - govuk_jenkins::jobs::remove_emergency_banner
   - govuk_jenkins::jobs::run_rake_task
+  - govuk_jenkins::jobs::run_related_links_generation
+  - govuk_jenkins::jobs::run_related_links_ingestion
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_index_checks
