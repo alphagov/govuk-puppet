@@ -3,6 +3,9 @@ dbms="<%= @dbms %>"
 storagebackend="<%= @storagebackend %>"
 temppath="<%= @temppath %>"
 database="<%= @database %>"
+<% if @database_hostname -%>
+database_hostname="<%= @database_hostname %>"
+<% end -%>
 url="<%= @url %>"
 path="<%= @path %>"
 <% if transformation_sql_filename != '' %>
