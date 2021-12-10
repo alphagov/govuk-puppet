@@ -782,6 +782,8 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+# TODO: switch to "account-api-postgresql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::account_api::db_hostname: "postgresql-primary"
 govuk::apps::account_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::account_api::db::allow_auth_from_lb: true
@@ -857,6 +859,7 @@ govuk::node::s_base::log_remote: false
 govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_gatling::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
