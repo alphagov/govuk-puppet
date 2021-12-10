@@ -338,13 +338,12 @@ function restore_elasticsearch {
 
 function dump_postgresql {
   # Check which postgres instance the database needs to restore into
-  # (transition, or postgresql-primary).
-  if [ "${database}" == 'transition_production' ]; then
-    db_hostname='transition-postgresql-primary'
+  if [ "${database}" == 'content_data_api_production' ]; then
+    db_hostname='content-data-api-postgresql-primary'
   elif [ "${database}" == 'content_performance_manager_production' ]; then
     db_hostname='content-data-api-postgresql-primary'
-  elif [ "${database}" == 'content_data_api_production' ]; then
-    db_hostname='content-data-api-postgresql-primary'
+  elif [ "${database}" == 'transition_production' ]; then
+    db_hostname='transition-postgresql-primary'
   else
     db_hostname='postgresql-primary'
   fi
