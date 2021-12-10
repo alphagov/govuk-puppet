@@ -162,7 +162,7 @@ class monitoring::checks (
 
   if ($::aws_environment == 'staging') {
     icinga::check { 'check_www_staging_cert_valid_at_edge':
-      check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!30',
+      check_command       => 'check_ssl_cert!www.staging.publishing.service.gov.uk!www.staging.publishing.service.gov.uk!25',
       host_name           => $::fqdn,
       service_description => 'check the www.staging.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
       notes_url           => monitoring_docs_url(renew-tls-certificate),
@@ -171,7 +171,7 @@ class monitoring::checks (
 
   if ($::aws_environment == 'integration') {
     icinga::check { 'check_www_integration_cert_valid_at_edge':
-      check_command       => 'check_ssl_cert!www.integration.publishing.service.gov.uk!www.integration.publishing.service.gov.uk!30',
+      check_command       => 'check_ssl_cert!www.integration.publishing.service.gov.uk!www.integration.publishing.service.gov.uk!25',
       host_name           => $::fqdn,
       service_description => 'check the www.integration.publishing.service.gov.uk TLS certificate at EDGE is valid and not due to expire',
       notes_url           => monitoring_docs_url(renew-tls-certificate),
