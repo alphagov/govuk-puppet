@@ -9,6 +9,7 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "content_performance_manager_production"
+    database_hostname: "content-data-api-postgresql-primary"
     temppath: "/tmp/content_data_api_production"
     url: "govuk-production-database-backups"
     path: "content-data-api-postgresql"
@@ -22,6 +23,7 @@ govuk_env_sync::tasks:
     # Use the old database name for consistency while still working on
     # the migration for the Content Performance Manager
     database: "content_performance_manager_production"
+    database_hostname: "content-data-api-postgresql-primary"
     temppath: "/tmp/content_data_api_production"
     url: "govuk-staging-database-backups"
     path: "content-data-api-postgresql"

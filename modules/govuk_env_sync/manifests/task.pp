@@ -25,6 +25,7 @@
 #
 # [*database*]
 #   Name of the database to dump/push/pull/restore
+
 #
 # [*url*]
 #   Name of the bucket/server used as storage backend
@@ -35,6 +36,9 @@
 # [*name*]
 #   Descriptive name for configuration, used for config file name
 #
+# [*database_hostname*]
+#   Name of the database hostname to connect to, only used for PostgreSQL (optional)
+
 # [*ensure*]
 #   One of 'present', 'disabled' or 'absent' to control the task.
 #   Default: 'present'
@@ -70,6 +74,7 @@ define govuk_env_sync::task(
   $database,
   $url,
   $path,
+  $database_hostname = undef,
   $ensure = 'present',
   $transformation_sql_filename = '',
   $pre_dump_transformation_sql_filename = '',

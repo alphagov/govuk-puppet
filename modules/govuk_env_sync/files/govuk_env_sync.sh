@@ -34,6 +34,9 @@ set -o errtrace
 #     to the directory to copy/sync, if dbms is "elasticsearch", this is the hostname
 #     of the domain.
 #
+#   H) database_hostname
+#     Name of the database_hostname. This is required for PostgreSQL.
+#
 #   u) url
 #     URL of storage backend, bucket name in case of S3, repository name in case of
 #     elasticsearch.
@@ -337,21 +340,10 @@ function restore_elasticsearch {
 }
 
 function dump_postgresql {
-  # Check which postgres instance the database needs to restore into
-  if [ "${database}" == 'content_data_api_production' ]; then
-    db_hostname='content-data-api-postgresql-primary'
-  elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='content-data-api-postgresql-primary'
-  elif [ "${database}" == 'transition_production' ]; then
-    db_hostname='transition-postgresql-primary'
-  else
-    db_hostname='postgresql-primary'
-  fi
-
   if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
     # We do not need sudo rights to write the output file
     # shellcheck disable=SC2024
-    sudo pg_dump -U aws_db_admin -h "${db_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
+    sudo pg_dump -U aws_db_admin -h "${database_hostname}" --no-password -F c "${database}" > "${tempdir}/${filename}"
   else
     # We do not need sudo rights to write the output file
     # shellcheck disable=SC2024
@@ -390,40 +382,29 @@ function filtered_postgresql_restore {
   fi
 
   output_restore_sql \
-    | sudo psql -U aws_db_admin -h "${db_hostname}" "${single_transaction}" \
+    | sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
       --no-password -d "${database}" 2>&1
 }
 
 function restore_postgresql {
-  # Determine source Postgres hostname based on database name.
-  if [ "${database}" == 'transition_production' ]; then
-    db_hostname='transition-postgresql-primary'
-  elif [ "${database}" == 'content_performance_manager_production' ]; then
-    db_hostname='content-data-api-postgresql-primary'
-  elif [ "${database}" == 'content_data_api_production' ]; then
-    db_hostname='content-data-api-postgresql-primary'
-  else
-    db_hostname='postgresql-primary'
-  fi
-
   # Drop the target database if it already exists.
   DB_OWNER=''
-  if sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
+  if sudo psql -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      log "Database ${database} exists, we will drop it before continuing"
      log "Disconnect existing connections to database"
-     sudo psql -U aws_db_admin -h "${db_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
-     sudo psql -U aws_db_admin -h "${db_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
-     DB_OWNER=$(sudo psql -U aws_db_admin -h "${db_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
-     sudo dropdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+     sudo psql -U aws_db_admin -h "${database_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
+     sudo psql -U aws_db_admin -h "${database_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
+     DB_OWNER=$(sudo psql -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
+     sudo dropdb -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
   fi
 
-  sudo createdb -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+  sudo createdb -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
 
   pg_stderr=$(filtered_postgresql_restore)
 
   if [ "$DB_OWNER" != '' ] ; then
-     echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
-     echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${db_hostname}" --no-password "${database}"
+     echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
+     echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
   fi
 }
 
@@ -676,11 +657,11 @@ function s3_sync {
 }
 
 usage() {
-  printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
+  printf "Usage: %s [-f configfile | -a action -D DBMS -S storagebackend -T temppath -d db_name -H db_hostname -u storage_url -p storage_path] [-t timestamp_to_restore]\\n" "$(basename "$0")"
   exit 0
 }
 
-while getopts "f:a:D:S:T:d:u:p:s:F:t:h" opt
+while getopts "f:a:D:S:T:d:H:u:p:s:F:t:h" opt
 do
   case "$opt" in
     f) configfile="$OPTARG";
@@ -691,6 +672,7 @@ do
     S) storagebackend="$OPTARG" ;;
     T) temppath="$OPTARG" ;;
     d) database="$OPTARG" ;;
+    H) database_hostname="$OPTARG" ;;
     u) url="$OPTARG" ;;
     p) path="$OPTARG" ;;
     s) transformation_sql_file="$OPTARG" ;;
@@ -712,6 +694,11 @@ else
   : "${database?"No database name specified (pass -d option)"}"
   : "${url?"No storage url specified (pass -u option)"}"
   : "${path?"No storage path specified (pass -p option)"}"
+
+  if [[ "$dbms" == "postgresql" && -z "${database_hostname:-}" ]]; then
+    echo "postgresql usage requires a database hostname argument"
+    exit 1
+  fi
 
   if [[ "$dbms" == "elasticsearch" ]] && [[ "$storagebackend" != "elasticsearch" ]]; then
     echo "$dbms is only compatible with the elasticsearch storage backend"

@@ -7,6 +7,7 @@ govuk_env_sync::tasks:
     dbms: "postgresql"
     storagebackend: "s3"
     database: "transition_production"
+    database_hostname: "transition-postgresql-primary"
     temppath: "/tmp/transition_production"
     url: "govuk-production-database-backups"
     path: "transition-postgresql"
