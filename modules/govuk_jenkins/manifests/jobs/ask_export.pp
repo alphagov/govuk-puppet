@@ -6,28 +6,28 @@
 # === Parameters
 #
 # [*smart_survey_api_token*]
-#   Api token for accessing smart survey
+#   API token for accessing Smart Survey
 #
 # [*smart_survey_api_token_secret*]
-#   Api token secret for accessing smart survey
+#   API token secret for accessing Smart Survey
 #
 # [*smart_survey_config*]
-#   A flag for the state of the smart survey, either draft or live depending on environment
+#   A flag for the state of the Smart Survey, either draft or live depending on environment
 #
 # [*google_client_id*]
 #   Client id for the Google drive this exports to
 #
 # [*google_client_email*]
-#   Email address of the user that the Google export folders belong to
+#   Email address of the service account that the Google export folders belong to
 #
 # [*google_private_key*]
-#   Private key needed to access the Google user account
+#   Private key needed to access the Google service account
 #
 # [*folder_id_cabinet_office*]
-#   Id of the folder for cabinet office export
+#   ID of the folder for Cabinet Office export
 #
 # [*folder_id_third_party*]
-#   Id of the folder for thrid party export
+#   ID of the folder for third party export
 #
 # [*aws_region*]
 #   Region that the s3 bucket is in
