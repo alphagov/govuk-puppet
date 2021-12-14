@@ -57,7 +57,7 @@ class govuk_jenkins::jobs::ask_export (
   $aws_access_key = undef,
   $aws_secret_access_key = undef,
   $s3_bucket_name_gcs_public_questions = undef,
-  $run_daily = undef,
+  $run_daily = false,
 ) {
 
   $service_description = 'Ask Service data export'
@@ -69,14 +69,17 @@ class govuk_jenkins::jobs::ask_export (
     notify  => Exec['jenkins_jobs_update'];
   }
 
-  if $run_daily {
-    @@icinga::passive_check { "ask_export_${::hostname}":
-        ensure              => present,
-        service_description => $service_description,
-        host_name           => $::fqdn,
-        freshness_threshold => 86400, # 24 Hours
-        action_url          => "https://${deploy_jenkins_domain}/job/ask-export/",
-        # notes_url           => monitoring_docs_url(ask-export);
-    }
+  $freshness_threshold = $run_daily ? {
+    true  => 86400, # 24 hours
+    false => '',
+  }
+
+  @@icinga::passive_check { "ask_export_${::hostname}":
+      ensure              => present,
+      service_description => $service_description,
+      host_name           => $::fqdn,
+      freshness_threshold => $freshness_threshold,
+      action_url          => "https://${deploy_jenkins_domain}/job/ask-export/",
+      # notes_url           => monitoring_docs_url(ask-export);
   }
 }
