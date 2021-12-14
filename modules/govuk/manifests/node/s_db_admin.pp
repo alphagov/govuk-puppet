@@ -29,6 +29,8 @@ class govuk::node::s_db_admin(
   include ::govuk::node::s_base
   include govuk_env_sync
 
+  ### MongoDB ###
+
   apt::source { 'mongodb41':
     ensure       => 'absent',
     location     => "http://${apt_mirror_hostname}/mongodb4.1",
@@ -77,41 +79,14 @@ class govuk::node::s_db_admin(
 
   ### PostgreSQL ###
 
-  $default_connect_settings = {
-    'PGUSER'     => $postgres_user,
-    'PGPASSWORD' => $postgres_password,
-    'PGHOST'     => $postgres_host,
-    'PGPORT'     => $postgres_port,
+  # include the common config/tooling required for our DB admin class
+  class { '::govuk::nodes::postgresql_db_admin':
+    postgres_host       => $postgres_host,
+    postgres_user       => $postgres_user,
+    postgres_password   => $postgres_password,
+    postgres_port       => $postgres_port,
+    apt_mirror_hostname => $apt_mirror_hostname,
   }
-
-  # To manage remote databases using the puppetlabs-postgresql module we require
-  # a local PostgreSQL server instance to be installed
-  apt::source { 'postgresql':
-    ensure       => present,
-    location     => "http://${apt_mirror_hostname}/postgresql",
-    release      => "${::lsbdistcodename}-pgdg",
-    architecture => $::architecture,
-    key          => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8',
-  }
-
-  -> class { '::postgresql::server':
-    default_connect_settings => $default_connect_settings,
-  }
-
-  # This allows easy administration of the PostgreSQL backend:
-  # https://www.postgresql.org/docs/9.3/static/libpq-pgpass.html
-  -> file { '/root/.pgpass':
-    ensure  => present,
-    mode    => '0600',
-    content => "${postgres_host}:5432:*:${postgres_user}:${postgres_password}",
-  }
-
-  # This class collects the resources that are exported by the
-  # govuk_postgresql::server::db defined type
-  include ::govuk_postgresql::server::not_slave
-
-  # Ensure the client class is installed
-  class { '::govuk_postgresql::client': }
 
   # include all PostgreSQL classes that create databases and users
   -> class { '::govuk::apps::account_api::db': }
