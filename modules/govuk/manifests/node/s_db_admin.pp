@@ -19,8 +19,6 @@ class govuk::node::s_db_admin(
   $mysql_db_host        = undef,
   $mysql_db_password    = undef,
   $mysql_db_user        = undef,
-  $mysql_backup_hour    = 9,
-  $mysql_backup_min     = 10,
   $postgres_host        = undef,
   $postgres_user        = undef,
   $postgres_password    = undef,
