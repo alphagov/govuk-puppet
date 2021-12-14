@@ -468,6 +468,8 @@ govuk::apps::ckan::s3_aws_secret_access_key: "%{hiera('s3_aws_secret_access_key'
 
 govuk::apps::collections::unicorn_worker_processes: 8
 
+# TODO: switch to "collections-publisher-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::collections_publisher::db_hostname: "mysql-primary"
 govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
