@@ -80,6 +80,6 @@ class govuk_jenkins::jobs::ask_export (
       host_name           => $::fqdn,
       freshness_threshold => $freshness_threshold,
       action_url          => "https://${deploy_jenkins_domain}/job/ask-export/",
-      # notes_url           => monitoring_docs_url(ask-export);
+      notes_url           => monitoring_docs_url(ask-export),
   }
 }
