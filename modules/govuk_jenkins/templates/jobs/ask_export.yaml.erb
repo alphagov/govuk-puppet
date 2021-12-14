@@ -27,6 +27,18 @@
       - build-discarder:
           days-to-keep: 30
           artifact-num-to-keep: 5
+    publishers:
+      - trigger-parameterized-builds:
+          - project: Success_Passive_Check
+            condition: SUCCESS
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> success
+          - project: Failure_Passive_Check
+            condition: FAILED
+            predefined-parameters: |
+                NSCA_CHECK_DESCRIPTION=<%= @service_description %>
+                NSCA_OUTPUT=<%= @service_description %> failed
     parameters:
       - string:
           name: SINCE_TIME
