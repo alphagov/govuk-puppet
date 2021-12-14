@@ -75,8 +75,6 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::signon::db': }
   -> class { '::govuk::apps::whitehall::db': }
 
-  $mysql_backup_desc = 'RDS MySQL backup to S3'
-
   ### PostgreSQL ###
 
   # include the common config/tooling required for our DB admin class
