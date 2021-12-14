@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_support_api_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "postgresql"
+#     storagebackend: "s3"
+#     database: "support-api_production"
+#     database_hostname: "support-api-postgresql"
+#     temppath: "/tmp/support_api_production"
+#     url: "govuk-production-database-backups"
+#     path: "support-api-postgresql"
