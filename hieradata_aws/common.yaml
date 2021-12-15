@@ -552,6 +552,8 @@ govuk::apps::frontend::unicorn_worker_processes: "4"
 
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
+# TODO: switch to "link-checker-api-postgresql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::link_checker_api::db_hostname: "postgresql-primary"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::db::allow_auth_from_lb: true
@@ -871,6 +873,7 @@ govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fi
 
 govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_link_checker_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_local_links_manager_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_publishing_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_service_manual_publisher_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
