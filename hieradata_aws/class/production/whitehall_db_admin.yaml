@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_whitehall_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "mysql"
+#     storagebackend: "s3"
+#     database: "whitehall_production"
+#     database_hostname: "whitehall-mysql"
+#     temppath: "/tmp/whitehall_production"
+#     url: "govuk-production-database-backups"
+#     path: "whitehall-mysql"
