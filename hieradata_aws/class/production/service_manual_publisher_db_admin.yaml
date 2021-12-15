@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_service_manual_publisher_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "postgresql"
+#     storagebackend: "s3"
+#     database: "service-manual-publisher_production"
+#     database_hostname: "service-manual-publisher-postgresql"
+#     temppath: "/tmp/service_manual_publisher_production"
+#     url: "govuk-production-database-backups"
+#     path: "service-manual-publisher-postgresql"
