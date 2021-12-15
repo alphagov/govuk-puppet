@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_contacts_admin_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "mysql"
+#     storagebackend: "s3"
+#     database: "contacts_production"
+#     database_hostname: "contacts-admin-mysql"
+#     temppath: "/tmp/contacts_admin_production"
+#     url: "govuk-production-database-backups"
+#     path: "contacts-admin-mysql"

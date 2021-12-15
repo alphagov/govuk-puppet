@@ -1,6 +1,6 @@
 # == Class: govuk::apps:contacts:db
 #
-# MySQL to store content for the Contacts app
+# MySQL to store content for the Contacts Admin app
 # https://github.com/alphagov/contacts-admin
 #
 # === Parameters
