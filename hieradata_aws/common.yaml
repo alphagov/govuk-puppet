@@ -501,6 +501,8 @@ govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::content_data_api::db_name: "content_performance_manager_production"
 govuk::apps::content_data_api::db_username: "content_performance_manager"
 
+# TODO: switch to "content-publisher-postgresql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::content_publisher::db_hostname: "postgresql-primary"
 govuk::apps::content_publisher::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_publisher::db::allow_auth_from_lb: true
@@ -877,6 +879,7 @@ govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fi
 
 govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_content_publisher_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_tagger_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_link_checker_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
