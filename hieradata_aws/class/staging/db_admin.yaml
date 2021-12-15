@@ -13,7 +13,7 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "push_ckan_staging_daily":
     ensure: "present"
-    hour: "3"
+    hour: "6"
     minute: "30"
     action: "push"
     dbms: "postgresql"
