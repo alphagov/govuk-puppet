@@ -766,6 +766,8 @@ govuk::apps::support::zendesk_anonymous_ticket_email: 'zd-api-public@digital.cab
 govuk::apps::support::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::support_api::db_name: 'support_contacts_production'
+# TODO: switch to "support-api-postgresql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::support_api::db_hostname: "postgresql-primary"
 govuk::apps::support_api::db_password: "%{hiera('govuk::apps::support_api::db::password')}"
 govuk::apps::support_api::db_username: 'support_contacts'
@@ -863,6 +865,7 @@ govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fi
 
 govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_support_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 
 govuk::node::s_gatling::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_gatling::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
