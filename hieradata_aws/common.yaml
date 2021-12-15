@@ -590,6 +590,8 @@ govuk::apps::whitehall::admin_db_name: whitehall_production
 govuk::apps::whitehall::admin_db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall_admin')}"
 govuk::apps::whitehall::admin_db_username: whitehall
 # TODO this should be using a replica, but we can change that when we have deployed one
+# TODO: switch to "whitehall-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::whitehall::db_hostname: 'mysql-primary'
 govuk::apps::whitehall::db_name: whitehall_production
 govuk::apps::whitehall::db_password: "%{hiera('govuk::apps::whitehall::db::mysql_whitehall')}"
@@ -666,6 +668,8 @@ govuk::apps::publishing_api::db::allow_auth_from_lb: true
 govuk::apps::publishing_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
 
+# TODO: switch to "release-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::release::db_hostname: "mysql-primary"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
@@ -683,6 +687,8 @@ govuk::apps::search_api::redis_port: '6379'
 govuk::apps::search_api::unicorn_worker_processes: "9"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
+# TODO: switch to "search-admin-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::search_admin::db_hostname: 'mysql-primary'
 govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
 govuk::apps::search_admin::db_username: 'search_admin'
@@ -744,6 +750,8 @@ govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('g
 govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
 govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
 
+# TODO: switch to "signon-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::signon::db_hostname: 'mysql-primary'
 govuk::apps::signon::db_name: 'signon_production'
 govuk::apps::signon::db_password: "%{hiera('govuk::apps::signon::db::mysql_signonotron')}"
