@@ -730,6 +730,8 @@ govuk::apps::sidekiq_monitoring::travel_advice_publisher_redis_port: "%{hiera('g
 govuk::apps::sidekiq_monitoring::whitehall_redis_host: "%{hiera('govuk::apps::whitehall::redis_host')}"
 govuk::apps::sidekiq_monitoring::whitehall_redis_port: "%{hiera('govuk::apps::whitehall::redis_port')}"
 
+# TODO: switch to "signon-mysql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::signon::db_hostname: 'mysql-primary'
 govuk::apps::signon::db_name: 'signon_production'
 govuk::apps::signon::db_password: "%{hiera('govuk::apps::signon::db::mysql_signonotron')}"

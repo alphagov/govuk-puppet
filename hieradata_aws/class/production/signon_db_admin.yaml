@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_signon_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "mysql"
+#     storagebackend: "s3"
+#     database: "signon_production"
+#     database_hostname: "signon-mysql"
+#     temppath: "/tmp/signon_production"
+#     url: "govuk-production-database-backups"
+#     path: "signon-mysql"
