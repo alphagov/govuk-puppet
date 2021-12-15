@@ -1,0 +1,13 @@
+# govuk_env_sync::tasks:
+#   "push_link_checker_api_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "postgresql"
+#     storagebackend: "s3"
+#     database: "link_checker_api_production"
+#     database_hostname: "link-checker-api-postgresql"
+#     temppath: "/tmp/link_checker_api_production"
+#     url: "govuk-production-database-backups"
+#     path: "link-checker-api-postgresql"
