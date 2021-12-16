@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_ckan_production_daily":
-    ensure: "disabled"
+    ensure: "present"
     hour: "3"
     minute: "15"
     action: "pull"
@@ -13,7 +13,7 @@ govuk_env_sync::tasks:
     path: "postgresql-backend"
   "push_ckan_staging_daily":
     ensure: "present"
-    hour: "3"
+    hour: "6"
     minute: "30"
     action: "push"
     dbms: "postgresql"
@@ -21,6 +21,30 @@ govuk_env_sync::tasks:
     database: "ckan_production"
     database_hostname: "postgresql-primary"
     temppath: "/tmp/ckan_production_push"
+    url: "govuk-staging-database-backups"
+    path: "postgresql-backend"
+  "pull_ckan_pycsw_production_daily":
+    ensure: "present"
+    hour: "3"
+    minute: "30"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "ckan_pycsw_production"
+    database_hostname: "postgresql-primary"
+    temppath: "/tmp/ckan_pycsw_production_pull"
+    url: "govuk-production-database-backups"
+    path: "postgresql-backend"
+  "push_ckan_pycsw_staging_daily":
+    ensure: "present"
+    hour: "6"
+    minute: "45"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "ckan_pycsw_production"
+    database_hostname: "postgresql-primary"
+    temppath: "/tmp/ckan_pycsw_production_push"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_link_checker_api_production_daily":
