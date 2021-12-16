@@ -16,6 +16,7 @@ class golang {
     '1.11.13', # Used by alphagov/router
     '1.12.1',  # Used by alphagov/govuk-csp-forwarder
     '1.15.8',  # Used by alphagov/router
+    '1.17.5',  # Used by alphagov/router
     ]: }
 
   package { ['godep']:
