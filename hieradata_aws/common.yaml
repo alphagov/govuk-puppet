@@ -454,6 +454,8 @@ govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
+# TODO: switch to "ckan-postgresql" and uncomment the 'push'
+# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
 govuk::apps::ckan::db_hostname: "postgresql-primary"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::ckan::db::allow_auth_from_lb: true
@@ -888,6 +890,7 @@ govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_ckan_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_admin_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_publisher_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
