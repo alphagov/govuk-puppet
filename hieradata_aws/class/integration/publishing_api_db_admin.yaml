@@ -11,6 +11,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
     path: "publishing-api-postgresql"
+    transformation_sql_filename: "sanitise_publishing_api_production.sql"
   # "push_publishing_api_production_daily":
   #   ensure: "present"
   #   hour: "5"

@@ -11,6 +11,7 @@ govuk_env_sync::tasks:
     temppath: "/tmp/email_alert_api_production"
     url: "govuk-production-database-backups"
     path: "email-alert-api-postgresql"
+    transformation_sql_filename: "anonymise_email_addresses.sql"
   # "push_email_alert_api_production_daily":
   #   ensure: "present"
   #   hour: "5"
