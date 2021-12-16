@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "content-data-admin-postgresql"
     temppath: "/tmp/content_data_admin_production"
     url: "govuk-production-database-backups"
-    path: "content-data-admin-postgresql"
+    path: "postgresql-backend"
   # "push_content_data_admin_production_daily":
   #   ensure: "present"
   #   hour: "5"

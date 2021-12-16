@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "content-tagger-postgresql"
     temppath: "/tmp/content_tagger_production"
     url: "govuk-production-database-backups"
-    path: "content-tagger-postgresql"
+    path: "postgresql-backend"
   # "push_content_tagger_production_daily":
   #   ensure: "present"
   #   hour: "5"

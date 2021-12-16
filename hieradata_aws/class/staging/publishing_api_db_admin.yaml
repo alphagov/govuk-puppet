@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "publishing-api-postgresql"
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
-    path: "publishing-api-postgresql"
+    path: "postgresql-backend"
   # "push_publishing_api_production_daily":
   #   ensure: "present"
   #   hour: "5"
