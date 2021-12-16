@@ -24,6 +24,13 @@ class govuk_env_sync(
     mode    => '0770',
   }
 
+  file { "${conf_dir}/env.d":
+    ensure => directory,
+    owner  => $user,
+    group  => $user,
+    mode   => '0770',
+  }
+
   create_resources(govuk_env_sync::task, $tasks)
   create_resources(govuk_env_sync::s3_sync_task, $s3_sync_tasks)
 
