@@ -257,6 +257,8 @@ govuk::apps::service_manual_publisher::ensure: 'present'
 govuk::apps::short_url_manager::ensure: 'present'
 govuk::apps::specialist_publisher::ensure: 'present'
 govuk::apps::travel_advice_publisher::ensure: 'present'
+govuk::apps::design_principles::ensure: 'absent'
+govuk::apps::spotlight::ensure: 'absent'
 
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'

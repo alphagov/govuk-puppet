@@ -201,6 +201,7 @@ deployable_applications: &deployable_applications
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
+  spotlight: {}
   static: {}
   support: {}
   support-api: {}
@@ -1043,6 +1044,7 @@ govuk_ci::master::pipeline_jobs:
   slimmer: {}
   smokey: {}
   special-route-publisher: {}
+  spotlight-performance: {}
   ubuntu_unused_kernels: {}
 
 govuk_ci::master::ci_agents:

@@ -90,6 +90,9 @@ govuk::apps::whitehall::highlight_words_to_avoid: true
 govuk::apps::whitehall::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-integration-whitehall-csvs'
 
+govuk::apps::design_principles::ensure: 'absent'
+govuk::apps::spotlight::ensure: 'absent'
+
 licensify::apps::configfile::mongo_database_reference_name: 'licensify-refdata'
 licensify::apps::configfile::mongo_database_audit_name: 'licensify-audit'
 licensify::apps::configfile::mongo_database_slaveok: 'false'

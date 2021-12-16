@@ -172,6 +172,8 @@ govuk::apps::service_manual_publisher::ensure: 'present'
 govuk::apps::short_url_manager::ensure: 'present'
 govuk::apps::specialist_publisher::ensure: 'present'
 govuk::apps::travel_advice_publisher::ensure: 'present'
+govuk::apps::design_principles::ensure: 'absent'
+govuk::apps::spotlight::ensure: 'absent'
 
 govuk::apps::govuk_crawler_worker::blacklist_paths:
   - '/apply-for-a-licence'
