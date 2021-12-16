@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "collections-publisher-mysql"
     temppath: "/tmp/collections_publisher_production"
     url: "govuk-production-database-backups"
-    path: "collections-publisher-mysql"
+    path: "mysql"
   # "push_collections_publisher_production_daily":
   #   ensure: "present"
   #   hour: "5"

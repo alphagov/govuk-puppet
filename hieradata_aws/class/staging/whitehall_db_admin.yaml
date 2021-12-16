@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "whitehall-mysql"
     temppath: "/tmp/whitehall_production"
     url: "govuk-production-database-backups"
-    path: "whitehall-mysql"
+    path: "mysql"
   # "push_whitehall_production_daily":
   #   ensure: "present"
   #   hour: "5"

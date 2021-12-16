@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "link-checker-api-postgresql"
     temppath: "/tmp/link_checker_api_production"
     url: "govuk-production-database-backups"
-    path: "link-checker-api-postgresql"
+    path: "postgresql-backend"
   # "push_link_checker_api_production_daily":
   #   ensure: "present"
   #   hour: "5"

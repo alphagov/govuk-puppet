@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "release-mysql"
     temppath: "/tmp/release_production"
     url: "govuk-production-database-backups"
-    path: "release-mysql"
+    path: "mysql"
   # "push_release_production_daily":
   #   ensure: "present"
   #   hour: "5"
