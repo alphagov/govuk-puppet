@@ -12,13 +12,6 @@ class govuk_env_sync::aws_auth(
   $aws_region = $govuk_env_sync::aws_region
   $app_domain_internal = hiera('app_domain_internal')
 
-  file { "${conf_dir}/env.d":
-    ensure => directory,
-    owner  => $user,
-    group  => $user,
-    mode   => '0770',
-  }
-
   file { "${conf_dir}/env.d/AWS_REGION":
     content => $aws_region,
     owner   => $user,
