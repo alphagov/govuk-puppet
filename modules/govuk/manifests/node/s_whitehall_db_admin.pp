@@ -29,6 +29,6 @@ class govuk::node::s_whitehall_db_admin(
     content => template('govuk/mysql_my.cnf.erb'),
   }
 
-  # include all MySQL classes that create databases and users
-  -> class { '::govuk::apps::whitehall::db': }
+  # The database and user needs manually creating. Read:
+  # https://docs.publishing.service.gov.uk/apps/govuk-puppet/create-mysql-db-and-users.html
 }
