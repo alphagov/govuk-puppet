@@ -9,6 +9,13 @@ class govuk_env_sync::sync_script {
       content => 'govuk-backup ALL=(root,postgres) NOPASSWD:/usr/bin/psql,/usr/bin/createdb,/usr/bin/dropdb,/usr/bin/dropuser,/usr/bin/pg_restore,/usr/bin/mysql,/usr/bin/mysqldump,/usr/bin/pg_dump';
   }
 
+  # Docker package
+  # Required for pg_dump
+
+  package { 'docker.io':
+    ensure => installed,
+  }
+
   # sync script
   file { '/usr/local/bin/govuk_env_sync.sh':
     ensure => present,
