@@ -48,19 +48,12 @@ class icinga::client (
     ],
   }
 
-  if ($::vdc == 'licensify') or ($::vdc =~ /^*_dr$/) {
-    $parents = "vpn_gateway_${::vdc}"
-  } else {
-    $parents = undef
-  }
-
   $display_name = "${::aws_migration} (${::ipaddress_eth0})"
 
   @@icinga::host { $::fqdn:
     hostalias      => $::fqdn,
     address        => $host_ipaddress,
     display_name   => $display_name,
-    parents        => $parents,
     contact_groups => $contact_groups,
   }
 
