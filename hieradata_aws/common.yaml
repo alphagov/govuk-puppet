@@ -454,9 +454,7 @@ govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
-# TODO: switch to "ckan-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::ckan::db_hostname: "postgresql-primary"
+govuk::apps::ckan::db_hostname: "ckan-postgres"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::ckan::db::allow_auth_from_lb: true
 govuk::apps::ckan::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
