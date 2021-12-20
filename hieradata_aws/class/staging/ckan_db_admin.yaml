@@ -10,7 +10,7 @@ govuk_env_sync::tasks:
     database_hostname: "ckan-postgres"
     temppath: "/tmp/ckan_production"
     url: "govuk-production-database-backups"
-    path: "postgresql-backend"
+    path: "ckan-postgres"
   "push_ckan_production_daily":
     ensure: "present"
     hour: "5"
