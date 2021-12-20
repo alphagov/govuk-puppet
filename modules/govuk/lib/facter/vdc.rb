@@ -2,12 +2,6 @@
 
 Facter.add("vdc") do
   setcode do
-    env_octet = Facter.value(:ipaddress).split('.')[2].to_i
-    vdc = Facter.value(:domain).split('.').first
-    if env_octet > 7
-      vdc + '_dr'
-    else
-      vdc
-    end
+    Facter.value(:domain).split('.').first
   end
 end
