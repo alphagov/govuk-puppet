@@ -340,23 +340,20 @@ function restore_elasticsearch {
 }
 
 function dump_postgresql {
-  pg_server_version=$(psql -U aws_db_admin -h "${db_hostname}" --no-password postgres -c 'show server_version;' | sed -n '3p')
+  pg_server_version=$(sudo psql -U aws_db_admin -h "${database_hostname}" --no-password postgres -c 'show server_version;' --no-align --tuples-only)
 
-  # We do this to cleanup the variable as it doesn't pass the sanity check otherwise
-  # There is probably a better way of calling sed to avoid this
-  pg_server_version=$(echo $pg_server_version)
-
-  # Test if we have what look like a postgresql version number
-  [[ $pg_server_version =~ ^[0-9]{1,2}\.[0-9]{1,2}(\.[0-9]{1,2})?$ ]] || { echo "$pg_server_version doesn't look like a proper Postgresql version" ; exit 1; }
-
-  if [ -e "/etc/facter/facts.d/aws_environment.txt" ]; then
-    # We do not need sudo rights to write the output file
-    # shellcheck disable=SC2024
-    sudo docker run --rm --net=host -v "${tempdir}:/tmp/" -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass "postgres:$pg_server_version" pg_dump -U aws_db_admin -h "${database_hostname}" --no-password -F c "${database}" -f "/tmp/${filename}"
+  if [[ $pg_server_version =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
+    # We're using docker to run pgdump because different versions of postgres need different versions of pgdump.
+    # For example, pgdump for postgres 9 doesn't work for postgres 13 databases.
+    # Docker lets us run whichever version we want, without having to build packages for our Ubuntu version
+    sudo docker run --rm --net=host \
+      -v "${tempdir}:/tmp/" \
+      -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
+      "postgres:$pg_server_version" \
+      pg_dump -U aws_db_admin -h "${database_hostname}" --no-password -F c "${database}" -f "/tmp/${filename}"
   else
-    # We do not need sudo rights to write the output file
-    # shellcheck disable=SC2024
-    sudo -u postgres pg_dump --format=c "${database}" > "${tempdir}/${filename}"
+    echo "$pg_server_version doesn't look like a proper Postgresql version"
+    exit 1
   fi
 }
 
