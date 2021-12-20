@@ -4,8 +4,8 @@
 
 You'll need to know three things:
 
-- Database name (`{Snake-cased app name}_production`, e.g. `collections_publisher_production`)
-- Database user (find this in the [config/database.yml](https://github.com/alphagov/collections-publisher/blob/e77c397cef35865aa5198f41e463f2bb7f8e688c/config/database.yml#L4) of your app. Beware that some apps - Whitehall - have multiple users to create)
+- Database name (find this in the [db.pp](https://github.com/alphagov/govuk-puppet/blob/31239642dfa7f8ba3984597f8242b9259a0e64f3/modules/govuk/manifests/apps/collections_publisher/db.pp#L5) of your app, e.g. `collections_publisher_production`)
+- Database user (find this in [db.pp](https://github.com/alphagov/govuk-puppet/blob/31239642dfa7f8ba3984597f8242b9259a0e64f3/modules/govuk/manifests/apps/collections_publisher/db.pp#L6), or the [config/database.yml](https://github.com/alphagov/collections-publisher/blob/e77c397cef35865aa5198f41e463f2bb7f8e688c/config/database.yml#L4) of your app. Beware that some apps - Whitehall - have multiple users to create)
 - Database user's password (you'll need to extract the value from govuk-secrets, e.g. [govuk::node::s_collections_publisher_db_admin::mysql_db_password](https://github.com/alphagov/govuk-secrets/blob/5981ef269e3e9be50a03c56e81ac530c8973d7b7/puppet_aws/hieradata/integration_credentials.yaml#L89). Make sure you look at the same environment, i.e. look in integration_credentials.yaml when making the database/user on Integration)
 
 Connect to the DB admin machine, e.g.
@@ -49,6 +49,20 @@ Finally, clean up after yourself:
 unset TMP_MYSQL_DB_NAME ;
 unset TMP_MYSQL_DB_USER ;
 unset TMP_MYSQL_DB_PASSWORD ;
+```
+
+You can sense-check what you've done by:
+
+```sh
+# See which databases there are
+sudo mysql --defaults-extra-file=/root/.my.cnf -e "SHOW DATABASES;"
+
+# See which users there are
+sudo mysql --defaults-extra-file=/root/.my.cnf -e "SELECT host, user FROM mysql.user;"
+
+# See which tables are in the database, e.g.
+sudo mysql --defaults-extra-file=/root/.my.cnf -e "USE collections_publisher_sproduction; SHOW TABLES;"
+# Note that this will only be populated after the first data sync has run.
 ```
 
 ## How often does this need to be done?
