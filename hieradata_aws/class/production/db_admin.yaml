@@ -11,18 +11,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/account-api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-  "push_ckan_production_daily":
-    ensure: "present"
-    hour: "23"
-    minute: "30"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "ckan_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/ckan_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_collections_publisher_production_daily":
     ensure: "present"
     hour: "0"
