@@ -1079,6 +1079,8 @@ govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
 govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
+govuk_jenkins::jobs::search_api_learn_to_rank::elasticsearch_uri: "%{hiera('govuk::apps::search_api::elasticsearch_hosts')}"
+
 govuk_jenkins::jobs::smokey::auth_username: "%{hiera('http_username')}"
 govuk_jenkins::jobs::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::jobs::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"

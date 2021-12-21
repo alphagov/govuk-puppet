@@ -37,6 +37,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::run_whitehall_data_migrations
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_index_checks
+  - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::search_api_reindex_with_new_schema
   - govuk_jenkins::jobs::search_generate_sitemaps
   - govuk_jenkins::jobs::search_relevancy_rank_evaluation
@@ -57,6 +58,11 @@ govuk_jenkins::jobs::ask_export::folder_id_cabinet_office: '1RH44n_9Ps_Syeq7o-xJ
 govuk_jenkins::jobs::ask_export::folder_id_third_party: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
 govuk_jenkins::jobs::ask_export::s3_bucket_name_gcs_public_questions: 'govuk-uk-integration-ask-export'
 govuk_jenkins::jobs::ask_export::run_daily: false
+
+govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_type: ml.c5.xlarge
+govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_count: 1
+govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_type: ml.t2.medium
+govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_count: 2
 
 govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
 govuk_jenkins::jobs::deploy_cdn::services:
