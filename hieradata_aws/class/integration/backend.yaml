@@ -38,4 +38,5 @@ govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documen
 
 govuk::apps::content_publisher::db_hostname: "content-publisher-postgres"
 govuk::apps::link_checker_api::db_hostname: "link-checker-api-postgres"
+govuk::apps::service_manual_publisher::db_hostname: "service-manual-publisher-postgres"
 govuk::apps::support_api::db_hostname: "support-api-postgres"
