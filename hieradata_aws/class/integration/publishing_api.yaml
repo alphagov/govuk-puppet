@@ -1,0 +1,3 @@
+---
+
+govuk::apps::publishing_api::db_hostname: "publishing-api-postgres"
