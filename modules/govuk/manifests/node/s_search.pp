@@ -11,8 +11,6 @@ class govuk::node::s_search inherits govuk::node::s_base {
 
   include nginx
 
-  include ::govuk_docker
-
   # The catchall vhost throws a 500, except for healthcheck requests.
   nginx::config::vhost::default { 'default': }
 
