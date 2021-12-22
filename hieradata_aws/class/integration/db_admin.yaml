@@ -178,7 +178,7 @@ govuk_env_sync::tasks:
     database: "release_production"
     temppath: "/tmp/release_production"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "push_release_integration_daily":
     ensure: "present"
     hour: "0"
@@ -211,7 +211,7 @@ govuk_env_sync::tasks:
     database: "signon_production"
     temppath: "/tmp/signon_production"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "pull_whitehall_staging_daily":
     ensure: "present"
     hour: "1"
@@ -233,7 +233,7 @@ govuk_env_sync::tasks:
     database: "whitehall_production"
     temppath: "/tmp/whitehall_integration"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "pull_licensify_staging_daily": &pull_licensify
     ensure: "present"
     hour: "5"
@@ -299,7 +299,7 @@ govuk_env_sync::tasks:
     database: "collections_publisher_production"
     temppath: "/tmp/collections_publisher_production"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "pull_contacts_production_daily":
     ensure: "present"
     hour: "4"
@@ -321,7 +321,7 @@ govuk_env_sync::tasks:
     database: "contacts_production"
     temppath: "/tmp/contacts_production"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "pull_search_admin_production_daily":
     ensure: "present"
     hour: "2"
@@ -343,7 +343,7 @@ govuk_env_sync::tasks:
     database: "search_admin_production"
     temppath: "/tmp/search_admin_production"
     url: "govuk-integration-database-backups"
-    path: "mysql-backend"
+    path: "mysql"
   "pull_content_publisher_production_daily":
     ensure: "present"
     hour: "3"
