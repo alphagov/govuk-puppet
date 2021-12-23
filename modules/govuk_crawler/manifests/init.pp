@@ -151,7 +151,7 @@ class govuk_crawler(
 
   # Needed to copy to AWS S3
   package { 's3cmd':
-        ensure   => present,
+        ensure   => '2.2.0',
         provider => pip,
   }
 
