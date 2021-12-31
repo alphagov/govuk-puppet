@@ -36,6 +36,8 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
 
+govuk::apps::collections_publisher::db_hostname: "collections-publisher-mysql"
+govuk::apps::collections_publisher::db_password: "%{hiera('govuk::node::s_collections_publisher_db_admin::mysql_db_password')}"
 govuk::apps::content_data_admin::db_hostname: "content-data-admin-postgres"
 govuk::apps::content_publisher::db_hostname: "content-publisher-postgres"
 govuk::apps::content_tagger::db_hostname: "content-tagger-postgres"
