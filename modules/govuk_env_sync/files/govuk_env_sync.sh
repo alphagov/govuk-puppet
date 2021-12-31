@@ -35,7 +35,7 @@ set -o errtrace
 #     of the domain.
 #
 #   H) database_hostname
-#     Name of the database_hostname. This is required for PostgreSQL.
+#     Name of the database_hostname. This is required for PostgreSQL/MySQL.
 #
 #   u) url
 #     URL of storage backend, bucket name in case of S3, repository name in case of
@@ -454,10 +454,10 @@ function dump_mysql {
 }
 
 function restore_mysql {
-  gunzip < "${tempdir}/${filename}" | sudo -H mysql -h mysql-primary "${database}"
+  gunzip < "${tempdir}/${filename}" | sudo -H mysql -h "${database_hostname}" "${database}"
   if [ "${transformation_sql_file:-}" ]; then
     # shellcheck disable=SC2024
-    sudo -H mysql -h mysql-primary "${database}" < "${transformation_sql_file}"
+    sudo -H mysql -h "${database_hostname}" "${database}" < "${transformation_sql_file}"
   fi
 }
 
@@ -506,13 +506,13 @@ function postprocess_mysl_cmd_signon_production {
      SET home_uri = REPLACE(home_uri, '${source_domain}', '${new_domain}')\
      WHERE home_uri LIKE '%${source_domain}%'"
 
-  echo "${update_home_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+  echo "${update_home_uri_query}" | sudo -H mysql -h "${database_hostname}" --database=signon_production
 
   update_redirect_uri_query="UPDATE oauth_applications\
      SET redirect_uri = REPLACE(redirect_uri, '${source_domain}', '${new_domain}')\
      WHERE redirect_uri LIKE '%${source_domain}%'"
 
-  echo "${update_redirect_uri_query}" | sudo -H mysql -h mysql-primary --database=signon_production
+  echo "${update_redirect_uri_query}" | sudo -H mysql -h "${database_hostname}" --database=signon_production
 }
 
 function postprocess_signon_production {
@@ -701,8 +701,8 @@ else
   : "${url?"No storage url specified (pass -u option)"}"
   : "${path?"No storage path specified (pass -p option)"}"
 
-  if [[ "$dbms" == "postgresql" && -z "${database_hostname:-}" ]]; then
-    echo "postgresql usage requires a database hostname argument"
+  if [ -z "${database_hostname:-}" ] && ([ "$dbms" == "mysql" ] || [ "$dbms" == "postgresql" ]); then
+    echo "$dbms usage requires a database hostname argument"
     exit 1
   fi
 
