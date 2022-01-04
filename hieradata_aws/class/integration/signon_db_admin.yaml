@@ -9,7 +9,7 @@ govuk_env_sync::tasks:
     database: "signon_production"
     database_hostname: "signon-mysql"
     temppath: "/tmp/signon_production"
-    url: "govuk-production-database-backups"
+    url: "govuk-integration-database-backups"
     path: "mysql"
   # "push_signon_production_daily":
   #   ensure: "present"
