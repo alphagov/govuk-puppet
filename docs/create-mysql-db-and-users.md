@@ -61,7 +61,7 @@ sudo mysql --defaults-extra-file=/root/.my.cnf -e "SHOW DATABASES;"
 sudo mysql --defaults-extra-file=/root/.my.cnf -e "SELECT host, user FROM mysql.user;"
 
 # See which tables are in the database, e.g.
-sudo mysql --defaults-extra-file=/root/.my.cnf -e "USE collections_publisher_sproduction; SHOW TABLES;"
+sudo mysql --defaults-extra-file=/root/.my.cnf -e "USE collections_publisher_production; SHOW TABLES;"
 # Note that this will only be populated after the first data sync has run.
 ```
 
