@@ -208,7 +208,6 @@ govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-
 govuk::apps::publisher::fact_check_subject_prefix: 'staging'
 govuk::apps::publisher::fact_check_reply_to_id: '88f713ff-7de0-43a6-8221-8721bedd103c'
 govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-staging@digital.cabinet-office.gov.uk'
-govuk::apps::publishing_api::db_hostname: 'publishing-api-postgres'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
