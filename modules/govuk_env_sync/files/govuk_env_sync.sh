@@ -377,7 +377,7 @@ function output_restore_sql {
 	  -v "${tempdir}:/tmp/" \
 	  -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
 	  "postgres:$PG_RESTORE_VERSION" \
-	  pg_restore -j 2  -f - "/tmp/${filename}" | sed -r "${sed_cmds}"	
+	  pg_restore -j 2  -f /dev/stdout "/tmp/${filename}" | sed -r "${sed_cmds}"	
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
