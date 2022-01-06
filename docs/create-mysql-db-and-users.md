@@ -6,7 +6,7 @@ You'll need to know three things:
 
 - Database name (find this in the [db.pp](https://github.com/alphagov/govuk-puppet/blob/31239642dfa7f8ba3984597f8242b9259a0e64f3/modules/govuk/manifests/apps/collections_publisher/db.pp#L5) of your app, e.g. `collections_publisher_production`)
 - Database user (find this in [db.pp](https://github.com/alphagov/govuk-puppet/blob/31239642dfa7f8ba3984597f8242b9259a0e64f3/modules/govuk/manifests/apps/collections_publisher/db.pp#L6), or the [config/database.yml](https://github.com/alphagov/collections-publisher/blob/e77c397cef35865aa5198f41e463f2bb7f8e688c/config/database.yml#L4) of your app. Beware that some apps - Whitehall - have multiple users to create)
-- Database user's password (you'll need to extract the value from govuk-secrets, e.g. [govuk::node::s_collections_publisher_db_admin::mysql_db_password](https://github.com/alphagov/govuk-secrets/blob/5981ef269e3e9be50a03c56e81ac530c8973d7b7/puppet_aws/hieradata/integration_credentials.yaml#L89). Make sure you look at the same environment, i.e. look in integration_credentials.yaml when making the database/user on Integration)
+- Database user's password (you'll need to extract the value from govuk-secrets, e.g. [govuk::apps::collections_publisher::db::mysql_password](https://github.com/alphagov/govuk-secrets/blob/f4903188020c9cad4d55958ecf73fbb72c2bc0b2/puppet_aws/hieradata/apps/integration_credentials.yaml#L59). Make sure you look at the same environment, i.e. look in integration_credentials.yaml when making the database/user on Integration)
 
 Connect to the DB admin machine, e.g.
 
