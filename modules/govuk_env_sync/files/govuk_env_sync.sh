@@ -369,6 +369,7 @@ function output_restore_sql {
       PG_RESTORE_VERSION='13.4'
       ;;
     *)
+      >&2 echo "${DUMPFILE_VERSION} is not a supported dump file version"
       exit 1
       ;;
   esac
