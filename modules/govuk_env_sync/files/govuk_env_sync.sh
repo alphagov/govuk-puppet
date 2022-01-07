@@ -358,6 +358,7 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
+
   PG_RESTORE_VERSION='13.4'
   DUMPFILE_VERSION=$(file "${dumpfile}" | awk '{print $NF}')
 
@@ -378,6 +379,7 @@ function output_restore_sql {
 	  -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
 	  "postgres:$PG_RESTORE_VERSION" \
 	  pg_restore -j 2  -f "/tmp/restore.sql" "/tmp/${filename}" | sed -r "${sed_cmds}"	
+
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
