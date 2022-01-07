@@ -358,26 +358,7 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
-  PG_RESTORE_VERSION='13.4'
-  DUMPFILE_VERSION=$(file "${dumpfile}" | awk '{print $NF}')
-
-  case $DUMPFILE_VERSION in
-    v1.13-0)
-      PG_RESTORE_VERSION='9.6.22'
-      ;;
-    v1.14-0)
-      PG_RESTORE_VERSION='13.4'
-      ;;
-    *)
-      >&2 echo "${DUMPFILE_VERSION} is not a supported dump file version"
-      exit 1
-      ;;
-  esac
-  sudo docker run --rm --net=host  \
-	  -v "${tempdir}:/tmp/" \
-	  -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
-	  "postgres:$PG_RESTORE_VERSION" \
-	  pg_restore -j 2  -f /dev/stdout "/tmp/${filename}" | sed -r "${sed_cmds}"	
+  pg_restore -j 2 "${dumpfile}" | sed -r "${sed_cmds}"
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
