@@ -1,0 +1,50 @@
+---
+- scm:
+    name: mirror-github-repositories
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-repo-mirror.git
+            branches:
+              - move-to-use-jenkins
+            wipe-workspace: false
+- job:
+    name: Mirror_Github_Repositories
+    display-name: Mirror GitHub repositories
+    project-type: freestyle
+    description: "This job performs a backup of our GitHub repositories to AWS CodeCommit"
+    properties:
+        - github:
+            url: https://github.com/alphagov/govuk-repo-mirror/
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+        - slack:
+            team-domain: <%= @slack_team_domain %>
+            auth-token-id: 'slack-notification-token'
+            auth-token-credential-id: 'slack-notification-token'
+            build-server-url: <%= @slack_build_server_url %>
+            notify-start: false
+            notify-success: false
+            notify-aborted: true
+            notify-notbuilt: true
+            notify-unstable: false
+            notify-failure: true
+            notify-backtonormal: false
+            notify-repeatedfailure: false
+            include-test-summary: false
+            include-custom-message: true
+            custom-message: "Mirror Github job to AWS CodeCommit failed"
+            room: <%= @slack_room %>
+    scm:
+      - mirror-github-repositories
+    builders:
+      - shell: |
+          export GITHUB_ACCESS_TOKEN=<%= @mirror_repos_github_api_token %>
+          export ROLE_ARN=<%= @aws_role_arn %>
+          export GIT_SSH_PRIVATE_KEY=<%= @ssh_private_key %>
+          export AWS_CODECOMMIT_USER_ID=<%= @aws_codecommit_user_id %>
+          export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
+          bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+          ./mirror_repos
+    triggers:
+      - timed: <%= @cron_schedule %>

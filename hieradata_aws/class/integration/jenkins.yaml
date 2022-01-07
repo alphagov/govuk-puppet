@@ -23,6 +23,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::govuk_content_api_docs
   - govuk_jenkins::jobs::govuk_taxonomy_supervised_learning
+  - govuk_jenkins::jobs::mirror_github_repositories
   - govuk_jenkins::jobs::monitor_taxonomy_health
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::content_data_api_re_run
@@ -69,6 +70,12 @@ govuk_jenkins::jobs::deploy_cdn::services:
   - assets
   - performanceplatform
   - www
+
+govuk_jenkins::jobs::mirror_github_repositories::enable_slack_notifications: true
+govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token')}"
+govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn')}"
+govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key')}"
+govuk_jenkins::jobs::mirror_github_repositories::aws_codecommit_user_id: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::aws_codecommit_user_id')}"
 
 govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - assets
