@@ -108,7 +108,8 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "pull_publishing_api_production_daily":
-    ensure: "present"
+    # Temporarily disabled for running a 24+ hour AWS DMS sync
+    ensure: "disabled"
     hour: "3"
     minute: "45"
     action: "pull"
