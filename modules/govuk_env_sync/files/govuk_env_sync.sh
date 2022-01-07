@@ -377,7 +377,7 @@ function output_restore_sql {
 	  -v "${tempdir}:/tmp/" \
 	  -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
 	  "postgres:$PG_RESTORE_VERSION" \
-	  pg_restore -j 2  -f /dev/stdout "/tmp/${filename}" | sed -r "${sed_cmds}"	
+	  pg_restore -j 2  -f "/tmp/restore.sql" "/tmp/${filename}" | sed -r "${sed_cmds}"	
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
@@ -406,9 +406,9 @@ function filtered_postgresql_restore {
     single_transaction=''
   fi
 
-  output_restore_sql \
-    | sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
-      --no-password -d "${database}" 2>&1
+  output_restore_sql
+  sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
+    --no-password -d "${database}" -f "${tempdir}/restore.sql" 2>&1
 }
 
 function restore_postgresql {
