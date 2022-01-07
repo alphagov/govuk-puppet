@@ -156,6 +156,9 @@ govuk_cdnlogs::bouncer_monitoring_enabled: false
 govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-integration-fastly-logs-monitoring'
+
+govuk_jenkins::jobs::mirror_github_repositories::cron_schedule: '0 */2 * * *' # every 2 hours
+
 govuk_jenkins::jobs::content_data_api::rake_etl_main_process_cron_schedule: '0 13 * * *'
 
 govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'www.integration.publishing.service.gov.uk'
