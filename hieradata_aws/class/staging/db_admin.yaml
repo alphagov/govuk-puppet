@@ -95,9 +95,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_tagger_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "pull_email_alert_api_production_daily":
-    # Temporarily disabled for migration to Postgres 13
-    ensure: "disabled"
+    ensure: "absent"
     hour: "1"
     minute: "30"
     action: "pull"

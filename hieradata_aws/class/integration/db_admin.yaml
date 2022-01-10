@@ -23,8 +23,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_admin_production_push"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "pull_email_alert_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "30"
     action: "pull"
@@ -96,8 +97,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content-register_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "push_email_alert_api_integration_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "15"
     action: "push"
