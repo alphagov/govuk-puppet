@@ -85,7 +85,6 @@ class govuk::node::s_db_admin(
 
   # include all PostgreSQL classes that create databases and users
   -> class { '::govuk::apps::ckan::db': }
-  -> class { '::govuk::apps::content_data_admin::db': }
   -> class { '::govuk::apps::content_publisher::db': }
   -> class { '::govuk::apps::content_tagger::db': }
   -> class { '::govuk::apps::link_checker_api::db': }
