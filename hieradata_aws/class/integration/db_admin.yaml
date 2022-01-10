@@ -132,19 +132,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/organisations-publisher_production"
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
-  # TODO: remove this rule once it's been run on target machines
-  "push_publishing_api_integration_daily":
-    ensure: "absent"
-    hour: "4"
-    minute: "30"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "publishing_api_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/publishing_api_production"
-    url: "govuk-integration-database-backups"
-    path: "postgresql-backend"
   "push_service_manual_publisher_integration_daily":
     ensure: "present"
     hour: "2"
@@ -261,20 +248,6 @@ govuk_env_sync::tasks:
     database: "licensify-refdata"
     hour: "6"
     minute: "30"
-  # TODO: remove this rule once it's been run on target machines
-  "pull_publishing_api_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "40"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "publishing_api_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/publishing_api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
-    transformation_sql_filename: "sanitise_publishing_api_production.sql"
   "pull_govuk_assets_production":
     ensure: "present"
     hour: "3"
