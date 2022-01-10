@@ -1,6 +1,7 @@
 govuk_env_sync::tasks:
   "pull_publishing_api_production_daily":
-    ensure: "present"
+    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
+    ensure: "disabled"
     hour: "0"
     minute: "0"
     action: "pull"
