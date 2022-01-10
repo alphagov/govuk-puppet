@@ -348,7 +348,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_content_tagger_production_daily":
-    ensure: "present"
+   # TODO: remove this rule once it's been run on target machines
+    ensure: "absent"
     hour: "3"
     minute: "0"
     action: "pull"
@@ -360,7 +361,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "push_content_tagger_production_integration_daily":
-    ensure: "present"
+   # TODO: remove this rule once it's been run on target machines
+    ensure: "absent"
     hour: "3"
     minute: "30"
     action: "push"
