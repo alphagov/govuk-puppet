@@ -654,9 +654,7 @@ govuk::apps::licencefinder::mongodb_nodes:
 
 govuk::apps::publishing_api::unicorn_worker_processes: "8"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
-# TODO: switch to "publishing-api-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::publishing_api::db_hostname: "postgresql-primary"
+govuk::apps::publishing_api::db_hostname: "publishing-api-postgres"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq
