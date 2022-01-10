@@ -1,6 +1,7 @@
 govuk_env_sync::tasks:
   "pull_content_publisher_production_daily":
-    ensure: "present"
+    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
+    ensure: "disabled"
     hour: "0"
     minute: "0"
     action: "pull"
@@ -10,7 +11,7 @@ govuk_env_sync::tasks:
     database_hostname: "content-publisher-postgres"
     temppath: "/tmp/content_publisher_production"
     url: "govuk-production-database-backups"
-    path: "postgresql-backend"
+    path: "content-publisher-postgres"
     transformation_sql_filename: "content_publisher.sql"
   "push_content_publisher_production_daily":
     ensure: "present"
