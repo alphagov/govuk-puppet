@@ -165,19 +165,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/local-links-manager_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
-  # TODO: remove this rule once it's been run on target machines
-  "push_publishing_api_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "00"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "publishing_api_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/publishing_api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_whitehall_production_daily":
     ensure: "present"
     hour: "1"
@@ -427,19 +414,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/whitehall_production"
     url: "govuk-production-database-backups"
     path: "mysql"
-  # TODO: remove this rule once it's been run on target machines
-  "pull_publishing_api_production":
-    ensure: "absent"
-    hour: "0"
-    minute: "00"
-    action: "pull"
-    dbms: "postgresql"
-    database_hostname: "postgresql-primary"
-    storagebackend: "s3"
-    database: "publishing_api_production"
-    temppath: "/tmp/publishing_api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "pull_release_production":
     ensure: "disabled"
     hour: "0"
