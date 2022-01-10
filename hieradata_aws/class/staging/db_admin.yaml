@@ -96,7 +96,8 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
   "pull_email_alert_api_production_daily":
-    ensure: "present"
+    # Temporarily disabled for migration to Postgres 13
+    ensure: "disabled"
     hour: "1"
     minute: "30"
     action: "pull"
