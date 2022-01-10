@@ -61,7 +61,8 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mysql"
   "push_content_data_admin_production_daily":
-    ensure: "present"
+  # TODO: remove this rule once it's been run on target machines
+    ensure: "absent"
     hour: "1"
     minute: "0"
     action: "push"
