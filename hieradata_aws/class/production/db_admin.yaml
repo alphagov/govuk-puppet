@@ -147,8 +147,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/govuk_content_production"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
+  # TODO: remove this rule once it's been run on target machines
   "push_local-links-manager_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "0"
     action: "push"
