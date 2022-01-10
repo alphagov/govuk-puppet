@@ -501,9 +501,7 @@ govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::content_data_api::db_name: "content_performance_manager_production"
 govuk::apps::content_data_api::db_username: "content_performance_manager"
 
-# TODO: switch to "content-publisher-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::content_publisher::db_hostname: "postgresql-primary"
+govuk::apps::content_publisher::db_hostname: "content-publisher-postgres"
 govuk::apps::content_publisher::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_publisher::db::allow_auth_from_lb: true
 govuk::apps::content_publisher::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
