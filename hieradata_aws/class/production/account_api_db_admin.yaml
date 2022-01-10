@@ -1,13 +1,13 @@
-# govuk_env_sync::tasks:
-#   "push_account_api_production_daily":
-#     ensure: "present"
-#     hour: "23"
-#     minute: "0"
-#     action: "push"
-#     dbms: "postgresql"
-#     storagebackend: "s3"
-#     database: "account-api_production"
-#     database_hostname: "account-api-postgres"
-#     temppath: "/tmp/account_api_production"
-#     url: "govuk-production-database-backups"
-#     path: "account-api-postgres"
+govuk_env_sync::tasks:
+  "push_account_api_production_daily":
+    ensure: "present"
+    hour: "23"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "account-api_production"
+    database_hostname: "account-api-postgres"
+    temppath: "/tmp/account_api_production"
+    url: "govuk-production-database-backups"
+    path: "account-api-postgres"
