@@ -1,6 +1,7 @@
 govuk_env_sync::tasks:
   "pull_email_alert_api_production_daily":
-    ensure: "present"
+    # Temporarily disabled for migration to Postgres 13
+    ensure: "disabled"
     hour: "0"
     minute: "0"
     action: "pull"
