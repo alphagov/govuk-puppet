@@ -1,13 +1,13 @@
-# govuk_env_sync::tasks:
-#   "push_publishing_api_production_daily":
-#     ensure: "present"
-#     hour: "23"
-#     minute: "0"
-#     action: "push"
-#     dbms: "postgresql"
-#     storagebackend: "s3"
-#     database: "publishing_api_production"
-#     database_hostname: "publishing-api-postgres"
-#     temppath: "/tmp/publishing_api_production"
-#     url: "govuk-production-database-backups"
-#     path: "publishing-api-postgres"
+govuk_env_sync::tasks:
+  "push_publishing_api_production_daily":
+    ensure: "present"
+    hour: "23"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "publishing_api_production"
+    database_hostname: "publishing-api-postgres"
+    temppath: "/tmp/publishing_api_production"
+    url: "govuk-production-database-backups"
+    path: "publishing-api-postgres"

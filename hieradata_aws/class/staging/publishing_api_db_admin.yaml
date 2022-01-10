@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_publishing_api_production_daily":
-    # Temporarily disabled for running a 24+ hour AWS DMS sync
+    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
     ensure: "disabled"
     hour: "0"
     minute: "0"
@@ -11,16 +11,16 @@ govuk_env_sync::tasks:
     database_hostname: "publishing-api-postgres"
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
-    path: "postgresql-backend"
-  # "push_publishing_api_production_daily":
-  #   ensure: "present"
-  #   hour: "5"
-  #   minute: "0"
-  #   action: "push"
-  #   dbms: "postgresql"
-  #   storagebackend: "s3"
-  #   database: "publishing_api_production"
-  #   database_hostname: "publishing-api-postgres"
-  #   temppath: "/tmp/publishing_api_production"
-  #   url: "govuk-staging-database-backups"
-  #   path: "publishing-api-postgres"
+    path: "publishing-api-postgres"
+  "push_publishing_api_production_daily":
+    ensure: "present"
+    hour: "5"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "publishing_api_production"
+    database_hostname: "publishing-api-postgres"
+    temppath: "/tmp/publishing_api_production"
+    url: "govuk-staging-database-backups"
+    path: "publishing-api-postgres"

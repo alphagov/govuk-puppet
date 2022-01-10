@@ -107,9 +107,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/email-alert-api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "pull_publishing_api_production_daily":
-    # Temporarily disabled for running a 24+ hour AWS DMS sync
-    ensure: "disabled"
+    ensure: "absent"
     hour: "3"
     minute: "45"
     action: "pull"
