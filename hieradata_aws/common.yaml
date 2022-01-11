@@ -533,9 +533,7 @@ govuk::apps::email_alert_api::db::allow_auth_from_lb: true
 govuk::apps::email_alert_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::email_alert_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_api::redis_port: "%{hiera('sidekiq_port')}"
-# TODO: switch to "email-alert-api-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::email_alert_api::db_hostname: "postgresql-primary"
+govuk::apps::email_alert_api::db_hostname: "email-alert-api-postgres"
 govuk::apps::email_alert_api::db_password: "%{hiera('govuk::apps::email_alert_api::db::password')}"
 govuk::apps::email_alert_api::unicorn_worker_processes: '10'
 govuk::apps::email_alert_api::govuk_personalisation_feedback_uri: "%{hiera('govuk::apps::static::govuk_personalisation_feedback_uri')}"
