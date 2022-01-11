@@ -11,8 +11,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/support_contacts_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "push_content_publisher_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "45"
     action: "push"
