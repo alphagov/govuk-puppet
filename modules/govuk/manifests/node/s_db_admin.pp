@@ -89,7 +89,6 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::content_data_admin::db': }
   -> class { '::govuk::apps::content_publisher::db': }
   -> class { '::govuk::apps::content_tagger::db': }
-  -> class { '::govuk::apps::email_alert_api::db': }
   -> class { '::govuk::apps::link_checker_api::db': }
   -> class { '::govuk::apps::local_links_manager::db': }
   -> class { '::govuk::apps::service_manual_publisher::db': }
