@@ -683,9 +683,7 @@ govuk::apps::search_admin::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::service_manual_publisher::http_username: "%{hiera('http_username')}"
 govuk::apps::service_manual_publisher::http_password: "%{hiera('http_password')}"
-# TODO: switch to "service-manual-publisher-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::service_manual_publisher::db_hostname: "postgresql-primary"
+govuk::apps::service_manual_publisher::db_hostname: "service-manual-publisher-postgres"
 
 govuk::apps::service_manual_publisher::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::service_manual_publisher::db::allow_auth_from_lb: true

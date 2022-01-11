@@ -112,7 +112,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration-database-backups"
     path: "postgresql-backend"
   "push_service_manual_publisher_integration_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "35"
     action: "push"
