@@ -622,9 +622,7 @@ govuk::apps::imminence::unicorn_worker_processes: "8"
 
 govuk::apps::info_frontend::enabled: true
 
-# TODO: switch to "local-links-manager-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::local_links_manager::db_hostname: "postgresql-primary"
+govuk::apps::local_links_manager::db_hostname: "local-links-manager-postgres"
 govuk::apps::local_links_manager::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::local_links_manager::db::allow_auth_from_lb: true
 govuk::apps::local_links_manager::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"

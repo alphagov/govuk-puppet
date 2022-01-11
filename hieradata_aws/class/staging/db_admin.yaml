@@ -12,8 +12,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/link_checker_api_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "pull_local-links-manager_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "30"
     action: "pull"
@@ -24,8 +25,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/local-links-manager_production"
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
+  # TODO: remove this rule once it's been run on target machines
   "push_local-links-manager_staging_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "30"
     action: "push"

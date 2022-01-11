@@ -1,6 +1,7 @@
 govuk_env_sync::tasks:
   "pull_local_links_manager_production_daily":
-    ensure: "present"
+    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
+    ensure: "disabled"
     hour: "0"
     minute: "0"
     action: "pull"
@@ -10,7 +11,7 @@ govuk_env_sync::tasks:
     database_hostname: "local-links-manager-postgres"
     temppath: "/tmp/local_links_manager_production"
     url: "govuk-production-database-backups"
-    path: "postgresql-backend"
+    path: "local-links-manager-postgres"
   "push_local_links_manager_production_daily":
     ensure: "present"
     hour: "5"
