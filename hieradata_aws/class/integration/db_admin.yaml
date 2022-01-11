@@ -308,8 +308,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-integration-database-backups"
     path: "mysql"
+  # TODO: remove this rule once it's been run on target machines
   "pull_content_publisher_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "45"
     action: "pull"
@@ -321,8 +322,9 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
     transformation_sql_filename: "content_publisher.sql"
+  # TODO: remove this rule once it's been run on target machines
   "push_content_publisher_production_integration_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "4"
     minute: "45"
     action: "push"
