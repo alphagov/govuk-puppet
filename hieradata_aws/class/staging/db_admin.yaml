@@ -95,19 +95,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_tagger_production"
     url: "govuk-staging-database-backups"
     path: "postgresql-backend"
-  # TODO: remove this rule once it's been run on target machines
-  "pull_email_alert_api_production_daily":
-    ensure: "absent"
-    hour: "1"
-    minute: "30"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "email-alert-api_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/email-alert-api_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "pull_support_contacts_production_daily":
     ensure: "present"
     hour: "2"
