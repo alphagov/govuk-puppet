@@ -1,6 +1,7 @@
 govuk_env_sync::tasks:
   "pull_content_data_admin_integration_daily":
-    ensure: "present"
+    # TODO: remove this rule once it's been run on target machines
+    ensure: "absent"
     hour: "4"
     minute: "18"
     action: "pull"
@@ -12,7 +13,8 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "postgresql-backend"
   "push_content_data_admin_integration_daily":
-    ensure: "present"
+    # TODO: remove this rule once it's been run on target machines
+    ensure: "absent"
     hour: "1"
     minute: "0"
     action: "push"
