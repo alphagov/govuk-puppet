@@ -806,9 +806,7 @@ govuk::apps::transition::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::travel_advice_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::travel_advice_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-# TODO: switch to "account-api-postgresql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::account_api::db_hostname: "postgresql-primary"
+govuk::apps::account_api::db_hostname: "account-api-postgres"
 govuk::apps::account_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::account_api::db::allow_auth_from_lb: true
 govuk::apps::account_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
