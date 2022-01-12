@@ -375,7 +375,8 @@ function output_restore_sql {
   esac
   sudo docker run --rm --net=host  \
 	  -v "${tempdir}:/tmp/" \
-	  -v "/root/.pgpass:/tmp/.pgpass" -e PGPASSFILE=/tmp/.pgpass \
+	  -v "/root/.pgpass:/tmp/.pgpass" \
+	  -e PGPASSFILE=/tmp/.pgpass \
 	  "postgres:$PG_RESTORE_VERSION" \
 	  pg_restore -j 2  -f "/tmp/sed_pipe" "/tmp/${filename}" &
   sed -r "${sed_cmds}" < "${tempdir}/sed_pipe" > "${tempdir}/output_pipe"
