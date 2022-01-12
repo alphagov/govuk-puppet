@@ -113,8 +113,15 @@ govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - www
 
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: true
+
+govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_type: ml.c5.xlarge
+govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_count: 1
+govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_type: ml.c5.xlarge
+govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_count: 6
+
 govuk_jenkins::jobs::transition_import_hits::s3_bucket: govuk-production-transition-fastly-logs
 govuk_jenkins::jobs::user_monitor::enable_icinga_check: true
 
 govuk_jenkins::jobs::validate_published_dns::app_domain: blue.production.govuk.digital
 govuk_jenkins::jobs::validate_published_dns::run_daily: true
+
