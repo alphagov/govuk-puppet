@@ -1,7 +1,6 @@
 govuk_env_sync::tasks:
   "pull_local_links_manager_production_daily":
-    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
-    ensure: "disabled"
+    ensure: "present"
     hour: "0"
     minute: "0"
     action: "pull"
