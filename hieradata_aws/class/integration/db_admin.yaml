@@ -234,19 +234,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-integration-database-backups"
     path: "mysql"
-  # TODO: remove this rule once it's been run on target machines
-  "pull_service-manual-publisher_staging":
-    ensure: "absent"
-    hour: "2"
-    minute: "55"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "service-manual-publisher_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/service-manual-publisher_production"
-    url: "govuk-staging-database-backups"
-    path: "postgresql-backend"
   "pull_maslow_production":
     ensure: "present"
     hour: "2"
