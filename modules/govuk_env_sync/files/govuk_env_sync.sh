@@ -358,8 +358,7 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
-
-  PG_RESTORE_VERSION='13.4'
+  PG_RESTORE_VERSION='' # this gets set in the case statement below
   DUMPFILE_VERSION=$(file "${dumpfile}" | awk '{print $NF}')
 
   case $DUMPFILE_VERSION in
