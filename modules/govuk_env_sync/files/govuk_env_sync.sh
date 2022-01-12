@@ -358,14 +358,36 @@ function dump_postgresql {
 }
 
 function output_restore_sql {
-  pg_restore -j 2 "${dumpfile}" | sed -r "${sed_cmds}"
+  PG_RESTORE_VERSION='' # this gets set in the case statement below
+  DUMPFILE_VERSION=$(file "${dumpfile}" | awk '{print $NF}')
+
+  case $DUMPFILE_VERSION in
+    v1.13-0)
+      PG_RESTORE_VERSION='9.6.22'
+      ;;
+    v1.14-0)
+      PG_RESTORE_VERSION='13.4'
+      ;;
+    *)
+      >&2 echo "${DUMPFILE_VERSION} is not a supported dump file version"
+      exit 1
+      ;;
+  esac
+  sudo docker run --rm --net=host  \
+	  -v "${tempdir}:/tmp/" \
+	  -v "/root/.pgpass:/tmp/.pgpass" \
+	  -e PGPASSFILE=/tmp/.pgpass \
+	  "postgres:$PG_RESTORE_VERSION" \
+	  pg_restore -j 2  -f "/tmp/sed_pipe" "/tmp/${filename}" &
+  sed -r "${sed_cmds}" < "${tempdir}/sed_pipe" > "${tempdir}/output_pipe"
+
   if [ "${transformation_sql_file:-}" ]; then
     # pg_dump/pg_restore sets search_path to ''. Reset it to the default so
     # that the transform script doesn't need to prefix table names with
     # 'public.'. The string "$user" is intentionally output verbatim.
     # shellcheck disable=SC2016
-    echo 'SET search_path="$user",public;'
-    cat "${transformation_sql_file}"
+    echo 'SET search_path="$user",public;' >> "${tempdir}/output_pipe"
+    cat "${transformation_sql_file}" >> "${tempdir}/output_pipe"
   fi
 }
 
@@ -387,9 +409,9 @@ function filtered_postgresql_restore {
     single_transaction=''
   fi
 
-  output_restore_sql \
-    | sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
-      --no-password -d "${database}" 2>&1
+  output_restore_sql &
+  sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
+    --no-password -d "${database}" -f "${tempdir}/output_pipe" 2>&1
 }
 
 function restore_postgresql {
@@ -406,6 +428,8 @@ function restore_postgresql {
 
   sudo createdb -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
 
+  mkfifo "${tempdir}/sed_pipe"
+  mkfifo "${tempdir}/output_pipe"
   pg_stderr=$(filtered_postgresql_restore)
 
   if [ "$DB_OWNER" != '' ] ; then
