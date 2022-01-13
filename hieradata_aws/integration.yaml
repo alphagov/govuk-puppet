@@ -503,6 +503,7 @@ router::nginx::check_requests_warning: '@0.5'
 router::nginx::check_requests_critical: '@0.25'
 
 users::usernames:
+  - alexbaker
   - alexandrujurubita
   - alexnewton
   - alexsmith
@@ -533,6 +534,7 @@ users::usernames:
   - kevindew
   - kooghanwilliams
   - leenagupte
+  - lukewiltshire
   - matthewgregory
   - maxfroumentin
   - maxharden
