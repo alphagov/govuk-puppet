@@ -39,7 +39,7 @@
       "height": 196,
       "panels": [
         {
-          "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email_alert_api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)\n   - [Postgres stats](/dashboard/file/aws-rds.json?orgId=1&var-region=eu-west-1&var-dbinstanceidentifier=blue-postgresql-primary&from=now-1h&to=now)\n   - [Notify status page](https://status.notifications.service.gov.uk/)   \n   - [Sentry](https://sentry.io/organizations/govuk/issues/?environment=production&project=202220&statsPeriod=6h)",
+          "content": "   - [Sidekiq](/dashboard/file/sidekiq.json?refresh=1m&orgId=1&var-Application=email-alert-api&var-Queues=All&from=now-3h&to=now)\n   - [Machine stats](/dashboard/file/machine.json?refresh=1m&orgId=1&var-hostname=email_alert_api*&var-cpmetrics=cpu-system&var-cpmetrics=cpu-user&var-filesystem=All&var-disk=All&var-tcpconnslocal=All&var-tcpconnsremote=All)\n   - [Postgres stats](/dashboard/file/aws-rds.json?orgId=1&var-region=eu-west-1&var-dbinstanceidentifier=email-alert-api-postgres&from=now-1h&to=now)\n   - [Notify status page](https://status.notifications.service.gov.uk/)   \n   - [Sentry](https://sentry.io/organizations/govuk/issues/?environment=production&project=202220&statsPeriod=6h)",
           "id": 7,
           "links": [],
           "mode": "markdown",
