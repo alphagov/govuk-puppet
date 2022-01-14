@@ -5,6 +5,9 @@
 #
 # === Parameters
 #
+# [*ensure*]
+#   Whether to configure Postgres.
+#
 # [*postgres_host*]
 #   Hostname of the RDS database to use.
 #   Default: undef
@@ -26,16 +29,18 @@
 #   packages
 #
 class govuk::nodes::postgresql_db_admin(
+  $ensure               = present,
   $postgres_host        = undef,
   $postgres_user        = undef,
   $postgres_password    = undef,
   $postgres_port        = '5432',
   $apt_mirror_hostname,
 ) {
+
   # This allows easy administration of the PostgreSQL backend:
   # https://www.postgresql.org/docs/9.3/static/libpq-pgpass.html
   file { '/root/.pgpass':
-    ensure  => present,
+    ensure  => $ensure,
     mode    => '0600',
     content => "${postgres_host}:5432:*:${postgres_user}:${postgres_password}",
   }
@@ -54,7 +59,7 @@ class govuk::nodes::postgresql_db_admin(
   }
 
   apt::source { 'postgresql':
-    ensure       => present,
+    ensure       => $ensure,
     location     => "http://${apt_mirror_hostname}/postgresql",
     release      => "${::lsbdistcodename}-pgdg",
     architecture => $::architecture,
@@ -64,16 +69,21 @@ class govuk::nodes::postgresql_db_admin(
   # We don't actually want to run a local PostgreSQL server, just
   # configure the RDS one
   class { '::postgresql::server':
+    package_ensure           => $ensure,
     default_connect_settings => $default_connect_settings,
     service_manage           => false,
   } ->
 
-  service { 'postgresql':
-    ensure  => stopped,
+  if $ensure == present {
+    service { 'postgresql':
+      ensure => stopped,
+    }
+
+    include ::govuk_postgresql::server::not_slave
   }
 
-  include ::govuk_postgresql::server::not_slave
-
   # Ensure the client class is installed
-  class { '::govuk_postgresql::client': }
+  class { '::govuk_postgresql::client':
+    ensure => $ensure,
+  }
 }

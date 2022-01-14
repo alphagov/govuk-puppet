@@ -76,6 +76,7 @@ class govuk::node::s_db_admin(
 
   # include the common config/tooling required for our DB admin class
   class { '::govuk::nodes::postgresql_db_admin':
+    ensure              => absent,
     postgres_host       => $postgres_host,
     postgres_user       => $postgres_user,
     postgres_password   => $postgres_password,
