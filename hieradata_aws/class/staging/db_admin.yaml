@@ -1,16 +1,4 @@
 govuk_env_sync::tasks:
-  "pull_support_contacts_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "3"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "support_contacts_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/support_contacts_production"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "pull_licensify_production_daily": &pull_licensify
     ensure: "present"
     hour: "4"

@@ -161,18 +161,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/signon_production"
     url: "govuk-production-database-backups"
     path: "mysql"
-  "push_support-contacts_production_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "30"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "support_contacts_production"
-    database_hostname: "postgresql-primary"
-    temppath: "/tmp/"
-    url: "govuk-production-database-backups"
-    path: "postgresql-backend"
   "push_travel_advice_publisher_production":
     ensure: "present"
     hour: "1"
