@@ -2,7 +2,7 @@ govuk_env_sync::tasks:
   # Use the new Content Data API name here, to avoid issues with
   # changing the name later
   "pull_content_data_api_production_daily":
-    ensure: "absent"
+    ensure: "present"
     hour: "0"
     minute: "0"
     action: "pull"
