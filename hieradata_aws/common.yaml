@@ -1468,8 +1468,6 @@ monitoring::checks::rds::servers:
    # list, the override will also need to be removed.
    - 'content-data-api-postgresql-primary'
 
-   - 'postgresql-primary'
-   - 'postgresql-standby'
    - 'transition-postgresql-primary'
    - 'transition-postgresql-standby'
    - 'mysql-primary'
