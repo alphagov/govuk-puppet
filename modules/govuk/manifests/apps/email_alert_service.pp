@@ -27,6 +27,10 @@
 # [*email_alert_api_bearer_token*]
 #   Bearer token for communication with the email-alert-api
 #
+# [*enable_unpublishing_queue_consumer*]
+#   Whether or not to enable the unpublishing worker
+#   Default: false
+#
 class govuk::apps::email_alert_service(
   $enabled = false,
   $rabbitmq_hosts = ['localhost'],
@@ -35,6 +39,7 @@ class govuk::apps::email_alert_service(
   $sentry_dsn = undef,
   $redis_host = undef,
   $email_alert_api_bearer_token = undef,
+  $enable_unpublishing_queue_consumer = false,
 ) {
 
   $ensure = $enabled ? {
@@ -51,6 +56,13 @@ class govuk::apps::email_alert_service(
     sentry_dsn             => $sentry_dsn,
     collectd_process_regex => 'email-alert-service/.*rake message_queues:major_change_consumer',
     command                => 'bundle exec rake message_queues:major_change_consumer',
+  }
+
+  govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
+    setenv_as      => $app_name,
+    enable_service => $enable_unpublishing_queue_consumer,
+    process_type   => 'unpublishing-queue-consumer',
+    process_regex  => '\/rake message_queues:unpublishing_consumer',
   }
 
   Govuk::App::Envvar {
