@@ -12,27 +12,6 @@
   "rows": [
     {
       "collapse": false,
-      "height": "0",
-      "panels": [
-        {
-          "content": "- [AWS RDS Stats for databases](/dashboard/file/aws-rds.json?orgId=1&var-region=eu-west-1&var-dbinstanceidentifier=blue-postgresql-primary)",
-          "id": 77,
-          "links": [],
-          "mode": "markdown",
-          "span": 12,
-          "title": "",
-          "type": "text"
-        }
-      ],
-      "repeat": null,
-      "repeatIteration": null,
-      "repeatRowId": null,
-      "showTitle": false,
-      "title": "Dashboard Row",
-      "titleSize": "h6"
-    },
-    {
-      "collapse": false,
       "height": 248,
       "panels": [
         {
