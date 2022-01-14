@@ -1,6 +1,18 @@
 govuk_env_sync::tasks:
+  "pull_transition_integration_daily":
+    ensure: "present"
+    hour: "6"
+    minute: "0"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "transition_production"
+    database_hostname: "transition-postgresql-primary"
+    temppath: "/tmp/transition_production"
+    url: "govuk-production-database-backups"
+    path: "transition-postgresql"
   "push_transition_integration_daily":
-    ensure: "absent"
+    ensure: "present"
     hour: "3"
     minute: "0"
     action: "push"
@@ -10,17 +22,4 @@ govuk_env_sync::tasks:
     database_hostname: "transition-postgresql-primary"
     temppath: "/tmp/transition_production"
     url: "govuk-integration-database-backups"
-    path: "transition-postgresql"
-  "pull_transition_integration_daily":
-    # Temporarily disabled due to issues restoring Postgres 13 databases (https://trello.com/c/9tdzkMIG)
-    ensure: "disabled"
-    hour: "6"
-    minute: "0"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "transition_production"
-    database_hostname: "transition-postgresql-primary"
-    temppath: "/tmp/transition_production"
-    url: "govuk-staging-database-backups"
     path: "transition-postgresql"
