@@ -21,6 +21,7 @@ class govuk::node::s_whitehall_db_admin(
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync
+  include ::mysql::client
 
   file { '/root/.my.cnf':
     ensure  => 'present',
