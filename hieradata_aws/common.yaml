@@ -1189,6 +1189,7 @@ grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
   account-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   asset-manager:
@@ -1200,6 +1201,7 @@ grafana::dashboards::application_dashboards:
     docs_name: 'ckanext-datagovuk'
     # No data in kibana
     show_controller_errors: false
+    show_postgres_stats: true
     show_slow_requests: false
   contacts:
     docs_name: 'contacts-admin'
@@ -1210,9 +1212,11 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   content-data-admin:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   content-data-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   content-store:
@@ -1229,13 +1233,16 @@ grafana::dashboards::application_dashboards:
       - smartanswers
       - whitehall-frontend
   content-publisher:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   content-tagger:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-frontend: {}
   email-alert-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-service: {}
@@ -1264,6 +1271,7 @@ grafana::dashboards::application_dashboards:
   licensify-admin: {}
   licensify-feed: {}
   link-checker-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   local-links-manager:
@@ -1271,6 +1279,7 @@ grafana::dashboards::application_dashboards:
       - frontend
     instance_prefix: 'backend'
     show_memcached: true
+    show_postgres_stats: true
   maslow: {}
   mapit:
     dependent_app_5xx_errors:
@@ -1287,6 +1296,7 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   publishing-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
     instance_prefix: 'publishing_api'
@@ -1339,9 +1349,11 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   support-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   transition:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   travel-advice-publisher:

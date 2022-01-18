@@ -12,7 +12,7 @@
       <%= ',' if i > 0 %> {
         "collapse": false,
         "editable": true,
-        "height": 250,
+        "height": <%= row.last == "postgres_stats" ? 50 : 250 %>,
         "panels": [
           <% row.each_with_index do |panel_name, j| %>
             <%= ',' if j > 0 %> <%= scope.function_template(["grafana/dashboards/application_dashboard_panels/_#{panel_name}.json.erb"]) %>

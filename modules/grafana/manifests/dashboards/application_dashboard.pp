@@ -47,6 +47,7 @@ define grafana::dashboards::application_dashboard (
   $warning_threshold = 10,
   $show_sidekiq_graphs = false,
   $show_controller_errors = true,
+  $show_postgres_stats = false,
   $show_response_times = false,
   $show_slow_requests = true,
   $dependent_app_5xx_errors = undef,
@@ -110,7 +111,17 @@ define grafana::dashboards::application_dashboard (
     $memcached_row = []
   }
 
+  if $show_postgres_stats {
+    $postgres_stats_row = [
+      [
+        'postgres_stats']
+    ]
+  } else {
+    $postgres_stats_row = []
+  }
+
   $panel_partials = concat(
+    $postgres_stats_row,
     [
       ['processor_count'],
       ['error_counts_table', 'links']
