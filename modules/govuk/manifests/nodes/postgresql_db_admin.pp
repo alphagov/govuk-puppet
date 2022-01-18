@@ -72,11 +72,12 @@ class govuk::nodes::postgresql_db_admin(
     package_ensure           => $ensure,
     default_connect_settings => $default_connect_settings,
     service_manage           => false,
-  } ->
+  }
 
   if $ensure == present {
     service { 'postgresql':
-      ensure => stopped,
+      ensure  => stopped,
+      require => Class['postgresql::server'],
     }
 
     include ::govuk_postgresql::server::not_slave
