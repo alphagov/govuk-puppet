@@ -91,10 +91,6 @@ govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hie
 govuk::apps::whitehall::highlight_words_to_avoid: true
 govuk::apps::whitehall::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-integration-whitehall-csvs'
-# DB hostname for whitehall backend
-govuk::apps::whitehall::admin_db_hostname: 'whitehall-mysql'
-# DB hostname for whitehall frontend
-govuk::apps::whitehall::db_hostname: 'whitehall-mysql'
 
 licensify::apps::configfile::mongo_database_reference_name: 'licensify-refdata'
 licensify::apps::configfile::mongo_database_audit_name: 'licensify-audit'
