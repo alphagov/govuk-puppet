@@ -119,7 +119,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mysql"
   "push_whitehall_staging_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "30"
     action: "push"
@@ -132,7 +132,7 @@ govuk_env_sync::tasks:
     path: "mysql"
     pre_dump_transformation_sql_filename: "sanitise_whitehall.sql"
   "pull_whitehall_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "2"
     minute: "30"
     action: "pull"
