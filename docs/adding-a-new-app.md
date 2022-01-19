@@ -241,7 +241,7 @@ If your app does not use a database, skip this subsection.
 Add the following configuration to `hieradata_aws/common.yaml`:
 
 ```yaml
-govuk::apps::my_app::db_hostname: "postgresql-primary"
+govuk::apps::my_app::db_hostname: "#{your-app-name}-postgres"
 govuk::apps::my_app::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::my_app::db::allow_auth_from_lb: true
 govuk::apps::my_app::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
