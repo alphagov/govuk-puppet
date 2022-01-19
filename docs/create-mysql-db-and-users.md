@@ -25,22 +25,19 @@ export TMP_MYSQL_DB_PASSWORD='THE_PASSWORD' ;
 Create the user:
 
 ```
-sudo mysql --defaults-extra-file=/root/.my.cnf -e \
-"CREATE USER IF NOT EXISTS '$TMP_MYSQL_DB_USER'@'%' IDENTIFIED WITH 'mysql_native_password' BY '${TMP_MYSQL_DB_PASSWORD}';"
+sudo -H mysql -e "CREATE USER IF NOT EXISTS '$TMP_MYSQL_DB_USER'@'%' IDENTIFIED WITH 'mysql_native_password' BY '${TMP_MYSQL_DB_PASSWORD}';"
 ```
 
 Create the database:
 
 ```
-sudo mysql --defaults-extra-file=/root/.my.cnf -e \
-"CREATE DATABASE IF NOT EXISTS ${TMP_MYSQL_DB_NAME};"
+sudo -H mysql -e "CREATE DATABASE IF NOT EXISTS ${TMP_MYSQL_DB_NAME};"
 ```
 
 Grant the user access to the database:
 
 ```
-sudo mysql --defaults-extra-file=/root/.my.cnf -e \
-"GRANT ALL ON ${TMP_MYSQL_DB_NAME}.* TO '${TMP_MYSQL_DB_USER}'@'%'"
+sudo -H mysql -e "GRANT ALL ON ${TMP_MYSQL_DB_NAME}.* TO '${TMP_MYSQL_DB_USER}'@'%'"
 ```
 
 Finally, clean up after yourself:
@@ -55,13 +52,13 @@ You can sense-check what you've done by:
 
 ```sh
 # See which databases there are
-sudo mysql --defaults-extra-file=/root/.my.cnf -e "SHOW DATABASES;"
+sudo -H mysql -e "SHOW DATABASES;"
 
 # See which users there are
-sudo mysql --defaults-extra-file=/root/.my.cnf -e "SELECT host, user FROM mysql.user;"
+sudo -H mysql -e "SELECT host, user FROM mysql.user;"
 
 # See which tables are in the database, e.g.
-sudo mysql --defaults-extra-file=/root/.my.cnf -e "USE collections_publisher_production; SHOW TABLES;"
+sudo -H mysql -e "USE collections_publisher_production; SHOW TABLES;"
 # Note that this will only be populated after the first data sync has run.
 ```
 
