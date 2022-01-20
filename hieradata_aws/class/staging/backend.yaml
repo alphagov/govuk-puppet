@@ -39,3 +39,4 @@ govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documen
 govuk::apps::collections_publisher::db_hostname: "collections-publisher-mysql"
 govuk::apps::contacts::db_hostname: "contacts-admin-mysql"
 govuk::apps::release::db_hostname: "release-mysql"
+govuk::apps::search_admin::db_hostname: "search-admin-mysql"
