@@ -86,8 +86,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/contacts_production"
     url: "govuk-staging-database-backups"
     path: "mysql"
+  # TODO: remove this rule once it's been run on target machines
   "pull_search_admin_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "20"
     action: "pull"
@@ -98,8 +99,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-production-database-backups"
     path: "mysql"
+  # TODO: remove this rule once it's been run on target machines
   "push_search_admin_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "45"
     action: "push"
