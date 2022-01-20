@@ -58,27 +58,29 @@ end
   end
 end
 
-if safe_machines.length + out_of_hours_unsafe_machines.length + in_hours_unsafe_machines.length  == 0
+rebootable_machines = safe_machines + out_of_hours_unsafe_machines + in_hours_unsafe_machines
+
+if rebootable_machines.length == 0
   puts 'No hosts need to be rebooted'
   exit 0
 else
-  puts 'Some hosts need to be rebooted to apply updates'
+  puts "#{rebootable_machines.length} hosts need to be rebooted to apply updates"
 
   if out_of_hours_unsafe_machines.length > 0
     puts "\n"
-    puts 'These hosts need to be rebooted manually out of hours:'
+    puts "These #{out_of_hours_unsafe_machines.length} hosts need to be rebooted manually out of hours:"
     print_hostnames(out_of_hours_unsafe_machines, machines_names_hash)
   end
 
   if in_hours_unsafe_machines.length > 0
     puts "\n"
-    puts 'These hosts need to be rebooted manually in hours:'
+    puts "These #{in_hours_unsafe_machines.length} hosts need to be rebooted manually in hours:"
     print_hostnames(in_hours_unsafe_machines, machines_names_hash)
   end
 
   if safe_machines.length > 0
     puts "\n"
-    puts "These hosts should reboot automatically overnight (you'll need to manually step down any primary MongoDB machines):"
+    puts "These #{safe_machines.length} hosts should reboot automatically overnight (you'll need to manually step down any primary MongoDB machines):"
     print_hostnames(safe_machines, machines_names_hash)
   end
 
