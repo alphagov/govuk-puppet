@@ -38,7 +38,6 @@ govuk::apps::email_alert_api::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b
 govuk::apps::email_alert_api::govuk_notify_recipients:
   - email-alert-api-integration@digital.cabinet-office.gov.uk
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
-govuk::apps::email_alert_service::enable_unpublishing_queue_consumer: true
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'fee22233-2f28-4b0b-8b6c-4410979f2275'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
 govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: '77941cb6-f3a2-4b0d-b09c-64572858cb50'
