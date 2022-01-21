@@ -1,16 +1,4 @@
 govuk_env_sync::tasks:
-  "pull_whitehall_production_daily":
-    ensure: "absent"
-    hour: "0"
-    minute: "0"
-    action: "pull"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "whitehall_production"
-    database_hostname: "whitehall-mysql"
-    temppath: "/tmp/whitehall_production"
-    url: "govuk-production-database-backups"
-    path: "mysql"
   "pull_whitehall_staging_daily":
     ensure: "present"
     hour: "2"
