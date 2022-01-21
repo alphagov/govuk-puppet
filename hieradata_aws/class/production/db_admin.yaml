@@ -70,7 +70,7 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_whitehall_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "00"
     action: "push"
@@ -247,7 +247,7 @@ govuk_env_sync::tasks:
     ensure: "disabled"
     database: "licensify-audit"
   "pull_whitehall_production_daily":
-    ensure: "disabled"
+    ensure: "absent"
     hour: "0"
     minute: "00"
     action: "pull"
