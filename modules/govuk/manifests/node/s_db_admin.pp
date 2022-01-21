@@ -83,7 +83,4 @@ class govuk::node::s_db_admin(
     postgres_port       => $postgres_port,
     apt_mirror_hostname => $apt_mirror_hostname,
   }
-
-  # include all PostgreSQL classes that create databases and users
-  -> class { '::govuk::apps::ckan::db': }
 }
