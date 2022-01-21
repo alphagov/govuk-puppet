@@ -19,10 +19,6 @@ class govuk::node::s_db_admin(
   $mysql_db_host        = undef,
   $mysql_db_password    = undef,
   $mysql_db_user        = undef,
-  $postgres_host        = undef,
-  $postgres_user        = undef,
-  $postgres_password    = undef,
-  $postgres_port        = '5432',
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync
@@ -71,18 +67,4 @@ class govuk::node::s_db_admin(
   -> class { '::govuk::apps::search_admin::db': }
   -> class { '::govuk::apps::signon::db': }
   -> class { '::govuk::apps::whitehall::db': }
-
-  ### PostgreSQL ###
-
-  # include the common config/tooling required for our DB admin class
-  class { '::govuk::nodes::postgresql_db_admin':
-    postgres_host       => $postgres_host,
-    postgres_user       => $postgres_user,
-    postgres_password   => $postgres_password,
-    postgres_port       => $postgres_port,
-    apt_mirror_hostname => $apt_mirror_hostname,
-  }
-
-  # include all PostgreSQL classes that create databases and users
-  -> class { '::govuk::apps::ckan::db': }
 }
