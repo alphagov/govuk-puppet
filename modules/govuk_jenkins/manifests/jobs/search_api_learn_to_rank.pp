@@ -57,7 +57,7 @@ class govuk_jenkins::jobs::search_api_learn_to_rank (
       ensure              => present,
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 86400,
+      freshness_threshold => 691200,
       action_url          => "https://${deploy_jenkins_domain}/job/search-api-learn-to-rank/",
       notes_url           => monitoring_docs_url(search-api-learn-to-rank),
   }
