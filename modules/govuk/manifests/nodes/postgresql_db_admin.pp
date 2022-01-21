@@ -74,17 +74,17 @@ class govuk::nodes::postgresql_db_admin(
     service_manage           => false,
   }
 
-  if $ensure == present {
-    service { 'postgresql':
-      ensure  => stopped,
-      require => Class['postgresql::server'],
-    }
-
-    include ::govuk_postgresql::server::not_slave
-  }
-
-  # Ensure the client class is installed
-  class { '::govuk_postgresql::client':
-    ensure => $ensure,
-  }
+  # if $ensure == present {
+  #   service { 'postgresql':
+  #     ensure  => stopped,
+  #     require => Class['postgresql::server'],
+  #   }
+  #
+  #   include ::govuk_postgresql::server::not_slave
+  # }
+  #
+  # # Ensure the client class is installed
+  # class { '::govuk_postgresql::client':
+  #   ensure => $ensure,
+  # }
 }
