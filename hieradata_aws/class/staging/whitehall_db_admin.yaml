@@ -1,4 +1,35 @@
+# There is a delicately timed dance happening here which is unique to Whitehall.
+#
+# +-------------+--------------------+----------+-------+
+# | Environment |       Action       |  State   | Time  |
+# +-------------+--------------------+----------+-------+
+# | Production  | Push               | Full     | 00:00 |
+# | Staging     | Push (+ transform) | Redacted | 00:00 |
+# | Staging     | Pull               | Full     | 02:30 |
+# | Integration | Pull               | Redacted | 02:30 |
+# | Integration | Push               | Redacted | 05:00 |
+# +-------------+--------------------+----------+-------+
+#
+# - The push_whitehall_staging_daily job redacts the Staging Whitehall database
+#   in-place before dumping it to S3. Integration then pulls the redacted copy.
+# - The pull_whitehall_production_daily job then overwrites Staging with the
+#   latest data from Production, so Staging remains unredacted.
+# - Staging has the unredacted data because it helps when debugging
+#   content-related issues.
 govuk_env_sync::tasks:
+  "push_whitehall_staging_daily":
+    ensure: "present"
+    hour: "0"
+    minute: "0"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "whitehall_production"
+    database_hostname: "whitehall-mysql"
+    temppath: "/tmp/whitehall_staging"
+    url: "govuk-staging-database-backups"
+    path: "whitehall-mysql"
+    pre_dump_transformation_sql_filename: "sanitise_whitehall.sql"
   "pull_whitehall_production_daily":
     ensure: "present"
     hour: "2"
@@ -10,17 +41,4 @@ govuk_env_sync::tasks:
     database_hostname: "whitehall-mysql"
     temppath: "/tmp/whitehall_production"
     url: "govuk-production-database-backups"
-    path: "mysql"
-  "push_whitehall_staging_daily":
-    ensure: "present"
-    hour: "0"
-    minute: "30"
-    action: "push"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "whitehall_production"
-    database_hostname: "whitehall-mysql"
-    temppath: "/tmp/whitehall_staging"
-    url: "govuk-staging-database-backups"
     path: "whitehall-mysql"
-    pre_dump_transformation_sql_filename: "sanitise_whitehall.sql"
