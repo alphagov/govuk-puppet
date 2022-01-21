@@ -669,9 +669,7 @@ govuk::apps::search_api::redis_port: '6379'
 govuk::apps::search_api::unicorn_worker_processes: "9"
 
 govuk::apps::search_admin::db_name: 'search_admin_production'
-# TODO: switch to "search-admin-mysql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::search_admin::db_hostname: 'mysql-primary'
+govuk::apps::search_admin::db_hostname: 'search-admin-mysql'
 govuk::apps::search_admin::db_password: "%{hiera('govuk::apps::search_admin::db::mysql_search_admin')}"
 govuk::apps::search_admin::db_username: 'search_admin'
 govuk::apps::search_admin::redis_host: "%{hiera('sidekiq_host')}"

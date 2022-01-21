@@ -36,5 +36,4 @@ govuk::apps::travel_advice_publisher::mongodb_nodes:
 govuk::apps::travel_advice_publisher::mongodb_username: "%{hiera('shared_documentdb_user')}"
 govuk::apps::travel_advice_publisher::mongodb_password: "%{hiera('shared_documentdb_password')}"
 
-govuk::apps::search_admin::db_hostname: "search-admin-mysql"
 govuk::apps::signon::db_hostname: "signon-mysql"
