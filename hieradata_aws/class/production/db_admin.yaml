@@ -193,8 +193,9 @@ govuk_env_sync::tasks:
     hour: "1"
     minute: "45"
     database: "licensify-audit"
+  # TODO: remove this rule once it's been run on target machines
   "push_release_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "15"
     action: "push"
@@ -238,8 +239,9 @@ govuk_env_sync::tasks:
     <<: *pull_licensify
     ensure: "disabled"
     database: "licensify-audit"
+  # TODO: remove this rule once it's been run on target machines
   "pull_release_production":
-    ensure: "disabled"
+    ensure: "absent"
     hour: "0"
     minute: "00"
     action: "pull"

@@ -652,9 +652,7 @@ govuk::apps::publishing_api::db::allow_auth_from_lb: true
 govuk::apps::publishing_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/govuk-content-schemas/current'
 
-# TODO: switch to "release-mysql" and uncomment the 'push'
-# `govuk_env_sync::tasks` tasks when we're ready to switch to the dedicated RDS instance
-govuk::apps::release::db_hostname: "mysql-primary"
+govuk::apps::release::db_hostname: "release-mysql"
 govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"

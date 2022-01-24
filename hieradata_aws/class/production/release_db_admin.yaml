@@ -1,13 +1,13 @@
-# govuk_env_sync::tasks:
-#   "push_release_production_daily":
-#     ensure: "present"
-#     hour: "23"
-#     minute: "0"
-#     action: "push"
-#     dbms: "mysql"
-#     storagebackend: "s3"
-#     database: "release_production"
-#     database_hostname: "release-mysql"
-#     temppath: "/tmp/release_production"
-#     url: "govuk-production-database-backups"
-#     path: "release-mysql"
+govuk_env_sync::tasks:
+  "push_release_production_daily":
+    ensure: "present"
+    hour: "23"
+    minute: "0"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "release_production"
+    database_hostname: "release-mysql"
+    temppath: "/tmp/release_production"
+    url: "govuk-production-database-backups"
+    path: "release-mysql"
