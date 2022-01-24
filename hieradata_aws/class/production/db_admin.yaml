@@ -95,8 +95,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/maslow_production"
     url: "govuk-production-database-backups"
     path: "mongo-normal"
+  # TODO: remove this rule once it's been run on target machines
   "push_search_admin_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "push"
@@ -107,8 +108,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/search_admin_production"
     url: "govuk-production-database-backups"
     path: "mysql"
+  # TODO: remove this rule once it's been run on target machines
   "pull_search_admin_production_daily":
-    ensure: "disabled"
+    ensure: "absent"
     hour: "0"
     minute: "20"
     action: "pull"
