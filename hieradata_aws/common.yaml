@@ -473,6 +473,7 @@ govuk::apps::collections_publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')
 govuk::apps::collections_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::collections_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::contacts::db_hostname: "contacts-admin-mysql"
 govuk::apps::contacts::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::contacts::redis_port: "%{hiera('sidekiq_port')}"
 
