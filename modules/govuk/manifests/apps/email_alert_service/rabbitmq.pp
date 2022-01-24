@@ -43,6 +43,8 @@ class govuk::apps::email_alert_service::rabbitmq (
   $amqp_exchange = 'published_documents',
   $amqp_major_change_queue = 'email_alert_service',
   $amqp_unpublishing_queue = 'email_unpublishing',
+  $ampq_subscriber_list_update_minor_queue = 'subscriber_list_details_update_minor',
+  $ampq_subscriber_list_update_major_queue = 'subscriber_list_details_update_major',
   $queue_size_critical_threshold,
   $queue_size_warning_threshold,
 ) {
@@ -51,6 +53,22 @@ class govuk::apps::email_alert_service::rabbitmq (
     ensure        => $ensure,
     amqp_exchange => $amqp_exchange,
     amqp_queue    => $amqp_major_change_queue,
+    routing_key   => '*.major.#',
+    durable       => true,
+  } ->
+
+  govuk_rabbitmq::queue_with_binding { $ampq_subscriber_list_update_minor_queue:
+    ensure        => $ensure,
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $ampq_subscriber_list_update_minor_queue,
+    routing_key   => '*.minor.#',
+    durable       => true,
+  } ->
+
+  govuk_rabbitmq::queue_with_binding { $ampq_subscriber_list_update_major_queue:
+    ensure        => $ensure,
+    amqp_exchange => $amqp_exchange,
+    amqp_queue    => $ampq_subscriber_list_update_major_queue,
     routing_key   => '*.major.#',
     durable       => true,
   } ->
@@ -71,6 +89,23 @@ class govuk::apps::email_alert_service::rabbitmq (
     warning_threshold  => $queue_size_warning_threshold,
   } ->
 
+  govuk_rabbitmq::monitor_messages {"${ampq_subscriber_list_update_minor_queue}_message_monitoring":
+    ensure             => $ensure,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $ampq_subscriber_list_update_minor_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
+  } ->
+
+
+  govuk_rabbitmq::monitor_messages {"${ampq_subscriber_list_update_major_queue}_message_monitoring":
+    ensure             => $ensure,
+    rabbitmq_hostname  => 'localhost',
+    rabbitmq_queue     => $ampq_subscriber_list_update_major_queue,
+    critical_threshold => $queue_size_critical_threshold,
+    warning_threshold  => $queue_size_warning_threshold,
+  } ->
+
   govuk_rabbitmq::monitor_messages {"${amqp_unpublishing_queue}_message_monitoring":
     ensure             => $ensure,
     rabbitmq_hostname  => 'localhost',
@@ -82,8 +117,8 @@ class govuk::apps::email_alert_service::rabbitmq (
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => $ensure,
     amqp_pass            => $amqp_pass,
-    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${amqp_exchange})\$",
-    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue})\$",
-    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue})\$",
+    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue}${amqp_exchange})\$",
+    write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue})\$",
+    configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue})\$",
   }
 }
