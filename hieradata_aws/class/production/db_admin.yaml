@@ -1,7 +1,6 @@
 govuk_env_sync::tasks:
-  # TODO: remove this rule once it's been run on target machines
   "push_collections_publisher_production_daily":
-    ensure: "absent"
+    ensure: "present"
     hour: "0"
     minute: "12"
     action: "push"
@@ -12,9 +11,8 @@ govuk_env_sync::tasks:
     temppath: "/tmp/collections_publisher_production"
     url: "govuk-production-database-backups"
     path: "mysql"
-  # TODO: remove this rule once it's been run on target machines
   "pull_collections_publisher_production_daily":
-    ensure: "absent"
+    ensure: "disabled"
     hour: "1"
     minute: "00"
     action: "pull"

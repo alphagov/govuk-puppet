@@ -1,13 +1,13 @@
-govuk_env_sync::tasks:
-  "push_collections_publisher_production_daily":
-    ensure: "present"
-    hour: "23"
-    minute: "0"
-    action: "push"
-    dbms: "mysql"
-    storagebackend: "s3"
-    database: "collections_publisher_production"
-    database_hostname: "collections-publisher-mysql"
-    temppath: "/tmp/collections_publisher_production"
-    url: "govuk-production-database-backups"
-    path: "collections-publisher-mysql"
+# govuk_env_sync::tasks:
+#   "push_collections_publisher_production_daily":
+#     ensure: "present"
+#     hour: "23"
+#     minute: "0"
+#     action: "push"
+#     dbms: "mysql"
+#     storagebackend: "s3"
+#     database: "collections_publisher_production"
+#     database_hostname: "collections-publisher-mysql"
+#     temppath: "/tmp/collections_publisher_production"
+#     url: "govuk-production-database-backups"
+#     path: "collections-publisher-mysql"
