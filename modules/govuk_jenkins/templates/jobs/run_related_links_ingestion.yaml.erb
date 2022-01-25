@@ -12,7 +12,7 @@
       - shell: |
           #!/usr/bin/env bash
           set -eo pipefail
-          
+
           aws autoscaling set-desired-capacity \
             --auto-scaling-group-name related-links-ingestion \
             --desired-capacity 1 \
@@ -42,7 +42,7 @@
           instance_ip=$(aws ec2 describe-instances --region eu-west-1 --query "Reservations[*].Instances[*].PrivateIpAddress" --filter Name=tag:Name,Values=related-links-ingestion --output=text)
 
           echo "Connecting to instance..."
-          ssh -o ServerAliveInterval=300 ubuntu@${instance_ip} <<EOF
+          ssh -o ServerAliveInterval=300 -o StrictHostKeyChecking=no ubuntu@${instance_ip} <<EOF
             echo "Connected!"
 
             # Create data dir for Related Links
