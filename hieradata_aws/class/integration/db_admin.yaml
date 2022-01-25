@@ -61,8 +61,9 @@ govuk_env_sync::tasks:
     temppath: "/tmp/release_integration"
     url: "govuk-integration-database-backups"
     path: "mysql"
+  # TODO: remove this rule once it's been run on target machines
   "pull_release_staging_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "1"
     minute: "30"
     action: "pull"
