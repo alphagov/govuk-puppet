@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_account_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "5"
     minute: "0"
     action: "push"
@@ -9,5 +9,17 @@ govuk_env_sync::tasks:
     database: "account-api_production"
     database_hostname: "account-api-postgres"
     temppath: "/tmp/account_api_production"
+    url: "govuk-integration-database-backups"
+    path: "account-api-postgres"
+  "push_account_api_integration_daily":
+    ensure: "present"
+    hour: "5"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "account-api_production"
+    database_hostname: "account-api-postgres"
+    temppath: "/tmp/account_api_integration"
     url: "govuk-integration-database-backups"
     path: "account-api-postgres"
