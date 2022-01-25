@@ -69,7 +69,6 @@ govuk::apps::search_api::tensorflow_sagemaker_endpoint: 'govuk-integration-searc
 govuk::apps::service_manual_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::short_url_manager::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::short_url_manager::instance_name: 'integration'
-govuk::apps::signon::db_hostname: "signon-mysql"
 govuk::apps::signon::db_password: "%{hiera('govuk::node::s_signon_db_admin::mysql_db_password')}"
 govuk::apps::signon::instance_name: 'integration'
 govuk::apps::signon::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"

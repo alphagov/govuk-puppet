@@ -61,6 +61,5 @@ class govuk::node::s_db_admin(
     content => template('govuk/mysql_my.cnf.erb'),
   }
   # include all the MySQL database classes that add users
-  -> class { '::govuk::apps::signon::db': }
   -> class { '::govuk::apps::whitehall::db': }
 }
