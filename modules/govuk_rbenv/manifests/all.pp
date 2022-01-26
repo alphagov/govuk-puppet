@@ -29,10 +29,14 @@ class govuk_rbenv::all (
     '2.6.3',
     '2.6.5',
     '2.6.6',
+    '2.6.9',
     '2.7.0',
     '2.7.1',
     '2.7.2',
     '2.7.3',
+    '2.7.5',
+    '3.0.3',
+    '3.1.0',
   ]
 
   govuk_rbenv::install_ruby_version { $ruby_versions:
@@ -41,10 +45,18 @@ class govuk_rbenv::all (
 
   # These aliases resolve .ruby-version 2.x to an installed Ruby version.
   rbenv::alias { '2.6':
-    to_version => '2.6.6',
+    to_version => '2.6.9',
   }
 
   rbenv::alias { '2.7':
-    to_version => '2.7.3',
+    to_version => '2.7.5',
+  }
+
+  rbenv::alias { '3.0':
+    to_version => '3.0.3',
+  }
+
+  rbenv::alias { '3.1':
+    to_version => '3.1.0',
   }
 }
