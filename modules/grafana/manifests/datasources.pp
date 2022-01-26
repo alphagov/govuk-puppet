@@ -25,6 +25,24 @@ class grafana::datasources(
   $elasticsearch_password = undef,
 ) {
 
+  $cloudwatchsourcejson = "{
+    \"name\":\"CloudWatch\",
+    \"type\":\"cloudwatch\",
+    \"access\":\"proxy\",
+    \"jsonData\":{\"authType\":\"arn\", \"defaultRegion\":\"eu-west-1\", \"assumeRoleArn\":\"\", \"timeField\":\"@timestamp\"}
+  }"
+
+  $cloudwatchsourceadd = shellquote([
+    'curl','-f',"http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources",
+    '-X','POST','-H','Content-Type: application/json;charset=UTF-8',
+    '--data-binary',$cloudwatchsourcejson,
+  ])
+
+  $cloudwatchsourcemisses = join([
+    'curl',shellquote("http://${webapi_user}:${webapi_password}@127.0.0.1:3204/api/datasources/name/CloudWatch"),
+    '2>/dev/null','|','grep',shellquote('{"message":"Data source not found"}'),
+  ], ' ')
+
   $graphitesourcejson = '{ "name":"Graphite","type":"graphite","url":"https://graphite","access":"proxy" }'
 
   $graphitesourceadd = shellquote([
@@ -92,4 +110,9 @@ class grafana::datasources(
     onlyif  => $prometheussourcemisses,
   }
 
+  exec{'ensure-cloudwatch-source':
+    require => [Package['curl']],
+    command => $cloudwatchsourceadd,
+    onlyif  => $cloudwatchsourcemisses,
+  }
 }
