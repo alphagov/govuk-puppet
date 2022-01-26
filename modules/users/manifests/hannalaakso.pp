@@ -1,0 +1,8 @@
+# Creates the hannalaakso user
+class users::hannalaakso {
+  govuk_user { 'hannalaakso':
+    fullname => 'Hanna Laakso',
+    email    => 'hanna.laakso@digital.cabinet-office.gov.uk',
+    ssh_key  => 'ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDx4bvlCe/yuN7Hgy2UUfLeHieVNneLXj5yfZRyhlaPu3Y6vUAPwnrZB1VcS06UrGz7m7hcQPn/Rcq6lZGDwC3rvPCoZ43uAThOaj3zoe45aVjXuMu6ms262PYH/rkkl03nS4QMzdh8lwuE2SPkzGoQAEs9IRkaJtJjqLPVmqbJMMLalGhselY8JYi4i79Wr+EOvf8Kld/t1TnjLYZvh4GIzQyHnefxVXe6fiocI+EyD3Y5kdKmB1B3R2wAQATvmzwW4Mm/XJzYKsx507SgrQxmWYlDibJaB8GTsJkcB1Xg61sVeFzdLJSuTtu0ZFRKGZ8TZI9+2uacfLUnBSwf8wSHqUuUh5RWETOCZYwky0jvmz3Tdq0FviRKbgiQQpgLK9DIXGYyckRMMR/ZrtgdsivGXXAtH2jbjxKGTQavNqVVhqQFYMSD2kAcORCeQC10ylh5MI6EaO8wLSN2x9G1P4fnv1BaGoXYQF6ohhzM3L9A0D0EXcIC4ubE2wb/nbsWHu9xYrWqWnPdJZYoaPBEGRwfREmxuhD5sorUqLZYAWThgraSeRQOHlNKv9XV2isOtaxK8nJwyC0TLxW34C8HErAyXtBuXbiZmwg3jx4X6LhS9MF2DlQu/O1J3DOuCdG19Ju8/NVI93jNdSqdOKDUjLJF4AkXz5kRWWmKr7uEGahXRw== hanna.laakso@digital.cabinet-office.gov.uk',
+  }
+}
