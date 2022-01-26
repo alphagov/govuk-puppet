@@ -65,7 +65,7 @@ class grafana::datasources(
     \"basicAuthPassword\":\"${elasticsearch_password}\",\
     \"database\":\"*-*\",\
     \"access\":\"proxy\",
-    \"jsonData\":{\"interval\":\"Daily\", \"esVersion\": 5}\
+    \"jsonData\":{\"interval\":\"Daily\", \"esVersion\": 5, \"timeField\":\"@timestamp\"}\
   }"
 
   $elasticsearchsourceadd = shellquote([
