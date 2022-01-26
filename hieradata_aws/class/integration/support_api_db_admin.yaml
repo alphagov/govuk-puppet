@@ -11,18 +11,6 @@ govuk_env_sync::tasks:
     temppath: "/tmp/support_api_production"
     url: "govuk-production-database-backups"
     path: "support-api-postgres"
-  "push_support_api_production_daily":
-    ensure: "absent"
-    hour: "5"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "support_contacts_production"
-    database_hostname: "support-api-postgres"
-    temppath: "/tmp/support_api_production"
-    url: "govuk-integration-database-backups"
-    path: "support-api-postgres"
   "push_support_api_integration_daily":
     ensure: "present"
     hour: "5"

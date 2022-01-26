@@ -12,18 +12,6 @@ govuk_env_sync::tasks:
     url: "govuk-production-database-backups"
     path: "email-alert-api-postgres"
     transformation_sql_filename: "anonymise_email_addresses.sql"
-  "push_email_alert_api_production_daily":
-    ensure: "absent"
-    hour: "5"
-    minute: "0"
-    action: "push"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "email-alert-api_production"
-    database_hostname: "email-alert-api-postgres"
-    temppath: "/tmp/email_alert_api_production"
-    url: "govuk-integration-database-backups"
-    path: "email-alert-api-postgres"
   "push_email_alert_api_integration_daily":
     ensure: "present"
     hour: "5"
