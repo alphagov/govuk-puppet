@@ -6,7 +6,7 @@
     description: "<p>Searches Smart Answer flows for broken links, by quering link checker api and sends a report to zendesk</p>"
     builders:
       - trigger-builds:
-          - project: run-rake-task
+          - project: automated-rake-task
             block: true
             predefined-parameters: |
               TARGET_APPLICATION=smartanswers

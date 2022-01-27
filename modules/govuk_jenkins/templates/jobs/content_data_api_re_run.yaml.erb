@@ -6,7 +6,7 @@
     description: "<p>Rerun the etl:main rake task to populate missing data.</p>"
     builders:
       - trigger-builds:
-          - project: run-rake-task
+          - project: automated-rake-task
             block: true
             predefined-parameters: |
               TARGET_APPLICATION=content-data-api
