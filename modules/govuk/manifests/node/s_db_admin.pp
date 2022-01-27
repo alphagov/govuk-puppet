@@ -2,23 +2,9 @@
 #
 # This machine class is used to administer RDS instances.
 #
-# === Parameters
-#
-# [*mysql_db_host*]
-#  The database hostname
-#
-# [*mysql_db_password*]
-#  The database password
-#
-# [*mysql_db_user*]
-#  The database user to connect to the remote database as
-#
 class govuk::node::s_db_admin(
   $apt_mirror_hostname,
   $apt_mirror_gpg_key_fingerprint,
-  $mysql_db_host        = undef,
-  $mysql_db_password    = undef,
-  $mysql_db_user        = undef,
 ) {
   include ::govuk::node::s_base
   include govuk_env_sync
@@ -51,15 +37,4 @@ class govuk::node::s_db_admin(
   }
 
   $alert_hostname = 'alert'
-
-  ### MySQL ###
-
-  file { '/root/.my.cnf':
-    ensure  => 'present',
-    owner   => 'root',
-    group   => 'root',
-    content => template('govuk/mysql_my.cnf.erb'),
-  }
-  # include all the MySQL database classes that add users
-  -> class { '::govuk::apps::whitehall::db': }
 }
