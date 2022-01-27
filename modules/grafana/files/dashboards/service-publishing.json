@@ -1,0 +1,905 @@
+{
+  "annotations": {
+    "list": []
+  },
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "hideControls": false,
+  "id": 69,
+  "links": [],
+  "refresh": false,
+  "rows": [
+    {
+      "collapse": false,
+      "height": 265,
+      "panels": [
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "Elasticsearch",
+          "decimals": null,
+          "description": "Indicates how fast the service applications are responding to requests.",
+          "format": "ms",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "hideTimeOverride": true,
+          "id": 10,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 137, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 81, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "5m",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {
+                    "percents": [
+                      "99.9"
+                    ]
+                  },
+                  "type": "percentiles"
+                }
+              ],
+              "query": "application:(.*publisher or whitehall or short-url-manager or contacts-admin or transition or transition or content-tagger or signon or asset-manager or router-api or maslow or link-checker-api or content-store or publishing-api)",
+              "refId": "A",
+              "target": "maxSeries(summarize(stats.gauges.govuk.app.publisher.*.unprocessed_emails.count, '1min', 'last'))",
+              "textEditor": false,
+              "timeField": "@timestamp"
+            }
+          ],
+          "thresholds": "300,500",
+          "timeFrom": "1d",
+          "timeShift": null,
+          "title": "99.9th percentile latency (all apps)",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "max"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "Graphite",
+          "description": "Indicates the error rate across our applications.",
+          "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": true,
+            "thresholdLabels": false,
+            "thresholdMarkers": false
+          },
+          "hideTimeOverride": true,
+          "id": 9,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "%",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 137, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 81, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "scale(divideSeries(maxSeries(summarize(stats.{whitehall_backend*,publishing_api*,backend*,*content_store*,router_backend*}.nginx_logs.*.http_5xx, '5min', 'max', false)), maxSeries(summarize(stats.{whitehall_backend*,publishing_api*,backend*,*content_store*,router_backend*}.nginx_logs.*.*, '5min', 'max', false))),100)",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "5,10",
+          "timeFrom": "1h",
+          "timeShift": null,
+          "title": "Error rate - all apps",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "max"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(245, 54, 54, 0.9)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(50, 172, 45, 0.97)"
+          ],
+          "datasource": "Graphite",
+          "description": "Indicates how fast the service is processing jobs. If this is high it could mean we need to fix a bug or  scale up the number of Sidekiq workers to meet demand.",
+          "format": "ms",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "hideTimeOverride": true,
+          "id": 11,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": "",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 137, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 81, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "maxSeries(summarize(groupByNode(stats.timers.govuk.app.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger,signon,asset-manager,router-api,maslow,link-checker-api,content-store,publishing-api}.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), '5m', 'sum', false))",
+              "textEditor": true
+            }
+          ],
+          "thresholds": "300,600",
+          "timeFrom": "6h",
+          "timeShift": null,
+          "title": "Max Sidekiq job latency",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        },
+        {
+          "cacheTimeout": null,
+          "colorBackground": false,
+          "colorValue": true,
+          "colors": [
+            "rgba(50, 172, 45, 0.97)",
+            "rgba(237, 129, 40, 0.89)",
+            "rgba(245, 54, 54, 0.9)"
+          ],
+          "datasource": "Graphite",
+          "description": "Tells you if any fact check emails have been sitting in the GMail inbox for too long.",
+          "format": "short",
+          "gauge": {
+            "maxValue": 100,
+            "minValue": 0,
+            "show": false,
+            "thresholdLabels": false,
+            "thresholdMarkers": true
+          },
+          "hideTimeOverride": true,
+          "id": 1,
+          "interval": null,
+          "links": [],
+          "mappingType": 1,
+          "mappingTypes": [
+            {
+              "name": "value to text",
+              "value": 1
+            },
+            {
+              "name": "range to text",
+              "value": 2
+            }
+          ],
+          "maxDataPoints": 100,
+          "nullPointMode": "connected",
+          "nullText": null,
+          "postfix": " emails",
+          "postfixFontSize": "50%",
+          "prefix": "",
+          "prefixFontSize": "50%",
+          "rangeMaps": [
+            {
+              "from": "null",
+              "text": "N/A",
+              "to": "null"
+            }
+          ],
+          "span": 3,
+          "sparkline": {
+            "fillColor": "rgba(31, 137, 189, 0.18)",
+            "full": false,
+            "lineColor": "rgb(31, 81, 193)",
+            "show": true
+          },
+          "tableColumn": "",
+          "targets": [
+            {
+              "refId": "A",
+              "target": "maxSeries(summarize(stats.gauges.govuk.app.publisher.*.unprocessed_emails.count, '1min', 'last'))",
+              "textEditor": false
+            }
+          ],
+          "thresholds": "1,5",
+          "timeFrom": "30m",
+          "timeShift": null,
+          "title": "Unprocessed Fact Check Emails",
+          "type": "singlestat",
+          "valueFontSize": "80%",
+          "valueMaps": [
+            {
+              "op": "=",
+              "text": "N/A",
+              "value": "null"
+            }
+          ],
+          "valueName": "current"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Status (all apps - right now)",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 260,
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Elasticsearch",
+          "description": "Shows the request durations across all apps. Drill down into a specific app to find the app with high latency.",
+          "fill": 1,
+          "id": 8,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "bucketAggs": [
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "5m",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "duration",
+                  "id": "1",
+                  "meta": {},
+                  "settings": {
+                    "percents": [
+                      "99",
+                      "99.9",
+                      "99.99"
+                    ]
+                  },
+                  "type": "percentiles"
+                }
+              ],
+              "query": "application:(.*publisher or whitehall or short-url-manager or contacts-admin or transition or transition or content-tagger or signon or asset-manager or router-api or maslow or link-checker-api or content-store or publishing-api)",
+              "refId": "A",
+              "target": "",
+              "timeField": "@timestamp"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "1d",
+          "timeShift": null,
+          "title": "Request durations (all apps)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "dtdurationms",
+              "label": "",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 1,
+          "id": 5,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "Worker succeeded",
+              "color": "#7EB26D"
+            },
+            {
+              "alias": "Worker failed",
+              "color": "#BF1B00"
+            }
+          ],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "A",
+              "target": "alias(groupByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger,signon,asset-manager,router-api,maslow,link-checker-api,content-store,publishing-api}.*.workers.*.success, '30m'), 0), 4), 6, 'sum'), 'Job succeeded')",
+              "textEditor": false
+            },
+            {
+              "refId": "B",
+              "target": "alias(groupByNode(sumSeriesWithWildcards(transformNull(hitcount(stats.govuk.app.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger,signon,asset-manager,router-api,maslow,link-checker-api,content-store,publishing-api}.*.workers.*.failure, '30m'), 0), 4), 6, 'sum'), 'Job failed')",
+              "textEditor": false
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "1d",
+          "timeShift": null,
+          "title": "Worker success rate (log scale; all apps)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 2,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ]
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "Graphite",
+          "description": "Indicates the error rate across all applications",
+          "fill": 1,
+          "id": 13,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "alias": "",
+              "bucketAggs": [
+                {
+                  "fake": true,
+                  "field": "status",
+                  "id": "6",
+                  "settings": {
+                    "min_doc_count": 1,
+                    "order": "desc",
+                    "orderBy": "_term",
+                    "size": "0"
+                  },
+                  "type": "terms"
+                },
+                {
+                  "field": "@timestamp",
+                  "id": "2",
+                  "settings": {
+                    "interval": "auto",
+                    "min_doc_count": 0,
+                    "trimEdges": 0
+                  },
+                  "type": "date_histogram"
+                }
+              ],
+              "dsType": "elasticsearch",
+              "metrics": [
+                {
+                  "field": "select field",
+                  "id": "3",
+                  "type": "count"
+                }
+              ],
+              "query": "status IN [200 TO 300] AND application:(.*publisher or whitehall or short-url-manager or contacts-admin or transition or transition or content-tagger or signon or asset-manager or router-api or maslow or link-checker-api or content-store or publishing-api)",
+              "refId": "B",
+              "target": "groupByNode(stats.*.nginx_logs.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger,signon,asset-manager,router-api,maslow,link-checker-api,content-store,publishing-api}.http_*xx, 4, 'sum')",
+              "textEditor": false,
+              "timeField": "@timestamp"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": "1d",
+          "timeShift": null,
+          "title": "Request statuses",
+          "tooltip": {
+            "shared": false,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Performance (all apps - today)",
+      "titleSize": "h6"
+    },
+    {
+      "collapse": false,
+      "height": 290,
+      "panels": [
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            },
+            {
+              "text": "Total",
+              "value": "total"
+            }
+          ],
+          "datasource": "Graphite",
+          "fontSize": "100%",
+          "id": 3,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": true
+          },
+          "span": 6,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": "cell",
+              "colors": [
+                "rgba(50, 172, 45, 0.97)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.9)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "10",
+                "500"
+              ],
+              "type": "number",
+              "unit": "none"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "B",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.publishing-api.http_5xx), '5m'), 'Publishing API 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "A",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.content-store.http_5xx), '5m'), 'Content Store 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "D",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.router-api.http_5xx), '5m'), 'Router API 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "E",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.asset-manager.http_5xx), '5m'), 'Asset Manager 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "G",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.signon.http_5xx), '5m'), 'Signon 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "H",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger}.http_5xx), '5m'), 'Publishing app 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.link-checker-api.http_5xx), '5m'), 'Link Checker API 5XXs')",
+              "textEditor": true
+            },
+            {
+              "refId": "F",
+              "target": "alias(hitcount(sumSeries(stats.*.nginx_logs.maslow.http_5xx), '5m'), 'Maslow 5XXs')",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": "24h",
+          "title": "5xx rates",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        },
+        {
+          "columns": [
+            {
+              "text": "Current",
+              "value": "current"
+            },
+            {
+              "text": "Max",
+              "value": "max"
+            }
+          ],
+          "datasource": "Graphite",
+          "description": "Displays the max Sidekiq job processing time for each app. Look at the application-specific dashboard for more details.",
+          "fontSize": "100%",
+          "id": 12,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 2,
+            "desc": true
+          },
+          "span": 6,
+          "styles": [
+            {
+              "alias": "Time",
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "pattern": "Time",
+              "type": "date"
+            },
+            {
+              "alias": "",
+              "colorMode": "cell",
+              "colors": [
+                "rgba(50, 172, 45, 0.97)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.9)"
+              ],
+              "decimals": 0,
+              "pattern": "/.*/",
+              "thresholds": [
+                "300000",
+                "900000"
+              ],
+              "type": "number",
+              "unit": "dtdurationms"
+            }
+          ],
+          "targets": [
+            {
+              "refId": "B",
+              "target": "alias(groupByNode(stats.timers.govuk.app.publishing-api.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), 'Publishing API')",
+              "textEditor": true
+            },
+            {
+              "refId": "E",
+              "target": "alias(groupByNode(stats.timers.govuk.app.asset-manager.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), 'Asset Manager')",
+              "textEditor": true
+            },
+            {
+              "refId": "G",
+              "target": "alias(groupByNode(stats.timers.govuk.app.signon.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), 'Signon')",
+              "textEditor": true
+            },
+            {
+              "refId": "H",
+              "target": "alias(groupByNode(stats.timers.govuk.app.{*publisher,whitehall,short-url-manager,contacts-admin,transition,transition,content-tagger}.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), 'Publishing apps')",
+              "textEditor": true
+            },
+            {
+              "refId": "C",
+              "target": "alias(groupByNode(stats.timers.govuk.app.link-checker-api.*.workers.*.processing_time.upper_90, 8, 'maxSeries'), 'Link Checker API')",
+              "textEditor": true
+            }
+          ],
+          "timeFrom": "24h",
+          "title": "Sidekiq job latencies",
+          "transform": "timeseries_aggregations",
+          "type": "table"
+        }
+      ],
+      "repeat": null,
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Drill down - which services are impacted?",
+      "titleSize": "h6"
+    }
+  ],
+  "schemaVersion": 14,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "Publishing Service",
+  "version": 14
+}
