@@ -1083,6 +1083,7 @@ govuk_jenkins::jobs::smokey::signon_password: "%{hiera('smokey_signon_password')
 govuk_jenkins::jobs::smokey::smokey_govuk_account_email: "%{hiera('smokey_govuk_account_email')}"
 govuk_jenkins::jobs::smokey::smokey_govuk_account_password: "%{hiera('smokey_govuk_account_password')}"
 
+govuk_jenkins::jobs::automated_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 

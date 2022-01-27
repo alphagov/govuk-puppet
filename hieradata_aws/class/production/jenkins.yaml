@@ -41,6 +41,7 @@ govuk_jenkins::config::user_permissions:
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::ask_export
   - govuk_jenkins::jobs::athena_fastly_logs_check
+  - govuk_jenkins::jobs::automated_rake_task
   - govuk_jenkins::jobs::bouncer_cdn
   - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::clear_cdn_cache
@@ -125,4 +126,3 @@ govuk_jenkins::jobs::user_monitor::enable_icinga_check: true
 
 govuk_jenkins::jobs::validate_published_dns::app_domain: blue.production.govuk.digital
 govuk_jenkins::jobs::validate_published_dns::run_daily: true
-

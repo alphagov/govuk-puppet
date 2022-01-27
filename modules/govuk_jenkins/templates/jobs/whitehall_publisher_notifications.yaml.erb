@@ -6,7 +6,7 @@
     description: "<p>Regularly run the publisher_notifications:send rake task for whitehall publisher.</p>"
     builders:
         - trigger-builds:
-            - project: run-rake-task
+            - project: automated-rake-task
               block: true
               predefined-parameters: |
                 TARGET_APPLICATION=whitehall

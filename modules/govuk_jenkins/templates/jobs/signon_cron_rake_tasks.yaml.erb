@@ -6,7 +6,7 @@
     description: "<p>Regularly run the oauth_access_grants:delete_expired rake task for signon.</p>"
     builders:
         - trigger-builds:
-            - project: run-rake-task
+            - project: automated-rake-task
               block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
@@ -27,7 +27,7 @@
           artifact-num-to-keep: 5
     builders:
         - trigger-builds:
-            - project: run-rake-task
+            - project: automated-rake-task
               block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
@@ -44,7 +44,7 @@
     description: "<p>Regularly run the users:suspend_inactive rake task for signon.</p>"
     builders:
         - trigger-builds:
-            - project: run-rake-task
+            - project: automated-rake-task
               block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
@@ -61,7 +61,7 @@
     description: "<p>Regularly run the users:send_suspension_reminders rake task for signon.</p>"
     builders:
         - trigger-builds:
-            - project: run-rake-task
+            - project: automated-rake-task
               block: true
               predefined-parameters: |
                 TARGET_APPLICATION=signon
