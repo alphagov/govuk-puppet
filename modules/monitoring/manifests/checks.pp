@@ -52,7 +52,6 @@ class monitoring::checks (
   include monitoring::checks::accounts_slos
 
   include govuk::apps::email_alert_api::checks
-  include govuk::apps::publisher::unprocessed_emails_count_check
 
   $app_domain = hiera('app_domain')
   $app_domain_internal = hiera('app_domain_internal')
