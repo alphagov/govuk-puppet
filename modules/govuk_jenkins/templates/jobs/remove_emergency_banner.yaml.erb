@@ -16,7 +16,11 @@
               TARGET_APPLICATION=static
               MACHINE_CLASS=frontend
               RAKE_TASK=emergency_banner:remove
-          - project: clear-template-cache
+          - project: Deploy_App
+            predefined-parameters: |
+              TARGET_APPLICATION=static
+              DEPLOY_TASK=deploy
+              TAG=release
             block: true
           - project: clear-frontend-memcache
             block: true
