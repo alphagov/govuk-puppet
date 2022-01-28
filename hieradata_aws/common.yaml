@@ -1189,6 +1189,7 @@ grafana::dashboards::app_domain: "%{hiera('app_domain')}"
 grafana::dashboards::machine_suffix_metrics: ''
 grafana::dashboards::application_dashboards:
   account-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   asset-manager:
@@ -1200,19 +1201,26 @@ grafana::dashboards::application_dashboards:
     docs_name: 'ckanext-datagovuk'
     # No data in kibana
     show_controller_errors: false
+    show_postgres_stats: true
     show_slow_requests: false
-  contacts:
-    docs_name: 'contacts-admin'
   collections:
     instance_prefix: 'frontend'
     show_memcached: true
   collections-publisher:
     show_sidekiq_graphs: true
     has_workers: true
+  contacts:
+    docs_name: 'contacts-admin'
   content-data-admin:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   content-data-api:
+    show_postgres_stats: true
+    show_sidekiq_graphs: true
+    has_workers: true
+  content-publisher:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   content-store:
@@ -1228,16 +1236,15 @@ grafana::dashboards::application_dashboards:
       - publishing-api
       - smartanswers
       - whitehall-frontend
-  content-publisher:
+  content-tagger:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
-  content-tagger:
+  email-alert-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   email-alert-frontend: {}
-  email-alert-api:
-    show_sidekiq_graphs: true
-    has_workers: true
   email-alert-service: {}
   feedback: {}
   finder-frontend:
@@ -1264,6 +1271,7 @@ grafana::dashboards::application_dashboards:
   licensify-admin: {}
   licensify-feed: {}
   link-checker-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   local-links-manager:
@@ -1271,7 +1279,11 @@ grafana::dashboards::application_dashboards:
       - frontend
     instance_prefix: 'backend'
     show_memcached: true
-  maslow: {}
+    show_postgres_stats: true
+  manuals-frontend: {}
+  manuals-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   mapit:
     dependent_app_5xx_errors:
       - frontend
@@ -1279,14 +1291,12 @@ grafana::dashboards::application_dashboards:
     # No data in kibana
     show_controller_errors: false
     show_slow_requests: false
-  manuals-frontend: {}
-  manuals-publisher:
-    show_sidekiq_graphs: true
-    has_workers: true
+  maslow: {}
   publisher:
     show_sidekiq_graphs: true
     has_workers: true
   publishing-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
     instance_prefix: 'publishing_api'
@@ -1314,8 +1324,8 @@ grafana::dashboards::application_dashboards:
   search-admin: {}
   service-manual-frontend: {}
   service-manual-publisher: {}
-  sidekiq-monitoring: {}
   short-url-manager: {}
+  sidekiq-monitoring: {}
   signon:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1339,9 +1349,11 @@ grafana::dashboards::application_dashboards:
     show_sidekiq_graphs: true
     has_workers: true
   support-api:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   transition:
+    show_postgres_stats: true
     show_sidekiq_graphs: true
     has_workers: true
   travel-advice-publisher:

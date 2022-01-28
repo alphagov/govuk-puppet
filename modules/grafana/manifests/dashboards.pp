@@ -33,10 +33,6 @@ class grafana::dashboards (
     source  => 'puppet:///modules/grafana/dashboards',
   }
 
-  file { "${dashboard_directory}/publishing_api_overview.json":
-    content => template('grafana/dashboards/publishing_api_overview.json.erb'),
-  }
-
   create_resources('grafana::dashboards::application_dashboard', $application_dashboards, {
     'dashboard_directory' => $dashboard_directory,
     'app_domain'          => $app_domain,
