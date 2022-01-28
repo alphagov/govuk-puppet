@@ -34,6 +34,7 @@ govuk::apps::content_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b5
 govuk::apps::collections_publisher::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
 govuk::apps::collections_publisher::publish_without_2i_email: "mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk"
 govuk::apps::collections_publisher::unreleased_features_enabled: true
+govuk::apps::email_alert_service::enable_subscriber_list_update_queue_consumers: true
 govuk::apps::email_alert_api::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
 govuk::apps::email_alert_api::govuk_notify_recipients:
   - email-alert-api-integration@digital.cabinet-office.gov.uk
