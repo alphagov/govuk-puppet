@@ -132,10 +132,9 @@ class govuk::node::s_graphite (
     ensure => installed,
   }
 
-  $s3_database_backups_bucket = "govuk-${::aws_environment}-database-backups"
+  $s3_graphite_backups_bucket = "govuk-${::aws_environment}-graphite-backups"
   $source_path = "${graphite_path}/storage/whisper/"
-  $destination_path = '/whisper/'
-  $s3_backup_cmd = "whisper-backup -a sz -b ${s3_database_backups_bucket} -p ${source_path} --storage-path=${destination_path} backup s3 eu-west-1"
+  $s3_backup_cmd = "whisper-backup -a sz -b ${s3_graphite_backups_bucket} -p ${source_path} backup s3 eu-west-1"
 
   cron::crondotdee { 'backup_whisper_database_to_s3':
     command => $s3_backup_cmd,
