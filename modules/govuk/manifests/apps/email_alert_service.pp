@@ -31,6 +31,10 @@
 #   Whether or not to enable the unpublishing worker
 #   Default: false
 #
+# [*enable_subscriber_list_update_queue_consumers*]
+#   Whether or not to enable the update subscriber list update workers (for major and minor updates)
+#   Default: false
+#
 class govuk::apps::email_alert_service(
   $enabled = false,
   $rabbitmq_hosts = ['localhost'],
@@ -40,6 +44,7 @@ class govuk::apps::email_alert_service(
   $redis_host = undef,
   $email_alert_api_bearer_token = undef,
   $enable_unpublishing_queue_consumer = false,
+  $enable_subscriber_list_update_queue_consumers = false,
 ) {
 
   $ensure = $enabled ? {
@@ -63,6 +68,20 @@ class govuk::apps::email_alert_service(
     enable_service => $enable_unpublishing_queue_consumer,
     process_type   => 'unpublishing-queue-consumer',
     process_regex  => '\/rake message_queues:unpublishing_consumer',
+  }
+
+  govuk::procfile::worker { 'email-alert-service-subscriber-list-details-update-minor-consumer':
+    setenv_as      => $app_name,
+    enable_service => $enable_subscriber_list_update_queue_consumers,
+    process_type   => 'subscriber-list-details-update-minor-consumer',
+    process_regex  => '\/rake message_queues:subscriber_list_details_update_minor_consumer',
+  }
+
+  govuk::procfile::worker { 'email-alert-service-subscriber-list-details-update-major-consumer':
+    setenv_as      => $app_name,
+    enable_service => $enable_subscriber_list_update_queue_consumers,
+    process_type   => 'subscriber-list-details-update-major-consumer',
+    process_regex  => '\/rake message_queues:subscriber_list_details_update_major_consumer',
   }
 
   Govuk::App::Envvar {
