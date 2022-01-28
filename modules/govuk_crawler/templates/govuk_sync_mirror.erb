@@ -46,8 +46,8 @@ function write_timestamps() {
   upload_time=$(date +%s)
 
   cat <<EOF > timestamps.txt
-  upload_time=$upload_time
-  EOF
+upload_time=$upload_time
+EOF
 
   sudo mv timestamps.txt $website_mirror_dir
 }
