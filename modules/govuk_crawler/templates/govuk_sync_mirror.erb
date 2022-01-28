@@ -41,9 +41,22 @@ function get_error_page() {
   curl -sf https://${STATIC_HOSTNAME}/templates/503.html.erb -o ${MIRROR_ROOT}/error/503.html
 }
 
+function write_timestamps() {
+  website_mirror_dir=$(find "$MIRROR_ROOT" -name "www.*" | head -n 1)
+  upload_time=$(date +%s)
+
+  cat <<EOF > timestamps.txt
+  upload_time=$upload_time
+  EOF
+
+  sudo mv timestamps.txt $website_mirror_dir
+}
+
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
 
 get_error_page
+
+write_timestamps
 
 START_UPLOAD=$(date +%s%3N)
 

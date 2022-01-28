@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+last_modified=$(curl --silent --head https://d1v9gv6rnax070.cloudfront.net/timestamps.txt | grep -i 'last-modified' | cut -c 21-)
+
+last_modified_date=$(date -d "$last_modified" '+%s')
+
+datenow=$(date +'%s')
+
+difference=$(($datenow - $last_modified_date))
+
+if [[ $(($difference)) > 86400 ]]; then
+  echo "The static mirror has not been updated in ${difference} seconds"
+  exit 1
+fi
+
+echo 'The static mirror was updated in the last 24 hours'
+exit 0

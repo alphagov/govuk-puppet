@@ -50,6 +50,7 @@ class monitoring::checks (
   include monitoring::checks::cdn_logs
   include monitoring::checks::whitehall
   include monitoring::checks::accounts_slos
+  include monitoring::checks::s3_mirror
 
   include govuk::apps::email_alert_api::checks
 
@@ -245,6 +246,17 @@ class monitoring::checks (
       host_name           => $::fqdn,
       service_description => 'check that the VPN between UKCloud/Licensify and AWS is still up',
       notes_url           => monitoring_docs_url(vpn-down),
+    }
+  }
+
+  if ($::aws_environment == 'production') {
+    icinga::check { 'check_s3_mirror_freshness':
+      check_command       => 'check_s3_mirror_freshness!',
+      host_name           => $::fqdn,
+      service_description => 'check that the S3 mirror is up to date',
+      notes_url           => monitoring_docs_url(mirror-sync),
+      check_interval      => 60,
+      retry_interval      => 5,
     }
   }
 }
