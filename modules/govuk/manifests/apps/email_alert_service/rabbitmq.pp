@@ -117,7 +117,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   govuk_rabbitmq::consumer { $amqp_user:
     ensure               => $ensure,
     amqp_pass            => $amqp_pass,
-    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue}${amqp_exchange})\$",
+    read_permission      => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue}|${amqp_exchange})\$",
     write_permission     => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue})\$",
     configure_permission => "^(amq\\.gen.*|${amqp_major_change_queue}|${amqp_unpublishing_queue}|${ampq_subscriber_list_update_minor_queue}|${ampq_subscriber_list_update_major_queue})\$",
   }
