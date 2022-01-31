@@ -61,7 +61,7 @@ class govuk::apps::content_store(
   $mongodb_nodes,
   $mongodb_name,
   $vhost = 'content-store',
-  $default_ttl = '600',
+  $default_ttl = '300',
   $performance_platform_big_screen_view_url = undef,
   $performance_platform_spotlight_url = undef,
   $publishing_api_bearer_token = undef,
