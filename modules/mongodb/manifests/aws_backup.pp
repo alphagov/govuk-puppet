@@ -1,8 +1,6 @@
 # == Class: mongodb::aws_backup
 #
-# This class handles everything related to regular backups
-# in AWS. While it's similar to the current MongoDB to S3 backups,
-# there are enough differences to create a new, simpler class.
+# This class handles daily backups from MongoDB to AWS S3.
 #
 # === Parameters:
 #
@@ -12,26 +10,14 @@
 # [*bucket*]
 #   Name of the bucket to backup to.
 #
-# [*interval*]
-#   How often backups should be taken in minutes.
-#
-# [*daily_time*]
-#   What time signifies that a backup is for long-term storage.
-#   Format: <hour>:<minute>
-#
 class mongodb::aws_backup (
   $ensure     = 'present',
   $backup_dir = '/var/lib/mongodb/backup',
   $bucket     = undef,
-  $interval   = 30,
-  $daily_time = '00:00',
 ) {
 
-  validate_integer($interval)
-  validate_re($daily_time, '^(\d\d):(\d\d)$')
-
   $alert_hostname = 'alert'
-  $threshold_secs = 21600
+  $threshold_secs = 129600 # 36 hours
   $service_desc = 'MongoDB backup to S3'
 
   if $ensure == 'present' {
@@ -60,8 +46,8 @@ class mongodb::aws_backup (
   cron::crondotdee { 'mongodump-to-s3':
     ensure  => $_ensure,
     command => '/usr/bin/setlock -n /var/run/mongodump-to-s3 /usr/local/bin/mongodump-to-s3',
-    hour    => '*',
-    minute  => "*/${interval}",
+    hour    => '8',
+    minute  => '0',
     require => File['/usr/local/bin/mongodump-to-s3'],
   }
 

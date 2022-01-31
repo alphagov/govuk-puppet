@@ -5,6 +5,6 @@ describe 'mongodb::aws_backup', :type => :class do
     let(:params){{ 'bucket' => 'my-bucket' }}
     it { is_expected.to contain_file('/var/lib/mongodb/backup').with_ensure('directory') }
     it { is_expected.to contain_file('/usr/local/bin/mongodump-to-s3').with_ensure('present') }
-    it { is_expected.to contain_cron__crondotdee('mongodump-to-s3').with_minute('*/30') }
+    it { is_expected.to contain_cron__crondotdee('mongodump-to-s3') }
   end
 end
