@@ -103,7 +103,7 @@ class govuk::node::s_cache (
 
   class { 'varnish':
     storage_size  => join([$varnish_storage_size,'M'],''),
-    default_ttl   => '900',
+    default_ttl   => '300',
     upstream_port => $varnish_upstream_port,
     strip_cookies => $strip_cookies,
   }
