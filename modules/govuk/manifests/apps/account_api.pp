@@ -40,24 +40,8 @@
 # [*db_name*]
 #   The database name to use for the DATABASE_URL environment variable
 #
-# [*rabbitmq_hosts*]
-#   RabbitMQ hosts to connect to.
-#   Default ['localhost']
-#
-# [*rabbitmq_user*]
-#   RabbitMQ username.
-#   Default 'account_api'
-#
-# [*rabbitmq_password*]
-#   RabbitMQ password.
-#   Default 'account_api'
-#
 # [*enable_procfile_worker*]
 #   Run the sidekiq worker.
-#   Default: false
-#
-# [*enable_publishing_queue_listener*]
-#   Run the worker which processes publishing updates.
 #   Default: false
 #
 # [*account_oauth_provider_uri*]
@@ -109,11 +93,7 @@ class govuk::apps::account_api (
   $db_port = undef,
   $db_password = undef,
   $db_name = 'account-api_production',
-  $rabbitmq_hosts = ['localhost'],
-  $rabbitmq_user = 'account_api',
-  $rabbitmq_password = 'account_api',
   $enable_procfile_worker = false,
-  $enable_publishing_queue_listener = false,
   $account_oauth_provider_uri = undef,
   $account_oauth_client_id = undef,
   $account_oauth_client_secret = undef,
@@ -194,12 +174,6 @@ class govuk::apps::account_api (
         value   => $govuk_notify_template_id;
   }
 
-  govuk::app::envvar::rabbitmq { 'account-api':
-    hosts    => $rabbitmq_hosts,
-    user     => $rabbitmq_user,
-    password => $rabbitmq_password,
-  }
-
   govuk::app::envvar::redis { 'account-api':
     host => $redis_host,
     port => $redis_port,
@@ -211,9 +185,9 @@ class govuk::apps::account_api (
   }
 
   govuk::procfile::worker { 'account-api-publishing-queue-listener':
-    ensure         => $ensure,
+    ensure         => 'absent',
     setenv_as      => $app_name,
-    enable_service => $enable_publishing_queue_listener,
+    enable_service => false,
     process_type   => 'publishing-queue-listener',
     process_regex  => '\/rake message_queue:consumer',
   }
