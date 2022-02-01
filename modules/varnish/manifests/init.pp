@@ -11,7 +11,7 @@
 #   or `Expires`). This is passed as the `-t` argument to the [`varnishd`](https://www.varnish-cache.org/docs/3.0/reference/varnishd.html?highlight=default_ttl)
 #   command when it is started up.
 #
-#   Default: 900
+#   Default: 300
 #
 # [*strip_cookies*]
 #   Whether cookies should be stripped from inbound requests and outbound responses.
@@ -34,7 +34,7 @@
 #   The first two octets of the IP range we're on.
 #
 class varnish (
-    $default_ttl  = 900,
+    $default_ttl  = 300,
     $strip_cookies = true,
     $storage_size = '512M',
     $upstream_port = 3054,
