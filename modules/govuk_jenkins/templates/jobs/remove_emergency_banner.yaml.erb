@@ -22,12 +22,6 @@
               DEPLOY_TASK=deploy
               TAG=release
             block: true
-          - project: clear-frontend-memcache
-            block: true
-          - project: clear-varnish-cache
-            block: true
-          - project: clear-cdn-cache
-            block: true
     wrappers:
       - ansicolor:
           colormap: xterm
