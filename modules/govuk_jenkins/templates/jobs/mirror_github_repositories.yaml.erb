@@ -47,4 +47,6 @@
             bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
             ./mirror_repos
     triggers:
-        - timed: <%= @cron_schedule %>
+        - timed: |
+            TZ=Europe/London
+            */15 * * * *
