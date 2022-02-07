@@ -76,7 +76,7 @@ govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token: 
 govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn: 'TBC'
 govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key: 'TBC'
 govuk_jenkins::jobs::mirror_github_repositories::aws_codecommit_user_id: 'TBC'
-govuk_jenkins::jobs::mirror_github_repositories::testing_govuk_secrets: "%{hiera('govuk::apps::asset_manager::mongodb_username)}"
+govuk_jenkins::jobs::mirror_github_repositories::testing_govuk_secrets: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 
 govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - assets
