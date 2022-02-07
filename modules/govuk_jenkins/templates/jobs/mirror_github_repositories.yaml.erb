@@ -38,13 +38,13 @@
     scm:
       - mirror-github-repositories
     builders:
-      - shell: |
-          export GITHUB_ACCESS_TOKEN=<%= @mirror_repos_github_api_token %>
-          export ROLE_ARN=<%= @aws_role_arn %>
-          export GIT_SSH_PRIVATE_KEY=<%= @ssh_private_key %>
-          export AWS_CODECOMMIT_USER_ID=<%= @aws_codecommit_user_id %>
-          export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
-          bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-          ./mirror_repos
+        - shell: |
+            export GITHUB_ACCESS_TOKEN=<%= @mirror_repos_github_api_token %>
+            export ROLE_ARN=<%= @aws_role_arn %>
+            export GIT_SSH_PRIVATE_KEY=<%= @ssh_private_key %>
+            export AWS_CODECOMMIT_USER_ID=<%= @aws_codecommit_user_id %>
+            export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            ./mirror_repos
     triggers:
-      - timed: <%= @cron_schedule %>
+        - timed: <%= @cron_schedule %>
