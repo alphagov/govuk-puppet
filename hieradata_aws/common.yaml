@@ -99,6 +99,9 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
+  locations_api:
+    apps:
+      - locations-api
   mapit:
     apps:
       - mapit
@@ -396,6 +399,7 @@ govuk::apps::info_frontend::port: 3085
 govuk::apps::email_alert_api::port: 3088
 # email-alert-api sidekiq monitoring uses 3089
 govuk::apps::government_frontend::port: 3090
+govuk::apps::locations_api::port: 3091
 govuk::apps::publishing_api::port: 3093
 govuk::apps::email_alert_frontend::port: 3099
 govuk::apps::backdrop_read::port: 3101
@@ -559,6 +563,16 @@ govuk::apps::link_checker_api::db::lb_ip_range: "%{hiera('environment_ip_prefix'
 govuk::apps::link_checker_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::link_checker_api::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::locations_api::enabled: true
+govuk::apps::locations_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::locations_api::db::allow_auth_from_lb: true
+govuk::apps::locations_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+govuk::apps::locations_api::redis_host: "%{hiera('sidekiq_host')}"
+govuk::apps::locations_api::redis_port: "%{hiera('sidekiq_port')}"
+govuk::apps::locations_api::db_hostname: "locations-api-postgres"
+govuk::apps::locations_api::db_password: "%{hiera('govuk::apps::locations_api::db::password')}"
+govuk::apps::locations_api::unicorn_worker_processes: '10'
+
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -703,6 +717,8 @@ govuk::apps::sidekiq_monitoring::imminence_redis_host: "%{hiera('govuk::apps::im
 govuk::apps::sidekiq_monitoring::imminence_redis_port: "%{hiera('govuk::apps::imminence::redis_port')}"
 govuk::apps::sidekiq_monitoring::link_checker_api_redis_host: "%{hiera('govuk::apps::link_checker_api::redis_host')}"
 govuk::apps::sidekiq_monitoring::link_checker_api_redis_port: "%{hiera('govuk::apps::link_checker_api::redis_port')}"
+govuk::apps::sidekiq_monitoring::locations_api_redis_host: "%{hiera('govuk::apps::locations_api::redis_host')}"
+govuk::apps::sidekiq_monitoring::locations_api_redis_port: "%{hiera('govuk::apps::locations_api::redis_port')}"
 govuk::apps::sidekiq_monitoring::manuals_publisher_redis_host: "%{hiera('govuk::apps::manuals_publisher::redis_host')}"
 govuk::apps::sidekiq_monitoring::manuals_publisher_redis_port: "%{hiera('govuk::apps::manuals_publisher::redis_port')}"
 govuk::apps::sidekiq_monitoring::publisher_redis_host: "%{hiera('govuk::apps::publisher::redis_host')}"
@@ -803,6 +819,7 @@ govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
 govuk::apps::local_links_manager::db::rds: true
+govuk::apps::locations_api::db::rds: true
 govuk::apps::publishing_api::db::rds: true
 govuk::apps::service_manual_publisher::db::rds: true
 govuk::apps::support_api::db::rds: true
