@@ -39,7 +39,9 @@
       - mirror-github-repositories
     builders:
         - shell: |
-            echo "Foo"
+            export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
+            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+            ./mirror_repos
     triggers:
         - timed: |
             TZ=Europe/London
