@@ -38,9 +38,9 @@
     scm:
       - mirror-github-repositories
     builders:
-        - shell: |
-            export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
-            bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
-            ./mirror_repos
+      - shell: |
+          export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
+          bundle install --path "${HOME}/bundles/${JOB_NAME}" --deployment
+          ./mirror_repos
     triggers:
-        - timed: <%= @cron_schedule %>
+      - timed: <%= @cron_schedule %>
