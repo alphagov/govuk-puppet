@@ -20,6 +20,9 @@
 # [*ssh_private_key*]
 #   The SSH private key of the Jenkins user
 #
+# [*ssh_public_key*]
+#   The SSH public key of the Jenkins user
+#
 # [*version*]
 #   Specify the version of Jenkins
 #
@@ -44,6 +47,7 @@ class govuk_jenkins (
   $config = {},
   $plugins = {},
   $ssh_private_key = undef,
+  $ssh_public_key = undef,
   $version = '2.289.2',
   $jenkins_api_user = 'jenkins_api_user',
   $jenkins_api_token = '',
@@ -89,6 +93,7 @@ class govuk_jenkins (
 
   class { 'govuk_jenkins::ssh_key':
     private_key  => $ssh_private_key,
+    public_key   => $ssh_public_key,
     jenkins_user => $jenkins_user,
     home_dir     => $jenkins_homedir,
   }

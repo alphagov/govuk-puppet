@@ -7,6 +7,9 @@
 # [*private_key*]
 #   A passwordless RSA private key generated with `ssh-keygen -t rsa`.
 #
+# [*public_key*]
+#   The public key that matches `$private_key`.
+#
 # [*jenkins_user*]
 #   Name of the Jenkins user
 #
@@ -18,6 +21,7 @@
 #
 class govuk_jenkins::ssh_key (
   $private_key    = undef,
+  $public_key     = undef,
   $jenkins_user   = 'jenkins',
   $home_dir       = '/var/lib/jenkins',
   $aws_ssh_key_id = undef,
@@ -41,14 +45,13 @@ class govuk_jenkins::ssh_key (
     require => File[$ssh_dir],
   }
 
-  if $private_key {
-    exec { $public_key_filename:
-      command   => "ssh-keygen -y -f ${private_key_filename} > ${public_key_filename} && chmod 0644 ${public_key_filename}",
-      creates   => $public_key_filename,
-      user      => $jenkins_user,
-      group     => $jenkins_user,
-      require   => User[$jenkins_user],
-      subscribe => File[$private_key_filename],
+  if $private_key and $public_key {
+    file { $public_key_filename:
+      content => "ssh-rsa ${public_key}",
+      mode    => '0644',
+      owner   => $jenkins_user,
+      group   => $jenkins_user,
+      require => User[$jenkins_user],
     }
 
     file { $private_key_filename:
