@@ -44,6 +44,9 @@ govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: '7794
 govuk::apps::feedback::govuk_notify_accessible_format_request_template_id: '47cef7ea-0849-48aa-9676-0ee0f7baa4ae'
 govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
 govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
+govuk::apps::government_frontend::google_tag_manager_auth: "C7iYdcsOlYgGmiUJjZKrHQ"
+govuk::apps::government_frontend::google_tag_manager_id: "GTM-MG7HG5W"
+govuk::apps::government_frontend::google_tag_manager_preview: "env-4"
 govuk::apps::govuk_crawler_worker::enabled: false
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
