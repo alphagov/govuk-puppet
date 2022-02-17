@@ -1454,6 +1454,8 @@ monitoring::checks::smokey::features:
     feature: publishing_tools
   check_router:
     feature: router
+  check_search_api:
+    feature: search_api
   check_service_manual:
     feature: service_manual
   check_signon:
