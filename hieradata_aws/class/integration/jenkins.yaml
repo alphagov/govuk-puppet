@@ -72,10 +72,11 @@ govuk_jenkins::jobs::deploy_cdn::services:
   - www
 
 govuk_jenkins::jobs::mirror_github_repositories::enable_slack_notifications: true
-govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token')}"
-govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn')}"
-govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key')}"
+govuk_jenkins::jobs::mirror_github_repositories::mirror_repos_github_api_token: 'TBC'
+govuk_jenkins::jobs::mirror_github_repositories::aws_role_arn: 'TBC'
+govuk_jenkins::jobs::mirror_github_repositories::ssh_private_key: 'TBC'
 govuk_jenkins::jobs::mirror_github_repositories::aws_codecommit_user_id: "%{hiera('govuk_jenkins::jobs::mirror_github_repositories::aws_codecommit_user_id')}"
+govuk_jenkins::jobs::mirror_github_repositories::testing_govuk_secrets: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 
 govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - assets
