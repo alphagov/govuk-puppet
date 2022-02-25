@@ -48,6 +48,15 @@
 #   The number of unicorn worker processes to run.
 #   Default: undef
 #
+# # [*google_tag_manager_id*]
+#   The ID for the Google Tag Manager account
+#
+# [*google_tag_manager_preview*]
+#   Allows a tag to be previewed in the Google Tag Manager interface
+#
+# [*google_tag_manager_auth*]
+#   The identifier of an environment for Google Tag Manager
+#
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
@@ -69,6 +78,9 @@ class govuk::apps::static(
   $redis_host = undef,
   $redis_port = undef,
   $unicorn_worker_processes = undef,
+  $google_tag_manager_id = undef,
+  $google_tag_manager_preview = undef,
+  $google_tag_manager_auth = undef,
   $govuk_personalisation_manage_uri = undef,
   $govuk_personalisation_security_uri = undef,
   $govuk_personalisation_feedback_uri = undef,
@@ -121,6 +133,15 @@ class govuk::apps::static(
     "${title}-ASSET_HOST":
       varname => 'ASSET_HOST',
       value   => $asset_host;
+    "${title}-GOOGLE_TAG_MANAGER_ID":
+        varname => 'GOOGLE_TAG_MANAGER_ID',
+        value   => $google_tag_manager_id;
+    "${title}-GOOGLE_TAG_MANAGER_PREVIEW":
+        varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
+        value   => $google_tag_manager_preview;
+    "${title}-GOOGLE_TAG_MANAGER_AUTH":
+        varname => 'GOOGLE_TAG_MANAGER_AUTH',
+        value   => $google_tag_manager_auth;
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
       varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
       value   => $govuk_personalisation_manage_uri;
