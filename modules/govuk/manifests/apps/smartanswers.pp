@@ -45,9 +45,6 @@
 # [*zendesk_client_username*]
 #   Username for connection to GDS zendesk client.
 #
-# [*companies_house_api_key*]
-#   API key to access the Companies House API
-#
 class govuk::apps::smartanswers(
   $vhost = 'smartanswers',
   $port,
@@ -60,7 +57,6 @@ class govuk::apps::smartanswers(
   $unicorn_worker_processes = undef,
   $zendesk_client_password = undef,
   $zendesk_client_username = undef,
-  $companies_house_api_key = undef,
 ) {
   Govuk::App::Envvar {
     app => 'smartanswers',
@@ -98,9 +94,6 @@ class govuk::apps::smartanswers(
     "${title}-ZENDESK_CLIENT_USERNAME":
       varname => 'ZENDESK_CLIENT_USERNAME',
       value   => $zendesk_client_username;
-    "${title}-COMPANIES_HOUSE_API_KEY":
-      varname => 'COMPANIES_HOUSE_API_KEY',
-      value   => $companies_house_api_key;
   }
 
   govuk::app { 'smartanswers':
