@@ -113,7 +113,7 @@ describe 'icinga::check', :type => :define do
 
     it {
       is_expected.to contain_file('/etc/icinga/conf.d/icinga_host_bruce-forsyth/linking_to_metrics.cfg').
-        with_content(/^\s*action_url\s+https:\/\/graphite\.environment\.example\.com\/render\/\?width=\d+&height=\d+&target=stats.cache-1.nginx_logs.www-origin.http_200$/)
+        with_content(/^\s*action_url\s+https:\/\/graphite\.test\.govuk-internal\.digital\/render\/\?width=\d+&height=\d+&target=stats.cache-1.nginx_logs.www-origin.http_200$/)
     }
   end
 end

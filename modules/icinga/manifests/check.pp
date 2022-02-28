@@ -28,6 +28,9 @@
 #   The title of a `Icinga::Timeperiod` resource describing when this
 #   service should be actively checked.
 #
+# [*graphite_hostname*]
+#   The hostname of the graphite system in this enviroment.
+#
 # [*notification_period*]
 #   The title of a `Icinga::Timeperiod` resource.
 #
@@ -64,6 +67,7 @@ define icinga::check (
   $service_description        = undef,
   $check_command              = undef,
   $check_period               = undef,
+  $graphite_hostname          = '',
   $notification_period        = undef,
   $use                        = 'govuk_regular_service',
   $action_url                 = undef,
@@ -79,6 +83,7 @@ define icinga::check (
   validate_re($service_description, '^(\w|\s|\-|/|\[|\]|:|\.)*$', "Icinga check \"${service_description}\" contains invalid characters")
 
   $app_domain = hiera('app_domain')
+
   $graph_width = 1000
   $graph_height = 600
 
@@ -95,7 +100,7 @@ define icinga::check (
     }
 
     if $linked_metric {
-      $action_url_real = "https://graphite.${app_domain}/render/?\
+      $action_url_real = "https://${graphite_hostname}/render/?\
 width=${graph_width}&height=${graph_height}&target=${linked_metric}"
     } else {
       $action_url_real = $action_url

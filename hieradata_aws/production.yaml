@@ -358,6 +358,8 @@ govuk_sudo::sudo_conf:
 
 grafana::dashboards::machine_suffix_metrics: '_production'
 
+icinga::check::graphite_hostname: "graphite.blue.%{hiera('app_domain_internal')}"
+
 licensify::apps::configfile::mongo_database_reference_name: 'licensify-refdata'
 licensify::apps::configfile::mongo_database_audit_name: 'licensify-audit'
 licensify::apps::configfile::mongo_database_slaveok: 'false'

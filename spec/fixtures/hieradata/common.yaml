@@ -138,6 +138,8 @@ hosts::production::management::hosts:
   jumpbox-1:
     ip: '10.1.0.100'
 
+icinga::check::graphite_hostname: "graphite.test.govuk-internal.digital"
+
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::repository::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 mongodb::s3backup::backup::private_gpg_key_fingerprint: 'CB77872D51ADD27CF75BD63CB60B50E6DBE2EAFF'

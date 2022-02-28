@@ -1377,11 +1377,10 @@ grafana::dashboards::application_dashboards:
 
 grub2::recordfail_timeout: 5
 
+icinga::check::graphite_hostname: "graphite.%{hiera('app_domain_internal')}"
 icinga::client::config::allowed_hosts: "10.0.0.0/8"
 icinga::config::http_username: "%{hiera('http_username')}"
 icinga::config::http_password: "%{hiera('http_password')}"
-
-icinga::config::graphite_hostname: "graphite.%{hiera('app_domain_internal')}"
 
 limits::entries:
   'default_core':
