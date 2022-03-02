@@ -19,12 +19,19 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
-#
 # [*mongodb_nodes*]
-#   An array of MongoDB instance hostnames
+#   Array of hostnames for the mongo cluster to use.
 #
 # [*mongodb_name*]
-#   The name of the MongoDB database to use
+#   The mongo database to be used.
+#
+# [*mongodb_username*]
+#   The username to use when logging to the MongoDB database,
+#   only needed if the app uses documentdb rather than mongodb
+#
+# [*mongodb_password*]
+#   The password to use when logging to the MongoDB database
+#   only needed if the app uses documentdb rather than mongodb
 #
 # [*oauth_id*]
 #   The OAuth ID used by GDS-SSO to identify the app to GOV.UK Signon
@@ -50,8 +57,10 @@ class govuk::apps::imminence(
   $port,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
-  $mongodb_nodes = undef,
-  $mongodb_name = 'imminence_production',
+  $mongodb_nodes,
+  $mongodb_name,
+  $mongodb_username = '',
+  $mongodb_password = '',
   $redis_host = undef,
   $redis_port = undef,
   $oauth_id = undef,
@@ -118,6 +127,8 @@ class govuk::apps::imminence(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
   }
 
   govuk::procfile::worker { $app_name:

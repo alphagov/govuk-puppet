@@ -610,6 +610,7 @@ govuk::apps::govuk_crawler_worker::root_urls:
   - "https://assets.%{hiera('app_domain')}"
   - "https://www.%{hiera('app_domain')}"
 
+govuk::apps::imminence::mongodb_name: 'imminence_production'
 govuk::apps::imminence::mongodb_nodes:
   - 'mongo-1'
   - 'mongo-2'
