@@ -22,7 +22,7 @@ class govuk::node::s_jenkins (
   $jenkins_api_token = undef,
   $environment_variables = {},
 ) inherits govuk::node::s_base {
-  include google_chrome
+  include govuk_chromedriver
   include nginx
   include govuk_postgresql::client
   include govuk_rbenv::all
