@@ -184,6 +184,7 @@ deployable_applications: &deployable_applications
   licensify-admin: {}
   licensify-feed: {}
   link-checker-api: {}
+  locations-api: {}
   local-links-manager: {}
   manuals-frontend: {}
   manuals-publisher: {}
@@ -1123,6 +1124,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   imminence: {}
   info-frontend: {}
   local-links-manager: {}
+  locations-api: {}
   manuals-frontend: {}
   manuals-publisher: {}
   maslow: {}
