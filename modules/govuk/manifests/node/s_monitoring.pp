@@ -17,7 +17,7 @@ class govuk::node::s_monitoring (
 
   validate_bool($enable_fastly_metrics, $offsite_backups)
 
-  include google_chrome
+  include govuk_chromedriver
   include govuk_rbenv::all
   include ::selenium
   include ::govuk_cdnlogs
