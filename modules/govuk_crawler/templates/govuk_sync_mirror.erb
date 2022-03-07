@@ -5,6 +5,8 @@ TARGETS="<%= @targets.flatten.join(' ') -%>"
 MIRROR_ROOT="<%= @mirror_root -%>"
 GOVUK_APP_DOMAIN=$(cat /etc/govuk/env.d/GOVUK_APP_DOMAIN)
 STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
+GOVUK_WEBSITE_ROOT=$(cat /etc/govuk/env.d/GOVUK_WEBSITE_ROOT)
+GOVUK_WEBSITE_DIR="${GOVUK_WEBSITE_ROOT##https://}"
 PROGRAM_NAME=$(basename $0)
 
 # Nagios defaults, assume failed
@@ -37,9 +39,9 @@ function get_error_page() {
   # Grab the 503 error page
   log "user.info" "Grabbing the latest error page"
 
-  website_mirror_dir="${MIRROR_ROOT}"/www.*
-  mkdir -p "${website_mirror_dir}/error/"
-  curl -sf "https://${STATIC_HOSTNAME}/templates/503.html.erb" -o "${website_mirror_dir}/error/503.html"
+  website_mirror_dir="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
+  sudo -u deploy mkdir -p "${website_mirror_dir}/error/"
+  sudo -u deploy curl -sf "https://${STATIC_HOSTNAME}/templates/503.html.erb" -o "${website_mirror_dir}/error/503.html"
 }
 
 function write_timestamps() {
