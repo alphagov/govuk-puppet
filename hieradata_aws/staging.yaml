@@ -170,6 +170,8 @@ govuk::apps::email_alert_api::govuk_notify_recipients:
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
+govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: 'd33f7857-7514-4458-81b9-0995f48e2ac5'
+govuk::apps::feedback::govuk_notify_accessible_format_request_template_id: 'b67971ed-a249-4afa-b05e-9adad9da551a'
 
 # https://github.com/alphagov/govuk-aws-data/pull/827
 govuk::apps::finder_frontend::unicorn_worker_processes: 24
