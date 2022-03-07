@@ -1,7 +1,7 @@
 require_relative '../../../../spec_helper'
 
-describe 'govuk_containers::ci_mysql', :type => :define do
-  let(:title) { "ci-mysql-instance" }
+describe 'govuk_containers::ci_postgresql', :type => :define do
+  let(:title) { "ci-postgresql-instance" }
 
   let(:pre_condition) { <<-EOS
     include ::govuk_python
