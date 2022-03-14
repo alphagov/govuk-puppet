@@ -1298,6 +1298,7 @@ grafana::dashboards::application_dashboards:
     instance_prefix: 'backend'
     show_memcached: true
     show_postgres_stats: true
+  locations-api: {}
   manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
