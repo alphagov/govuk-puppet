@@ -99,6 +99,9 @@ node_class: &node_class
       - manuals-frontend
       - service-manual-frontend
       - static
+  locations_api:
+    apps:
+      - locations-api
   mapit:
     apps:
       - mapit
