@@ -29,6 +29,7 @@ class govuk::apps::manuals_frontend(
   $secret_key_base = undef,
 ) {
   govuk::app { 'manuals-frontend':
+    ensure                     => 'absent',
     app_type                   => 'rack',
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
@@ -37,21 +38,5 @@ class govuk::apps::manuals_frontend(
     vhost                      => $vhost,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
-  }
-
-  Govuk::App::Envvar {
-    app => 'manuals-frontend',
-  }
-
-  govuk::app::envvar { "${title}-PUBLISHING_API_BEARER_TOKEN":
-    varname => 'PUBLISHING_API_BEARER_TOKEN',
-    value   => $publishing_api_bearer_token,
-  }
-
-  if $secret_key_base != undef {
-    govuk::app::envvar { "${title}-SECRET_KEY_BASE":
-      varname => 'SECRET_KEY_BASE',
-      value   => $secret_key_base,
-    }
   }
 }
