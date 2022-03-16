@@ -79,7 +79,6 @@ node_class: &node_class
       - email-alert-frontend
       - frontend
       - government-frontend
-      - manuals-frontend
       - service-manual-frontend
       - smartanswers
       - static
@@ -96,7 +95,6 @@ node_class: &node_class
       - frontend
       - government-frontend
       - info-frontend
-      - manuals-frontend
       - service-manual-frontend
       - static
   locations_api:
@@ -385,7 +383,6 @@ govuk::apps::specialist_publisher::port: 3064
 govuk::apps::content_store::port: 3068
 govuk::apps::collections::port: 3070
 govuk::apps::hmrc_manuals_api::port: 3071
-govuk::apps::manuals_frontend::port: 3072
 govuk::apps::search_admin::port: 3073
 govuk::apps::govuk_crawler_worker::port: 3074
 govuk::apps::support_api::port: 3075
