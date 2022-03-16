@@ -20,7 +20,7 @@ class base::esm (
   file { '/etc/apt/auth.conf':
     ensure => absent,
   }
- exec { "ubuntu-advantage attach token":
+  exec { "ubuntu-advantage attach token":
     command => "ubuntu-advantage attach ${esm_token}",
     path    => ['/bin','/sbin','/usr/bin','/usr/sbin'],
     require => Package['ubuntu-advantage-tools'],
