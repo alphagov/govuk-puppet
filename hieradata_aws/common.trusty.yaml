@@ -38,5 +38,4 @@ apt::sources:
       deb: true
 
 base::esm_repo: true
-base::esm::esm_user: "%{hiera('base::esm::esm_trusty_user')}"
-base::esm::esm_password: "%{hiera('base::esm::esm_trusty_password')}"
+base::esm::esm_token: "%{hiera('base::esm::esm_trusty_token')}"
