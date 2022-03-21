@@ -83,9 +83,7 @@ sub vcl_recv {
   # With the exception of:
   #   - Licensing
   #   - email-alert-frontend (for subscription management)
-  #   - frontend (for sessions across funding registration form)
-  #   - smart answers coronavirus find support flow
-  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email" && req.url !~ "^/brexit-eu-funding" && req.url !~ "^/find-coronavirus-support/s")
+  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email")
   {
     unset req.http.Cookie;
   }
@@ -122,7 +120,7 @@ sub vcl_fetch {
 
   <% if @strip_cookies %>
   # Strip cookies from outbound requests. Corresponding rule in vcl_recv{}
-  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email" && req.url !~ "^/brexit-eu-funding" && req.url !~ "^/find-coronavirus-support/s") {
+  if (req.url !~ "^/apply-for-a-licence" && req.url !~ "^/email") {
     unset beresp.http.Set-Cookie;
   }
   <% end %>
