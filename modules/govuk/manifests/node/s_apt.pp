@@ -92,7 +92,7 @@ class govuk::node::s_apt (
       release  => 'trusty',
       key      => '8507EFA5';
     'postgresql':
-      location => 'http://apt.postgresql.org/pub/repos/apt/',
+      location => 'http://apt-archive.postgresql.org/pub/repos/apt/',
       release  => 'trusty-pgdg',
       key      => 'B97B0AFCAA1A47F044F244A07FCC7D46ACCC4CF8';
     'puppetlabs-trusty':
