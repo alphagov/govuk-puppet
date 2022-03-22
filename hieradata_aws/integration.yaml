@@ -408,6 +408,5 @@ users::usernames:
   - simonhughesdon
   - stephenford
   - stevenradford
-  - williamfranklin
 
 nginx::config::stack_network_prefix: '10.1.0'
