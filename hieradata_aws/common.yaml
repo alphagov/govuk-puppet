@@ -436,6 +436,8 @@ govuk::apps::content_data_api::port: 3235
 # sidekiq monitoring uses 3242
 govuk::apps::account_api::port: 3243
 # account-api sidekiq monitoring uses 3244
+govuk::apps::locations_api::port: 3245
+# locations-api sidekiq monitoring uses 3246
 
 govuk::apps::asset_manager::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::asset_manager::mongodb_nodes:

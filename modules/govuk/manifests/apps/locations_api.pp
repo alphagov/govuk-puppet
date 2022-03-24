@@ -47,6 +47,7 @@ class govuk::apps::locations_api (
   $secret_key_base = undef,
   $port,
   $enable_procfile_worker = true,
+  $unicorn_worker_processes = undef,
   $db_hostname = undef,
   $db_username = 'locations_api',
   $db_password = undef,
@@ -71,6 +72,7 @@ class govuk::apps::locations_api (
     vhost_ssl_only             => true,
     has_liveness_health_check  => false, # TODO
     has_readiness_health_check => false, # TODO
+    unicorn_worker_processes   => $unicorn_worker_processes,
     sentry_dsn                 => $sentry_dsn,
   }
 
