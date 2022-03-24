@@ -37,6 +37,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   licensify-feed: {}
   link-checker-api: {}
   local-links-manager: {}
+  locations-api: {}
   manuals-frontend: {}
   manuals-publisher: {}
   mapit: {}
