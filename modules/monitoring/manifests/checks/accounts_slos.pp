@@ -28,7 +28,7 @@ class monitoring::checks::accounts_slos (
       args           => '--dropfirst -6',
   }
 
-    $latency_bad_metric = 'transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),0.850),0),1))'
+    $latency_bad_metric = 'transformNull(offset(scale(removeBelowValue(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90),2.0),0),1))'
     $latency_all_metric = 'offset(scale(transformNull(maxSeries(stats.timers.*.nginx_logs.account-api.time_request.upper_90)),0),1)'
     $alert_warning_slow_http_response_rate = 0.01
 
