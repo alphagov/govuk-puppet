@@ -26,7 +26,7 @@ class govuk::node::s_jenkins (
   include nginx
   include govuk_postgresql::client
   include govuk_rbenv::all
-  include ::selenium
+  include ::remove_selenium
 
   class { 'govuk_jenkins':
     github_client_id               => $github_client_id,

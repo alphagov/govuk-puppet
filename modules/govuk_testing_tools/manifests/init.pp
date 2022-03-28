@@ -5,7 +5,7 @@
 class govuk_testing_tools {
   include govuk_chromedriver
   include imagemagick
-  include selenium
+  include remove_selenium
   include ::govuk_testing_tools::xvfb
 
   package { [
