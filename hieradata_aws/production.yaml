@@ -323,7 +323,7 @@ govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminder
 
 govuk_jenkins::jobs::smart_answers_broken_links_report::cron_schedule: '30 1 1,15 * *' # every 1st and 15th of the month at 1:30 AM
 
-govuk_jenkins::jobs::smokey::environment: production_aws
+govuk_jenkins::jobs::smokey::environment: production
 
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
   -
@@ -471,7 +471,7 @@ monitoring::pagerduty_drill::enabled: true
 
 monitoring::uptime_collector::environment: 'production'
 
-monitoring::checks::smokey::environment: 'production_aws'
+monitoring::checks::smokey::environment: 'production'
 monitoring::checks::smokey::features:
   check_ab_testing:
     feature: ab_testing

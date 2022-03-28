@@ -297,7 +297,7 @@ govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 govuk_jenkins::jobs::search_relevancy_rank_evaluation::cron_schedule: '45 */3 * * *' # every three hours
 govuk_jenkins::jobs::search_relevancy_metrics_etl::cron_schedule: 'H 1,7,13,19 * * *' # every six hours
 
-govuk_jenkins::jobs::smokey::environment: staging_aws
+govuk_jenkins::jobs::smokey::environment: staging
 
 govuk_jenkins::jobs::data_sync_complete_staging::signon_domains_to_migrate:
   -
@@ -449,7 +449,7 @@ monitoring::contacts::notify_slack: true
 monitoring::contacts::slack_channel: '#govuk-alerts-staging'
 monitoring::contacts::slack_username: 'Staging (AWS)'
 
-monitoring::checks::smokey::environment: 'staging_aws'
+monitoring::checks::smokey::environment: 'staging'
 monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::checks::smokey::features:
   check_ab_testing:
