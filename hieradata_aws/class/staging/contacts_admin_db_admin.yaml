@@ -10,4 +10,4 @@ govuk_env_sync::tasks:
     database_hostname: "contacts-admin-mysql"
     temppath: "/tmp/contacts_admin_production"
     url: "govuk-production-database-backups"
-    path: "mysql"
+    path: "contacts-admin-mysql"

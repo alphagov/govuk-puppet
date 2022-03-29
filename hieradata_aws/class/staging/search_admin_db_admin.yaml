@@ -10,4 +10,4 @@ govuk_env_sync::tasks:
     database_hostname: "search-admin-mysql"
     temppath: "/tmp/search_admin_production"
     url: "govuk-production-database-backups"
-    path: "mysql"
+    path: "search-admin-mysql"
