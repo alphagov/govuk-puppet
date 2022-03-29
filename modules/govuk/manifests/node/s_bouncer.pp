@@ -3,29 +3,9 @@
 # Sets up a machine to run the bouncer app and redirect old domains
 # to GOV.UK.
 #
-# === Parameters
-#
-# [*minimum_request_rate*]
-#   The Graphite metric value for minimum number of requests that
-#   we would expect to see.
-#
-class govuk::node::s_bouncer (
-  $minimum_request_rate = 3,
-) inherits govuk::node::s_base {
+class govuk::node::s_bouncer inherits govuk::node::s_base {
 
   include govuk_bouncer::gor
   include govuk::node::s_app_server
   include nginx
-
-  $warning_threshold = 1.2 * $minimum_request_rate
-
-  @@icinga::check::graphite { "check_nginx_requests_${::hostname}":
-    target              => "${::fqdn_metrics}.nginx.nginx_requests",
-    warning             => "@${warning_threshold}",
-    critical            => "@${minimum_request_rate}",
-    desc                => 'Minimum HTTP request rate for bouncer',
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(nginx-requests-too-low),
-    notification_period => 'inoffice',
-  }
 }
