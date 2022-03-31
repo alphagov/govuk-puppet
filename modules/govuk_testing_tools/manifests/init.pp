@@ -5,7 +5,6 @@
 class govuk_testing_tools {
   include govuk_chromedriver
   include imagemagick
-  include remove_selenium
   include ::govuk_testing_tools::remove_xvfb # was previously needed by capybara-webkit
 
   package { [
