@@ -241,14 +241,14 @@ class monitoring::contacts (
   if $slack_webhook_url {
     icinga::slack_contact { 'slack_accounts_tech':
       slack_webhook_url      => $slack_webhook_url,
-      slack_channel          => '#govuk-accounts-tech',
+      slack_channel          => '#find-and-view-tech',
       slack_username         => $slack_username,
       icinga_status_cgi_url  => $slack_icinga_status_cgi_url,
       icinga_extinfo_cgi_url => $slack_icinga_extinfo_cgi_url,
     }
 
     icinga::contact_group { 'slack-channel-accounts-tech':
-      group_alias => 'Contact #govuk-accounts-tech',
+      group_alias => 'Contact #find-and-view-tech',
       members     => ['slack_accounts_tech'],
     }
   }
