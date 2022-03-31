@@ -19,7 +19,6 @@ class govuk::node::s_monitoring (
 
   include govuk_chromedriver
   include govuk_rbenv::all
-  include ::remove_selenium
   include ::govuk_cdnlogs
   include monitoring
   include collectd::plugin::icinga
