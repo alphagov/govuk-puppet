@@ -438,8 +438,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-transition-db-admin:
     healthyhosts_warning: 0
   blue-whitehall-frontend: {}
-  govuk-static-public: {}
-  govuk-support-api-public: {}
   licensify-backend-internal:
     healthyhosts_warning: 0
   whitehall-backend-internal: {}
