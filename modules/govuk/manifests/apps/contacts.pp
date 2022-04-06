@@ -105,7 +105,7 @@ class govuk::apps::contacts(
     has_readiness_health_check => true,
     vhost_protected            => $vhost_protected,
     asset_pipeline             => true,
-    asset_pipeline_prefixes    => ['contacts-assets'],
+    asset_pipeline_prefixes    => ['assets/contacts-admin'],
     vhost_aliases              => $extra_aliases,
     repo_name                  => 'contacts-admin',
     nginx_extra_config         => '
