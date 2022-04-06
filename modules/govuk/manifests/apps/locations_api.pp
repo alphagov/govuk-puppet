@@ -8,6 +8,12 @@
 # [*secret_key_base*]
 #   The key for Rails to use when signing/encrypting sessions
 #
+# [*os_places_api_key*]
+#   API key used by Locations API to communicate with OS Places API
+#
+# [*os_places_api_secret*]
+#   Corresponding secret for above OS Places API key.
+#
 # [*port*]
 #   What port should the app run on?
 #
@@ -45,6 +51,8 @@
 class govuk::apps::locations_api (
   $enabled = false,
   $secret_key_base = undef,
+  $os_places_api_key = undef,
+  $os_places_api_secret = undef,
   $port,
   $enable_procfile_worker = true,
   $unicorn_worker_processes = undef,
@@ -89,6 +97,12 @@ class govuk::apps::locations_api (
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
+    "${title}-OS_PLACES_API_KEY":
+      varname => 'OS_PLACES_API_KEY',
+      value   => $os_places_api_key;
+    "${title}-OS_PLACES_API_SECRET":
+      varname => 'OS_PLACES_API_SECRET',
+      value   => $os_places_api_secret;
   }
 
   govuk::app::envvar::redis { $app_name:
