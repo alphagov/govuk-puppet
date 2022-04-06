@@ -47,6 +47,9 @@
 #   The bearer token to use when communicating with Account API.
 #   Default: undef
 #
+# [*govuk_personalisation_manage_uri*]
+#   URI for the account management page.
+#
 
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
@@ -60,6 +63,7 @@ class govuk::apps::email_alert_frontend(
   $email_alert_auth_token = undef,
   $subscription_management_enabled = false,
   $account_api_bearer_token = undef,
+  $govuk_personalisation_manage_uri = undef,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -99,6 +103,9 @@ class govuk::apps::email_alert_frontend(
     "${title}-EMAIL_ALERT_AUTH_TOKEN":
         varname => 'EMAIL_ALERT_AUTH_TOKEN',
         value   => $email_alert_auth_token;
+    "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
+      varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
+      value   => $govuk_personalisation_manage_uri;
   }
 
   if $subscription_management_enabled {
