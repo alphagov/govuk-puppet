@@ -93,7 +93,6 @@ class govuk::apps::locations_api (
   }
 
   govuk::app::envvar {
-    # Is this needed?
     "${title}-SECRET_KEY_BASE":
       varname => 'SECRET_KEY_BASE',
       value   => $secret_key_base;
