@@ -292,8 +292,6 @@ monitoring::checks::smokey::features:
     feature: content_data_admin
   check_csv_preview:
     feature: csv_preview
-  check_data_gov_uk:
-    feature: data_gov_uk
   check_draft_environment:
     feature: draft_environment
   check_feedback:
@@ -318,8 +316,6 @@ monitoring::checks::smokey::features:
     feature: manuals_frontend
   check_public_api:
     feature: public_api
-  check_publisher:
-    feature: publisher
   check_publishing_tools:
     feature: publishing_tools
   check_router:
