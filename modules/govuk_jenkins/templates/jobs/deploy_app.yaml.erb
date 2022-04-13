@@ -69,9 +69,6 @@
                     current-parameters: true
         <% end %>
     publishers:
-        - trigger:
-            project: Smokey
-            threshold: UNSTABLE
         - text-finder:
             regexp: "DOCKER TAG FAILED"
             also-check-console-output: true
