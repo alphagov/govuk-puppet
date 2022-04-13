@@ -151,8 +151,10 @@ class govuk::apps::feedback(
     value   => $govuk_notify_accessible_format_request_reply_to_id,
   }
 
-  govuk::app::envvar::redis { $app_name:
-    host => $redis_host,
-    port => $redis_port,
+  if $redis_host != undef {
+    govuk::app::envvar::redis { $app_name:
+      host => $redis_host,
+      port => $redis_port,
+    }
   }
 }
