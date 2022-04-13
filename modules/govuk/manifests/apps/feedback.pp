@@ -36,6 +36,14 @@
 # [*govuk_notify_accessible_format_request_reply_to_id*]
 #   Accessible format request email address reply_to ID for GOV.UK Notify
 #
+# [*redis_host*]
+#   Redis host for Rack::Attack.
+#   Default: undef
+#
+# [*redis_port*]
+#   Redis port for Rack::Attack.
+#   Default: undef
+#
 class govuk::apps::feedback(
   $port,
   $sentry_dsn = undef,
@@ -51,6 +59,8 @@ class govuk::apps::feedback(
   $govuk_notify_survey_signup_reply_to_id,
   $govuk_notify_accessible_format_request_template_id = undef,
   $govuk_notify_accessible_format_request_reply_to_id = undef,
+  $redis_host = undef,
+  $redis_port = undef,
 ) {
   $app_name = 'feedback'
 
@@ -139,5 +149,10 @@ class govuk::apps::feedback(
   govuk::app::envvar { "${title}-GOVUK_NOTIFY_ACCESSIBLE_FORMAT_REQUEST_REPLY_TO_ID":
     varname => 'GOVUK_NOTIFY_ACCESSIBLE_FORMAT_REQUEST_REPLY_TO_ID',
     value   => $govuk_notify_accessible_format_request_reply_to_id,
+  }
+
+  govuk::app::envvar::redis { $app_name:
+    host => $redis_host,
+    port => $redis_port,
   }
 }
