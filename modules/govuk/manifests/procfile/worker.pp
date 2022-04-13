@@ -132,6 +132,7 @@ define govuk::procfile::worker (
 
       if $alert_when_threads_exceed {
         @@icinga::check::graphite { "check_app_${title}_procfile_worker_thread_count_${::hostname}":
+          ensure    => absent,
           target    => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.threads",
           warning   => $alert_when_threads_exceed,
           critical  => $alert_when_threads_exceed,
