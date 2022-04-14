@@ -4,6 +4,12 @@
 #
 # === Parameters:
 #
+# [*pipeline_jobs*]
+#   Hash of applications to create jobs for
+#
+# [*job_builder_jobs*]
+#   Array of jobs created with the Job Builder plugin
+#
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
@@ -18,6 +24,7 @@ class govuk_ci::master (
   $github_client_secret_encrypted,
   $jenkins_api_token,
   $pipeline_jobs = {},
+  $job_builder_jobs = [],
   $environment_variables = {},
   $ci_agents = {},
   $credentials_id,
