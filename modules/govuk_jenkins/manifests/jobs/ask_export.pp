@@ -79,7 +79,7 @@ class govuk_jenkins::jobs::ask_export (
       service_description => $service_description,
       host_name           => $::fqdn,
       freshness_threshold => $freshness_threshold,
-      action_url          => "https://${deploy_jenkins_domain}/job/ask-export/",
+      action_url          => "https://${deploy_jenkins_domain}/job/govuk-ask-export/",
       notes_url           => monitoring_docs_url(ask-export),
   }
 }
