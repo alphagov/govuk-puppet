@@ -2,4 +2,4 @@
 
 dirs_to_keep='<%= (@pipeline_jobs.keys + @job_builder_jobs.map { |job| job.split("::").last }).join("\n") %>'
 
-ls -A /var/lib/jenkins/jobs | grep -vF "$dirs_to_keep" | xargs rm -rf
+ls -A /var/lib/jenkins/jobs | grep -ivxF "$dirs_to_keep" | xargs rm -rf
