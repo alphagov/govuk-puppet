@@ -1,0 +1,5 @@
+#!/bin/sh
+
+dirs_to_keep='<%= @pipeline_jobs.keys.join("\n") %>'
+
+ls -A /var/lib/jenkins/jobs | grep -vF "$dirs_to_keep" | xargs rm -rf

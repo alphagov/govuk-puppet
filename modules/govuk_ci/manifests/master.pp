@@ -46,6 +46,15 @@ class govuk_ci::master (
 
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
+  # Manually delete all jobs which aren't in the hash
+  file { '/usr/local/bin/remove_old_jenkins_jobs':
+    ensure  => present,
+    mode    => '0755',
+    content => template('govuk_ci/usr/local/bin/remove_old_jenkins_jobs.sh.erb'),
+  }
+  exec { 'single run of remove_old_jenkins_jobs after adding pipeline jobs':
+    command => '/usr/local/bin/remove_old_jenkins_jobs',
+  }
 
   # Only add this configuration for CI master Jenkins instances
   file { '/var/lib/jenkins/github-plugin-configuration.xml':
