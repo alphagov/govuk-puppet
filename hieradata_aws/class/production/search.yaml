@@ -11,8 +11,5 @@ govuk_env_sync::tasks:
     url: "govuk-production"
     path: "elasticsearch6"
 
-logrotate::conf::days_to_keep: 7
-nginx::logging::days_to_keep: 7
-
 govuk_search::prune::es_repo: "govuk-production"
 govuk_search::prune::es6_address: "elasticsearch6:80"

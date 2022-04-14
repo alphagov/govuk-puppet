@@ -8,7 +8,7 @@
 #   The number of days that logrotate should keep logs for.
 #
 class nginx::logging (
-  $days_to_keep = '28',
+  $days_to_keep = '7',
 ) {
   @logrotate::conf { 'nginx':
     matches         => '/var/log/nginx/*.log',
