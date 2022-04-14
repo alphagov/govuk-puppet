@@ -120,7 +120,6 @@ define govuk::app::config (
   $cpu_warning = 150,
   $cpu_critical = 200,
   $collectd_process_regex = undef,
-  $alert_when_threads_exceed = undef,
   $alert_when_file_handles_exceed = undef,
   $override_search_location = undef,
   $monitor_unicornherder = undef,
@@ -319,18 +318,7 @@ define govuk::app::config (
       host_name      => $::fqdn,
       contact_groups => $additional_check_contact_groups,
     }
-    if $alert_when_threads_exceed {
-      @@icinga::check::graphite { "check_${title}_app_thread_count_${::hostname}":
-        ensure                     => absent,
-        target                     => "${::fqdn_metrics}.processes-app-${title_underscore}.ps_count.threads",
-        warning                    => $alert_when_threads_exceed,
-        critical                   => $alert_when_threads_exceed,
-        desc                       => "Thread count for ${title_underscore} exceeds ${alert_when_threads_exceed}",
-        host_name                  => $::fqdn,
-        attempts_before_hard_state => 3,
-        contact_groups             => $additional_check_contact_groups,
-      }
-    }
+
     if $alert_when_file_handles_exceed {
       @@icinga::check::graphite { "check_${title}_app_file_handles_count_${::hostname}":
         ensure                     => $ensure,
