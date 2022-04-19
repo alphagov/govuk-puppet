@@ -27,10 +27,6 @@
 #   This variable is used by the govuk/procfile-worker.conf.erb template.
 #   Default: 1
 #
-# [*alert_when_threads_exceed*]
-#   If set, alert using Icinga if the number of threads exceeds the value specified.
-#   Default: 50
-#
 # [*process_regex*]
 #   The regex to use for the CollectD Process plugin.
 #   Default: "sidekiq .* ${title}(.*\\.gov\\.uk)? "
@@ -49,7 +45,6 @@ define govuk::procfile::worker (
   $process_type = 'worker',
   $setenv_as = $title,
   $process_count = 1,
-  $alert_when_threads_exceed = 50,
   $respawn_count = 5,
   $respawn_timeout = 20,
   $process_regex = "sidekiq .* ${title}(.*\\.gov\\.uk)? ",
@@ -128,17 +123,6 @@ define govuk::procfile::worker (
         event_handler              => "govuk_procfile_worker_high_memory!${service_name}",
         notes_url                  => monitoring_docs_url(high-memory-for-application),
         attempts_before_hard_state => 10,
-      }
-
-      if $alert_when_threads_exceed {
-        @@icinga::check::graphite { "check_app_${title}_procfile_worker_thread_count_${::hostname}":
-          ensure    => absent,
-          target    => "${::fqdn_metrics}.processes-app-worker-${title_underscore}.ps_count.threads",
-          warning   => $alert_when_threads_exceed,
-          critical  => $alert_when_threads_exceed,
-          desc      => "Thread count for ${service_name} exceeds ${alert_when_threads_exceed}",
-          host_name => $::fqdn,
-        }
       }
     }
   } else {

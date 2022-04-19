@@ -140,7 +140,6 @@ class govuk::apps::email_alert_api(
   govuk::procfile::worker {'email-alert-api':
     ensure                    => $ensure,
     enable_service            => $enable_procfile_worker,
-    alert_when_threads_exceed => 100,
     memory_warning_threshold  => 8000,
     memory_critical_threshold => 10000,
   }

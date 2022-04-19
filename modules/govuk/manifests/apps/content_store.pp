@@ -86,7 +86,6 @@ class govuk::apps::content_store(
     log_format_is_json         => true,
     vhost                      => $vhost,
     unicorn_worker_processes   => $unicorn_worker_processes,
-    alert_when_threads_exceed  => 155,
   }
 
   Govuk::App::Envvar {
