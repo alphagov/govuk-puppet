@@ -2,7 +2,10 @@
   <%- if @user && @group -%>
   su <%= @user -%> <%= @group %>
   <%- end -%>
+
+  # To use anything other than daily, the clean up script in lastaction MUST be updated
   daily
+
   missingok
   rotate <%= @days_to_keep %>
   compress
@@ -40,5 +43,11 @@
     # Remove empty .1 log files. There seems to be an issue where logrotate
     # will refuse to rotate the logs if an empty .1 log file exists.
     find <%= @matches %>* -wholename '/var/log/*' -name '*.1' -size 0 -delete
+  endscript
+  lastaction
+    # Clean up files older than maximum rotation. No-op unless "rotate" value is reduced,
+    # because logrotate only deletes rotate+1, not all older files.
+    # Thanks to https://serverfault.com/questions/636844/making-logrotate-remove-old-logs-after-reducing-rotate-value
+    find <%= @matches %>.*  -maxdepth 1 -mtime +<%= @days_to_keep %> -delete -printf "deleting old file: %p\n"
   endscript
 }
