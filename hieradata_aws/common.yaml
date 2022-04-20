@@ -762,14 +762,8 @@ govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::smartanswers::unicorn_worker_processes: "4"
 govuk::apps::smartanswers::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
-govuk::apps::smokey::http_username: "%{hiera('http_username')}"
-govuk::apps::smokey::http_password: "%{hiera('http_password')}"
 govuk::apps::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
 govuk::apps::smokey::smokey_signon_password: "%{hiera('smokey_signon_password')}"
-govuk::apps::smokey::account_http_username: "%{hiera('account_http_username')}"
-govuk::apps::smokey::account_http_password: "%{hiera('account_http_password')}"
-govuk::apps::smokey::smokey_govuk_account_email: "%{hiera('smokey_govuk_account_email')}"
-govuk::apps::smokey::smokey_govuk_account_password: "%{hiera('smokey_govuk_account_password')}"
 govuk::apps::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
 govuk::apps::smokey::rate_limit_token: "%{hiera('smokey_rate_limit_token')}"
 
@@ -1087,15 +1081,9 @@ govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
 govuk_jenkins::jobs::search_api_learn_to_rank::elasticsearch_uri: "%{hiera('govuk::apps::search_api::elasticsearch_hosts')}"
 
-govuk_jenkins::jobs::smokey::auth_username: "%{hiera('http_username')}"
-govuk_jenkins::jobs::smokey::auth_password: "%{hiera('http_password')}"
 govuk_jenkins::jobs::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
-govuk_jenkins::jobs::smokey::account_http_username: "%{hiera('account_http_username')}"
-govuk_jenkins::jobs::smokey::account_http_password: "%{hiera('account_http_password')}"
 govuk_jenkins::jobs::smokey::signon_email: "%{hiera('smokey_signon_email')}"
 govuk_jenkins::jobs::smokey::signon_password: "%{hiera('smokey_signon_password')}"
-govuk_jenkins::jobs::smokey::smokey_govuk_account_email: "%{hiera('smokey_govuk_account_email')}"
-govuk_jenkins::jobs::smokey::smokey_govuk_account_password: "%{hiera('smokey_govuk_account_password')}"
 
 govuk_jenkins::jobs::automated_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
