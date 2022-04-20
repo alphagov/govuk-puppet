@@ -1,5 +1,7 @@
 #!/bin/sh
 
+set -eu
+
 dirs_to_keep='<%= (@pipeline_jobs.keys + @job_builder_jobs.map { |job| job.split("::").last }).join("\n") %>'
 
 cd /var/lib/jenkins/jobs
