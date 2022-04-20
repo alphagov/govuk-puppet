@@ -4,6 +4,12 @@
 #
 # === Parameters:
 #
+# [*pipeline_jobs*]
+#   Hash of applications to create jobs for
+#
+# [*job_builder_jobs*]
+#   Array of jobs created with the Job Builder plugin
+#
 # [*github_client_id*]
 #   The Github client ID is used as the user to authenticate against Github.
 #
@@ -18,6 +24,7 @@ class govuk_ci::master (
   $github_client_secret_encrypted,
   $jenkins_api_token,
   $pipeline_jobs = {},
+  $job_builder_jobs = [],
   $environment_variables = {},
   $ci_agents = {},
   $credentials_id,
@@ -46,6 +53,15 @@ class govuk_ci::master (
 
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
+  # Manually delete all jobs which aren't in the hash
+  file { '/usr/local/bin/remove_old_jenkins_jobs':
+    ensure  => present,
+    mode    => '0755',
+    content => template('govuk_ci/usr/local/bin/remove_old_jenkins_jobs.sh.erb'),
+  }
+  exec { 'single run of remove_old_jenkins_jobs after adding pipeline jobs':
+    command => '/usr/local/bin/remove_old_jenkins_jobs',
+  }
 
   # Only add this configuration for CI master Jenkins instances
   file { '/var/lib/jenkins/github-plugin-configuration.xml':

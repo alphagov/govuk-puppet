@@ -139,10 +139,11 @@ govuk_jenkins::config::views:
 govuk_jenkins::config::create_agent_role: true
 govuk_jenkins::config::executors: '0'
 
-govuk_jenkins::job_builder::jobs:
+govuk_jenkins::job_builder::jobs: &job_builder_jobs
   - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_puppet_downstream
   - govuk_jenkins::jobs::build_fpm_package
+govuk_ci::master::job_builder_jobs: *job_builder_jobs
 
 govuk_jenkins::jobs::deploy_app_downstream::jenkins_downstream_api_password: "%{hiera('govuk_jenkins::jobs::deploy_app_downstream::ci_jenkins_downstream_api_password')}"
 
