@@ -14,7 +14,7 @@
 #
 # [*commit*]
 #  The version of the repository where GOV.UK defines its load tests
-#  Default = 'master'
+#  Default = 'main'
 #
 # [*ssh_public_key*]
 #  ssh public key of user which has access to govuk-load-testing repo
@@ -27,7 +27,7 @@
 class govuk::node::s_gatling (
   $root_dir                       = '/usr/local/bin/gatling/results',
   $repo                           = 'https://github.com/alphagov/govuk-load-testing.git',
-  $commit                         = 'master',
+  $commit                         = 'main',
   $apt_mirror_hostname            = undef,
   $apt_mirror_gpg_key_fingerprint = undef,
   $ssh_public_key                 = undef,
