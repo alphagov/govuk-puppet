@@ -1,5 +1,15 @@
 ---
 apt::sources:
+  git:
+    location: 'https://ppa.launchpadcontent.net/git-core/ppa/ubuntu'
+    release: '%{::lsbdistcodename}'
+    repos: 'main'
+    key:
+      id: 'E1DD270288B4E6030699E45FA1715D88E1DF1F24'
+      server: 'keyserver.ubuntu.com'
+    include:
+      src: false
+      deb: true
   ubuntu:
     location: 'http://gb.archive.ubuntu.com/ubuntu/'
     release: '%{::lsbdistcodename}'

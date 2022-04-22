@@ -27,6 +27,7 @@ class base (
   include curl
   include govuk_python
   include govuk::deploy
+  include govuk_apt::latest_git
   include govuk_apt::unused_kernels
   include govuk_apt::package_blacklist
   include govuk_awscli

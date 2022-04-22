@@ -255,7 +255,6 @@ base::packages::packages:
   - 'dnsutils'
   - 'dstat'
   - 'gettext'
-  - 'git'
   - 'htop'
   - 'iftop'
   - 'iotop'
