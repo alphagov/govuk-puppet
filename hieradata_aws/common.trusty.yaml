@@ -5,7 +5,7 @@ apt::sources:
     release: '%{::lsbdistcodename}'
     repos: 'main'
     key:
-      id: 'A1715D88E1DF1F24'
+      id: 'E1DD270288B4E6030699E45FA1715D88E1DF1F24'
       server: 'keyserver.ubuntu.com'
     include:
       src: false
