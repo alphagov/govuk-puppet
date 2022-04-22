@@ -39,8 +39,10 @@
       - mirror-github-repositories
     builders:
       - shell: |
-          echo "GITHUB_SSH_PRIVATE_KEY:"
-          echo ${GITHUB_SSH_PRIVATE_KEY}
+          set -ex
+          echo ${GIT_SSH_PRIVATE_KEY} | sed -E 's/(-+(BEGIN|END) RSA PRIVATE KEY-+) *| +/\1\n/g' > /tmp/git_ssh_private_key.pem
+          chmod 600 /tmp/git_ssh_private_key.pem
+          export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i /tmp/git_ssh_private_key.pem"
           export GITHUB_ACCESS_TOKEN=<%= @mirror_repos_github_api_token %>
           export ROLE_ARN=<%= @aws_role_arn %>
           export AWS_CODECOMMIT_USER_ID=<%= @aws_codecommit_user_id %>
