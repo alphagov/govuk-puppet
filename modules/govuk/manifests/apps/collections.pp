@@ -31,6 +31,15 @@
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
 #
+# [*google_tag_manager_id*]
+#   The ID for the Google Tag Manager account
+#
+# [*google_tag_manager_preview*]
+#   Allows a tag to be previewed in the Google Tag Manager interface
+#
+# [*google_tag_manager_auth*]
+#   The identifier of an environment for Google Tag Manager
+#
 class govuk::apps::collections(
   $vhost = 'collections',
   $port,
@@ -39,6 +48,9 @@ class govuk::apps::collections(
   $sentry_dsn = undef,
   $email_alert_api_bearer_token = undef,
   $memcache_servers = undef,
+  $google_tag_manager_id = undef,
+  $google_tag_manager_preview = undef,
+  $google_tag_manager_auth = undef,
 ) {
   govuk::app { 'collections':
     app_type                   => 'rack',
@@ -64,6 +76,15 @@ class govuk::apps::collections(
     "${title}-SECRET_KEY_BASE":
         varname => 'SECRET_KEY_BASE',
         value   => $secret_key_base;
+    "${title}-GOOGLE_TAG_MANAGER_ID":
+        varname => 'GOOGLE_TAG_MANAGER_ID',
+        value   => $google_tag_manager_id;
+    "${title}-GOOGLE_TAG_MANAGER_PREVIEW":
+        varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
+        value   => $google_tag_manager_preview;
+    "${title}-GOOGLE_TAG_MANAGER_AUTH":
+        varname => 'GOOGLE_TAG_MANAGER_AUTH',
+        value   => $google_tag_manager_auth;
     # MEMCACHE_SERVERS is used by "Dalli", our memcached client gem
     # https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
     "${title}-MEMCACHE_SERVERS":
