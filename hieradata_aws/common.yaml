@@ -1109,6 +1109,9 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
     healthcheck_urls: [] # done implicitly as part of app restart script
   collections: {}
   collections-publisher: {}
+  contacts:
+    healthcheck_urls:
+      - "https://contacts-admin.%{hiera('app_domain_internal')}/healthcheck/ready"
   content-data-admin:
     healthcheck_urls:
       - "https://content-data.%{hiera('app_domain_internal')}/healthcheck/ready"
