@@ -46,6 +46,7 @@
           export GITHUB_ACCESS_TOKEN=<%= @mirror_repo_github_api_token %>
           export ROLE_ARN=<%= @role_arn %>
           export AWS_CODECOMMIT_USER_ID=<%= @codecommit_user_id %>
+          export ENSURE_DEFAULT_BRANCH=false
           export BUNDLE_BIN_PATH="${HOME}/bundles/${JOB_NAME}"
           export BUNDLE_PATH="${HOME}/bundles/${JOB_NAME}"
           bundle install --deployment --path "${HOME}/bundles/${JOB_NAME}"
