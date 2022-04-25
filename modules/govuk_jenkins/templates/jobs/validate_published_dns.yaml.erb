@@ -5,7 +5,7 @@
         - git:
             url: git@github.com:alphagov/govuk-dns.git
             branches:
-              - master
+              - main
             wipe-workspace: true
             clean:
                 after: true
@@ -28,7 +28,7 @@
         - shell: |
             set -e
             rm -rf govuk-dns-config
-            git clone --branch master --depth 1 git@github.com:alphagov/govuk-dns-config.git
+            git clone --branch main --depth 1 git@github.com:alphagov/govuk-dns-config.git
             cp "./govuk-dns-config/${ZONEFILE}" .
             bundle install --path "${HOME}/bundles/${JOB_NAME}"
             bundle exec rake validate_dns
