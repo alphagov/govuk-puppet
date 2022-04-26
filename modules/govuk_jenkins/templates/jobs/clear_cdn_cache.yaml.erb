@@ -4,7 +4,7 @@
     display-name: Clear CDN cache
     project-type: freestyle
     description: >
-      Clears the CDN cache for the 10 most popular pages on GOV.UK.
+      Clears pages from the Fastly CDN cache
     properties:
       - build-discarder:
           num-to-keep: 30
@@ -12,34 +12,35 @@
       - shell: |
           #!/usr/bin/env bash
 
-          set -ex
+          # f argument disables globbing, which we don't want to happen
+          # on our URL inputs
+          set -exf
 
-          declare -a hostnames=(
-            "<%= @website_root_url -%>"
-            "<%= @assets_root_url -%>"
-          )
+          for url in $URLS; do
+            if [[ "${url:0:1}" == "/" ]]; then
+              cdn_url="<%= @website_root_url -%>${url}"
+            elif [[ $url =~ "://" ]]; then
+              cdn_url=$url
+            else
+              echo "expected $url to be an absolute path or absolute URL"
+              exit 1
+            fi
 
-          # 10 most popular pages based on GA 1-year stats
-          declare -a paths=(
-            "/"
-            "/check-mot-history"
-            "/coronavirus"
-            "/get-coronavirus-test"
-            "/log-in-register-hmrc-online-services"
-            "/report-covid19-result"
-            "/search/all"
-            "/sign-in-universal-credit"
-            "/sold-bought-vehicle"
-            "/vehicle-tax"
-          )
-
-          for node in `govuk_node_list -c cache`; do
-            for hostname in "${hostnames[@]}"; do
-              for path in "${paths[@]}"; do
-                ssh deploy@$node "curl -s -X PURGE $hostname$path"
-              done
-            done
+            ssh deploy@$(govuk_node_list --single-node -c cache) "curl -fs -w \"HTTP response: %{http_code}\n\" -X PURGE $cdn_url"
           done
+    parameters:
+      - text:
+          name: URLS
+          default: >
+            / /check-mot-history /coronavirus /get-coronavirus-test
+            /log-in-register-hmrc-online-services /report-covid19-result
+            /search/all /sign-in-universal-credit /sold-bought-vehicle
+            /vehicle-tax
+          description: >
+            Enter a list of paths (space separated) to GOV.UK pages to clear
+            them from CDN. Full URLs can be used for items not on the main
+            gov.uk hostname. This defaults to 10 pages that were once the 10 most
+            popular pages on GOV.UK according to our analytics.
     wrappers:
       - ansicolor:
           colormap: xterm
