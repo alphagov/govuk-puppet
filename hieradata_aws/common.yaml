@@ -1112,6 +1112,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   contacts:
     healthcheck_urls:
       - "https://contacts-admin.%{hiera('app_domain_internal')}/healthcheck/ready"
+    repository: "contacts-admin"
   content-data-admin:
     healthcheck_urls:
       - "https://content-data.%{hiera('app_domain_internal')}/healthcheck/ready"
