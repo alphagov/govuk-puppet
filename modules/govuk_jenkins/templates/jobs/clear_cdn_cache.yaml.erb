@@ -34,10 +34,12 @@
               echo $local_varnish_url
               for node in `govuk_node_list -c cache`; do
                 ssh deploy@$node "curl -fs -o /dev/null -w \"HTTP response: %{http_code}\n\" -X PURGE $local_varnish_url"
+                ssh deploy@$node "curl -fs -o /dev/null -w \"HTTP response: %{http_code}\n\" -H 'GOVUK-Account-Session-Exists: 1' -X PURGE $local_varnish_url"
               done
             fi
 
             ssh deploy@$(govuk_node_list --single-node -c cache) "curl -fs -w \"HTTP response: %{http_code}\n\" -X PURGE $cdn_url"
+            ssh deploy@$(govuk_node_list --single-node -c cache) "curl -fs -w \"HTTP response: %{http_code}\n\" -H 'GOVUK-Account-Session-Exists: 1' -X PURGE $cdn_url"
           done
     parameters:
       - text:
