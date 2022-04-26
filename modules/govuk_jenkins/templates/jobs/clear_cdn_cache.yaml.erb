@@ -4,7 +4,7 @@
     display-name: Clear CDN cache
     project-type: freestyle
     description: >
-      Clears pages from the Fastly CDN cache
+      Clears pages from the Fastly CDN cache and internal varnish cache
     properties:
       - build-discarder:
           num-to-keep: 30
@@ -18,12 +18,23 @@
 
           for url in $URLS; do
             if [[ "${url:0:1}" == "/" ]]; then
+              local_varnish_url="http://localhost:7999${url}"
               cdn_url="<%= @website_root_url -%>${url}"
             elif [[ $url =~ "://" ]]; then
+              # don't clear absolute URLs from our local varnish as they won't
+              # match, we assume they're for assets
+              local_varnish_url=""
               cdn_url=$url
             else
               echo "expected $url to be an absolute path or absolute URL"
               exit 1
+            fi
+
+            if [ -n "$local_varnish_url" ]; then
+              echo $local_varnish_url
+              for node in `govuk_node_list -c cache`; do
+                ssh deploy@$node "curl -fs -o /dev/null -w \"HTTP response: %{http_code}\n\" -X PURGE $local_varnish_url"
+              done
             fi
 
             ssh deploy@$(govuk_node_list --single-node -c cache) "curl -fs -w \"HTTP response: %{http_code}\n\" -X PURGE $cdn_url"
@@ -38,9 +49,10 @@
             /vehicle-tax
           description: >
             Enter a list of paths (space separated) to GOV.UK pages to clear
-            them from CDN. Full URLs can be used for items not on the main
-            gov.uk hostname. This defaults to 10 pages that were once the 10 most
-            popular pages on GOV.UK according to our analytics.
+            them from CDN. Enter full URLs to clear only from CDN (such as
+            items not on the main gov.uk hostname, such as assets). This
+            defaults to 10 pages that were once the 10 most popular pages on
+            GOV.UK according to our analytics.
     wrappers:
       - ansicolor:
           colormap: xterm
