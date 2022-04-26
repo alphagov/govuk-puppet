@@ -1097,6 +1097,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
       - "https://content-data.%{hiera('app_domain_internal')}/healthcheck/ready"
   content-data-api: {}
   content-publisher: {}
+  email-alert-api: {}
   email-alert-frontend: {}
   email-alert-service:
     healthcheck_urls: [] # done implicitly as part of app restart script https://github.com/alphagov/email-alert-service/pull/470
