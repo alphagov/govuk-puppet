@@ -46,6 +46,8 @@ govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'fee22233-2f28-4b
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: 'eb9ba220-7d74-4aab-975a-bdbe718f69a3'
 govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: '93109fea-34d9-4c38-ac7e-1ebc75e7416b'
 govuk::apps::feedback::govuk_notify_accessible_format_request_template_id: '47cef7ea-0849-48aa-9676-0ee0f7baa4ae'
+govuk::apps::feedback::redis_host: 'backend-redis'
+govuk::apps::feedback::redis_port: '6379'
 govuk::apps::frontend::google_tag_manager_auth: "C7iYdcsOlYgGmiUJjZKrHQ"
 govuk::apps::frontend::google_tag_manager_id: "GTM-MG7HG5W"
 govuk::apps::frontend::google_tag_manager_preview: "env-4"
