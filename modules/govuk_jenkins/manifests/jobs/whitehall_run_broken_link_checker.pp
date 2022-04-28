@@ -14,12 +14,4 @@ class govuk_jenkins::jobs::whitehall_run_broken_link_checker {
     content => template('govuk_jenkins/jobs/whitehall_run_broken_link_checker.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
-
-  @@icinga::passive_check { "${job_slug}_${::hostname}":
-    service_description   => $service_description,
-    host_name             => $::fqdn,
-    freshness_threshold   => 32 * 86400,
-    freshness_alert_level => 'warning',
-    action_url            => $job_url,
-  }
 }
