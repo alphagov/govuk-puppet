@@ -10,7 +10,7 @@
 # [* aws_role_arn *]
 #   IAM role with privileges to create, list and push to CodeCommit repositories
 #
-# [*cron_schedule *]
+# [* cron_schedule *]
 #   The cron schedule to specify how often this task will run
 #   Default: undef
 #
@@ -21,13 +21,13 @@
 #   A private key attached to the IAM user in aws_codecommit_user_id
 #
 class govuk_jenkins::jobs::mirror_github_repositories (
-  $codecommit_user_id = undef,
-  $role_arn = undef,
+  $aws_codecommit_user_id = undef,
+  $aws_role_arn = undef,
   $cron_schedule = undef,
   $enable_slack_notifications = false,
   $environment_variables = $govuk_jenkins::environment_variables,
-  $mirror_repo_github_api_token = undef,
-  $github_ssh_private_key = undef,
+  $mirror_repos_github_api_token = undef,
+  $ssh_private_key = undef,
 ) {
 
   $slack_team_domain = 'govuk'
