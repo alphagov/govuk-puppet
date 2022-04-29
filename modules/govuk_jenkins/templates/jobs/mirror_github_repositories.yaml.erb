@@ -43,7 +43,6 @@
           echo ${GIT_SSH_PRIVATE_KEY} | sed -E 's/(-+(BEGIN|END) RSA PRIVATE KEY-+) *| +/\1\n/g' > /tmp/git_ssh_private_key.pem
           chmod 600 /tmp/git_ssh_private_key.pem
           export GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no -i /tmp/git_ssh_private_key.pem"
-          export GITHUB_ACCESS_TOKEN=<%= @mirror_repos_github_api_token %>
           export ROLE_ARN=<%= @aws_role_arn %>
           export AWS_CODECOMMIT_USER_ID=<%= @aws_codecommit_user_id %>
           export ENSURE_DEFAULT_BRANCH=false
@@ -51,13 +50,16 @@
           export BUNDLE_PATH="${HOME}/bundles/${JOB_NAME}"
           bundle install --deployment --path "${HOME}/bundles/${JOB_NAME}"
           ./mirror_repos
+          rm -f /tmp/git_ssh_private_key.pem
     wrappers:
       - inject-passwords:
           global: false
           mask-password-params: true
           job-passwords:
-            - name: GIT_SSH_PRIVATE_KEY
-              password:
-                '<%= @ssh_private_key %>'
+              - name: GIT_SSH_PRIVATE_KEY
+                password:
+                  '<%= @ssh_private_key %>'
+              - name: GITHUB_ACCESS_TOKEN
+                password: '<%= @mirror_repos_github_api_token %>'
     triggers:
       - timed: <%= @cron_schedule %>
