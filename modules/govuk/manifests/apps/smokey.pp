@@ -34,6 +34,9 @@
 # [*smokey_bearer_token*]
 #   Bearer token for something
 #
+# [*sentry_dsn*]
+#   The URL used by Sentry to report exceptions
+#
 class govuk::apps::smokey (
   $http_username = undef,
   $http_password = undef,
@@ -45,6 +48,7 @@ class govuk::apps::smokey (
   $smokey_govuk_account_email = undef,
   $smokey_govuk_account_password = undef,
   $smokey_bearer_token = undef,
+  $sentry_dsn = undef,
 ){
   $app = 'smokey'
   $app_domain = hiera('app_domain')
@@ -71,6 +75,8 @@ class govuk::apps::smokey (
     'GOVUK_ACCOUNT_EMAIL':      value => $smokey_govuk_account_email;
     'GOVUK_ACCOUNT_PASSWORD':   value => $smokey_govuk_account_password;
     'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
+    'SENTRY_DSN':               value => $sentry_dsn;
+    'GOVUK_STATSD_PREFIX':      value => "govuk.app.smokey.${::hostname}";
   }
 
   if ($::aws_environment == 'staging') or ($::aws_environment == 'production') {
