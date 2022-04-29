@@ -1081,10 +1081,6 @@ govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
 govuk_jenkins::jobs::search_api_learn_to_rank::elasticsearch_uri: "%{hiera('govuk::apps::search_api::elasticsearch_hosts')}"
 
-govuk_jenkins::jobs::smokey::smokey_bearer_token: "%{hiera('smokey_bearer_token')}"
-govuk_jenkins::jobs::smokey::signon_email: "%{hiera('smokey_signon_email')}"
-govuk_jenkins::jobs::smokey::signon_password: "%{hiera('smokey_signon_password')}"
-
 govuk_jenkins::jobs::automated_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
