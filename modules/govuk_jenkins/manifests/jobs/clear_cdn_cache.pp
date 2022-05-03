@@ -4,7 +4,6 @@
 #
 class govuk_jenkins::jobs::clear_cdn_cache(
   $website_root_url = nil,
-  $assets_root_url = nil,
 ) {
   file { '/etc/jenkins_jobs/jobs/clear_cdn_cache.yaml':
     ensure  => present,
