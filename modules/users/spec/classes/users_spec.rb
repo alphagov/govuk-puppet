@@ -53,7 +53,7 @@ user_list.each do |username|
         if key != 'ssh-rsa REPLACE ME'
           expect(SSHKey.valid_ssh_public_key? key).to be true
           key_strength = SSHKey.ssh_public_key_bits key
-          next if key.match(/^ssh-ed25519/)
+          next if key.match(/^(ssh-ed25519|ecdsa-sha2-)/)
           expect(key_strength).to be >= 4096, "SSH key for #{user[:name]} is only #{key_strength} bits and must be stronger"
         end
       end
