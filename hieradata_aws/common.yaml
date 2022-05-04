@@ -972,7 +972,6 @@ govuk_ci::master::pipeline_jobs:
   support: {}
   transition: {}
   # Other repositories
-  asset_bom_removal-rails: {}
   backdrop-transactions-explorer-collector: {}
   deprecated_columns: {}
   gds-api-adapters: {}
