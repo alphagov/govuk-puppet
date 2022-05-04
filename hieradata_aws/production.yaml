@@ -309,6 +309,8 @@ govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'www.gov.uk'
 govuk_jenkins::jobs::run_related_links_generation::cron_schedule: '0 8 9,23 * *'
 govuk_jenkins::jobs::run_related_links_ingestion::cron_schedule: '0 8 11,25 * *'
 
+govuk_jenkins::jobs::mirror_github_repositories::cron_schedule: '0 */2 * * *' # every 2 hours
+
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
