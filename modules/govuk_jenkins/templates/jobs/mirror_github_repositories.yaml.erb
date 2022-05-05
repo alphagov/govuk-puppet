@@ -18,8 +18,11 @@
         - build-discarder:
             days-to-keep: 30
             artifact-num-to-keep: 5
+    publishers:
+        <%- if @enable_slack_notifications -%>
         - slack:
             team-domain: <%= @slack_team_domain %>
+            auth-token: <%= @environment_variables['SECOND_LINE_SLACK_AUTH_TOKEN']%>
             auth-token-id: 'slack-notification-token'
             auth-token-credential-id: 'slack-notification-token'
             build-server-url: <%= @slack_build_server_url %>
@@ -33,8 +36,9 @@
             notify-repeatedfailure: false
             include-test-summary: false
             include-custom-message: true
-            custom-message: "Mirror Github job to AWS CodeCommit failed"
+            custom-message: "'Mirror_Github_Repositories' job failed"
             room: <%= @slack_room %>
+        <%- end -%>
     scm:
       - mirror-github-repositories
     builders:
