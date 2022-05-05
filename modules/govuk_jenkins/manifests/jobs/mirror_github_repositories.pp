@@ -30,8 +30,8 @@ class govuk_jenkins::jobs::mirror_github_repositories (
   $ssh_private_key = undef,
 ) {
 
-  $slack_team_domain = 'govuk'
-  $slack_room = '2ndline'
+  $slack_team_domain = 'gds'
+  $slack_room = 'govuk-2ndline-tech'
   $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
   $slack_build_server_url = "https://${deploy_jenkins_domain}/"
 
