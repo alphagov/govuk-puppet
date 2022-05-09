@@ -1,0 +1,4 @@
+---
+
+govuk::apps::feedback::redis_host: 'rate-limit-redis'
+govuk::apps::feedback::redis_port: '6379'
