@@ -39,6 +39,10 @@
 # [*nproc_limit*]
 #   Limit for the number of processes for the deploy domain.
 #   Default: 2048
+#
+# [*sidekiq_logfile*]
+#   Path to the logfile for Sidekiq (async work queue library).
+#   Default: 'log/sidekiq.log'
 
 class govuk::deploy::config(
   $asset_root,
@@ -51,6 +55,7 @@ class govuk::deploy::config(
   $csp_report_uri = undef,
   $nofile_limit = 16384,
   $nproc_limit = 2048,
+  $sidekiq_logfile = 'log/sidekiq.log',
 ){
 
   limits::limits { 'deploy_nofile':
@@ -124,13 +129,14 @@ class govuk::deploy::config(
     'RACK_ENV':  value => $govuk_env;
     'RAILS_ENV': value => $govuk_env;
 
-    'ERRBIT_ENVIRONMENT_NAME': value   => $errbit_environment_name;
-    'SENTRY_CURRENT_ENV': value        => $errbit_environment_name;
-    'GOVUK_ENVIRONMENT_NAME': value    => $govuk_environment_name;
-    'GOVUK_ASSET_ROOT': value          => $asset_root;
-    'GOVUK_WEBSITE_ROOT': value        => $website_root;
-    'GOVUK_CSP_REPORT_ONLY': value     => $csp_report_only_value;
-    'GOVUK_CSP_REPORT_URI': value      => $csp_report_uri;
+    'ERRBIT_ENVIRONMENT_NAME': value => $errbit_environment_name;
+    'SENTRY_CURRENT_ENV': value      => $errbit_environment_name;
+    'GOVUK_ENVIRONMENT_NAME': value  => $govuk_environment_name;
+    'GOVUK_ASSET_ROOT': value        => $asset_root;
+    'GOVUK_WEBSITE_ROOT': value      => $website_root;
+    'GOVUK_CSP_REPORT_ONLY': value   => $csp_report_only_value;
+    'GOVUK_CSP_REPORT_URI': value    => $csp_report_uri;
+    'SIDEKIQ_LOGFILE': value         => $sidekiq_logfile;
   }
 
   if ($::aws_environment != 'production') {
