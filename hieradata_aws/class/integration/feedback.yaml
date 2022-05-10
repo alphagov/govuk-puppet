@@ -1,4 +1,0 @@
----
-
-govuk::apps::feedback::redis_host: 'backend-redis'
-govuk::apps::feedback::redis_port: '6379'
