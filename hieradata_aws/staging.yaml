@@ -5,7 +5,7 @@ app_domain_internal: "staging.govuk-internal.digital"
 backup::server::backup_hour: 9
 
 base::shell::shell_prompt_string: 'staging'
-base::supported_kernel::enabled: false
+base::supported_kernel::enabled: true
 
 cron::daily_hour: 6
 

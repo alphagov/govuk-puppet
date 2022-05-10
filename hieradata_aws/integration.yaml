@@ -4,7 +4,7 @@ app_domain_internal: "integration.govuk-internal.digital"
 deploy_jenkins_domain: "deploy.integration.publishing.service.gov.uk"
 
 base::shell::shell_prompt_string: 'integration'
-base::supported_kernel::enabled: false
+base::supported_kernel::enabled: true
 
 cron::weekly_dow: 1
 cron::daily_hour: 6
