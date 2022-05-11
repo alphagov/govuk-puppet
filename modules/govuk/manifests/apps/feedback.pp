@@ -36,6 +36,9 @@
 # [*govuk_notify_accessible_format_request_reply_to_id*]
 #   Accessible format request email address reply_to ID for GOV.UK Notify
 #
+# [*govuk_rate_limit_token*]
+#   Token shared with Smokey to bypass the rate limiter
+#
 # [*redis_host*]
 #   Redis host for Rack::Attack.
 #   Default: undef
@@ -59,6 +62,7 @@ class govuk::apps::feedback(
   $govuk_notify_survey_signup_reply_to_id,
   $govuk_notify_accessible_format_request_template_id = undef,
   $govuk_notify_accessible_format_request_reply_to_id = undef,
+  $govuk_rate_limit_token,
   $redis_host = undef,
   $redis_port = undef,
 ) {
@@ -150,6 +154,11 @@ class govuk::apps::feedback(
     varname => 'GOVUK_NOTIFY_ACCESSIBLE_FORMAT_REQUEST_REPLY_TO_ID',
     value   => $govuk_notify_accessible_format_request_reply_to_id,
   }
+
+    govuk::app::envvar { "${title}-GOVUK_RATE_LIMIT_TOKEN":
+      varname => 'GOVUK_RATE_LIMIT_TOKEN',
+      value   => $govuk_rate_limit_token,
+    }
 
   if $redis_host != undef {
     govuk::app::envvar::redis { $app_name:
