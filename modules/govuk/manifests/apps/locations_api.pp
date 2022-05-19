@@ -78,8 +78,8 @@ class govuk::apps::locations_api (
     app_type                   => 'rack',
     port                       => $port,
     vhost_ssl_only             => true,
-    has_liveness_health_check  => false, # TODO
-    has_readiness_health_check => false, # TODO
+    has_liveness_health_check  => true,
+    has_readiness_health_check => true,
     unicorn_worker_processes   => $unicorn_worker_processes,
     sentry_dsn                 => $sentry_dsn,
   }
