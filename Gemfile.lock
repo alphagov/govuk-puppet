@@ -10,7 +10,8 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
-    addressable (2.4.0)
+    addressable (2.8.0)
+      public_suffix (>= 2.0.2, < 5.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
     diff-lcs (1.4.4)
@@ -53,6 +54,7 @@ GEM
     parallel (1.13.0)
     parallel_tests (2.9.0)
       parallel
+    public_suffix (4.0.7)
     puppet (3.8.5)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
