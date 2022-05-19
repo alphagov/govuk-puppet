@@ -6,6 +6,9 @@ deploy_jenkins_domain: "deploy.integration.publishing.service.gov.uk"
 base::shell::shell_prompt_string: 'integration'
 base::supported_kernel::enabled: false
 
+base::packages::packages:
+        - 'linux-image-4.4.0-224-generic'
+
 cron::weekly_dow: 1
 cron::daily_hour: 6
 
