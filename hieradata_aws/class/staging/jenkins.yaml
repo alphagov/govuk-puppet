@@ -36,6 +36,11 @@ jenkins_deploy_permission_list: &jenkins_deploy_permission_list
   - 'hudson.model.View.Read'
   - 'hudson.scm.SCM.Tag'
 
+jenkins_integration_permission_list: &jenkins_integration_permission_list
+  - 'hudson.model.Hudson.Read'
+  - 'hudson.model.Item.Read'
+  - 'hudson.model.View.Read'
+
 govuk_jenkins::config::manage_permissions_github_teams: true
 govuk_jenkins::config::user_permissions:
   -
@@ -57,6 +62,9 @@ govuk_jenkins::config::user_permissions:
   -
     user: 'alphagov*GOV.UK Production Deploy'
     permissions: *jenkins_deploy_permission_list
+  -
+    user: 'alphagov*GOV.UK'
+    permissions: *jenkins_integration_permission_list
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
