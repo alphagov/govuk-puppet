@@ -1,5 +1,11 @@
 ---
 
+govuk::apps::imminence::mongodb_name: 'imminence_production'
+govuk::apps::imminence::mongodb_nodes:
+  - 'imminence-documentdb'
+govuk::apps::imminence::mongodb_username: "%{hiera('imminence_documentdb_user')}"
+govuk::apps::imminence::mongodb_password: "%{hiera('imminence_documentdb_password')}"
+
 govuk::apps::manuals_publisher::mongodb_name: 'govuk_content_production'
 govuk::apps::manuals_publisher::mongodb_nodes:
   - 'shared-documentdb'
