@@ -1124,6 +1124,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   sidekiq-monitoring: {}
   smartanswers:
     repository: 'smart-answers'
+  specialist-publisher: {}
   support: {}
   travel-advice-publisher: {}
   whitehall:
