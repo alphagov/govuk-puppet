@@ -47,7 +47,7 @@ govuk_jenkins::config::user_permissions:
     user: 'jenkins_api_user'
     permissions: *jenkins_admin_permission_list
   -
-    user: 'alphagov*GOV.UK Production'
+    user: 'alphagov*GOV.UK Production Admin'
     permissions: *jenkins_admin_permission_list
   -
     user: 'anonymous'
