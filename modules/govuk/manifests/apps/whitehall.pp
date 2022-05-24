@@ -214,7 +214,6 @@ class govuk::apps::whitehall(
     port                       => $port,
     sentry_dsn                 => $sentry_dsn,
     log_format_is_json         => true,
-    health_check_custom_doc    => true,
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     depends_on_nfs             => true,
