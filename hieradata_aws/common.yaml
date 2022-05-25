@@ -574,7 +574,7 @@ govuk::apps::locations_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::locations_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::locations_api::db_hostname: "locations-api-postgres"
 govuk::apps::locations_api::db_password: "%{hiera('govuk::apps::locations_api::db::password')}"
-govuk::apps::locations_api::unicorn_worker_processes: '10'
+govuk::apps::locations_api::unicorn_worker_processes: '16'
 
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
