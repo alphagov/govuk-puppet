@@ -183,6 +183,7 @@ if [[ " ${puppet_args} " =~ "--disable " ]]; then
     exit 1
   fi
 
+  lock_reason="Puppet is disabled :: $lock_reason"
   write_lock
   exit 0
 fi
