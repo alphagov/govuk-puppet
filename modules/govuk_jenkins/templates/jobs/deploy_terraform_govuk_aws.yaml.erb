@@ -33,14 +33,10 @@
         - build-name:
             name: '${ENV,var="ENVIRONMENT"} ${ENV,var="STACKNAME"} ${ENV,var="PROJECT"} ${ENV,var="COMMAND"}'
     builders:
-        - shell: |
-            ./jenkins.sh
-
-    publishers:
-        - text-finder:
-            regexp: "Plan.*\\d* to add, \\d* to change, \\d* to destroy."
-            also-check-console-output: true
-            unstable-if-found: true
+        - shell:
+            command: |
+              ./jenkins.sh
+            unstable-return: 2
 
     parameters:
         - string:
