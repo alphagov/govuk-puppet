@@ -35,6 +35,10 @@
 #   The bearer token to use when communicating with Publishing API.
 #   Default: undef
 #
+# [*email_alert_api_bearer_token*]
+#   The bearer token to use when communicating with Email Alert API.
+#   Default: undef
+#
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
 #
@@ -81,6 +85,7 @@ class govuk::apps::collections_publisher(
   $enable_procfile_worker = true,
   $link_checker_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
+  $email_alert_api_bearer_token = undef,
   $db_hostname = undef,
   $db_username = 'collections_pub',
   $db_password = undef,
@@ -145,6 +150,9 @@ class govuk::apps::collections_publisher(
       "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
+      "${title}-EMAIL_ALERT_API_BEARER_TOKEN":
+        varname => 'EMAIL_ALERT_API_BEARER_TOKEN',
+        value   => $email_alert_api_bearer_token;
       "${title}-JWT_AUTH_SECRET":
         varname => 'JWT_AUTH_SECRET',
         value   => $jwt_auth_secret;
