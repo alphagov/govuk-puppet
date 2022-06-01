@@ -317,8 +317,6 @@ monitoring::checks::smokey::features:
     feature: info_frontend
   check_licence_finder:
     feature: licence_finder
-  check_manuals_frontend:
-    feature: manuals_frontend
   check_public_api:
     feature: public_api
   check_publishing_tools:

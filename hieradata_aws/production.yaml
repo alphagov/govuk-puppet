@@ -509,8 +509,6 @@ monitoring::checks::smokey::features:
     feature: licence_finder
   check_licensing:
     feature: licensing
-  check_manuals_frontend:
-    feature: manuals_frontend
   check_mirror:
     feature: mirror
   check_public_api:
