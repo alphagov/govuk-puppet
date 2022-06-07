@@ -14,9 +14,8 @@ class golang {
   goenv::version { [
     '1.7.1',   # Used by alphagov/govuk_crawler_worker
     '1.12.1',  # Used by alphagov/govuk-csp-forwarder
-    '1.17.6',  # Used by alphagov/router (remove once router is running latest)
-    '1.17.7',  # Used by alphagov/router (remove once router is running latest)
-    '1.17.8',  # Used by alphagov/router
+    '1.17.8',  # Used by alphagov/router (remove once router is running latest)
+    '1.18.3',  # Used by alphagov/router
     ]: }
 
   package { ['godep']:
