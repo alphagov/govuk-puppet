@@ -38,7 +38,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   link-checker-api: {}
   local-links-manager: {}
   locations-api: {}
-  manuals-frontend: {}
   manuals-publisher: {}
   mapit: {}
   maslow: {}

@@ -186,7 +186,6 @@ deployable_applications: &deployable_applications
   link-checker-api: {}
   locations-api: {}
   local-links-manager: {}
-  manuals-frontend: {}
   manuals-publisher: {}
   mapit: {}
   maslow: {}
@@ -952,7 +951,6 @@ govuk_ci::master::pipeline_jobs:
   link-checker-api: {}
   local-links-manager: {}
   locations-api: {}
-  manuals-frontend: {}
   mapit: {}
   publishing-api: {}
   release: {}
@@ -1114,7 +1112,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   info-frontend: {}
   local-links-manager: {}
   locations-api: {}
-  manuals-frontend: {}
   manuals-publisher: {}
   maslow: {}
   publisher: {}
@@ -1239,7 +1236,6 @@ grafana::dashboards::application_dashboards:
       - frontend
       - government-frontend
       - info-frontend
-      - manuals-frontend
       - publishing-api
       - smartanswers
       - whitehall-frontend
@@ -1288,7 +1284,6 @@ grafana::dashboards::application_dashboards:
     show_memcached: true
     show_postgres_stats: true
   locations-api: {}
-  manuals-frontend: {}
   manuals-publisher:
     show_sidekiq_graphs: true
     has_workers: true
@@ -1353,7 +1348,6 @@ grafana::dashboards::application_dashboards:
       - finder-frontend
       - frontend
       - government-frontend
-      - manuals-frontend
       - smartanswers
       - whitehall-frontend
   support:
