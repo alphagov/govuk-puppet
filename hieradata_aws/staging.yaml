@@ -79,7 +79,6 @@ node_class: &node_class
       - email-alert-frontend
       - frontend
       - government-frontend
-      - manuals-frontend
       - service-manual-frontend
       - smartanswers
       - static
@@ -96,7 +95,6 @@ node_class: &node_class
       - frontend
       - government-frontend
       - info-frontend
-      - manuals-frontend
       - service-manual-frontend
       - static
   locations_api:
