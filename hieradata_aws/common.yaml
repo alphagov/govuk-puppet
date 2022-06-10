@@ -756,7 +756,7 @@ govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::specialist_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::smartanswers::unicorn_worker_processes: "4"
+govuk::apps::smartanswers::unicorn_worker_processes: "8"
 govuk::apps::smartanswers::zendesk_client_username: 'zd-api-govt@digital.cabinet-office.gov.uk/token'
 
 govuk::apps::smokey::smokey_signon_email: "%{hiera('smokey_signon_email')}"
