@@ -91,6 +91,9 @@ location ~ ^/contact/govuk(/(|service-feedback(/)?|problem_reports(/)?|foi(/)?|p
 }
 
 location / {
+  proxy_busy_buffers_size <%= @proxy_busy_buffers_size -%>;
+  proxy_buffers <%= @proxy_buffers -%>;
+  proxy_buffer_size <%= @proxy_buffer_size -%>;
   <%= scope.function_template(['router/fragments/_basic_auth.erb']) -%>
 
   <% if @aws_migration == 'draft_cache' -%>
