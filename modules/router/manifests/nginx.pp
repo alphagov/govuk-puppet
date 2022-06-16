@@ -49,6 +49,24 @@
 #
 # Default: ''
 #
+# [*proxy_busy_buffers_size*]
+#
+#  limits the total size of buffers that can be busy sending a response to the client while the response is not yet fully read
+#
+# Default: '8k'
+#
+# [*proxy_buffers*]
+#
+#  Sets the number and size of the buffers used for reading a response from the proxied server, for a single connection
+#
+# Default: '8 4k'
+#
+# [*proxy_buffer_size*]
+#
+#  Sets the size of the buffer used for reading the first part of the response received from the proxied server
+#
+# Default: '4k'
+#
 class router::nginx (
   $app_specific_static_asset_routes = {},
   $vhost_protected,
@@ -58,6 +76,9 @@ class router::nginx (
   $check_requests_warning = '@25',
   $check_requests_critical = '@10',
   $robotstxt = '',
+  $proxy_busy_buffers_size = '8k',
+  $proxy_buffers = '8 4k',
+  $proxy_buffer_size = '4k',
 ) {
   validate_array($rate_limit_tokens)
 
