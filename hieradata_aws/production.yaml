@@ -438,7 +438,7 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-frontend-internal:
     healthyhosts_ignore:
       - frontend-i-designprinciples # no idea what this is
-      - frontend-i-manuals-frontend" # in the process of being deprecated
+      - frontend-i-manuals-frontend # in the process of being deprecated
       - frontend-i-spotlight # no idea what this is
   blue-graphite-internal:
     healthyhosts_warning: 0
