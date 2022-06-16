@@ -483,8 +483,6 @@ monitoring::checks::smokey::features:
     feature: caching
   check_collections:
     feature: collections
-  check_contacts:
-    feature: contacts
   check_content_data_admin:
     feature: content_data_admin
   check_csv_preview:
@@ -515,8 +513,6 @@ monitoring::checks::smokey::features:
     feature: public_api
   check_publishing_tools:
     feature: publishing_tools
-  check_router:
-    feature: router
   check_search_api:
     feature: search_api
   check_service_manual:
