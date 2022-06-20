@@ -342,7 +342,6 @@ router::nginx::check_requests_critical: '@0.25'
 users::usernames:
   - agadufrat
   - alessiatosi
-  - alexbaker
   - alexnewton
   - alexwhiteheadsmith
   - alistairdavidson
@@ -382,7 +381,6 @@ users::usernames:
   - kevindew
   - kooghanwilliams
   - leenagupte
-  - lukewiltshire
   - matthewgregory
   - marcpomfret
   - maxfroumentin
@@ -402,7 +400,6 @@ users::usernames:
   - ryanbrooks
   - samsimpson
   - seanrankine
-  - seunadiomowo
   - simonhughesdon
   - stevenradford
 
