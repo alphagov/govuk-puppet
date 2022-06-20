@@ -283,6 +283,8 @@ monitoring::uptime_collector::environment: 'integration'
 monitoring::contacts::slack_username: 'Integration'
 
 monitoring::checks::smokey::features:
+  check_service_manual_frontend:
+    feature: apps/service_manual_frontend
   check_ab_testing:
     feature: ab_testing
   check_assets:

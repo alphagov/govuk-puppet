@@ -4,7 +4,9 @@ define icinga::smokey_loop(
   $ensure = present,
   $notes_url = undef
 ) {
-  icinga::check { "smokey_loop_for_${feature}_${::hostname}":
+  $check_feature_name = regsubst($feature, '[^_a-z]', '', 'G')
+
+  icinga::check { "smokey_loop_for_${check_feature_name}_${::hostname}":
     ensure              => $ensure,
     check_command       => "run_smokey_tests!${feature}",
     service_description => "Smokey loop for ${feature}",
