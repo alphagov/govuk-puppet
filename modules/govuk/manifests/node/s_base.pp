@@ -113,4 +113,18 @@ class govuk::node::s_base (
     mode   => '0644',
     source => 'puppet:///modules/govuk/etc/ssl/certs/rds-combined-ca-bundle.pem',
   }
+
+  include govuk_awscloudwatch
+
+  file { 'amazon-cloudwatch-agent.json':
+    ensure => 'present',
+    path   =>  '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json',
+    mode   => '0644',
+    source => 'puppet:///modules/govuk/node/s_base/amazon-cloudwatch-agent.json',
+  }
+
+  service { 'amazon-cloudwatch-agent':
+    ensure    => 'running',
+    subscribe => File['amazon-cloudwatch-agent.json'],
+  }
 }
