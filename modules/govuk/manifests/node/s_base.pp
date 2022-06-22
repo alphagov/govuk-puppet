@@ -117,10 +117,11 @@ class govuk::node::s_base (
   include govuk_awscloudwatch
 
   file { 'amazon-cloudwatch-agent.json':
-    ensure => 'present',
-    path   =>  '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json',
-    mode   => '0644',
-    source => 'puppet:///modules/govuk/node/s_base/amazon-cloudwatch-agent.json',
+    ensure  => 'present',
+    path    =>  '/opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json',
+    mode    => '0644',
+    source  => 'puppet:///modules/govuk/node/s_base/amazon-cloudwatch-agent.json',
+    require => Class['govuk_awscloudwatch'],
   }
 
   service { 'amazon-cloudwatch-agent':
