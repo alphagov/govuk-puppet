@@ -450,60 +450,74 @@ monitoring::contacts::slack_username: 'Staging (AWS)'
 monitoring::checks::smokey::environment: 'staging'
 monitoring::checks::smokey::disable_during_data_sync: true
 monitoring::checks::smokey::features:
-  check_ab_testing:
-    feature: ab_testing
   check_assets:
     feature: assets
-  check_benchmarking:
-    feature: benchmarking
-  check_caching:
-    feature: caching
-  check_collections:
-    feature: collections
-  check_content_data_admin:
-    feature: content_data_admin
-  check_csv_preview:
-    feature: csv_preview
-  check_draft_environment:
-    feature: draft_environment
-  check_feedback:
-    feature: feedback
-  check_finder_frontend:
-    feature: finder_frontend
-  check_foreign_travel_advice:
-    feature: foreign_travel_advice
-  check_frontend:
-    feature: frontend
-  check_gov_uk:
-    feature: gov_uk
-  check_gov_uk_redirect:
-    feature: gov_uk_redirect
-  check_government_frontend:
-    feature: government_frontend
-  check_info_frontend:
-    feature: info_frontend
-  check_licence_finder:
-    feature: licence_finder
+  check_cdn:
+    feature: cdn
   check_licensing:
     feature: licensing
-  check_public_api:
-    feature: public_api
-  check_publishing_tools:
-    feature: publishing_tools
-  check_search_api:
-    feature: search_api
-  check_service_manual:
-    feature: service_manual
-  check_signon:
-    feature: signon
-  check_smartanswers:
-    feature: smartanswers
-  check_transition:
-    feature: transition
-  check_waf:
-    feature: waf
-  check_whitehall:
-    feature: whitehall
+  check_origin:
+    feature: origin
+  check_apps_bouncer:
+    feature: apps/bouncer
+  check_apps_collections:
+    feature: apps/collections
+  check_apps_collections_publisher:
+    feature: apps/collections_publisher
+  check_apps_contacts_admin:
+    feature: apps/contacts_admin
+  check_apps_content_data_admin:
+    feature: apps/content_data_admin
+  check_apps_content_publisher:
+    feature: apps/content_publisher
+  check_apps_content_store:
+    feature: apps/content_store
+  check_apps_content_tagger:
+    feature: apps/content_tagger
+  check_apps_email_alert_frontend:
+    feature: apps/email_alert_frontend
+  check_apps_feedback:
+    feature: apps/feedback
+  check_apps_finder_frontend:
+    feature: apps/finder_frontend
+  check_apps_frontend:
+    feature: apps/frontend
+  check_apps_government_frontend:
+    feature: apps/government_frontend
+  check_apps_imminence:
+    feature: apps/imminence
+  check_apps_info_frontend:
+    feature: apps/info_frontend
+  check_apps_licence_finder:
+    feature: apps/licence_finder
+  check_apps_local_links_manager:
+    feature: apps/local_links_manager
+  check_apps_manuals_publisher:
+    feature: apps/manuals_publisher
+  check_apps_maslow:
+    feature: apps/maslow
+  check_apps_publisher:
+    feature: apps/publisher
+  check_apps_search_api:
+    feature: apps/search_api
+  check_apps_service_manual_frontend:
+    feature: apps/service_manual_frontend
+  check_apps_service_manual_publisher:
+    feature: apps/service_manual_publisher
+  check_apps_short_url_manager:
+    feature: apps/short_url_manager
+  check_apps_signon:
+    feature: apps/signon
+  check_apps_smartanswers:
+    feature: apps/smartanswers
+  check_apps_specialist_publisher:
+    feature: apps/specialist_publisher
+  check_apps_transition:
+    feature: apps/transition
+  check_apps_travel_advice_publisher:
+    feature: apps/travel_advice_publisher
+  check_apps_whitehall:
+    feature: apps/whitehall
 
 monitoring::uptime_collector::environment: 'staging'
 
