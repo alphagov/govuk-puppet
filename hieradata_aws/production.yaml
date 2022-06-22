@@ -487,6 +487,8 @@ monitoring::checks::smokey::features:
     feature: content_data_admin
   check_csv_preview:
     feature: csv_preview
+  check_data_gov_uk:
+    feature: data_gov_uk
   check_draft_environment:
     feature: draft_environment
   check_feedback:
@@ -503,6 +505,8 @@ monitoring::checks::smokey::features:
     feature: gov_uk_redirect
   check_government_frontend:
     feature: government_frontend
+  check_info_frontend:
+    feature: info_frontend
   check_licence_finder:
     feature: licence_finder
   check_licensing:

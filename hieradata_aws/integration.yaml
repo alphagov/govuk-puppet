@@ -317,12 +317,16 @@ monitoring::checks::smokey::features:
     feature: info_frontend
   check_licence_finder:
     feature: licence_finder
+  check_licensing:
+    feature: licensing
   check_public_api:
     feature: public_api
   check_publishing_tools:
     feature: publishing_tools
   check_search_api:
     feature: search_api
+  check_service_manual:
+    feature: service_manual
   check_signon:
     feature: signon
   check_smartanswers:
