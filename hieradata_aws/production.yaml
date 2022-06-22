@@ -487,6 +487,8 @@ monitoring::checks::smokey::features:
     feature: content_data_admin
   check_csv_preview:
     feature: csv_preview
+  check_data_gov_uk:
+    feature: data_gov_uk
   check_draft_environment:
     feature: draft_environment
   check_feedback:
