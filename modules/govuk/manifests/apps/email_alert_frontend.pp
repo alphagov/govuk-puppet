@@ -50,6 +50,9 @@
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
+# [*govuk_personalisation_your_account_uri*]
+#   URI for the account home page.
+#
 
 class govuk::apps::email_alert_frontend(
   $vhost = 'email-alert-frontend',
@@ -64,6 +67,7 @@ class govuk::apps::email_alert_frontend(
   $subscription_management_enabled = false,
   $account_api_bearer_token = undef,
   $govuk_personalisation_manage_uri = undef,
+  $govuk_personalisation_your_account_uri = undef,
 ) {
   $app_name = 'email-alert-frontend'
 
@@ -106,6 +110,9 @@ class govuk::apps::email_alert_frontend(
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
       varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
       value   => $govuk_personalisation_manage_uri;
+    "${title}-GOVUK-PERSONALISATION-YOUR-ACCOUNT-URI":
+      varname => 'GOVUK_PERSONALISATION_YOUR_ACCOUNT_URI',
+      value   => $govuk_personalisation_your_account_uri;
   }
 
   if $subscription_management_enabled {

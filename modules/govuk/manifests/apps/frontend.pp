@@ -54,6 +54,9 @@
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
+# [*govuk_personalisation_your_account_uri*]
+#   URI for the account home page.
+#
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
 #
@@ -87,6 +90,7 @@ class govuk::apps::frontend(
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
   $govuk_personalisation_manage_uri = undef,
+  $govuk_personalisation_your_account_uri = undef,
   $memcache_servers = undef,
   $elections_api_url = undef,
   $elections_api_key = undef,
@@ -147,6 +151,9 @@ class govuk::apps::frontend(
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
         varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
         value   => $govuk_personalisation_manage_uri;
+    "${title}-GOVUK-PERSONALISATION-YOUR-ACCOUNT-URI":
+      varname => 'GOVUK_PERSONALISATION_YOUR_ACCOUNT_URI',
+      value   => $govuk_personalisation_your_account_uri;
     # MEMCACHE_SERVERS is used by "Dalli", our memcached client gem
     # https://github.com/petergoldstein/dalli/blob/1fbef3c/lib/dalli/client.rb#L35
     "${title}-MEMCACHE_SERVERS":
