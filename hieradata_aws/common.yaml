@@ -1122,6 +1122,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
     repository: 'smart-answers'
   specialist-publisher: {}
   support: {}
+  support-api: {}
   travel-advice-publisher: {}
   whitehall:
     healthcheck_urls:
