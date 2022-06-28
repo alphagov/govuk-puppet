@@ -309,8 +309,6 @@ monitoring::checks::smokey::features:
     feature: apps/content_store
   check_apps_content_tagger:
     feature: apps/content_tagger
-  check_apps_email_alert_frontend:
-    feature: apps/email_alert_frontend
   check_apps_feedback:
     feature: apps/feedback
   check_apps_finder_frontend:
