@@ -539,6 +539,8 @@ monitoring::checks::smokey::features:
     feature: apps/smartanswers
   check_apps_specialist_publisher:
     feature: apps/specialist_publisher
+  check_apps_static:
+    feature: apps/static
   check_apps_transition:
     feature: apps/transition
   check_apps_travel_advice_publisher:
