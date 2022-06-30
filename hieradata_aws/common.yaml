@@ -969,7 +969,6 @@ govuk_ci::master::pipeline_jobs:
   gds_zendesk: {}
   govuk_ab_testing: {}
   govuk-cdn-config: {}
-  govuk-csp-forwarder: {}
   govuk-dummy_content_store: {}
   govuk_document_types: {}
   govuk-guix: {}
