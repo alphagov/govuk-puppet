@@ -96,6 +96,7 @@ govuk::apps::static::google_tag_manager_preview: "env-4"
 govuk::apps::static::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::static::govuk_personalisation_security_uri: 'https://integration.account.gov.uk?link=security-privacy'
 govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'
+govuk::apps::static::govuk_personalisation_your_account_uri: 'https://www.integration.publishing.service.gov.uk/account/home'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-integration-support-api-csvs'
 govuk::apps::support_api::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
