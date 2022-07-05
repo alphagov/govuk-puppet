@@ -13,7 +13,7 @@
           },
           {
             "file_path": "/var/log/secure",
-            "log_group_name": "secure",
+            "log_group_name": "auth-log",
             "log_stream_name": "{instance_id}"
           }
         ]
