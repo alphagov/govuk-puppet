@@ -66,6 +66,9 @@
 # [*govuk_personalisation_feedback_uri*]
 #   URI for the account feedback page.
 #
+# [*govuk_personalisation_your_account_uri*]
+#   URI for the account home page.
+#
 class govuk::apps::static(
   $vhost = 'static',
   $port,
@@ -84,6 +87,7 @@ class govuk::apps::static(
   $govuk_personalisation_manage_uri = undef,
   $govuk_personalisation_security_uri = undef,
   $govuk_personalisation_feedback_uri = undef,
+  $govuk_personalisation_your_account_uri = undef,
 ) {
   $enable_ssl = hiera('nginx_enable_ssl', true)
   $app_name = 'static'
@@ -151,6 +155,9 @@ class govuk::apps::static(
     "${title}-GOVUK-PERSONALISATION-FEEDBACK-URI":
       varname => 'GOVUK_PERSONALISATION_FEEDBACK_URI',
       value   => $govuk_personalisation_feedback_uri;
+    "${title}-GOVUK-PERSONALISATION-YOUR-ACCOUNT-URI":
+      varname => 'GOVUK_PERSONALISATION_YOUR_ACCOUNT_URI',
+      value   => $govuk_personalisation_your_account_uri;
   }
 
   if $ga_universal_id != undef {
