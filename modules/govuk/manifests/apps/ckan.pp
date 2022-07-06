@@ -279,5 +279,13 @@ class govuk::apps::ckan (
         configset => $solr_core_configset,
       }
     }
+
+    file { '/etc/cron.daily/cleanup-sessions.sh':
+      ensure  => present,
+      content => "#!/bin/sh\nset -e\nfind /tmp/dgu/sessions -type f -mtime +6 -delete",
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0744',
+    }
   }
 }
