@@ -170,7 +170,7 @@ govuk::apps::email_alert_api::govuk_notify_recipients:
   - email-alert-api-staging@digital.cabinet-office.gov.uk
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://staging.account.gov.uk?link=manage-account'
-govuk::apps::email_alert_frontend::govuk_personalisation_your_account_uri: 'https://www.staging.publishing.service.gov.uk/account/home'
+govuk::apps::email_alert_frontend::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
 govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: 'd33f7857-7514-4458-81b9-0995f48e2ac5'
@@ -181,7 +181,7 @@ govuk::apps::finder_frontend::unicorn_worker_processes: 24
 
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
-govuk::apps::frontend::govuk_personalisation_your_account_uri: 'https://www.staging.publishing.service.gov.uk/account/home'
+govuk::apps::frontend::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
 govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
@@ -229,7 +229,7 @@ govuk::apps::static::ga_universal_id: 'UA-26179049-20'
 govuk::apps::static::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::static::govuk_personalisation_security_uri: 'https://integration.account.gov.uk?link=security-privacy'
 govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'
-govuk::apps::static::govuk_personalisation_your_account_uri: 'https://www.staging.publishing.service.gov.uk/account/home'
+govuk::apps::static::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
 govuk::apps::support::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
 govuk::apps::support_api::pp_data_url: 'https://www.staging.performance.service.gov.uk'
 govuk::apps::support_api::aws_s3_bucket_name: 'govuk-staging-support-api-csvs'
