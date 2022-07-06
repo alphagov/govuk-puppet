@@ -36,15 +36,6 @@
 # [*cpu_critical*]
 #   CPU usage percentage that alerts are sounded at
 #
-# [*google_tag_manager_id*]
-#   The ID for the Google Tag Manager account
-#
-# [*google_tag_manager_preview*]
-#   Allows a tag to be previewed in the Google Tag Manager interface
-#
-# [*google_tag_manager_auth*]
-#   The identifier of an environment for Google Tag Manager
-#
 class govuk::apps::government_frontend(
   $vhost = 'government-frontend',
   $port,
@@ -55,9 +46,6 @@ class govuk::apps::government_frontend(
   $unicorn_worker_processes = undef,
   $cpu_warning = 150,
   $cpu_critical = 200,
-  $google_tag_manager_id = undef,
-  $google_tag_manager_preview = undef,
-  $google_tag_manager_auth = undef,
 ) {
   Govuk::App::Envvar {
     app => 'government-frontend',
@@ -67,15 +55,6 @@ class govuk::apps::government_frontend(
     "${title}-ACCOUNT_API_BEARER_TOKEN":
         varname => 'ACCOUNT_API_BEARER_TOKEN',
         value   => $account_api_bearer_token;
-    "${title}-GOOGLE_TAG_MANAGER_ID":
-        varname => 'GOOGLE_TAG_MANAGER_ID',
-        value   => $google_tag_manager_id;
-    "${title}-GOOGLE_TAG_MANAGER_PREVIEW":
-        varname => 'GOOGLE_TAG_MANAGER_PREVIEW',
-        value   => $google_tag_manager_preview;
-    "${title}-GOOGLE_TAG_MANAGER_AUTH":
-        varname => 'GOOGLE_TAG_MANAGER_AUTH',
-        value   => $google_tag_manager_auth;
     "${title}-PUBLISHING_API_BEARER_TOKEN":
         varname => 'PUBLISHING_API_BEARER_TOKEN',
         value   => $publishing_api_bearer_token;
