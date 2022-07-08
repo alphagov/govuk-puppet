@@ -16,6 +16,7 @@ class router::draft_assets(
   $real_ip_header = '',
   $vhost_name = 'draft-assets',
 ) {
+  $whitehall_uploaded_assets_routes = hiera('router::assets_origin::whitehall_uploaded_assets_routes', [])
   $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
 
   $upstream_ssl = true
