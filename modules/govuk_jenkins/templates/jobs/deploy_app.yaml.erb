@@ -85,6 +85,11 @@
                 credential-id: govukci-docker-hub
                 username: DOCKER_HUB_USERNAME
                 password: DOCKER_HUB_PASSWORD
+        - credentials-binding:
+            - username-password-separated:
+                credential-id: govukci-docker-enterprise-hub
+                username: DOCKER_HUB_USERNAME
+                password: DOCKER_HUB_PASSWORD
         - timestamps
     parameters:
         - choice:
