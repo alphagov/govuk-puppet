@@ -99,6 +99,11 @@ describe 'nginx::config::vhost::proxy', :type => :define do
       is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/proxy_set_header GOVUK-Request-Id \$govuk_request_id;/)
     end
+
+    it 'should add the X-Content-Type-Options header' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/add_header X-Content-Type-Options \"nosniff\";/)
+    end
   end
 
   context 'if in aws and deny_crawlers set to true' do
