@@ -1,0 +1,2 @@
+govuk_safe_to_reboot::can_reboot: 'yes'
+govuk_safe_to_reboot::reason: 'only used for ad-hoc load testing'
