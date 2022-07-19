@@ -977,11 +977,9 @@ govuk_ci::master::pipeline_jobs:
   govuk_personalisation: {}
   govuk-provisioning: {}
   govuk_seed_crawler: {}
-  govuk_schemas: {}
   govuk_sidekiq: {}
   govuk-taxonomy-supervised-learning: {}
   govuk_taxonomy_helpers: {}
-  govuk_test: {}
   licensify:
     branches_to_exclude:
       - 'release*'
@@ -1009,7 +1007,6 @@ govuk_ci::master::pipeline_jobs:
   plek: {}
   publishing-e2e-tests: {}
   rack-logstasher: {}
-  rails_translation_manager: {}
   router-data: {}
   scss-lint-govuk: {}
   search-api: {}
