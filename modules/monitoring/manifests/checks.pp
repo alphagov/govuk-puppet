@@ -57,10 +57,8 @@ class monitoring::checks (
   $app_domain = hiera('app_domain')
   $app_domain_internal = hiera('app_domain_internal')
 
-  if $app_domain != 'integration.publishing.service.gov.uk' {
-    include monitoring::checks::reboots
-  }
 
+  include monitoring::checks::reboots
   include icinga::plugin::check_http_timeout_noncrit
 
   $content_data_api_hostname    = "content-data-api.${app_domain}"
