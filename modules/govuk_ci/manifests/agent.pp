@@ -42,6 +42,7 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::postgresql
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::agent::solr
+  include ::govuk_ci::cleanup
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
   include ::govuk_jenkins::packages::terraform

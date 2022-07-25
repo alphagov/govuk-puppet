@@ -7,6 +7,7 @@ mongodb::server::replicaset_members:
 
 clamav::use_service: false
 
+govuk_ci::agent::cleanup::jenkins_workspace_max_age: '30'
 govuk_ci::agent::postgresql::mapit_role_password: 'mapit'
 govuk_ci::agent::postgresql::email_alert_api_role_password: 'email-alert-api'
 govuk_ci::agent::gdal_version: "2.4.4"

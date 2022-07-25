@@ -34,6 +34,7 @@ class govuk_ci::master (
   validate_hash($pipeline_jobs)
   validate_hash($environment_variables)
 
+  include ::govuk_ci::cleanup
   include ::govuk_ci::credentials
   include ::govuk_ci::limits
 
