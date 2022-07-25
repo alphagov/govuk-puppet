@@ -3,6 +3,6 @@ class users::edwardkerry {
   govuk_user { 'edwardkerry':
     fullname => 'Edward Kerry',
     email    => 'edward.kerry@digital.cabinet-office.gov.uk',
-    ssh_key  => 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAINIaULpflQlzleFOTh0ZHXyxrKmIJavgm1KenN9OPAdF edwardkerry@gmail.com',
+    ssh_key  => 'ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAID03eorNCOM7OWdZuXosiT7m1/QDtdTL34LJ1JRJJlcs edward.kerry@digital.cabinet-office.gov.uk',
   }
 }
