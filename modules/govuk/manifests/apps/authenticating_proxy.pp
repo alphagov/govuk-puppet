@@ -12,6 +12,14 @@
 # [*mongodb_name*]
 #   The name of the MongoDB database to use
 #
+# [*mongodb_username*]
+#   The username to use when connecting to the MongoDB database
+#   (needed for DocumentDB, which always requires username)
+#
+# [*mongodb_password*]
+#   The password to use when connecting to the MongoDB database
+#   (needed for DocumentDB, which always requires password)
+#
 # [*port*]
 #   The port that it is served on.
 #
@@ -42,8 +50,10 @@
 #   Scheme to use for signon URI.
 #   Default: 'https'
 class govuk::apps::authenticating_proxy(
-  $mongodb_nodes,
+  $mongodb_nodes = undef,
   $mongodb_name = 'authenticating_proxy_production',
+  $mongodb_username = '',
+  $mongodb_password = '',
   $port,
   $sentry_dsn = undef,
   $govuk_upstream_uri = 'http://localhost:3054',
@@ -58,6 +68,8 @@ class govuk::apps::authenticating_proxy(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+    username => $mongodb_username,
+    password => $mongodb_password,
   }
 
   govuk::app { $app_name:

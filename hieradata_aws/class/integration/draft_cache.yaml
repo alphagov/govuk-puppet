@@ -1,0 +1,7 @@
+---
+
+govuk::apps::authenticating_proxy::mongodb_name: 'authenticating_proxy_production'
+govuk::apps::authenticating_proxy::mongodb_nodes:
+  - 'authenticating-proxy-documentdb'
+govuk::apps::authenticating_proxy::mongodb_username: "%{hiera('authenticating_proxy_documentdb_user')}"
+govuk::apps::authenticating_proxy::mongodb_password: "%{hiera('authenticating_proxy_documentdb_password')}"
