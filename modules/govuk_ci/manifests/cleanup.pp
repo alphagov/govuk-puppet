@@ -11,7 +11,7 @@ class govuk_ci::cleanup (
   $jenkins_workspace_max_age = 90,
 ){
   cron::crondotdee { 'clean_up_workspace':
-    command => 'find /var/lib/jenkins/workspace/ -maxdepth 1 -mindepth 1 -type d -mtime +$jenkins_workspace_max_age -exec rm -rf {} \;',
+    command => "find /var/lib/jenkins/workspace/ -maxdepth 1 -mindepth 1 -type d -mtime +${jenkins_workspace_max_age} -exec rm -rf {} \\;",
     hour    => 7,
     minute  => 25,
   }
