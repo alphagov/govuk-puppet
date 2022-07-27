@@ -44,7 +44,7 @@ class govuk::node::s_apt (
     'aptly':
       location => 'http://repo.aptly.info',
       release  => 'squeeze',
-      key      => 'A0546A43624A8331';
+      key      => 'EE727D4449467F0E';
     'duplicity':
       location => 'http://ppa.launchpad.net/duplicity-team/ppa/ubuntu',
       release  => 'trusty',
