@@ -12,6 +12,7 @@ describe 'govuk::node::s_apt' do
     context 'when not specified' do
       let(:params) {{
         :root_dir => '/root/dir',
+        :bootstrap_packages => ['path/to/package/a', 'path/to/package/b'],
       }}
       it 'should not configure nginx with real_ip_header directive' do
         is_expected.to contain_nginx__config__site('apt.cluster').without_content(/real_ip_header/)
@@ -20,7 +21,8 @@ describe 'govuk::node::s_apt' do
     context 'when specified with true_client_ip value' do
       let(:params) {{
         :real_ip_header => 'True-Client-IP',
-        :root_dir       => '/root/dir'
+        :root_dir       => '/root/dir',
+        :bootstrap_packages => ['path/to/package/a', 'path/to/package/b'],
       }}
       it 'should configure nginx with real_ip_header directive' do
         is_expected.to contain_nginx__config__site('apt.cluster').with_content(/real_ip_header True-Client-IP;$/)

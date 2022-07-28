@@ -17,6 +17,7 @@ class govuk::node::s_apt (
   $real_ip_header = undef,
   $apt_service = 'apt.cluster',
   $gemstash_service = 'gemstash.cluster',
+  $bootstrap_packages = undef,
 ) inherits govuk::node::s_base {
 
   # Only mirror our current arch to save space. This means that some
@@ -29,7 +30,16 @@ class govuk::node::s_apt (
     },
   }
 
-  Govuk_mount[$root_dir] -> Class['aptly']
+  exec { 'install_boostrap_packages':
+    command     => "dpkg -i ${bootstrap_packages}.join()",
+    user        => 'root',
+    group       => 'root',
+    path        => $root_dir,
+    refreshonly => true,
+    onlyif      => $bootstrap_packages,
+  }
+
+  Govuk_mount[$root_dir] -> Exec['install_boostrap_packages'] -> Class['aptly']
 
   file { $root_dir:
     ensure  => directory,

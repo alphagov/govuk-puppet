@@ -1,0 +1,20 @@
+---
+
+govuk::node::s_apt::bootstrap_packages:
+  - 'public/puppetlabs-trusty/pool/main/f/facter/facter_2.0.2-1puppetlabs1_amd64.deb/facter_2.0.2-1puppetlabs1_amd64.deb'
+  - 'public/nginx/pool/nginx/n/nginx/nginx_1.14.0-1~trusty_amd64.deb'
+  - 'public/nginx/pool/nginx/n/nginx-module-perl/nginx-module-perl_1.14.0-1~trusty_amd64.deb'
+  - 'public/nodejs/pool/main/n/nodejs/nodejs_12.22.1-1nodesource1_amd64.deb'
+
+govuk::node::s_apt::root_dir: '/mnt/apt'
+
+lv:
+  data:
+    pv: '/dev/xvdf'
+    vg: 'apt'
+
+mount:
+  /mnt/apt:
+    disk: '/dev/mapper/apt-data'
+    govuk_lvm: 'data'
+    mountoptions: 'defaults'
