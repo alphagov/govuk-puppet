@@ -141,7 +141,7 @@ GIT
   ref: 8abf2e5c398f1d9ed5341ccb212bab52b1e32b84
   sha: 8abf2e5c398f1d9ed5341ccb212bab52b1e32b84
   specs:
-    gdsoperations-aptly (0.6.0)
+    puppet-aptly (1.0.1)
       puppetlabs-apt (< 3.0.0, >= 2.0.0)
       puppetlabs-stdlib (< 5.0.0, >= 3.0.0)
 
