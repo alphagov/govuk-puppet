@@ -138,8 +138,8 @@ GIT
 
 GIT
   remote: git://github.com/alphagov/puppet-aptly.git
-  ref: 143919794c96450ef887dc757cea002345161870
-  sha: 143919794c96450ef887dc757cea002345161870
+  ref: 8abf2e5c398f1d9ed5341ccb212bab52b1e32b84
+  sha: 8abf2e5c398f1d9ed5341ccb212bab52b1e32b84
   specs:
     gdsoperations-aptly (0.6.0)
       puppetlabs-apt (< 3.0.0, >= 2.0.0)
