@@ -179,7 +179,7 @@ DEPENDENCIES
   camptocamp-augeas (= 1.1.0)
   elasticsearch-logstash (>= 0)
   fsalum-redis (>= 0)
-  gdsoperations-aptly (>= 0)
+  puppet-aptly (>= 0)
   gdsoperations-auditd (= 0.2.0)
   gdsoperations-goenv (= 0.0.4)
   gdsoperations-graphite (~> 2.1)
