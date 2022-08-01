@@ -969,7 +969,6 @@ govuk_ci::master::pipeline_jobs:
   gds_zendesk: {}
   govuk-cdn-config: {}
   govuk-dummy_content_store: {}
-  govuk_document_types: {}
   govuk-guix: {}
   govuk-jenkinslib: {}
   govuk_message_queue_consumer: {}
