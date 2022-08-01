@@ -967,7 +967,6 @@ govuk_ci::master::pipeline_jobs:
   gds-api-adapters: {}
   gds-sso: {}
   gds_zendesk: {}
-  govuk_ab_testing: {}
   govuk-cdn-config: {}
   govuk-dummy_content_store: {}
   govuk_document_types: {}
