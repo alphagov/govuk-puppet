@@ -305,7 +305,7 @@ govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-product
 govuk_jenkins::jobs::athena_fastly_logs_check::databases: ['govuk_www', 'govuk_assets', 'bouncer']
 govuk_jenkins::jobs::content_data_api::rake_etl_main_process_cron_schedule: '0 7 * * *'
 
-govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'www.gov.uk'
+govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.gov.uk'
 
 govuk_jenkins::jobs::run_related_links_generation::cron_schedule: '0 8 9,23 * *'
 govuk_jenkins::jobs::run_related_links_ingestion::cron_schedule: '0 8 11,25 * *'

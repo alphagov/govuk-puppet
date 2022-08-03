@@ -154,7 +154,7 @@ govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-integra
 
 govuk_jenkins::jobs::content_data_api::rake_etl_main_process_cron_schedule: '0 13 * * *'
 
-govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'www.integration.publishing.service.gov.uk'
+govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.integration.publishing.service.gov.uk'
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
 
