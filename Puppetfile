@@ -58,7 +58,7 @@ mod 'puppetlabs/postgresql',
   :ref => '2b30e3e1cbb2772bee848d802f6f00cc790a2947'
 mod 'gdsoperations/aptly',
   :git => 'git://github.com/alphagov/puppet-aptly.git',
-  :ref => '143919794c96450ef887dc757cea002345161870'
+  :ref => '258c4ddedbed93682b545a863a65ab5ca3243237'
 
 # Our modules on the Forge.
 mod 'gdsoperations/auditd', '0.2.0'
