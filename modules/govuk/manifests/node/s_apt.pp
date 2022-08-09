@@ -29,7 +29,7 @@ class govuk::node::s_apt (
       'architectures' => [$::architecture],
     },
   }
-  
+
   $pkgs = join($bootstrap_packages, ' ')
   exec { 'install_boostrap_packages':
     command     => "dpkg -i ${pkgs}",
