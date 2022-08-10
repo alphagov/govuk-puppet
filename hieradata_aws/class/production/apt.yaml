@@ -3,7 +3,7 @@
 govuk::node::s_apt::bootstrap_packages:
   - 'public/collectd/pool/main/c/collectd/collectd_5.8.0.145.gca1cb27-1~trusty_amd64.deb'
   - 'public/collectd/pool/main/c/collectd/collectd-core_5.8.0.145.gca1cb27-1~trusty_amd64.deb'
-  - 'public/docker/pool/stable/d/docker-ce/docker-ce_18.06.0~ce~3-0~ubuntu_amd64.deb'
+  - 'public/docker/pool/stable/d/docker-ce/docker-ce_18.06.1~ce~3-0~ubuntu_amd64.deb'
   - 'public/elasticsearch-5.x/pool/main/f/filebeat/filebeat-5.6.14-amd64.deb'
   - 'public/govuk/ppa/production/pool/main/l/locksmithctl/locksmithctl_0.2.3-ppa1_amd64.deb'
   - 'public/govuk/ppa/production/pool/main/r/rbenv-ruby-1.9.3-p550/rbenv-ruby-1.9.3-p550_1-ppa1~trusty1_amd64.deb'
