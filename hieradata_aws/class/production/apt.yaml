@@ -18,6 +18,7 @@ govuk::node::s_apt::bootstrap_packages:
   - 'public/puppetlabs-trusty/pool/main/f/facter/facter_2.0.2-1puppetlabs1_amd64.deb/facter_2.0.2-1puppetlabs1_amd64.deb'
   - 'public/puppetlabs-trusty/pool/main/p/puppet/puppet_3.8.5-1puppetlabs1_all.deb'
   - 'public/puppetlabs-trusty/pool/main/p/puppet/puppet-common_3.8.5-1puppetlabs1_all.deb'
+  - 'public/mnt/apt/public/awscloudwatch/pool/main/a/amazon-cloudwatch-agent/amazon-cloudwatch-agent.deb'
 
 govuk::node::s_apt::root_dir: '/mnt/apt'
 
