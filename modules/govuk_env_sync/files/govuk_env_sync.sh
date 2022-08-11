@@ -555,6 +555,7 @@ function postprocess_signon_production {
   postprocess_mysl_cmd_signon_production "performance.service.gov.uk" "staging.performance.service.gov.uk"
   postprocess_mysl_cmd_signon_production "-production.cloudapps.digital" "-staging.cloudapps.digital"
   postprocess_mysl_cmd_signon_production "-production.london.cloudapps.digital" "-staging.london.cloudapps.digital"
+  postprocess_mysl_cmd_signon_production "admin.forms.service.gov.uk" "admin.staging.forms.service.gov.uk"  
 
   log "Completed the postprocessing for Signon"
 }
