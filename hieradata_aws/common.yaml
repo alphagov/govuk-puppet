@@ -265,7 +265,7 @@ base::packages::packages:
   - 'libxml2-dev'
   - 'libxslt1-dev'
   - 'liblzma-dev'
-  - 'linux-image-4.4.0-224-generic'
+  - 'linux-image-4.4.0-231-generic'
   - 'logtail'
   - 'mailutils'
   - 'man-db'
