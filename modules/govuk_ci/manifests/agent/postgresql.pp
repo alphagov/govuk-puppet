@@ -21,6 +21,11 @@ class govuk_ci::agent::postgresql (
     version => '13',
     port    => 54313,
   }
+  ::govuk_containers::ci_postgis { 'ci-postgis-14':
+    version         => '14',
+    postgis_version => '3.2',
+    port            => 54414,
+  }
 
   contain ::govuk_postgresql::mirror
   include ::govuk_postgresql::server::standalone
