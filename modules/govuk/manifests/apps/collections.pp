@@ -31,6 +31,9 @@
 # [*memcache_servers*]
 #   URL of a shared memcache cluster.
 #
+# [*unreleased_features_enabled*]
+#   Whether unreleased features should be enabled
+#
 
 class govuk::apps::collections(
   $vhost = 'collections',
@@ -40,6 +43,7 @@ class govuk::apps::collections(
   $sentry_dsn = undef,
   $email_alert_api_bearer_token = undef,
   $memcache_servers = undef,
+  $unreleased_features_enabled = false,
 ) {
   govuk::app { 'collections':
     app_type                   => 'rack',
