@@ -1092,6 +1092,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
       - "https://content-data.%{hiera('app_domain_internal')}/healthcheck/ready"
   content-data-api: {}
   content-publisher: {}
+  content-store: {}
   content-tagger: {}
   email-alert-api: {}
   email-alert-frontend: {}
