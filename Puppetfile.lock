@@ -199,7 +199,6 @@ DEPENDENCIES
   puppetlabs-postgresql (>= 0)
   puppetlabs-stdlib (>= 0)
   puppetlabs-vcsrepo (= 2.3.0)
-  puppet-jenkins (= 2.0.0)
   saz-limits (= 2.3.0)
   saz-memcached (>= 0)
   saz-ntp (= 2.3.2)
