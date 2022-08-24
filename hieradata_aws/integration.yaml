@@ -161,6 +161,8 @@ govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notificati
 
 govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.blue.staging.govuk.digital'
 
+govuk_jenkins::jobs::smokey_deploy::deploy_url: 'deploy.blue.staging.govuk.digital'
+
 govuk_jenkins::jobs::deploy_dns::gce_project_id: 'govuk-integration'
 govuk_jenkins::jobs::deploy_dns::zones:
   - 'dnstest.alphagov.co.uk'
