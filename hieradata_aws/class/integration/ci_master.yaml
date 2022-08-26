@@ -66,7 +66,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
 govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.integration.publishing.service.gov.uk'
 govuk_jenkins::jobs::deploy_app_downstream::smokey_pre_check: false
 
-govuk_jenkins::jobs::smokey_deploy::deploy_url: 'deploy.integration.publishing.service.gov.uk'
+govuk_jenkins::jobs::deploy_smokey_downstream::deploy_url: 'deploy.integration.publishing.service.gov.uk'
 
 jenkins_admin_permission_list: &jenkins_admin_permission_list
   - 'hudson.model.Hudson.Administer'
@@ -144,12 +144,12 @@ govuk_jenkins::job_builder::jobs: &job_builder_jobs
   - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_puppet_downstream
   - govuk_jenkins::jobs::build_fpm_package
-  - govuk_jenkins::jobs::smokey_deploy
+  - govuk_jenkins::jobs::deploy_smokey_downstream
 govuk_ci::master::job_builder_jobs: *job_builder_jobs
 
 govuk_jenkins::jobs::deploy_app_downstream::jenkins_downstream_api_password: "%{hiera('govuk_jenkins::jobs::deploy_app_downstream::ci_jenkins_downstream_api_password')}"
 
-govuk_jenkins::jobs::smokey_deploy::jenkins_downstream_api_password: "%{hiera('govuk_jenkins::jobs::deploy_app_downstream::ci_jenkins_downstream_api_password')}"
+govuk_jenkins::jobs::deploy_smokey_downstream::jenkins_downstream_api_password: "%{hiera('govuk_jenkins::jobs::deploy_app_downstream::ci_jenkins_downstream_api_password')}"
 
 jenkins::params::default_plugins: []
 

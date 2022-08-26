@@ -23,9 +23,6 @@
         - shell: |
             export DEPLOY_TO=$(govuk_node_list -c monitoring)
             sh -x deploy.sh
-            # Deploy to downstream environment using same credentials as Deploy_App_Downstream job
-            CRUMB=$(curl https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/crumbIssuer/api/json | jq --raw-output '. | .crumb')
-            curl -f -H "Jenkins-Crumb:$CRUMB" -XPOST https://<%= @jenkins_downstream_api_user %>:<%= @jenkins_downstream_api_password %>@<%= @deploy_url %>/job/Smokey_Deploy/build"
     triggers:
         - timed: |
             TZ=Europe/London
