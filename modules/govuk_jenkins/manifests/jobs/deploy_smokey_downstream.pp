@@ -14,7 +14,7 @@
 #   The URL of the downstream Jenkins.
 #
 class govuk_jenkins::jobs::deploy_smokey_downstream (
-  $jenkins_downstream_api_user = undef,
+  $jenkins_downstream_api_user = 'jenkins_api_user',
   $jenkins_downstream_api_password = undef,
   $deploy_url = undef,
 ) {
