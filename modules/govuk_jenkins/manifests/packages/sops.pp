@@ -11,7 +11,7 @@
 #   The fingerprint of an APT mirror
 #
 class govuk_jenkins::packages::sops (
-  $version = '3.0.2',
+  $version = '3.0.2-2',
   $apt_mirror_hostname,
   $apt_mirror_gpg_key_fingerprint,
 ){
