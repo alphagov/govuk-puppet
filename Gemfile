@@ -11,7 +11,7 @@ gem "hiera-eyaml-gpg", :git => 'https://github.com/alphagov/hiera-eyaml-gpg.git'
 gem "rspec-puppet"
 # FIXME: There is some confusion about who should require who.
 # https://github.com/rodjek/rspec-puppet/issues/56
-gem 'puppetlabs_spec_helper', '1.0.1'
+gem 'puppetlabs_spec_helper', '4.0.1'
 # Workaround a Mocha incompatibility in puppetlabs_spec_helper
 gem 'mocha', '< 1.5.0'
 gem "webmock", "~> 1.20.0"

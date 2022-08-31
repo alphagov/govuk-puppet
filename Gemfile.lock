@@ -13,7 +13,7 @@ GEM
     addressable (2.4.0)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
-    diff-lcs (1.4.4)
+    diff-lcs (1.5.0)
     facter (2.4.6)
     faraday (0.13.1)
       multipart-post (>= 1.2, < 3)
@@ -53,6 +53,7 @@ GEM
     parallel (1.13.0)
     parallel_tests (2.9.0)
       parallel
+    pathspec (1.0.0)
     puppet (3.8.5)
       facter (> 1.6, < 3)
       hiera (~> 1.0)
@@ -68,28 +69,28 @@ GEM
       gettext-setup (~> 0.11)
       minitar
       semantic_puppet (~> 1.0)
-    puppetlabs_spec_helper (1.0.1)
-      mocha
-      puppet-lint
-      puppet-syntax
-      rake
-      rspec-puppet
+    puppetlabs_spec_helper (4.0.1)
+      mocha (~> 1.0)
+      pathspec (>= 0.2.1, < 1.1.0)
+      puppet-lint (~> 2.0)
+      puppet-syntax (>= 2.0, < 4)
+      rspec-puppet (~> 2.0)
     rake (12.2.1)
-    rspec (3.9.0)
-      rspec-core (~> 3.9.0)
-      rspec-expectations (~> 3.9.0)
-      rspec-mocks (~> 3.9.0)
-    rspec-core (3.9.2)
-      rspec-support (~> 3.9.3)
-    rspec-expectations (3.9.2)
+    rspec (3.11.0)
+      rspec-core (~> 3.11.0)
+      rspec-expectations (~> 3.11.0)
+      rspec-mocks (~> 3.11.0)
+    rspec-core (3.11.0)
+      rspec-support (~> 3.11.0)
+    rspec-expectations (3.11.0)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
-    rspec-mocks (3.9.1)
+      rspec-support (~> 3.11.0)
+    rspec-mocks (3.11.1)
       diff-lcs (>= 1.2.0, < 2.0)
-      rspec-support (~> 3.9.0)
+      rspec-support (~> 3.11.0)
     rspec-puppet (2.7.10)
       rspec
-    rspec-support (3.9.3)
+    rspec-support (3.11.0)
     rsync (1.0.9)
     safe_yaml (1.0.5)
     semantic_puppet (1.0.2)
@@ -115,7 +116,7 @@ DEPENDENCIES
   puppet-lint (= 2.0.0)
   puppet-lint-trailing_comma-check (= 0.3.2)
   puppet-syntax (= 2.1.0)
-  puppetlabs_spec_helper (= 1.0.1)
+  puppetlabs_spec_helper (= 4.0.1)
   rake
   rspec-puppet
   sshkey (= 1.9.0)
