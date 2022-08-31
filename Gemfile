@@ -14,7 +14,7 @@ gem "rspec-puppet"
 gem 'puppetlabs_spec_helper', '1.0.1'
 # Workaround a Mocha incompatibility in puppetlabs_spec_helper
 gem 'mocha', '< 1.5.0'
-gem "webmock", "~> 1.20.0"
+gem "webmock", "~> 3.18.1"
 gem "sshkey", "1.9.0"
 
 gem "parallel_tests"
