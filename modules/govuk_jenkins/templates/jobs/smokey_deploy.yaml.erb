@@ -23,6 +23,8 @@
         - shell: |
             export DEPLOY_TO=$(govuk_node_list -c monitoring)
             sh -x deploy.sh
+        - trigger-builds:
+            - project: Deploy_Smokey_Downstream
     triggers:
         - timed: |
             TZ=Europe/London
