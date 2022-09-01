@@ -19,6 +19,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
+  - govuk_jenkins::jobs::deploy_smokey_downstream
   - govuk_jenkins::jobs::deploy_terraform_govuk_aws
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::govuk_content_api_docs
