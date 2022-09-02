@@ -25,7 +25,3 @@
             sh -x deploy.sh
         - trigger-builds:
             - project: Deploy_Smokey_Downstream
-    triggers:
-        - timed: |
-            TZ=Europe/London
-            H 9 * * *
