@@ -290,7 +290,7 @@ govuk_jenkins::plugins:
   sitemonitor:
     version: '0.6'
   slack:
-    version: '2.20'
+    version: '2.23'
   snakeyaml-api:
     version: '1.29.1'
   ssh-agent:
