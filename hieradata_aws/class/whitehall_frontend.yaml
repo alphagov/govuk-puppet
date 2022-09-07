@@ -1,5 +1,4 @@
 ---
-govuk::apps::whitehall::asset_host: "%{hiera('govuk::deploy::config::website_root')}"
 govuk::apps::whitehall::configure_frontend: true
 govuk::apps::whitehall::vhost: 'whitehall-frontend'
 govuk::apps::whitehall::vhost_protected: false
