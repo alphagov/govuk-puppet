@@ -2,6 +2,7 @@
 router::gor::add_hosts: false
 router::gor::replay_targets:
   'www-origin.integration.publishing.service.gov.uk': {}
+  'www-origin.eks.staging.govuk.digital': {}
 router::gor::http_disallow_url:
   - 'apply-for-a-licence/payment'
   - 'apply-for-a-licence/redirect'
