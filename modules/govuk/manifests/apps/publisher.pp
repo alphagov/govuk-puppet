@@ -60,9 +60,6 @@
 # [*oauth_secret*]
 #   The OAuth secret used by GDS-SSO to authenticate the app to GOV.UK Signon
 #
-# [*fact_check_address_format*]
-#   The address format used for sending fact checks
-#
 # [*fact_check_username*]
 #   The username to use for Basic Auth for fact check
 #
@@ -121,7 +118,6 @@ class govuk::apps::publisher(
     $sentry_dsn = undef,
     $oauth_id = undef,
     $oauth_secret = undef,
-    $fact_check_address_format = undef,
     $fact_check_subject_prefix = undef,
     $fact_check_username = undef,
     $fact_check_password = undef,
@@ -214,9 +210,6 @@ class govuk::apps::publisher(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-FACT_CHECK_ADDRESS_FORMAT":
-        varname => 'FACT_CHECK_ADDRESS_FORMAT',
-        value   => $fact_check_address_format;
       "${title}-FACT_CHECK_SUBJECT_PREFIX":
         varname => 'FACT_CHECK_SUBJECT_PREFIX',
         value   => $fact_check_subject_prefix;
