@@ -211,7 +211,6 @@ govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_user
 govuk::apps::local_links_manager::local_links_manager_passive_checks: true
 govuk::apps::local_links_manager::run_links_ga_export: true
 
-govuk::apps::publisher::fact_check_address_format: 'factcheck+production-{id}@alphagov.co.uk'
 govuk::apps::publisher::fact_check_reply_to_id: 'e739d23a-b761-44af-9a99-a1eba0b75c7e'
 govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_dev: 'govuk-dev@digital.cabinet-office.gov.uk'
