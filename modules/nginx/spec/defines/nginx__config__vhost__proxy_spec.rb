@@ -104,6 +104,11 @@ describe 'nginx::config::vhost::proxy', :type => :define do
       is_expected.to contain_nginx__config__site('rabbit')
         .with_content(/add_header X-Content-Type-Options \"nosniff\";/)
     end
+
+    it 'should add the Referrer-Policy header' do
+      is_expected.to contain_nginx__config__site('rabbit')
+        .with_content(/add_header Referrer-Policy \"strict-origin-when-cross-origin\";/)
+    end
   end
 
   context 'if in aws and deny_crawlers set to true' do
