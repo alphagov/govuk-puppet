@@ -111,4 +111,4 @@
             notify-every-failure: true
             room: <%= @slack_channel %>
             include-custom-message: true
-            custom-message: "Automatic deployment failed for $TARGET_APPLICATION $TAG"
+            custom-message: "Automatic deployment to <%= @deploy_environment %> failed for $TARGET_APPLICATION $TAG"

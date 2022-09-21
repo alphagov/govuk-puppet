@@ -156,6 +156,7 @@ govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.integration
 
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
 
+govuk_jenkins::jobs::deploy_app_downstream::deploy_environment: 'staging'
 govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.blue.staging.govuk.digital'
 
 govuk_jenkins::jobs::deploy_smokey_downstream::deploy_url: 'deploy.blue.staging.govuk.digital'

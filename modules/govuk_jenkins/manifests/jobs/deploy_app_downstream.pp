@@ -16,6 +16,10 @@
 # [*deploy_url*]
 #   The URL of the downstream Jenkins.
 #
+# [*deploy_environment*]
+#   The name of the environment in which the downstream deployment Jenkins is running.
+#   This is used to make the Slack message more useful.
+#
 # [*github_api_token*]
 #   The API token used to avoid rate limiting for GitHub API calls.
 #
@@ -27,6 +31,7 @@ class govuk_jenkins::jobs::deploy_app_downstream (
   $jenkins_downstream_api_user = undef,
   $jenkins_downstream_api_password = undef,
   $deploy_url = undef,
+  $deploy_environment = undef,
   $github_api_token = undef,
   $smokey_pre_check = true,
   $release_app_bearer_token = undef,
