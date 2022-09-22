@@ -237,6 +237,9 @@ govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-production-special
 govuk::apps::specialist_publisher::enabled: true
 govuk::apps::specialist_publisher::govuk_notify_template_id: "e00e89f5-b622-4dcb-8f30-e6c70231a940"
 govuk::apps::static::ga_universal_id: 'UA-26179049-1'
+govuk::apps::static::google_tag_manager_auth: "oSryE57NbEZexEB0vGGuS"
+govuk::apps::static::google_tag_manager_id: "GTM-MG7HG5W"
+govuk::apps::static::google_tag_manager_preview: "env-1"
 govuk::apps::static::govuk_personalisation_manage_uri: 'https://account.gov.uk?link=manage-account'
 govuk::apps::static::govuk_personalisation_security_uri: 'https://account.gov.uk?link=security-privacy'
 govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'
