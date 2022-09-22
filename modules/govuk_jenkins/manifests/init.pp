@@ -136,6 +136,21 @@ class govuk_jenkins (
     provider => 'pip3',
   }
 
+  package { 'certifi':
+    ensure   => '2021.10.8',
+    provider => pip3,
+  }
+
+  package { 'Jinja2':
+    ensure   => '2.11.2',
+    provider => pip3,
+  }
+
+  package { 'MarkupSafe':
+    ensure   => '1.1.1',
+    provider => pip3,
+  }
+
 
   # Runtime dependency of: https://github.com/alphagov/search-analytics
   ensure_packages(['libffi-dev'])
