@@ -55,6 +55,7 @@ class govuk_jenkins::package (
     repo               => false,
     install_java       => false,
     configure_firewall => false,
+    cli                => false,
     config_hash        => $config,
     manage_user        => false,
     manage_group       => false,
