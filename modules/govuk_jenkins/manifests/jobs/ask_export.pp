@@ -29,18 +29,6 @@
 # [*folder_id_third_party*]
 #   ID of the folder for third party export
 #
-# [*aws_region*]
-#   Region that the s3 bucket is in
-#
-# [*aws_access_key*]
-#   Access key needed for the AWS account
-#
-# [*aws_secret_access_key*]
-#   Secret access key for authentication of AWS account
-#
-# [*s3_bucket_name_gcs_public_questions*]
-#   Name of the bucket where responses are held
-#
 # [*run_daily*]
 #   A flag to decide whether the job runs every day or not
 #
@@ -53,10 +41,6 @@ class govuk_jenkins::jobs::ask_export (
   $google_private_key = undef,
   $folder_id_cabinet_office = undef,
   $folder_id_third_party = undef,
-  $aws_region = undef,
-  $aws_access_key = undef,
-  $aws_secret_access_key = undef,
-  $s3_bucket_name_gcs_public_questions = undef,
   $run_daily = false,
 ) {
 
