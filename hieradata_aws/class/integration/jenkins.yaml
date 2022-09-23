@@ -54,10 +54,8 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::whitehall_publisher_notifications
 
 govuk_jenkins::jobs::ask_export::smart_survey_config: 'draft'
-govuk_jenkins::jobs::ask_export::aws_region: 'eu-west-1'
 govuk_jenkins::jobs::ask_export::folder_id_cabinet_office: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
 govuk_jenkins::jobs::ask_export::folder_id_third_party: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
-govuk_jenkins::jobs::ask_export::s3_bucket_name_gcs_public_questions: 'govuk-uk-integration-ask-export'
 govuk_jenkins::jobs::ask_export::run_daily: false
 
 govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_type: ml.c5.xlarge
