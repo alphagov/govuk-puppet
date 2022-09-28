@@ -1118,6 +1118,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   service-manual-frontend: {}
   service-manual-publisher: {}
   sidekiq-monitoring: {}
+  signon: {}
   smartanswers:
     repository: 'smart-answers'
   specialist-publisher: {}
