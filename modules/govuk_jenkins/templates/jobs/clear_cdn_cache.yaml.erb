@@ -35,6 +35,13 @@
               echo "expected $cdn_url to be an HTTPS URL"
               exit 1
             fi
+            
+            cdn_domain=`echo $cdn_url | awk -F[/:] '{print $4}'`
+            if [[ "${cdn_domain: -6}" != "gov.uk" ]]; then
+              # Ensure the Fastly API token is only sent to GOV.UK URLs
+              echo "expected $cdn_url to be a GOV.UK URL"
+              exit 1
+            fi
 
             if [ -n "$local_varnish_url" ]; then
               echo $local_varnish_url
