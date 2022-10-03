@@ -87,4 +87,10 @@ http {
 
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
+
+    # Map the passed in X-Forwarded-Host if present and default to the server host otherwise.
+    map $http_x_forwarded_host $proxy_add_x_forwarded_host {
+      default $http_x_forwarded_host;
+      ''      $host;
+    }
 }
