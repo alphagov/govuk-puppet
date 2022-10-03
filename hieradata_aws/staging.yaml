@@ -316,6 +316,8 @@ govuk_jenkins::jobs::data_sync_complete_staging::signon_domains_to_migrate:
 govuk_jenkins::jobs::deploy_app_downstream::deploy_environment: 'production'
 govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.blue.production.govuk.digital'
 
+govuk_jenkins::jobs::deploy_puppet::deploy_environment: 'staging'
+
 govuk_jenkins::jobs::deploy_smokey_downstream::deploy_url: 'deploy.blue.production.govuk.digital'
 
 govuk_jenkins::jobs::deploy_dns::gce_client_name: 'govuk-dns-deploy'

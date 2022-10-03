@@ -13,10 +13,15 @@
 # [*commitish*]
 #   The commitish that the job should deploy by default. Defaults to 'release'
 #
+# [*deploy_environment*]
+#   The name of the environment in which Puppet is being deployed.
+#   This is used to make the Slack message more useful.
+#
 class govuk_jenkins::jobs::deploy_puppet (
   $auth_token = undef,
   $commitish   = 'release',
   $enable_slack_notifications = false,
+  $deploy_environment = undef,
 ) {
   $environment_variables = $govuk_jenkins::environment_variables
   $slack_team_domain = 'gds'

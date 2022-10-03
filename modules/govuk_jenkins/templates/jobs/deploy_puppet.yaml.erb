@@ -58,6 +58,7 @@
             notify-repeated-failure: false
             include-test-summary: false
             room: <%= @slack_room %>
+            custom-message: "Deploying $TAG to <%= @deploy_environment %>"
         <%- end -%>
     wrappers:
         - ansicolor:
