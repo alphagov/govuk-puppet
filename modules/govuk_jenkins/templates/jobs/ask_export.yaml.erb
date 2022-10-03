@@ -52,12 +52,10 @@
       - shell: |
           set -e
           export SMART_SURVEY_CONFIG=<%= @smart_survey_config %>
-          export AWS_REGION=<%= @aws_region %>
           export GOOGLE_ACCOUNT_TYPE='service_account'
           export GOOGLE_CLOUD_PROJECT='govuk-ask-export-1589383422955'
           export FOLDER_ID_CABINET_OFFICE=<%= @folder_id_cabinet_office %>
           export FOLDER_ID_THIRD_PARTY=<%= @folder_id_third_party %>
-          export S3_BUCKET_NAME_GCS_PUBLIC_QUESTIONS=<%= @s3_bucket_name_gcs_public_questions %>
           bundle install --deployment
           bundle exec rake run_exports
           bundle exec rake run_cleanup
@@ -84,9 +82,3 @@
             - name: GOOGLE_PRIVATE_KEY
               password:
                 '<%= @google_private_key %>'
-            - name: AWS_ACCESS_KEY
-              password:
-                '<%= @aws_access_key %>'
-            - name: AWS_SECRET_ACCESS_KEY
-              password:
-                '<%= @aws_secret_access_key %>'
