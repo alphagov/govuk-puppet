@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eu
 
 TARGETS="<%= @targets.flatten.join(' ') -%>"
 MIRROR_ROOT="<%= @mirror_root -%>"
@@ -8,6 +8,7 @@ STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
 GOVUK_WEBSITE_ROOT=$(cat /etc/govuk/env.d/GOVUK_WEBSITE_ROOT)
 GOVUK_WEBSITE_DIR="${GOVUK_WEBSITE_ROOT##https://}"
 PROGRAM_NAME=$(basename $0)
+WEBSITE_MIRROR_DIR="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
 
 # Nagios defaults, assume failed
 NAGIOS_CODE=1
@@ -39,20 +40,18 @@ function get_error_page() {
   # Grab the 503 error page
   log "user.info" "Grabbing the latest error page"
 
-  website_mirror_dir="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
-  sudo -u deploy mkdir -p "${website_mirror_dir}/error/"
-  sudo -u deploy curl -sf "https://${STATIC_HOSTNAME}/templates/503.html.erb" -o "${website_mirror_dir}/error/503.html"
+  sudo -u deploy mkdir -p "${WEBSITE_MIRROR_DIR}/error/"
+  sudo -u deploy curl -sf "https://${STATIC_HOSTNAME}/templates/503.html.erb" -o "${WEBSITE_MIRROR_DIR}/error/503.html"
 }
 
 function write_timestamps() {
-  website_mirror_dir=$(find "$MIRROR_ROOT" -name "www.*" | head -n 1)
-  upload_time=$(date +%s)
+  local upload_time=$(date +%s)
 
   cat <<EOF > timestamps.txt
 upload_time=$upload_time
 EOF
 
-  sudo mv timestamps.txt $website_mirror_dir
+  sudo mv timestamps.txt "${WEBSITE_MIRROR_DIR}"
 }
 
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
