@@ -12,7 +12,7 @@
     <credentialsId><%= @credentials_id %></credentialsId>
     <maxNumRetries>0</maxNumRetries>
     <retryWaitTime>0</retryWaitTime>
-    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.KnownHostsFileKeyVerificationStrategy"/>
+    <sshHostKeyVerificationStrategy class="hudson.plugins.sshslaves.verifiers.NonVerifyingKeyVerificationStrategy"/>
   </launcher>
   <label><%= @labels %></label>
   <nodeProperties/>
