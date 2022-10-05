@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -e
+set -eu
 
 TARGETS="<%= @targets.flatten.join(' ') -%>"
 MIRROR_ROOT="<%= @mirror_root -%>"
@@ -45,7 +45,7 @@ function get_error_page() {
 }
 
 function write_timestamps() {
-  upload_time=$(date +%s)
+  local upload_time=$(date +%s)
 
   cat <<EOF > timestamps.txt
 upload_time=$upload_time
