@@ -27,9 +27,9 @@ limits::entries:
     ensure: 'present'
     user: '*'
     limit_type: 'nproc'
-    hard: 2048
+    hard: 4096
   'default_nofile':
     ensure: 'present'
     user: '*'
     limit_type: 'nofile'
-    hard: 2048
+    hard: 8192
