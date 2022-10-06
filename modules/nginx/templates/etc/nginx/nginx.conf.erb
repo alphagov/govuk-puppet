@@ -85,6 +85,12 @@ http {
     gzip_types          text/css text/xml application/x-javascript application/atom+xml text/plain;
     gzip_vary           on;
 
+    # Map the passed in X-Forwarded-Host if present and default to the server host otherwise.
+    map $http_x_forwarded_host $proxy_add_x_forwarded_host {
+      default $http_x_forwarded_host;
+      ''      $http_host;
+    }
+
     include /etc/nginx/conf.d/*.conf;
     include /etc/nginx/sites-enabled/*;
 }
