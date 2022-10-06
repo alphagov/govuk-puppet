@@ -10,6 +10,9 @@ GOVUK_WEBSITE_DIR="${GOVUK_WEBSITE_ROOT##https://}"
 PROGRAM_NAME=$(basename $0)
 WEBSITE_MIRROR_DIR="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
 
+S5CMD_URL="https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz"
+S5CMD=/usr/local/bin/s5cmd
+
 # Nagios defaults, assume failed
 EXIT_CODE=1
 EXIT_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
@@ -23,6 +26,17 @@ function log_exit_status() {
 }
 
 trap log_exit_status EXIT
+
+function install_s5cmd() {
+  tmpdir=$(mktemp -d)
+  trap "rm -fr $tmpdir" EXIT INT QUIT TERM
+
+  (
+    cd "$tmpdir"
+    curl -fsL "${S5CMD_URL}" | tar -zxf - s5cmd
+    sudo cp s5cmd "${S5CMD}"
+  )
+}
 
 if [ -z "${TARGETS}" ]; then
   log "user.info" "No mirror targets received"
@@ -54,19 +68,19 @@ EOF
   sudo mv timestamps.txt "${WEBSITE_MIRROR_DIR}"
 }
 
+[[ -x "${S5CMD}" ]] || install_s5cmd
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
 get_error_page
 write_timestamps
 START_UPLOAD=$(date +%s%3N)
 
 function do_sync() {
-  # With s3cmd sync, target needs to end with /
-  [[ ${TARGET} == *\/ ]] || TARGET="${TARGET}/"
+  # With s3cmd/s5cmd sync, the target needs to end with /
+  [[ ${TARGET} == */ ]] || TARGET="${TARGET}/"
 
-  /usr/local/bin/govuk_setenv s3_sync_mirror s3cmd sync \
-      --no-mime-magic --guess-mime-type --no-preserve \
-      --cache-file=/tmp/s3cmd_mirror_sync.cache --exclude=lost+found \
-      "${MIRROR_ROOT}/" "${TARGET}"
+  /usr/local/bin/govuk_setenv s3_sync_mirror "${S5CMD}" --log error sync \
+      --destination-region eu-west-2 \
+      --exclude lost+found "${MIRROR_ROOT}/" "${TARGET}"
 }
 
 EXITCODE=0
