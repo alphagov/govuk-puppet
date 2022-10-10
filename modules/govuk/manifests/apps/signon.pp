@@ -4,11 +4,11 @@
 #
 # === Parameters
 #
-# [*active_record_primary_key*]
-#   The active record primary key used for the encrypted otp_secret_keys
+# [*active_record_encryption_primary_key*]
+#   The primary key used for the active record encryption
 #
-# [*active_record_key_derivation_salt*]
-#   The active record key derivation salt used for the encrypted otp_secret_keys  
+# [*active_record_encryption_key_derivation_salt*]
+#   The key derivation salt used for active record encryption
 #
 # [*db_hostname*]
 #   The hostname of the database server to use in the DATABASE_URL.
@@ -73,8 +73,8 @@
 #   The template ID used to send email via GOV.UK Notify.
 #
 class govuk::apps::signon(
-  $active_record_primary_key = undef,
-  $active_record_key_derivation_salt = undef,
+  $active_record_encryption_primary_key = undef,
+  $active_record_encryption_key_derivation_salt = undef,
   $db_hostname = undef,
   $db_name = undef,
   $db_password = undef,
@@ -120,12 +120,12 @@ class govuk::apps::signon(
   }
 
   govuk::app::envvar {
-    "${title}-ACTIVE_RECORD_PRIMARY_KEY":
-      varname => 'ACTIVE_RECORD_PRIMARY_KEY',
-      value   => $active_record_primary_key;
-    "${title}-ACTIVE_RECORD_KEY_DERIVATION_SALT":
-      varname => 'ACTIVE_RECORD_KEY_DERIVATION_SALT',
-      value   => $active_record_key_derivation_salt;
+    "${title}-ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY":
+      varname => 'ACTIVE_RECORD_ENCRYPTION_PRIMARY_KEY',
+      value   => $active_record_encryption_primary_key;
+    "${title}-ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT":
+      varname => 'ACTIVE_RECORD_ENCRYPTION_KEY_DERIVATION_SALT',
+      value   => $active_record_encryption_key_derivation_salt;
     "${title}-DEVISE_PEPPER":
       varname => 'DEVISE_PEPPER',
       value   => $devise_pepper;
