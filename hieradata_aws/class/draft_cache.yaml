@@ -35,9 +35,5 @@ router::nginx::app_specific_static_asset_routes:
 
 router::nginx::check_requests_warning: '@0'
 router::nginx::check_requests_critical: '@0'
-router::nginx::proxy_busy_buffers_size: '16k'
-router::nginx::proxy_buffers: '8 8k'
-router::nginx::proxy_buffer_size: '8k'
 
 varnish::environment_ip_prefix: "%{hiera('environment_ip_prefix')}"
-
