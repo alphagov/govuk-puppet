@@ -6,14 +6,26 @@
 #
 # === Parameters
 #
-# [*mongodb_nodes*]
-#   Array of mongo cluster hostnames for the application to connect to.
-#
-# [*mongodb_name*]
-#   The name of the MongoDB database to use
-#
 # [*port*]
 #   The port that it is served on.
+#
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#   Default: undef
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#   Default: undef
+#
+# [*db_port*]
+#   The port of the database server to use in the DATABASE_URL.
+#   Default: undef
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
 #
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
@@ -42,9 +54,12 @@
 #   Scheme to use for signon URI.
 #   Default: 'https'
 class govuk::apps::authenticating_proxy(
-  $mongodb_nodes,
-  $mongodb_name = 'authenticating_proxy_production',
   $port,
+  $db_hostname = undef,
+  $db_username = 'authenticating_proxy',
+  $db_password = undef,
+  $db_port = undef,
+  $db_name = 'authenticating-proxy_production',
   $sentry_dsn = undef,
   $govuk_upstream_uri = 'http://localhost:3054',
   $oauth_id = undef,
@@ -54,11 +69,6 @@ class govuk::apps::authenticating_proxy(
   $signon_uri_scheme = 'https',
 ) {
   $app_name = 'authenticating-proxy'
-
-  govuk::app::envvar::mongodb_uri { $app_name:
-    hosts    => $mongodb_nodes,
-    database => $mongodb_name,
-  }
 
   govuk::app { $app_name:
     app_type                   => 'rack',
@@ -95,5 +105,14 @@ class govuk::apps::authenticating_proxy(
     "${title}-JWT_AUTH_SECRET":
       varname => 'JWT_AUTH_SECRET',
       value   => $jwt_auth_secret,
+  }
+
+  govuk::app::envvar::database_url { $app_name:
+    type     => 'postgresql',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    port     => $db_port,
+    database => $db_name,
   }
 }
