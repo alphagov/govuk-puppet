@@ -58,7 +58,7 @@ GEM
       hiera (~> 1.0)
       json_pure
     puppet-lint (2.0.0)
-    puppet-lint-trailing_comma-check (0.3.2)
+    puppet-lint-trailing_comma-check (0.4.3)
       puppet-lint (>= 1.0, < 3.0)
     puppet-syntax (2.1.0)
       rake
@@ -113,7 +113,7 @@ DEPENDENCIES
   parallel_tests
   puppet (= 3.8.5)
   puppet-lint (= 2.0.0)
-  puppet-lint-trailing_comma-check (= 0.3.2)
+  puppet-lint-trailing_comma-check (= 0.4.3)
   puppet-syntax (= 2.1.0)
   puppetlabs_spec_helper (= 1.0.1)
   rake
