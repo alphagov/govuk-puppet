@@ -39,8 +39,7 @@ class govuk_jenkins::jobs::deploy_app_downstream (
   $slack_credential_id = 'slack-notification-token',
   $slack_team_domain = 'gds',
 ) {
-  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
-  $slack_build_server_url = "https://${deploy_jenkins_domain}/"
+  $slack_build_server_url = "https://${deploy_url}/"
   $app_domain = hiera('app_domain_internal')
 
   file { '/etc/jenkins_jobs/jobs/deploy_app_downstream.yaml':
