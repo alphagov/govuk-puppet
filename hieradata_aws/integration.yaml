@@ -85,7 +85,6 @@ govuk::apps::static::ga_universal_id: 'UA-26179049-22'
 govuk::apps::static::google_tag_manager_auth: "C7iYdcsOlYgGmiUJjZKrHQ"
 govuk::apps::static::google_tag_manager_id: "GTM-MG7HG5W"
 govuk::apps::static::google_tag_manager_preview: "env-4"
-govuk::apps::static::gtag_id: "G-9BX34Z34D0"
 govuk::apps::static::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::static::govuk_personalisation_security_uri: 'https://integration.account.gov.uk?link=security-privacy'
 govuk::apps::static::govuk_personalisation_feedback_uri: 'https://signin.account.gov.uk/support'

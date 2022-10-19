@@ -53,9 +53,6 @@
 # [*google_tag_manager_auth*]
 #   The identifier of an environment for Google Tag Manager
 #
-# [*gtag_id*]
-#   The ID for a Google Tag account
-#
 # [*govuk_personalisation_manage_uri*]
 #   URI for the account management page.
 #
@@ -82,7 +79,6 @@ class govuk::apps::static(
   $google_tag_manager_id = undef,
   $google_tag_manager_preview = undef,
   $google_tag_manager_auth = undef,
-  $gtag_id = undef,
   $govuk_personalisation_manage_uri = undef,
   $govuk_personalisation_security_uri = undef,
   $govuk_personalisation_feedback_uri = undef,
@@ -142,9 +138,6 @@ class govuk::apps::static(
     "${title}-GOOGLE_TAG_MANAGER_AUTH":
         varname => 'GOOGLE_TAG_MANAGER_AUTH',
         value   => $google_tag_manager_auth;
-    "${title}-GTAG_ID":
-        varname => 'GTAG_ID',
-        value   => $gtag_id;
     "${title}-GOVUK-PERSONALISATION-MANAGE-URI":
       varname => 'GOVUK_PERSONALISATION_MANAGE_URI',
       value   => $govuk_personalisation_manage_uri;
