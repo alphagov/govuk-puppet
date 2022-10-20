@@ -100,9 +100,6 @@ node_class: &node_class
   locations_api:
     apps:
       - locations-api
-  mapit:
-    apps:
-      - mapit
   mirrorer:
     apps:
       - govuk_crawler_worker
@@ -434,7 +431,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-jumpbox:
     healthyhosts_warning: 0
   blue-licensify-frontend-internal: {}
-  blue-mapit-internal: {}
   blue-monitoring:
     healthyhosts_warning: 0
   blue-publishing-api-internal: {}
