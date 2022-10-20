@@ -97,6 +97,7 @@ class icinga::config (
   }
 
   file { '/etc/icinga/conf.d/check_mapit.cfg':
+    ensure  => 'absent',
     content => template('icinga/check_mapit.cfg.erb'),
   }
 
