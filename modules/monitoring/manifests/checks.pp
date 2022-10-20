@@ -126,12 +126,6 @@ class monitoring::checks (
     notes_url           => monitoring_docs_url(content-publisher-government-data-check-not-ok),
   }
 
-  icinga::check {'check_mapit_responding':
-    check_command       => 'check_mapit',
-    host_name           => $::fqdn,
-    service_description => 'mapit not responding to postcode query',
-  }
-
   # migration of the www-origin.*.publishing.service.gov.uk to AWS is now complete
   icinga::check { 'check_www_cert_valid_at_origin':
     # Note we connect to www-origin, but specify www.gov.uk as the server name using SNI

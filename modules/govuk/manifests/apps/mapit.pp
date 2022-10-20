@@ -42,6 +42,7 @@ class govuk::apps::mapit (
 ) {
   if $enabled {
     govuk::app { 'mapit':
+      ensure                             => 'absent',
       app_type                           => 'procfile',
       create_pidfile                     => false,
       port                               => $port,
@@ -121,15 +122,10 @@ class govuk::apps::mapit (
 
 
     file { '/etc/govuk/import_mapit_data.sh':
-      ensure  => file,
+      ensure  => 'absent',
       mode    => '0755',
       source  => 'puppet:///modules/govuk/etc/govuk/import_mapit_data.sh',
       require => Govuk_postgresql::Db['mapit'],
-    }
-
-    exec { 'populate mapit database':
-      command => '/bin/bash /etc/govuk/import_mapit_data.sh 2>&1 | logger',
-      require => File['/etc/govuk/import_mapit_data.sh'],
     }
   }
 
