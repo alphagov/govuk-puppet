@@ -7,11 +7,7 @@
 #
 # == Parameters:
 #
-# [*url_prefix*]
-#   The prefix used on the URL to access the Jenkins instance. Default is 'deploy',
-#   which would create "https://deploy.${app_domain}"
-#
-# [*app_domain*]
+# [*deploy_jenkins_domain*]
 #   The domain name applied to the Jenkins instance URL
 #
 # [*banner_colour_background*]
@@ -89,8 +85,7 @@
 #   https://wiki.jenkins.io/display/JENKINS/OWASP+Markup+Formatter+Plugin
 #
 class govuk_jenkins::config (
-  $url_prefix = 'deploy',
-  $app_domain = hiera('app_domain'),
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain'),
   $banner_colour_background = 'black',
   $banner_colour_text = 'white',
   $banner_string = 'Jenkins',
@@ -114,8 +109,6 @@ class govuk_jenkins::config (
   $csrf_version = true,
   $markup_formatter_version = '2.1',
 ) {
-
-  $url = "${url_prefix}.${app_domain}"
 
   validate_array($admins)
   validate_array($user_permissions)
