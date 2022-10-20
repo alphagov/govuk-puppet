@@ -96,11 +96,6 @@ class icinga::config (
     content => template('icinga/check_http_icinga.cfg.erb'),
   }
 
-  file { '/etc/icinga/conf.d/check_mapit.cfg':
-    ensure  => 'absent',
-    content => template('icinga/check_mapit.cfg.erb'),
-  }
-
   file { '/etc/icinga/resource.cfg':
     content  => template('icinga/resource.cfg.erb'),
   }
