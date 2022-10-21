@@ -1001,9 +1001,6 @@ govuk_ci::master::pipeline_jobs:
   middleman-search: {}
   omniauth-gds: {}
   optic14n: {}
-  performanceplatform-client.py: {}
-  performanceplatform-collector: {}
-  performanceplatform-documentation: {}
   plek: {}
   publishing-e2e-tests: {}
   rack-logstasher: {}
