@@ -14,14 +14,6 @@
 #   The mongo database to be used. Overriden in development
 #   to be 'content_store_development'.
 #
-# [*performance_platform_big_screen_view_url*]
-#   Performance platform big screen view url
-#   Default: undef
-#
-# [*performance_platform_spotlight_url*]
-#   Performance platform spotlight url
-#   Default: undef
-#
 # [*vhost*]
 #   Virtual host for this application.
 #   Default: content-store
@@ -62,8 +54,6 @@ class govuk::apps::content_store(
   $mongodb_name,
   $vhost = 'content-store',
   $default_ttl = '300',
-  $performance_platform_big_screen_view_url = undef,
-  $performance_platform_spotlight_url = undef,
   $publishing_api_bearer_token = undef,
   $secret_key_base = undef,
   $sentry_dsn = undef,
@@ -128,12 +118,6 @@ class govuk::apps::content_store(
     "${title}-ROUTER_API_BEARER_TOKEN":
         varname => 'ROUTER_API_BEARER_TOKEN',
         value   => $router_api_bearer_token;
-    "${title}-PERFORMANCEPLATFORM_BIG_SCREEN_VIEW":
-      varname => 'PLEK_SERVICE_PERFORMANCEPLATFORM_BIG_SCREEN_VIEW_URI',
-      value   => $performance_platform_big_screen_view_url;
-    "${title}-PERFORMANCEPLATFORM_SPOTLIGHT":
-      varname => 'PLEK_SERVICE_SPOTLIGHT_URI',
-      value   => $performance_platform_spotlight_url;
     "${title}-RUMMAGER_URI":
       varname => 'PLEK_SERVICE_RUMMAGER_URI',
       value   => $plek_service_rummager_uri;
