@@ -1475,7 +1475,6 @@ router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/media/'
 
 router::assets_origin::vhost_aliases:
-  - 'assets.digital.cabinet-office.gov.uk'
   - 'assets.publishing.service.gov.uk'
   - 'assets.production.govuk.digital'
 
