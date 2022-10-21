@@ -1475,7 +1475,7 @@ router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/media/'
 
 router::assets_origin::vhost_aliases:
-  - 'assets.publishing.service.gov.uk'
+  - "assets.%{hiera('app_domain')}"
 
 router::assets_origin::website_root: "%{hiera('govuk::deploy::config::website_root')}"
 
