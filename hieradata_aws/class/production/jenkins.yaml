@@ -124,7 +124,6 @@ govuk_jenkins::jobs::deploy_cdn::services:
   - assets
   - assets-eks
   - mirror
-  - performanceplatform
   - servicegovuk
   - tldredirect
   - www
@@ -134,7 +133,6 @@ govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - assets
   - assets-eks
   - mirror
-  - performanceplatform
   - www
   - www-eks
 
