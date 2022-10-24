@@ -1540,3 +1540,5 @@ unicornherder::version: '0.2.1'
 
 yarn::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 yarn::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
+
+yamllint::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
