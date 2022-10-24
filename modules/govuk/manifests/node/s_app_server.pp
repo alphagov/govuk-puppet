@@ -15,4 +15,6 @@ class govuk::node::s_app_server {
   include nodejs
   # Allows installing assets yarn based assets on app machines
   include yarn
+
+  include yamllint
 }

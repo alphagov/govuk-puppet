@@ -52,6 +52,7 @@ class govuk_ci::agent(
   include ::govuk_python3
   include ::govuk_sysdig
   include ::govuk_testing_tools
+  include ::yamllint
   include ::yarn
 
   include ::govuk_ci::agent::elasticsearch
