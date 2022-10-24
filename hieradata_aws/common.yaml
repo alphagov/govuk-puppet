@@ -100,9 +100,6 @@ node_class: &node_class
   locations_api:
     apps:
       - locations-api
-  mapit:
-    apps:
-      - mapit
   mirrorer:
     apps:
       - govuk_crawler_worker
@@ -185,7 +182,6 @@ deployable_applications: &deployable_applications
   locations-api: {}
   local-links-manager: {}
   manuals-publisher: {}
-  mapit: {}
   maslow: {}
   publisher: {}
   publishing-api: {}
@@ -402,7 +398,6 @@ govuk::apps::email_alert_frontend::port: 3099
 govuk::apps::backdrop_read::port: 3101
 govuk::apps::backdrop_write::port: 3102
 govuk::apps::authenticating_proxy::port: 3107
-govuk::apps::mapit::port: 3108
 govuk::apps::service_manual_publisher::port: 3111
 # publishing-api sidekiq monitoring uses 3114
 govuk::apps::content_tagger::port: 3116
@@ -578,8 +573,6 @@ govuk::apps::locations_api::unicorn_worker_processes: '16'
 govuk::apps::manuals_publisher::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::manuals_publisher::redis_port: "%{hiera('sidekiq_port')}"
 
-govuk::apps::mapit::gdal_version: "2.4.4"
-
 govuk::apps::publisher::alert_hostname: 'alert'
 govuk::apps::publisher::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 govuk::apps::publisher::redis_host: "%{hiera('sidekiq_host')}"
@@ -643,8 +636,6 @@ govuk::apps::local_links_manager::db::lb_ip_range: "%{hiera('environment_ip_pref
 govuk::apps::local_links_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::local_links_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::local_links_manager::unicorn_worker_processes: "4"
-
-govuk::apps::mapit::enabled: true
 
 govuk::apps::search_api::rabbitmq_hosts:
   - rabbitmq
@@ -950,7 +941,6 @@ govuk_ci::master::pipeline_jobs:
   link-checker-api: {}
   local-links-manager: {}
   locations-api: {}
-  mapit: {}
   publishing-api: {}
   release: {}
   router: {}
@@ -1278,20 +1268,17 @@ grafana::dashboards::application_dashboards:
   local-links-manager:
     dependent_app_5xx_errors:
       - frontend
+      - imminence
     instance_prefix: 'backend'
     show_memcached: true
     show_postgres_stats: true
-  locations-api: {}
-  manuals-publisher:
-    show_sidekiq_graphs: true
-    has_workers: true
-  mapit:
+  locations-api:
     dependent_app_5xx_errors:
       - frontend
       - imminence
-    # No data in kibana
-    show_controller_errors: false
-    show_slow_requests: false
+  manuals-publisher:
+    show_sidekiq_graphs: true
+    has_workers: true
   maslow: {}
   publisher:
     show_sidekiq_graphs: true
