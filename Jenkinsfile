@@ -11,11 +11,13 @@ node {
 
   try {
     stage("Checkout") {
-      govuk.checkoutFromGitHubWithSSH(REPOSITORY)
+      govuk.checkoutFromGitHubWithSSH(REPOSITORY, [shallow: true])
     }
 
     stage("Merge main") {
-      govuk.mergeIntoBranch("main")
+      // this will only succeed on a merge if the PR is less than 50 commits
+      // ahead of main.
+      govuk.mergeIntoBranch("main", [fetchBranch: true, mergeDepth: 50])
     }
 
     stage("Bundle install") {
