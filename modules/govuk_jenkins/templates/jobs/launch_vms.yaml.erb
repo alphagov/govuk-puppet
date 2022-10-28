@@ -1,0 +1,46 @@
+---
+- scm:
+    name: govuk-provisioning_Launch_VMs
+    scm:
+        - git:
+            url: git@github.com:alphagov/govuk-provisioning.git
+            branches:
+              - master
+- job:
+    name: Launch_VMs
+    display-name: Launch_VMs
+    project-type: freestyle
+    description: |
+      Job to launch virtual machines in <%= @environment -%>.
+      If you are running this to bring up a new machine you will need to be signing certs on the puppetmaster
+      with `fab <%= @environment -%> puppet.sign_certificates`
+    properties:
+        - github:
+            url: https://github.digital.cabinet-office.gov.uk/gds/alphagov-deployment/
+        - inject:
+            properties-content: |
+              VCLOUD_ORG=<%= @vcloud_properties['organisation'] %>
+              VCLOUD_ENV=<%= @vcloud_properties['environment'] %>
+              VCLOUD_USERNAME=${USERNAME}@${VCLOUD_ORG}
+              VCLOUD_HOST=<%= @vcloud_properties['host'] %>
+        - build-discarder:
+            days-to-keep: 30
+            artifact-num-to-keep: 5
+    scm:
+      - govuk-provisioning_Launch_VMs
+    builders:
+        - shell: |
+            ./vcloud-launcher/jenkins.sh
+    parameters:
+        - string:
+            name: USERNAME
+            description: your vcloud username. This should be an email address.
+            default: false
+        - string:
+            name: CONFIG_GLOB
+            description: glob for config files.
+            default: "*.yaml"
+        - password:
+            name: VCLOUD_PASSWORD
+            description: your vcloud password
+            default: false
