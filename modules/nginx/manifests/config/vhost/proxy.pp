@@ -73,6 +73,24 @@
 #   Boolean, whether Nginx should serve a robots.txt that
 #   prevents crawlers from indexing the thing being proxied.
 #
+# [*proxy_busy_buffers_size*]
+#
+#  limits the total size of buffers that can be busy sending a response to the client while the response is not yet fully read
+#
+# Default: '16k'
+#
+# [*proxy_buffers*]
+#
+#  Sets the number and size of the buffers used for reading a response from the proxied server, for a single connection
+#
+# Default: '8 8k'
+#
+# [*proxy_buffer_size*]
+#
+#  Sets the size of the buffer used for reading the first part of the response received from the proxied server
+#
+# Default: '8k'
+#
 define nginx::config::vhost::proxy(
   $to,
   $to_ssl = false,
@@ -95,6 +113,9 @@ define nginx::config::vhost::proxy(
   $proxy_http_version_1_1_enabled = false,
   $http_host = undef,
   $deny_crawlers = false,
+  $proxy_busy_buffers_size = '16k',
+  $proxy_buffers = '8 8k',
+  $proxy_buffer_size = '8k',
 ) {
   validate_re($ensure, '^(absent|present)$', 'Invalid ensure value')
 
