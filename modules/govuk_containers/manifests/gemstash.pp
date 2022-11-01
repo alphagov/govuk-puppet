@@ -11,7 +11,7 @@
 #   The docker image version use.
 #
 class govuk_containers::gemstash(
-  $gemstash_image = 'governmentdigitalservice/gemstash-alpine',
+  $gemstash_image = 'govuk/gemstash-alpine',
   # TODO publish a specific version and use that here
   $gemstash_image_version = 'latest',
 ) {
