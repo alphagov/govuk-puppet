@@ -954,22 +954,10 @@ govuk_ci::master::pipeline_jobs:
   support: {}
   transition: {}
   # Other repositories
-  backdrop-transactions-explorer-collector: {}
-  deprecated_columns: {}
   gds-api-adapters: {}
   gds-sso: {}
-  gds_zendesk: {}
-  govuk-cdn-config: {}
-  govuk-dummy_content_store: {}
-  govuk-guix: {}
   govuk-jenkinslib: {}
-  govuk_message_queue_consumer: {}
-  govuk_personalisation: {}
-  govuk-provisioning: {}
-  govuk_seed_crawler: {}
   govuk_sidekiq: {}
-  govuk-taxonomy-supervised-learning: {}
-  govuk_taxonomy_helpers: {}
   licensify:
     branches_to_exclude:
       - 'release*'
@@ -989,19 +977,9 @@ govuk_ci::master::pipeline_jobs:
       - 'staging'
       - 'production'
   middleman-search: {}
-  omniauth-gds: {}
-  optic14n: {}
-  plek: {}
   publishing-e2e-tests: {}
-  rack-logstasher: {}
-  router-data: {}
-  scss-lint-govuk: {}
   search-api: {}
-  shared_mustache: {}
-  slimmer: {}
   smokey: {}
-  special-route-publisher: {}
-  ubuntu_unused_kernels: {}
 
 govuk_ci::master::ci_agents:
   ci-agent-1:
