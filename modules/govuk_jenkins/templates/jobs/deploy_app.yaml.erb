@@ -68,11 +68,6 @@
                   - project: Deploy_App_Downstream
                     current-parameters: true
         <% end %>
-    publishers:
-        - text-finder:
-            regexp: "DOCKER TAG FAILED"
-            also-check-console-output: true
-            unstable-if-found: true
     wrappers:
         - workspace-cleanup
         - ansicolor:
@@ -80,16 +75,6 @@
         - build-name:
             name: '${ENV,var="TARGET_APPLICATION"} ${ENV,var="TAG"}'
         - build-user-vars
-        - credentials-binding:
-            - username-password-separated:
-                credential-id: govukci-docker-hub
-                username: DOCKER_HUB_USERNAME
-                password: DOCKER_HUB_PASSWORD
-        - credentials-binding:
-            - username-password-separated:
-                credential-id: govukci-docker-enterprise-hub
-                username: DOCKER_HUB_USERNAME
-                password: DOCKER_HUB_PASSWORD
         - timestamps
     parameters:
         - choice:
