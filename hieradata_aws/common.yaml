@@ -977,7 +977,6 @@ govuk_ci::master::pipeline_jobs:
       - 'staging'
       - 'production'
   middleman-search: {}
-  publishing-e2e-tests: {}
   search-api: {}
   smokey: {}
 
