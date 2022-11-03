@@ -1090,6 +1090,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   specialist-publisher: {}
   support: {}
   support-api: {}
+  transition: {}
   travel-advice-publisher: {}
   whitehall:
     healthcheck_urls:
