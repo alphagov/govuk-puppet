@@ -392,7 +392,6 @@ govuk::apps::info_frontend::port: 3085
 govuk::apps::email_alert_api::port: 3088
 # email-alert-api sidekiq monitoring uses 3089
 govuk::apps::government_frontend::port: 3090
-govuk::apps::locations_api::port: 3091
 govuk::apps::publishing_api::port: 3093
 govuk::apps::email_alert_frontend::port: 3099
 govuk::apps::backdrop_read::port: 3101
@@ -879,8 +878,6 @@ govuk::node::s_gatling::repo: 'git@github.com:alphagov/govuk-load-testing.git'
 govuk::node::s_gatling::ssh_public_key: "%{hiera('govuk_jenkins::ssh_key::public_key')}"
 govuk::node::s_gatling::ssh_private_key: "%{hiera('govuk_jenkins::ssh_key::private_key')}"
 
-govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
-
 govuk::node::s_licensing_backend::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_licensing_backend::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
@@ -977,7 +974,6 @@ govuk_ci::master::pipeline_jobs:
       - 'staging'
       - 'production'
   middleman-search: {}
-  search-api: {}
   smokey: {}
 
 govuk_ci::master::ci_agents:
