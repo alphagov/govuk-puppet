@@ -993,22 +993,7 @@ govuk_ci::master::ci_agents:
     agent_hostname: ci-agent-5.blue.%{hiera('app_domain_internal')}
     exclusive: true
     executors: 1
-    labels: 'publishing-e2e-tests'
-  ci-agent-6:
-    agent_hostname: ci-agent-6.blue.%{hiera('app_domain_internal')}
-    exclusive: true
-    executors: 1
-    labels: 'publishing-e2e-tests'
-  ci-agent-7:
-    agent_hostname: ci-agent-7.blue.%{hiera('app_domain_internal')}
-    exclusive: true
-    executors: 1
-    labels: 'publishing-e2e-tests'
-  ci-agent-8:
-    agent_hostname: ci-agent-8.blue.%{hiera('app_domain_internal')}
-    exclusive: true
-    executors: 1
-    labels: 'publishing-e2e-tests'
+    labels: 'licensify'
 
 govuk_ci::master::credentials_id: 'jenkins-ssh-slave'
 
