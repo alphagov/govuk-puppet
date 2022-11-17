@@ -176,8 +176,10 @@ deployable_applications: &deployable_applications
   licencefinder:
     repository: 'licence-finder'
   licensify: {}
-  licensify-admin: {}
-  licensify-feed: {}
+  licensify-admin:
+    repository: 'licensify'
+  licensify-feed:
+    repository: 'licensify'
   link-checker-api: {}
   locations-api: {}
   local-links-manager: {}
