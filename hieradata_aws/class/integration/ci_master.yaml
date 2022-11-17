@@ -33,8 +33,10 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   licencefinder:
     repository: 'licence-finder'
   licensify: {}
-  licensify-admin: {}
-  licensify-feed: {}
+  licensify-admin:
+    repository: 'licensify'
+  licensify-feed:
+    repository: 'licensify'
   link-checker-api: {}
   local-links-manager: {}
   locations-api: {}
