@@ -11,18 +11,18 @@ PROGRAM_NAME=$(basename $0)
 WEBSITE_MIRROR_DIR="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
 
 # Nagios defaults, assume failed
-NAGIOS_CODE=1
-NAGIOS_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
+EXIT_CODE=1
+EXIT_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
 
 function log() {
   logger -p ${1} -t ${PROGRAM_NAME} "${2}"
 }
 
-function nagios_passive() {
-  log "user.info" "$NAGIOS_MESSAGE Exit code was $?"
-  printf "<%= @ipaddress_eth0 %>\t<%= @sync_service_desc %>\t${NAGIOS_CODE}\t${NAGIOS_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
+function log_exit_status() {
+  log "user.info" "$EXIT_MESSAGE Exit code was $?"
 }
-trap nagios_passive EXIT
+
+trap log_exit_status EXIT
 
 if [ -z "${TARGETS}" ]; then
   log "user.info" "No mirror targets received"
@@ -91,7 +91,8 @@ echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -q 1 -u lo
 log "user.info" "Finished synchronising to GOV.UK mirrors"
 
 if [ $EXITCODE -eq 0 ]; then
-  NAGIOS_CODE=0
-  NAGIOS_MESSAGE="OK: GOV.UK mirror synchronised successfully (took ${DURATION_UPLOAD}ms )"
+  EXIT_CODE=0
+  EXIT_MESSAGE="OK: GOV.UK mirror synchronised successfully (took ${DURATION_UPLOAD}ms )"
+  printf "<%= @ipaddress_eth0 %>\t<%= @sync_service_desc %>\t${EXIT_CODE}\t${EXIT_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
 fi
 exit $EXITCODE
