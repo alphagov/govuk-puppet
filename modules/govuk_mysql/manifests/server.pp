@@ -119,8 +119,6 @@ class govuk_mysql::server (
 
   class { 'mysql::server::account_security': }
 
-  class { 'govuk_mysql::server::debian_sys_maint': }
-
   class { 'govuk_mysql::server::firewall':
     require => Class['mysql::server'],
   }
