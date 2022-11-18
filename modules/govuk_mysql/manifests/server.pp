@@ -119,11 +119,6 @@ class govuk_mysql::server (
 
   class { 'mysql::server::account_security': }
 
-  class { 'govuk_mysql::server::logging':
-    error_log      => $mysql_error_log,
-    slow_query_log => $slow_query_logstream_file,
-  }
-
   class { 'govuk_mysql::server::debian_sys_maint': }
 
   class { 'govuk_mysql::server::firewall':
