@@ -132,9 +132,6 @@ class govuk_mysql::server (
     require => Class['mysql::server'],
   }
 
-  class { 'govuk_mysql::server::monitoring': }
-
-  # Don't need to wait for monitoring class
   anchor { 'govuk_mysql::server::end':
     require => Class[
       'govuk_mysql::server::firewall',
