@@ -181,6 +181,7 @@ govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
+govuk::apps::locations_api::os_places_api_postcodes_per_second: "1"
 govuk::apps::manuals_publisher::mongodb_nodes: "%{hiera('govuk::apps::asset_manager::mongodb_nodes')}"
 govuk::apps::manuals_publisher::mongodb_username: "%{hiera('govuk::apps::asset_manager::mongodb_username')}"
 govuk::apps::manuals_publisher::mongodb_password: "%{hiera('govuk::apps::asset_manager::mongodb_password')}"
