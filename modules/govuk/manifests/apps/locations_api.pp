@@ -14,6 +14,9 @@
 # [*os_places_api_secret*]
 #   Corresponding secret for above OS Places API key.
 #
+# [*os_places_api_postcodes_per_second]
+#   Rate the postcode update workers should query OS Places API at.
+#
 # [*port*]
 #   What port should the app run on?
 #
@@ -53,6 +56,7 @@ class govuk::apps::locations_api (
   $secret_key_base = undef,
   $os_places_api_key = undef,
   $os_places_api_secret = undef,
+  $os_places_api_postcodes_per_second = '3',
   $port,
   $enable_procfile_worker = true,
   $unicorn_worker_processes = undef,
@@ -102,6 +106,9 @@ class govuk::apps::locations_api (
     "${title}-OS_PLACES_API_SECRET":
       varname => 'OS_PLACES_API_SECRET',
       value   => $os_places_api_secret;
+    "${title}-OS_PLACES_API_POSTCODES_PER_SECOND":
+      varname => 'OS_PLACES_API_POSTCODES_PER_SECOND',
+      value   => $os_places_api_postcodes_per_second;
   }
 
   govuk::app::envvar::redis { $app_name:
