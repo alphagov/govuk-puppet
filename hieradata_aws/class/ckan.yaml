@@ -8,4 +8,4 @@ govuk::apps::ckan::enable_harvester_gather: true
 
 govuk_solr6::present: false
 
-govuk_python37::govuk_python_version: '3.7'
+govuk_python37::govuk_python_version: '1'
