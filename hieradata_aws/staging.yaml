@@ -105,7 +105,6 @@ node_class: &node_class
       - govuk_crawler_worker
   publishing_api:
     apps:
-      - govuk-content-schemas
       - publishing-api
   router_backend:
     apps:
