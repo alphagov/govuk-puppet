@@ -19,6 +19,21 @@
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
+# [*db_port*]
+#   The port of the database server to use in the DATABASE_URL.
+#   Default: undef
 #
 # [*mongodb_nodes*]
 #   An array of MongoDB instance hostnames
@@ -50,6 +65,11 @@ class govuk::apps::imminence(
   $port,
   $enable_procfile_worker = true,
   $sentry_dsn = undef,
+  $db_hostname = undef,
+  $db_username = 'imminence',
+  $db_password = undef,
+  $db_port = undef,
+  $db_name = 'imminence_production',
   $mongodb_nodes = undef,
   $mongodb_name = 'imminence_production',
   $redis_host = undef,
@@ -62,6 +82,8 @@ class govuk::apps::imminence(
 ) {
 
   $app_name = 'imminence'
+
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   Govuk::App::Envvar {
     ensure => $ensure,
@@ -118,6 +140,15 @@ class govuk::apps::imminence(
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+  }
+
+  govuk::app::envvar::database_url { $app_name:
+    type     => 'postgis',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    port     => $db_port,
+    database => $db_name,
   }
 
   govuk::procfile::worker { $app_name:
