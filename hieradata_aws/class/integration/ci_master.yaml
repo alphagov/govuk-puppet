@@ -22,7 +22,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
-  govuk-content-schemas: {}
   govuk_crawler_worker: {}
   govuk-puppet: {}
   hmrc-manuals-api: {}
@@ -134,7 +133,6 @@ govuk_jenkins::config::views:
     - 'Deploy_Puppet_Downstream'
   Finding_Things:
     - 'collections-publisher'
-    - 'govuk-content-schemas'
   Publishing_Platform:
     - 'content-store'
     - 'publishing-api'

@@ -91,7 +91,7 @@
 #   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
 #
 # [*govuk_content_schemas_path*]
-#   The path for generated govuk-content-schemas
+#   The path for generated content-schemas
 #
 # [*event_log_aws_bucketname*]
 #   The S3 bucket used to store the event logs.
