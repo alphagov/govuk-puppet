@@ -3,7 +3,7 @@ source "https://rubygems.org"
 gem "rake"
 gem "puppet-syntax", '2.1.0'
 gem "puppet-lint", '2.0.0'
-gem 'puppet-lint-trailing_comma-check', '0.3.2', :require => false
+gem 'puppet-lint-trailing_comma-check', '1.0.0', :require => false
 gem "puppet", '3.8.5'
 gem 'facter', '2.4.6'
 gem "hiera", "1.3.4"
