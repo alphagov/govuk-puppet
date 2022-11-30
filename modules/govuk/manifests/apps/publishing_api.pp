@@ -90,9 +90,6 @@
 #   A password to connect to RabbitMQ:
 #   https://github.com/alphagov/publishing-api/blob/master/config/rabbitmq.yml
 #
-# [*govuk_content_schemas_path*]
-#   The path for generated content-schemas
-#
 # [*event_log_aws_bucketname*]
 #   The S3 bucket used to store the event logs.
 #
@@ -133,7 +130,6 @@ class govuk::apps::publishing_api(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'publishing_api',
   $rabbitmq_password = undef,
-  $govuk_content_schemas_path = '',
   $event_log_aws_bucketname = undef,
   $event_log_aws_username   = undef,
   $event_log_aws_access_id  = undef,
@@ -208,9 +204,6 @@ class govuk::apps::publishing_api(
       "${title}-GDS_SSO_OAUTH_SECRET":
         varname => 'GDS_SSO_OAUTH_SECRET',
         value   => $oauth_secret;
-      "${title}-GOVUK_CONTENT_SCHEMAS_PATH":
-        varname => 'GOVUK_CONTENT_SCHEMAS_PATH',
-        value   => $govuk_content_schemas_path;
       "${title}-EVENT_LOG_AWS_BUCKETNAME":
         varname => 'EVENT_LOG_AWS_BUCKETNAME',
         value   => $event_log_aws_bucketname;

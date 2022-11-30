@@ -656,7 +656,6 @@ govuk::apps::publishing_api::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::publishing_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::publishing_api::db::allow_auth_from_lb: true
 govuk::apps::publishing_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::publishing_api::govuk_content_schemas_path: '/data/apps/publishing-api/current/content_schemas'
 
 govuk::apps::release::db_hostname: "release-mysql"
 govuk::apps::release::db_username: "release"
