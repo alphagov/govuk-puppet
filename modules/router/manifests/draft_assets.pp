@@ -18,14 +18,8 @@ class router::draft_assets(
 ) {
   $whitehall_uploaded_assets_routes = hiera('router::assets_origin::whitehall_uploaded_assets_routes', [])
   $asset_manager_uploaded_assets_routes = hiera('router::assets_origin::asset_manager_uploaded_assets_routes', [])
-
   $upstream_ssl = true
-
-  if $::aws_environment == 'integration'{
-    $app_domain = hiera('app_domain_internal')
-  } else {
-    $app_domain = hiera('app_domain')
-  }
+  $app_domain = hiera('app_domain_internal')
 
   nginx::config::site { $vhost_name:
     content => template('router/draft-assets.conf.erb'),
