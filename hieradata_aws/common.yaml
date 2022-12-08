@@ -817,8 +817,6 @@ govuk_ci::agent::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fi
 
 govuk::deploy::config::app_domain: "%{hiera('app_domain')}"
 govuk::deploy::config::asset_root: "https://assets.%{hiera('app_domain')}"
-govuk::deploy::config::csp_report_only: true
-govuk::deploy::config::csp_report_uri: https://jhpno0hk6b.execute-api.eu-west-2.amazonaws.com/production
 govuk::deploy::config::website_root: "https://www.%{hiera('app_domain')}"
 govuk::deploy::setup::gemstash_server: 'http://gemstash'
 govuk::deploy::sync::jenkins_domain: "deploy.%{hiera('app_domain_internal')}"
