@@ -83,6 +83,10 @@
 #   RabbitMQ hosts to connect to.
 #   Default: localhost
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 # [*rabbitmq_user*]
 #   RabbitMQ username.
 #
@@ -128,6 +132,7 @@ class govuk::apps::publishing_api(
   $oauth_id = undef,
   $oauth_secret = undef,
   $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_url = '',
   $rabbitmq_user = 'publishing_api',
   $rabbitmq_password = undef,
   $event_log_aws_bucketname = undef,
@@ -177,6 +182,7 @@ class govuk::apps::publishing_api(
       hosts    => $rabbitmq_hosts,
       user     => $rabbitmq_user,
       password => $rabbitmq_password,
+      url      => $rabbitmq_url,
     }
 
     govuk::app::envvar {
