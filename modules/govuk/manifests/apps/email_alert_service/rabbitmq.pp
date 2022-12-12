@@ -36,6 +36,10 @@
 #   The number of unprocessed messages which can build up before triggering
 #   a warning.
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 class govuk::apps::email_alert_service::rabbitmq (
   $ensure = 'present',
   $amqp_user  = 'email_alert_service',
@@ -47,6 +51,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   $ampq_subscriber_list_update_major_queue = 'subscriber_list_details_update_major',
   $queue_size_critical_threshold,
   $queue_size_warning_threshold,
+  $rabbitmq_url = '',
 ) {
 
   govuk_rabbitmq::queue_with_binding { $amqp_major_change_queue:
