@@ -39,17 +39,19 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     true  => 'present',
     false => 'absent',
   }
+  $monitor_consumers = govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
 
   $high_queue = "${amqp_queue}-high" # major, unpublish
   $medium_queue = "${amqp_queue}-medium" # minor, republish
   $low_queue = "${amqp_queue}-low" # links
 
   govuk_rabbitmq::queue_with_binding { $high_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $high_queue,
-    routing_key   => '*.major',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $high_queue,
+    routing_key       => '*.major',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   rabbitmq_binding { "binding_unpublish_${amqp_exchange}@${high_queue}@/":
@@ -64,11 +66,12 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $medium_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $medium_queue,
-    routing_key   => '*.minor',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $medium_queue,
+    routing_key       => '*.minor',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   rabbitmq_binding { "binding_republish_${amqp_exchange}@${medium_queue}@/":
@@ -83,11 +86,12 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $low_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $low_queue,
-    routing_key   => '*.links',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $low_queue,
+    routing_key       => '*.links',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   rabbitmq_policy { "${low_queue}-ttl@/":

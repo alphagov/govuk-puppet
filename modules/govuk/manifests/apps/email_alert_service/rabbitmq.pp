@@ -54,36 +54,42 @@ class govuk::apps::email_alert_service::rabbitmq (
   $rabbitmq_url = '',
 ) {
 
+  $monitor_consumers = govuk::apps::email_alert_service::monitor_rabbitmq_consumers
+
   govuk_rabbitmq::queue_with_binding { $amqp_major_change_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_major_change_queue,
-    routing_key   => '*.major.#',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $amqp_major_change_queue,
+    routing_key       => '*.major.#',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   } ->
 
   govuk_rabbitmq::queue_with_binding { $ampq_subscriber_list_update_minor_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $ampq_subscriber_list_update_minor_queue,
-    routing_key   => '*.minor.#',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $ampq_subscriber_list_update_minor_queue,
+    routing_key       => '*.minor.#',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   } ->
 
   govuk_rabbitmq::queue_with_binding { $ampq_subscriber_list_update_major_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $ampq_subscriber_list_update_major_queue,
-    routing_key   => '*.major.#',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $ampq_subscriber_list_update_major_queue,
+    routing_key       => '*.major.#',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   } ->
 
   govuk_rabbitmq::queue_with_binding { $amqp_unpublishing_queue:
-    ensure        => $ensure,
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_unpublishing_queue,
-    routing_key   => '*.unpublish.#',
-    durable       => true,
+    ensure            => $ensure,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $amqp_unpublishing_queue,
+    routing_key       => '*.unpublish.#',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   } ->
 
   govuk_rabbitmq::monitor_messages {"${amqp_major_change_queue}_message_monitoring":

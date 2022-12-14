@@ -447,6 +447,7 @@ govuk::apps::bouncer::unicorn_worker_processes: "8"
 govuk::apps::cache_clearing_service::enabled: true
 govuk::apps::cache_clearing_service::rabbitmq::enabled: true
 govuk::apps::cache_clearing_service::rabbitmq_url: ""
+govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers: true
 govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
@@ -489,6 +490,7 @@ govuk::apps::content_data_api::db::lb_ip_range: "%{hiera('environment_ip_prefix'
 govuk::apps::content_data_api::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::content_data_api::rabbitmq_url: ""
+govuk::apps::content_data_api::monitor_rabbitmq_consumers: true
 govuk::apps::content_data_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_data_api::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -534,6 +536,7 @@ govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq_url: ""
+govuk::apps::email_alert_service::monitor_rabbitmq_consumers: true
 govuk::apps::email_alert_service::rabbitmq_hosts:
   - rabbitmq
 govuk::apps::email_alert_service::redis_host: "%{hiera('sidekiq_host')}"
@@ -653,6 +656,7 @@ govuk::apps::publishing_api::db_hostname: "publishing-api-postgres"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 # AmazonMQ requires an amqps:// URL
 govuk::apps::publishing_api::rabbitmq_url: ""
+govuk::apps::publishing_api::monitor_rabbitmq_consumers: true
 # Separate variables for self-hosted RabbitMQ
 govuk::apps::publishing_api::rabbitmq_hosts:
   - rabbitmq
@@ -672,6 +676,7 @@ govuk::apps::search_api::enable_bulk_reindex_listener: true
 govuk::apps::search_api::enable_publishing_listener: true
 govuk::apps::search_api::enable_govuk_index_listener: true
 govuk::apps::search_api::rabbitmq_url: ""
+govuk::apps::search_api::monitor_rabbitmq_consumers: true
 govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener: true
 govuk::apps::search_api::rabbitmq::enable_govuk_index_listener: true
 govuk::apps::search_api::rabbitmq::enable_publishing_listener: true

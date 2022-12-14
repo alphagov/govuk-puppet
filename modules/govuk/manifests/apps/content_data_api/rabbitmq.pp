@@ -52,6 +52,8 @@ class govuk::apps::content_data_api::rabbitmq (
     type     => 'topic',
   }
 
+  $monitor_consumers = govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
+
   govuk_rabbitmq::queue_with_binding { $amqp_dead_letter_queue:
     ensure            => 'present',
     amqp_exchange     => $amqp_dlx,
@@ -72,11 +74,12 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_queue:
-    ensure        => 'present',
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_queue,
-    routing_key   => '*.major',
-    durable       => true,
+    ensure            => 'present',
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $amqp_queue,
+    routing_key       => '*.major',
+    durable           => true,
+    monitor_consumers => $monitor_consumers
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
@@ -120,11 +123,12 @@ class govuk::apps::content_data_api::rabbitmq (
   }
 
   govuk_rabbitmq::queue_with_binding { $amqp_bulk_importing_queue:
-    ensure        => 'present',
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => $amqp_bulk_importing_queue,
-    routing_key   => '*.bulk.data-warehouse',
-    durable       => true,
+    ensure            => 'present',
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => $amqp_bulk_importing_queue,
+    routing_key       => '*.bulk.data-warehouse',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   govuk_rabbitmq::consumer { $amqp_user:

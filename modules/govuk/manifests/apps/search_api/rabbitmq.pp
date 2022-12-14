@@ -32,19 +32,22 @@ class govuk::apps::search_api::rabbitmq (
 ) {
 
   $amqp_exchange = 'published_documents'
+  $monitor_consumers = govuk::apps::search_api::monitor_rabbitmq_consumers
 
   govuk_rabbitmq::queue_with_binding { 'search_api_to_be_indexed':
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => 'search_api_to_be_indexed',
-    routing_key   => '*.links',
-    durable       => true,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => 'search_api_to_be_indexed',
+    routing_key       => '*.links',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   govuk_rabbitmq::queue_with_binding { 'search_api_govuk_index':
-    amqp_exchange => $amqp_exchange,
-    amqp_queue    => 'search_api_govuk_index',
-    routing_key   => '*.*',
-    durable       => true,
+    amqp_exchange     => $amqp_exchange,
+    amqp_queue        => 'search_api_govuk_index',
+    routing_key       => '*.*',
+    durable           => true,
+    monitor_consumers => $monitor_consumers,
   }
 
   # When we want to manually refresh data in search, we can run a task in
@@ -57,10 +60,11 @@ class govuk::apps::search_api::rabbitmq (
   # the flexibility to stop/throttle these messages if they become a problem.
   if $enable_bulk_reindex_listener {
     govuk_rabbitmq::queue_with_binding { 'search_api_bulk_reindex':
-      amqp_exchange => $amqp_exchange,
-      amqp_queue    => 'search_api_bulk_reindex',
-      routing_key   => '*.bulk.reindex',
-      durable       => true,
+      amqp_exchange     => $amqp_exchange,
+      amqp_queue        => 'search_api_bulk_reindex',
+      routing_key       => '*.bulk.reindex',
+      durable           => true,
+      monitor_consumers => $monitor_consumers,
     }
   }
 
