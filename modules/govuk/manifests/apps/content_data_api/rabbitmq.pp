@@ -79,7 +79,7 @@ class govuk::apps::content_data_api::rabbitmq (
     amqp_queue        => $amqp_queue,
     routing_key       => '*.major',
     durable           => true,
-    monitor_consumers => $monitor_consumers
+    monitor_consumers => $monitor_consumers,
   }
 
   rabbitmq_binding { "binding_minor_${amqp_exchange}@${amqp_queue}@/":
