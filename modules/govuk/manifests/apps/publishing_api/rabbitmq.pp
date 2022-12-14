@@ -20,11 +20,16 @@
 # [*configure_test_exchange*]
 #   Whether or not to set up a test exchange for development (default: false)
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 class govuk::apps::publishing_api::rabbitmq (
   $amqp_user  = 'publishing_api',
   $amqp_pass  = 'publishing_api',
   $amqp_exchange = 'published_documents',
   $configure_test_exchange = false,
+  $rabbitmq_url = '',
 ) {
   rabbitmq_user { $amqp_user:
     password => $amqp_pass,

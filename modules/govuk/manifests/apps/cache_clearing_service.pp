@@ -24,6 +24,10 @@
 #   RabbitMQ password.
 #   Default: cache_clearing_service
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 # [*puppetdb_node_url*]
 #   The `nodes` endpoint URL for Puppet DB
 #
@@ -37,6 +41,7 @@ class govuk::apps::cache_clearing_service (
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'cache_clearing_service',
   $rabbitmq_password = 'cache_clearing_service',
+  $rabbitmq_url = '',
   $puppetdb_node_url = undef,
   $aws_region = 'eu-west-1',
 ) {
@@ -66,6 +71,7 @@ class govuk::apps::cache_clearing_service (
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+    url      => $rabbitmq_url,
   }
 
   govuk::app::envvar {

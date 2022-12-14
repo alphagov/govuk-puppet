@@ -19,11 +19,16 @@
 # [*enable_bulk_reindex_listener*]
 #   Whether or not to configure the queue for the govuk bulk indexer
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 class govuk::apps::search_api::rabbitmq (
   $password  = 'search-api',
   $enable_govuk_index_listener = false,
   $enable_publishing_listener = false,
   $enable_bulk_reindex_listener = false,
+  $rabbitmq_url = '',
 ) {
 
   $amqp_exchange = 'published_documents'

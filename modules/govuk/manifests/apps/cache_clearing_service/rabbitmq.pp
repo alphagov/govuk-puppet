@@ -21,12 +21,17 @@
 #   The RabbitMQ queue to set up for workers of this type to read from
 #   (default: 'cache_clearing_service')
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 class govuk::apps::cache_clearing_service::rabbitmq (
   $enabled = false,
   $amqp_user  = 'cache_clearing_service',
   $amqp_pass = 'cache_clearing_service',
   $amqp_exchange = 'published_documents',
   $amqp_queue = 'cache_clearing_service',
+  $rabbitmq_url = '',
   $queue_size_critical_threshold,
   $queue_size_warning_threshold,
 ) {

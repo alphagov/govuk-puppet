@@ -37,6 +37,10 @@
 #   RabbitMQ hosts to connect to.
 #   Default: localhost
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 # [*rabbitmq_user*]
 #   RabbitMQ username.
 #   This is a required parameter
@@ -122,6 +126,7 @@ class govuk::apps::search_api(
   $google_export_web_property_id = undef,
   $google_export_custom_data_source_id = undef,
   $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_url = '',
   $rabbitmq_password = 'search-api',
   $redis_host = undef,
   $redis_port = undef,
@@ -166,6 +171,7 @@ class govuk::apps::search_api(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+    url      => $rabbitmq_url,
   }
 
   govuk::app::envvar::redis { 'search-api':

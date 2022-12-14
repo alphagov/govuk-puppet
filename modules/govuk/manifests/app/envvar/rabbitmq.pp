@@ -17,11 +17,16 @@
 #   The RabbitMQ vhost.
 #   Default: "/"
 #
+# [*url*]
+#   URL of the RabbitMQ broker, including username and password
+#   Default: ""
+# 
 define govuk::app::envvar::rabbitmq (
   $hosts,
   $user,
   $password,
   $vhost = '/',
+  $url = '',
 ) {
 
   validate_array($hosts)
@@ -46,5 +51,8 @@ define govuk::app::envvar::rabbitmq (
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
       value   => $password;
+    "${title}-RABBITMQ_URL":
+      varname => 'RABBITMQ_URL',
+      value   => $url;
   }
 }

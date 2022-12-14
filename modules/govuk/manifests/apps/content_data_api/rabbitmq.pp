@@ -33,6 +33,10 @@
 #   The RabbitMQ queue to recieve unprocessed messages.
 #   (default: 'content_data_api_dead_letter_queue')
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 class govuk::apps::content_data_api::rabbitmq (
   $amqp_user  = 'content_data_api',
   $amqp_pass = undef,
@@ -40,7 +44,8 @@ class govuk::apps::content_data_api::rabbitmq (
   $amqp_dlx = 'content_data_api_dlx',
   $amqp_queue = 'content_data_api',
   $amqp_bulk_importing_queue = 'content_data_api_govuk_importer',
-  $amqp_dead_letter_queue = 'content_data_api_dead_letter_queue'
+  $amqp_dead_letter_queue = 'content_data_api_dead_letter_queue',
+  $rabbitmq_url = '',
 ) {
 
   govuk_rabbitmq::exchange { "${amqp_dlx}@/":

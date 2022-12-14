@@ -58,6 +58,10 @@
 #   RabbitMQ hosts to connect to.
 #   Default: localhost
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 # [*rabbitmq_user*]
 #   RabbitMQ username.
 #   This is a required parameter
@@ -111,6 +115,7 @@ class govuk::apps::content_data_api(
   $port,
   $publishing_api_bearer_token = undef,
   $rabbitmq_hosts = ['localhost'],
+  $rabbitmq_url = '',
   $rabbitmq_vhost = '/',
   $rabbitmq_password = undef,
   $rabbitmq_user = undef,
@@ -194,6 +199,9 @@ class govuk::apps::content_data_api(
     "${title}-RABBITMQ_PASSWORD":
       varname => 'RABBITMQ_PASSWORD',
       value   => $rabbitmq_password;
+    "${title}-RABBITMQ_URL":
+      varname => 'RABBITMQ_URL',
+      value   => $rabbitmq_url;
     "${title}-RABBITMQ_QUEUE":
       varname => 'RABBITMQ_QUEUE',
       value   => $rabbitmq_queue;

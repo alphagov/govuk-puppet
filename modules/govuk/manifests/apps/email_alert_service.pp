@@ -21,6 +21,10 @@
 #   RabbitMQ password.
 #   Default: email_alert_service
 #
+# [*rabbitmq_url*]
+#   RabbitMQ URL, including username and password.
+#   Default: ''
+#
 # [*sentry_dsn*]
 #   The URL used by Sentry to report exceptions
 #
@@ -40,6 +44,7 @@ class govuk::apps::email_alert_service(
   $rabbitmq_hosts = ['localhost'],
   $rabbitmq_user = 'email_alert_service',
   $rabbitmq_password = 'email_alert_service',
+  $rabbitmq_url = '',
   $sentry_dsn = undef,
   $redis_host = undef,
   $email_alert_api_bearer_token = undef,
@@ -94,6 +99,7 @@ class govuk::apps::email_alert_service(
     hosts    => $rabbitmq_hosts,
     user     => $rabbitmq_user,
     password => $rabbitmq_password,
+    url      => $rabbitmq_url,
   }
 
   govuk::app::envvar::redis { 'email-alert-service':
