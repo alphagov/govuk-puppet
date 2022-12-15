@@ -32,7 +32,7 @@ class govuk::apps::search_api::rabbitmq (
 ) {
 
   $amqp_exchange = 'published_documents'
-  $monitor_consumers = govuk::apps::search_api::monitor_rabbitmq_consumers
+  $monitor_consumers = $::govuk::apps::search_api::monitor_rabbitmq_consumers
 
   govuk_rabbitmq::queue_with_binding { 'search_api_to_be_indexed':
     amqp_exchange     => $amqp_exchange,
