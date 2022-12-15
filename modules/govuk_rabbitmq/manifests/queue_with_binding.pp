@@ -71,8 +71,13 @@ define govuk_rabbitmq::queue_with_binding (
     arguments        => {},
   }
 
+
+  $ensure_monitoring = $monitor_consumers ? {
+    true  => $ensure,
+    false => 'absent',
+  }
   govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
-    ensure            => $monitor_consumers ? { true => $ensure, false => 'absent' },
+    ensure            => $ensure_monitoring,
     rabbitmq_hostname => 'localhost',
     rabbitmq_queue    => $amqp_queue,
   }
