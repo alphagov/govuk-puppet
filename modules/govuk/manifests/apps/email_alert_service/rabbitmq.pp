@@ -54,7 +54,7 @@ class govuk::apps::email_alert_service::rabbitmq (
   $rabbitmq_url = '',
 ) {
 
-  $monitor_consumers = govuk::apps::email_alert_service::monitor_rabbitmq_consumers
+  $monitor_consumers = $::govuk::apps::email_alert_service::monitor_rabbitmq_consumers
 
   govuk_rabbitmq::queue_with_binding { $amqp_major_change_queue:
     ensure            => $ensure,

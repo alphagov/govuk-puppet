@@ -52,7 +52,7 @@ class govuk::apps::content_data_api::rabbitmq (
     type     => 'topic',
   }
 
-  $monitor_consumers = govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
+  $monitor_consumers = $::govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
 
   govuk_rabbitmq::queue_with_binding { $amqp_dead_letter_queue:
     ensure            => 'present',

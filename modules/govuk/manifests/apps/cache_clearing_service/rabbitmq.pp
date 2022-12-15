@@ -39,7 +39,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
     true  => 'present',
     false => 'absent',
   }
-  $monitor_consumers = govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
+  $monitor_consumers = $::govuk::apps::cache_clearing_service::monitor_rabbitmq_consumers
 
   $high_queue = "${amqp_queue}-high" # major, unpublish
   $medium_queue = "${amqp_queue}-medium" # minor, republish
