@@ -71,11 +71,10 @@ define govuk_rabbitmq::queue_with_binding (
     arguments        => {},
   }
 
-  if $monitor_consumers {
-    govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
-      ensure            => $ensure,
-      rabbitmq_hostname => 'localhost',
-      rabbitmq_queue    => $amqp_queue,
-    }
+  govuk_rabbitmq::monitor_consumers {"${title}_${amqp_queue}_consumer_monitoring":
+    ensure            => $monitor_consumers ? { true => $ensure, false => 'absent' }
+    rabbitmq_hostname => 'localhost',
+    rabbitmq_queue    => $amqp_queue,
   }
+
 }
