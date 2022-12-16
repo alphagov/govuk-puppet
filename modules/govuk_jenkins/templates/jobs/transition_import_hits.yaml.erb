@@ -26,6 +26,15 @@
             predefined-parameters: |
                 NSCA_CHECK_DESCRIPTION=<%= @service_description %>
                 NSCA_OUTPUT=<%= @service_description %> failed
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Transition daily hits import job failed in <%= @environment %>"
     wrappers:
         - ansicolor:
             colormap: xterm

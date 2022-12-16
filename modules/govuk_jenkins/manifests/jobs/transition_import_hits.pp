@@ -11,6 +11,12 @@ class govuk_jenkins::jobs::transition_import_hits(
   $s3_bucket = '',
 ) {
   $service_description = 'Import daily hits into Transition'
+  $slack_channel = '#govuk-publishing-platform'
+  $slack_credential_id = 'slack-notification-token'
+  $slack_team_domain = 'gds'
+  $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+  $slack_build_server_url = "https://${deploy_jenkins_domain}/"
+  $environment = hiera('govuk_jenkins::jobs::deploy_app_downstream::deploy_environment')
 
   file { '/etc/jenkins_jobs/jobs/transition_import_hits.yaml':
     ensure  => present,
