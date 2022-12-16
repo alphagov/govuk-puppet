@@ -179,6 +179,7 @@ govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency:
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '15 11 * * *'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '45 11 * * *'
 
+govuk_jenkins::job::environment: integration
 govuk_jenkins::jobs::smokey::environment: integration
 
 govuk_jenkins::jobs::run_related_links_generation::cron_schedule: '0 8 9,23 * *'

@@ -63,6 +63,7 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   travel-advice-publisher: {}
   whitehall: {}
 
+govuk_jenkins::jobs::environment: 'integration'
 govuk_jenkins::jobs::deploy_app_downstream::deploy_environment: 'integration'
 govuk_jenkins::jobs::deploy_app_downstream::deploy_url: 'deploy.integration.publishing.service.gov.uk'
 govuk_jenkins::jobs::deploy_app_downstream::smokey_pre_check: false

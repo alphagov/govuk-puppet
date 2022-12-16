@@ -16,6 +16,16 @@
       - timed: <%= @rake_oauth_access_grants_delete_expired_frequency %>
     logrotate:
         numToKeep: 10
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Signon delete expired OAuth access grants job failed in <%= @environment %>"
 - job:
     name: signon_rake_organisations_fetch
     display-name: "Signon: Sync organisations with Whitehall (scheduled)"
@@ -37,6 +47,16 @@
       - timed: <%= @rake_organisations_fetch_frequency %>
     logrotate:
         numToKeep: 10
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Signon: Sync organisation with Whitehall failed in <%= @environment %>"
 - job:
     name: signon_rake_users_suspend_inactive
     display-name: "Signon: Suspend inactive users (scheduled)"
@@ -54,6 +74,16 @@
       - timed: <%= @rake_users_suspend_inactive_frequency %>
         logrotate:
             numToKeep: 10
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Signon: suspend inactive users failed in <%= @environment %>"
 - job:
     name: signon_rake_users_send_suspension_reminders
     display-name: "Signon: Send suspension reminders (scheduled)"
@@ -71,3 +101,13 @@
       - timed: <%= @rake_users_send_suspension_reminders_frequency %>
         logrotate:
             numToKeep: 10
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Signon: Send suspension reminders failed in <%= @environment %>"

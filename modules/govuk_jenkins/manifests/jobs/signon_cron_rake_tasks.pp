@@ -35,6 +35,12 @@ class govuk_jenkins::jobs::signon_cron_rake_tasks (
   $rake_users_suspend_inactive_frequency = undef,
   $rake_users_send_suspension_reminders_frequency = undef,
 ) {
+    $slack_channel = '#govuk-publishing-platform'
+    $slack_credential_id = 'slack-notification-token'
+    $slack_team_domain = 'gds'
+    $deploy_jenkins_domain = hiera('deploy_jenkins_domain')
+    $slack_build_server_url = "https://${deploy_jenkins_domain}/"
+    $environment = hiera('govuk_jenkins::deploy_environment')
 
     $file_ensure = $configure_jobs ? {
       true    => present,
