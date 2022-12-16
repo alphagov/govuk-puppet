@@ -21,3 +21,13 @@
         - timed: |
             TZ=Europe/London
             H 12 * * *
+    publishers:
+      - slack:
+          team-domain: <%= @slack_team_domain %>
+          auth-token-id: <%= @slack_credential_id %>
+          auth-token-credential-id: <%= @slack_credential_id %>
+          build-server-url: <%= @slack_build_server_url %>
+          notify-failure: true
+          room: <%= @slack_channel %>
+          include-custom-message: true
+          custom-message: "Transition daily DNS import job failed in <%= @environment %>"
