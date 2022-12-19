@@ -267,7 +267,7 @@ class govuk::apps::sidekiq_monitoring (
     command                => 'bundle exec foreman start',
     enable_nginx_vhost     => false,
     hasrestart             => true,
-    collectd_process_regex => '/data/apps/sidekiq-monitoring/shared/bundle/ruby/.*/bin/rackup .*',
+    collectd_process_regex => 'GOVUK_APP_NAME=.* bundle exec rackup -p .*',
   }
 
   concat::fragment { "${app_name}_lb_healthcheck_live":
