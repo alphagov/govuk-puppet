@@ -1,6 +1,7 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_rabbitmq (
   $monitoring_password,
+  $monitoring_host,
   $root_password,
   $aws_clustering = false,
   $federation = false,
@@ -13,6 +14,7 @@ class govuk_rabbitmq (
   class { 'govuk_rabbitmq::monitoring' :
     monitoring_user     => $monitoring_user,
     monitoring_password => $monitoring_password,
+    monitoring_host     => $monitoring_host,
   }
 
   include govuk_rabbitmq::repo
@@ -91,5 +93,6 @@ class govuk_rabbitmq (
 
   class { 'collectd::plugin::rabbitmq':
     monitoring_password => $monitoring_password,
+    monitoring_host     => $monitoring_host,
   }
 }

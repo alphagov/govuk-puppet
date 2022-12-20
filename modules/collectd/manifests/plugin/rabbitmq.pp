@@ -8,8 +8,12 @@
 # [*monitoring_password*]
 #   The password to the 'monitoring' user which can access monitoring information from RabbitMQ.
 #
+# [*monitoring_host*]
+#   The host of the RabbitMQ process.
+#
 class collectd::plugin::rabbitmq (
   $monitoring_password,
+  $monitoring_host,
   ){
 
   @package { 'collectd-rabbitmq':

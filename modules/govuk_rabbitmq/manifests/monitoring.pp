@@ -2,6 +2,7 @@
 class govuk_rabbitmq::monitoring (
   $monitoring_user,
   $monitoring_password,
+  $monitoring_host,
 ) {
 
   include icinga::plugin::check_http_timeout_noncrit
