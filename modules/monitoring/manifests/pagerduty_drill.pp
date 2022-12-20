@@ -25,8 +25,8 @@ class monitoring::pagerduty_drill (
     cron { 'pagerduty_drill_start':
       ensure  => present,
       user    => 'root',
-      weekday => 'wednesday',
-      hour    => 10,
+      weekday => absent,
+      hour    => [10, 18],
       minute  => 0,
       command => '/usr/local/bin/govuk_pagerduty_drill_start',
     }
@@ -34,8 +34,8 @@ class monitoring::pagerduty_drill (
     cron { 'pagerduty_drill_stop':
       ensure  => present,
       user    => 'root',
-      weekday => 'wednesday',
-      hour    => 10,
+      weekday => absent,
+      hour    => [10, 18],
       minute  => 15,
       command => "rm -f ${filename}",
     }
