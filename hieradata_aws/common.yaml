@@ -123,7 +123,7 @@ govuk::node::s_base::node_apps:
   <<: *node_class
 
 govuk::node::s_publishing_api::using_amazonmq: true
-govuk::node::s_publishing_api::amazonmq_monitoring_password: "%{hiera('govuk_publishing_amazonmq::passwords::monitoring')}" //TODO check
+govuk::node::s_publishing_api::amazonmq_monitoring_password: "%{hiera('govuk_publishing_amazonmq::passwords::monitoring')}"
 govuk::node::s_publishing_api::amazonmq_monitoring_host: "publishingmq.integration.govuk-internal.digital"
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"

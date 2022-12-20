@@ -37,7 +37,7 @@ class govuk::node::s_publishing_api (
   }
 
   if ($using_amazonmq) {
-    class { "collectd::plugin::rabbitmq":
+    class { 'collectd::plugin::rabbitmq':
       monitoring_password => $amazonmq_monitoring_password,
       monitoring_host     => $amazonmq_monitoring_host,
     }
