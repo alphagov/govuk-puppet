@@ -555,6 +555,12 @@ govuk::apps::frontend::unicorn_worker_processes: "4"
 
 govuk::apps::government_frontend::unicorn_worker_processes: "8"
 
+govuk::apps::imminence::db_hostname: "imminence-postgres"
+govuk::apps::imminence::db_password: "%{hiera('govuk::apps::imminence::db::password')}"
+govuk::apps::imminence::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::imminence::db::allow_auth_from_lb: true
+govuk::apps::imminence::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+
 govuk::apps::link_checker_api::db_hostname: "link-checker-api-postgres"
 govuk::apps::link_checker_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::link_checker_api::db::allow_auth_from_lb: true
@@ -808,6 +814,7 @@ govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_finger
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
+govuk::apps::imminence::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
 govuk::apps::local_links_manager::db::rds: true
 govuk::apps::locations_api::db::rds: true
@@ -869,6 +876,7 @@ govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mir
 govuk::node::s_content_publisher_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_tagger_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_imminence_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_link_checker_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_local_links_manager_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_locations_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
