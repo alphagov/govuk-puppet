@@ -9,7 +9,7 @@ LoadPlugin python
     Username "monitoring"
     Password "<%= @monitoring_password %>"
     Realm "RabbitMQ Management"
-    Host "localhost"
+    Host "<%= @monitoring_host %>"
     Port "15672"
   </Module>
 </Plugin>
