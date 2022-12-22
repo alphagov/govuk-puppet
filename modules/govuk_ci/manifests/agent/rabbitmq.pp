@@ -4,6 +4,7 @@
 #
 class govuk_ci::agent::rabbitmq {
   contain ::govuk_rabbitmq
+
   rabbitmq_user {
     'email_alert_service_test':
       password => 'email_alert_service_test';
