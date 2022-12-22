@@ -2,7 +2,7 @@
 class govuk_rabbitmq (
   $monitoring_password,
   $root_password,
-  $monitoring_host = 'localhost',
+  $monitoring_host,
   $aws_clustering = false,
   $federation = false,
 ) {
