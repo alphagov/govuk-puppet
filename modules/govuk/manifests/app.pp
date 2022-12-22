@@ -166,8 +166,7 @@
 #
 # [*asset_pipeline*]
 # should we enable some asset pipeline specific rules in the
-# nginx config. Set this value to true to create assets when the app is deployed.
-#
+# nginx config. Set this value to true for this config to be generated.
 #
 # [*asset_pipeline_prefixes*]
 # the path prefixes from which assets are served.  This should

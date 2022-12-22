@@ -103,6 +103,7 @@ class govuk::apps::manuals_publisher(
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     log_format_is_json         => true,
+    asset_pipeline             => true,
     nginx_extra_config         => 'client_max_body_size 500m;',
   }
 

@@ -134,6 +134,7 @@ class govuk::apps::local_links_manager(
     has_liveness_health_check  => true,
     has_readiness_health_check => true,
     unicorn_worker_processes   => $unicorn_worker_processes,
+    asset_pipeline             => true,
   }
 
   Govuk::App::Envvar {
