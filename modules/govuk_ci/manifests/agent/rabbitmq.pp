@@ -3,7 +3,10 @@
 # Installs and configures rabbitmq-server
 #
 class govuk_ci::agent::rabbitmq {
-  contain ::govuk_rabbitmq
+  contain ::govuk_rabbitmq {
+    monitoring_password => lookup('govuk_rabbitmq::monitoring_password'),
+    monitoring_host     => 'localhost',
+  }
 
   rabbitmq_user {
     'email_alert_service_test':
