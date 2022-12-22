@@ -87,19 +87,21 @@ class govuk::apps::email_alert_service::rabbitmq (
   } ->
 
   govuk_rabbitmq::monitor_messages {"${amqp_major_change_queue}_message_monitoring":
-    ensure             => $ensure,
-    rabbitmq_hostname  => 'localhost',
-    rabbitmq_queue     => $amqp_major_change_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
+    ensure              => $ensure,
+    rabbitmq_hostname   => $::govuk_rabbitmq::monitoring_host,
+    rabbitmq_admin_port => $::govuk_rabbitmq::rabbitmq_admin_port,
+    rabbitmq_queue      => $amqp_major_change_queue,
+    critical_threshold  => $queue_size_critical_threshold,
+    warning_threshold   => $queue_size_warning_threshold,
   } ->
 
   govuk_rabbitmq::monitor_messages {"${ampq_subscriber_list_update_minor_queue}_message_monitoring":
-    ensure             => $ensure,
-    rabbitmq_hostname  => 'localhost',
-    rabbitmq_queue     => $ampq_subscriber_list_update_minor_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
+    ensure              => $ensure,
+    rabbitmq_hostname   => $::govuk_rabbitmq::monitoring_host,
+    rabbitmq_admin_port => $::govuk_rabbitmq::rabbitmq_admin_port,
+    rabbitmq_queue      => $ampq_subscriber_list_update_minor_queue,
+    critical_threshold  => $queue_size_critical_threshold,
+    warning_threshold   => $queue_size_warning_threshold,
   } ->
 
 

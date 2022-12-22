@@ -110,29 +110,32 @@ class govuk::apps::cache_clearing_service::rabbitmq (
   }
 
   govuk_rabbitmq::monitor_messages {"${high_queue}_message_monitoring":
-    ensure             => $ensure,
-    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
-    rabbitmq_queue     => $high_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
-    require            => Govuk_rabbitmq::Queue_with_binding[$high_queue],
+    ensure              => $ensure,
+    rabbitmq_hostname   => $::govuk_rabbitmq::monitoring_host,
+    rabbitmq_admin_port => $::govuk_rabbitmq::rabbitmq_admin_port,
+    rabbitmq_queue      => $high_queue,
+    critical_threshold  => $queue_size_critical_threshold,
+    warning_threshold   => $queue_size_warning_threshold,
+    require             => Govuk_rabbitmq::Queue_with_binding[$high_queue],
   }
 
   govuk_rabbitmq::monitor_messages {"${medium_queue}_message_monitoring":
-    ensure             => $ensure,
-    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
-    rabbitmq_queue     => $medium_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
-    require            => Govuk_rabbitmq::Queue_with_binding[$medium_queue],
+    ensure              => $ensure,
+    rabbitmq_hostname   => $::govuk_rabbitmq::monitoring_host,
+    rabbitmq_admin_port => $::govuk_rabbitmq::rabbitmq_admin_port,
+    rabbitmq_queue      => $medium_queue,
+    critical_threshold  => $queue_size_critical_threshold,
+    warning_threshold   => $queue_size_warning_threshold,
+    require             => Govuk_rabbitmq::Queue_with_binding[$medium_queue],
   }
 
   govuk_rabbitmq::monitor_messages {"${low_queue}_message_monitoring":
-    ensure             => $ensure,
-    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
-    rabbitmq_queue     => $low_queue,
-    critical_threshold => $queue_size_critical_threshold,
-    warning_threshold  => $queue_size_warning_threshold,
-    require            => Govuk_rabbitmq::Queue_with_binding[$low_queue],
+    ensure              => $ensure,
+    rabbitmq_hostname   => $::govuk_rabbitmq::monitoring_host,
+    rabbitmq_admin_port => $::govuk_rabbitmq::rabbitmq_admin_port,
+    rabbitmq_queue      => $low_queue,
+    critical_threshold  => $queue_size_critical_threshold,
+    warning_threshold   => $queue_size_warning_threshold,
+    require             => Govuk_rabbitmq::Queue_with_binding[$low_queue],
   }
 }
