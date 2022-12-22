@@ -111,7 +111,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
 
   govuk_rabbitmq::monitor_messages {"${high_queue}_message_monitoring":
     ensure             => $ensure,
-    rabbitmq_hostname  => 'localhost',
+    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
     rabbitmq_queue     => $high_queue,
     critical_threshold => $queue_size_critical_threshold,
     warning_threshold  => $queue_size_warning_threshold,
@@ -120,7 +120,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
 
   govuk_rabbitmq::monitor_messages {"${medium_queue}_message_monitoring":
     ensure             => $ensure,
-    rabbitmq_hostname  => 'localhost',
+    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
     rabbitmq_queue     => $medium_queue,
     critical_threshold => $queue_size_critical_threshold,
     warning_threshold  => $queue_size_warning_threshold,
@@ -129,7 +129,7 @@ class govuk::apps::cache_clearing_service::rabbitmq (
 
   govuk_rabbitmq::monitor_messages {"${low_queue}_message_monitoring":
     ensure             => $ensure,
-    rabbitmq_hostname  => 'localhost',
+    rabbitmq_hostname  => $::govuk_rabbitmq::monitoring_host,
     rabbitmq_queue     => $low_queue,
     critical_threshold => $queue_size_critical_threshold,
     warning_threshold  => $queue_size_warning_threshold,

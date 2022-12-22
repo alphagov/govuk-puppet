@@ -139,6 +139,8 @@ licensify::apps::licensify_admin::environment: 'integration'
 licensify::apps::licensify_feed::environment: 'integration'
 
 
+govuk_rabbitmq::admin_port: 15672
+
 govuk_search::monitoring::es_port: '80'
 govuk_search::monitoring::es_host: 'vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 
