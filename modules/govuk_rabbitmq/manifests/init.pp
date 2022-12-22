@@ -1,8 +1,8 @@
 # FIXME: This class needs better documentation as per https://docs.puppetlabs.com/guides/style_guide.html#puppet-doc
 class govuk_rabbitmq (
   $monitoring_password,
-  $monitoring_host,
   $root_password,
+  $monitoring_host,
   $aws_clustering = false,
   $federation = false,
 ) {
