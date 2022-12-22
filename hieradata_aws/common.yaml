@@ -1090,6 +1090,7 @@ govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
 
 govuk_postgresql::server::configure_env_sync_user: true
 
+govuk_rabbitmq::monitoring_host: 'localhost'
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rabbitmq::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
