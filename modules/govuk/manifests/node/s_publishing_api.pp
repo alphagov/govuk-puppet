@@ -3,7 +3,11 @@
 # Publishing API machine definition. Publishing API machines are used for running
 # the publishing API application and workers.
 #
-class govuk::node::s_publishing_api inherits govuk::node::s_base {
+class govuk::node::s_publishing_api (
+  $using_amazonmq = false,
+  $amazonmq_monitoring_password = '',
+  $amazonmq_monitoring_host = '',
+) inherits govuk::node::s_base {
   include ::govuk_rbenv::all
 
   limits::limits { 'root_nofile':
@@ -30,5 +34,12 @@ class govuk::node::s_publishing_api inherits govuk::node::s_base {
   class { 'memcached':
     max_memory => '12%',
     listen_ip  => '0.0.0.0',
+  }
+
+  if ($using_amazonmq) {
+    class { "collectd::plugin::rabbitmq":
+      monitoring_password => $amazonmq_monitoring_password,
+      monitoring_host     => $amazonmq_monitoring_host,
+    }
   }
 }

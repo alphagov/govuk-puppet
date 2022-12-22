@@ -122,6 +122,10 @@ node_class: &node_class
 govuk::node::s_base::node_apps:
   <<: *node_class
 
+govuk::node::s_publishing_api::using_amazonmq: true
+govuk::node::s_publishing_api::amazonmq_monitoring_password: "%{hiera('govuk_publishing_amazonmq::passwords::monitoring')}" //TODO check
+govuk::node::s_publishing_api::amazonmq_monitoring_host: "publishingmq.integration.govuk-internal.digital"
+
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_graphite::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
@@ -1090,6 +1094,7 @@ govuk_jenkins::jobs::deploy_lambda_app::lambda_apps:
 
 govuk_postgresql::server::configure_env_sync_user: true
 
+govuk_rabbitmq::monitoring_host: 'localhost'
 govuk_rabbitmq::repo::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_rabbitmq::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
