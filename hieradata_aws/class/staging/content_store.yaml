@@ -1,0 +1,2 @@
+govuk::apps::content_store::cpu_warning: 250
+govuk::apps::content_store::cpu_critical: 300
