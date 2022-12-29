@@ -138,10 +138,8 @@ class govuk::apps::email_alert_api(
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
 
   govuk::procfile::worker {'email-alert-api':
-    ensure                    => $ensure,
-    enable_service            => $enable_procfile_worker,
-    memory_warning_threshold  => 8000,
-    memory_critical_threshold => 10000,
+    ensure         => $ensure,
+    enable_service => $enable_procfile_worker,
   }
 
   Govuk::App::Envvar {
