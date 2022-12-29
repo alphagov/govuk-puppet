@@ -180,9 +180,7 @@ class govuk::apps::search_api(
   }
 
   govuk::procfile::worker { 'search-api':
-    enable_service            => $enable_procfile_worker,
-    memory_warning_threshold  => 1000,
-    memory_critical_threshold => 1500,
+    enable_service => $enable_procfile_worker,
   }
 
   govuk::procfile::worker { 'search-api-publishing-queue-listener':

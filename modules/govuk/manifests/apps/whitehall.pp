@@ -317,11 +317,9 @@ class govuk::apps::whitehall(
     }
 
     govuk::procfile::worker { 'whitehall-admin':
-      setenv_as                 => $app_name,
-      enable_service            => $enable_procfile_worker,
-      process_count             => $procfile_worker_process_count,
-      memory_warning_threshold  => 4000,
-      memory_critical_threshold => 14000,
+      setenv_as      => $app_name,
+      enable_service => $enable_procfile_worker,
+      process_count  => $procfile_worker_process_count,
     }
 
     govuk::app::envvar {
