@@ -47,6 +47,14 @@
 #   rummager URL envvar
 #   Default: undef
 #
+# [*cpu_warning*]
+#   CPU usage percentage that warning alerts are sounded at
+#   Default: undef
+#
+# [*cpu_critical*]
+#   CPU usage percentage that critical alerts are sounded at
+#   Default: undef
+#
 
 class govuk::apps::content_store(
   $port,
@@ -63,6 +71,8 @@ class govuk::apps::content_store(
   $oauth_secret = undef,
   $router_api_bearer_token = undef,
   $plek_service_rummager_uri = undef,
+  $cpu_warning = undef,
+  $cpu_critical = undef,
 ) {
   $app_name = 'content-store'
 
@@ -76,6 +86,8 @@ class govuk::apps::content_store(
     log_format_is_json         => true,
     vhost                      => $vhost,
     unicorn_worker_processes   => $unicorn_worker_processes,
+    cpu_warning                => $cpu_warning,
+    cpu_critical               => $cpu_critical,
   }
 
   Govuk::App::Envvar {
