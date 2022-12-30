@@ -234,6 +234,7 @@ class monitoring::checks (
 
   if ($::aws_environment == 'production') {
     icinga::check { 'check_uk_cloud_vpn_up':
+      ensure                     => 'absent',
       check_command              => 'check_uk_cloud_vpn!www.civicaepay.co.uk!/ReadingXML/QueryPayments/QueryPayments.asmx',
       host_name                  => $::fqdn,
       service_description        => 'check that the VPN between UKCloud/Licensify and AWS is still up',
