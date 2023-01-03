@@ -124,7 +124,7 @@ govuk::node::s_base::node_apps:
 
 govuk::node::s_publishing_api::using_amazonmq: false
 govuk::node::s_publishing_api::amazonmq_monitoring_password: ""
-govuk::node::s_publishing_api::amazonmq_monitoring_host: "publishingmq.integration.govuk-internal.digital"
+govuk::node::s_publishing_api::amazonmq_monitoring_host: ""
 
 # Licensify is a special case because it is not a regular govuk app
 # so we only define a Jenkins deploy node app job for it.
