@@ -33,13 +33,15 @@ define govuk_lvm(
     $filesystem = "/dev/${vg}/${title}"
 
     physical_volume { $pv:
-      ensure => $ensure,
+      ensure    => $ensure,
+      unless_vg => $vg,
     }
 
     volume_group { $vg:
       ensure           => $ensure,
       physical_volumes => $pv,
       require          => Physical_volume[$pv],
+      createonly       => true,
     }
 
     logical_volume { $title:
