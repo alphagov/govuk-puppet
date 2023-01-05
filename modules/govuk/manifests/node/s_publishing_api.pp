@@ -41,6 +41,7 @@ class govuk::node::s_publishing_api (
     class { 'collectd::plugin::rabbitmq':
       monitoring_password => $amazonmq_monitoring_password,
       monitoring_host     => $amazonmq_monitoring_host,
+      admin_port          => $amazonmq_admin_port,
     }
   }
 }
