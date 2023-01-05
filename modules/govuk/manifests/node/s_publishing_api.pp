@@ -7,6 +7,7 @@ class govuk::node::s_publishing_api (
   $using_amazonmq = false,
   $amazonmq_monitoring_password = '',
   $amazonmq_monitoring_host = '',
+  $amazonmq_admin_port = 443,
 ) inherits govuk::node::s_base {
   include ::govuk_rbenv::all
 
@@ -40,6 +41,7 @@ class govuk::node::s_publishing_api (
     class { 'collectd::plugin::rabbitmq':
       monitoring_password => $amazonmq_monitoring_password,
       monitoring_host     => $amazonmq_monitoring_host,
+      rabbitmq_admin_port => $::
     }
   }
 }

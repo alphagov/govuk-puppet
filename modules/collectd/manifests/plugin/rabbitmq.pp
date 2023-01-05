@@ -14,6 +14,7 @@
 class collectd::plugin::rabbitmq (
   $monitoring_password,
   $monitoring_host,
+  $admin_port,
   ){
 
   @package { 'collectd-rabbitmq':

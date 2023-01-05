@@ -3,6 +3,7 @@ class govuk_rabbitmq (
   $monitoring_password,
   $root_password,
   $monitoring_host,
+  $admin_port,
   $aws_clustering = false,
   $federation = false,
 ) {
@@ -15,6 +16,7 @@ class govuk_rabbitmq (
     monitoring_user     => $monitoring_user,
     monitoring_password => $monitoring_password,
     monitoring_host     => $monitoring_host,
+    admin_port          => $admin_port,
   }
 
   include govuk_rabbitmq::repo
@@ -94,5 +96,6 @@ class govuk_rabbitmq (
   class { 'collectd::plugin::rabbitmq':
     monitoring_password => $monitoring_password,
     monitoring_host     => $monitoring_host,
+    admin_port          => $admin_port,
   }
 }
