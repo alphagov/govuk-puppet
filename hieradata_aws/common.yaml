@@ -125,6 +125,7 @@ govuk::node::s_base::node_apps:
 govuk::node::s_publishing_api::using_amazonmq: false
 govuk::node::s_publishing_api::amazonmq_monitoring_password: "%{hiera('govuk_publishing_amazonmq::passwords::monitoring')}"
 govuk::node::s_publishing_api::amazonmq_monitoring_host: "publishingmq.(environment).govuk-internal.digital"
+govuk::node::s_publishing_api::amazonmq_admin_port: 443
 
 govuk::node::s_graphite::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_graphite::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
