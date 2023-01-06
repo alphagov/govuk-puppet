@@ -22,7 +22,7 @@
           name: TARGET_APPLICATION
           description: Application to target (optional).
     triggers:
-      - timed: <%= @smokey_cron_schedule %>
+      - timed: "<%= @smokey_cron_schedule %>"
     builders:
       - shell: |
           set +x
