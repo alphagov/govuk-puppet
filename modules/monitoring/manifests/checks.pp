@@ -41,7 +41,6 @@ class monitoring::checks (
 
   include monitoring::checks::mirror
   include monitoring::checks::sidekiq
-  include monitoring::checks::smokey
   include monitoring::checks::cache
   include monitoring::checks::rds
   include monitoring::checks::lb
