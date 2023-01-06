@@ -31,4 +31,6 @@ class govuk::node::s_publishing_api inherits govuk::node::s_base {
     max_memory => '12%',
     listen_ip  => '0.0.0.0',
   }
+
+  include govuk::apps::publishing_api::amazonmq_monitoring
 }
