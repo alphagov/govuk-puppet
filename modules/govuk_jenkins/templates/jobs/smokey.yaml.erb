@@ -21,6 +21,8 @@
       - string:
           name: TARGET_APPLICATION
           description: Application to target (optional).
+    triggers:
+      - timed: <%= @smokey_cron_schedule %>
     builders:
       - shell: |
           set +x
@@ -32,3 +34,6 @@
           colormap: xterm
       - build-name:
           name: '#${BUILD_NUMBER}: ${ENV,var="TARGET_APPLICATION"}'
+      - timeout:
+          timeout: <%= @smokey_timeout %>
+          fail: true
