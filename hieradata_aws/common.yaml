@@ -658,11 +658,6 @@ govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_
 govuk::apps::publishing_api::db_hostname: "publishing-api-postgres"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
 
-govuk::node::s_publishing_api::apps_using_amazonmq: []
-
-govuk::apps::publishing_api::amazonmq_monitoring::broker_name: "PublishingMQ"
-govuk::apps::publishing_api::amazonmq_monitoring::queues_to_monitor: []
-
 govuk::apps::publishing_api::rabbitmq_url: ""
 # Separate variables for self-hosted RabbitMQ
 govuk::apps::publishing_api::rabbitmq_hosts:
@@ -1356,6 +1351,9 @@ mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::repository::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 mongodb::server::version: '2.6.12'
+
+monitoring::checks::amazonmq::enabled: false
+monitoring::checks::amazonmq::consuming_apps: []
 
 monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
 monitoring::checks::http_username: "%{hiera('http_username')}"

@@ -65,10 +65,6 @@ govuk::apps::publisher::email_group_business: 'mainstream-publisher-notification
 govuk::apps::publisher::email_group_citizen: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::email_group_force_publish_alerts: 'mainstream-publisher-notifications-integration@digital.cabinet-office.gov.uk'
 govuk::apps::publisher::fact_check_subject_prefix: 'dev'
-
-govuk::apps::publishing_api::amazonmq_monitoring::queues_to_monitor:
-  - search_api_to_be_indexed
-
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-integration'
 govuk::apps::publishing_api::content_api_prototype: true
 govuk::apps::publishing_api::rabbitmq_url: "amqps://publishing_api:%{hiera('govuk_publishing_amazonmq::passwords::publishing_api')}@publishingmq.integration.govuk-internal.digital:5671/publishing"
@@ -214,6 +210,10 @@ govuk_ppa::path: 'preview'
 grafana::dashboards::machine_suffix_metrics: '_integration'
 
 mongodb::backup::mongo_backup_node: 'localhost'
+
+monitoring::checks::amazonmq::enabled: true
+monitoring::checks::amazonmq::consuming_apps:
+  - search_api
 
 monitoring::checks::aws_origin_domain: "integration.govuk.digital"
 monitoring::checks::sidekiq::enable_support_check: false

@@ -1,1 +1,0 @@
-command[check_amazonmq_consumers]=/usr/lib/nagios/plugins/check_cloudwatch_metric.py --name ConsumerCount --namespace AmazonMQ --dimensions "Broker:$ARG1,VirtualHost:$ARG2,Queue:$ARG3" --minutes 5 --warning 2: --critical 1:
