@@ -17,7 +17,6 @@ class govuk::node::s_monitoring (
 
   validate_bool($enable_fastly_metrics, $offsite_backups)
 
-  include govuk_chromedriver
   include govuk_rbenv::all
   include ::govuk_cdnlogs
   include monitoring
@@ -41,7 +40,7 @@ class govuk::node::s_monitoring (
   }
 
   file { '/opt/smokey':
-    ensure => 'directory',
+    ensure => absent,
     owner  => 'deploy',
     group  => 'deploy',
   }
