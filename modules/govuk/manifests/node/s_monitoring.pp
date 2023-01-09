@@ -39,12 +39,6 @@ class govuk::node::s_monitoring (
     both       => 16384,
   }
 
-  file { '/opt/smokey':
-    ensure => absent,
-    owner  => 'deploy',
-    group  => 'deploy',
-  }
-
   package { 'redis-tools':
     ensure => installed,
   }

@@ -19,7 +19,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_emergency_banner
   - govuk_jenkins::jobs::deploy_puppet
-  - govuk_jenkins::jobs::deploy_smokey_downstream
   - govuk_jenkins::jobs::deploy_terraform_govuk_aws
   - govuk_jenkins::jobs::enhanced_ecommerce_search_api
   - govuk_jenkins::jobs::govuk_content_api_docs
@@ -47,7 +46,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::smart_answers_broken_links_report
   - govuk_jenkins::jobs::smokey
-  - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::transition_load_site_config
   - govuk_jenkins::jobs::user_monitor
