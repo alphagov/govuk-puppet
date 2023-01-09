@@ -982,7 +982,6 @@ govuk_ci::master::pipeline_jobs:
       - 'integration'
       - 'staging'
       - 'production'
-  smokey: {}
 
 govuk_ci::master::ci_agents:
   ci-agent-1:
