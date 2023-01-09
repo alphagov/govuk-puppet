@@ -105,7 +105,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::speedcurve_lux_js_version_check
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::smokey
-  - govuk_jenkins::jobs::smokey_deploy
   - govuk_jenkins::jobs::transition_import_dns
   - govuk_jenkins::jobs::transition_import_hits
   - govuk_jenkins::jobs::transition_load_site_config
