@@ -44,8 +44,8 @@ class govuk::apps::government_frontend(
   $account_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $unicorn_worker_processes = undef,
-  $cpu_warning = 150,
-  $cpu_critical = 200,
+  $cpu_warning = 300,
+  $cpu_critical = 300,
 ) {
   Govuk::App::Envvar {
     app => 'government-frontend',
