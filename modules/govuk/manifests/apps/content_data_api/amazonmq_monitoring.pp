@@ -5,15 +5,13 @@
 #
 # === Parameters
 #
-class govuk::apps::content_data_api::amazonmq_monitoring (
-  $region = 'eu-west-1'
-) {
-  
-  icinga::check { "check_amazonmq_consumers_for_content_data_api_govuk_importer_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!content_data_api_govuk_importer!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue content_data_api_govuk_importer",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+class govuk::apps::content_data_api::amazonmq_monitoring {
+
+  govuk_amazonmq::monitor_consumers { "content_data_api_govuk_importer_consumer_monitoring":
+    broker_name         => 'PublishingMQ',
+    virtual_host        => 'publishing',
+    queue_name          => 'content_data_api_govuk_importer',
+    ensure              =>  present,
   }
 
 }
