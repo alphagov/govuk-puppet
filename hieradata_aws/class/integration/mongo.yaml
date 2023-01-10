@@ -8,7 +8,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "content_store_production"
     temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
+    url: "govuk-production-database-backups"
     path: "mongo-api"
   "pull_draft_content_store_daily":
     ensure: "present"
@@ -19,7 +19,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "draft_content_store_production"
     temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
+    url: "govuk-production-database-backups"
     path: "mongo-api"
   "pull_imminence_production":
     ensure: "present"
@@ -30,7 +30,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "imminence_production"
     temppath: "/var/lib/mongodb/.dumps"
-    url: "govuk-staging-database-backups"
+    url: "govuk-production-database-backups"
     path: "mongo-normal"
   "push_imminence_integration":
     ensure: "present"

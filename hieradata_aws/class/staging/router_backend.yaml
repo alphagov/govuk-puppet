@@ -30,7 +30,7 @@ govuk_env_sync::tasks:
     storagebackend: "s3"
     database: "authenticating_proxy_production"
     temppath: "/tmp/.dumps"
-    url: "govuk-staging-database-backups"
+    url: "govuk-production-database-backups"
     path: "mongo-router"
   "push_router_daily":
     ensure: "present"
