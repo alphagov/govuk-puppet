@@ -16,11 +16,4 @@ class govuk::apps::content_data_api::amazonmq_monitoring (
     notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
   }
 
-  icinga::check { "check_amazonmq_consumers_for_content_data_api_dead_letter_queue_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!content_data_api_dead_letter_queue!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue content_data_api_dead_letter_queue",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
-  }
-
 }
