@@ -12,27 +12,21 @@ class govuk::apps::cache_clearing_service::amazonmq_monitoring (
 ) {
   
   # Consumer counts
-  icinga::check { "check_amazonmq_consumers_for_cache_clearing_service-high${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!cache_clearing_service-high!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue cache_clearing_service-high",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "cache_clearing_service-high_consumer_monitoring":
+    queue_name          => 'cache_clearing_service-high',
+    ensure              =>  present,
   }
 
-  icinga::check { "check_amazonmq_consumers_for_cache_clearing_service-medium${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!cache_clearing_service-medium!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue cache_clearing_service-medium",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "cache_clearing_service-medium_consumer_monitoring":
+    queue_name          => 'cache_clearing_service-medium',
+    ensure              =>  present,
   }
 
-  icinga::check { "check_amazonmq_consumers_for_cache_clearing_service-low${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!cache_clearing_service-low!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue cache_clearing_service-low",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "cache_clearing_service-low_consumer_monitoring":
+    queue_name          => 'cache_clearing_service-low',
+    ensure              =>  present,
   }
-
+  
   # Message counts
   icinga::check { "check_amazonmq_messages_for_cache_clearing_service-high${::hostname}":
     check_command       => "check_amazonmq_messages!PublishingMQ!publishing!cache_clearing_service-high!${region}!${queue_size_critical_threshold}!${queue_size_warning_threshold}",

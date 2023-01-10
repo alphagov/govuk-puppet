@@ -242,5 +242,4 @@ class monitoring::checks (
       retry_interval      => 5,
     }
   }
-  
 }

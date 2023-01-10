@@ -10,7 +10,17 @@
 # === Parameters
 #
 # [*enabled*]
-#   This variable enables to define whether to perform Account SLO checks. [This is set to 'true' by default.]
+#   This variable defines whether to perform AmazonMQ checks. [This is set to 'true' by default.]
+#
+# [*region*]
+#   The AWS region that AmazonMQ's Cloudwatch is in  [This is set to 'eu-west-1' by default.]
+#
+# [*consuming_apps*]
+#   An array of app names. For each app, it will include a class called govuk::apps::(app name)::amazonmq_monitoring
+#   That class must exist, and should define any app-specific checks to perform against AmazonMQ. The class may also
+#   be empty if there is no need to check anything for that app.
+#  [Default is an empty array]
+# 
 class monitoring::checks::amazonmq (
       $enabled = true,
       $region = 'eu-west-1',

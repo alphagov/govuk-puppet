@@ -12,33 +12,27 @@ class govuk::apps::email_alert_service::amazonmq_monitoring (
 ) {
   
   # Consumer counts
-  icinga::check { "check_amazonmq_consumers_for_email_alert_service_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!email_alert_service!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue email_alert_service",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "email_alert_service_consumer_monitoring":
+    queue_name          => 'email_alert_service',
+    ensure              =>  present,
   }
 
-  icinga::check { "check_amazonmq_consumers_for_email_unpublishing_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!email_unpublishing!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue email_unpublishing",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "email_unpublishing_consumer_monitoring":
+    queue_name          => 'email_unpublishing',
+    ensure              =>  present,
   }
 
-  icinga::check { "check_amazonmq_consumers_for_subscriber_list_details_update_major_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!subscriber_list_details_update_major!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue subscriber_list_details_update_major",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "subscriber_list_details_update_major_consumer_monitoring":
+    queue_name          => 'subscriber_list_details_update_major',
+    ensure              =>  present,
   }
 
-  icinga::check { "check_amazonmq_consumers_for_subscriber_list_details_update_minor_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!subscriber_list_details_update_minor!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue subscriber_list_details_update_minor",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+  govuk_amazonmq::monitor_consumers { "subscriber_list_details_update_minor_consumer_monitoring":
+    queue_name          => 'subscriber_list_details_update_minor',
+    ensure              =>  present,
   }
+
+
 
   # Message counts
   icinga::check { "check_amazonmq_messages_for_email_alert_service${::hostname}":
