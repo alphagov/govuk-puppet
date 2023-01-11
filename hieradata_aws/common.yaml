@@ -451,6 +451,9 @@ govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
 
+govuk::apps::cache_clearing_service::amazonmq_monitoring::queue_size_critical_threshold: 100000
+govuk::apps::cache_clearing_service::amazonmq_monitoring::queue_size_warning_threshold: 80000
+
 govuk::apps::ckan::db_hostname: "ckan-postgres"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::ckan::db::allow_auth_from_lb: true
@@ -531,6 +534,10 @@ govuk::apps::email_alert_api::govuk_personalisation_feedback_uri: "%{hiera('govu
 
 govuk::apps::email_alert_frontend::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::email_alert_frontend::redis_port: "%{hiera('sidekiq_port')}"
+
+
+govuk::apps::email_alert_service::amazonmq_monitoring::queue_size_critical_threshold: 25
+govuk::apps::email_alert_service::amazonmq_monitoring::queue_size_warning_threshold: 5
 
 govuk::apps::email_alert_service::enabled: true
 govuk::apps::email_alert_service::rabbitmq_url: ""
@@ -657,7 +664,7 @@ govuk::apps::publishing_api::unicorn_worker_processes: "8"
 govuk::apps::publishing_api::content_store: "https://content-store.%{hiera('app_domain')}"
 govuk::apps::publishing_api::db_hostname: "publishing-api-postgres"
 govuk::apps::publishing_api::draft_content_store: "https://draft-content-store.%{hiera('app_domain')}"
-# AmazonMQ requires an amqps:// URL
+
 govuk::apps::publishing_api::rabbitmq_url: ""
 # Separate variables for self-hosted RabbitMQ
 govuk::apps::publishing_api::rabbitmq_hosts:
@@ -1351,6 +1358,9 @@ mongodb::backup::alert_hostname: 'alert'
 mongodb::repository::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 mongodb::repository::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 mongodb::server::version: '2.6.12'
+
+monitoring::checks::amazonmq::enabled: false
+monitoring::checks::amazonmq::consuming_apps: []
 
 monitoring::checks::aws_origin_domain: 'dev.govuk.digital'
 monitoring::checks::http_username: "%{hiera('http_username')}"

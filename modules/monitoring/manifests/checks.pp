@@ -50,6 +50,7 @@ class monitoring::checks (
   include monitoring::checks::whitehall
   include monitoring::checks::accounts_slos
   include monitoring::checks::s3_mirror
+  include monitoring::checks::amazonmq
 
   include govuk::apps::email_alert_api::checks
 
