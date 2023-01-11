@@ -39,7 +39,7 @@ class monitoring::checks::amazonmq (
     }
 
     # convert the given array of app names into an array of classes to include
-    $consuming_app_monitoring_classes = regsubst(regsubst($consuming_apps, '^', 'govuk::apps::'), '$', '::amazonmq_monitoring')
+    $consuming_app_monitoring_classes = regsubst($consuming_apps, '.*', 'govuk::apps::\0::amazonmq_monitoring')
     include $consuming_app_monitoring_classes
   }
 }
