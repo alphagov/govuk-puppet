@@ -8,12 +8,10 @@
 class govuk::apps::account_api::amazonmq_monitoring (
   $region = 'eu-west-1'
 ) {
-  
-  icinga::check { "check_amazonmq_consumers_for_account_api_on_${::hostname}":
-    check_command       => "check_amazonmq_consumers!PublishingMQ!publishing!account_api!${region}",
-    service_description => "Check 5-min avg consumer count for publishing AmazonMQ queue account_api",
-    host_name           => $::fqdn,
-    notes_url           => monitoring_docs_url(amazonmq-no-consumers-listening),
+
+  govuk_amazonmq::monitor_consumers { 'account_api_consumer_monitoring':
+    ensure     =>  present,
+    queue_name => 'account_api',
   }
 
 }
