@@ -103,6 +103,7 @@ govuk::apps::url_arbiter::db::backend_ip_range: '10.1.3.0/24'
 govuk::apps::whitehall::basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
 govuk::apps::whitehall::highlight_words_to_avoid: true
 govuk::apps::whitehall::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
+govuk::apps::whitehall::email_address_override: "whitehall-emails-integration@digital.cabinet-office.gov.uk"
 govuk::apps::whitehall::aws_s3_bucket_name: 'govuk-integration-whitehall-csvs'
 
 licensify::apps::configfile::mongo_database_reference_name: 'licensify-refdata'

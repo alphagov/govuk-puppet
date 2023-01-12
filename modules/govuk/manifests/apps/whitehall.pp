@@ -135,6 +135,9 @@
 # [*govuk_notify_template_id*]
 #   The template ID used to send email via GOV.UK Notify.
 #
+# [*email_address_override*]
+#   An email address that intercepted Notify emails can be sent to
+#
 # [*aws_region*]
 #   The Region for AWS to access S3 buckets.
 #
@@ -182,6 +185,7 @@ class govuk::apps::whitehall(
   $backend_unicorn_worker_processes = 4,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $email_address_override = undef,
   $aws_region = 'eu-west-1',
   $aws_s3_bucket_name = undef,
 ) {
@@ -350,6 +354,9 @@ class govuk::apps::whitehall(
       "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
         varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
         value   => $govuk_notify_template_id;
+      "${title}-EMAIL_ADDRESS_OVERRIDE":
+        varname => 'EMAIL_ADDRESS_OVERRIDE',
+        value   => $email_address_override;
       "${title}-AWS_REGION":
         varname => 'AWS_REGION',
         value   => $aws_region;
