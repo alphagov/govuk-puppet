@@ -29,7 +29,7 @@ class grafana::datasources(
     \"name\":\"CloudWatch\",
     \"type\":\"cloudwatch\",
     \"access\":\"proxy\",
-    \"jsonData\":{\"authType\":\"arn\", \"defaultRegion\":\"eu-west-1\", \"assumeRoleArn\":\"\", \"timeField\":\"@timestamp\"}
+    \"jsonData\":{\"authType\":\"arn\", \"defaultRegion\":\"eu-west-1\", \"assumeRoleArn\":\"\", \"timeField\":\"@timestamp\", \"customMetricsNamespaces\": \"AWS/AmazonMQ\"}
   }"
 
   $cloudwatchsourceadd = shellquote([
