@@ -126,7 +126,7 @@
                 "showDisabledItems": false
               },
               "period": "",
-              "refId": "A",
+              "refId": "B",
               "region": "$region",
               "statistics": [
                 "Average"
@@ -159,7 +159,7 @@
                 "showDisabledItems": false
               },
               "period": "",
-              "refId": "A",
+              "refId": "C",
               "region": "$region",
               "statistics": [
                 "Average"
@@ -192,7 +192,7 @@
                 "showDisabledItems": false
               },
               "period": "",
-              "refId": "A",
+              "refId": "D",
               "region": "$region",
               "statistics": [
                 "Average"
