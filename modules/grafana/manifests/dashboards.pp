@@ -39,6 +39,7 @@ class grafana::dashboards (
   })
 
   file {
+    "${dashboard_directory}/aws-amazonmq.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-amazonmq.json';
     "${dashboard_directory}/aws-auto-scaling.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-auto-scaling.json';
     "${dashboard_directory}/aws-ec2.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-ec2.json';
     "${dashboard_directory}/aws-efs.json": source => 'puppet:///modules/grafana/dashboards_aws/aws-efs.json';
