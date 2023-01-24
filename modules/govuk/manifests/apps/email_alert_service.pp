@@ -69,24 +69,27 @@ class govuk::apps::email_alert_service(
   }
 
   govuk::procfile::worker { 'email-alert-service-unpublishing-queue-consumer':
-    setenv_as      => $app_name,
-    enable_service => $enable_unpublishing_queue_consumer,
-    process_type   => 'unpublishing-queue-consumer',
-    process_regex  => '\/rake message_queues:unpublishing_consumer',
+    setenv_as       => $app_name,
+    enable_service  => $enable_unpublishing_queue_consumer,
+    process_type    => 'unpublishing-queue-consumer',
+    process_regex   => '\/rake message_queues:unpublishing_consumer',
+    stdout_log_json => false,
   }
 
   govuk::procfile::worker { 'email-alert-service-subscriber-list-details-update-minor-consumer':
-    setenv_as      => $app_name,
-    enable_service => $enable_subscriber_list_update_queue_consumers,
-    process_type   => 'subscriber-list-details-update-minor-consumer',
-    process_regex  => '\/rake message_queues:subscriber_list_details_update_minor_consumer',
+    setenv_as       => $app_name,
+    enable_service  => $enable_subscriber_list_update_queue_consumers,
+    process_type    => 'subscriber-list-details-update-minor-consumer',
+    process_regex   => '\/rake message_queues:subscriber_list_details_update_minor_consumer',
+    stdout_log_json => false,
   }
 
   govuk::procfile::worker { 'email-alert-service-subscriber-list-details-update-major-consumer':
-    setenv_as      => $app_name,
-    enable_service => $enable_subscriber_list_update_queue_consumers,
-    process_type   => 'subscriber-list-details-update-major-consumer',
-    process_regex  => '\/rake message_queues:subscriber_list_details_update_major_consumer',
+    setenv_as       => $app_name,
+    enable_service  => $enable_subscriber_list_update_queue_consumers,
+    process_type    => 'subscriber-list-details-update-major-consumer',
+    process_regex   => '\/rake message_queues:subscriber_list_details_update_major_consumer',
+    stdout_log_json => false,
   }
 
   Govuk::App::Envvar {

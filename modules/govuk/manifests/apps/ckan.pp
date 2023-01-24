@@ -146,28 +146,31 @@ class govuk::apps::ckan (
     }
 
     govuk::procfile::worker { 'harvester_fetch_consumer':
-      ensure         => $toggled_harvester_fetch,
-      setenv_as      => 'ckan',
-      enable_service => $enable_harvester_fetch,
-      process_type   => 'harvester_fetch_consumer',
-      respawn_count  => 15,
-      process_regex  => $fetch_process_regex,
+      ensure          => $toggled_harvester_fetch,
+      setenv_as       => 'ckan',
+      enable_service  => $enable_harvester_fetch,
+      process_type    => 'harvester_fetch_consumer',
+      respawn_count   => 15,
+      process_regex   => $fetch_process_regex,
+      stdout_log_json => false,
     }
 
     govuk::procfile::worker { 'harvester_gather_consumer':
-      ensure         => $toggled_harvester_gather,
-      setenv_as      => 'ckan',
-      enable_service => $enable_harvester_gather,
-      process_type   => 'harvester_gather_consumer',
-      process_regex  => $gather_process_regex,
+      ensure          => $toggled_harvester_gather,
+      setenv_as       => 'ckan',
+      enable_service  => $enable_harvester_gather,
+      process_type    => 'harvester_gather_consumer',
+      process_regex   => $gather_process_regex,
+      stdout_log_json => false,
     }
 
     govuk::procfile::worker { 'pycsw_web':
-      ensure         => present,
-      setenv_as      => 'ckan',
-      enable_service => running,
-      process_type   => 'pycsw_web',
-      process_regex  => 'pycsw\.wsgi',
+      ensure          => present,
+      setenv_as       => 'ckan',
+      enable_service  => running,
+      process_type    => 'pycsw_web',
+      process_regex   => 'pycsw\.wsgi',
+      stdout_log_json => false,
     }
 
     class { 'cronjobs':

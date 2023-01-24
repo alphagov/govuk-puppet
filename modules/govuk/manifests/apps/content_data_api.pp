@@ -155,17 +155,19 @@ class govuk::apps::content_data_api(
   }
 
   govuk::procfile::worker { "${app_name}-publishing-api-consumer":
-    enable_service => $enable_procfile_worker,
-    setenv_as      => $app_name,
-    process_type   => 'publishing-api-consumer',
-    process_regex  => '\/rake publishing_api:consumer',
+    enable_service  => $enable_procfile_worker,
+    setenv_as       => $app_name,
+    process_type    => 'publishing-api-consumer',
+    process_regex   => '\/rake publishing_api:consumer',
+    stdout_log_json => false,
   }
 
   govuk::procfile::worker { 'content-data-api-bulk-import-publishing-api-consumer':
-    enable_service => $enable_procfile_worker,
-    setenv_as      => $app_name,
-    process_type   => 'bulk-import-publishing-api-consumer',
-    process_regex  => '\/rake publishing_api:bulk_import_consumer',
+    enable_service  => $enable_procfile_worker,
+    setenv_as       => $app_name,
+    process_type    => 'bulk-import-publishing-api-consumer',
+    process_regex   => '\/rake publishing_api:bulk_import_consumer',
+    stdout_log_json => false,
   }
 
   govuk::app::envvar {
