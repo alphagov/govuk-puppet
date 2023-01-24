@@ -136,6 +136,7 @@ class govuk::deploy::config(
     'GOVUK_WEBSITE_ROOT': value         => $website_root;
     'GOVUK_CSP_REPORT_ONLY': value      => $csp_report_only_value;
     'GOVUK_CSP_REPORT_URI': value       => $csp_report_uri;
+    # This env var can be removed once all GOV.UK apps are using Sidekiq >= 6
     'SIDEKIQ_LOGFILE': value            => $sidekiq_logfile;
     'GOVUK_SIDEKIQ_JSON_LOGGING': value => '1';
   }

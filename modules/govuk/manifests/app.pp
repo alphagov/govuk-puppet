@@ -438,6 +438,7 @@ define govuk::app (
     fields => {'application' => $title},
   }
 
+  # This configuration will become redundant once all Sidekiq versions are >= 6
   @filebeat::prospector { "${title}_sidekiq_json_log":
     paths  => ["/var/apps/${title}/log/sidekiq*.log"],
     fields => {'application' => $title},
