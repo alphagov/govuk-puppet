@@ -6,6 +6,22 @@
 #
 # === Parameters
 #
+# [*db_hostname*]
+#   The hostname of the database server to use in the DATABASE_URL.
+#
+# [*db_username*]
+#   The username to use in the DATABASE_URL.
+#
+# [*db_password*]
+#   The password for the database.
+#
+# [*db_name*]
+#   The database name to use in the DATABASE_URL.
+#
+# [*db_port*]
+#   The port of the database server to use in the DATABASE_URL.
+#   Default: undef
+#
 # [*mongodb_nodes*]
 #   Array of mongo cluster hostnames for the application to connect to.
 #
@@ -42,6 +58,11 @@
 #   Scheme to use for signon URI.
 #   Default: 'https'
 class govuk::apps::authenticating_proxy(
+  $db_hostname = undef,
+  $db_username = 'authenticating-proxy',
+  $db_password = undef,
+  $db_port = undef,
+  $db_name = 'authenticating_proxy_production',
   $mongodb_nodes,
   $mongodb_name = 'authenticating_proxy_production',
   $port,
@@ -55,9 +76,20 @@ class govuk::apps::authenticating_proxy(
 ) {
   $app_name = 'authenticating-proxy'
 
+  include govuk_postgresql::client #installs libpq-dev package needed for pg gem
+
   govuk::app::envvar::mongodb_uri { $app_name:
     hosts    => $mongodb_nodes,
     database => $mongodb_name,
+  }
+
+  govuk::app::envvar::database_url { $app_name:
+    type     => 'postgresql',
+    username => $db_username,
+    password => $db_password,
+    host     => $db_hostname,
+    port     => $db_port,
+    database => $db_name,
   }
 
   govuk::app { $app_name:

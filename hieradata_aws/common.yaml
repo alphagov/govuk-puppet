@@ -438,6 +438,11 @@ govuk::apps::asset_manager::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::asset_manager::redis_port: "%{hiera('sidekiq_port')}"
 govuk::apps::asset_manager::unicorn_worker_processes: "16"
 
+govuk::apps::authenticating_proxy::db_hostname: "authenticating-proxy-postgres"
+govuk::apps::authenticating_proxy::db_password: "%{hiera('govuk::apps::authenticating_proxy::db::password')}"
+govuk::apps::authenticating_proxy::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::authenticating_proxy::db::allow_auth_from_lb: true
+govuk::apps::authenticating_proxy::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
 govuk::apps::authenticating_proxy::jwt_auth_secret: "%{hiera('jwt_auth_secret')}"
 
 govuk::apps::bouncer::db_hostname: "transition-postgresql-standby"
@@ -818,6 +823,7 @@ govuk_awscli::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')
 govuk_awscloudwatch::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
+govuk::apps::authenticating_proxy::db::rds: true
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
@@ -877,6 +883,7 @@ govuk::node::s_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_db_admin::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::node::s_account_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_authenticating_proxy_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_ckan_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_admin_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
