@@ -46,7 +46,6 @@ define govuk::procfile::worker (
   $respawn_timeout = 20,
   $process_regex = "sidekiq .* ${title}(.*\\.gov\\.uk)? ",
   $stdout_log_json = true,
-  $stderr_log_json = false,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
