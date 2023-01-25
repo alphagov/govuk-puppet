@@ -1,6 +1,8 @@
 # == Define: govuk::procfile::worker
 #
 # Creates an upstart entry for a worker as defined by the application's Procfile.
+# The most common usage of this file is to configure Ruby Sidekiq processes so
+# the default options are based around Sidekiq conventions.
 #
 # === Parameters
 #
@@ -31,6 +33,9 @@
 #   The regex to use for the CollectD Process plugin.
 #   Default: "sidekiq .* ${title}(.*\\.gov\\.uk)? "
 #
+# [*stdout_log_json*]
+#   Whether the stdout log is formatted as json
+#   Default: true
 define govuk::procfile::worker (
   $enable_service = true,
   $ensure = present,
@@ -40,6 +45,8 @@ define govuk::procfile::worker (
   $respawn_count = 5,
   $respawn_timeout = 20,
   $process_regex = "sidekiq .* ${title}(.*\\.gov\\.uk)? ",
+  $stdout_log_json = true,
+  $stderr_log_json = false,
 ) {
   validate_re($ensure, '^(present|absent)$', '$ensure must be "present" or "absent"')
 
@@ -51,6 +58,18 @@ define govuk::procfile::worker (
   collectd::plugin::process { "app-worker-${title_underscore}":
     ensure => $ensure,
     regex  => $process_regex,
+  }
+
+  # Send process stdout logs to filebeat for logit. We may also want to send
+  # stderr logs but when putting this together I was concerned that:
+  # a) there seems to be a lot of junk in stderr (warnings, stdout duplicates)
+  # b) we weren't previously logging this in logit
+  @filebeat::prospector { "${title}-procfile-${process_type}-out-log":
+    ensure => $ensure,
+    paths  => ["/var/log/${title}/procfile_${process_type}.out.log"],
+    tags   => ['stdout', $process_type],
+    json   => $stdout_log_json,
+    fields => {'application' => $title},
   }
 
   if $ensure == present {
