@@ -154,7 +154,7 @@
   <label></label>
   <%- if @csrf_version -%>
   <crumbIssuer class="hudson.security.csrf.DefaultCrumbIssuer">
-    <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
+    <excludeClientIPFromCrumb>true</excludeClientIPFromCrumb>
   </crumbIssuer>
   <%- end -%>
   <nodeProperties/>
