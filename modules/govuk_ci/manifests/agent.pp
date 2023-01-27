@@ -20,7 +20,6 @@ class govuk_ci::agent(
 
   include ::clamav
   include ::clamav::cron_freshclam
-  include ::govuk_ci::agent::redis
   include ::govuk_ci::agent::docker
   include ::golang
   include ::govuk_ci::agent::gcloud
@@ -28,6 +27,7 @@ class govuk_ci::agent(
   include ::govuk_ci::agent::mongodb
   include ::govuk_ci::agent::mysql
   include ::govuk_ci::agent::postgresql
+  include ::govuk_ci::agent::redis
   include ::govuk_ci::agent::rabbitmq
   include ::govuk_ci::agent::solr
   include ::govuk_ci::cleanup
