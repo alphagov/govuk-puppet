@@ -137,6 +137,7 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
 govuk::apps::account_api::account_oauth_provider_uri: 'https://oidc.integration.account.gov.uk/'
 govuk::apps::asset_manager::aws_s3_bucket_name: 'govuk-assets-staging'
 govuk::apps::asset_manager::aws_region: 'eu-west-1'
+govuk::apps::cache_clearing_service::rabbitmq_url: "amqps://cache_clearing_service:%{hiera('govuk_publishing_amazonmq::passwords::cache_clearing_service')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::ckan::ckan_site_url: 'https://ckan.staging.publishing.service.gov.uk'
 govuk::apps::ckan::s3_bucket_name: "datagovuk-staging-ckan-organogram"
 govuk::apps::ckan::s3_aws_region_name: "eu-west-1"
@@ -147,6 +148,7 @@ govuk::apps::content_data_admin::google_tag_manager_id: 'GTM-NZG8SF2'
 govuk::apps::content_data_admin::google_tag_manager_preview: 'env-5'
 govuk::apps::content_data_admin::aws_csv_export_bucket_name: 'govuk-staging-content-data-csvs'
 govuk::apps::content_data_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::content_data_api::rabbitmq_url: "amqps://content_data_api:%{hiera('govuk_publishing_amazonmq::passwords::content_data_api')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::content_data_api::etl_healthcheck_enabled_from_hour: '12'
 govuk::apps::content_publisher::aws_s3_bucket: "govuk-staging-content-publisher-activestorage"
 govuk::apps::content_publisher::google_tag_manager_auth: "QaRG0YPL6_pwZdxCbyMXPQ"
@@ -165,6 +167,7 @@ govuk::apps::email_alert_api::govuk_notify_recipients:
 govuk::apps::email_alert_frontend::subscription_management_enabled: true
 govuk::apps::email_alert_frontend::govuk_personalisation_manage_uri: 'https://staging.account.gov.uk?link=manage-account'
 govuk::apps::email_alert_frontend::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
+govuk::apps::email_alert_service::rabbitmq_url: "amqps://email_alert_service:%{hiera('govuk_publishing_amazonmq::passwords::email_alert_service')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::feedback::govuk_notify_survey_signup_reply_to_id: 'd1f54751-80a8-420a-9077-d34c7d6cc734'
 govuk::apps::feedback::govuk_notify_survey_signup_template_id: '8a8d98c0-42c8-4f56-b61f-77c89417a171'
 govuk::apps::feedback::govuk_notify_accessible_format_request_reply_to_id: 'd33f7857-7514-4458-81b9-0995f48e2ac5'
@@ -202,6 +205,7 @@ govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-eve
 govuk::apps::publishing_api::rabbitmq_url: "amqps://publishing_api:%{hiera('govuk_publishing_amazonmq::passwords::publishing_api')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
+govuk::apps::search_api::rabbitmq_url: "amqps://search_api:%{hiera('govuk_publishing_amazonmq::passwords::search_api')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::search_api::relevancy_bucket_name: 'govuk-staging-search-relevancy'
 govuk::apps::search_api::sitemaps_bucket_name: 'govuk-staging-sitemaps'
