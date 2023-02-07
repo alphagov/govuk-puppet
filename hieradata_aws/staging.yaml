@@ -199,6 +199,7 @@ govuk::apps::publisher::fact_check_subject_prefix: 'staging'
 govuk::apps::publisher::fact_check_reply_to_id: '88f713ff-7de0-43a6-8221-8721bedd103c'
 govuk::apps::publisher::fact_check_reply_to_address: 'govuk-fact-check-staging@digital.cabinet-office.gov.uk'
 govuk::apps::publishing_api::event_log_aws_bucketname: 'govuk-publishing-api-event-log-staging'
+govuk::apps::publishing_api::rabbitmq_url: "amqps://publishing_api:%{hiera('govuk_publishing_amazonmq::passwords::publishing_api')}@publishingmq.staging.govuk-internal.digital:5671/publishing"
 govuk::apps::router::sentry_environment: 'staging'
 govuk::apps::search_admin::govuk_notify_template_id: "112842bb-d8a4-4511-90de-57dc5c8f27ec"
 govuk::apps::search_api::elasticsearch_hosts: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
