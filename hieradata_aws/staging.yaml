@@ -378,6 +378,14 @@ licensify::apps::licensify_feed::environment: 'staging'
 licensify::apps::licensify::alert_5xx_warning_rate: 0.1
 licensify::apps::licensify::alert_5xx_critical_rate: 0.15
 
+monitoring::checks::amazonmq::enabled: true
+monitoring::checks::amazonmq::consuming_apps:
+  - content_data_api
+  - cache_clearing_service
+  - publishing_api
+  - email_alert_service
+  - search_api
+
 monitoring::checks::aws_origin_domain: "staging.govuk.digital"
 monitoring::checks::signon_api_tokens_check_period: 'never'
 monitoring::checks::sidekiq::enable_signon_check: false
@@ -435,7 +443,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-publishing-api-internal: {}
   blue-puppetmaster:
     healthyhosts_warning: 0
-  blue-rabbitmq-internal: {}
   blue-router-api: {}
   blue-search: {}
   blue-transition-db-admin:
