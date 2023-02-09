@@ -399,6 +399,14 @@ licensify::apps::licensify_admin::environment: 'production'
 licensify::apps::licensify::environment: 'production'
 licensify::apps::licensify_feed::environment: 'production'
 
+monitoring::checks::amazonmq::enabled: true
+monitoring::checks::amazonmq::consuming_apps:
+  - content_data_api
+  - cache_clearing_service
+  - publishing_api
+  - email_alert_service
+  - search_api
+
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
 monitoring::checks::mirror::enabled: true
 monitoring::checks::sidekiq::enable_signon_check: false
