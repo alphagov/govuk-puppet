@@ -462,7 +462,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-publishing-api-internal: {}
   blue-puppetmaster:
     healthyhosts_warning: 0
-  blue-rabbitmq-internal: {}
   blue-router-api: {}
   blue-search: {}
   blue-transition-db-admin:
