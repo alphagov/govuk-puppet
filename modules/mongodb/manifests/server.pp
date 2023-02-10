@@ -60,7 +60,6 @@ class mongodb::server (
     fail("Replica set can't have no members")
   }
 
-  include ::mongodb::aws_backup
   include govuk_unattended_reboot::mongodb
   include mongodb::repository
 
