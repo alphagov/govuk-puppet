@@ -11,7 +11,7 @@
 #   Name of the bucket to backup to.
 #
 class mongodb::aws_backup (
-  $ensure     = 'present',
+  $ensure     = 'absent',
   $backup_dir = '/var/lib/mongodb/backup',
   $bucket     = undef,
 ) {
