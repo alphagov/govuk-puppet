@@ -40,6 +40,7 @@ class govuk_rbenv::all (
     '3.0.4',
     '3.0.5',
     '3.1.2',
+    '3.1.3',
     '3.2.0',
   ]
 
@@ -61,7 +62,7 @@ class govuk_rbenv::all (
   }
 
   rbenv::alias { '3.1':
-    to_version => '3.1.2',
+    to_version => '3.1.3',
   }
 
   rbenv::alias { '3.2':
