@@ -60,7 +60,7 @@ GEM
     puppet-lint (2.0.0)
     puppet-lint-trailing_comma-check (0.3.2)
       puppet-lint (>= 1.0, < 3.0)
-    puppet-syntax (2.1.0)
+    puppet-syntax (2.6.0)
       rake
     puppet_forge (2.2.9)
       faraday (>= 0.9.0, < 0.14.0)
@@ -114,7 +114,7 @@ DEPENDENCIES
   puppet (= 3.8.5)
   puppet-lint (= 2.0.0)
   puppet-lint-trailing_comma-check (= 0.3.2)
-  puppet-syntax (= 2.1.0)
+  puppet-syntax (= 2.6.0)
   puppetlabs_spec_helper (= 1.0.1)
   rake
   rspec-puppet
