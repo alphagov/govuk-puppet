@@ -22,12 +22,6 @@
 #   The port of the database server to use in the DATABASE_URL.
 #   Default: undef
 #
-# [*mongodb_nodes*]
-#   Array of mongo cluster hostnames for the application to connect to.
-#
-# [*mongodb_name*]
-#   The name of the MongoDB database to use
-#
 # [*port*]
 #   The port that it is served on.
 #
@@ -63,8 +57,6 @@ class govuk::apps::authenticating_proxy(
   $db_password = undef,
   $db_port = undef,
   $db_name = 'authenticating_proxy_production',
-  $mongodb_nodes,
-  $mongodb_name = 'authenticating_proxy_production',
   $port,
   $sentry_dsn = undef,
   $govuk_upstream_uri = 'http://localhost:3054',
@@ -77,11 +69,6 @@ class govuk::apps::authenticating_proxy(
   $app_name = 'authenticating-proxy'
 
   include govuk_postgresql::client #installs libpq-dev package needed for pg gem
-
-  govuk::app::envvar::mongodb_uri { $app_name:
-    hosts    => $mongodb_nodes,
-    database => $mongodb_name,
-  }
 
   govuk::app::envvar::database_url { $app_name:
     type     => 'postgresql',
