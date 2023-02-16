@@ -1291,7 +1291,6 @@ grafana::dashboards::application_dashboards:
       - whitehall-frontend
   search-admin:
     show_mysql_stats: true
-  service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
