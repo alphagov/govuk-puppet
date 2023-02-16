@@ -26,7 +26,6 @@ router::nginx::app_specific_static_asset_routes:
   '/assets/frontend/': 'frontend'
   '/assets/government-frontend/': 'government-frontend'
   '/assets/licencefinder/': 'licencefinder'
-  '/assets/service-manual-frontend/': 'service-manual-frontend'
   '/assets/smartanswers/': 'smartanswers'
   '/assets/static/': 'static'
   '/assets/whitehall/': 'whitehall-frontend'
