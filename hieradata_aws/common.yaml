@@ -190,7 +190,6 @@ deployable_applications: &deployable_applications
   router-api: {}
   search-api: {}
   search-admin: {}
-  service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
