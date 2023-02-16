@@ -82,6 +82,8 @@ govuk::apps::short_url_manager::instance_name: 'integration'
 govuk::apps::signon::db_password: "%{hiera('govuk::node::s_signon_db_admin::mysql_db_password')}"
 govuk::apps::signon::instance_name: 'integration'
 govuk::apps::signon::govuk_notify_template_id: "759acac6-da53-4a19-b591-b7538c7c39de"
+govuk::apps::signon::permit_2sv_exemption_feature: "1"
+govuk::apps::signon::mandate_2sv_for_organisation_feature: "1"
 govuk::apps::smartanswers::expose_govspeak: true
 govuk::apps::specialist_publisher::aws_region: 'eu-west-1'
 govuk::apps::specialist_publisher::aws_s3_bucket_name: 'govuk-integration-specialist-publisher-csvs'

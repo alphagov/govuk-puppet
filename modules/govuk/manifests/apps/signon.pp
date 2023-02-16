@@ -72,6 +72,12 @@
 # [*govuk_notify_template_id*]
 #   The template ID used to send email via GOV.UK Notify.
 #
+# [*permit_2sv_exemption_feature*]
+#   Temporary feature flag to switch on exemption from 2-step verification
+#
+# [*mandate_2sv_for_organisation_feature*]
+#   Temporary feature flag to switch on mandating 2-step verification at an organisation level
+#
 class govuk::apps::signon(
   $active_record_encryption_primary_key = undef,
   $active_record_encryption_key_derivation_salt = undef,
@@ -94,6 +100,8 @@ class govuk::apps::signon(
   $unicorn_worker_processes = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
+  $permit_2sv_exemption_feature = undef,
+  $mandate_2sv_for_organisation_feature = undef,
 ) {
   $app_name = 'signon'
 
@@ -141,6 +149,12 @@ class govuk::apps::signon(
     "${title}-GOVUK_NOTIFY_TEMPLATE_ID":
       varname => 'GOVUK_NOTIFY_TEMPLATE_ID',
       value   => $govuk_notify_template_id;
+    "${title}-PERMIT_2SV_EXEMPTION":
+      varname => 'PERMIT_2SV_EXEMPTION',
+      value   => $permit_2sv_exemption_feature;
+    "${title}-MANDATE_2SV_FOR_ORGANISATION":
+      varname => 'MANDATE_2SV_FOR_ORGANISATION',
+      value   => $mandate_2sv_for_organisation_feature;
   }
 
   govuk::app::envvar::redis { $app_name:
