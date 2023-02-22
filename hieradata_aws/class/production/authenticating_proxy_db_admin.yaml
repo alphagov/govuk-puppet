@@ -1,0 +1,13 @@
+govuk_env_sync::tasks:
+  "push_authenticating_proxy_production_daily":
+    ensure: "present"
+    hour: "23"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "authenticating_proxy_production"
+    database_hostname: "authenticating-proxy-postgres"
+    temppath: "/tmp/authenticating_proxy_production"
+    url: "govuk-production-database-backups"
+    path: "authenticating-proxy-postgres"
