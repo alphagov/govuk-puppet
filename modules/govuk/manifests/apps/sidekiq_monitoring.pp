@@ -144,6 +144,10 @@
 #   Redis port for Search API Sidekiq.
 #   Default: undef
 #
+# [*session_key*]
+#   Session key secret for this application.
+#   Default: undef
+#
 # [*signon_redis_host*]
 #   Redis host for Signon Sidekiq.
 #   Default: undef
@@ -228,6 +232,7 @@ class govuk::apps::sidekiq_monitoring (
   $search_admin_redis_port = undef,
   $search_api_redis_host = undef,
   $search_api_redis_port = undef,
+  $session_key = undef,
   $signon_redis_host = undef,
   $signon_redis_port = undef,
   $specialist_publisher_redis_host = undef,
@@ -398,5 +403,11 @@ class govuk::apps::sidekiq_monitoring (
 
   nginx::config::site { $full_domain:
     content => template('govuk/sidekiq_monitoring_nginx_config.conf.erb'),
+  }
+
+  govuk::app::envvar {
+    "${app_name}-SESSION-KEY":
+      varname => 'SESSION_KEY',
+      value   => $session_key;
   }
 }
