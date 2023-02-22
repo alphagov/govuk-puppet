@@ -405,6 +405,10 @@ class govuk::apps::sidekiq_monitoring (
     content => template('govuk/sidekiq_monitoring_nginx_config.conf.erb'),
   }
 
+  Govuk::App::Envvar {
+    app => $app_name,
+  }
+
   govuk::app::envvar {
     "${app_name}-SESSION-KEY":
       varname => 'SESSION_KEY',
