@@ -8,7 +8,7 @@ find $whisper_dir -type f -mtime +730 -delete
 # Delete directories where none of the files inside have been modified in the
 # last 14 days. This effectively removes stats about machines which no longer
 # exist.
-for dir in $whisper_dir/*; do
+for dir in $whisper_dir/*/**; do
   if [[ ! -z $dir && -z "$(find $dir -mtime -14)" && $? -eq 0 ]]; then
     rm -rf $dir;
   fi
