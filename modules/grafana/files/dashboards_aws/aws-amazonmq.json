@@ -92,11 +92,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "A",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -125,11 +125,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "B",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -158,11 +158,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "C",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -191,7 +191,7 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "D",
               "region": "$region",
               "statistics": [
