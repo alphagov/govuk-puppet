@@ -67,6 +67,149 @@
           "steppedLine": false,
           "targets": [
             {
+              "alias": "Messages Published per second",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "Broker": "$broker"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "PublishRate",
+              "mode": 0,
+              "namespace": "AWS/AmazonMQ",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "1m",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Maximum"
+              ]
+            },
+            {
+              "alias": "Total Messages in all queues",
+              "application": {
+                "filter": ""
+              },
+              "dimensions": {
+                "Broker": "$broker"
+              },
+              "functions": [],
+              "group": {
+                "filter": ""
+              },
+              "host": {
+                "filter": ""
+              },
+              "item": {
+                "filter": ""
+              },
+              "metricName": "MessageCount",
+              "mode": 0,
+              "namespace": "AWS/AmazonMQ",
+              "options": {
+                "showDisabledItems": false
+              },
+              "period": "1m",
+              "refId": "A",
+              "region": "$region",
+              "statistics": [
+                "Sum"
+              ]
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "Message Count & Publishing Rate (all queues)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        }
+      ],
+      "repeat": "broker",
+      "repeatIteration": null,
+      "repeatRowId": null,
+      "showTitle": true,
+      "title": "Broker: $broker",
+      "titleSize": "h4"
+    },
+    {
+      "editable": true,
+      "collapse": false,
+      "height": "300px",
+      "panels": [
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": "CloudWatch",
+          "fill": 0,
+          "id": 1,
+          "legend": {
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 2,
+          "links": [],
+          "nullPointMode": "null",
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "spaceLength": 10,
+          "span": 12,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
               "alias": "Total Messages",
               "application": {
                 "filter": ""
@@ -92,11 +235,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "A",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -125,11 +268,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "B",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -158,11 +301,11 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "C",
               "region": "$region",
               "statistics": [
-                "Average"
+                "Sum"
               ]
             },
             {
@@ -191,7 +334,7 @@
               "options": {
                 "showDisabledItems": false
               },
-              "period": "",
+              "period": "1m",
               "refId": "D",
               "region": "$region",
               "statistics": [
