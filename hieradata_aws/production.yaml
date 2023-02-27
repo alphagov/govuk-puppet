@@ -79,7 +79,6 @@ node_class: &node_class
       - email-alert-frontend
       - frontend
       - government-frontend
-      - service-manual-frontend
       - smartanswers
       - static
   email_alert_api:
@@ -95,7 +94,6 @@ node_class: &node_class
       - frontend
       - government-frontend
       - info-frontend
-      - service-manual-frontend
       - static
   locations_api:
     apps:
