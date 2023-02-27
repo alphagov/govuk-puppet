@@ -31,11 +31,9 @@ class govuk::apps::service_manual_frontend(
   $secret_key_base = undef,
 ) {
   if $enabled {
-    Govuk::App::Envvar {
-      app => 'service-manual-frontend',
-    }
-
     govuk::app { 'service-manual-frontend':
+      ensure                     => 'absent',
+      monitor_unicornherder      => false, # in the process of being deprecated
       app_type                   => 'rack',
       port                       => $port,
       sentry_dsn                 => $sentry_dsn,
@@ -45,12 +43,6 @@ class govuk::apps::service_manual_frontend(
       asset_pipeline             => true,
       asset_pipeline_prefixes    => ['assets/service-manual-frontend'],
       vhost                      => $vhost,
-    }
-
-    govuk::app::envvar {
-      "${title}-SECRET_KEY_BASE":
-        varname => 'SECRET_KEY_BASE',
-        value   => $secret_key_base;
     }
   }
 }

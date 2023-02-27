@@ -49,7 +49,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   search-admin: {}
   search-api: {}
   service-manual-publisher: {}
-  service-manual-frontend: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
   signon: {}

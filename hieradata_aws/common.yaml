@@ -190,7 +190,6 @@ deployable_applications: &deployable_applications
   router-api: {}
   search-api: {}
   search-admin: {}
-  service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
@@ -969,7 +968,6 @@ govuk_ci::master::pipeline_jobs:
   router: {}
   router-api: {}
   search-api: {}
-  service-manual-frontend: {}
   smartanswers:
     repository: 'smart-answers'
   static: {}
@@ -1082,7 +1080,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   publishing-api: {}
   release: {}
   short-url-manager: {}
-  service-manual-frontend: {}
   service-manual-publisher: {}
   sidekiq-monitoring: {}
   signon: {}
@@ -1292,7 +1289,6 @@ grafana::dashboards::application_dashboards:
       - whitehall-frontend
   search-admin:
     show_mysql_stats: true
-  service-manual-frontend: {}
   service-manual-publisher: {}
   short-url-manager: {}
   sidekiq-monitoring: {}
