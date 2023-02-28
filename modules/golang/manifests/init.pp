@@ -15,7 +15,8 @@ class golang {
     '1.7.1',   # Used by alphagov/govuk_crawler_worker
     '1.17.8',  # Used by alphagov/router (remove once router is running latest)
     '1.18.3',  # Used by alphagov/router (remove once router is running latest)
-    '1.19.2',  # Used by alphagov/router
+    '1.19.2',  # Used by alphagov/router (remove once router is running latest)
+    '1.20.1',
     ]: }
 
   package { ['godep']:
