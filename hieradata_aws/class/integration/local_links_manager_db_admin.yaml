@@ -1,15 +1,15 @@
 govuk_env_sync::tasks:
-  "pull_local_links_manager_production_daily":
+  "pull_local_links_manager_staging_daily":
     ensure: "present"
-    hour: "0"
-    minute: "0"
+    hour: "2"
+    minute: "30"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "local-links-manager_production"
     database_hostname: "local-links-manager-postgres"
-    temppath: "/tmp/local_links_manager_production"
-    url: "govuk-production-database-backups"
+    temppath: "/tmp/local_links_manager_staging"
+    url: "govuk-staging-database-backups"
     path: "local-links-manager-postgres"
   "push_local_links_manager_integration_daily":
     ensure: "present"
