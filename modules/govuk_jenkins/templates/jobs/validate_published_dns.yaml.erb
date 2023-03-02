@@ -30,7 +30,8 @@
             rm -rf govuk-dns-config
             git clone --branch main --depth 1 git@github.com:alphagov/govuk-dns-config.git
             cp "./govuk-dns-config/${ZONEFILE}" .
-            bundle install --path "${HOME}/bundles/${JOB_NAME}"
+            bundle config set --local path "${HOME}/bundles/${JOB_NAME}"
+            bundle install
             bundle exec rake validate_dns
     wrappers:
         - ansicolor:
