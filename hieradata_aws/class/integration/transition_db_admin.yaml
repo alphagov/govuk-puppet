@@ -1,19 +1,19 @@
 govuk_env_sync::tasks:
-  "pull_transition_staging_daily":
+  "pull_transition_production_daily":
     ensure: "present"
-    hour: "2"
-    minute: "30"
+    hour: "6"
+    minute: "0"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "transition_production"
     database_hostname: "transition-postgresql-primary"
-    temppath: "/tmp/transition_staging"
-    url: "govuk-staging-database-backups"
+    temppath: "/tmp/transition_production"
+    url: "govuk-production-database-backups"
     path: "transition-postgresql"
   "push_transition_integration_daily":
     ensure: "present"
-    hour: "5"
+    hour: "3"
     minute: "0"
     action: "push"
     dbms: "postgresql"
