@@ -25,7 +25,7 @@ class govuk_jenkins::jobs::search_api_reindex_with_new_schema (
     @@icinga::passive_check { "${check_name}_${::hostname}":
       service_description => $service_description,
       host_name           => $::fqdn,
-      freshness_threshold => 619200,
+      freshness_threshold => 691200,
       action_url          => $job_url,
       notes_url           => monitoring_docs_url(search-reindex-failed),
     }
