@@ -21,7 +21,6 @@ gdal::repo::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
 govuk::apps::router::mongodb_name: ['router']
 govuk::apps::router::mongodb_nodes: ['localhost']
-govuk::apps::authenticating_proxy::mongodb_nodes: ['localhost']
 
 govuk_awscloudwatch::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
