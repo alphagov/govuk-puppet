@@ -1,15 +1,15 @@
 govuk_env_sync::tasks:
-  "pull_imminence_staging_daily":
+  "pull_imminence_production_daily":
     ensure: "present"
-    hour: "2"
-    minute: "30"
+    hour: "0"
+    minute: "0"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "imminence_production"
     database_hostname: "imminence-postgres"
-    temppath: "/tmp/imminence_staging"
-    url: "govuk-staging-database-backups"
+    temppath: "/tmp/imminence_production"
+    url: "govuk-production-database-backups"
     path: "imminence-postgres"
   "push_imminence_integration_daily":
     ensure: "present"

@@ -1,15 +1,15 @@
 govuk_env_sync::tasks:
-  "pull_service_manual_publisher_staging_daily":
+  "pull_service_manual_publisher_production_daily":
     ensure: "present"
-    hour: "2"
-    minute: "30"
+    hour: "0"
+    minute: "0"
     action: "pull"
     dbms: "postgresql"
     storagebackend: "s3"
     database: "service-manual-publisher_production"
     database_hostname: "service-manual-publisher-postgres"
-    temppath: "/tmp/service_manual_publisher_staging"
-    url: "govuk-staging-database-backups"
+    temppath: "/tmp/service_manual_publisher_production"
+    url: "govuk-production-database-backups"
     path: "service-manual-publisher-postgres"
   "push_service_manual_publisher_integration_daily":
     ensure: "present"

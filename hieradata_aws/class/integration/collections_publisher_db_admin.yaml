@@ -1,15 +1,15 @@
 govuk_env_sync::tasks:
-  "pull_collections_publisher_staging_daily":
+  "pull_collections_publisher_production_daily":
     ensure: "present"
-    hour: "2"
-    minute: "30"
+    hour: "0"
+    minute: "0"
     action: "pull"
     dbms: "mysql"
     storagebackend: "s3"
     database: "collections_publisher_production"
     database_hostname: "collections-publisher-mysql"
-    temppath: "/tmp/collections_publisher_staging"
-    url: "govuk-staging-database-backups"
+    temppath: "/tmp/collections_publisher_production"
+    url: "govuk-production-database-backups"
     path: "collections-publisher-mysql"
   "push_collections_publisher_integration_daily":
     ensure: "present"
