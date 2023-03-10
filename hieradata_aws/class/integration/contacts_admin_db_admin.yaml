@@ -1,4 +1,6 @@
 govuk_env_sync::tasks:
+  "pull_contacts_admin_staging_daily":
+    ensure: "absent"
   "pull_contacts_admin_production_daily":
     ensure: "present"
     hour: "0"

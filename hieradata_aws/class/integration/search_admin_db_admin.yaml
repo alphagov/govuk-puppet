@@ -1,4 +1,6 @@
 govuk_env_sync::tasks:
+  "pull_search_admin_staging_daily":
+    ensure: "absent"
   "pull_search_admin_production_daily":
     ensure: "present"
     hour: "0"

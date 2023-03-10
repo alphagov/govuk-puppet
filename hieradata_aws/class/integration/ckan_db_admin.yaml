@@ -1,4 +1,6 @@
 govuk_env_sync::tasks:
+  "pull_ckan_staging_daily":
+    ensure: "absent"
   "pull_ckan_production_daily":
     ensure: "present"
     hour: "0"

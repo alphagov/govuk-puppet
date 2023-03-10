@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/contacts_admin_production"
     url: "govuk-production-database-backups"
     path: "contacts-admin-mysql"
+  "push_contacts_admin_staging_daily":
+    ensure: "absent"

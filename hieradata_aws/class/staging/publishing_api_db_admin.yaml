@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/publishing_api_production"
     url: "govuk-production-database-backups"
     path: "publishing-api-postgres"
+  "push_publishing_api_staging_daily":
+    ensure: "absent"

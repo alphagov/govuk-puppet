@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/locations_api_production"
     url: "govuk-production-database-backups"
     path: "locations-api-postgres"
+  "push_locations_api_staging_daily":
+    ensure: "absent"
