@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "locations-api-postgres"
   "push_locations_api_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "locations_api_production"
+    database_hostname: "locations-api-postgres"
+    temppath: "/tmp/locations_api_staging"
+    url: "govuk-staging-database-backups"
+    path: "locations-api-postgres"

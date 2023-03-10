@@ -1,6 +1,16 @@
 govuk_env_sync::tasks:
   "pull_release_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "release_production"
+    database_hostname: "release-mysql"
+    temppath: "/tmp/release_staging"
+    url: "govuk-staging-database-backups"
+    path: "release-mysql"
   "pull_release_production_daily":
     ensure: "present"
     hour: "0"

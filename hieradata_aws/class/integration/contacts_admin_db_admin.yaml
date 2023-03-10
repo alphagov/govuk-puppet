@@ -1,6 +1,16 @@
 govuk_env_sync::tasks:
   "pull_contacts_admin_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "contacts_production"
+    database_hostname: "contacts-admin-mysql"
+    temppath: "/tmp/contacts_admin_staging"
+    url: "govuk-staging-database-backups"
+    path: "contacts-admin-mysql"
   "pull_contacts_admin_production_daily":
     ensure: "present"
     hour: "0"

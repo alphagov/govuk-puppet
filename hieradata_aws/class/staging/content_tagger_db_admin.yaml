@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "content-tagger-postgres"
   "push_content_tagger_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_tagger_production"
+    database_hostname: "content-tagger-postgres"
+    temppath: "/tmp/content_tagger_staging"
+    url: "govuk-staging-database-backups"
+    path: "content-tagger-postgres"

@@ -1,6 +1,16 @@
 govuk_env_sync::tasks:
   "pull_content_data_admin_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_data_admin_production"
+    database_hostname: "content-data-admin-postgres"
+    temppath: "/tmp/content_data_admin_staging"
+    url: "govuk-staging-database-backups"
+    path: "content-data-admin-postgres"
   "pull_content_data_admin_production_daily":
     ensure: "present"
     hour: "0"

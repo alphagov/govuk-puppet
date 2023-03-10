@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "collections-publisher-mysql"
   "push_collections_publisher_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "collections_publisher_production"
+    database_hostname: "collections-publisher-mysql"
+    temppath: "/tmp/collections_publisher_staging"
+    url: "govuk-staging-database-backups"
+    path: "collections-publisher-mysql"
