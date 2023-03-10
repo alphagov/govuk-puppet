@@ -15,3 +15,13 @@ govuk_env_sync::tasks:
     path: "content-data-api-postgresql"
   "push_content_data_api_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "content_performance_manager_production"
+    database_hostname: "content-data-api-postgresql-primary"
+    temppath: "/tmp/content_data_api_staging"
+    url: "govuk-staging-database-backups"
+    path: "content-data-api-postgresql"

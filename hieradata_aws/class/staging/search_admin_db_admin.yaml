@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "search-admin-mysql"
   "push_search_admin_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "search_admin_production"
+    database_hostname: "search-admin-mysql"
+    temppath: "/tmp/search_admin_staging"
+    url: "govuk-staging-database-backups"
+    path: "search-admin-mysql"

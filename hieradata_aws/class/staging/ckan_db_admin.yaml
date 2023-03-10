@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "ckan-postgres"
   "push_ckan_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "ckan_production"
+    database_hostname: "ckan-postgres"
+    temppath: "/tmp/ckan_staging"
+    url: "govuk-staging-database-backups"
+    path: "ckan-postgres"

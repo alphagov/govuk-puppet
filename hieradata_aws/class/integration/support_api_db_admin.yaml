@@ -1,6 +1,16 @@
 govuk_env_sync::tasks:
   "pull_support_api_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "pull"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "support_contacts_production"
+    database_hostname: "support-api-postgres"
+    temppath: "/tmp/support_api_staging"
+    url: "govuk-staging-database-backups"
+    path: "support-api-postgres"
   "pull_support_api_production_daily":
     ensure: "present"
     hour: "0"

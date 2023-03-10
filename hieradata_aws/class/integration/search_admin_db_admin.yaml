@@ -1,6 +1,16 @@
 govuk_env_sync::tasks:
   "pull_search_admin_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "pull"
+    dbms: "mysql"
+    storagebackend: "s3"
+    database: "search_admin_production"
+    database_hostname: "search-admin-mysql"
+    temppath: "/tmp/search_admin_staging"
+    url: "govuk-staging-database-backups"
+    path: "search-admin-mysql"
   "pull_search_admin_production_daily":
     ensure: "present"
     hour: "0"

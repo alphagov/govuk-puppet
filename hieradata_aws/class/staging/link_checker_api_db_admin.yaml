@@ -13,3 +13,13 @@ govuk_env_sync::tasks:
     path: "link-checker-api-postgres"
   "push_link_checker_api_staging_daily":
     ensure: "absent"
+    hour: "2"
+    minute: "30"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "link_checker_api_production"
+    database_hostname: "link-checker-api-postgres"
+    temppath: "/tmp/link_checker_api_staging"
+    url: "govuk-staging-database-backups"
+    path: "link-checker-api-postgres"
