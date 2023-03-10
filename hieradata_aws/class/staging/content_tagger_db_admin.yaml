@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_tagger_production"
     url: "govuk-production-database-backups"
     path: "content-tagger-postgres"
+  "push_content_tagger_staging_daily":
+    ensure: "absent"

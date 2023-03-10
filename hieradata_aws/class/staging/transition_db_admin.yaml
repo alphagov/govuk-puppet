@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/transition_production"
     url: "govuk-production-database-backups"
     path: "transition-postgresql"
+  "push_transition_staging_daily":
+    ensure: "absent"

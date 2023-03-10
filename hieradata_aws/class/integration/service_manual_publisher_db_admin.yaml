@@ -1,4 +1,6 @@
 govuk_env_sync::tasks:
+  "pull_service_manual_publisher_staging_daily":
+    ensure: "absent"
   "pull_service_manual_publisher_production_daily":
     ensure: "present"
     hour: "0"

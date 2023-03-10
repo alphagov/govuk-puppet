@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/local_links_manager_production"
     url: "govuk-production-database-backups"
     path: "local-links-manager-postgres"
+  "push_local_links_manager_staging_daily":
+    ensure: "absent"

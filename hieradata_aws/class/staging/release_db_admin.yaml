@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/release_production"
     url: "govuk-production-database-backups"
     path: "release-mysql"
+  "push_release_staging_daily":
+    ensure: "absent"

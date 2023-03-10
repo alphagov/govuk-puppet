@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/content_data_admin_production"
     url: "govuk-production-database-backups"
     path: "content-data-admin-postgres"
+  "push_content_data_admin_staging_daily":
+    ensure: "absent"

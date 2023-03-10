@@ -1,4 +1,6 @@
 govuk_env_sync::tasks:
+  "pull_content_tagger_staging_daily":
+    ensure: "absent"
   "pull_content_tagger_production_daily":
     ensure: "present"
     hour: "0"

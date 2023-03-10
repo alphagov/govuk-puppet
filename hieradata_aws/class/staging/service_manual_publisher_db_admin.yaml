@@ -11,3 +11,5 @@ govuk_env_sync::tasks:
     temppath: "/tmp/service_manual_publisher_production"
     url: "govuk-production-database-backups"
     path: "service-manual-publisher-postgres"
+  "push_service_manual_publisher_staging_daily":
+    ensure: "absent"
