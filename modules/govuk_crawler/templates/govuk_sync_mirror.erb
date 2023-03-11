@@ -3,6 +3,10 @@ set -eu
 
 TARGETS="<%= @targets.flatten.join(' ') -%>"
 MIRROR_ROOT="<%= @mirror_root -%>"
+ALERT_HOSTNAME="<%= @alert_hostname %>"
+ALERT_SOURCE_IP_ADDRESS="<%= @ipaddress_eth0 %>"
+SYNC_SERVICE_DESC="<%= @sync_service_desc %>"
+
 GOVUK_APP_DOMAIN=$(cat /etc/govuk/env.d/GOVUK_APP_DOMAIN)
 STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
 GOVUK_WEBSITE_ROOT=$(cat /etc/govuk/env.d/GOVUK_WEBSITE_ROOT)
@@ -69,7 +73,7 @@ EOF
 }
 
 [[ -x "${S5CMD}" ]] || install_s5cmd
-log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
+log "user.info" "Starting to synchronise GOV.UK to mirror: ${TARGETS}"
 get_error_page
 write_timestamps
 START_UPLOAD=$(date +%s%3N)
@@ -101,9 +105,9 @@ DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
 echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -q 1 -u localhost 8125
 log "user.info" "Finished synchronising to GOV.UK mirrors"
 
-if [ $EXITCODE -eq 0 ]; then
-  EXIT_CODE=0
-  EXIT_MESSAGE="OK: GOV.UK mirror synchronised successfully (took ${DURATION_UPLOAD}ms )"
-  printf "<%= @ipaddress_eth0 %>\t<%= @sync_service_desc %>\t${EXIT_CODE}\t${EXIT_MESSAGE}\n" | /usr/sbin/send_nsca -H <%= @alert_hostname %> >/dev/null
+if [[ $EXITCODE -eq 0 ]]; then
+  MESSAGE="OK: GOV.UK mirror synchronised successfully in ${DURATION_UPLOAD} ms"
+  printf "${ALERT_SOURCE_IP_ADDRESS}\t${SYNC_SERVICE_DESC}\t${EXITCODE}\t${MESSAGE}\n" \
+      | /usr/sbin/send_nsca -H "${ALERT_HOSTNAME}" > /dev/null
 fi
 exit $EXITCODE
