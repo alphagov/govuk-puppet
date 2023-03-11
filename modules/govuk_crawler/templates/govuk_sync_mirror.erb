@@ -62,20 +62,15 @@ function get_error_page() {
   sudo -u deploy curl -sf "https://${STATIC_HOSTNAME}/templates/503.html.erb" -o "${WEBSITE_MIRROR_DIR}/error/503.html"
 }
 
-function write_timestamps() {
-  local upload_time=$(date +%s)
-
-  cat <<EOF > timestamps.txt
-upload_time=$upload_time
-EOF
-
+function write_timestamp() {
+  echo "upload_time=$(date +%s)" > timestamps.txt
   sudo mv timestamps.txt "${WEBSITE_MIRROR_DIR}"
 }
 
 [[ -x "${S5CMD}" ]] || install_s5cmd
 log "user.info" "Starting to synchronise GOV.UK to mirror: ${TARGETS}"
 get_error_page
-write_timestamps
+write_timestamp
 START_UPLOAD=$(date +%s%3N)
 
 function do_sync() {
