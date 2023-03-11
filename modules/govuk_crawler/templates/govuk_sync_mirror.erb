@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -eu
+set -euo pipefail
 
 TARGETS="<%= @targets.flatten.join(' ') -%>"
 MIRROR_ROOT="<%= @mirror_root -%>"
@@ -7,11 +7,12 @@ ALERT_HOSTNAME="<%= @alert_hostname %>"
 ALERT_SOURCE_IP_ADDRESS="<%= @ipaddress_eth0 %>"
 SYNC_SERVICE_DESC="<%= @sync_service_desc %>"
 
+DESTINATION_REGION=eu-west-2
 GOVUK_APP_DOMAIN=$(cat /etc/govuk/env.d/GOVUK_APP_DOMAIN)
 STATIC_HOSTNAME="static.${GOVUK_APP_DOMAIN}"
 GOVUK_WEBSITE_ROOT=$(cat /etc/govuk/env.d/GOVUK_WEBSITE_ROOT)
 GOVUK_WEBSITE_DIR="${GOVUK_WEBSITE_ROOT##https://}"
-PROGRAM_NAME=$(basename $0)
+PROGRAM_NAME=$(basename "$0")
 WEBSITE_MIRROR_DIR="${MIRROR_ROOT}/${GOVUK_WEBSITE_DIR}"
 
 S5CMD_URL="https://github.com/peak/s5cmd/releases/download/v2.0.0/s5cmd_2.0.0_Linux-64bit.tar.gz"
@@ -22,18 +23,19 @@ EXIT_CODE=1
 EXIT_MESSAGE="WARNING: GOV.UK mirror synchronisation failed."
 
 function log() {
-  logger -p ${1} -t ${PROGRAM_NAME} "${2}"
+  logger -p "$1" -t "${PROGRAM_NAME}" "$2"
 }
 
 function log_exit_status() {
-  log "user.info" "$EXIT_MESSAGE Exit code was $?"
+  # shellcheck disable=SC2317
+  log "user.info" "$EXIT_MESSAGE Exit code was $EXIT_CODE"
 }
 
 trap log_exit_status EXIT
 
 function install_s5cmd() {
   tmpdir=$(mktemp -d)
-  trap "rm -fr $tmpdir" EXIT INT QUIT TERM
+  trap 'rm -fr $tmpdir' EXIT INT QUIT TERM
 
   (
     cd "$tmpdir"
@@ -78,31 +80,31 @@ function do_sync() {
   [[ ${TARGET} == */ ]] || TARGET="${TARGET}/"
 
   /usr/local/bin/govuk_setenv s3_sync_mirror "${S5CMD}" --log error sync \
-      --destination-region eu-west-2 \
+      --destination-region "${DESTINATION_REGION}" \
       --exclude lost+found "${MIRROR_ROOT}/" "${TARGET}"
 }
 
-EXITCODE=0
+EXIT_CODE=0
 for TARGET in ${TARGETS}; do
   log "user.info" "Started uploading to ${TARGET}"
 
   if do_sync; then
     log "user.info" "Finished uploading to mirror ${TARGET}"
   else
-    EXITCODE=1
-    log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXITCODE"
+    EXIT_CODE=1
+    log "user.crit" "Uploading mirror ${TARGET} failed with exit code: $EXIT_CODE"
   fi
 done
 
 STOP_UPLOAD=$(date +%s%3N)
-DURATION_UPLOAD=$(expr $STOP_UPLOAD - $START_UPLOAD)
+DURATION_UPLOAD=$((STOP_UPLOAD - START_UPLOAD))
 
 echo "govuk.app.sync_mirror.upload_duration:$DURATION_UPLOAD|ms" | nc -q 1 -u localhost 8125
 log "user.info" "Finished synchronising to GOV.UK mirrors"
 
-if [[ $EXITCODE -eq 0 ]]; then
+if [[ $EXIT_CODE -eq 0 ]]; then
   MESSAGE="OK: GOV.UK mirror synchronised successfully in ${DURATION_UPLOAD} ms"
-  printf "${ALERT_SOURCE_IP_ADDRESS}\t${SYNC_SERVICE_DESC}\t${EXITCODE}\t${MESSAGE}\n" \
-      | /usr/sbin/send_nsca -H "${ALERT_HOSTNAME}" > /dev/null
+  echo -e "${ALERT_SOURCE_IP_ADDRESS}\t${SYNC_SERVICE_DESC}\t${EXIT_CODE}\t${MESSAGE}" |
+      /usr/sbin/send_nsca -H "${ALERT_HOSTNAME}" > /dev/null
 fi
-exit $EXITCODE
+exit $EXIT_CODE
