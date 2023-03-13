@@ -75,6 +75,10 @@ ip_address=$(ip addr show dev eth0 | grep -Eo 'inet ?([0-9]*\.){3}[0-9]*' | grep
 local_domain="${LOCAL_DOMAIN}"
 ORIGINAL_DOMAIN="publishing.service.gov.uk"
 
+# Don't spawn `less`, even when there is a tty. Avoids one-off runs getting
+# stuck waiting on user input.
+PSQL='psql -P pager=off'
+
 function log {
   echo -ne "$(date +%Y-%m-%dT%H:%M:%S): $1\\n" | tee --append "/var/log/govuk_env_sync/govuk_env_sync.log"
   logger --priority "${2:-"user.info"}" --tag "$(basename "$0")" "$1"
@@ -340,7 +344,8 @@ function restore_elasticsearch {
 }
 
 function dump_postgresql {
-  pg_server_version=$(sudo psql -U aws_db_admin -h "${database_hostname}" --no-password postgres -c 'show server_version;' --no-align --tuples-only)
+  # shellcheck disable=SC2086
+  pg_server_version=$(sudo $PSQL -U aws_db_admin -h "${database_hostname}" --no-password postgres -c 'show server_version;' --no-align --tuples-only)
 
   if [[ $pg_server_version =~ ^[0-9]+\.[0-9]+(\.[0-9]+)?$ ]]; then
     # We're using docker to run pgdump because different versions of postgres need different versions of pgdump.
@@ -410,19 +415,24 @@ function filtered_postgresql_restore {
   fi
 
   output_restore_sql &
-  sudo psql -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
+  # shellcheck disable=SC2086
+  sudo $PSQL -U aws_db_admin -h "${database_hostname}" "${single_transaction}" \
     --no-password -d "${database}" -f "${tempdir}/output_pipe" 2>&1
 }
 
 function restore_postgresql {
   # Drop the target database if it already exists.
   DB_OWNER=''
-  if sudo psql -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
+  # shellcheck disable=SC2086
+  if sudo $PSQL -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1}' | grep -v "|" | grep -qw "${database}"; then
      log "Database ${database} exists, we will drop it before continuing"
      log "Disconnect existing connections to database"
-     sudo psql -U aws_db_admin -h "${database_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
-     sudo psql -U aws_db_admin -h "${database_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
-     DB_OWNER=$(sudo psql -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
+     # shellcheck disable=SC2086
+     sudo $PSQL -U aws_db_admin -h "${database_hostname}" -c "ALTER DATABASE \"${database}\" CONNECTION LIMIT 0;" postgres
+     # shellcheck disable=SC2086
+     sudo $PSQL -U aws_db_admin -h "${database_hostname}" -c "SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE datname = '${database}';" postgres
+     # shellcheck disable=SC2086
+     DB_OWNER=$(sudo $PSQL -U aws_db_admin -h "${database_hostname}" --no-password --list --quiet --tuples-only | awk '{print $1 " " $3}'| grep -v "|" | grep -w "${database}" | awk '{print $2}')
      sudo dropdb -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
   fi
 
@@ -433,8 +443,10 @@ function restore_postgresql {
   pg_stderr=$(filtered_postgresql_restore)
 
   if [ "$DB_OWNER" != '' ] ; then
-     echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
-     echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo psql -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
+     # shellcheck disable=SC2086
+     echo "GRANT ALL ON DATABASE \"$database\" TO \"$DB_OWNER\"" | sudo $PSQL -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
+     # shellcheck disable=SC2086
+     echo "ALTER DATABASE \"$database\" OWNER TO \"$DB_OWNER\"" | sudo $PSQL -U aws_db_admin -h "${database_hostname}" --no-password "${database}"
   fi
 }
 
