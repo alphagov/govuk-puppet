@@ -25,7 +25,7 @@ class monitoring::pagerduty_drill (
     cron { 'pagerduty_drill_start':
       ensure  => present,
       user    => 'root',
-      weekday => 'wednesday',
+      weekday => 'monday',
       hour    => 10,
       minute  => 0,
       command => '/usr/local/bin/govuk_pagerduty_drill_start',
