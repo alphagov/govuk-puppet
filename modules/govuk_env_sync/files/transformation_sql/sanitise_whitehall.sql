@@ -50,7 +50,5 @@ WHERE id IN (
 UPDATE govspeak_contents
 INNER JOIN attachments ON attachments.id = govspeak_contents.html_attachment_id
 INNER JOIN editions ON attachments.attachable_id = editions.id
-SET govspeak_contents.body = @lipsum_body,
-    govspeak_contents.computed_body_html = NULL,
-    govspeak_contents.computed_headers_html = NULL
+SET govspeak_contents.body = @lipsum_body
 WHERE attachments.attachable_type = 'EDITION' AND editions.access_limited = 1;
