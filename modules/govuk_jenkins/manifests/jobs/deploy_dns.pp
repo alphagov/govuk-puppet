@@ -28,7 +28,8 @@ class govuk_jenkins::jobs::deploy_dns (
 
   validate_array($zones)
 
-  contain '::govuk_jenkins::packages::terraform'
+  include ::govuk_jenkins::packages::terraform
+  include ::govuk_jenkins::packages::tfenv
 
   file { '/etc/jenkins_jobs/jobs/deploy_dns.yaml':
     ensure  => present,
