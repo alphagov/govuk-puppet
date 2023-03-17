@@ -76,7 +76,7 @@ class govuk::apps::manuals_publisher(
   $port,
   $asset_manager_bearer_token = undef,
   $email_alert_api_bearer_token = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $mongodb_nodes,
   $mongodb_name,

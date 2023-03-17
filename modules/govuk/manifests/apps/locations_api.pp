@@ -58,7 +58,7 @@ class govuk::apps::locations_api (
   $os_places_api_secret = undef,
   $os_places_api_postcodes_per_second = '3',
   $port,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $unicorn_worker_processes = undef,
   $db_hostname = undef,
   $db_username = 'locations_api',

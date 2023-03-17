@@ -90,7 +90,7 @@ class govuk::apps::support_api(
   $db_name = undef,
   $db_password = undef,
   $db_username = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,

@@ -77,7 +77,7 @@ class govuk::apps::link_checker_api (
   $db_port = undef,
   $db_name = 'link_checker_api_production',
   $enabled = false,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $google_api_key = undef,
   $oauth_id = undef,

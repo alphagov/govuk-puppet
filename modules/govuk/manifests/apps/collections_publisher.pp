@@ -82,7 +82,7 @@ class govuk::apps::collections_publisher(
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $link_checker_api_bearer_token = undef,
   $publishing_api_bearer_token = undef,
   $email_alert_api_bearer_token = undef,

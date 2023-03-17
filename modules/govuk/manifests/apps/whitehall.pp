@@ -159,7 +159,7 @@ class govuk::apps::whitehall(
   $db_password = undef,
   $db_username = undef,
   $email_alert_api_bearer_token = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $highlight_words_to_avoid = false,
   $oauth_id = undef,

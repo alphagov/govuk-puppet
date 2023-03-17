@@ -103,7 +103,7 @@
 class govuk::apps::publisher(
     $ensure = 'present',
     $port,
-    $enable_procfile_worker = true,
+    $enable_procfile_worker = false,
     $publishing_api_bearer_token = undef,
     $asset_manager_bearer_token = undef,
     $secret_key_base = undef,

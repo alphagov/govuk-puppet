@@ -53,7 +53,7 @@
 class govuk::apps::asset_manager(
   $enabled = true,
   $port,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $oauth_id = undef,
   $oauth_secret = undef,

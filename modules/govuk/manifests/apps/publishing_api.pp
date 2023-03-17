@@ -128,7 +128,7 @@ class govuk::apps::publishing_api(
   $db_name = 'publishing_api_production',
   $redis_host = undef,
   $redis_port = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $oauth_id = undef,
   $oauth_secret = undef,
   $rabbitmq_hosts = ['localhost'],

@@ -98,7 +98,7 @@ class govuk::apps::content_data_admin (
   $google_tag_manager_auth = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $aws_access_key_id = undef,
   $aws_secret_access_key = undef,
   $aws_region = 'eu-west-1',

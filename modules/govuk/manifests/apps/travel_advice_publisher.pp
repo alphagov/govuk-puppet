@@ -73,7 +73,7 @@
 class govuk::apps::travel_advice_publisher(
   $ensure = 'present',
   $asset_manager_bearer_token = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $mongodb_name = undef,
   $mongodb_nodes = undef,

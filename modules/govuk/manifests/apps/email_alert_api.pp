@@ -88,7 +88,7 @@ class govuk::apps::email_alert_api(
   $port,
   $enabled = false,
   $enable_public_proxy = true,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sidekiq_retry_critical = '200',
   $sidekiq_retry_warning = '100',
   $sidekiq_queue_size_critical = '100000',
