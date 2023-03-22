@@ -144,8 +144,8 @@ class govuk_crawler(
   # This explicitly requires 'base::packages' so that nokogiri will build
   exec { 'gem install govuk_seed_crawler':
     environment => ['RBENV_VERSION=3.1.2'],
-    command     => 'gem install govuk_seed_crawler -v 3.2.0 --bindir /usr/local/bin',
-    unless      => 'gem list | grep "govuk_seed_crawler.*3.2.0"',
+    command     => 'gem install govuk_seed_crawler -v 3.2.1 --bindir /usr/local/bin',
+    unless      => 'gem list | grep "govuk_seed_crawler.*3.2.1"',
     require     => Class['base::packages'],
   }
 
