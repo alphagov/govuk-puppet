@@ -121,7 +121,7 @@ class govuk::apps::content_publisher (
   $asset_manager_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
   $email_address_override = undef,

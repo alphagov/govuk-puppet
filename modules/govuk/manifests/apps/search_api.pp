@@ -111,7 +111,7 @@
 class govuk::apps::search_api(
   $rabbitmq_user,
   $port,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $enable_govuk_index_listener = false,
   $enable_bulk_reindex_listener = false,
   $enable_publishing_listener = false,

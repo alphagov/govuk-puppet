@@ -95,7 +95,7 @@ class govuk::apps::specialist_publisher(
   $asset_manager_bearer_token = undef,
   $sentry_dsn = undef,
   $enabled = false,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $mongodb_nodes,
   $mongodb_name,
   $mongodb_username = '',

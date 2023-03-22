@@ -104,7 +104,7 @@ class govuk::apps::content_data_api(
   $db_name = 'content_data_api_production',
   $db_password = undef,
   $db_username = 'content_data_api',
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $etl_healthcheck_enabled = true,
   $etl_healthcheck_enabled_from_hour = undef,
   $google_analytics_govuk_view_id = undef,

@@ -78,7 +78,7 @@ class govuk::apps::content_tagger(
   $publishing_api_bearer_token = undef,
   $redis_host = undef,
   $redis_port = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $override_search_location = undef
 ) {
   $app_name = 'content-tagger'

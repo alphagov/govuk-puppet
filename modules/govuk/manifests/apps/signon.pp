@@ -87,7 +87,7 @@ class govuk::apps::signon(
   $db_username = undef,
   $devise_pepper = undef,
   $devise_secret_key = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $instance_name = undef,
   $port,

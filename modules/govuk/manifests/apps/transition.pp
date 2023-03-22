@@ -64,7 +64,7 @@
 class govuk::apps::transition(
   $ensure = 'present',
   $port,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $oauth_id = undef,
   $oauth_secret = undef,
   $redis_host = undef,

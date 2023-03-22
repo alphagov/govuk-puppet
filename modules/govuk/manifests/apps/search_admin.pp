@@ -83,7 +83,7 @@ class govuk::apps::search_admin(
   $secret_key_base = undef,
   $rummager_bearer_token = undef,
   $override_search_location = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $redis_host = undef,
   $redis_port = undef,
   $govuk_notify_api_key = undef,

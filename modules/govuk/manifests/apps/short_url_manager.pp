@@ -84,7 +84,7 @@ class govuk::apps::short_url_manager(
   $secret_key_base = undef,
   $govuk_notify_api_key = undef,
   $govuk_notify_template_id = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
 ) {
 
   $app_name = 'short-url-manager'

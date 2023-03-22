@@ -69,7 +69,7 @@ class govuk::apps::support(
   $ensure = 'present',
   $emergency_contact_details = undef,
   $sentry_dsn = undef,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $oauth_id = undef,
   $oauth_secret = undef,
   $port,

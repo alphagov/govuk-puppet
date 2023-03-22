@@ -519,7 +519,7 @@ govuk::apps::content_tagger::db_hostname: "content-tagger-postgres"
 govuk::apps::content_tagger::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::content_tagger::db::allow_auth_from_lb: true
 govuk::apps::content_tagger::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::content_tagger::enable_procfile_worker: true
+govuk::apps::content_tagger::enable_procfile_worker: false
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
@@ -810,7 +810,7 @@ govuk::apps::account_api::db_hostname: "account-api-postgres"
 govuk::apps::account_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::account_api::db::allow_auth_from_lb: true
 govuk::apps::account_api::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
-govuk::apps::account_api::enable_procfile_worker: true
+govuk::apps::account_api::enable_procfile_worker: false
 govuk::apps::account_api::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::account_api::redis_port: "%{hiera('sidekiq_port')}"
 

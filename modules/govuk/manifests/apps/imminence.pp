@@ -63,7 +63,7 @@
 class govuk::apps::imminence(
   $ensure = 'present',
   $port,
-  $enable_procfile_worker = true,
+  $enable_procfile_worker = false,
   $sentry_dsn = undef,
   $db_hostname = undef,
   $db_username = 'imminence',
