@@ -21,11 +21,11 @@ trap send_nsca EXIT
 export GOVUK_CRAWLER_AMQP_PASS='<%= @amqp_pass %>'
 export RBENV_ROOT=/usr/lib/rbenv
 
-OUTPUT=`eval "$(rbenv init -)" && rbenv shell 2.6.3 && <%= @seeder_script_path %> <%= @seeder_script_args %>`
+OUTPUT=`eval "$(rbenv init -)" && rbenv shell 2.6.3 && <%= @seeder_script_path %> <%= @seeder_script_args %> 2>&1`
+CODE=$?
 
 logger -p local3.info -t seed-crawler-wrapper "$OUTPUT"
 
-CODE=$?
 if [ "$OUTPUT" == "" ]; then
   OUTPUT="Seeder script exited with no output"
 fi
