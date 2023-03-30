@@ -683,9 +683,9 @@ govuk::apps::release::db_username: "release"
 govuk::apps::release::db_password: "%{hiera('govuk::apps::release::db::mysql_release')}"
 govuk::apps::release::github_username: "govuk-ci"
 
-govuk::apps::search_api::enable_bulk_reindex_listener: true
-govuk::apps::search_api::enable_publishing_listener: true
-govuk::apps::search_api::enable_govuk_index_listener: true
+govuk::apps::search_api::enable_bulk_reindex_listener: false
+govuk::apps::search_api::enable_publishing_listener: false
+govuk::apps::search_api::enable_govuk_index_listener: false
 govuk::apps::search_api::rabbitmq_url: ""
 govuk::apps::search_api::rabbitmq::enable_bulk_reindex_listener: true
 govuk::apps::search_api::rabbitmq::enable_govuk_index_listener: true
