@@ -12,7 +12,7 @@ class govuk_jenkins::jobs::run_deploy_lag_badger (
 ) {
 
   file { '/etc/jenkins_jobs/jobs/run_deploy_lag_badger.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/run_deploy_lag_badger.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
   }
