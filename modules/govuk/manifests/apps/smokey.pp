@@ -45,7 +45,6 @@ class govuk::apps::smokey (
     'SIGNON_EMAIL':             value => $smokey_signon_email;
     'SIGNON_PASSWORD':          value => $smokey_signon_password;
     'DBUS_SESSION_BUS_ADDRESS': value => 'disabled:';
-    'SENTRY_DSN':               value => $sentry_dsn;
     'GOVUK_STATSD_PREFIX':      value => "govuk.app.smokey.${::hostname}";
   }
 
