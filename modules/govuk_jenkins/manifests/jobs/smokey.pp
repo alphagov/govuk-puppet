@@ -27,7 +27,7 @@ class govuk_jenkins::jobs::smokey (
   include govuk::apps::smokey
 
   file { '/etc/jenkins_jobs/jobs/smokey.yaml':
-    ensure  => present,
+    ensure  => absent,
     content => template('govuk_jenkins/jobs/smokey.yaml.erb'),
     notify  => Exec['jenkins_jobs_update'],
     require => Class['govuk::apps::smokey'],
