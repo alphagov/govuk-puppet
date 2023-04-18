@@ -87,7 +87,6 @@ govuk_jenkins::config::github_web_uri: wibble
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app_downstream::applications: *deployable_applications
 govuk_jenkins::jobs::automated_rake_task::applications: *deployable_applications
-govuk_jenkins::jobs::run_rake_task::applications: *deployable_applications
 
 govuk_jenkins::packages::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk_jenkins::packages::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"

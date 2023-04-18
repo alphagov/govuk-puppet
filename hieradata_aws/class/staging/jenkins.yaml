@@ -82,7 +82,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::publication_delay_report
   - govuk_jenkins::jobs::record_superfluous_taggings_metrics
   - govuk_jenkins::jobs::record_taxonomy_metrics
-  - govuk_jenkins::jobs::run_rake_task
   - govuk_jenkins::jobs::run_related_links_generation
   - govuk_jenkins::jobs::run_related_links_ingestion
   - govuk_jenkins::jobs::run_whitehall_data_migrations
