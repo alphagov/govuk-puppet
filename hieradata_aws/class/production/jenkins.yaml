@@ -67,7 +67,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::check_sentry_errors
   - govuk_jenkins::jobs::clear_cdn_cache
   - govuk_jenkins::jobs::clear_frontend_memcache
-  - govuk_jenkins::jobs::clear_varnish_cache
   - govuk_jenkins::jobs::configure_github_repos
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
