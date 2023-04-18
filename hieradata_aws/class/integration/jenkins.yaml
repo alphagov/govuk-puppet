@@ -10,7 +10,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
   - govuk_jenkins::jobs::automated_rake_task
   - govuk_jenkins::jobs::clear_cdn_cache
-  - govuk_jenkins::jobs::clear_frontend_memcache
   - govuk_jenkins::jobs::data_sync_complete_integration
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_app_downstream
