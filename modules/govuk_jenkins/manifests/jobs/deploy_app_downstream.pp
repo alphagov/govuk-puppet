@@ -33,7 +33,7 @@ class govuk_jenkins::jobs::deploy_app_downstream (
   $deploy_url = undef,
   $deploy_environment = undef,
   $github_api_token = undef,
-  $smokey_pre_check = true,
+  $smokey_pre_check = false,
   $release_app_bearer_token = undef,
   $slack_channel = 'govuk-deploy,govuk-2ndline-tech',
   $slack_credential_id = 'slack-notification-token',
