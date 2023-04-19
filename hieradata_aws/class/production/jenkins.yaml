@@ -87,9 +87,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::smokey
-  - govuk_jenkins::jobs::transition_import_dns
-  - govuk_jenkins::jobs::transition_import_hits
-  - govuk_jenkins::jobs::transition_load_site_config
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::validate_published_dns
@@ -125,7 +122,6 @@ govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_count: 1
 govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_type: ml.c5.xlarge
 govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_count: 6
 
-govuk_jenkins::jobs::transition_import_hits::s3_bucket: govuk-production-transition-fastly-logs
 govuk_jenkins::jobs::user_monitor::enable_icinga_check: true
 
 govuk_jenkins::jobs::validate_published_dns::app_domain: blue.production.govuk.digital
