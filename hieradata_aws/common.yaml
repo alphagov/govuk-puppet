@@ -141,66 +141,16 @@ govuk_jenkins::deploy_all_apps::apps_on_nodes:
 # we don't need to explicitly declare the repository, but we
 # need to add an empty hash
 deployable_applications: &deployable_applications
-  account-api: {}
-  asset-manager: {}
-  authenticating-proxy: {}
-  bouncer: {}
-  cache-clearing-service: {}
   ckan:
     repository: 'ckanext-datagovuk'
-  collections: {}
-  collections-publisher: {}
-  contacts:
-    repository: 'contacts-admin'
-  content-data-admin: {}
-  content-data-api: {}
-  content-publisher: {}
-  content-store: {}
-  content-tagger: {}
-  email-alert-api: {}
-  email-alert-frontend: {}
-  email-alert-service: {}
-  feedback: {}
-  finder-frontend: {}
-  frontend: {}
-  government-frontend: {}
   govuk_crawler_worker: {}
   govuk-puppet: {}
-  hmrc-manuals-api: {}
-  imminence: {}
-  info-frontend: {}
-  licencefinder:
-    repository: 'licence-finder'
   licensify: {}
   licensify-admin:
     repository: 'licensify'
   licensify-feed:
     repository: 'licensify'
-  link-checker-api: {}
-  locations-api: {}
-  local-links-manager: {}
-  manuals-publisher: {}
-  maslow: {}
-  publisher: {}
-  publishing-api: {}
-  release: {}
-  router: {}
-  router-api: {}
-  search-api: {}
-  search-admin: {}
-  service-manual-publisher: {}
-  short-url-manager: {}
   sidekiq-monitoring: {}
-  signon: {}
-  smartanswers:
-    repository: 'smart-answers'
-  specialist-publisher: {}
-  static: {}
-  support: {}
-  support-api: {}
-  transition: {}
-  travel-advice-publisher: {}
-  whitehall: {}
 
 apt_mirror_hostname: 'apt.publishing.service.gov.uk'
 apt_mirror_gpg_key_fingerprint: '3803E444EB0235822AA36A66EC5FE1A937E3ACBB'
@@ -939,39 +889,6 @@ govuk_cdnlogs::service_port_map:
 
 govuk_ci::master::pipeline_jobs:
   <<: *deployable_applications
-  # Applications migrated to AWS
-  authenticating-proxy: {}
-  bouncer: {}
-  cache-clearing-service: {}
-  collections: {}
-  content-store: {}
-  email-alert-api: {}
-  email-alert-frontend: {}
-  email-alert-service: {}
-  finder-frontend: {}
-  frontend: {}
-  government-frontend: {}
-  imminence: {}
-  info-frontend: {}
-  content-data-admin: {}
-  content-data-api: {}
-  licencefinder:
-    repository: 'licence-finder'
-  link-checker-api: {}
-  local-links-manager: {}
-  locations-api: {}
-  publishing-api: {}
-  release: {}
-  router: {}
-  router-api: {}
-  search-api: {}
-  smartanswers:
-    repository: 'smart-answers'
-  static: {}
-  support-api: {}
-  support: {}
-  transition: {}
-  # Other repositories
   govuk-jenkinslib: {}
   licensify:
     branches_to_exclude:
