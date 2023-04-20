@@ -87,7 +87,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_relevancy_rank_evaluation
   - govuk_jenkins::jobs::search_relevancy_metrics_etl
   - govuk_jenkins::jobs::search_generate_sitemaps
-  - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::whitehall_publisher_notifications
 
