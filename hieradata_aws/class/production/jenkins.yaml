@@ -86,7 +86,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_relevancy_metrics_etl
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::sync_assets_s3
-  - govuk_jenkins::jobs::smokey
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
   - govuk_jenkins::jobs::validate_published_dns

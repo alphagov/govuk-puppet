@@ -319,8 +319,6 @@ govuk_jenkins::jobs::signon_cron_rake_tasks::rake_organisations_fetch_frequency:
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_suspend_inactive_frequency: '0 4 * * *'
 govuk_jenkins::jobs::signon_cron_rake_tasks::rake_users_send_suspension_reminders_frequency: '0 6 * * *'
 
-govuk_jenkins::jobs::smokey::environment: production
-
 govuk_jenkins::jobs::data_sync_complete_production::signon_domains_to_migrate:
   -
     old: publishing.service.gov.uk
