@@ -29,7 +29,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
-  - govuk_jenkins::jobs::whitehall_publisher_notifications
 
 govuk_jenkins::jobs::ask_export::smart_survey_config: 'draft'
 govuk_jenkins::jobs::ask_export::folder_id_cabinet_office: '1RH44n_9Ps_Syeq7o-xJFuFVKN-kkZMsW'
