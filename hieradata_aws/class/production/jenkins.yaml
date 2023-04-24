@@ -80,15 +80,11 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::search_api_index_checks
   - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::search_api_reindex_with_new_schema
-  - govuk_jenkins::jobs::search_generate_sitemaps
   - govuk_jenkins::jobs::search_relevancy_rank_evaluation
   - govuk_jenkins::jobs::search_relevancy_metrics_etl
-  - govuk_jenkins::jobs::signon_cron_rake_tasks
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
-  - govuk_jenkins::jobs::validate_published_dns
-  - govuk_jenkins::jobs::whitehall_publisher_notifications
 
 govuk_jenkins::jobs::ask_export::smart_survey_config: 'live'
 govuk_jenkins::jobs::ask_export::run_daily: true
@@ -121,6 +117,3 @@ govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_type: ml.c5.xlarg
 govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_count: 6
 
 govuk_jenkins::jobs::user_monitor::enable_icinga_check: true
-
-govuk_jenkins::jobs::validate_published_dns::app_domain: blue.production.govuk.digital
-govuk_jenkins::jobs::validate_published_dns::run_daily: true
