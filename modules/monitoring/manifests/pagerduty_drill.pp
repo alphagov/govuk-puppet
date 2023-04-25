@@ -26,7 +26,7 @@ class monitoring::pagerduty_drill (
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
-      hour    => 10,
+      hour    => 9,
       minute  => 0,
       command => '/usr/local/bin/govuk_pagerduty_drill_start',
     }
@@ -35,7 +35,7 @@ class monitoring::pagerduty_drill (
       ensure  => present,
       user    => 'root',
       weekday => 'wednesday',
-      hour    => 10,
+      hour    => 9,
       minute  => 15,
       command => "rm -f ${filename}",
     }
