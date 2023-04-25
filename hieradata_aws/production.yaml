@@ -305,8 +305,6 @@ govuk_jenkins::jobs::athena_fastly_logs_check::databases: ['govuk_www', 'govuk_a
 
 govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.gov.uk'
 
-govuk_jenkins::jobs::mirror_github_repositories::cron_schedule: '0 */2 * * *' # every 2 hours
-
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
