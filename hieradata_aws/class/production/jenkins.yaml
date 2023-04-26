@@ -65,7 +65,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::automated_rake_task
   - govuk_jenkins::jobs::bouncer_cdn
   - govuk_jenkins::jobs::clear_cdn_cache
-  - govuk_jenkins::jobs::configure_github_repos
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_puppet
