@@ -20,10 +20,7 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::record_taxonomy_metrics
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
-  - govuk_jenkins::jobs::search_api_index_checks
   - govuk_jenkins::jobs::search_api_learn_to_rank
-  - govuk_jenkins::jobs::search_relevancy_rank_evaluation
-  - govuk_jenkins::jobs::search_relevancy_metrics_etl
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::user_monitor
 
