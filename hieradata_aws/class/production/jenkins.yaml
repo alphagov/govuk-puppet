@@ -72,7 +72,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::passive_checks
   - govuk_jenkins::jobs::record_superfluous_taggings_metrics
   - govuk_jenkins::jobs::record_taxonomy_metrics
-  - govuk_jenkins::jobs::publishing_api_archive_events
   - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::sync_assets_s3
