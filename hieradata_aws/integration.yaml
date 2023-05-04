@@ -309,6 +309,7 @@ users::usernames:
   - deborahchua
   - dilwoarhussain
   - duncangarmonsway
+  - farahmehmood
   - grahamlewis
   - hannalaakso
   - jamesmead
@@ -325,6 +326,7 @@ users::usernames:
   - kevindew
   - kooghanwilliams
   - kornysietsma
+  - lauraghiorghisor
   - leenagupte
   - mahmudhussain
   - matthewgregory
@@ -348,7 +350,5 @@ users::usernames:
   - seanrankine
   - simonhughesdon
   - stevenradford
-  - farahmehmood
-  - lauraghiorghisor
 
 nginx::config::stack_network_prefix: '10.1.0'
