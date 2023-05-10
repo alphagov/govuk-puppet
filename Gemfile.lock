@@ -51,7 +51,7 @@ GEM
     multipart-post (2.0.0)
     optimist (3.0.0)
     parallel (1.13.0)
-    parallel_tests (2.9.0)
+    parallel_tests (2.31.0)
       parallel
     puppet (3.8.5)
       facter (> 1.6, < 3)
