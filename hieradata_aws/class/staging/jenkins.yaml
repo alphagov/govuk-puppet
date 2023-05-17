@@ -77,7 +77,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::update_cdn_dictionaries
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::user_monitor
 

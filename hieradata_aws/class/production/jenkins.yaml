@@ -69,7 +69,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::email_alert_check
   - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::search_api_fetch_analytics_data
   - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::update_cdn_dictionaries
