@@ -56,7 +56,6 @@ govuk::node::s_frontend_lb::whitehall_frontend_servers:
   - 'whitehall-frontend-2.frontend'
 
 govuk_jenkins::job_builder::jobs:
-  - govuk_jenkins::jobs::data_sync_complete_staging
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_puppet
