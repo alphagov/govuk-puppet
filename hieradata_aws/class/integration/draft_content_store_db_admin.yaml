@@ -1,0 +1,27 @@
+govuk_env_sync::tasks:
+  # "import_from_mongo_draft_content_store_integration_daily":
+  #   ensure: "present"
+  #   hour: "5"
+  #   minute: "15"
+  #   dbms: "postgresql"
+  #   source_database: "draft_content_store_production"
+  #   target_database: "draft_content_store_integration"
+  #   target_database_hostname: "draft-content-store-postgres"
+  #   temppath: "/tmp/draft_content_store_integration"
+  "push_draft_content_store_integration_daily":
+    ensure: "present"
+    hour: "5"
+    minute: "0"
+    action: "push"
+    dbms: "postgresql"
+    storagebackend: "s3"
+    database: "draft_content_store_integration"
+    database_hostname: "draft-content-store-postgres"
+    temppath: "/tmp/draft_content_store_integration"
+    url: "govuk-integration-database-backups"
+    path: "draft-content-store-postgres"
+
+mongodb::server::replicaset_members:
+  'mongo-1.integration.govuk-internal.digital':
+  'mongo-2.integration.govuk-internal.digital':
+  'mongo-3.integration.govuk-internal.digital':

@@ -473,6 +473,12 @@ govuk::apps::content_tagger::enable_procfile_worker: false
 govuk::apps::content_tagger::redis_host: "%{hiera('sidekiq_host')}"
 govuk::apps::content_tagger::redis_port: "%{hiera('sidekiq_port')}"
 
+govuk::apps::draft_content_store::db_hostname: "draft_content_store-postgres"
+govuk::apps::draft_content_store::db_password: "%{hiera('govuk::apps::draft_content_store::db::password')}"
+govuk::apps::draft_content_store::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
+govuk::apps::draft_content_store::db::allow_auth_from_lb: true
+govuk::apps::draft_content_store::db::lb_ip_range: "%{hiera('environment_ip_prefix')}.0.0/16"
+
 govuk::apps::email_alert_api::enabled: true
 govuk::apps::email_alert_api::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
 govuk::apps::email_alert_api::db::allow_auth_from_lb: true
@@ -773,6 +779,7 @@ govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_finger
 govuk::apps::authenticating_proxy::db::rds: true
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
+govuk::apps::draft_content_store::rds: true
 govuk::apps::email_alert_api::db::rds: true
 govuk::apps::imminence::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
@@ -835,6 +842,7 @@ govuk::node::s_content_data_admin_db_admin::apt_mirror_hostname: "%{hiera('apt_m
 govuk::node::s_content_data_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_publisher_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_content_tagger_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
+govuk::node::s_draft_content_store_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_email_alert_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_imminence_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 govuk::node::s_link_checker_api_db_admin::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
