@@ -48,11 +48,6 @@ class govuk_ci::master (
     environment_variables          => $environment_variables,
   }
 
-  # Manually add jobs that we do not want to included in the 'Deploy App' job
-  govuk_ci::job { 'govuk-dns': }
-  govuk_ci::job { 'govuk-dns-config': }
-  $manually_added_jobs = ['govuk-dns', 'govuk-dns-config'] # keep in sync with above
-
   # Add pipeline jobs from applications hash in Hieradata
   create_resources(govuk_ci::job, $pipeline_jobs)
   # Manually delete all jobs which aren't in the hash

@@ -2,7 +2,7 @@
 
 set -eu
 
-dirs_to_keep='<%= (@manually_added_jobs + @pipeline_jobs.keys + @job_builder_jobs.map { |job| job.split("::").last }).join("\n") %>'
+dirs_to_keep='<%= (@pipeline_jobs.keys + @job_builder_jobs.map { |job| job.split("::").last }).join("\n") %>'
 
 cd /var/lib/jenkins/jobs
 ls -A . | grep -ivxF "$dirs_to_keep" | xargs sudo rm -rf
