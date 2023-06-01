@@ -948,9 +948,6 @@ govuk_jenkins::jobs::deploy_app::app_domain: "%{hiera('app_domain')}"
 
 govuk_jenkins::jobs::passive_checks::alert_hostname: 'alert'
 
-govuk_jenkins::jobs::search_api_learn_to_rank::elasticsearch_uri: "%{hiera('govuk::apps::search_api::elasticsearch_hosts')}"
-
-govuk_jenkins::jobs::automated_rake_task::applications: *deployable_applications
 govuk_jenkins::jobs::deploy_app::applications: *deployable_applications
 
 govuk_jenkins::jobs::deploy_app_downstream::applications:
