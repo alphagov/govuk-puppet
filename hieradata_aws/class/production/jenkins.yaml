@@ -69,7 +69,6 @@ govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::email_alert_check
   - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::search_api_learn_to_rank
   - govuk_jenkins::jobs::sync_assets_s3
   - govuk_jenkins::jobs::update_cdn_dictionaries
 
@@ -92,8 +91,3 @@ govuk_jenkins::jobs::update_cdn_dictionaries::services:
   - www-eks
 
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: true
-
-govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_type: ml.c5.xlarge
-govuk_jenkins::jobs::search_api_learn_to_rank::train_instance_count: 1
-govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_type: ml.c5.xlarge
-govuk_jenkins::jobs::search_api_learn_to_rank::deploy_instance_count: 6
