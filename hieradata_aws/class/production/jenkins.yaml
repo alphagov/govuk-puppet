@@ -62,7 +62,6 @@ govuk_jenkins::config::user_permissions:
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
   - govuk_jenkins::jobs::bouncer_cdn
-  - govuk_jenkins::jobs::clear_cdn_cache
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_puppet

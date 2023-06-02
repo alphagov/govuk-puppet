@@ -7,7 +7,6 @@ govuk_jenkins::config::theme_environment_name: 'AWS Integration'
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
-  - govuk_jenkins::jobs::clear_cdn_cache
   - govuk_jenkins::jobs::deploy_app
   - govuk_jenkins::jobs::deploy_app_downstream
   - govuk_jenkins::jobs::deploy_cdn

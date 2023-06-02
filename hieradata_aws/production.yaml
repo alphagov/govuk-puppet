@@ -303,8 +303,6 @@ govuk_jenkins::job_builder::environment: 'production'
 govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-production-fastly-logs-monitoring'
 govuk_jenkins::jobs::athena_fastly_logs_check::databases: ['govuk_www', 'govuk_assets', 'bouncer']
 
-govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.gov.uk'
-
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 

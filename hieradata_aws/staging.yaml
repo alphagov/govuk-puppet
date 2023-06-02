@@ -287,8 +287,6 @@ govuk_jenkins::job_builder::environment: 'staging'
 
 govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-staging-fastly-logs-monitoring'
 
-govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.staging.publishing.service.gov.uk'
-
 govuk_jenkins::jobs::search_fetch_analytics_data::skip_page_traffic_load: true
 govuk_jenkins::jobs::search_fetch_analytics_data::cron_schedule: '30 8 * * 1-5'
 
