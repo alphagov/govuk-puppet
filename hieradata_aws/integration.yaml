@@ -161,8 +161,6 @@ govuk_jenkins::job_builder::environment: 'integration'
 
 govuk_jenkins::jobs::athena_fastly_logs_check::s3_results_bucket: 'govuk-integration-fastly-logs-monitoring'
 
-govuk_jenkins::jobs::clear_cdn_cache::website_root_url: 'https://www.integration.publishing.service.gov.uk'
-
 govuk_jenkins::jobs::content_publisher_whitehall_import::enable_slack_notifications: true
 
 govuk_jenkins::jobs::deploy_app_downstream::deploy_environment: 'staging'
