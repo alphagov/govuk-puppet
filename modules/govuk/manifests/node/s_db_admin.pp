@@ -37,4 +37,17 @@ class govuk::node::s_db_admin(
   }
 
   $alert_hostname = 'alert'
+
+  ## Temporarily re-add PostgreSQL tooling to allow ETL between
+  ## Mongo and RDS PostgreSQL content-stores
+  # include the common config/tooling required for our DB admin class
+  class { '::govuk::nodes::postgresql_db_admin':
+    postgres_host       => $postgres_host,
+    postgres_user       => $postgres_user,
+    postgres_password   => $postgres_password,
+    postgres_port       => $postgres_port,
+    apt_mirror_hostname => $apt_mirror_hostname,
+  }
+
+  -> class { '::govuk::apps::draft_content_store_on_postgresql_db_admin::db': }
 }

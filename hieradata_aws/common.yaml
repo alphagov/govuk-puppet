@@ -779,7 +779,7 @@ govuk_awscloudwatch::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_finger
 govuk::apps::authenticating_proxy::db::rds: true
 govuk::apps::content_data_api::db::rds: true
 govuk::apps::content_tagger::db::rds: true
-govuk::apps::draft_content_store::rds: true
+govuk::apps::draft_content_store::db::rds: true
 govuk::apps::email_alert_api::db::rds: true
 govuk::apps::imminence::db::rds: true
 govuk::apps::link_checker_api::db::rds: true
