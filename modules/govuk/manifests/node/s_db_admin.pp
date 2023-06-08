@@ -49,5 +49,5 @@ class govuk::node::s_db_admin(
     apt_mirror_hostname => $apt_mirror_hostname,
   }
 
-  -> class { '::govuk::apps::draft_content_store_db_admin::db': }
+  -> class { '::govuk::apps::draft_content_store::db': }
 }
