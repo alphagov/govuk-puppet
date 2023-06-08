@@ -42,9 +42,9 @@ class govuk::node::s_db_admin(
   # from Mongo to RDS PostgreSQL, during the transition period for migrating content-store
   # entirely. 
   govuk::app::envvar::mongodb_uri { "draft_content_store":
-    hosts    => $govuk::apps::draft_content_store::mongodb_nodes,
-    database => $govuk::apps::draft_content_store::mongodb_name,
-    password => $govuk::apps::content_store::mongodb_password,
+    hosts    => $hiera('govuk::apps::draft_content_store::mongodb_nodes'),
+    database => $hiera('govuk::apps::draft_content_store::mongodb_name'),
+    password => $hiera('govuk::apps::content_store::mongodb_password'),
     varname  => "DRAFT_CONTENT_STORE_MONGODB_URI"
   }
 }
