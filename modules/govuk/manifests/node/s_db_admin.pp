@@ -41,7 +41,7 @@ class govuk::node::s_db_admin(
   # Temporary additions to enable overnight export of draft_ / live_ content-store DBs
   # from Mongo to RDS PostgreSQL, during the transition period for migrating content-store
   # entirely. 
-  govuk::app::envvar::mongodb_uri { draft_content_store:
+  govuk::app::envvar::mongodb_uri { "draft_content_store":
     hosts    => $hiera('govuk::apps::draft_content_store::mongodb_nodes'),
     database => $govuk::apps::draft_content_store::mongodb_name,
     password => $govuk::apps::content_store::mongodb_password,
