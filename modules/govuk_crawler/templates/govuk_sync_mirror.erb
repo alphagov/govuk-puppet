@@ -56,7 +56,7 @@ EOF
 
 log "user.info" "Starting to synchronise GOV.UK to mirror: <%= @targets.flatten.join(' ') -%>"
 
-get_error_page
+get_error_page || true
 
 write_timestamps
 
