@@ -70,6 +70,13 @@ server {
   }
   <%- end -%>
 
+  set $upstream_frontend <%= @upstream_ssl ? 'https' : 'http' %>://frontend.<%= @app_domain %>;
+  <%- @csv_preview_routes.each do |path| -%>
+  location <%= path %> {
+    proxy_pass $upstream_frontend;
+  }
+  <%- end -%>
+
   # Endpoint that isn't cached, which is used to assert that an external
   # service can receive a response from GOV.UK origin on assets hostname. It
   # is intended for pingdom monitoring

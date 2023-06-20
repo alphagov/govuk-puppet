@@ -58,10 +58,16 @@ server {
   <%- end -%>
 
   set $upstream_whitehall <%= @upstream_ssl ? 'https' : 'http' %>://whitehall-frontend.<%= @app_domain %>;
-
   <%- @whitehall_uploaded_assets_routes.each do |path| -%>
   location <%= path %> {
     proxy_pass $upstream_whitehall;
+  }
+  <%- end -%>
+
+  set $upstream_frontend <%= @upstream_ssl ? 'https' : 'http' %>://frontend.<%= @app_domain %>;
+  <%- @csv_preview_routes.each do |path| -%>
+  location <%= path %> {
+    proxy_pass $upstream_frontend;
   }
   <%- end -%>
 }

@@ -1340,8 +1340,10 @@ rcs::tmptime: '7'
 
 router::assets_origin::whitehall_uploaded_assets_routes:
   - '/government/placeholder'
-  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
   - '~ ^/assets/whitehall/'
+
+router::assets_origin::csv_preview_routes:
+  - '~ ^/government/uploads/system/uploads/attachment_data/file/[0-9]+/.*/preview$'
 
 router::assets_origin::asset_manager_uploaded_assets_routes:
   - '/government/uploads/'

@@ -63,9 +63,10 @@ PuppetLint.new_check(:hiera_explicit_lookup) do
     # nginx virtual host configuration
     'router::assets_origin::asset_manager_uploaded_assets_routes',
 
-    # Allow sharing of whitehall_uploaded_assets_routes array between assets-origin and draft-assets
+    # Allow sharing of routes arrays between assets-origin and draft-assets
     # nginx virtual host configuration
     'router::assets_origin::whitehall_uploaded_assets_routes',
+    'router::assets_origin::csv_preview_routes',
 
     # Allow deploy_app.pp to share knowledge about the applications supported
     # by deploy_app_downstream. This will become redundant once all apps support Continuous Deployment.

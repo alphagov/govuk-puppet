@@ -10,6 +10,9 @@
 # [*whitehall_uploaded_assets_routes*]
 #   Array of paths to proxy to whitehall-frontend.  Each entry will be added as a route in the vhost
 #
+# [*csv_preview_routes*]
+#   Array of paths to proxy to the application rendering CSV Previews.  Each entry will be added as a route in the vhost.
+#
 # [*real_ip_header*]
 #   Uses the Nginx realip module (http://nginx.org/en/docs/http/ngx_http_realip_module.html)
 #   to change the client IP address to the one in the specified HTTP header.
@@ -26,6 +29,7 @@
 class router::assets_origin(
   $asset_manager_uploaded_assets_routes = [],
   $whitehall_uploaded_assets_routes = [],
+  $csv_preview_routes = [],
   $real_ip_header = '',
   $vhost_aliases = [],
   $vhost_name = 'assets-origin',
