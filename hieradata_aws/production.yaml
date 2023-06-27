@@ -418,9 +418,7 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
     healthyhosts_ignore:
       - draft-fron-draft-finder-frontend # no idea what this is
   blue-email-alert-api-internal: {}
-  blue-frontend-internal:
-    healthyhosts_ignore:
-      - frontend-i-designprinciples # no idea what this is
+  blue-frontend-internal: {}
   blue-graphite-internal:
     healthyhosts_warning: 0
   blue-jumpbox:
