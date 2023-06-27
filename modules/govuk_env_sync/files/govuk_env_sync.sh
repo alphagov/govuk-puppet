@@ -580,40 +580,6 @@ function get_aws_environment {
   echo "${aws_environment}"
 }
 
-## function: mongo_backend_domain_manipulator
-## Parameters:
-##  1. backend_id for which the domain will be replaced
-##  2. new domain to be applied for the given backend_id
-## Dependencies:
-##  1. external variables: database, local_domain, ORIGINAL_DOMAIN
-##  2. external database: mongo
-
-function mongo_backend_domain_manipulator {
- if [ $# != 2 ]; then
-  echo "number of parameters must be 2 for mongo_backend_domain_manipulator: got $# parmeters"
-  exit 1
- fi
-
- log "starting mongo manipulation backend domain $1 manipulation..."
-
- domain_to_replace="${local_domain}"
- aws_environment="$(get_aws_environment)"
-
- if [ "${aws_environment}" = "integration" ]; then
-     domain_to_replace="staging.${ORIGINAL_DOMAIN}"
- else
-     domain_to_replace="${ORIGINAL_DOMAIN}"
- fi
-
- mongo --quiet --eval \
-  "db = db.getSiblingDB(\"${database}\"); \
-    db.backends.find( { \"backend_id\": \"$1\" } ).forEach( \
-    function(b) { b.backend_url = b.backend_url.replace(\".${domain_to_replace}\", \".$2\"); \
-    db.backends.save(b); } );"
-
- echo "successful finished mongo manipulation backend domain $1 manipulation"
-}
-
 function postprocess_router {
   static_domain=$(mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
@@ -622,35 +588,12 @@ function postprocess_router {
   # router and draft-router hostnames differ - snip off up to first dot.
   source_domain="${static_domain#*.}"
 
-  unmigrated_source_domain="${ORIGINAL_DOMAIN}"
-  aws_environment="$(get_aws_environment)"
-  if [ "${aws_environment}" = "integration" ] || [ "${aws_environment}" = "staging" ]; then
-      unmigrated_source_domain="${aws_environment}.${ORIGINAL_DOMAIN}"
-  fi
-
   # local_domain comes from env.d/LOCAL_DOMAIN (see above).
-
   mongo --quiet --eval \
     "db = db.getSiblingDB(\"${database}\"); \
     db.backends.find().forEach( \
       function(b) { b.backend_url = b.backend_url.replace(\".${source_domain}\", \".${local_domain}\"); \
     db.backends.save(b); } ); "
-
-  # licensify has been migrated in only integration and staging so far,
-  # remove this once production is migrated too.
-  if [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "staging" ]; then
-    licensify_domain="${local_domain}"
-  fi
-  mongo_backend_domain_manipulator "licensify" "${licensify_domain}"
-
-  # whitehall has been migrated in only integration and staging so far
-  if [ "${aws_environment}" == "integration" ] || [ "${aws_environment}" == "staging" ]; then
-    whitehall_domain="${local_domain}"
-  else
-    whitehall_domain="${unmigrated_source_domain}"
-  fi
-  mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
-  mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
 }
 
 function postprocess_govuk_assets_production {
