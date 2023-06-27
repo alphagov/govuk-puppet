@@ -419,13 +419,11 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-draft-frontend-internal:
     healthyhosts_ignore:
       - draft-fron-draft-finder-frontend # no idea what this is
-      - draft-fron-draft-manuals-fronten # in the process of being deprecated
       - draft-fron-draft-service-manual # in the process of being deprecated
   blue-email-alert-api-internal: {}
   blue-frontend-internal:
     healthyhosts_ignore:
       - frontend-i-designprinciples # no idea what this is
-      - frontend-i-manuals-frontend # in the process of being deprecated
       - frontend-i-service-manual-fronte # in the process of being deprecated
   blue-graphite-internal:
     healthyhosts_warning: 0
