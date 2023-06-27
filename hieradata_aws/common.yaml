@@ -341,8 +341,6 @@ govuk::apps::email_alert_api::port: 3088
 govuk::apps::government_frontend::port: 3090
 govuk::apps::publishing_api::port: 3093
 govuk::apps::email_alert_frontend::port: 3099
-govuk::apps::backdrop_read::port: 3101
-govuk::apps::backdrop_write::port: 3102
 govuk::apps::authenticating_proxy::port: 3107
 govuk::apps::service_manual_publisher::port: 3111
 # publishing-api sidekiq monitoring uses 3114

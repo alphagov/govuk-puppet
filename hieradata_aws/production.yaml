@@ -395,7 +395,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
     healthyhosts_warning: 0
   blue-backend-internal:
     healthyhosts_ignore:
-      - backend-i-backdrop-admin # no idea what this is
       - backend-i-content-performance-m # no idea what this is
       - backend-i-event-store # no idea what this is
       - backend-i-performanceplatform-a # no idea what this is
