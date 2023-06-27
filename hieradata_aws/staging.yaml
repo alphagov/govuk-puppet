@@ -391,7 +391,6 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
     healthyhosts_ignore:
       - backend-i-content-performance-m # no idea what this is
       - backend-i-event-store # no idea what this is
-      - backend-i-performanceplatform-a # no idea what this is
       - blue-backend-internal-HTTP-80 # no idea what this is
   blue-bouncer-internal: {}
   blue-cache: {}
