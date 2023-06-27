@@ -651,14 +651,6 @@ function postprocess_router {
   fi
   mongo_backend_domain_manipulator "whitehall-frontend" "${whitehall_domain}"
   mongo_backend_domain_manipulator "whitehall" "${whitehall_domain}"
-
-  # spotlight has been migrated in only integration so far
-  if [ "${aws_environment}" == "integration" ]; then
-    spotlight_proxy_domain="${local_domain}"
-  else
-    spotlight_proxy_domain="${unmigrated_source_domain}"
-  fi
-  mongo_backend_domain_manipulator "spotlight-proxy" "${spotlight_proxy_domain}"
 }
 
 function postprocess_govuk_assets_production {
