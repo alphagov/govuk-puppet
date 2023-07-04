@@ -396,15 +396,12 @@ govuk::apps::bouncer::db_hostname: "transition-postgresql-standby"
 govuk::apps::bouncer::postgresql_role::rds: true
 govuk::apps::bouncer::unicorn_worker_processes: "8"
 
-govuk::apps::cache_clearing_service::enabled: true
-govuk::apps::cache_clearing_service::rabbitmq::enabled: true
+govuk::apps::cache_clearing_service::enabled: false
+govuk::apps::cache_clearing_service::rabbitmq::enabled: false
 govuk::apps::cache_clearing_service::rabbitmq_url: ""
 govuk::apps::cache_clearing_service::rabbitmq_hosts: [rabbitmq]
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_critical_threshold: 100000
 govuk::apps::cache_clearing_service::rabbitmq::queue_size_warning_threshold: 80000
-
-govuk::apps::cache_clearing_service::amazonmq_monitoring::queue_size_critical_threshold: 100000
-govuk::apps::cache_clearing_service::amazonmq_monitoring::queue_size_warning_threshold: 80000
 
 govuk::apps::ckan::db_hostname: "ckan-postgres"
 govuk::apps::ckan::db::backend_ip_range: "%{hiera('environment_ip_prefix')}.3.0/24"
