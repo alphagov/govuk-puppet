@@ -8,11 +8,4 @@ class govuk::apps::whitehall::db (
     host     => '%',
     password => $mysql_whitehall_admin,
   }
-
-  govuk_mysql::user { 'whitehall_fe@%':
-    password_hash => mysql_password($whitehall_fe_password),
-    table         => 'whitehall_production.*',
-    privileges    => ['SELECT'],
-    require       => Mysql::Db['whitehall_production'],
-  }
 }
