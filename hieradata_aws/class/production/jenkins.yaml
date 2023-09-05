@@ -61,22 +61,9 @@ govuk_jenkins::config::user_permissions:
 
 govuk_jenkins::job_builder::jobs:
   - govuk_jenkins::jobs::athena_fastly_logs_check
-  - govuk_jenkins::jobs::bouncer_cdn
   - govuk_jenkins::jobs::deploy_app
-  - govuk_jenkins::jobs::deploy_cdn
   - govuk_jenkins::jobs::deploy_puppet
   - govuk_jenkins::jobs::email_alert_check
   - govuk_jenkins::jobs::passive_checks
-  - govuk_jenkins::jobs::update_cdn_dictionaries
-
-govuk_jenkins::jobs::deploy_cdn::enable_slack_notifications: true
-govuk_jenkins::jobs::deploy_cdn::services:
-  - apt
-  - mirror
-  - servicegovuk
-  - tldredirect
-
-govuk_jenkins::jobs::update_cdn_dictionaries::services:
-  - mirror
 
 govuk_jenkins::jobs::deploy_puppet::enable_slack_notifications: true
