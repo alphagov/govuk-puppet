@@ -18,7 +18,7 @@
 class govuk::apps::ckan::cronjobs(
   $ckan_port,
   $pycsw_config,
-  $enable              = true,
+  $enable              = false,
   $enable_solr_reindex = false,
 ) {
   if ($enable_solr_reindex and !$enable) {
