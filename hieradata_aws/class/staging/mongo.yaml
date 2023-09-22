@@ -1,8 +1,8 @@
 govuk_env_sync::tasks:
   "pull_content_store_daily":
     ensure: "present"
-    hour: "1" 
-    minute: "16"
+    hour: "1"
+    minute: "30"
     action: "pull"
     dbms: "mongo"
     storagebackend: "s3"
@@ -12,8 +12,8 @@ govuk_env_sync::tasks:
     path: "mongo-api"
   "pull_draft_content_store_daily":
     ensure: "present"
-    hour: "2" 
-    minute: "16"
+    hour: "1"
+    minute: "30"
     action: "pull"
     dbms: "mongo"
     storagebackend: "s3"
@@ -24,7 +24,7 @@ govuk_env_sync::tasks:
   "push_content_store_daily":
     ensure: "present"
     hour: "0"
-    minute: "12"
+    minute: "0"
     action: "push"
     dbms: "mongo"
     storagebackend: "s3"
@@ -34,8 +34,8 @@ govuk_env_sync::tasks:
     path: "mongo-api"
   "push_draft_content_store_daily":
     ensure: "present"
-    hour: "1"
-    minute: "12"
+    hour: "0"
+    minute: "0"
     action: "push"
     dbms: "mongo"
     storagebackend: "s3"
