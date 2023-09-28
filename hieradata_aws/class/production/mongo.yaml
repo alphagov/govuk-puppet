@@ -13,7 +13,7 @@ govuk_env_sync::tasks:
   "push_content_store_daily":
     ensure: "present"
     hour: "0"
-    minute: "0"
+    minute: "16"
     action: "push"
     dbms: "mongo"
     storagebackend: "s3"
@@ -23,8 +23,8 @@ govuk_env_sync::tasks:
     path: "mongo-api"
   "push_draft_content_store_daily":
     ensure: "present"
-    hour: "0"
-    minute: "0"
+    hour: "1"
+    minute: "16"
     action: "push"
     dbms: "mongo"
     storagebackend: "s3"
