@@ -22,7 +22,6 @@ govuk_jenkins::jobs::deploy_app_downstream::applications:
   finder-frontend: {}
   frontend: {}
   government-frontend: {}
-  govuk_crawler_worker: {}
   govuk-puppet: {}
   hmrc-manuals-api: {}
   imminence: {}
