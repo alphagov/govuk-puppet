@@ -98,9 +98,6 @@ node_class: &node_class
   locations_api:
     apps:
       - locations-api
-  mirrorer:
-    apps:
-      - govuk_crawler_worker
   publishing_api:
     apps:
       - publishing-api
@@ -177,7 +174,6 @@ govuk::apps::finder_frontend::unicorn_worker_processes: 24
 govuk::apps::frontend::govuk_notify_template_id: '2844a647-6bf1-4b01-a25c-569d2cc00849'
 govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::frontend::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
-govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::publish_topics: false
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uibh77cu2kiudtl76uhseobfzq.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
@@ -276,12 +272,6 @@ govuk_cdnlogs::bouncer_monitoring_enabled: false
 # Increase the freshness-threshold for govuk logs as traffic is slower
 govuk_cdnlogs::warning_cdn_freshness: 86400   # 1 day
 govuk_cdnlogs::critical_cdn_freshness: 172800 # 2 days
-
-govuk_crawler::seed_enable: false
-govuk_crawler::start_hour: 20
-govuk_crawler::sync_enable: false
-govuk_crawler::targets:
-  - 's3://govuk-staging-mirror/'
 
 govuk_jenkins::job_builder::environment: 'staging'
 

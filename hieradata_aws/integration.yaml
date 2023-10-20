@@ -51,8 +51,6 @@ govuk::apps::feedback::govuk_notify_accessible_format_request_template_id: '47ce
 govuk::apps::frontend::govuk_notify_template_id: '1fc69d3a-09a2-40f9-852b-03f6fcef5340'
 govuk::apps::frontend::govuk_personalisation_manage_uri: 'https://integration.account.gov.uk?link=manage-account'
 govuk::apps::frontend::govuk_personalisation_your_account_uri: 'https://integration.account.gov.uk'
-govuk::apps::govuk_crawler_worker::enabled: false
-govuk::apps::govuk_crawler_worker::disable_during_data_sync: true
 govuk::apps::hmrc_manuals_api::allow_unknown_hmrc_manual_slugs: true
 govuk::apps::licencefinder::elasticsearch_uri: 'https://vpc-blue-elasticsearch6-domain-uolbxqjhkiqmg5w3gg7gio5sty.eu-west-1.es.amazonaws.com'
 govuk::apps::link_checker_api::govuk_basic_auth_credentials: "%{hiera('http_username')}:%{hiera('http_password')}"
@@ -176,7 +174,6 @@ govuk::node::s_asset_master::copy_attachments_hour: 11
 
 govuk::node::s_cache::real_ip_header: 'X-Forwarded-For'
 govuk::node::s_cache::protect_cache_servers: true
-govuk::node::s_mirrorer::daily_queue_purge: true
 govuk::node::s_whitehall_backend::sync_mirror: true
 
 govuk_sudo::sudo_conf:
