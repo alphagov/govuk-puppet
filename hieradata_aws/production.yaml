@@ -354,41 +354,13 @@ monitoring::checks::lb::region: 'eu-west-1'
 monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-apt-internal:
     healthyhosts_warning: 0
-  blue-backend-internal:
-    healthyhosts_ignore:
-      - backend-i-backdrop-admin # no idea what this is
-      - backend-i-content-performance-m # no idea what this is
-      - backend-i-event-store # no idea what this is
-      - backend-i-performanceplatform-a # no idea what this is
-      - blue-backend-internal-HTTP-80 # no idea what this is
-  blue-bouncer-internal: {}
   blue-cache: {}
-  blue-calculators-frontend-int:
-    healthyhosts_ignore:
-      - calculator-calculators
-  blue-ckan-internal:
-    healthyhosts_warning: 0
-  blue-content-store-internal: {}
   blue-db-admin:
     healthyhosts_warning: 0
   blue-deploy-internal:
     healthyhosts_warning: 0
   blue-docker-management-etcd:
     healthyhosts_warning: 0
-  blue-draft-cache: {}
-  blue-draft-content-store-int: {}
-  blue-draft-frontend-internal:
-    healthyhosts_ignore:
-      - draft-fron-draft-finder-frontend # no idea what this is
-      - draft-fron-draft-manuals-fronten # in the process of being deprecated
-      - draft-fron-draft-service-manual # in the process of being deprecated
-  blue-email-alert-api-internal: {}
-  blue-frontend-internal:
-    healthyhosts_ignore:
-      - frontend-i-designprinciples # no idea what this is
-      - frontend-i-manuals-frontend # in the process of being deprecated
-      - frontend-i-service-manual-fronte # in the process of being deprecated
-      - frontend-i-spotlight # no idea what this is
   blue-graphite-internal:
     healthyhosts_warning: 0
   blue-jumpbox:
@@ -396,17 +368,10 @@ monitoring::checks::lb::loadbalancers: # prefer "internal"
   blue-licensify-frontend-internal: {}
   blue-monitoring:
     healthyhosts_warning: 0
-  blue-publishing-api-internal: {}
   blue-puppetmaster:
     healthyhosts_warning: 0
-  blue-router-api: {}
-  blue-search: {}
-  blue-transition-db-admin:
-    healthyhosts_warning: 0
-  blue-whitehall-frontend: {}
   licensify-backend-internal:
     healthyhosts_warning: 0
-  whitehall-backend-internal: {}
 
 monitoring::checks::cache::region: 'eu-west-1'
 monitoring::contacts::notify_pager: true
