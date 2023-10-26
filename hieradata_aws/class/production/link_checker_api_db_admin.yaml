@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_link_checker_api_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "23"
     minute: "0"
     action: "push"
