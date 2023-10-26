@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "push_imminence_production_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "23"
     minute: "0"
     action: "push"

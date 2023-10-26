@@ -1,17 +1,4 @@
 govuk_env_sync::tasks:
-  "pull_content_publisher_staging_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "30"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "content_publisher_production"
-    database_hostname: "content-publisher-postgres"
-    temppath: "/tmp/content_publisher_staging"
-    url: "govuk-staging-database-backups"
-    path: "content-publisher-postgres"
-    transformation_sql_filename: "content_publisher.sql"
   "pull_content_publisher_production_daily":
     ensure: "present"
     hour: "0"

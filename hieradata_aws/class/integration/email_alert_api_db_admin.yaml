@@ -1,17 +1,4 @@
 govuk_env_sync::tasks:
-  "pull_email_alert_api_staging_daily":
-    ensure: "absent"
-    hour: "2"
-    minute: "30"
-    action: "pull"
-    dbms: "postgresql"
-    storagebackend: "s3"
-    database: "email-alert-api_production"
-    database_hostname: "email-alert-api-postgres"
-    temppath: "/tmp/email_alert_api_staging"
-    url: "govuk-staging-database-backups"
-    path: "email-alert-api-postgres"
-    transformation_sql_filename: "anonymise_email_addresses.sql"
   "pull_email_alert_api_production_daily":
     ensure: "present"
     hour: "0"
