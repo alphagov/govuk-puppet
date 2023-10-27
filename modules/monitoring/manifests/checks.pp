@@ -39,7 +39,6 @@ class monitoring::checks (
         require => Class['::govuk_python'],
   }
 
-  include monitoring::checks::mirror
   include monitoring::checks::sidekiq
   include monitoring::checks::cache
   include monitoring::checks::rds
@@ -49,7 +48,6 @@ class monitoring::checks (
   include monitoring::checks::cdn_logs
   include monitoring::checks::whitehall
   include monitoring::checks::accounts_slos
-  include monitoring::checks::s3_mirror
   include monitoring::checks::amazonmq
 
   include govuk::apps::email_alert_api::checks
@@ -227,17 +225,6 @@ class monitoring::checks (
       host_name           => $::fqdn,
       service_description => "check that Fastly logs from ${cdn_log_age_threshold_mins}m ago appear in s3://govuk-${::aws_environment}-fastly-logs/bouncer",
       notes_url           => monitoring_docs_url(cdn-log-freshness),
-      check_interval      => 60,
-      retry_interval      => 5,
-    }
-  }
-
-  if ($::aws_environment == 'production') {
-    icinga::check { 'check_s3_mirror_freshness':
-      check_command       => 'check_s3_mirror_freshness!',
-      host_name           => $::fqdn,
-      service_description => 'check that the S3 mirror is up to date',
-      notes_url           => monitoring_docs_url(mirror-sync),
       check_interval      => 60,
       retry_interval      => 5,
     }

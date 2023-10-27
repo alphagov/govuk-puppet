@@ -343,7 +343,6 @@ monitoring::checks::amazonmq::consuming_apps:
   - search_api
 
 monitoring::checks::aws_origin_domain: "production.govuk.digital"
-monitoring::checks::mirror::enabled: true
 monitoring::checks::sidekiq::enable_signon_check: false
 monitoring::checks::rds::region: 'eu-west-1'
 monitoring::checks::aws_iam_key::enabled: true

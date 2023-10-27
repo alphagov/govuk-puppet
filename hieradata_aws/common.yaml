@@ -1264,9 +1264,6 @@ monitoring::checks::rds::servers:
    - 'transition-postgresql-primary'
    - 'transition-postgresql-standby'
 
-monitoring::checks::mirror::gcp_mirror_sync_project_id: "%{hiera('monitoring::gcp_mirror_sync_project_id')}"
-monitoring::checks::mirror::gcp_mirror_sync_transfer_job_auth_json: "%{hiera('monitoring::gcp_mirror_sync_transfer_job_auth_json')}"
-
 monitoring::gcloud::apt_mirror_hostname: "%{hiera('apt_mirror_hostname')}"
 monitoring::gcloud::apt_mirror_gpg_key_fingerprint: "%{hiera('apt_mirror_fingerprint')}"
 
