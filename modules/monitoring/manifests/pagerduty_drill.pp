@@ -23,7 +23,7 @@ class monitoring::pagerduty_drill (
     }
 
     cron { 'pagerduty_drill_start':
-      ensure  => present,
+      ensure  => absent,
       user    => 'root',
       weekday => 'wednesday',
       hour    => 9,
@@ -32,7 +32,7 @@ class monitoring::pagerduty_drill (
     }
 
     cron { 'pagerduty_drill_stop':
-      ensure  => present,
+      ensure  => absent,
       user    => 'root',
       weekday => 'wednesday',
       hour    => 9,
@@ -41,6 +41,7 @@ class monitoring::pagerduty_drill (
     }
 
     @@icinga::check { "pagerduty_drill_on_${::hostname}":
+      ensure                     => 'absent',
       check_command              => "check_nrpe!check_file_not_exists!${filename}",
       use                        => 'govuk_urgent_priority',
       service_description        => 'PagerDuty test drill. Developers: escalate this alert. SMT: resolve this alert.',
