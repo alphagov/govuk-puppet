@@ -1,6 +1,6 @@
 govuk_env_sync::tasks:
   "pull_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "24"
     action: "pull"
@@ -11,7 +11,7 @@ govuk_env_sync::tasks:
     url: "govuk-staging-database-backups"
     path: "mongo-router"
   "pull_draft_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "3"
     minute: "45"
     action: "pull"
@@ -21,19 +21,8 @@ govuk_env_sync::tasks:
     temppath: "/tmp/.dumps"
     url: "govuk-staging-database-backups"
     path: "mongo-router"
-  "pull_authenticating_proxy_production_daily":
-    ensure: "absent"
-    hour: "3"
-    minute: "55"
-    action: "pull"
-    dbms: "mongo"
-    storagebackend: "s3"
-    database: "authenticating_proxy_production"
-    temppath: "/tmp/.dumps"
-    url: "govuk-staging-database-backups"
-    path: "mongo-router"
   "push_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "24"
     action: "push"
@@ -44,7 +33,7 @@ govuk_env_sync::tasks:
     url: "govuk-integration-database-backups"
     path: "mongo-router"
   "push_draft_router_daily":
-    ensure: "present"
+    ensure: "absent"
     hour: "0"
     minute: "45"
     action: "push"
