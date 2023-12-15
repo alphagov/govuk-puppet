@@ -300,7 +300,6 @@ users::usernames:
   - seanrankine
   - simonhughesdon
   - stevenradford
-  - syedali
   - tuomasnylund
 
 nginx::config::stack_network_prefix: '10.1.0'
