@@ -239,6 +239,7 @@ router::nginx::check_requests_critical: '@0.25'
 users::usernames:
   - agadufrat
   - alessiatosi
+  - alexavlonitis
   - alexnewton
   - alistairdavidson
   - anabotto
