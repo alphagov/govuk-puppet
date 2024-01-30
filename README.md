@@ -1,21 +1,13 @@
+# ⚠️ Decommissioned
+
+GOV.UK no longer uses Puppet, as of 2024-01-30.
+
+Configuration for services hosted on Kubernetes (EKS) is in
+[govuk-helm-charts](https://github.com/alphagov/govuk-helm-charts).
+
 # GOV.UK Puppet
 
 This repository contains the puppet modules and manifests for GOV.UK.
-
-## ⚠️ Puppet configuration is only for EC2
-
-Most GOV.UK applications and services have now been migrated to new
-infrastructure (EKS) and no longer use puppet for configuration. Configuration
-for EKS is defined in the
-[govuk-infrastructure](https://github.com/alphagov/govuk-infrastructure) and
-[govuk-helm-charts](https://github.com/alphagov/govuk-helm-charts)
-repositories.
-
-Some services may not have been migrated yet and still run on EC2, in which
-case you may need to make change to the puppet configuration. We're in the
-process of retiring migrated services running on EC2, consquently there might
-duplicate configuration until this is finished. Make sure you know which
-infrastructure you need make changes to.
 
 ## Getting started
 
